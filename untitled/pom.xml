@@ -7,6 +7,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
+    <groupId>org.jvchat</groupId>
     <artifactId>untitled</artifactId>
     <packaging>jar</packaging>
 
