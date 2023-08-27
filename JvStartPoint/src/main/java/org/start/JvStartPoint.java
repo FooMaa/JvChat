@@ -1,16 +1,16 @@
 package org.start;
 
-import org.auth.Arr1;
+import org.auth.JvAuthentication;
 
 /**
  * Hello world!
  *
  */
-public class App 
+public class JvStartPoint
 {
     public static void main( String[] args )
     {
-        Arr1 a = new Arr1();
+        JvAuthentication a = new JvAuthentication();
 
         System.out.println( "Hello World!" );
     }
