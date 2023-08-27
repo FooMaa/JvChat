@@ -1,13 +1,12 @@
-package org.jvchat;
+package org.auth;
 
-/**
- * Hello world!
- *
- */
 public class Arr1
 {
-    Arr1() {
+    public Arr1() {
         System.out.println( "Hello World! lox" );
+        UiAuthenticationWindow lol = new UiAuthenticationWindow();
+        lol.setVisible(true);
+        lol.setSize(500,200);
     }
     public static void main( String[] args )
     {
