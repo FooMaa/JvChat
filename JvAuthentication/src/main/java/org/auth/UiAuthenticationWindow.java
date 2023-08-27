@@ -1,17 +1,19 @@
 package org.auth;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class UiAuthenticationWindow extends JFrame {
-    private JButton button1;
     public UiAuthenticationWindow () {
-        button1 = new JButton();
+        getContentPane().setBackground(Color.WHITE);
+        setTitle("ALL");
+        getContentPane().setLayout(null);
+        JButton button1 = new JButton();
+        button1.setSize(100,100);
+        button1.setText("lolo");
+        getContentPane().add(button1);
+        button1.setVisible(true);
+
     }
-//    public static void main(String[] args) {
-//        // TODO Auto-generated method stub
-//        UiAuthenticationWindow lol=new UiAuthenticationWindow();
-//        lol.setVisible(true);
-//        //lol.a=Integer.parseInt(lol.textField.getText());
-//        lol.setSize(500,220);
-//    }
+
 }
