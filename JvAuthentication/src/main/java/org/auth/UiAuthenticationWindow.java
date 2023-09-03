@@ -14,6 +14,7 @@ public class UiAuthenticationWindow extends JFrame {
         button1.setVisible(true);
         button1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
                 System.out.println("kokokokokok");
             }
         });
