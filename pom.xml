@@ -12,6 +12,7 @@
   <modules>
     <module>JvStartPoint</module>
     <module>JvAuthentication</module>
+      <module>JvSystemSettings</module>
   </modules>
 
   <properties>
@@ -21,11 +22,11 @@
   </properties>
 
   <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>junit</groupId>-->
+<!--      <artifactId>junit</artifactId>-->
+<!--      <version>3.8.1</version>-->
+<!--      <scope>test</scope>-->
+<!--    </dependency>-->
   </dependencies>
 </project>

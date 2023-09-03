@@ -7,11 +7,11 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.auth</groupId>
-    <artifactId>JvAuthentication</artifactId>
+    <groupId>org.syssettings</groupId>>
+    <artifactId>JvSystemSettings</artifactId>
     <packaging>jar</packaging>
 
-    <name>JvAuthentication</name>
+    <name>JvSystemSettings</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -24,12 +24,6 @@
             <artifactId>junit</artifactId>
             <version>3.8.1</version>
             <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.syssettings</groupId>
-            <artifactId>JvSystemSettings</artifactId>
-            <version>${project.version}</version>
         </dependency>
     </dependencies>
 </project>
