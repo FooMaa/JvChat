@@ -8,17 +8,26 @@ import java.awt.event.ActionEvent;
 public class UiAuthenticationWindow extends JFrame {
     public UiAuthenticationWindow () {
         setTitle("Вход");
-        JButton button1 = new JButton();
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 
-//        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-//        int heightScreen = screenSize.height;
-//        int widthScreen = screenSize.width;
-//        button1.setSize( Math.round( 0.25 * widthScreen ) ,
-//                Math.round( 0.25 * heightScreen ) );
-        button1.setText("");
-        getContentPane().add(button1);
-        button1.setVisible(true);
-        button1.addActionListener(new ActionListener() {
+        JButton button1 = new JButton("Top");
+        panel.add(button1);
+
+        JButton button2 = new JButton("Center");
+        panel.add(button2);
+
+        JButton button3 = new JButton("Bottom");
+        panel.add(button3);
+        getContentPane().add(panel);
+
+
+//        getContentPane().setLayout( new BoxLayout( getContentPane(), BoxLayout.PAGE_AXIS ) );
+//        JButton bEnter = new JButton("Войти");
+//        bEnter.setSize( ( int ) Math.round( 0.25 * getContentPane().getWidth() ),
+//                ( int ) Math.round( 0.25 * getContentPane().getHeight() ) );
+//        getContentPane().add(bEnter);
+        button3.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
                 System.out.println("kokokokokok");
