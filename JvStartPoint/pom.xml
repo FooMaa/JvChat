@@ -19,7 +19,9 @@
         <mainClass>org.start.JvStartPoint</mainClass>
     </properties>
 
+
     <build>
+
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -47,6 +49,5 @@
             <artifactId>JvAuthentication</artifactId>
             <version>${project.version}</version>
         </dependency>
-
     </dependencies>
 </project>

@@ -11,7 +11,7 @@ public class UiAuthenticationWindow extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout( new BoxLayout(panel, BoxLayout.PAGE_AXIS ) );
 
-        JTextField tLogin = new JTextField( "Логин" );
+        JTextField tLogin = new JTextField( "Логинy" );
         tLogin.setAlignmentX( Component.CENTER_ALIGNMENT );
         panel.add( tLogin );
 
