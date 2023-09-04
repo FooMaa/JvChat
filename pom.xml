@@ -26,19 +26,6 @@
     <defaultGoal>exec:java</defaultGoal>
     <pluginManagement>
     <plugins>
-<!--      <plugin>-->
-<!--        <groupId>org.apache.maven.plugins</groupId>-->
-<!--        <artifactId>maven-clean-plugin</artifactId>-->
-<!--        <version>2.5</version>-->
-<!--        <goals><goal>clean</goal></goals>-->
-<!--      </plugin>-->
-<!--      <plugin>-->
-<!--        <groupId>org.apache.maven.plugins</groupId>-->
-<!--        <artifactId>maven-compiler-plugin</artifactId>-->
-<!--        <version>3.11.0</version>-->
-<!--        <goals><goal>compiler</goal></goals>-->
-<!--      </plugin>-->
-
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
