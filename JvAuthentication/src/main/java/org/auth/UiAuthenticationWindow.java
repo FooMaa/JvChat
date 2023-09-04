@@ -11,13 +11,13 @@ public class UiAuthenticationWindow extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout( new BoxLayout(panel, BoxLayout.PAGE_AXIS ) );
 
-        JTextField button1 = new JTextField( "Top" );
-        button1.setAlignmentX( Component.CENTER_ALIGNMENT );
-        panel.add( button1 );
+        JTextField tLogin = new JTextField( "Логин" );
+        tLogin.setAlignmentX( Component.CENTER_ALIGNMENT );
+        panel.add( tLogin );
 
-        JTextField button2 = new JTextField( "Center" );
-        button2.setAlignmentX( Component.CENTER_ALIGNMENT );
-        panel.add( button2 );
+        JTextField tPassword = new JTextField( "Пароль" );
+        tPassword.setAlignmentX( Component.CENTER_ALIGNMENT );
+        panel.add( tPassword );
 
         JButton bEnter = new JButton( "Войти" );
         bEnter.setAlignmentX( Component.CENTER_ALIGNMENT );
