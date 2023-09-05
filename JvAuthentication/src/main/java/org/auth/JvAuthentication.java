@@ -1,16 +1,15 @@
 package org.auth;
 
-import org.syssettings.JvSystemSettings;
-import java.lang.Math;
+import org.syssettings.JvDisplaySettings;
 
 public class JvAuthentication
 {
     public JvAuthentication() {
         UiAuthenticationWindow authWin = new UiAuthenticationWindow();
-        authWin.setSize( JvSystemSettings.getResizeFromDisplay( 0.3,
-                        JvSystemSettings.TypeOfDisplayBorder.WIDTH ) ,
-                JvSystemSettings.getResizeFromDisplay( 0.3,
-                        JvSystemSettings.TypeOfDisplayBorder.HEIGHT ) );
+        authWin.setSize( JvDisplaySettings.getResizeFromDisplay( 0.3,
+                        JvDisplaySettings.TypeOfDisplayBorder.WIDTH ) ,
+                JvDisplaySettings.getResizeFromDisplay( 0.3,
+                        JvDisplaySettings.TypeOfDisplayBorder.HEIGHT ) );
         authWin.setResizable( false );
         authWin.requestFocusInWindow();
         authWin.setLocationRelativeTo( null );

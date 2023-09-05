@@ -1,11 +1,13 @@
 package org.auth;
 
-import org.syssettings.JvSystemSettings;
+import org.syssettings.JvDisplaySettings;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class UiAuthenticationWindow extends JFrame {
     public UiAuthenticationWindow () {
@@ -18,8 +20,8 @@ public class UiAuthenticationWindow extends JFrame {
         panel.setLayout( new GridBagLayout() );
         GridBagConstraints gbc = new GridBagConstraints();
 
-        int insX = JvSystemSettings.getResizeFromDisplay( 0.025,
-                JvSystemSettings.TypeOfDisplayBorder.WIDTH );
+        int insX = JvDisplaySettings.getResizeFromDisplay( 0.025,
+                JvDisplaySettings.TypeOfDisplayBorder.WIDTH );
 
         gbc.weightx = 0.5;
         gbc.weighty = 0.5;
@@ -33,27 +35,44 @@ public class UiAuthenticationWindow extends JFrame {
 
         panel.add( tInfo, gbc );
 
-        JTextField tLogin = new JTextField( "пароль" );
+        JTextField tLogin = new JTextField( "логин" );
+        tLogin.setFocusable( false );
+        tLogin.addMouseListener( new MouseAdapter() {
+
+            public void mouseClicked( MouseEvent e ) {
+                tLogin.setFocusable( true );
+                tLogin.selectAll();
+                tLogin.removeMouseListener( this );
+            }
+        } );
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.SOUTH;
         gbc.insets = new Insets( 0, insX, 10, insX );
-        gbc.ipadx = JvSystemSettings.getResizeFromDisplay( 0.1,
-                JvSystemSettings.TypeOfDisplayBorder.WIDTH );
-        gbc.ipady = JvSystemSettings.getResizeFromDisplay( 0.01,
-                JvSystemSettings.TypeOfDisplayBorder.HEIGHT );
+        gbc.ipadx = JvDisplaySettings.getResizeFromDisplay( 0.1,
+                JvDisplaySettings.TypeOfDisplayBorder.WIDTH );
+        gbc.ipady = JvDisplaySettings.getResizeFromDisplay( 0.01,
+                JvDisplaySettings.TypeOfDisplayBorder.HEIGHT );
         gbc.gridy = 1;
         gbc.weightx = 0.5;
         gbc.weighty = 0.5;
         panel.add( tLogin, gbc );
 
-        JTextField tPassword = new JTextField( "логин" );
+        JPasswordField tPassword = new JPasswordField( "пароль" );
+        tPassword.setFocusable( false );
+        tPassword.addMouseListener( new MouseAdapter() {
+
+            public void mouseClicked( MouseEvent e ) {
+                tPassword.setFocusable( true );
+                tPassword.selectAll();
+            }
+        } );
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.insets = new Insets( 0, insX, 0, insX );
-        gbc.ipadx = JvSystemSettings.getResizeFromDisplay( 0.1,
-                JvSystemSettings.TypeOfDisplayBorder.WIDTH );
-        gbc.ipady = JvSystemSettings.getResizeFromDisplay( 0.01,
-                JvSystemSettings.TypeOfDisplayBorder.HEIGHT );
+        gbc.ipadx = JvDisplaySettings.getResizeFromDisplay( 0.1,
+                JvDisplaySettings.TypeOfDisplayBorder.WIDTH );
+        gbc.ipady = JvDisplaySettings.getResizeFromDisplay( 0.01,
+                JvDisplaySettings.TypeOfDisplayBorder.HEIGHT );
         gbc.gridy = 2;
         gbc.weightx = 0.5;
         gbc.weighty = 0.5;
@@ -64,10 +83,10 @@ public class UiAuthenticationWindow extends JFrame {
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.SOUTH;
         gbc.insets = new Insets( 0, 0, 20, 0 );
-        gbc.ipadx = JvSystemSettings.getResizeFromDisplay( 0.05,
-                JvSystemSettings.TypeOfDisplayBorder.WIDTH );;
-        gbc.ipady = JvSystemSettings.getResizeFromDisplay( 0.01,
-                JvSystemSettings.TypeOfDisplayBorder.HEIGHT );;
+        gbc.ipadx = JvDisplaySettings.getResizeFromDisplay( 0.05,
+                JvDisplaySettings.TypeOfDisplayBorder.WIDTH );;
+        gbc.ipady = JvDisplaySettings.getResizeFromDisplay( 0.01,
+                JvDisplaySettings.TypeOfDisplayBorder.HEIGHT );;
         gbc.gridy = 3;
         panel.add( bEnter, gbc );
 

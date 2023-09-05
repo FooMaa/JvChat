@@ -2,7 +2,7 @@ package org.syssettings;
 
 import java.awt.*;
 
-public class JvSystemSettings
+public class JvDisplaySettings
 {
     private static final Dimension screenSize;
     public static int heightScreen;
