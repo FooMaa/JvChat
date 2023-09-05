@@ -13,4 +13,19 @@ public class JvSystemSettings
         heightScreen = screenSize.height;
         widthScreen = screenSize.width;
     }
+
+    public enum TypeOfDisplayBorder {
+        HEIGHT,
+        WIDTH
+    }
+
+    public static int getResizeFromDisplay ( double scale, TypeOfDisplayBorder displayBorder ) {
+        switch ( displayBorder ) {
+            case HEIGHT:
+                return ( int ) Math.round ( scale * heightScreen );
+            case WIDTH:
+                return ( int ) Math.round ( scale * widthScreen );
+        }
+        return 0;
+    }
 }

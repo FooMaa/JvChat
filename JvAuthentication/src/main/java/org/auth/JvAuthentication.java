@@ -7,9 +7,13 @@ public class JvAuthentication
 {
     public JvAuthentication() {
         UiAuthenticationWindow authWin = new UiAuthenticationWindow();
-        authWin.setSize( ( int ) Math.round ( 0.25 * JvSystemSettings.widthScreen ) ,
-                ( int ) Math.round( 0.25 * JvSystemSettings.heightScreen ) );
-        authWin.setLocationRelativeTo(null);
-        authWin.setVisible(true);
+        authWin.setSize( JvSystemSettings.getResizeFromDisplay( 0.3,
+                        JvSystemSettings.TypeOfDisplayBorder.WIDTH ) ,
+                JvSystemSettings.getResizeFromDisplay( 0.3,
+                        JvSystemSettings.TypeOfDisplayBorder.HEIGHT ) );
+        authWin.setResizable( false );
+        authWin.requestFocusInWindow();
+        authWin.setLocationRelativeTo( null );
+        authWin.setVisible( true );
     }
 }
