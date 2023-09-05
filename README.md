@@ -3,5 +3,5 @@
 ## Как запустить?
 В конфигурации сборки добавить 
 ```
-install exec:java
+clean install exec:java
 ```
