@@ -38,7 +38,7 @@ public class UiAuthenticationWindow extends JFrame {
 
         gbc.weightx = 0.5;
         gbc.weighty = 0.5;
-        tInfo.setFont(new Font("Times", Font.PLAIN, 20));
+        tInfo.setFont( new Font( "Times", Font.PLAIN, 20 ) );
         gbc.fill = GridBagConstraints.PAGE_START;
         gbc.anchor = GridBagConstraints.SOUTH;
         gbc.insets = new Insets( 10, 0, 5, 0 );
@@ -46,6 +46,8 @@ public class UiAuthenticationWindow extends JFrame {
         panel.add( tInfo, gbc );
 
         tLogin.setFocusable( false );
+        tLogin.setFont( new Font( "Times", Font.BOLD, 14 ) );
+        tLogin.setForeground( Color.GRAY );
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.SOUTH;
         gbc.insets = new Insets( 0, insX, 10, insX );
@@ -59,6 +61,9 @@ public class UiAuthenticationWindow extends JFrame {
         panel.add( tLogin, gbc );
 
         tPassword.setFocusable( false );
+        tPassword.setFont( new Font( "Times", Font.BOLD, 14 ) );
+        tPassword.setEchoChar( ( char ) 0 );
+        tPassword.setForeground( Color.GRAY );
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.insets = new Insets( 0, insX, 0, insX );
@@ -89,15 +94,21 @@ public class UiAuthenticationWindow extends JFrame {
 
             public void mouseClicked( MouseEvent e ) {
                 tLogin.setFocusable( true );
-                tLogin.selectAll();
-//                tLogin.removeMouseListener( this );
+                tLogin.setForeground( Color.BLACK );
+                tLogin.setText( "" );
+                tLogin.requestFocusInWindow();
+                tLogin.removeMouseListener( this );
             }
         } );
 
         tPassword.addMouseListener( new MouseAdapter() {
             public void mouseClicked( MouseEvent e ) {
                 tPassword.setFocusable( true );
-                tPassword.selectAll();
+                tPassword.setForeground( Color.BLACK );
+                tPassword.setText( "" );
+                tPassword.setEchoChar( '•' );
+                tPassword.requestFocusInWindow();
+                tPassword.removeMouseListener( this );
             }
         } );
 
