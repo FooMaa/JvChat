@@ -10,13 +10,26 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class UiAuthenticationWindow extends JFrame {
+    private JPanel panel;
+    private JLabel tInfo;
+    private JTextField tLogin;
+    private JPasswordField tPassword;
+    private JButton bEnter;
     public UiAuthenticationWindow () {
         super( "UiAuthenticationWindow" );
 
-        setDefaultCloseOperation( EXIT_ON_CLOSE );
-        setTitle("Вход");
+        panel = new JPanel();
+        tInfo = new JLabel( "Введите данные для входа:" );
+        tLogin = new JTextField( "логин" );
+        tPassword = new JPasswordField( "пароль" );
+        bEnter = new JButton( "Войти" );
 
-        JPanel panel = new JPanel();
+        makeUiSetting();
+        addListenerToElements();
+        addGeneralSettingsToWidget();
+    }
+
+    private void makeUiSetting() {
         panel.setLayout( new GridBagLayout() );
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -25,26 +38,14 @@ public class UiAuthenticationWindow extends JFrame {
 
         gbc.weightx = 0.5;
         gbc.weighty = 0.5;
-
-        JLabel tInfo = new JLabel("Введите данные для входа:");
         tInfo.setFont(new Font("Times", Font.PLAIN, 20));
         gbc.fill = GridBagConstraints.PAGE_START;
         gbc.anchor = GridBagConstraints.SOUTH;
         gbc.insets = new Insets( 10, 0, 5, 0 );
         gbc.gridy = 0;
-
         panel.add( tInfo, gbc );
 
-        JTextField tLogin = new JTextField( "логин" );
         tLogin.setFocusable( false );
-        tLogin.addMouseListener( new MouseAdapter() {
-
-            public void mouseClicked( MouseEvent e ) {
-                tLogin.setFocusable( true );
-                tLogin.selectAll();
-                tLogin.removeMouseListener( this );
-            }
-        } );
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.SOUTH;
         gbc.insets = new Insets( 0, insX, 10, insX );
@@ -57,15 +58,7 @@ public class UiAuthenticationWindow extends JFrame {
         gbc.weighty = 0.5;
         panel.add( tLogin, gbc );
 
-        JPasswordField tPassword = new JPasswordField( "пароль" );
         tPassword.setFocusable( false );
-        tPassword.addMouseListener( new MouseAdapter() {
-
-            public void mouseClicked( MouseEvent e ) {
-                tPassword.setFocusable( true );
-                tPassword.selectAll();
-            }
-        } );
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.insets = new Insets( 0, insX, 0, insX );
@@ -77,9 +70,7 @@ public class UiAuthenticationWindow extends JFrame {
         gbc.weightx = 0.5;
         gbc.weighty = 0.5;
         panel.add( tPassword, gbc );
-        System.out.println(tPassword.getSize());
-        System.out.println(tLogin.getSize());
-        JButton bEnter = new JButton( "Войти" );
+
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.SOUTH;
         gbc.insets = new Insets( 0, 0, 20, 0 );
@@ -91,13 +82,42 @@ public class UiAuthenticationWindow extends JFrame {
         panel.add( bEnter, gbc );
 
         getContentPane().add( panel );
-        bEnter.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent e ) {
+    }
 
-                System.out.println( "kokokokokok" );
+    private void addListenerToElements() {
+        tLogin.addMouseListener( new MouseAdapter() {
+
+            public void mouseClicked( MouseEvent e ) {
+                tLogin.setFocusable( true );
+                tLogin.selectAll();
+//                tLogin.removeMouseListener( this );
             }
         } );
 
+        tPassword.addMouseListener( new MouseAdapter() {
+            public void mouseClicked( MouseEvent e ) {
+                tPassword.setFocusable( true );
+                tPassword.selectAll();
+            }
+        } );
+
+        bEnter.addActionListener( new ActionListener() {
+            public void actionPerformed( ActionEvent e ) {
+                System.out.println( "kokokokokok" );
+            }
+        } );
+    }
+
+    private void addGeneralSettingsToWidget() {
+        setDefaultCloseOperation( EXIT_ON_CLOSE );
+        setTitle( "Вход" );
+        setSize( JvDisplaySettings.getResizeFromDisplay( 0.3,
+                        JvDisplaySettings.TypeOfDisplayBorder.WIDTH ) ,
+                JvDisplaySettings.getResizeFromDisplay( 0.3,
+                        JvDisplaySettings.TypeOfDisplayBorder.HEIGHT ) );
+        setResizable( false );
+        setLocationRelativeTo( null );
+        setVisible( true );
     }
 
 }
