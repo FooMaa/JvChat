@@ -1,5 +1,4 @@
-package org.uicomponents;
-
+package org.authuicomponents;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +19,7 @@ public class JvAuthPasswordField extends JPasswordField {
         setEchoChar( ( char ) 0 );
         setForeground( Color.GRAY );
         try {
-            visibleImage = ImageIO.read( new File("JvUiComponents/src/main/java/org/uicomponents/resources/eye.png") );
+            visibleImage = ImageIO.read( new File("JvUiComponents/JvAuthComponents/src/main/java/org/authuicomponents/resources/eye.png") );
         } catch (IOException ex) {
             System.out.println( "Нет иконки глазка" );
             return;
@@ -33,7 +32,7 @@ public class JvAuthPasswordField extends JPasswordField {
         super.paintComponent( g );
 
         int y = ( getHeight() - visibleImage.getHeight() ) / 2;
-        g.drawImage(visibleImage, this.getWidth() - 30, y, this);
+        g.drawImage(visibleImage, this.getWidth() - 30, y, 25, 25, this);
         addMouseListener( new MouseAdapter() {
             public void mouseClicked( MouseEvent e ) {
                 if ( flagEye == false ) {

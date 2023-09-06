@@ -7,12 +7,15 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.uicomponents</groupId>
     <artifactId>JvUiComponents</artifactId>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
     <name>JvUiComponents</name>
     <url>http://maven.apache.org</url>
+
+    <modules>
+        <module>JvAuthComponents</module>
+    </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

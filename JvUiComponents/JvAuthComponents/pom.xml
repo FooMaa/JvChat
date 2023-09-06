@@ -5,13 +5,14 @@
         <groupId>org.jvchat</groupId>
         <artifactId>JvChat</artifactId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.auth</groupId>
-    <artifactId>JvAuthentication</artifactId>
+    <groupId>org.authuicomponents</groupId>
+    <artifactId>JvAuthComponents</artifactId>
     <packaging>jar</packaging>
 
-    <name>JvAuthentication</name>
+    <name>JvAuthComponents</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -26,11 +27,9 @@
             <scope>test</scope>
         </dependency>
 
-
-
         <dependency>
-            <groupId>org.authuicomponents</groupId>
-            <artifactId>JvAuthComponents</artifactId>
+            <groupId>org.syssettings</groupId>
+            <artifactId>JvSystemSettings</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

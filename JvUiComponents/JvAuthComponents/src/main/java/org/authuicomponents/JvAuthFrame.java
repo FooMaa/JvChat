@@ -1,4 +1,4 @@
-package org.auth;
+package org.authuicomponents;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,10 +6,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import org.syssettings.JvDisplaySettings;
-import org.uicomponents.JvAuthButton;
-import org.uicomponents.JvAuthTextField;
-import org.uicomponents.JvAuthPasswordField;
-import org.uicomponents.JvAuthLabel;
 
 public class JvAuthFrame extends JFrame {
     private JPanel panel;

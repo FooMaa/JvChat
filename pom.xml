@@ -14,7 +14,7 @@
     <module>JvStartPoint</module>
     <module>JvAuthentication</module>
     <module>JvSystemSettings</module>
-      <module>JvUiComponents</module>
+    <module>JvUiComponents</module>
   </modules>
 
   <properties>
