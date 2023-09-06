@@ -13,6 +13,7 @@ public class JvAuthFrame extends JFrame {
     private JvAuthTextField tLogin;
     private JvAuthPasswordField tPassword;
     private JvAuthButton bEnter;
+    private int cols = 36;
     public JvAuthFrame() {
         super( "AuthenticationWindow" );
 
@@ -45,25 +46,21 @@ public class JvAuthFrame extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.SOUTH;
         gbc.insets = new Insets( 0, insX, 10, insX );
-        gbc.ipadx = JvDisplaySettings.getResizeFromDisplay( 0.1,
-                JvDisplaySettings.TypeOfDisplayBorder.WIDTH );
-        gbc.ipady = JvDisplaySettings.getResizeFromDisplay( 0.01,
-                JvDisplaySettings.TypeOfDisplayBorder.HEIGHT );
+//        gbc.ipadx = JvDisplaySettings.getResizeFromDisplay( 0.1,
+//                JvDisplaySettings.TypeOfDisplayBorder.WIDTH );
+//        gbc.ipady = JvDisplaySettings.getResizeFromDisplay( 0.01,
+//                JvDisplaySettings.TypeOfDisplayBorder.HEIGHT );
         gbc.gridy = 1;
-        gbc.weightx = 0.5;
-        gbc.weighty = 0.5;
         panel.add( tLogin, gbc );
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.insets = new Insets( 0, insX, 0, insX );
-        gbc.ipadx = JvDisplaySettings.getResizeFromDisplay( 0.1,
-                JvDisplaySettings.TypeOfDisplayBorder.WIDTH );
-        gbc.ipady = JvDisplaySettings.getResizeFromDisplay( 0.01,
-                JvDisplaySettings.TypeOfDisplayBorder.HEIGHT );
+//        gbc.ipadx = JvDisplaySettings.getResizeFromDisplay( 0.1,
+//                JvDisplaySettings.TypeOfDisplayBorder.WIDTH );
+//        gbc.ipady = JvDisplaySettings.getResizeFromDisplay( 0.01,
+//                JvDisplaySettings.TypeOfDisplayBorder.HEIGHT );
         gbc.gridy = 2;
-        gbc.weightx = 0.5;
-        gbc.weighty = 0.5;
         panel.add( tPassword, gbc );
 
         gbc.fill = GridBagConstraints.PAGE_END;

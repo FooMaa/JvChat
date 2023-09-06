@@ -1,9 +1,9 @@
 package org.auth;
 
 import org.authuicomponents.JvAuthFrame;
-public class JvAuthentication
+public class JvStartAuthentication
 {
-    public JvAuthentication() {
+    public JvStartAuthentication() {
         JvAuthFrame authWin = new JvAuthFrame();
     }
 }

@@ -1,11 +1,11 @@
 package org.start;
 
-import org.auth.JvAuthentication;
+import org.auth.JvStartAuthentication;
 
 public class JvStartPoint
 {
     public static void main( String[] args )
     {
-        JvAuthentication a = new JvAuthentication();
+        JvStartAuthentication a = new JvStartAuthentication();
     }
 }

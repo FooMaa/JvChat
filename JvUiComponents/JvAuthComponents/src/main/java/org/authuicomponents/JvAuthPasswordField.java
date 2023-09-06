@@ -1,60 +1,96 @@
 package org.authuicomponents;
+import org.syssettings.JvDisplaySettings;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-public class JvAuthPasswordField extends JPasswordField {
+public class JvAuthPasswordField extends JPanel {
     private BufferedImage visibleImage;
     private static boolean flagEye = false;
+    private JPasswordField passwordField;
+    private JButton button;
+    private JPanel passwordFieldWithButtonsPanel;
+    private Dimension dim = new Dimension (JvDisplaySettings.getResizeFromDisplay( 0.23,
+            JvDisplaySettings.TypeOfDisplayBorder.WIDTH ),
+            JvDisplaySettings.getResizeFromDisplay( 0.03,
+                    JvDisplaySettings.TypeOfDisplayBorder.HEIGHT ));
 
-    public JvAuthPasswordField(String text ) {
-        setText( text );
-        setFocusable( false );
-        setFont( new Font( "Times", Font.BOLD, 14 ) );
-        setEchoChar( ( char ) 0 );
-        setForeground( Color.GRAY );
-        try {
-            visibleImage = ImageIO.read( new File("JvUiComponents/JvAuthComponents/src/main/java/org/authuicomponents/resources/eye.png") );
-        } catch (IOException ex) {
-            System.out.println( "Нет иконки глазка" );
-            return;
-        }
+    public JvAuthPasswordField( String text ) {
+
+        setIcon( "JvUiComponents/JvAuthComponents/src/main/java/org/authuicomponents/resources/eye.png" );
+
+        passwordFieldWithButtonsPanel = new JPanel( new FlowLayout(
+                SwingConstants.LEADING, 0, 0) );
+        passwordFieldWithButtonsPanel.setPreferredSize( dim );
+        passwordField = new JPasswordField();
+        Dimension calcNewDim = new Dimension( (int) dim.getWidth() - visibleImage.getWidth(),
+                (int) dim.getHeight() );
+        passwordField.setPreferredSize( calcNewDim );
+        passwordFieldWithButtonsPanel.add( passwordField );
+
+        addButtonToPanel( passwordFieldWithButtonsPanel );
+
+        passwordFieldWithButtonsPanel.setBackground( passwordField.getBackground() );
+        passwordFieldWithButtonsPanel.setBorder( null );
+
+        passwordField.setBorder( null );
+        passwordField.setText( text );
+        passwordField.setFont( new Font( "Times", Font.BOLD, 14 ) );
+        passwordField.setForeground( Color.GRAY );
+        passwordField.setFocusable( false );
+        passwordField.setEchoChar( ( char ) 0 );
+
         addListenerToElem();
+        add( passwordFieldWithButtonsPanel );
     }
 
-    @Override
-    protected void paintComponent( Graphics g ) {
-        super.paintComponent( g );
+    private void setIcon( String path ) {
+        try {
+            visibleImage = ImageIO.read( new File( path ) );
+        } catch (IOException ex) {
+            System.out.println( "Нет иконки глазка" );
+        }
+    }
 
-        int y = ( getHeight() - visibleImage.getHeight() ) / 2;
-        g.drawImage(visibleImage, this.getWidth() - 30, y, 25, 25, this);
-        addMouseListener( new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                if ( flagEye == false ) {
-                    setEchoChar( '•' );
-                    flagEye = true;
-                } else {
-                    setEchoChar( ( char ) 0 );
-                    flagEye = false;
-                }
-            }
-        } );
+    private final void addButtonToPanel( JPanel panel ) {
+        button = new JButton( new ImageIcon( visibleImage ) );
+        button.setContentAreaFilled( false );
+        button.setBorderPainted( false );
+        button.setMargin( new Insets ( 0,0,0,0 ) );
+        button.setEnabled( false );
+        button.setPreferredSize( new Dimension ( visibleImage.getWidth(),
+               visibleImage.getHeight() ) );
+        panel.add( button );
     }
 
     private void addListenerToElem() {
-        addMouseListener( new MouseAdapter() {
+        button.addMouseListener( new MouseAdapter() {
             public void mouseClicked( MouseEvent e ) {
-                setFocusable( true );
-                setForeground( Color.BLACK );
-                setText( "" );
-                setEchoChar( '•' );
-                requestFocusInWindow();
-                removeMouseListener( this );
+                if ( flagEye == true ) {
+                    passwordField.setEchoChar( '•' );
+                    flagEye = false;
+                } else {
+                    passwordField.setEchoChar( ( char ) 0 );
+                    flagEye = true;
+                }
+            }
+        } );
+
+        passwordField.addMouseListener( new MouseAdapter() {
+            public void mouseClicked( MouseEvent e ) {
+                passwordField.setFocusable( true );
+                passwordField.setForeground( Color.BLACK );
+                passwordField.setText( "" );
+                passwordField.setEchoChar( '•' );
+                passwordField.requestFocusInWindow();
+                passwordField.removeMouseListener( this );
+                button.setEnabled( true );
             }
         } );
     }

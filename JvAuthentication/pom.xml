@@ -26,8 +26,6 @@
             <scope>test</scope>
         </dependency>
 
-
-
         <dependency>
             <groupId>org.authuicomponents</groupId>
             <artifactId>JvAuthComponents</artifactId>
