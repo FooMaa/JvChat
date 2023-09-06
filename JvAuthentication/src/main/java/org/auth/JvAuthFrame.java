@@ -1,35 +1,37 @@
 package org.auth;
 
-import org.syssettings.JvDisplaySettings;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
-public class UiAuthenticationWindow extends JFrame {
+import org.syssettings.JvDisplaySettings;
+import org.uicomponents.JvAuthButton;
+import org.uicomponents.JvAuthTextField;
+import org.uicomponents.JvAuthPasswordField;
+import org.uicomponents.JvAuthLabel;
+
+public class JvAuthFrame extends JFrame {
     private JPanel panel;
-    private JLabel tInfo;
-    private JTextField tLogin;
-    private JPasswordField tPassword;
-    private JButton bEnter;
-    public UiAuthenticationWindow () {
-        super( "UiAuthenticationWindow" );
+    private JvAuthLabel tInfo;
+    private JvAuthTextField tLogin;
+    private JvAuthPasswordField tPassword;
+    private JvAuthButton bEnter;
+    public JvAuthFrame() {
+        super( "AuthenticationWindow" );
 
         panel = new JPanel();
-        tInfo = new JLabel( "Введите данные для входа:" );
-        tLogin = new JTextField( "логин" );
-        tPassword = new JPasswordField( "пароль" );
-        bEnter = new JButton( "Войти" );
+        tInfo = new JvAuthLabel( "Введите данные для входа:" );
+        tLogin = new JvAuthTextField( "логин" );
+        tPassword = new JvAuthPasswordField( "пароль" ) ;
+        bEnter = new JvAuthButton( "Войти" );
 
-        makeUiSetting();
+        makeFrameSetting();
         addListenerToElements();
         addGeneralSettingsToWidget();
     }
 
-    private void makeUiSetting() {
+    private void makeFrameSetting() {
         panel.setLayout( new GridBagLayout() );
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -38,16 +40,12 @@ public class UiAuthenticationWindow extends JFrame {
 
         gbc.weightx = 0.5;
         gbc.weighty = 0.5;
-        tInfo.setFont( new Font( "Times", Font.PLAIN, 20 ) );
         gbc.fill = GridBagConstraints.PAGE_START;
         gbc.anchor = GridBagConstraints.SOUTH;
         gbc.insets = new Insets( 10, 0, 5, 0 );
         gbc.gridy = 0;
         panel.add( tInfo, gbc );
 
-        tLogin.setFocusable( false );
-        tLogin.setFont( new Font( "Times", Font.BOLD, 14 ) );
-        tLogin.setForeground( Color.GRAY );
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.SOUTH;
         gbc.insets = new Insets( 0, insX, 10, insX );
@@ -60,10 +58,6 @@ public class UiAuthenticationWindow extends JFrame {
         gbc.weighty = 0.5;
         panel.add( tLogin, gbc );
 
-        tPassword.setFocusable( false );
-        tPassword.setFont( new Font( "Times", Font.BOLD, 14 ) );
-        tPassword.setEchoChar( ( char ) 0 );
-        tPassword.setForeground( Color.GRAY );
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.insets = new Insets( 0, insX, 0, insX );
@@ -90,28 +84,6 @@ public class UiAuthenticationWindow extends JFrame {
     }
 
     private void addListenerToElements() {
-        tLogin.addMouseListener( new MouseAdapter() {
-
-            public void mouseClicked( MouseEvent e ) {
-                tLogin.setFocusable( true );
-                tLogin.setForeground( Color.BLACK );
-                tLogin.setText( "" );
-                tLogin.requestFocusInWindow();
-                tLogin.removeMouseListener( this );
-            }
-        } );
-
-        tPassword.addMouseListener( new MouseAdapter() {
-            public void mouseClicked( MouseEvent e ) {
-                tPassword.setFocusable( true );
-                tPassword.setForeground( Color.BLACK );
-                tPassword.setText( "" );
-                tPassword.setEchoChar( '•' );
-                tPassword.requestFocusInWindow();
-                tPassword.removeMouseListener( this );
-            }
-        } );
-
         bEnter.addActionListener( new ActionListener() {
             public void actionPerformed( ActionEvent e ) {
                 System.out.println( "kokokokokok" );
@@ -130,5 +102,4 @@ public class UiAuthenticationWindow extends JFrame {
         setLocationRelativeTo( null );
         setVisible( true );
     }
-
 }
