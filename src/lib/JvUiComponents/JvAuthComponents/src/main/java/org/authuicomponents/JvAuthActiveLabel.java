@@ -7,7 +7,6 @@ import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.UnaryOperator;
 
 public class JvAuthActiveLabel extends JLabel {
     public JvAuthActiveLabel( String text ) {
@@ -38,5 +37,4 @@ public class JvAuthActiveLabel extends JLabel {
             }
         });
     }
-
 }

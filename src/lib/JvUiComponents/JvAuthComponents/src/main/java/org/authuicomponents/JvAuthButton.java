@@ -13,6 +13,7 @@ public class JvAuthButton extends JButton {
 
     private void addListenerToElements() {
         addActionListener( new ActionListener() {
+            @Override
             public void actionPerformed( ActionEvent e ) {
                 setFocusable( true );
                 requestFocusInWindow();

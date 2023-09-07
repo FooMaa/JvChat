@@ -1,5 +1,4 @@
 package org.authuicomponents;
-import org.syssettings.JvDisplaySettings;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -12,6 +11,8 @@ import java.io.IOException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Objects;
+
+import org.syssettings.JvDisplaySettings;
 
 public class JvAuthPasswordField extends JPanel {
     private BufferedImage visibleImage;

@@ -1,5 +1,4 @@
 package org.authuicomponents;
-import org.syssettings.JvDisplaySettings;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -12,6 +11,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
+
+import org.syssettings.JvDisplaySettings;
 
 public class JvAuthTextField extends JPanel {
     private BufferedImage visibleImage;
