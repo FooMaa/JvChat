@@ -23,7 +23,8 @@ public class JvAuthPasswordField extends JPanel {
 
     public JvAuthPasswordField( String text ) {
 
-        setIcon( "JvUiComponents/JvAuthComponents/src/main/java/org/authuicomponents/resources/eye.png" );
+        setIcon( "src/lib/JvUiComponents/JvAuthComponents/" +
+                "src/main/java/org/authuicomponents/resources/eye.png" );
 
         passwordFieldWithButtonsPanel = new JPanel( new FlowLayout(
                 SwingConstants.LEADING, 0, 0) );
