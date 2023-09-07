@@ -23,8 +23,8 @@ public class JvAuthFrame extends JFrame {
         tLogin = new JvAuthTextField( "Логин" );
         tPassword = new JvAuthPasswordField( "Пароль" ) ;
         bEnter = new JvAuthButton( "ВОЙТИ" );
-        activeMissLabel = new JvAuthActiveLabel("Не помню пароль");
-        activeRegisterLabel = new JvAuthActiveLabel("Регистрация");
+        activeMissLabel = new JvAuthActiveLabel( "Не помню пароль" );
+        activeRegisterLabel = new JvAuthActiveLabel( "Регистрация" );
 
         makeFrameSetting();
         addListenerToElements();
@@ -35,7 +35,8 @@ public class JvAuthFrame extends JFrame {
         panel.setLayout( new GridBagLayout() );
         GridBagConstraints gbc = new GridBagConstraints();
 
-        int insX = JvDisplaySettings.getResizeFromDisplay( 0.025,
+        int insX = JvDisplaySettings.
+                getResizeFromDisplay( 0.025,
                 JvDisplaySettings.TypeOfDisplayBorder.WIDTH );
 
         gbc.weightx = 0.5;

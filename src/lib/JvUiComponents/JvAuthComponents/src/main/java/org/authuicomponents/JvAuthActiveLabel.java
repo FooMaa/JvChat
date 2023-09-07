@@ -33,7 +33,7 @@ public class JvAuthActiveLabel extends JLabel {
                 Font font = new Font( "Times", Font.PLAIN, 11 );
                 Map<TextAttribute, Object> attributes = new HashMap<>(font.getAttributes() );
                 attributes.put( TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON );
-                setFont(defaultFont.deriveFont( attributes ) );
+                setFont( defaultFont.deriveFont( attributes ) );
             }
         });
     }
