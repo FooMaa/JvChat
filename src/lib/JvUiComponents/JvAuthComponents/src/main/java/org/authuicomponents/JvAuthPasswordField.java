@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 public class JvAuthPasswordField extends JPanel {
     private BufferedImage visibleImage;
     private static boolean flagEye = false;
+    private static boolean unLockPass = false;
     private JPasswordField passwordField;
     private JButton button;
     private JPanel passwordFieldWithButtonsPanel;
@@ -50,12 +51,14 @@ public class JvAuthPasswordField extends JPanel {
     private void addListenerToElem() {
         button.addMouseListener( new MouseAdapter() {
             public void mouseClicked( MouseEvent e ) {
-                if ( flagEye ) {
-                    passwordField.setEchoChar( '•' );
-                    flagEye = false;
-                } else {
-                    passwordField.setEchoChar( ( char ) 0 );
-                    flagEye = true;
+                if (unLockPass) {
+                    if (flagEye) {
+                        passwordField.setEchoChar('•');
+                        flagEye = false;
+                    } else {
+                        passwordField.setEchoChar((char) 0);
+                        flagEye = true;
+                    }
                 }
             }
         } );
@@ -69,8 +72,10 @@ public class JvAuthPasswordField extends JPanel {
                 passwordField.requestFocusInWindow();
                 passwordField.removeMouseListener( this );
                 button.setEnabled( true );
+                unLockPass = true;
             }
         } );
+
     }
 
     private void settingPassAndButtonPanel(String text) {
