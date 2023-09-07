@@ -2,8 +2,7 @@ package org.authuicomponents;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
 
 import org.syssettings.JvDisplaySettings;
 
@@ -13,15 +12,19 @@ public class JvAuthFrame extends JFrame {
     private final JvAuthTextField tLogin;
     private final JvAuthPasswordField tPassword;
     private final JvAuthButton bEnter;
+    private final JvAuthActiveLabel activeRegisterLabel;
+    private final JvAuthActiveLabel activeMissLabel;
 
     public JvAuthFrame() {
         super( "AuthenticationWindow" );
 
         panel = new JPanel();
         tInfo = new JvAuthLabel( "Введите данные для входа:" );
-        tLogin = new JvAuthTextField( "логин" );
-        tPassword = new JvAuthPasswordField( "пароль" ) ;
+        tLogin = new JvAuthTextField( "Логин" );
+        tPassword = new JvAuthPasswordField( "Пароль" ) ;
         bEnter = new JvAuthButton( "ВОЙТИ" );
+        activeMissLabel = new JvAuthActiveLabel("Не помню пароль");
+        activeRegisterLabel = new JvAuthActiveLabel("Регистрация");
 
         makeFrameSetting();
         addListenerToElements();
@@ -55,14 +58,26 @@ public class JvAuthFrame extends JFrame {
         gbc.gridy = 2;
         panel.add( tPassword, gbc );
 
+        gbc.fill = GridBagConstraints.CENTER;
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.insets = new Insets( 0, 0, 5, 0 );
+        gbc.gridy = 3;
+        panel.add( activeMissLabel, gbc );
+
+        gbc.fill = GridBagConstraints.CENTER;
+        gbc.anchor = GridBagConstraints.NORTH;
+        gbc.insets = new Insets( 0, 0, 20, 0 );
+        gbc.gridy = 4;
+        panel.add( activeRegisterLabel, gbc );
+
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.SOUTH;
         gbc.insets = new Insets( 0, 0, 20, 0 );
-        gbc.ipadx = JvDisplaySettings.getResizeFromDisplay( 0.05,
+        gbc.ipadx = JvDisplaySettings.getResizeFromDisplay( 0.03,
                 JvDisplaySettings.TypeOfDisplayBorder.WIDTH );
         gbc.ipady = JvDisplaySettings.getResizeFromDisplay( 0.01,
                 JvDisplaySettings.TypeOfDisplayBorder.HEIGHT );
-        gbc.gridy = 3;
+        gbc.gridy = 5;
         panel.add( bEnter, gbc );
 
         getContentPane().add( panel );
@@ -74,6 +89,19 @@ public class JvAuthFrame extends JFrame {
                 System.out.println( "kokokokokok" );
             }
         } );
+
+        activeMissLabel.addMouseListener( new MouseAdapter() {
+            public void mouseClicked( MouseEvent e ) {
+                System.out.println( "ayayayayay" );
+            }
+        } );
+
+        activeRegisterLabel.addMouseListener( new MouseAdapter() {
+            public void mouseClicked( MouseEvent e ) {
+                System.out.println( "oiioioioioioi" );
+            }
+        } );
+
     }
 
     private void addGeneralSettingsToWidget() {
