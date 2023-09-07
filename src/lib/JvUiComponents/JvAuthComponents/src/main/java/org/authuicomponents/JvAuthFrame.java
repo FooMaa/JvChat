@@ -78,7 +78,7 @@ public class JvAuthFrame extends JFrame {
 
     private void addGeneralSettingsToWidget() {
         setDefaultCloseOperation( EXIT_ON_CLOSE );
-        setTitle( "Вход" );
+        setTitle( "ВХОД" );
         setSize( JvDisplaySettings.getResizeFromDisplay( 0.3,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH ) ,
                 JvDisplaySettings.getResizeFromDisplay( 0.3,
