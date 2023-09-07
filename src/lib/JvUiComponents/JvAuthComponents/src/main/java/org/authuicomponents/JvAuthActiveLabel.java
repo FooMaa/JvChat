@@ -22,12 +22,14 @@ public class JvAuthActiveLabel extends JLabel {
 
     private void addCustomListenerToElem( Font defaultFont ) {
         addMouseListener( new MouseAdapter() {
+            @Override
             public void mouseEntered( MouseEvent e ) {
                 Font font = new Font( "Times", Font.BOLD, 11 );
                 Map< TextAttribute, Object > attributes = new HashMap<>( font.getAttributes() );
                 attributes.put( TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON );
                 setFont( font.deriveFont( attributes ) );
             }
+            @Override
             public void mouseExited(MouseEvent e) {
                 Font font = new Font( "Times", Font.PLAIN, 11 );
                 Map<TextAttribute, Object> attributes = new HashMap<>(font.getAttributes() );

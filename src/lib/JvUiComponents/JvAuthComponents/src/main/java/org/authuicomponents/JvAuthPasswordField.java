@@ -4,11 +4,14 @@ import org.syssettings.JvDisplaySettings;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Objects;
 
 public class JvAuthPasswordField extends JPanel {
     private BufferedImage visibleImage;
@@ -30,7 +33,7 @@ public class JvAuthPasswordField extends JPanel {
                 FlowLayout.LEADING, gap, 0 ) );
 
         settingPassAndButtonPanel( text );
-        settingGeneralPanel();
+        settingGeneralPanel( text );
     }
 
     private BufferedImage setIcon( String path ) {
@@ -54,8 +57,9 @@ public class JvAuthPasswordField extends JPanel {
         panel.add( button );
     }
 
-    private void addListenerToElem() {
+    private void addListenerToElem( String text ) {
         button.addMouseListener( new MouseAdapter() {
+            @Override
             public void mouseClicked( MouseEvent e ) {
                 if ( unLockPass ) {
                     if ( flagEye ) {
@@ -73,6 +77,7 @@ public class JvAuthPasswordField extends JPanel {
         } );
 
         passwordField.addMouseListener( new MouseAdapter() {
+            @Override
             public void mouseClicked( MouseEvent e ) {
                 passwordField.setFocusable( true );
                 passwordField.setForeground( Color.BLACK );
@@ -82,6 +87,34 @@ public class JvAuthPasswordField extends JPanel {
                 passwordField.removeMouseListener( this );
                 button.setEnabled( true );
                 unLockPass = true;
+            }
+        } );
+
+        passwordField.addFocusListener( new FocusListener() {
+            @Override
+            public void focusGained( FocusEvent e )
+            {
+                if ( passwordField.getForeground() == Color.lightGray ) {
+                    if ( !flagEye ) {
+                        passwordField.setEchoChar( '•' );
+                    }
+                    passwordField.setForeground( Color.BLACK );
+                    passwordField.setText( "" );
+                    button.setEnabled( true );
+                    unLockPass = true;
+                }
+            }
+            @Override
+            public void focusLost( FocusEvent e ) {
+                if ( Objects.equals( passwordField.getText(), "" ) ) {
+                    if ( !flagEye ) {
+                        passwordField.setEchoChar( ( char ) 0 );
+                    }
+                    passwordField.setForeground( Color.lightGray );
+                    passwordField.setText( text );
+                    button.setEnabled( false );
+                    unLockPass = false;
+                }
             }
         } );
 
@@ -122,8 +155,8 @@ public class JvAuthPasswordField extends JPanel {
         passwordField.setEchoChar( ( char ) 0 );
     }
 
-    private void settingGeneralPanel() {
-        addListenerToElem();
-        add(passwordFieldWithButtonsPanel);
+    private void settingGeneralPanel( String text ) {
+        addListenerToElem( text );
+        add( passwordFieldWithButtonsPanel );
     }
 }

@@ -85,18 +85,21 @@ public class JvAuthFrame extends JFrame {
 
     private void addListenerToElements() {
         bEnter.addActionListener( new ActionListener() {
+            @Override
             public void actionPerformed( ActionEvent e ) {
                 System.out.println( "kokokokokok" );
             }
         } );
 
         activeMissLabel.addMouseListener( new MouseAdapter() {
+            @Override
             public void mouseClicked( MouseEvent e ) {
                 System.out.println( "ayayayayay" );
             }
         } );
 
         activeRegisterLabel.addMouseListener( new MouseAdapter() {
+            @Override
             public void mouseClicked( MouseEvent e ) {
                 System.out.println( "oiioioioioioi" );
             }
