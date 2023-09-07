@@ -16,39 +16,16 @@ public class JvAuthPasswordField extends JPanel {
     private JPasswordField passwordField;
     private JButton button;
     private JPanel passwordFieldWithButtonsPanel;
-    private Dimension dim = new Dimension (JvDisplaySettings.getResizeFromDisplay( 0.23,
-            JvDisplaySettings.TypeOfDisplayBorder.WIDTH ),
-            JvDisplaySettings.getResizeFromDisplay( 0.03,
-                    JvDisplaySettings.TypeOfDisplayBorder.HEIGHT ));
 
     public JvAuthPasswordField( String text ) {
-
         setIcon( "src/lib/JvUiComponents/JvAuthComponents/" +
                 "src/main/java/org/authuicomponents/resources/eye.png" );
 
-        passwordFieldWithButtonsPanel = new JPanel( new FlowLayout(
-                SwingConstants.LEADING, 0, 0) );
-        passwordFieldWithButtonsPanel.setPreferredSize( dim );
-        passwordField = new JPasswordField();
-        Dimension calcNewDim = new Dimension( (int) dim.getWidth() - visibleImage.getWidth(),
-                (int) dim.getHeight() );
-        passwordField.setPreferredSize( calcNewDim );
-        passwordFieldWithButtonsPanel.add( passwordField );
+        passwordFieldWithButtonsPanel = new JPanel(new FlowLayout(
+                FlowLayout.LEADING, 0, 0));
 
-        addButtonToPanel( passwordFieldWithButtonsPanel );
-
-        passwordFieldWithButtonsPanel.setBackground( passwordField.getBackground() );
-        passwordFieldWithButtonsPanel.setBorder( null );
-
-        passwordField.setBorder( null );
-        passwordField.setText( text );
-        passwordField.setFont( new Font( "Times", Font.BOLD, 14 ) );
-        passwordField.setForeground( Color.GRAY );
-        passwordField.setFocusable( false );
-        passwordField.setEchoChar( ( char ) 0 );
-
-        addListenerToElem();
-        add( passwordFieldWithButtonsPanel );
+        settingPassAndButtonPanel(text);
+        settingGeneralPanel();
     }
 
     private void setIcon( String path ) {
@@ -59,7 +36,7 @@ public class JvAuthPasswordField extends JPanel {
         }
     }
 
-    private final void addButtonToPanel( JPanel panel ) {
+    private void addButtonToPanel(JPanel panel) {
         button = new JButton( new ImageIcon( visibleImage ) );
         button.setContentAreaFilled( false );
         button.setBorderPainted( false );
@@ -73,7 +50,7 @@ public class JvAuthPasswordField extends JPanel {
     private void addListenerToElem() {
         button.addMouseListener( new MouseAdapter() {
             public void mouseClicked( MouseEvent e ) {
-                if ( flagEye == true ) {
+                if ( flagEye ) {
                     passwordField.setEchoChar( '•' );
                     flagEye = false;
                 } else {
@@ -94,5 +71,45 @@ public class JvAuthPasswordField extends JPanel {
                 button.setEnabled( true );
             }
         } );
+    }
+
+    private void settingPassAndButtonPanel(String text) {
+        Dimension dim = new Dimension(JvDisplaySettings.getResizeFromDisplay(0.23,
+                JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
+                JvDisplaySettings.getResizeFromDisplay(0.03,
+                        JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
+        passwordFieldWithButtonsPanel.setPreferredSize(dim);
+
+        makePassField(dim);
+
+        passwordFieldWithButtonsPanel.add( passwordField );
+        addButtonToPanel(passwordFieldWithButtonsPanel);
+        passwordFieldWithButtonsPanel.setBackground( passwordField.getBackground() );
+        passwordFieldWithButtonsPanel.setBorder( null );
+
+        settingPassField(text);
+    }
+
+    private void makePassField( Dimension dim ) {
+        passwordField = new JPasswordField();
+        Dimension calcNewDim = new Dimension( (int) dim.getWidth() -
+                visibleImage.getWidth(),
+                (int) dim.getHeight() );
+        passwordField.setPreferredSize( calcNewDim );
+    }
+
+    private void settingPassField(String text) {
+        passwordField.setBorder( null );
+        passwordField.setText( text );
+        passwordField.setFont( new Font( "Times",
+                Font.BOLD, 14 ) );
+        passwordField.setForeground( Color.GRAY );
+        passwordField.setFocusable( false );
+        passwordField.setEchoChar( ( char ) 0 );
+    }
+
+    private void settingGeneralPanel() {
+        addListenerToElem();
+        add(passwordFieldWithButtonsPanel);
     }
 }

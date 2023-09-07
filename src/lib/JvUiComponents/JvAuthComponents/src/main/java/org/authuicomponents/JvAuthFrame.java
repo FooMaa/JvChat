@@ -8,12 +8,12 @@ import java.awt.event.ActionEvent;
 import org.syssettings.JvDisplaySettings;
 
 public class JvAuthFrame extends JFrame {
-    private JPanel panel;
-    private JvAuthLabel tInfo;
-    private JvAuthTextField tLogin;
-    private JvAuthPasswordField tPassword;
-    private JvAuthButton bEnter;
-    private int cols = 36;
+    private final JPanel panel;
+    private final JvAuthLabel tInfo;
+    private final JvAuthTextField tLogin;
+    private final JvAuthPasswordField tPassword;
+    private final JvAuthButton bEnter;
+
     public JvAuthFrame() {
         super( "AuthenticationWindow" );
 
@@ -21,7 +21,7 @@ public class JvAuthFrame extends JFrame {
         tInfo = new JvAuthLabel( "Введите данные для входа:" );
         tLogin = new JvAuthTextField( "логин" );
         tPassword = new JvAuthPasswordField( "пароль" ) ;
-        bEnter = new JvAuthButton( "Войти" );
+        bEnter = new JvAuthButton( "ВОЙТИ" );
 
         makeFrameSetting();
         addListenerToElements();
@@ -46,20 +46,12 @@ public class JvAuthFrame extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.SOUTH;
         gbc.insets = new Insets( 0, insX, 10, insX );
-//        gbc.ipadx = JvDisplaySettings.getResizeFromDisplay( 0.1,
-//                JvDisplaySettings.TypeOfDisplayBorder.WIDTH );
-//        gbc.ipady = JvDisplaySettings.getResizeFromDisplay( 0.01,
-//                JvDisplaySettings.TypeOfDisplayBorder.HEIGHT );
         gbc.gridy = 1;
         panel.add( tLogin, gbc );
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.insets = new Insets( 0, insX, 0, insX );
-//        gbc.ipadx = JvDisplaySettings.getResizeFromDisplay( 0.1,
-//                JvDisplaySettings.TypeOfDisplayBorder.WIDTH );
-//        gbc.ipady = JvDisplaySettings.getResizeFromDisplay( 0.01,
-//                JvDisplaySettings.TypeOfDisplayBorder.HEIGHT );
         gbc.gridy = 2;
         panel.add( tPassword, gbc );
 
@@ -67,9 +59,9 @@ public class JvAuthFrame extends JFrame {
         gbc.anchor = GridBagConstraints.SOUTH;
         gbc.insets = new Insets( 0, 0, 20, 0 );
         gbc.ipadx = JvDisplaySettings.getResizeFromDisplay( 0.05,
-                JvDisplaySettings.TypeOfDisplayBorder.WIDTH );;
+                JvDisplaySettings.TypeOfDisplayBorder.WIDTH );
         gbc.ipady = JvDisplaySettings.getResizeFromDisplay( 0.01,
-                JvDisplaySettings.TypeOfDisplayBorder.HEIGHT );;
+                JvDisplaySettings.TypeOfDisplayBorder.HEIGHT );
         gbc.gridy = 3;
         panel.add( bEnter, gbc );
 
@@ -93,6 +85,7 @@ public class JvAuthFrame extends JFrame {
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT ) );
         setResizable( false );
         setLocationRelativeTo( null );
+        toFront();
         setVisible( true );
     }
 }

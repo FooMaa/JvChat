@@ -12,35 +12,14 @@ import java.io.IOException;
 
 public class JvAuthTextField extends JPanel {
     private BufferedImage visibleImage;
-    private static boolean flagEye = false;
     private JTextField textField;
-    private JButton button;
-    private JPanel textFieldWithButtonsPanel;
-    private Dimension dim = new Dimension (JvDisplaySettings.getResizeFromDisplay( 0.23,
-            JvDisplaySettings.TypeOfDisplayBorder.WIDTH ),
-            JvDisplaySettings.getResizeFromDisplay( 0.03,
-                    JvDisplaySettings.TypeOfDisplayBorder.HEIGHT ));
+    private final JPanel textFieldWithButtonsPanel;
+
     public JvAuthTextField ( String text ) {
-//        setIcon( "JvUiComponents/JvAuthComponents/src/main/java/org/authuicomponents/resources/eye.png" );
-
-        textFieldWithButtonsPanel = new JPanel(  new FlowLayout(
-                SwingConstants.LEADING, 0, 0) );
-        textFieldWithButtonsPanel.setPreferredSize( dim );
-        textField = new JTextField();
-        textField.setPreferredSize( dim );
-
-        textFieldWithButtonsPanel.add(textField);
-        textFieldWithButtonsPanel.setBackground( textField.getBackground() );
-        textFieldWithButtonsPanel.setBorder( null );
-
-        textField.setBorder( null );
-        textField.setText( text );
-        textField.setFont( new Font( "Times", Font.BOLD, 14 ) );
-        textField.setForeground( Color.GRAY );
-        textField.setFocusable( false );
-
-        addListenerToElem();
-        add( textFieldWithButtonsPanel );
+        textFieldWithButtonsPanel = new JPanel(new FlowLayout(
+                FlowLayout.LEADING, 0, 0));
+        settingTextAndButtonPanel(text);
+        settingGeneralPanel();
     }
 
     private void setIcon( String path ) {
@@ -51,12 +30,12 @@ public class JvAuthTextField extends JPanel {
         }
     }
 
-    private final void addButtonToPanel( JPanel panel ) {
-        button = new JButton( new ImageIcon( visibleImage ) );
+    private void addButtonToPanel( JPanel panel ) {
+        JButton button = new JButton(new ImageIcon(visibleImage));
         button.setContentAreaFilled( false );
         button.setBorderPainted( false );
         button.setMargin( new Insets ( 0,0,0,0 ) );
-        panel.add( button );
+        panel.add(button);
     }
 
     private void addListenerToElem() {
@@ -69,5 +48,38 @@ public class JvAuthTextField extends JPanel {
                 textField.removeMouseListener( this );
             }
         } );
+    }
+
+    private void settingTextAndButtonPanel( String text ) {
+        Dimension dim = new Dimension(JvDisplaySettings.getResizeFromDisplay(0.23,
+                JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
+                JvDisplaySettings.getResizeFromDisplay(0.03,
+                        JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
+        textFieldWithButtonsPanel.setPreferredSize(dim);
+        makeTextField( dim );
+
+        textFieldWithButtonsPanel.add(textField);
+        textFieldWithButtonsPanel.setBackground( textField.getBackground() );
+        textFieldWithButtonsPanel.setBorder( null );
+
+        settingTextField(text);
+    }
+
+    private void makeTextField( Dimension dim ) {
+        textField = new JTextField();
+        textField.setPreferredSize(dim);
+    }
+
+    private void settingTextField(String text) {
+        textField.setBorder( null );
+        textField.setText( text );
+        textField.setFont( new Font( "Times", Font.BOLD, 14 ) );
+        textField.setForeground( Color.GRAY );
+        textField.setFocusable( false );
+    }
+
+    private void settingGeneralPanel() {
+        addListenerToElem();
+        add(textFieldWithButtonsPanel);
     }
 }
