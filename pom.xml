@@ -9,9 +9,12 @@
 
   <name>JvChat</name>
   <url>http://maven.apache.org</url>
+
   <modules>
-    <module>JvStartPoint</module>
-    <module>JvAuthentication</module>
+    <module>src/src/JvStartPoint</module>
+    <module>src/src/JvAuthentication</module>
+    <module>src/lib/JvSystemSettings</module>
+    <module>src/lib/JvUiComponents</module>
   </modules>
 
   <properties>
@@ -20,12 +23,31 @@
     <maven.compiler.target>17</maven.compiler.target>
   </properties>
 
+  <build>
+    <defaultGoal>exec:java</defaultGoal>
+    <pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.1.0</version>
+        <configuration>
+          <mainClass>none</mainClass>
+          <executable>java</executable>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+    </plugins>
+    </pluginManagement>
+  </build>
+
   <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>junit</groupId>-->
+<!--      <artifactId>junit</artifactId>-->
+<!--      <version>3.8.1</version>-->
+<!--      <scope>test</scope>-->
+<!--    </dependency>-->
   </dependencies>
+
 </project>

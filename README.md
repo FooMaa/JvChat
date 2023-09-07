@@ -1,5 +1,7 @@
 # JvChat
 Чат на java с maven
-привет
-как дела
-HELLO WORLD
+## Как запустить?
+В конфигурации сборки добавить 
+```
+clean install exec:java
+```
