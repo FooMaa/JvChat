@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # coding=utf-8
 
 import base64
@@ -7,9 +7,9 @@ import psycopg2
 
 ADMIN_USER = 'postgres'
 ADMIN_DB = 'postgres'
-ADMIN_PWD = base64.b64decode('1234567890').decode('utf-8')
+#ADMIN_PWD = base64.b64decode('1234567890').decode('utf-8')
 DEFAULT_DB_USER = 'jvchat'
-DB_USER_PWD = base64.b64decode('0987654321').decode('utf-8')
+#DB_USER_PWD = base64.b64decode('0987654321').decode('utf-8')
 DEFAULT_DB_IP = '127.0.0.1'
 DEFAULT_DB_NAME = 'chat'
 DEFAULT_DB_TEMPLATE = 'chat_template'
@@ -22,6 +22,12 @@ END = '\033[0m'
 PENDING = '[...] '
 SUCCESS = "\r[ " + GREEN + "OK" + END + " ] "
 FAIL = "\r[ " + RED + "FAIL" + END + " ] "
-FNULL = open(os.devnull, 'w')
+#FNULL = open(os.devnull, 'w')
+
+conn = psycopg2.connect (user = ADMIN_USER, password = '1111', host = "127.0.0.1")
+curs = conn.cursor()
+conn.autocommit = True
+s = "CREATE DATABASE tes;"
+curs.execute(s)
 
 
