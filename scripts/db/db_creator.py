@@ -23,3 +23,5 @@ PENDING = '[...] '
 SUCCESS = "\r[ " + GREEN + "OK" + END + " ] "
 FAIL = "\r[ " + RED + "FAIL" + END + " ] "
 FNULL = open(os.devnull, 'w')
+
+
