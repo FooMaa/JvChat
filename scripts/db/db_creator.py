@@ -22,12 +22,10 @@ END = '\033[0m'
 PENDING = '[...] '
 SUCCESS = "\r[ " + GREEN + "OK" + END + " ] "
 FAIL = "\r[ " + RED + "FAIL" + END + " ] "
-#FNULL = open(os.devnull, 'w')
 
-conn = psycopg2.connect (user = ADMIN_USER, password = '1111', host = "127.0.0.1")
+conn = psycopg2.connect (user = ADMIN_USER, password = '9999', host = "127.0.0.1")
 curs = conn.cursor()
 conn.autocommit = True
 s = "CREATE DATABASE test;"
 curs.execute(s)
-
 
