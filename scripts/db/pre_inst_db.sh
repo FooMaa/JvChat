@@ -34,9 +34,10 @@ function set_pwd_postgres {
 
 function make_pg_hba_file {
     pushd $DIR
-    rm /etc/postgresql/14/main/pg_hba.conf
+    VERSION_PG=$(psql --version | sed -e 's/[^0-9][^0-9]*//' -e 's/\..*//')
+    rm /etc/postgresql/$VERSION_PG/main/pg_hba.conf
     chmod 644 pg_hba.conf
-    cp pg_hba.conf /etc/postgresql/14/main
+    cp pg_hba.conf /etc/postgresql/$VERSION_PG/main
     service postgresql restart
 }
 
