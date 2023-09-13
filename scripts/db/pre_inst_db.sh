@@ -41,6 +41,7 @@ function make_pg_hba_file {
 }
 
 function update_pwd_postgtes_from_db {
+    pushd /
     sudo -u postgres psql -c "ALTER USER postgres PASSWORD '$POST_PWD';"
 }
 
