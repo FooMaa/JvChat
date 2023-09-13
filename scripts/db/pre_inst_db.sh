@@ -35,6 +35,7 @@ function set_pwd_postgres {
 function make_pg_hba_file {
     pushd $DIR
     rm /etc/postgresql/14/main/pg_hba.conf
+    chmod 644 pg_hba.conf
     cp pg_hba.conf /etc/postgresql/14/main
     service postgresql restart
 }
