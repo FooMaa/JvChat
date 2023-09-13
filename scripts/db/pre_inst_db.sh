@@ -67,7 +67,6 @@ if [[ $NEED_PGHBA == true ]]; then
     make_pg_hba_file
 fi
 
-echo $POST_PWD
 if [[ "$POST_PWD" != '' ]]; then 
     echo $POST_PWD
     update_pwd_postgtes_from_db
