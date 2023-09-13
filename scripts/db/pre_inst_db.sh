@@ -68,6 +68,5 @@ if [[ $NEED_PGHBA == true ]]; then
 fi
 
 if [[ "$POST_PWD" != '' ]]; then 
-    echo $POST_PWD
     update_pwd_postgtes_from_db
 fi
