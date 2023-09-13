@@ -41,7 +41,7 @@ function make_pg_hba_file {
 }
 
 function update_pwd_postgtes_from_db {
-    echo '2391' | sudo -u postgres psql -c "ALTER USER postgres PASSWORD '$POST_PWD';"
+    sudo -u postgres psql -c "ALTER USER postgres PASSWORD '$POST_PWD';"
 }
 
 while [ -n "$1" ]; do
@@ -62,7 +62,6 @@ if [[ $NEED_INSTALL == true ]]; then
 fi
 
 set_pwd_postgres
-echo $NEED_PGHBA
 
 if [[ $NEED_PGHBA == true ]]; then 
     make_pg_hba_file
