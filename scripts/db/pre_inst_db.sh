@@ -15,10 +15,23 @@ function usage {
 EOF
 }
 
-function check_root {
+function check_param {
+    if [ -z "$1" ]; then 
+        echo "This script need a parameters"
+        usage
+        exit 1
+    fi
+}
+
+function check_root_and_param {
     USER=$(whoami)
     if [ "$USER" != root ]; then 
         echo "Run this script as root"
+        exit 1
+    fi
+
+    if [[ -z "$POST_PWD" || "$POST_PWD" == "-"* ]]; then 
+        echo "You don't set password"
         exit 1
     fi
 }
@@ -46,18 +59,21 @@ function update_pwd_postgtes_from_db {
     sudo -u postgres psql -c "ALTER USER postgres PASSWORD '$POST_PWD';"
 }
 
+check_param $1
+
 while [ -n "$1" ]; do
     case "$1" in
         -i ) NEED_INSTALL=true ;;
         -p ) NEED_PGHBA=true ;;
         -w ) POST_PWD=$2; shift ;;
         -h ) usage; exit 1;;
+        -- ) usage; exit 1;;
         * ) usage; exit 1 ;;
     esac 
     shift
 done
 
-    check_root
+check_root_and_param
 
 if [[ $NEED_INSTALL == true ]]; then 
     install_requirements
@@ -69,6 +85,4 @@ if [[ $NEED_PGHBA == true ]]; then
     make_pg_hba_file
 fi
 
-if [[ "$POST_PWD" != '' ]]; then 
-    update_pwd_postgtes_from_db
-fi
+update_pwd_postgtes_from_db
