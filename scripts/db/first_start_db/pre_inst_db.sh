@@ -2,8 +2,14 @@
 
 DIR=$(realpath $0 | sed -e "s/pre_inst_db.*//g")
 POST_PWD=""
+UPDATING_REPO=false
 NEED_INSTALL=false
 NEED_PGHBA=false
+LOG_FILE="/tmp/pre_inst_db.log"
+USER_SYSTEM="postgres"
+
+CHECK_MARK="\033[0;32m\xE2\x9c\x94\033[0m"
+CROSS_MARK="\033[0;31m\xE2\x9c\x97\033[0m"
 
 function usage {
     cat <<EOF
@@ -17,46 +23,88 @@ EOF
 
 function check_param {
     if [ -z "$1" ]; then 
-        echo "This script need a parameters"
+        echo -e "This script need a parameters"
         usage
         exit 1
     fi
 }
 
 function check_root_and_param {
+    echo -n "[...] check and scan parameters"
+
     USER=$(whoami)
     if [ "$USER" != root ]; then 
-        echo "Run this script as root"
+        echo -e "\\rRun this script with root privileges"
         exit 1
     fi
 
     if [[ -z "$POST_PWD" || "$POST_PWD" == "-"* ]]; then 
-        echo "You don't set password"
+        echo -e "\\rYou don't set password. Get as -w 12345678"
         exit 1
     fi
+
+    echo -e "\\r[ $CHECK_MARK ] check and scan parameters"
+}
+
+function install_package { 
+    if [[ $UPDATING_REPO == false ]]; then
+        apt update >> $LOG_FILE 2>&1
+        UPDATING_REPO=true
+    fi
+    
+    apt install -y $1 >> $LOG_FILE 2>&1
+}
+
+function check_package {
+    (dpkg -s $1 | grep "Status") >> $LOG_FILE 2>&1
+    
+    if [[ $? -eq 1 ]]; then
+        install_package $1
+    fi
+    
 }
 
 function install_requirements {
-    apt-get update
-    apt-get install -y $(cat requirements)
+    echo -n "[...] check and install package"
+
+    mapfile -t REQUIREMENTS < <(cat requirements)
+    for req in "${!REQUIREMENTS[@]}"
+    do
+        check_package ${REQUIREMENTS[$req]}
+    done    
+    
+    echo -e "\\r[ $CHECK_MARK ] check and install package"
 }
 
 function set_pwd_postgres {
-    echo -e "$POST_PWD\n$POST_PWD" | passwd postgres
+    echo -n "[...] set password user $USER_SYSTEM"    
+
+    echo -e "$POST_PWD\n$POST_PWD" | passwd $USER_SYSTEM >> $LOG_FILE 2>&1
+
+    echo -e "\\r[ $CHECK_MARK ] set password user $USER_SYSTEM"
 }
 
 function make_pg_hba_file {
-    pushd $DIR
+    echo -n "[...] make pg_hba.conf file"
+
+    pushd $DIR >> $LOG_FILE 2>&1
     VERSION_PG=$(psql --version | sed -e 's/[^0-9][^0-9]*//' -e 's/\..*//')
+    cp /etc/postgresql/$VERSION_PG/main/pg_hba.conf /tmp/
     rm /etc/postgresql/$VERSION_PG/main/pg_hba.conf
     chmod 644 pg_hba.conf
     cp pg_hba.conf /etc/postgresql/$VERSION_PG/main
     service postgresql restart
+
+    echo -e "\\r[ $CHECK_MARK ] make pg_hba.conf file"
 }
 
 function update_pwd_postgtes_from_db {
-    pushd /
-    sudo -u postgres psql -c "ALTER USER postgres PASSWORD '$POST_PWD';"
+    echo -n "[...] set password sql user $USER_SYSTEM"
+
+    pushd / >> $LOG_FILE 2>&1
+    sudo -u $USER_SYSTEM psql -c "ALTER USER $USER_SYSTEM PASSWORD '$POST_PWD';" >> $LOG_FILE 2>&1
+
+    echo -e "\\r[ $CHECK_MARK ] set password sql user $USER_SYSTEM"
 }
 
 check_param $1
