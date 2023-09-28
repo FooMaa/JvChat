@@ -1,13 +1,14 @@
 #!/bin/bash
 
 DIR=$(realpath $0 | sed -e "s/pre_inst_db.*//g")
+PROJECT_NAME=JvChat
+PROJECT_DIR=$( echo "$(realpath $0 | sed -r 's/JvChat.+//g')"$PROJECT_NAME )
 POST_PWD=""
 UPDATING_REPO=false
 NEED_INSTALL=false
 NEED_PGHBA=false
 LOG_FILE="/tmp/pre_inst_db.log"
 USER_SYSTEM="postgres"
-
 CHECK_MARK="\033[0;32m\xE2\x9c\x94\033[0m"
 CROSS_MARK="\033[0;31m\xE2\x9c\x97\033[0m"
 
@@ -91,8 +92,8 @@ function make_pg_hba_file {
     VERSION_PG=$(psql --version | sed -e 's/[^0-9][^0-9]*//' -e 's/\..*//')
     cp /etc/postgresql/$VERSION_PG/main/pg_hba.conf /tmp/
     rm /etc/postgresql/$VERSION_PG/main/pg_hba.conf
-    chmod 644 pg_hba.conf
-    cp pg_hba.conf /etc/postgresql/$VERSION_PG/main
+    chmod 644 $PROJECT_DIR/data/pg_hba.conf
+    cp $PROJECT_DIR/data/pg_hba.conf /etc/postgresql/$VERSION_PG/main
     service postgresql restart
 
     echo -e "\\r[ $CHECK_MARK ] make pg_hba.conf file"
