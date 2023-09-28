@@ -181,8 +181,7 @@ def create_tables(db_name, user):
 
     db_tables = get_tables(db_name)
     for table in db_tables:
-        sql_file = open(table, 'r')
-        db.query(sql_file.read())
+        db.query(open(table, 'r').read())
 
     print(SUCCESS + "Create all tables for {0}".format(db_name))
 
@@ -202,8 +201,13 @@ def drop_database(db_name, user):
 
     db.close()
 
+def make_dump_db(backup_dir, db_name, file_name):
+    sys.stdout.write(PENDING + "Dump database {0}".format(db_name))
+    if not os.path.exists(backup_dir):
+        os.makedirs(backup_dir)
 
 if __name__ == '__main__':
+    make_dump_db('./Dump', DEFAULT_DB_NAME, 'dump')
     create_user()
     drop_database(DEFAULT_DB_NAME, DEFAULT_DB_USER)
     create_database(DEFAULT_DB_NAME, DEFAULT_DB_USER)  # если нужны новые Базы Данных, то вызывать также этот метод
