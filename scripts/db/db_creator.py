@@ -26,6 +26,7 @@ END = '\033[0m'
 PENDING = '[...] '
 SUCCESS = "\r[ " + GREEN + "OK" + END + " ] "
 FAIL = "\r[ " + RED + "FAIL" + END + " ] "
+FNULL = open(os.devnull, 'w')
 
 admin_connection = dict({"username": ADMIN_USER,
                          "host": DEFAULT_DB_IP,
@@ -201,13 +202,58 @@ def drop_database(db_name, user):
 
     db.close()
 
-def make_dump_db(backup_dir, db_name, file_name):
+
+def make_dump_db(backup_dir, db_name, file_name, db_user, host):
     sys.stdout.write(PENDING + "Dump database {0}".format(db_name))
     if not os.path.exists(backup_dir):
         os.makedirs(backup_dir)
+    dump_file = os.path.join(os.path.normpath(backup_dir), file_name)
+    backup_call = ['pg_dump', '-Fc', '--inserts', '-h', host, '-U', db_user,
+                   db_name, '-f', dump_file]
+    rv = subprocess.call(backup_call, stdout=FNULL, stderr=FNULL)
+    if rv != 0:
+        print(FAIL + "Dump database {0}".format(db_name))
+        exit(1)
+
+    print(SUCCESS + "Dump database {0}".format(db_name))
+    # exit(1) если надо выйти из скрипта после создания дампа
+
+
+def make_pg_restore(backup_dir, db_name, file_name, db_user, host, password, schemas):
+    sys.stdout.write(PENDING + "Restore database {0} from dump".format(db_name))
+
+    if not os.path.isfile("{0}/{1}".format(backup_dir, file_name)):
+        print(FAIL + "Restore database {0} from dump".format(db_name))
+        exit(1)
+
+    backup_call = ['pg_restore', '-Fc', '-h', host, '-U', db_user, '-d',
+                   db_name, "{0}/{1}".format(backup_dir, file_name)]
+
+    db = DataBase(create_connection_db(db_name, db_user))
+    for schema in schemas:
+        db.query("DROP SCHEMA IF EXISTS {0} CASCADE;".format(schema))
+    db.close()
+
+    rv = subprocess.call(backup_call, stdout=FNULL, stderr=FNULL)
+
+    if rv != 0:
+        print(FAIL + "Restore database {0} from dump".format(db_name))
+        exit(1)
+
+    print(SUCCESS + "Restore database {0} from dump".format(db_name))
+    # exit(1) если надо выйти из скрипта после накатывания дампа
+
 
 if __name__ == '__main__':
-    make_dump_db('./Dump', DEFAULT_DB_NAME, 'dump')
+    ''' раскомментировать, если нужен дамп или накатить с дампа
+    SCHEMA_LIST = [DEFAULT_SCHEMA]
+    # ... SCHEMA_LIST.append(...)
+    make_pg_restore('./Dump', DEFAULT_DB_NAME, 'dump.tar.gz',
+                    DEFAULT_DB_USER, '127.0.0.1', DB_USER_PWD, SCHEMA_LIST)
+    
+    make_dump_db('./Dump', DEFAULT_DB_NAME, 'dump.tar.gz',
+                 DEFAULT_DB_USER, '127.0.0.1')
+    '''
     create_user()
     drop_database(DEFAULT_DB_NAME, DEFAULT_DB_USER)
     create_database(DEFAULT_DB_NAME, DEFAULT_DB_USER)  # если нужны новые Базы Данных, то вызывать также этот метод
