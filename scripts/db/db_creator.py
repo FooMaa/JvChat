@@ -2,6 +2,9 @@
 # coding=utf-8
 
 import base64
+import glob
+import os.path
+import re
 import sys
 import subprocess
 import psycopg2
@@ -13,8 +16,8 @@ DEFAULT_DB_USER = 'jvchat'
 DB_USER_PWD = '1111'
 DEFAULT_DB_IP = '127.0.0.1'
 DEFAULT_DB_NAME = 'chat'
-DEFAULT_DB_TEMPLATE = 'chat_template'
 DEFAULT_BACKUP_FOLDER = '/tmp/'
+DEFAULT_SCHEMA = 'chat_schema'
 DEFAULT_BACKUP = "chat_dump.bak"
 
 RED = '\033[31m'
@@ -29,11 +32,26 @@ admin_connection = dict({"username": ADMIN_USER,
                          "port": 5432,
                          "database": ADMIN_DB,
                          "password": ADMIN_PWD})
-user_connection = dict({"username": DEFAULT_DB_USER,
-                        "host": DEFAULT_DB_IP,
-                        "port": 5432,
-                        "database": ADMIN_DB,
-                        "password": DB_USER_PWD})
+user_default_connection = dict({"username": DEFAULT_DB_USER,
+                                "host": DEFAULT_DB_IP,
+                                "port": 5432,
+                                "database": ADMIN_DB,
+                                "password": DB_USER_PWD})
+
+
+def atoi(text):
+    return int(text) if text.isdigit() else text
+
+
+def natural_keys(text):
+    return [atoi(c) for c in re.split('(\\d+)', text)]
+
+
+os.chdir(os.path.dirname(os.path.realpath(sys.argv[0])))
+ALL_TABLES = [sql for sql in glob.glob('*.sql')]
+
+CREATE_TABLES = [x for x in ALL_TABLES if "fill_" not in x]
+CREATE_TABLES.sort(key=natural_keys)
 
 
 class DataBase:
@@ -103,7 +121,7 @@ class DataBase:
 def create_user():
     db = DataBase(admin_connection)
 
-    sys.stdout.write(PENDING + "create user {0}".format(DEFAULT_DB_USER))
+    sys.stdout.write(PENDING + "Create user {0}".format(DEFAULT_DB_USER))
 
     if db.exists('pg_roles', 'rolname', DEFAULT_DB_USER):
         print(SUCCESS + "Create user {0}. Role already exists".format(DEFAULT_DB_USER))
@@ -114,6 +132,81 @@ def create_user():
     db.close()
 
 
+def create_database(name, owner):
+    db = DataBase(user_default_connection)
+
+    sys.stdout.write(PENDING + "Create database {0}".format(name))
+
+    if db.exists('pg_database', 'datname', name):
+        print(SUCCESS + "Create user {0}. Database already exists".format(name))
+    else:
+        db.query("CREATE DATABASE \"{0}\" OWNER {1}".format(name, owner))
+        print(SUCCESS + "Create database {0}".format(name))
+
+    db.close()
+
+
+def create_schema(schema_name, db_name, user):
+    db = DataBase(create_connection_db(db_name, user))
+
+    sys.stdout.write(PENDING + "Create schema {0}".format(schema_name))
+
+    db.query("DROP SCHEMA IF EXISTS {0};".format(schema_name))
+    db.query("CREATE SCHEMA {0};".format(schema_name))
+
+    print(SUCCESS + "Create database {0}".format(schema_name))
+    db.close()
+
+
+def create_connection_db(db_name, user):
+    connection = dict({"username": user,
+                       "host": DEFAULT_DB_IP,
+                       "port": 5432,
+                       "database": db_name,
+                       "password": DB_USER_PWD})
+    return connection
+
+
+def get_tables(db_name):
+    if db_name == DEFAULT_DB_NAME:
+        create_tables = CREATE_TABLES[:]
+
+    return create_tables
+
+
+def create_tables(db_name, user):
+    db = DataBase(create_connection_db(db_name, user))
+
+    sys.stdout.write(PENDING + "Create all tables for {0}".format(db_name))
+
+    db_tables = get_tables(db_name)
+    for table in db_tables:
+        sql_file = open(table, 'r')
+        db.query(sql_file.read())
+
+    print(SUCCESS + "Create all tables for {0}".format(db_name))
+
+    db.close()
+
+
+def drop_database(db_name, user):
+    db = DataBase(admin_connection)
+
+    sys.stdout.write(PENDING + "Drop database {0}".format(db_name))
+
+    if db.exists('pg_database', 'datname', db_name):
+        db.query("DROP DATABASE \"{0}\";".format(db_name))
+        print(SUCCESS + "Drop database {0}".format(db_name))
+    else:
+        print(SUCCESS + "Drop database {0}. Database not exists, no need to drop".format(db_name))
+
+    db.close()
+
+
 if __name__ == '__main__':
     create_user()
-
+    drop_database(DEFAULT_DB_NAME, DEFAULT_DB_USER)
+    create_database(DEFAULT_DB_NAME, DEFAULT_DB_USER)  # если нужны новые Базы Данных, то вызывать также этот метод
+    create_schema(DEFAULT_SCHEMA, DEFAULT_DB_NAME,
+                  DEFAULT_DB_USER)  # если нужны новые схемы, то вызывать также этот метод
+    create_tables(DEFAULT_DB_NAME, DEFAULT_DB_USER)  # если баз данных несколько, то вызвать для каждой
