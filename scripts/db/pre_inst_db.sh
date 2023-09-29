@@ -67,7 +67,7 @@ function check_package {
 function install_requirements {
     echo -n "[...] check and install package"
 
-    mapfile -t REQUIREMENTS < <(cat requirements)
+    mapfile -t REQUIREMENTS < <(cat $PROJECT_DIR/data/requirements)
     for req in "${!REQUIREMENTS[@]}"
     do
         check_package ${REQUIREMENTS[$req]}
