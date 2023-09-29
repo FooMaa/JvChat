@@ -15,10 +15,10 @@ CROSS_MARK="\033[0;31m\xE2\x9c\x97\033[0m"
 function usage {
     cat <<EOF
     Usage: $0 [options]
-    -i      install requirements    install requirements ( OPTIONAL ) Example ./pre_inst_db.sh -i
-    -h      help menu               to see this help ( OPTIONAL ) Example ./pre_inst_db.sh -h
-    -p      need make pg_hba.conf   copy pg_hba.conf from repo ( OPTIONAL ) Example ./pre_inst_db.sh -h
-    -w      set password            set defaut password to postgres ( REQUIRED ) Example ./pre_inst_db.sh -w '9999'
+    -i      install requirements    install requirements ( OPTIONAL ) Example $0 -i
+    -h      help menu               to see this help ( OPTIONAL ) Example $0 -h
+    -p      need make pg_hba.conf   copy pg_hba.conf from repo ( OPTIONAL ) Example $0 -h
+    -w      set password            set defaut password to postgres ( OPTIONAL ) Example $0 -w '9999'
 EOF
 }
 
@@ -40,8 +40,7 @@ function check_root_and_param {
     fi
 
     if [[ -z "$POST_PWD" || "$POST_PWD" == "-"* ]]; then 
-        echo -e "\\rYou don't set password. Get as -w 12345678"
-        exit 1
+        POST_PWD='9999'
     fi
 
     echo -e "\\r[ $CHECK_MARK ] check and scan parameters"
@@ -108,7 +107,7 @@ function update_pwd_postgtes_from_db {
     echo -e "\\r[ $CHECK_MARK ] set password sql user $USER_SYSTEM"
 }
 
-check_param $1
+# check_param $1
 
 while [ -n "$1" ]; do
     case "$1" in
