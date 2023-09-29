@@ -8,12 +8,13 @@ import re
 import sys
 import subprocess
 import psycopg2
+from argparse import ArgumentParser
 
 ADMIN_USER = 'postgres'
 ADMIN_DB = 'postgres'
-ADMIN_PWD = '9999'  # base64.b64decode('1234567890').decode('utf-8')
+STOCK_ADMIN_PWD = '9999'  # base64.b64decode('1234567890').decode('utf-8')
 DEFAULT_DB_USER = 'jvchat'
-DB_USER_PWD = '1111'
+STOCK_USER_PWD = '1111'
 DEFAULT_DB_IP = '127.0.0.1'
 DEFAULT_DB_NAME = 'chat'
 DEFAULT_BACKUP_FOLDER = '/tmp/'
@@ -27,6 +28,22 @@ PENDING = '[...] '
 SUCCESS = "\r[ " + GREEN + "OK" + END + " ] "
 FAIL = "\r[ " + RED + "FAIL" + END + " ] "
 FNULL = open(os.devnull, 'w')
+
+parser = ArgumentParser()
+parser.add_argument('-r', '--regime', nargs='?', type=str, dest='regime', default='default', help='Set regime \'dump\' or \'restore\'')
+parser.add_argument('-a', '--adminpwd', nargs='?', type=str, dest='ADMIN_PWD', default=STOCK_ADMIN_PWD, help='Set password for admin. Default {0}'.format(STOCK_ADMIN_PWD))
+parser.add_argument('-u', '--userpwd', nargs='?', type=str, dest='DB_USER_PWD', default=STOCK_USER_PWD, help='Set password for admin. Default {0}'.format(STOCK_USER_PWD))
+args = parser.parse_args()
+
+
+def arg(name):
+    return args.__dict__[name]
+
+
+
+ADMIN_PWD = arg('ADMIN_PWD')
+DB_USER_PWD = arg('DB_USER_PWD')
+regime = arg('regime')
 
 admin_connection = dict({"username": ADMIN_USER,
                          "host": DEFAULT_DB_IP,
@@ -211,15 +228,16 @@ def make_dump_db(backup_dir, db_name, file_name, db_user, host):
     backup_call = ['pg_dump', '-Fc', '--inserts', '-h', host, '-U', db_user,
                    db_name, '-f', dump_file]
     rv = subprocess.call(backup_call, stdout=FNULL, stderr=FNULL)
+
     if rv != 0:
         print(FAIL + "Dump database {0}".format(db_name))
         exit(1)
 
     print(SUCCESS + "Dump database {0}".format(db_name))
-    # exit(1) если надо выйти из скрипта после создания дампа
+    exit(1) # если надо выйти из скрипта после создания дампа
 
 
-def make_pg_restore(backup_dir, db_name, file_name, db_user, host, password, schemas):
+def make_pg_restore(backup_dir, db_name, file_name, db_user, host, schemas):
     sys.stdout.write(PENDING + "Restore database {0} from dump".format(db_name))
 
     if not os.path.isfile("{0}/{1}".format(backup_dir, file_name)):
@@ -229,6 +247,7 @@ def make_pg_restore(backup_dir, db_name, file_name, db_user, host, password, sch
     backup_call = ['pg_restore', '-Fc', '-h', host, '-U', db_user, '-d',
                    db_name, "{0}/{1}".format(backup_dir, file_name)]
 
+    sys.stdout.write('\r')
     db = DataBase(create_connection_db(db_name, db_user))
     for schema in schemas:
         db.query("DROP SCHEMA IF EXISTS {0} CASCADE;".format(schema))
@@ -241,19 +260,24 @@ def make_pg_restore(backup_dir, db_name, file_name, db_user, host, password, sch
         exit(1)
 
     print(SUCCESS + "Restore database {0} from dump".format(db_name))
-    # exit(1) если надо выйти из скрипта после накатывания дампа
+    exit(1) # если надо выйти из скрипта после накатывания дампа
 
 
 if __name__ == '__main__':
-    ''' раскомментировать, если нужен дамп или накатить с дампа
-    SCHEMA_LIST = [DEFAULT_SCHEMA]
-    # ... SCHEMA_LIST.append(...)
-    make_pg_restore('./Dump', DEFAULT_DB_NAME, 'dump.tar.gz',
-                    DEFAULT_DB_USER, '127.0.0.1', DB_USER_PWD, SCHEMA_LIST)
-    
-    make_dump_db('./Dump', DEFAULT_DB_NAME, 'dump.tar.gz',
+    if regime == 'dump':
+        os.environ['PGPASSWORD'] = DB_USER_PWD
+        make_dump_db('./Dump', DEFAULT_DB_NAME, 'dump.tar.gz',
                  DEFAULT_DB_USER, '127.0.0.1')
-    '''
+    elif regime == 'restore':
+        SCHEMA_LIST = [DEFAULT_SCHEMA]
+        # ... SCHEMA_LIST.append(...)
+        os.environ['PGPASSWORD'] = DB_USER_PWD
+        make_pg_restore('./Dump', DEFAULT_DB_NAME, 'dump.tar.gz',
+                    DEFAULT_DB_USER, '127.0.0.1', SCHEMA_LIST)
+    elif regime != 'default':
+        print(FAIL + "See help to get correct parameter to regim")
+        exit(1)
+    
     create_user()
     drop_database(DEFAULT_DB_NAME, DEFAULT_DB_USER)
     create_database(DEFAULT_DB_NAME, DEFAULT_DB_USER)  # если нужны новые Базы Данных, то вызывать также этот метод
