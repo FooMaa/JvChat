@@ -12,27 +12,27 @@ public class JvDbWorker
     static final String USER = "jvchat";
     static final String PASS = "1111";
     public JvDbWorker() throws SQLException {
-        System.out.println("Testing connection to PostgreSQL JDBC");
-
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
-            System.out.println("PostgreSQL JDBC Driver is not found. Include it in your library path ");
             e.printStackTrace();
             return;
         }
 
-        System.out.println("PostgreSQL JDBC Driver successfully connected");
         Connection connection = null;
 
         try {
             connection = DriverManager.getConnection(DB_URL, USER, PASS);
-
         } catch (SQLException e) {
-            System.out.println("Connection Failed");
             e.printStackTrace();
             return;
         }
+        if (connection != null) {
+            System.out.println("К базе данных установлено подключение.");
+        } else {
+            System.out.println("К базе данных не установлено подключение.");
+        }
+
         Statement stmt = connection.createStatement();
         ResultSet rs;
 
@@ -42,11 +42,7 @@ public class JvDbWorker
             System.out.println(numID);
         }
 
-        if (connection != null) {
-            System.out.println("You successfully connected to database now");
-        } else {
-            System.out.println("Failed to make connection to database");
-        }
+
         connection.close();
     }
 }
