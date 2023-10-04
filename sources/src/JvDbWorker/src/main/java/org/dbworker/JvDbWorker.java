@@ -27,12 +27,8 @@ public class JvDbWorker
             e.printStackTrace();
             return;
         }
-        if (connection != null) {
-            System.out.println("К базе данных установлено подключение.");
-        } else {
-            System.out.println("К базе данных не установлено подключение.");
-        }
 
+        assert connection != null;
         Statement stmt = connection.createStatement();
         ResultSet rs;
 
