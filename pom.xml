@@ -11,11 +11,11 @@
   <url>http://maven.apache.org</url>
 
   <modules>
-    <module>src/src/JvStartPoint</module>
-    <module>src/src/JvAuthentication</module>
-    <module>src/src/JvDbWorker</module>
-    <module>src/lib/JvSystemSettings</module>
-    <module>src/lib/JvUiComponents</module>
+    <module>sources/src/JvStartPoint</module>
+    <module>sources/src/JvAuthentication</module>
+    <module>sources/src/JvDbWorker</module>
+    <module>sources/lib/JvSystemSettings</module>
+    <module>sources/lib/JvUiComponents</module>
   </modules>
 
   <properties>

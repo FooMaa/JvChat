@@ -25,9 +25,9 @@ public class JvAuthPasswordField extends JPanel {
     private final int gap = 5;
 
     public JvAuthPasswordField( String text ) {
-        visibleImage = setIcon( "src/lib/JvUiComponents/JvAuthComponents/" +
+        visibleImage = setIcon( "sources/lib/JvUiComponents/JvAuthComponents/" +
                 "src/main/java/org/authuicomponents/resources/eye.png" );
-        invisibleImage = setIcon( "src/lib/JvUiComponents/JvAuthComponents/" +
+        invisibleImage = setIcon( "sources/lib/JvUiComponents/JvAuthComponents/" +
                 "src/main/java/org/authuicomponents/resources/eye-close.png" );
 
         passwordFieldWithButtonsPanel = new JPanel( new FlowLayout (
