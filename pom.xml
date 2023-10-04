@@ -13,6 +13,7 @@
   <modules>
     <module>src/src/JvStartPoint</module>
     <module>src/src/JvAuthentication</module>
+    <module>src/src/JvDbWorker</module>
     <module>src/lib/JvSystemSettings</module>
     <module>src/lib/JvUiComponents</module>
   </modules>
