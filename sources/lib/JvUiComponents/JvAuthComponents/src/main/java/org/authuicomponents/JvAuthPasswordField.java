@@ -107,7 +107,7 @@ public class JvAuthPasswordField extends JPanel {
             }
             @Override
             public void focusLost( FocusEvent e ) {
-                if ( Objects.equals( String.valueOf(passwordField.getPassword()), "" ) ) {
+                if ( Objects.equals( String.valueOf( passwordField.getPassword() ), "" ) ) {
                     if ( !flagEye ) {
                         passwordField.setEchoChar( ( char ) 0 );
                     }
