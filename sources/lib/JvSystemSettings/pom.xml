@@ -5,6 +5,7 @@
         <groupId>org.jvchat</groupId>
         <artifactId>JvChat</artifactId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath>../../../pom.xml</relativePath>
     </parent>
 
     <groupId>org.syssettings</groupId>
