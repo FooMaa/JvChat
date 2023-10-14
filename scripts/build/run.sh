@@ -57,7 +57,7 @@ function update_maven {
     tar -xzf $PROJECT_DIR/data/apache-maven*.tar.gz
     rm -r /usr/share/maven/*
     mv apache-maven*/* /usr/share/maven/
-    
+    rm -r apache-maven*
     echo -e "\\r[ $CHECK_MARK ] updating maven"
 }
 
@@ -65,8 +65,7 @@ function maven_start {
     echo -n "[...] running"
     export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
     pushd $PROJECT_DIR >> $LOG_FILE 2>&1
-    mvn clean
-    mvn install
+    mvn clean install exec:java >> $LOG_FILE 2>&1
     echo -e "\\r[ $CHECK_MARK ] running"
 }
 
