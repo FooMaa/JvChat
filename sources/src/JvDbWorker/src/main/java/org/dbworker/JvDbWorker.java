@@ -11,6 +11,7 @@ public class JvDbWorker
     static final String DB_URL = "jdbc:postgresql://127.0.0.1:5432/chat";
     static final String USER = "jvchat";
     static final String PASS = "1111";
+    static Statement stmt;
     public JvDbWorker() throws SQLException {
         try {
             Class.forName("org.postgresql.Driver");
@@ -29,7 +30,8 @@ public class JvDbWorker
         }
 
         assert connection != null;
-        Statement stmt = connection.createStatement();
+
+        stmt = connection.createStatement();
         ResultSet rs;
 
         rs = stmt.executeQuery("select * from chat_schema.users ;");
