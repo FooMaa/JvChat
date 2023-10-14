@@ -8,7 +8,10 @@ import java.sql.SQLException;
 public class JvStartPoint
 {
     public static void main( String[] args ) throws SQLException {
-        JvStartAuthentication a = new JvStartAuthentication();
         JvDbWorker db = new JvDbWorker();
+        JvStartAuthentication a = new JvStartAuthentication();
+        //rs = db.makeExecution("select * from chat_schema.users ;");
+        //rs =
+        db.endConnection();
     }
 }
