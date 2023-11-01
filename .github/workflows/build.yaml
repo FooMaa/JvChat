@@ -3,22 +3,22 @@ name: Build project
 on: push
 
 jobs:
-    dbbuild:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-            - name: Build DB
-            run: |
-                sudo scripts/requirements/install_requirements.sh
-                sudo scripts/db/make_default_db.sh
+  dbbuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build DB
+        run: |
+            sudo scripts/requirements/install_requirements.sh
+            sudo scripts/db/make_default_db.sh
 
-    build:
-        needs: dbbuild
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-            - name: Build
-            run: |
-                sudo scripts/requirements/install_requirements.sh
-                scripts/build/build.sh
+  build:
+    needs: dbbuild
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build
+        run: |
+          sudo scripts/requirements/install_requirements.sh
+          scripts/build/build.sh
     
