@@ -7,10 +7,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: scripts/requirements/install_requirements.sh
+      with:
+        command: |
+            scripts/requirements/install_requirements.sh
       - name: Build DB
         run: |
-          sudo scripts/build/make_default_db.sh
+            sudo scripts/build/make_default_db.sh
 
   build:
     needs: dbbuild
