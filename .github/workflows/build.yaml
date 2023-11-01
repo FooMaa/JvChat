@@ -3,10 +3,19 @@ name: Build project
 on: push
 
 jobs:
+  dbbuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build DB
+        run: |
+          sudo scripts/build/make_default_db.sh
+
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Build
         run: |
-          sudo scripts/build/run.sh
+          sudo scripts/build/build.sh
+    
