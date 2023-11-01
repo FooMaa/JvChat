@@ -10,7 +10,7 @@ jobs:
       - name: Build DB
         run: |
             sudo scripts/requirements/install_requirements.sh
-            sudo scripts/build/make_default_db.sh
+            sudo scripts/db/make_default_db.sh
 
   build:
     needs: dbbuild
