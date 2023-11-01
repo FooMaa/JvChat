@@ -11,6 +11,7 @@ import java.util.List;
 public class JvStartPoint
 {
     public static void main( String[] args ) throws SQLException {
+ыф
         JvDbWorker db = new JvDbWorker();
         JvStartAuthentication a = new JvStartAuthentication();
         ResultSet rs = db.makeExecution( JvDbDefines.exec );
