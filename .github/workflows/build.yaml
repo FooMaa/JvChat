@@ -14,5 +14,5 @@ jobs:
       - name: Build
         run: |
           pwd
-          scripts/db/make_default_db.sh
-          scripts/build/run.sh
+          sudo scripts/db/make_default_db.sh
+          sudo scripts/build/run.sh
