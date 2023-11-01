@@ -1,0 +1,15 @@
+#!/bin/bash
+PROJECT_DIR=$( echo "$(realpath $0 | sed -r 's/scripts.+//g')" )
+CHECK_MARK="\033[0;32m\xE2\x9c\x94\033[0m"
+CROSS_MARK="\033[0;31m\xE2\x9c\x97\033[0m"
+LOG_FILE="/tmp/run-jvchat.log"
+
+function run {
+    echo -n "[...] running"
+    pushd $PROJECT_DIR >> $LOG_FILE 2>&1
+    mvn exec:java >> $LOG_FILE 2>&1
+    echo -e "\\r[ $CHECK_MARK ] running"
+}
+
+bash $PROJECT_DIR"scripts/build/build.sh"
+run

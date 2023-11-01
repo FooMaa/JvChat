@@ -2,37 +2,25 @@
 
 PROJECT_NAME=JvChat
 PROJECT_DIR=$( echo "$(realpath $0 | sed -r 's/scripts.+//g')" )
-LOG_FILE="/tmp/run-jvchat.log"
+LOG_FILE="/tmp/build-jvchat.log"
 USER_SYSTEM="postgres"
 CHECK_MARK="\033[0;32m\xE2\x9c\x94\033[0m"
 CROSS_MARK="\033[0;31m\xE2\x9c\x97\033[0m"
 
-function check_root {
-    USER=$(whoami)
-    if [ "$USER" != root ]; then 
-        echo -e "\\rRun this script with root privileges"
-        exit 1
-    fi
-}
-
-function install_package { 
-    if [[ $UPDATING_REPO == false ]]; then
-        apt update >> $LOG_FILE 2>&1
-        UPDATING_REPO=true
-    fi
-    
-    apt install -y $1 >> $LOG_FILE 2>&1
+function exit_package { 
+    echo -e "Install requirements scripts/requirements/install_requirements.sh"
+    exit 1 
 }
 
 function check_package {
     (dpkg -s $1 | grep "Status") >> $LOG_FILE 2>&1
 
     if [[ $? -eq 1 ]]; then
-        install_package $1
+        exit_package $1
     fi    
 }
 
-function install_requirements {
+function check_requirements {
     echo -n "[...] check and install package"
 
     mapfile -t REQUIREMENTS < <(cat $PROJECT_DIR/data/requirements)
@@ -51,25 +39,13 @@ function setting_package {
     echo -e "\\r[ $CHECK_MARK ] setting packages"
 }
 
-function update_maven {
-    echo -n "[...] updating maven"
-    
-    tar -xzf $PROJECT_DIR/data/apache-maven*.tar.gz
-    rm -r /usr/share/maven/*
-    mv apache-maven*/* /usr/share/maven/
-    rm -r apache-maven*
-    echo -e "\\r[ $CHECK_MARK ] updating maven"
-}
-
 function maven_start {
-    echo -n "[...] running"
+    echo -n "[...] building"
     export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
     pushd $PROJECT_DIR >> $LOG_FILE 2>&1
-    mvn clean install exec:java >> $LOG_FILE 2>&1
-    echo -e "\\r[ $CHECK_MARK ] running"
+    mvn clean install >> $LOG_FILE 2>&1
+    echo -e "\\r[ $CHECK_MARK ] building"
 }
 
-check_root
-install_requirements
-update_maven
+check_requirements
 maven_start
