@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PROJECT_NAME=JvChat
-PROJECT_DIR=$( echo "$(realpath $0 | sed -r 's/JvChat.+//g')"$PROJECT_NAME )
+PROJECT_DIR=$( echo "$(realpath $0 | sed -r 's/scripts.+//g')" )
 LOG_FILE="/tmp/run-jvchat.log"
 USER_SYSTEM="postgres"
 CHECK_MARK="\033[0;32m\xE2\x9c\x94\033[0m"
