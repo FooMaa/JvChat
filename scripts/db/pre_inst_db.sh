@@ -2,7 +2,7 @@
 
 DIR=$(realpath $0 | sed -e "s/pre_inst_db.*//g")
 PROJECT_NAME=JvChat
-PROJECT_DIR=$( echo "$(realpath $0 | sed -r 's/JvChat.+//g')"$PROJECT_NAME )
+PROJECT_DIR=$( echo "$(realpath $0 | sed -r 's/scripts.+//g')" )
 POST_PWD=""
 UPDATING_REPO=false
 NEED_INSTALL=false
