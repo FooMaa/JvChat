@@ -3,28 +3,19 @@ name: Build project
 on: push
 
 jobs:
-  dbbuild:
-    runs-on: ubuntu-latest
-
-    defaults:
-      run: |
-        scripts/requirements/install_requirements.sh
-
-
-    steps:
-      - uses: actions/checkout@v3
-      - name: Build DB
-        run: |
-            
-            sudo scripts/db/make_default_db.sh
-
   build:
-    needs: dbbuild
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v3
-      - name: Build
-        run: |
-          
-          scripts/build/build.sh
+      - name: Clone
+        uses: actions/checkout@v3.1.0
+      
+      - name: Install requirements
+        run: sudo /scripts/requirements/install_requirements.sh
+
+      - name: Build DB
+        run: sudo scripts/db/make_default_db.sh
+
+      - name: Build chat
+        run: scripts/build/build.sh
     
