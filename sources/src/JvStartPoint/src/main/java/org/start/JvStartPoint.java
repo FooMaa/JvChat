@@ -10,6 +10,7 @@ import java.util.List;
 
 public class JvStartPoint
 {
+    sd
     public static void main( String[] args ) throws SQLException {
         JvDbWorker db = new JvDbWorker();
         JvStartAuthentication a = new JvStartAuthentication();
