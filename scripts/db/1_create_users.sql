@@ -1,5 +1,5 @@
 SET CLIENT_ENCODING TO 'UTF-8';
-adaddadaa
+
 DROP TABLE IF EXISTS chat_schema.users CASCADE;
 
 CREATE TABLE chat_schema.users (
