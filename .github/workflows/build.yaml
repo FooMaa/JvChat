@@ -7,8 +7,8 @@ jobs:
     runs-on: ubuntu-latest
 
     defaults:
-      run: |
-        scripts/requirements/install_requirements.sh
+      run: 
+       shell: bash scripts/requirements/install_requirements.sh
 
 
     steps:
