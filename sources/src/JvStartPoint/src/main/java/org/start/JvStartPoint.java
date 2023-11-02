@@ -14,7 +14,7 @@ public class JvStartPoint
         JvDbWorker db = new JvDbWorker();
         JvStartAuthentication a = new JvStartAuthentication();
         ResultSet rs = db.makeExecution( JvDbDefines.exec );
-        List<String> al = db.getStrDataAtRow( rs,2 );
+        List<String> al = db.getStrDataAtRow( rs, 1 );
         db.endConnection();
     }
 }

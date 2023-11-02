@@ -1,0 +1,21 @@
+name: Linux
+
+on: push
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone
+        uses: actions/checkout@v3.1.0
+      
+      - name: Install requirements
+        run: sudo scripts/requirements/install_requirements.sh
+
+      - name: Build DB
+        run: sudo scripts/db/make_default_db.sh
+
+      - name: Build chat
+        run: scripts/build/build.sh
+    
