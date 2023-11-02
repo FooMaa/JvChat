@@ -20,5 +20,5 @@ jobs:
       - name: Build
         run: |
           sudo scripts/requirements/install_requirements.sh
-          scripts/build/build_run.sh
+          scripts/build/build.sh
     
