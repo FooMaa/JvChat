@@ -43,7 +43,13 @@ function maven_start {
     echo -n "[...] building"
     export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
     pushd $PROJECT_DIR >> $LOG_FILE 2>&1
-    mvn clean install
+    mvn clean install >> $LOG_FILE 2>&1
+    EXIT_CODE=$?
+    if [[ $EXIT_CODE -ne 0 ]]; then
+        echo -e "\\r[ $CROSS_MARK ] building"
+        cat "$LOG_FILE"
+        exit 1
+    fi
     echo -e "\\r[ $CHECK_MARK ] building"
 }
 
