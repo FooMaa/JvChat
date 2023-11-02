@@ -11,5 +11,17 @@ function run {
     echo -e "\\r[ $CHECK_MARK ] running"
 }
 
-bash $PROJECT_DIR"scripts/build/build.sh"
+function build {
+    echo -n "[...] building"
+    bash $PROJECT_DIR"scripts/build/build.sh" >> $LOG_FILE 2>&1
+    EXIT_CODE=$?
+        if [[ $EXIT_CODE -ne 0 ]]; then
+            echo -e "\\r[ $CROSS_MARK ] building"
+            cat "$LOG_FILE"
+            exit 1
+        fi
+    echo -e "\\r[ $CHECK_MARK ] building"
+}
+
+build
 run
