@@ -1,8 +1,13 @@
 #!/bin/bash
 
+DIR=$(realpath $0 | sed -e "s/install_requirements.*//g")
 PROJECT_NAME=JvChat
-PROJECT_DIR=$( echo "$(realpath $0 | sed -r 's/JvChat.+//g')"$PROJECT_NAME )
-LOG_FILE="/tmp/run-jvchat.log"
+PROJECT_DIR=$( echo "$(realpath $0 | sed -r 's/scripts.+//g')" )
+POST_PWD=""
+UPDATING_REPO=false
+NEED_INSTALL=false
+NEED_PGHBA=false
+LOG_FILE="/tmp/install_requirements.log"
 USER_SYSTEM="postgres"
 CHECK_MARK="\033[0;32m\xE2\x9c\x94\033[0m"
 CROSS_MARK="\033[0;31m\xE2\x9c\x97\033[0m"
@@ -26,10 +31,11 @@ function install_package {
 
 function check_package {
     (dpkg -s $1 | grep "Status") >> $LOG_FILE 2>&1
-
+    
     if [[ $? -eq 1 ]]; then
         install_package $1
-    fi    
+    fi
+    
 }
 
 function install_requirements {
@@ -44,16 +50,8 @@ function install_requirements {
     echo -e "\\r[ $CHECK_MARK ] check and install package"
 }
 
-function setting_package {
-    echo -n "[...] setting packages"
-    update-alternatives --config java
-    export JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk-amd64
-    echo -e "\\r[ $CHECK_MARK ] setting packages"
-}
-
 function update_maven {
     echo -n "[...] updating maven"
-    
     tar -xzf $PROJECT_DIR/data/apache-maven*.tar.gz
     rm -r /usr/share/maven/*
     mv apache-maven*/* /usr/share/maven/
@@ -61,15 +59,6 @@ function update_maven {
     echo -e "\\r[ $CHECK_MARK ] updating maven"
 }
 
-function maven_start {
-    echo -n "[...] running"
-    export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
-    pushd $PROJECT_DIR >> $LOG_FILE 2>&1
-    mvn clean install exec:java >> $LOG_FILE 2>&1
-    echo -e "\\r[ $CHECK_MARK ] running"
-}
-
 check_root
 install_requirements
 update_maven
-maven_start
