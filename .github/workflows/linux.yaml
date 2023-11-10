@@ -10,7 +10,7 @@ jobs:
       - name: Clone
         uses: actions/checkout@v3.1.0
       
-      - name: Install requirements
+      - name: Install dependencies
         run: sudo scripts/dependencies/install_dependencies.sh
 
       - name: Build DB
