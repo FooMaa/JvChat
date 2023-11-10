@@ -102,6 +102,7 @@ public class JvAuthFrame extends JFrame {
         activeRegisterLabel.addMouseListener( new MouseAdapter() {
             @Override
             public void mouseClicked( MouseEvent e ) {
+                JvRegistrationFrame registrationFrame = new JvRegistrationFrame();
                 System.out.println( "oiioioioioioi" );
             }
         } );
