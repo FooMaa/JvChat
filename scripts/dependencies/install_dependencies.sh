@@ -1,13 +1,13 @@
 #!/bin/bash
 
-DIR=$(realpath $0 | sed -e "s/install_requirements.*//g")
+DIR=$(realpath $0 | sed -e "s/install_dependencies.*//g")
 PROJECT_NAME=JvChat
 PROJECT_DIR=$( echo "$(realpath $0 | sed -r 's/scripts.+//g')" )
 POST_PWD=""
 UPDATING_REPO=false
 NEED_INSTALL=false
 NEED_PGHBA=false
-LOG_FILE="/tmp/install_requirements.log"
+LOG_FILE="/tmp/install_dependencies.log"
 USER_SYSTEM="postgres"
 CHECK_MARK="\033[0;32m\xE2\x9c\x94\033[0m"
 CROSS_MARK="\033[0;31m\xE2\x9c\x97\033[0m"
@@ -38,10 +38,10 @@ function check_package {
     
 }
 
-function install_requirements {
+function install_dependencies {
     echo -n "[...] check and install package"
 
-    mapfile -t REQUIREMENTS < <(cat $PROJECT_DIR/data/requirements)
+    mapfile -t REQUIREMENTS < <(cat $PROJECT_DIR/data/dependencies)
     for req in "${!REQUIREMENTS[@]}"
     do
         check_package ${REQUIREMENTS[$req]}
@@ -60,5 +60,5 @@ function update_maven {
 }
 
 check_root
-install_requirements
+install_dependencies
 update_maven
