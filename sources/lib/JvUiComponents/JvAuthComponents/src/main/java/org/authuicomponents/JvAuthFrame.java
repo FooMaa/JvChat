@@ -103,7 +103,6 @@ public class JvAuthFrame extends JFrame {
             @Override
             public void mouseClicked( MouseEvent e ) {
                 JvRegistrationFrame registrationFrame = new JvRegistrationFrame();
-                System.out.println( "oiioioioioioi" );
             }
         } );
 
