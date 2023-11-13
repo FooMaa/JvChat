@@ -103,9 +103,16 @@ public class JvAuthFrame extends JFrame {
             @Override
             public void mouseClicked( MouseEvent e ) {
                 JvRegistrationFrame registrationFrame = new JvRegistrationFrame();
+                closeWindow();
             }
         } );
 
+    }
+
+    private void closeWindow() {
+        dispose();
+        setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        setVisible( false );
     }
 
     private void addGeneralSettingsToWidget() {

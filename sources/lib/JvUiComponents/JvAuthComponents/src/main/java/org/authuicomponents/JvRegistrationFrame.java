@@ -5,8 +5,10 @@ import org.syssettings.JvDisplaySettings;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
+import java.awt.event.WindowAdapter;
 import java.awt.event.MouseEvent;
 
 public class JvRegistrationFrame extends JFrame {
@@ -86,6 +88,13 @@ public class JvRegistrationFrame extends JFrame {
                 System.out.println( "kokokokokok" );
             }
         } );
+
+        addWindowListener( new WindowAdapter() {
+            @Override
+            public void windowClosing( WindowEvent e ) {
+                JvAuthFrame authFrame = new JvAuthFrame();
+            }
+        });
 
     }
 
