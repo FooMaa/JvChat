@@ -21,96 +21,96 @@ public class JvAuthTextField extends JPanel {
     private final JPanel textFieldWithButtonsPanel;
     private final int gap = 5;
 
-    public JvAuthTextField ( String text ) {
-        textFieldWithButtonsPanel = new JPanel( new FlowLayout(
-                FlowLayout.LEADING, gap, 0 ) );
-        settingTextAndButtonPanel( text );
-        settingGeneralPanel( text );
+    public JvAuthTextField(String text) {
+        textFieldWithButtonsPanel = new JPanel(new FlowLayout(
+                FlowLayout.LEADING, gap, 0));
+        settingTextAndButtonPanel(text);
+        settingGeneralPanel(text);
     }
 
-    private BufferedImage setIcon( String path ) {
+    private BufferedImage setIcon(String path) {
         try {
-            return ImageIO.read( new File( path ) );
-        } catch ( IOException ex ) {
-            System.out.println( "Нет иконки глазка" );
+            return ImageIO.read(new File(path));
+        } catch (IOException ex) {
+            System.out.println("Нет иконки глазка");
         }
         return null;
     }
 
-    private void addButtonToPanel( JPanel panel ) {
-        button = new JButton( new ImageIcon( visibleImage ) );
-        button.setContentAreaFilled( false );
-        button.setBorderPainted( false );
-        button.setMargin( new Insets ( 0,0,0, gap ) );
-        button.setEnabled( false );
-        button.setFocusPainted( false );
-        button.setPreferredSize( new Dimension ( visibleImage.getWidth() + gap,
-                visibleImage.getHeight() ) );
-        panel.add( button );
+    private void addButtonToPanel(JPanel panel) {
+        button = new JButton(new ImageIcon(visibleImage));
+        button.setContentAreaFilled(false);
+        button.setBorderPainted(false);
+        button.setMargin(new Insets(0, 0, 0, gap));
+        button.setEnabled(false);
+        button.setFocusPainted(false);
+        button.setPreferredSize(new Dimension(visibleImage.getWidth() + gap,
+                visibleImage.getHeight()));
+        panel.add(button);
     }
 
-    private void addListenerToElem( String text ) {
-        textField.addMouseListener( new MouseAdapter() {
+    private void addListenerToElem(String text) {
+        textField.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked( MouseEvent e ) {
-                textField.setFocusable( true );
-                textField.setForeground( Color.BLACK );
-                textField.setText( "" );
+            public void mouseClicked(MouseEvent e) {
+                textField.setFocusable(true);
+                textField.setForeground(Color.BLACK);
+                textField.setText("");
                 textField.requestFocusInWindow();
-                textField.removeMouseListener( this );
+                textField.removeMouseListener(this);
             }
-        } );
+        });
 
-        textField.addFocusListener( new FocusListener() {
+        textField.addFocusListener(new FocusListener() {
             @Override
-            public void focusGained( FocusEvent e )
-            {
-                if ( textField.getForeground() == Color.lightGray ) {
-                    textField.setForeground( Color.BLACK );
-                    textField.setText( "" );
+            public void focusGained(FocusEvent e) {
+                if (textField.getForeground() == Color.lightGray) {
+                    textField.setForeground(Color.BLACK);
+                    textField.setText("");
                 }
             }
+
             @Override
-            public void focusLost( FocusEvent e ) {
-                if ( Objects.equals( textField.getText(), "" ) ) {
-                    textField.setForeground( Color.lightGray );
-                    textField.setText( text );
+            public void focusLost(FocusEvent e) {
+                if (Objects.equals(textField.getText(), "")) {
+                    textField.setForeground(Color.lightGray);
+                    textField.setText(text);
                 }
             }
-        } );
+        });
     }
 
-    private void settingTextAndButtonPanel( String text ) {
-        Dimension dim = new Dimension( JvDisplaySettings.
-                getResizeFromDisplay( 0.23,
-                JvDisplaySettings.TypeOfDisplayBorder.WIDTH ),
-                JvDisplaySettings.getResizeFromDisplay( 0.03,
-                        JvDisplaySettings.TypeOfDisplayBorder.HEIGHT) );
-        textFieldWithButtonsPanel.setPreferredSize( dim );
-        makeTextField( dim );
+    private void settingTextAndButtonPanel(String text) {
+        Dimension dim = new Dimension(JvDisplaySettings.
+                getResizeFromDisplay(0.23,
+                        JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
+                JvDisplaySettings.getResizeFromDisplay(0.03,
+                        JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
+        textFieldWithButtonsPanel.setPreferredSize(dim);
+        makeTextField(dim);
 
-        textFieldWithButtonsPanel.add( textField );
-        textFieldWithButtonsPanel.setBackground( textField.getBackground() );
-        textFieldWithButtonsPanel.setBorder( null );
+        textFieldWithButtonsPanel.add(textField);
+        textFieldWithButtonsPanel.setBackground(textField.getBackground());
+        textFieldWithButtonsPanel.setBorder(null);
 
-        settingTextField( text );
+        settingTextField(text);
     }
 
-    private void makeTextField( Dimension dim ) {
+    private void makeTextField(Dimension dim) {
         textField = new JTextField();
-        textField.setPreferredSize( dim );
+        textField.setPreferredSize(dim);
     }
 
-    private void settingTextField( String text ) {
-        textField.setBorder( null );
-        textField.setText( text );
-        textField.setFont( new Font( "Times", Font.BOLD, 14 ) );
-        textField.setForeground( Color.lightGray );
-        textField.setFocusable( false );
+    private void settingTextField(String text) {
+        textField.setBorder(null);
+        textField.setText(text);
+        textField.setFont(new Font("Times", Font.BOLD, 14));
+        textField.setForeground(Color.lightGray);
+        textField.setFocusable(false);
     }
 
-    private void settingGeneralPanel( String text ) {
-        addListenerToElem( text );
-        add( textFieldWithButtonsPanel );
+    private void settingGeneralPanel(String text) {
+        addListenerToElem(text);
+        add(textFieldWithButtonsPanel);
     }
 }

@@ -2,8 +2,7 @@ package org.syssettings;
 
 import java.awt.*;
 
-public class JvDisplaySettings
-{
+public class JvDisplaySettings {
     private static final Dimension screenSize;
     public static int heightScreen;
     public static int widthScreen;
@@ -19,12 +18,12 @@ public class JvDisplaySettings
         WIDTH
     }
 
-    public static int getResizeFromDisplay ( double scale, TypeOfDisplayBorder displayBorder ) {
-        switch ( displayBorder ) {
+    public static int getResizeFromDisplay(double scale, TypeOfDisplayBorder displayBorder) {
+        switch (displayBorder) {
             case HEIGHT:
-                return ( int ) Math.round ( scale * heightScreen );
+                return (int) Math.round(scale * heightScreen);
             case WIDTH:
-                return ( int ) Math.round ( scale * widthScreen );
+                return (int) Math.round(scale * widthScreen);
         }
         return 0;
     }

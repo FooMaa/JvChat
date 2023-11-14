@@ -8,13 +8,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class JvStartPoint
-{
-    public static void main( String[] args ) throws SQLException {
+public class JvStartPoint {
+    public static void main(String[] args) throws SQLException {
         JvDbWorker db = new JvDbWorker();
         JvStartAuthentication a = new JvStartAuthentication();
-        ResultSet rs = db.makeExecution( JvDbDefines.exec );
-        List<String> al = db.getStrDataAtRow( rs, 1 );
+        ResultSet rs = db.makeExecution(JvDbDefines.exec);
+        List<String> al = db.getStrDataAtRow(rs, 1);
         db.endConnection();
     }
 }

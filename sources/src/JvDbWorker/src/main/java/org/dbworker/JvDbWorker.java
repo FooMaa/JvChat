@@ -11,13 +11,13 @@ import java.util.List;
 
 import org.dbworker.JvDbDefines;
 
-public class JvDbWorker extends JvDbDefines
-{
+public class JvDbWorker extends JvDbDefines {
     private static final String DB_URL = "jdbc:postgresql://127.0.0.1:5432/chat";
     private static final String USER = "jvchat";
     private static final String PASS = "1111";
     private static Statement stmt;
-    private static  Connection connection;
+    private static Connection connection;
+
     public JvDbWorker() throws SQLException {
         getConnection();
     }
@@ -46,32 +46,32 @@ public class JvDbWorker extends JvDbDefines
         connection.close();
     }
 
-    public ResultSet makeExecution( String execution ) throws SQLException {
+    public ResultSet makeExecution(String execution) throws SQLException {
         stmt = connection.createStatement(
                 ResultSet.TYPE_SCROLL_INSENSITIVE,
-                ResultSet.CONCUR_READ_ONLY );
+                ResultSet.CONCUR_READ_ONLY);
         ResultSet resultSet;
 
-        resultSet = stmt.executeQuery( execution );
+        resultSet = stmt.executeQuery(execution);
         return resultSet;
 
     }
 
-    public List<String> getStrDataAtRow(ResultSet resultSet, int row ) throws SQLException {
+    public List<String> getStrDataAtRow(ResultSet resultSet, int row) throws SQLException {
         // в БД нумерация рядов и столбцов не с 0, а с 1
         ResultSetMetaData metadata = resultSet.getMetaData();
         List<String> columns = new ArrayList<String>();
 
         int columnCount = metadata.getColumnCount();
-        List<String> result = new ArrayList< String >( columnCount );
+        List<String> result = new ArrayList<String>(columnCount);
 
-        resultSet.absolute( row );
+        resultSet.absolute(row);
 
-        for ( int i = 1; i <= columnCount; i++ ) {
-            result.add(resultSet.getString( i ));
+        for (int i = 1; i <= columnCount; i++) {
+            result.add(resultSet.getString(i));
         }
 
-        System.out.println( result );
+        System.out.println(result);
         return result;
     }
 }
