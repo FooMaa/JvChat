@@ -10,10 +10,8 @@ function run {
     pushd $PROJECT_DIR >> $LOG_FILE 2>&1
     if [[ $PROFILE == "tests" ]]; then
         mvn test -Ptests
-    elif [[ $PROFILE == "users" ]]; then
-        mvn exec:java -Pusers >> $LOG_FILE 2>&1
-    elif [[ $PROFILE == "servers" ]]; then
-        mvn exec:java -Pservers >> $LOG_FILE 2>&1
+    else
+        mvn exec:java -P$PROFILE >> $LOG_FILE 2>&1
     fi
     echo -e "\\r[ $CHECK_MARK ] running"
 }
