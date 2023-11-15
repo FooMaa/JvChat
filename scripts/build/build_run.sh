@@ -9,7 +9,7 @@ function run {
     echo -n "[...] running"
     pushd $PROJECT_DIR >> $LOG_FILE 2>&1
     if [[ $PROFILE == "tests" ]]; then
-        mvn clean install -Ptests
+        mvn test -Ptests
     elif [[ $PROFILE == "users" ]]; then
         mvn exec:java -Pusers >> $LOG_FILE 2>&1
     elif [[ $PROFILE == "servers" ]]; then
