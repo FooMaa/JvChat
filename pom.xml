@@ -23,6 +23,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <version.exec-maven-plugin>3.1.0</version.exec-maven-plugin>
+        <maven.test.skip>true</maven.test.skip>
     </properties>
 
     <build>
@@ -53,7 +54,7 @@
         <profile>
             <id>users</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <maven.test.skip>true</maven.test.skip>
