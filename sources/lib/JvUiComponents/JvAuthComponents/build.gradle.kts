@@ -1,9 +1,8 @@
 plugins {
     id("java")
-    application
 }
 
-group = "org.foomaa.jvchat.startpoint"
+group = "org.foomaa.jvchat.uicomponents.auth"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -11,31 +10,13 @@ repositories {
 }
 
 dependencies {
+//    implementation(project(mapOf("path" to ":sources:lib:JvSystemSettings")))
 //    for new tests
 //    testImplementation(platform("org.junit:junit-bom:5.9.1"))
 //    testImplementation("org.junit.jupiter:junit-jupiter")
-    implementation(project(":sources:src:JvDbWorker"))
-    implementation(project(":sources:src:JvAuthentication"))
     testImplementation("junit:junit:3.8.1")
-
-}
-
-application {
-    mainClass.set("org.foomaa.jvchat.startpoint.JvStartPoint")
-}
-
-allprojects {
-    tasks {
-        javadoc {
-            options.encoding = "UTF-8"
-        }
-        compileJava {
-            options.encoding = "UTF-8"
-        }
-        compileTestJava {
-            options.encoding = "UTF-8"
-        }
-    }
+//    implementation(project(":sources:lib:JvSystemSettings"))
+    implementation(project(":sources:lib:JvSystemSettings"))
 }
 
 tasks.test {
@@ -48,6 +29,19 @@ tasks.test {
     failFast = true
     testLogging {
         events("passed", "failed", "skipped", "standardOut")
+    }
+}
+allprojects {
+    tasks {
+        javadoc {
+            options.encoding = "UTF-8"
+        }
+        compileJava {
+            options.encoding = "UTF-8"
+        }
+        compileTestJava {
+            options.encoding = "UTF-8"
+        }
     }
 }
 
