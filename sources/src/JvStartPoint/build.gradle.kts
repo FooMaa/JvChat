@@ -6,6 +6,10 @@ plugins {
 group = "org.foomaa.jvchat.startpoint"
 version = "1.0-SNAPSHOT"
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
@@ -17,15 +21,19 @@ application {
 }
 
 tasks.test {
+    testLogging.showStandardStreams = true
+    testClassesDirs("org.foomaa.jvchat.startpoint.AppTest")
     useJUnitPlatform()
     maxHeapSize = "1G"
 
     testLogging {
-        events("passed")
+        events("passed", "failed", "skipped", "standardOut")
     }
 }
-sourceSets {
-    test {
-            java.srcDir("src/test")
-    }
+
+sourceSets.getByName("main") {
+    java.srcDir("src/main/java")
+}
+sourceSets.getByName("test") {
+    java.srcDir("src/test/java/")
 }

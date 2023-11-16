@@ -19,7 +19,7 @@ public class AppTest
     {
         super( testName );
         System.out.println("asasaa");
-
+        return;
     }
 
     /**
