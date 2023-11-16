@@ -25,10 +25,10 @@ public class JvAuthPasswordField extends JPanel {
     private final int gap = 5;
 
     public JvAuthPasswordField(String text) {
-        visibleImage = setIcon("sources/lib/JvUiComponents/JvAuthComponents/" +
-                "src/main/java/org/foomaa/jvchat/uicomponents/auth/resources/eye.png");
-        invisibleImage = setIcon("sources/lib/JvUiComponents/JvAuthComponents/" +
-                "src/main/java/org/foomaa/jvchat/uicomponents/auth/resources/eye-close.png");
+        visibleImage = setIcon(
+                "/home/oem/JvChat/sources/lib/JvUiComponents/JvAuthComponents/src/main/resources/eye.png");
+        invisibleImage = setIcon(
+                "/home/oem/JvChat/sources/lib/JvUiComponents/JvAuthComponents/src/main/resources/eye-close.png");
 
         passwordFieldWithButtonsPanel = new JPanel(new FlowLayout(
                 FlowLayout.LEADING, gap, 0));

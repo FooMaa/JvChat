@@ -15,7 +15,7 @@ dependencies {
 //    testImplementation(platform("org.junit:junit-bom:5.9.1"))
 //    testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("junit:junit:3.8.1")
-//    implementation(project(":sources:lib:JvSystemSettings"))
+    implementation("net.imagej:ij:1.51h")
     implementation(project(":sources:lib:JvSystemSettings"))
 }
 
@@ -45,8 +45,13 @@ allprojects {
     }
 }
 
+tasks.withType<ProcessResources> {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
 sourceSets.getByName("main") {
-    java.srcDir("src/main/java")
+    java.srcDir("src/main/java/")
+    resources.srcDir("src/main/resources/")
 }
 sourceSets.getByName("test") {
     java.srcDir("src/test/java/")
