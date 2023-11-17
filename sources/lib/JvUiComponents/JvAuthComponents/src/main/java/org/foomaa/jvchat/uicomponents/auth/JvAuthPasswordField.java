@@ -25,10 +25,8 @@ public class JvAuthPasswordField extends JPanel {
     private final int gap = 5;
 
     public JvAuthPasswordField(String text) {
-        visibleImage = setIcon(
-                "/home/oem/JvChat/sources/lib/JvUiComponents/JvAuthComponents/src/main/resources/eye.png");
-        invisibleImage = setIcon(
-                "/home/oem/JvChat/sources/lib/JvUiComponents/JvAuthComponents/src/main/resources/eye-close.png");
+        visibleImage = setIcon("/eye.png");
+        invisibleImage = setIcon("/eye-close.png");
 
         passwordFieldWithButtonsPanel = new JPanel(new FlowLayout(
                 FlowLayout.LEADING, gap, 0));
@@ -39,7 +37,7 @@ public class JvAuthPasswordField extends JPanel {
 
     private BufferedImage setIcon(String path) {
         try {
-            return ImageIO.read(new File(path));
+            return ImageIO.read(getClass().getResource(path));
         } catch (IOException ex) {
             System.out.println("Нет иконки глазка");
         }

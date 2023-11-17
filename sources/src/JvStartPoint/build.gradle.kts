@@ -11,9 +11,6 @@ repositories {
 }
 
 dependencies {
-//    for new tests
-//    testImplementation(platform("org.junit:junit-bom:5.9.1"))
-//    testImplementation("org.junit.jupiter:junit-jupiter")
     implementation(project(":sources:src:JvDbWorker"))
     implementation(project(":sources:src:JvAuthentication"))
     testImplementation("junit:junit:3.8.1")
@@ -24,35 +21,21 @@ application {
     mainClass.set("org.foomaa.jvchat.startpoint.JvStartPoint")
 }
 
-allprojects {
-    tasks {
-        javadoc {
-            options.encoding = "UTF-8"
-        }
-        compileJava {
-            options.encoding = "UTF-8"
-        }
-        compileTestJava {
-            options.encoding = "UTF-8"
-        }
-    }
-}
-
 tasks.test {
     testLogging.showStandardStreams = true
+
     useJUnit()
-//    for new tests
-//    useTestNG()
-//    useJUnitPlatform()
+
     maxHeapSize = "1G"
     failFast = true
+
     testLogging {
         events("passed", "failed", "skipped", "standardOut")
     }
 }
 
 sourceSets.getByName("main") {
-    java.srcDir("src/main/java")
+    java.srcDir("src/main/java/")
 }
 sourceSets.getByName("test") {
     java.srcDir("src/test/java/")
