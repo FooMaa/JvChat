@@ -21,8 +21,18 @@ application {
     mainClass.set("org.foomaa.jvchat.startpoint.JvStartPoint")
 }
 
+tasks {
+    "run" {
+        onlyIf {
+            project.hasProperty("users")
+        }
+    }
+}
+
 tasks.test {
-    testLogging.showStandardStreams = true
+    onlyIf {
+        project.hasProperty("tests")
+    }
 
     useJUnit()
 
@@ -30,7 +40,7 @@ tasks.test {
     failFast = true
 
     testLogging {
-        events("passed", "failed", "skipped", "standardOut")
+        events("passed", "failed", "skipped")
     }
 }
 

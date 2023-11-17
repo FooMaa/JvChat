@@ -16,7 +16,9 @@ dependencies {
 
 
 tasks.test {
-    testLogging.showStandardStreams = true
+    onlyIf {
+        project.hasProperty("tests")
+    }
 
     useJUnit()
 
@@ -24,7 +26,7 @@ tasks.test {
     failFast = true
 
     testLogging {
-        events("passed", "failed", "skipped", "standardOut")
+        events("passed", "failed", "skipped")
     }
 }
 
