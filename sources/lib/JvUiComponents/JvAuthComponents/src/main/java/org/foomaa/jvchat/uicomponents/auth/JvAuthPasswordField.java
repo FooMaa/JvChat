@@ -18,7 +18,7 @@ public class JvAuthPasswordField extends JPanel {
     private BufferedImage visibleImage;
     private BufferedImage invisibleImage;
     private boolean flagEye = false;
-    private static boolean unLockPass = false;
+    private boolean unLockPass = false;
     private JPasswordField passwordField;
     private JButton button;
     private final JPanel passwordFieldWithButtonsPanel;
