@@ -22,7 +22,7 @@
     <build>
         <resources>
             <resource>
-                <directory>../../../res</directory>
+                <directory>../../../res/icons/</directory>
             </resource>
         </resources>
     </build>
