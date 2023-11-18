@@ -15,7 +15,7 @@ CROSS_MARK="\033[0;31m\xE2\x9c\x97\033[0m"
 function usage {
     cat <<EOF
     Usage: $0 [options]
-    -i      install requirements    install requirements ( OPTIONAL ) Example $0 -i
+    -i      install dependencies    install dependencies ( OPTIONAL ) Example $0 -i
     -h      help menu               to see this help ( OPTIONAL ) Example $0 -h
     -p      need make pg_hba.conf   copy pg_hba.conf from repo ( OPTIONAL ) Example $0 -h
     -w      set password            set defaut password to postgres ( OPTIONAL ) Example $0 -w '9999'
@@ -64,13 +64,13 @@ function check_package {
     
 }
 
-function install_requirements {
+function install_dependencies {
     echo -n "[...] check and install package"
 
-    mapfile -t REQUIREMENTS < <(cat $PROJECT_DIR/data/requirements)
-    for req in "${!REQUIREMENTS[@]}"
+    mapfile -t DEPENDENCIES < <(cat $PROJECT_DIR/data/dependencies)
+    for dep in "${!DEPENDENCIES[@]}"
     do
-        check_package ${REQUIREMENTS[$req]}
+        check_package ${DEPENDENCIES[$dep]}
     done    
     
     echo -e "\\r[ $CHECK_MARK ] check and install package"
@@ -124,7 +124,7 @@ done
 check_root_and_param
 
 if [[ $NEED_INSTALL == true ]]; then 
-    install_requirements
+    install_dependencies
 fi
 
 set_pwd_postgres

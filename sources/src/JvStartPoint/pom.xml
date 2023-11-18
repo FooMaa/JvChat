@@ -2,13 +2,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.jvchat</groupId>
+        <groupId>org.foomaa.jvchat</groupId>
         <artifactId>JvChat</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.start</groupId>
+    <groupId>org.foomaa.jvchat.startpoint</groupId>
     <artifactId>JvStartPoint</artifactId>
     <packaging>jar</packaging>
 
@@ -17,25 +17,52 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <mainClass>org.start.JvStartPoint</mainClass>
+        <mainClass>org.foomaa.jvchat.startpoint.JvStartPoint</mainClass>
+        <exec.skip>false</exec.skip>
     </properties>
 
 
-    <build>
+    <profiles>
+        <profile>
+            <id>tests</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>${version.exec-maven-plugin}</version>
+                        <configuration>
+                            <mainClass>${mainClass}</mainClass>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
 
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.1.0</version>
-                <configuration>
-                    <skip>false</skip>
-                    <mainClass>${mainClass}</mainClass>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
+        <profile>
+            <id>users</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>${version.exec-maven-plugin}</version>
+                        <configuration>
+                            <mainClass>${mainClass}</mainClass>
+                            <skip>false</skip>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <dependencies>
         <dependency>
@@ -46,15 +73,16 @@
         </dependency>
 
         <dependency>
-            <groupId>org.auth</groupId>
+            <groupId>org.foomaa.jvchat.auth</groupId>
             <artifactId>JvAuthentication</artifactId>
-            <version>${project.version}</version>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
-            <groupId>org.dbworker</groupId>
+            <groupId>org.foomaa.jvchat.dbworker</groupId>
             <artifactId>JvDbWorker</artifactId>
-            <version>${project.version}</version>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
+
     </dependencies>
 </project>

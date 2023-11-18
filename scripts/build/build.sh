@@ -8,7 +8,7 @@ CHECK_MARK="\033[0;32m\xE2\x9c\x94\033[0m"
 CROSS_MARK="\033[0;31m\xE2\x9c\x97\033[0m"
 
 function exit_package { 
-    echo -e "Install requirements scripts/requirements/install_requirements.sh"
+    echo -e "Install dependencies scripts/dependencies/install_dependencies.sh"
     exit 1 
 }
 
@@ -20,13 +20,13 @@ function check_package {
     fi    
 }
 
-function check_requirements {
+function check_dependencies {
     echo -n "[...] check and install package"
 
-    mapfile -t REQUIREMENTS < <(cat $PROJECT_DIR/data/requirements)
-    for req in "${!REQUIREMENTS[@]}"
+    mapfile -t DEPENDENCIES < <(cat $PROJECT_DIR/data/dependencies)
+    for dep in "${!DEPENDENCIES[@]}"
     do
-        check_package ${REQUIREMENTS[$req]}
+        check_package ${DEPENDENCIES[$dep]}
     done    
     
     echo -e "\\r[ $CHECK_MARK ] check and install package"
@@ -53,5 +53,5 @@ function maven_start {
     echo -e "\\r[ $CHECK_MARK ] building"
 }
 
-check_requirements
+check_dependencies
 maven_start
