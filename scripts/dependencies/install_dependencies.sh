@@ -50,15 +50,51 @@ function install_dependencies {
     echo -e "\\r[ $CHECK_MARK ] check and install package"
 }
 
-function update_maven {
-    echo -n "[...] updating maven"
-    tar -xzf $PROJECT_DIR/data/apache-maven*.tar.gz
-    rm -r /usr/share/maven/*
-    mv apache-maven*/* /usr/share/maven/
-    rm -r apache-maven*
-    echo -e "\\r[ $CHECK_MARK ] updating maven"
+function remove_arc_dependences {
+    echo -n "[...] remove $1"   
+    if [[ $1 == "maven" ]]; then
+    	NAME_PACKET=$(ls /opt | grep apache-maven*)
+    	NAME_COMMAND="mvn"
+    elif [[ $1 == "gradle" ]]; then
+    	NAME_PACKET=$(ls /opt | grep gradle*)
+    	NAME_COMMAND="gradle"
+    fi
+    
+    if [[ $NAME_PACKET != "" && $NAME_COMMAND != "" ]]; then
+    	if [ -d /opt/$NAME_PACKET ]; then
+    	    rm -r /opt/$NAME_PACKET
+    	fi
+    	if [ -L /usr/bin/$NAME_COMMAND ]; then
+    	    rm -r /usr/bin/$NAME_COMMAND
+    	fi
+    fi
+    echo -e "\\r[ $CHECK_MARK ] remove $1"
+}
+
+function install_arc_dependences {
+    echo -n "[...] installing $1"
+    
+    if [[ $1 == "maven" ]]; then
+    	tar -xzf $PROJECT_DIR/data/apache-maven*.tar.gz
+    	NAME_PACKET=$(ls | grep apache-maven*)
+    	NAME_COMMAND="mvn"
+    elif [[ $1 == "gradle" ]]; then
+    	unzip -q $PROJECT_DIR/data/gradle*.zip
+    	NAME_PACKET=$(ls | grep gradle*)
+    	NAME_COMMAND="gradle"
+    fi
+     
+    mv $NAME_PACKET* /opt/ 
+    #export M2_HOME=/opt/$NAME_MVN
+    #export GRADLE_HOME=/opt/$NAME_GRADLE
+    
+    ln -s /opt/$NAME_PACKET/bin/$NAME_COMMAND /usr/bin/$NAME_COMMAND
+    echo -e "\\r[ $CHECK_MARK ] installing $1"
 }
 
 check_root
 install_dependencies
-update_maven
+remove_arc_dependences maven
+remove_arc_dependences gradle
+install_arc_dependences maven
+install_arc_dependences gradle
