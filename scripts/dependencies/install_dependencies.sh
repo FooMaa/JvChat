@@ -53,10 +53,10 @@ function install_dependencies {
 function remove_arc_dependences {
     echo -n "[...] remove $1"   
     if [[ $1 == "maven" ]]; then
-    	NAME_PACKET=$(ls /opt | grep apache-maven*)
+    	NAME_PACKET=$(ls /opt | grep apache-maven)
     	NAME_COMMAND="mvn"
     elif [[ $1 == "gradle" ]]; then
-    	NAME_PACKET=$(ls /opt | grep gradle*)
+    	NAME_PACKET=$(ls /opt | grep gradle)
     	NAME_COMMAND="gradle"
     fi
     
@@ -76,15 +76,15 @@ function install_arc_dependences {
     
     if [[ $1 == "maven" ]]; then
     	tar -xzf $PROJECT_DIR/data/apache-maven*.tar.gz
-    	NAME_PACKET=$(ls | grep apache-maven*)
+    	NAME_PACKET=$(ls | grep apache-maven)
     	NAME_COMMAND="mvn"
     elif [[ $1 == "gradle" ]]; then
     	unzip -q $PROJECT_DIR/data/gradle*.zip
-    	NAME_PACKET=$(ls | grep gradle*)
+    	NAME_PACKET=$(ls | grep gradle-)
     	NAME_COMMAND="gradle"
     fi
      
-    mv $NAME_PACKET* /opt/ 
+    mv $NAME_PACKET /opt/ 
     #export M2_HOME=/opt/$NAME_MVN
     #export GRADLE_HOME=/opt/$NAME_GRADLE
     
