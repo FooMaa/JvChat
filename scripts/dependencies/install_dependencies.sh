@@ -84,18 +84,19 @@ function install_arc_dependences {
     fi
     mv $NAME_PACKET /opt 
     #export M2_HOME=/opt/$NAME_MVN
-    #export GRADLE_HOME=/opt/$NAME_GRADLE
-    ln -s /opt/$NAME_PACKET/bin/$NAME_COMMAND /usr/bin/$NAME_COMMAND
+    #export GRADLE_HOME=/opt/$NAME_GRADLEg
+    ln -sf /opt/$NAME_PACKET/bin/$NAME_COMMAND /usr/bin/$NAME_COMMAND
     echo -e "\\r[ $CHECK_MARK ] installing $1"
 }
 
 function install_git_lfs {
     echo -n "[...] installing git-lfs"
     tar -xzf $PROJECT_DIR"data/git-lfs"*".tar.gz"
-    bash "git-lfs"*"/install.sh"
-    rm -r "git-lfs"*
-    git lfs install 
-    git lfs pull
+    bash "git-lfs"*"/install.sh" >> tmp.log
+    rm -r "git-lfs"* 
+    git lfs install >> tmp.log
+    git lfs pull >> tmp.log
+    rm tmp.log
     echo -e "\\r[ $CHECK_MARK ] installing git-lfs"
 }
 
