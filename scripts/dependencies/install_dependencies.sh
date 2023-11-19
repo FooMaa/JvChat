@@ -62,10 +62,10 @@ function remove_arc_dependences {
     
     if [[ $NAME_PACKET != "" && $NAME_COMMAND != "" ]]; then
     	if [ -d "/opt/"$NAME_PACKET ]; then
-    	    rm -r /opt/$NAME_PACKET
+    	    rm -rf /opt/$NAME_PACKET
     	fi
     	if [ -L /usr/bin/$NAME_COMMAND ]; then
-    	    rm -r "/usr/bin/"$NAME_COMMAND
+    	    rm -rf "/usr/bin/"$NAME_COMMAND
     	fi
     fi
     echo -e "\\r[ $CHECK_MARK ] remove $1"
