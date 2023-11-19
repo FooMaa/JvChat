@@ -154,7 +154,7 @@ function post_inst {
 }
 
 check_root
-check_internet
+#check_internet
 install_dependencies
 #install_git_lfs
 download_gradle
