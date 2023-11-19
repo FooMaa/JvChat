@@ -35,7 +35,6 @@ function check_package {
     if [[ $? -eq 1 ]]; then
         install_package $1
     fi
-    
 }
 
 function install_dependencies {
