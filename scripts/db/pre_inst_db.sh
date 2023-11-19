@@ -67,7 +67,7 @@ function check_package {
 function install_dependencies {
     echo -n "[...] check and install package"
 
-    mapfile -t DEPENDENCIES < <(cat $PROJECT_DIR/data/dependencies)
+    mapfile -t DEPENDENCIES < <(cat $PROJECT_DIR"data/dependencies")
     for dep in "${!DEPENDENCIES[@]}"
     do
         check_package ${DEPENDENCIES[$dep]}
@@ -91,8 +91,8 @@ function make_pg_hba_file {
     VERSION_PG=$(psql --version | sed -e 's/[^0-9][^0-9]*//' -e 's/\..*//')
     cp /etc/postgresql/$VERSION_PG/main/pg_hba.conf /tmp/
     rm /etc/postgresql/$VERSION_PG/main/pg_hba.conf
-    chmod 644 $PROJECT_DIR/data/pg_hba.conf
-    cp $PROJECT_DIR/data/pg_hba.conf /etc/postgresql/$VERSION_PG/main
+    chmod 644 $PROJECT_DIR"data/pg_hba.conf"
+    cp $PROJECT_DIR"data/pg_hba.conf" /etc/postgresql/$VERSION_PG/main
     service postgresql restart
 
     echo -e "\\r[ $CHECK_MARK ] make pg_hba.conf file"
