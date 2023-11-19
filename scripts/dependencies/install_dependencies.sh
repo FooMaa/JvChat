@@ -136,10 +136,10 @@ function check_builder {
 
 function check_internet {
     echo -n "[...] check internet"
-    ping -c 1 google.com >> $LOG_FILE 2>&1
+    ping -c 1 8.8.8.8 >> $LOG_FILE 2>&1
     EXIT_CODE=$?
     if [[ $EXIT_CODE -ne 0 ]]; then
-        echo -e "\\r[ $CROSS_MARK ] building"
+        echo -e "\\r[ $CROSS_MARK ] check internet"
         cat "$LOG_FILE"
         exit 1
     fi
