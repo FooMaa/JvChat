@@ -82,6 +82,7 @@ function install_arc_dependences {
     	NAME_PACKET=$(ls | grep apache-maven)
     	NAME_COMMAND="mvn"
     elif [[ $1 == "gradle" ]]; then
+    	echo $(ls data)
     	unzip -q $PROJECT_DIR/data/gradle*.zip
     	NAME_PACKET=$(ls | grep gradle-)
     	NAME_COMMAND="gradle"
