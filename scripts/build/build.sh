@@ -33,11 +33,16 @@ function check_dependencies {
     echo -e "\\r[ $CHECK_MARK ] check and install package"
 }
 
-function setting_package {
-    echo -n "[...] setting packages"
-    update-alternatives --config java
-    export JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk-amd64
-    echo -e "\\r[ $CHECK_MARK ] setting packages"
+function check_builder {
+    echo -n "[...] check builder $1"
+    $1 -v >> $LOG_FILE 2>&1
+    EXIT_CODE=$?
+    if [[ $EXIT_CODE -ne 0 ]]; then
+        echo -e "\\r[ $CROSS_MARK ] check builder $1"
+        cat "$LOG_FILE"
+        exit 1
+    fi
+    echo -e "\\r[ $CHECK_MARK ] check builder $1"
 }
 
 function build_start {
@@ -70,7 +75,7 @@ EOF
 
 function check_has_param {
     if [ -z "$1" ]; then 
-        echo -e "This script need a parameters"
+        echo "This script need a parameters"
         usage
         exit 1
     fi
@@ -99,4 +104,11 @@ done
 
 check_set_param
 check_dependencies
+
+if [[ $BUILDER == "maven" ]]; then 
+    check_builder "mvn"
+elif [[ $BUILDER == "gradle" ]]; then
+    check_builder "gradle"
+fi
+
 build_start

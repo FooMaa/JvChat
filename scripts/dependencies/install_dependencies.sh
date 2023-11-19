@@ -79,9 +79,8 @@ function install_arc_dependences {
     	NAME_PACKET=$(ls | grep gradle-)
     	NAME_COMMAND="gradle"
     fi
+    
     mv $NAME_PACKET /opt 
-    #export M2_HOME=/opt/$NAME_MVN
-    #export GRADLE_HOME=/opt/$NAME_GRADLEg
     ln -sf /opt/$NAME_PACKET/bin/$NAME_COMMAND /usr/bin/$NAME_COMMAND
     echo -e "\\r[ $CHECK_MARK ] installing $1"
 }
@@ -97,6 +96,18 @@ function install_git_lfs {
     echo -e "\\r[ $CHECK_MARK ] installing git-lfs"
 }
 
+function check_builder {
+    echo -n "[...] check builder $1"
+    $1 -v >> $LOG_FILE 2>&1
+    EXIT_CODE=$?
+    if [[ $EXIT_CODE -ne 0 ]]; then
+        echo -e "\\r[ $CROSS_MARK ] check builder $1"
+        cat "$LOG_FILE"
+        exit 1
+    fi
+    echo -e "\\r[ $CHECK_MARK ] check builder $1"
+}
+
 check_root
 install_dependencies
 install_git_lfs
@@ -104,3 +115,5 @@ remove_arc_dependences "maven"
 remove_arc_dependences "gradle"
 install_arc_dependences "maven"
 install_arc_dependences "gradle"
+check_builder "mvn"
+check_builder "gradle"

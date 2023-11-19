@@ -56,7 +56,7 @@ EOF
 
 function check_has_param {
     if [ -z "$1" ]; then 
-        echo -e "This script need a parameters"
+        echo "This script need a parameters"
         usage
         exit 1
     fi
