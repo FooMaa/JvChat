@@ -96,6 +96,32 @@ function install_git_lfs {
     echo -e "\\r[ $CHECK_MARK ] installing git-lfs"
 }
 
+function download_gradle {
+    echo -n "[...] download gradle"
+    VERSION=8.4
+    wget https://services.gradle.org/distributions/gradle-${VERSION}-bin.zip -P $PROJECT_DIR"data/" >> $LOG_FILE 2>&1
+    EXIT_CODE=$?
+    if [[ $EXIT_CODE -ne 0 ]]; then
+        echo -e "\\r[ $CROSS_MARK ] download gradle"
+        #cat "$LOG_FILE"
+        exit 1
+    fi
+    echo -e "\\r[ $CHECK_MARK ] download gradle"
+}
+
+function download_maven {
+    echo -n "[...] download maven"
+    VERSION=3.9.5
+    wget https://downloads.apache.org/maven/maven-3/${VERSION}/binaries/apache-maven-${VERSION}-bin.tar.gz -P $PROJECT_DIR"data/" >> $LOG_FILE 2>&1
+    EXIT_CODE=$?
+    if [[ $EXIT_CODE -ne 0 ]]; then
+        echo -e "\\r[ $CROSS_MARK ] download maven"
+        #cat "$LOG_FILE"
+        exit 1
+    fi
+    echo -e "\\r[ $CHECK_MARK ] download maven"
+}
+
 function check_builder {
     echo -n "[...] check builder $1"
     $1 -v >> $LOG_FILE 2>&1
@@ -108,9 +134,31 @@ function check_builder {
     echo -e "\\r[ $CHECK_MARK ] check builder $1"
 }
 
+function check_internet {
+    echo -n "[...] check internet"
+    ping -c 1 google.com >> $LOG_FILE 2>&1
+    EXIT_CODE=$?
+    if [[ $EXIT_CODE -ne 0 ]]; then
+        echo -e "\\r[ $CROSS_MARK ] building"
+        cat "$LOG_FILE"
+        exit 1
+    fi
+    echo -e "\\r[ $CHECK_MARK ] check internet"
+}
+
+function post_inst {
+    echo -n "[...] clear arc"
+    rm -rf $PROJECT_DIR"data/"*".zip"
+    rm -rf $PROJECT_DIR"data/"*".tar.gz"
+    echo -e "\\r[ $CHECK_MARK ] clear arc"
+}
+
 check_root
+check_internet
 install_dependencies
-install_git_lfs
+#install_git_lfs
+download_gradle
+download_maven
 remove_arc_dependences "maven"
 remove_arc_dependences "gradle"
 install_arc_dependences "maven"
