@@ -50,24 +50,6 @@ function install_dependencies {
     echo -e "\\r[ $CHECK_MARK ] check and install package"
 }
 
-function remove_arc_dependences {
-    echo -n "[...] remove $1"   
-    if [[ $1 == "maven" ]]; then
-    	NAME_PACKET=$(ls /opt | grep apache-maven)
-    	NAME_COMMAND="mvn"
-    elif [[ $1 == "gradle" ]]; then
-    	NAME_PACKET=$(ls /opt | grep gradle-)
-    	NAME_COMMAND="gradle"
-    fi
-    
-    if [[ $NAME_PACKET != "" && $NAME_COMMAND != "" ]]; then
-    	if [ -d "/opt/"$NAME_PACKET ]; then
-    	    rm -rf /opt/$NAME_PACKET
-    	fi
-    fi
-    echo -e "\\r[ $CHECK_MARK ] remove $1"
-}
-
 function install_arc_dependences {
     echo -n "[...] installing $1"
     if [[ $1 == "maven" ]]; then
@@ -80,7 +62,8 @@ function install_arc_dependences {
     	NAME_COMMAND="gradle"
     fi
     
-    mv $NAME_PACKET /opt 
+    cp -R $NAME_PACKET /opt
+    rm -r $NAME_PACKET 
     ln -sf /opt/$NAME_PACKET/bin/$NAME_COMMAND /usr/bin/$NAME_COMMAND
     echo -e "\\r[ $CHECK_MARK ] installing $1"
 }
@@ -148,20 +131,20 @@ function check_internet {
 
 function post_inst {
     echo -n "[...] clear arc"
-    rm -rf $PROJECT_DIR"data/"*".zip"
-    rm -rf $PROJECT_DIR"data/"*".tar.gz"
+    rm -r $PROJECT_DIR"apache-maven"* >> $LOG_FILE 2>&1
+    rm -r $PROJECT_DIR"gradle-"* >> $LOG_FILE 2>&1
+    rm -r $PROJECT_DIR"data/apache-maven"*".tar.gz"* >> $LOG_FILE 2>&1
+    rm -r $PROJECT_DIR"data/gradle-"*".zip"* >> $LOG_FILE 2>&1
     echo -e "\\r[ $CHECK_MARK ] clear arc"
 }
 
 check_root
-#check_internet
+post_inst
 install_dependencies
-#install_git_lfs
 download_gradle
 download_maven
-remove_arc_dependences "maven"
-remove_arc_dependences "gradle"
 install_arc_dependences "maven"
 install_arc_dependences "gradle"
 check_builder "mvn"
 check_builder "gradle"
+post_inst
