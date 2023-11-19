@@ -67,36 +67,41 @@ function remove_arc_dependences {
     	if [ -L /usr/bin/$NAME_COMMAND ]; then
     	    rm -r "/usr/bin/"$NAME_COMMAND
     	fi
-    	if [ -f "/usr/bin/"$NAME_COMMAND ]; then
-    	    rm -r "/usr/bin/"$NAME_COMMAND
-    	fi
     fi
     echo -e "\\r[ $CHECK_MARK ] remove $1"
 }
 
 function install_arc_dependences {
     echo -n "[...] installing $1"
-    echo $PROJECT_DIR
     if [[ $1 == "maven" ]]; then
     	tar -xzf $PROJECT_DIR"data/apache-maven"*".tar.gz"
     	NAME_PACKET=$(ls | grep apache-maven)
     	NAME_COMMAND="mvn"
     elif [[ $1 == "gradle" ]]; then
-    	unzip -q $PROJECT_DIR"data/gradle*.zip"
+    	unzip -q $PROJECT_DIR"data/gradle"*".zip"
     	NAME_PACKET=$(ls | grep gradle-)
     	NAME_COMMAND="gradle"
     fi
-     
-    mv $NAME_PACKET /opt/ 
+    mv $NAME_PACKET /opt 
     #export M2_HOME=/opt/$NAME_MVN
     #export GRADLE_HOME=/opt/$NAME_GRADLE
-    
     ln -s /opt/$NAME_PACKET/bin/$NAME_COMMAND /usr/bin/$NAME_COMMAND
     echo -e "\\r[ $CHECK_MARK ] installing $1"
 }
 
+function install_git_lfs {
+    echo -n "[...] installing git-lfs"
+    tar -xzf $PROJECT_DIR"data/git-lfs"*".tar.gz"
+    bash "git-lfs"*"/install.sh"
+    rm -r "git-lfs"*
+    git lfs install 
+    git lfs pull
+    echo -e "\\r[ $CHECK_MARK ] installing git-lfs"
+}
+
 check_root
 install_dependencies
+install_git_lfs
 remove_arc_dependences "maven"
 remove_arc_dependences "gradle"
 install_arc_dependences "maven"
