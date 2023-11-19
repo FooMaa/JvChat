@@ -89,11 +89,11 @@ function install_arc_dependences {
 function install_git_lfs {
     echo -n "[...] installing git-lfs"
     tar -xzf $PROJECT_DIR"data/git-lfs"*".tar.gz"
-    bash "git-lfs"*"/install.sh" >> tmp.log
+    bash "git-lfs"*"/install.sh" >> $LOG_FILE 2>&1
     rm -r "git-lfs"* 
-    git lfs install >> tmp.log
-    git lfs pull >> tmp.log
-    rm tmp.log
+    
+    git lfs install >> $LOG_FILE 2>&1
+    git lfs pull >> $LOG_FILE 2>&1
     echo -e "\\r[ $CHECK_MARK ] installing git-lfs"
 }
 

@@ -54,7 +54,7 @@ function usage {
 EOF
 }
 
-function check_param {
+function check_has_param {
     if [ -z "$1" ]; then 
         echo -e "This script need a parameters"
         usage
@@ -76,7 +76,7 @@ function check_set_param {
     fi
 }
 
-check_param $1
+check_has_param $1
 
 while [ -n "$1" ]; do
     case "$1" in
