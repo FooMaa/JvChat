@@ -6,6 +6,14 @@ BUILDER=""
 CHECK_MARK="\033[0;32m\xE2\x9c\x94\033[0m"
 CROSS_MARK="\033[0;31m\xE2\x9c\x97\033[0m"
 
+function check_user {
+    USER=$(whoami)
+    if [ "$USER" == root ]; then 
+        echo -e "\\rRun this script with user privileges"
+        exit 1
+    fi
+}
+
 function run {
     echo -n "[...] running"
     pushd $PROJECT_DIR >> $LOG_FILE 2>&1
@@ -92,6 +100,7 @@ while [ -n "$1" ]; do
     shift
 done
 
+check_user
 check_set_param
 build
 run

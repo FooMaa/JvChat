@@ -8,6 +8,14 @@ BUILDER=""
 CHECK_MARK="\033[0;32m\xE2\x9c\x94\033[0m"
 CROSS_MARK="\033[0;31m\xE2\x9c\x97\033[0m"
 
+function check_user {
+    USER=$(whoami)
+    if [ "$USER" == root ]; then 
+        echo -e "\\rRun this script with user privileges"
+        exit 1
+    fi
+}
+
 function exit_package { 
     echo -e "Install dependencies scripts/dependencies/install_dependencies.sh"
     exit 1 
@@ -111,4 +119,5 @@ elif [[ $BUILDER == "gradle" ]]; then
     check_builder "gradle"
 fi
 
+check_user
 build_start
