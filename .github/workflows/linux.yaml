@@ -16,6 +16,9 @@ jobs:
       - name: Build DB
         run: sudo scripts/db/make_default_db.sh
 
-      - name: Build chat
-        run: scripts/build/build.sh
+      - name: Build chat gradle
+        run: scripts/build/build.sh -g
+        
+      - name: Build chat maven
+        run: scripts/build/build.sh -m
     

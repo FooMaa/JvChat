@@ -1,6 +1,5 @@
 postgresql
 python3-psycopg2
-maven
 openjdk-17-jre
 openjdk-17-jdk
 python3

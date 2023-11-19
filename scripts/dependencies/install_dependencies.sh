@@ -50,15 +50,70 @@ function install_dependencies {
     echo -e "\\r[ $CHECK_MARK ] check and install package"
 }
 
-function update_maven {
-    echo -n "[...] updating maven"
-    tar -xzf $PROJECT_DIR/data/apache-maven*.tar.gz
-    rm -r /usr/share/maven/*
-    mv apache-maven*/* /usr/share/maven/
-    rm -r apache-maven*
-    echo -e "\\r[ $CHECK_MARK ] updating maven"
+function remove_arc_dependences {
+    echo -n "[...] remove $1"   
+    if [[ $1 == "maven" ]]; then
+    	NAME_PACKET=$(ls /opt | grep apache-maven)
+    	NAME_COMMAND="mvn"
+    elif [[ $1 == "gradle" ]]; then
+    	NAME_PACKET=$(ls /opt | grep gradle-)
+    	NAME_COMMAND="gradle"
+    fi
+    
+    if [[ $NAME_PACKET != "" && $NAME_COMMAND != "" ]]; then
+    	if [ -d "/opt/"$NAME_PACKET ]; then
+    	    rm -rf /opt/$NAME_PACKET
+    	fi
+    fi
+    echo -e "\\r[ $CHECK_MARK ] remove $1"
+}
+
+function install_arc_dependences {
+    echo -n "[...] installing $1"
+    if [[ $1 == "maven" ]]; then
+    	tar -xzf $PROJECT_DIR"data/apache-maven"*".tar.gz"
+    	NAME_PACKET=$(ls | grep apache-maven)
+    	NAME_COMMAND="mvn"
+    elif [[ $1 == "gradle" ]]; then
+    	unzip -q $PROJECT_DIR"data/gradle"*".zip"
+    	NAME_PACKET=$(ls | grep gradle-)
+    	NAME_COMMAND="gradle"
+    fi
+    
+    mv $NAME_PACKET /opt 
+    ln -sf /opt/$NAME_PACKET/bin/$NAME_COMMAND /usr/bin/$NAME_COMMAND
+    echo -e "\\r[ $CHECK_MARK ] installing $1"
+}
+
+function install_git_lfs {
+    echo -n "[...] installing git-lfs"
+    tar -xzf $PROJECT_DIR"data/git-lfs"*".tar.gz"
+    bash "git-lfs"*"/install.sh" >> $LOG_FILE 2>&1
+    rm -r "git-lfs"* 
+    
+    git lfs install >> $LOG_FILE 2>&1
+    git lfs pull >> $LOG_FILE 2>&1
+    echo -e "\\r[ $CHECK_MARK ] installing git-lfs"
+}
+
+function check_builder {
+    echo -n "[...] check builder $1"
+    $1 -v >> $LOG_FILE 2>&1
+    EXIT_CODE=$?
+    if [[ $EXIT_CODE -ne 0 ]]; then
+        echo -e "\\r[ $CROSS_MARK ] check builder $1"
+        cat "$LOG_FILE"
+        exit 1
+    fi
+    echo -e "\\r[ $CHECK_MARK ] check builder $1"
 }
 
 check_root
 install_dependencies
-update_maven
+install_git_lfs
+remove_arc_dependences "maven"
+remove_arc_dependences "gradle"
+install_arc_dependences "maven"
+install_arc_dependences "gradle"
+check_builder "mvn"
+check_builder "gradle"
