@@ -61,14 +61,14 @@ function remove_arc_dependences {
     fi
     
     if [[ $NAME_PACKET != "" && $NAME_COMMAND != "" ]]; then
-    	if [ -d /opt/$NAME_PACKET ]; then
+    	if [ -d "/opt/"$NAME_PACKET ]; then
     	    rm -r /opt/$NAME_PACKET
     	fi
     	if [ -L /usr/bin/$NAME_COMMAND ]; then
-    	    rm -r /usr/bin/$NAME_COMMAND
+    	    rm -r "/usr/bin/"$NAME_COMMAND
     	fi
-    	if [ -f /usr/bin/$NAME_COMMAND ]; then
-    	    rm -r /usr/bin/$NAME_COMMAND
+    	if [ -f "/usr/bin/"$NAME_COMMAND ]; then
+    	    rm -r "/usr/bin/"$NAME_COMMAND
     	fi
     fi
     echo -e "\\r[ $CHECK_MARK ] remove $1"
@@ -76,14 +76,13 @@ function remove_arc_dependences {
 
 function install_arc_dependences {
     echo -n "[...] installing $1"
-    
+    echo $PROJECT_DIR
     if [[ $1 == "maven" ]]; then
-    	tar -xzf $PROJECT_DIR/data/apache-maven*.tar.gz
+    	tar -xzf $PROJECT_DIR"data/apache-maven"*".tar.gz"
     	NAME_PACKET=$(ls | grep apache-maven)
     	NAME_COMMAND="mvn"
     elif [[ $1 == "gradle" ]]; then
-    	echo $(ls data)
-    	unzip -q $PROJECT_DIR/data/gradle*.zip
+    	unzip -q $PROJECT_DIR"data/gradle*.zip"
     	NAME_PACKET=$(ls | grep gradle-)
     	NAME_COMMAND="gradle"
     fi
@@ -98,7 +97,7 @@ function install_arc_dependences {
 
 check_root
 install_dependencies
-remove_arc_dependences maven
-remove_arc_dependences gradle
-install_arc_dependences maven
-install_arc_dependences gradle
+remove_arc_dependences "maven"
+remove_arc_dependences "gradle"
+install_arc_dependences "maven"
+install_arc_dependences "gradle"
