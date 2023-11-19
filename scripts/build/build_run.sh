@@ -84,6 +84,7 @@ function check_set_param {
     fi
 }
 
+check_user
 check_has_param $1
 
 while [ -n "$1" ]; do
@@ -100,7 +101,6 @@ while [ -n "$1" ]; do
     shift
 done
 
-check_user
 check_set_param
 build
 run
