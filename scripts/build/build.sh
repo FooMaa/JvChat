@@ -97,6 +97,7 @@ function check_set_param {
     fi
 }
 
+check_user
 check_has_param $1
 
 while [ -n "$1" ]; do
@@ -119,5 +120,4 @@ elif [[ $BUILDER == "gradle" ]]; then
     check_builder "gradle"
 fi
 
-check_user
 build_start
