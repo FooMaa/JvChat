@@ -54,10 +54,10 @@ function remove_arc_dependences {
     echo -n "[...] remove $1"   
     if [[ $1 == "maven" ]]; then
     	NAME_PACKET=$(ls /opt | grep apache-maven)
-    	NAME_COMMAND=mvn
+    	NAME_COMMAND="mvn"
     elif [[ $1 == "gradle" ]]; then
     	NAME_PACKET=$(ls /opt | grep gradle-)
-    	NAME_COMMAND=gradle
+    	NAME_COMMAND="gradle"
     fi
     
     if [[ $NAME_PACKET != "" && $NAME_COMMAND != "" ]]; then
@@ -65,6 +65,9 @@ function remove_arc_dependences {
     	    rm -r /opt/$NAME_PACKET
     	fi
     	if [ -L /usr/bin/$NAME_COMMAND ]; then
+    	    rm -r /usr/bin/$NAME_COMMAND
+    	fi
+    	if [ -f /usr/bin/$NAME_COMMAND ]; then
     	    rm -r /usr/bin/$NAME_COMMAND
     	fi
     fi
