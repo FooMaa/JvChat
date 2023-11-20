@@ -141,8 +141,8 @@ post_inst
 remove_conflict_package maven
 remove_conflict_package gradle
 install_dependencies
-download_gradle
 download_maven
+download_gradle
 install_arc_dependences "maven"
 install_arc_dependences "gradle"
 check_builder "mvn"
