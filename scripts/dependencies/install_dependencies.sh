@@ -153,7 +153,7 @@ function usage {
     -m	    reinstall maven		only reinstall maven (REQUIRED) Example $0 -m
     -g	    reinstall gradle    only reinstall gradle (REQUIRED) Example $0 -g
     -a	    reinstall all		only reinstall all (REQUIRED) Example $0 -a
-    -d	    reinstall repo      only reinstall from repo (REQUIRED) Example $0 -r
+    -r	    reinstall repo      only reinstall from repo (REQUIRED) Example $0 -r
     -h      help menu           to see this help (OPTIONAL) Example $0 -h
 EOF
 }

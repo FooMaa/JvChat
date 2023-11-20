@@ -33,7 +33,7 @@ function check_and_install_packages {
         if [[ $EXIT_CODE -ne 0 ]]; then
             echo -e "\\r[ $CROSS_MARK ] check packages. Installing..."
             check_sudo ${REQUIREMENTS[$req]}
-            $PROJECT_DIR"scripts/dependencies/install_dependencies.sh" -d
+            $PROJECT_DIR"scripts/dependencies/install_dependencies.sh" -r
         fi
     done
     echo -e "\\r[ $CHECK_MARK ] check packages"
