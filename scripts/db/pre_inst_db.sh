@@ -92,7 +92,7 @@ while [ -n "$1" ]; do
     case "$1" in
         -i ) NEED_INSTALL=true ;;
         -p ) NEED_PGHBA=true ;;
-        -w ) POST_PWD=$2; shift ;;
+        -w ) if [[ -z $2 || $2 == "-"* ]]; then echo -e "You send flag without password"; usage; exit 1; else POST_PWD=$2; fi; shift ;;
         -h ) usage; exit 1;;
         -- ) usage; exit 1;;
         * ) usage; exit 1 ;;

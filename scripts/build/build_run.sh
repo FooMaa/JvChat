@@ -103,9 +103,9 @@ while [ -n "$1" ]; do
         -c ) NEED_CHECK=true ;;
         -t ) PROFILE="tests" ;;
         -u ) PROFILE="users" ;;
-        -m ) BUILDER="maven" ;;
-        -g ) BUILDER="gradle" ;;
-        -s ) PROFILE="servers"; shift ;;
+        -m ) if [[ $BUILDER != "" ]]; then echo -e "\\rGive 1 builder"; usage; exit 1; else BUILDER="maven"; fi ;;
+        -g ) if [[ $BUILDER != "" ]]; then echo -e "\\rGive 1 builder"; usage; exit 1; else BUILDER="gradle"; fi ;;
+        -s ) PROFILE="servers" ;;
         -h ) usage; exit 1;;
         -- ) usage; exit 1;;
         * ) usage; exit 1 ;;
