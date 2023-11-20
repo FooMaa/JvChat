@@ -101,11 +101,11 @@ check_has_param $1
 while [ -n "$1" ]; do
     case "$1" in
         -c ) NEED_CHECK=true ;;
-        -t ) PROFILE="tests" ;;
-        -u ) PROFILE="users" ;;
+        -t ) if [[ $PROFILE != "" ]]; then echo -e "\\rGive 1 profile"; usage; exit 1; else  PROFILE="tests" ; fi ;;
+        -u ) if [[ $PROFILE != "" ]]; then echo -e "\\rGive 1 profile"; usage; exit 1; else  PROFILE="users" ; fi ;;
         -m ) if [[ $BUILDER != "" ]]; then echo -e "\\rGive 1 builder"; usage; exit 1; else BUILDER="maven"; fi ;;
         -g ) if [[ $BUILDER != "" ]]; then echo -e "\\rGive 1 builder"; usage; exit 1; else BUILDER="gradle"; fi ;;
-        -s ) PROFILE="servers" ;;
+        -s ) if [[ $PROFILE != "" ]]; then echo -e "\\rGive 1 profile"; usage; exit 1; else  PROFILE="servers" ; fi ;;
         -h ) usage; exit 1;;
         -- ) usage; exit 1;;
         * ) usage; exit 1 ;;
