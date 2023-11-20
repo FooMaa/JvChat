@@ -67,5 +67,5 @@ function fix_log {
     fi
 }
 
-fix_log
 check_packages
+fix_log
