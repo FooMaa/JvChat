@@ -12,7 +12,7 @@ function check_and_install_packages {
     mvn -v >> $LOG_FILE 2>&1
     EXIT_CODE=$?
     if [[ $EXIT_CODE -ne 0 ]]; then
-        echo -e "\\r[ $CROSS_MARK ] check packages. Installing..."
+        echo -e "\\r[ $CROSS_MARK ] check maven packages. Installing..."
         check_sudo mvn 
         $PROJECT_DIR"scripts/dependencies/install_dependencies.sh" -m
     fi
@@ -20,7 +20,7 @@ function check_and_install_packages {
     gradle -v >> $LOG_FILE 2>&1
     EXIT_CODE=$?
     if [[ $EXIT_CODE -ne 0 ]]; then
-        echo -e "\\r[ $CROSS_MARK ] check packages. Installing..."
+        echo -e "\\r[ $CROSS_MARK ] check gradle packages. Installing..."
         check_sudo gradle
         $PROJECT_DIR"scripts/dependencies/install_dependencies.sh" -g
     fi
@@ -31,7 +31,7 @@ function check_and_install_packages {
         (dpkg -s ${REQUIREMENTS[$req]} | grep "Status") >> $LOG_FILE 2>&1
         EXIT_CODE=$?
         if [[ $EXIT_CODE -ne 0 ]]; then
-            echo -e "\\r[ $CROSS_MARK ] check packages. Installing..."
+            echo -e "\\r[ $CROSS_MARK ] check repo packages. Installing..."
             check_sudo ${REQUIREMENTS[$req]}
             $PROJECT_DIR"scripts/dependencies/install_dependencies.sh" -r
         fi
