@@ -35,6 +35,7 @@ function check_root_and_param {
 
     USER=$(whoami)
     if [ "$USER" != root ]; then 
+        echo -e "\\r[ $CROSS_MARK ] check and scan parameters"
         echo "Run this script with root privileges"
         exit 1
     fi
