@@ -33,6 +33,7 @@ parser = ArgumentParser()
 parser.add_argument('-r', '--regime', nargs='?', type=str, dest='regime', default='default', help='Set regime \'dump\' or \'restore\'')
 parser.add_argument('-a', '--adminpwd', nargs='?', type=str, dest='ADMIN_PWD', default=STOCK_ADMIN_PWD, help='Set password for admin. Default {0}'.format(STOCK_ADMIN_PWD))
 parser.add_argument('-u', '--userpwd', nargs='?', type=str, dest='DB_USER_PWD', default=STOCK_USER_PWD, help='Set password for admin. Default {0}'.format(STOCK_USER_PWD))
+parser.add_argument('-c', '--clear', action='store_true', dest='clear', default=False, help='Need full clear DB. Default not clear')
 args = parser.parse_args()
 
 
@@ -44,6 +45,7 @@ def arg(name):
 ADMIN_PWD = arg('ADMIN_PWD')
 DB_USER_PWD = arg('DB_USER_PWD')
 regime = arg('regime')
+clear= arg('clear')
 
 admin_connection = dict({"username": ADMIN_USER,
                          "host": DEFAULT_DB_IP,
@@ -262,6 +264,17 @@ def make_pg_restore(backup_dir, db_name, file_name, db_user, host, schemas):
     print(SUCCESS + "Restore database {0} from dump".format(db_name))
     exit(1) # если надо выйти из скрипта после накатывания дампа
 
+def clear_all():
+    sys.stdout.write(PENDING + "Clear all")
+
+    db = DataBase(admin_connection)
+    db.query("DROP SCHEMA IF EXISTS {0};".format(DEFAULT_SCHEMA))
+    drop_database(DEFAULT_DB_NAME, DEFAULT_DB_USER)
+
+    if db.exists('pg_roles', 'rolname', DEFAULT_DB_USER):
+        db.query("DROP ROLE {0};".format(DEFAULT_DB_USER))
+
+    print(SUCCESS + "Clear all")
 
 if __name__ == '__main__':
     if regime == 'dump':
@@ -277,6 +290,9 @@ if __name__ == '__main__':
     elif regime != 'default':
         print(FAIL + "See help to get correct parameter to regim")
         exit(1)
+
+    if clear == True:
+         clear_all()
     
     create_user()
     drop_database(DEFAULT_DB_NAME, DEFAULT_DB_USER)
