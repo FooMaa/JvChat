@@ -24,7 +24,7 @@ EOF
 
 function check_param {
     if [ -z "$1" ]; then 
-        echo -e "This script need a parameters"
+        echo "This script need a parameters"
         usage
         exit 1
     fi
@@ -35,7 +35,7 @@ function check_root_and_param {
 
     USER=$(whoami)
     if [ "$USER" != root ]; then 
-        echo -e "\\rRun this script with root privileges"
+        echo "Run this script with root privileges"
         exit 1
     fi
 

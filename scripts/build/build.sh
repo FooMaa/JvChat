@@ -12,7 +12,7 @@ CROSS_MARK="\033[0;31m\xE2\x9c\x97\033[0m"
 function check_user {
     USER=$(whoami)
     if [ "$USER" == root ]; then 
-        echo -e "\\rRun this script with user privileges"
+        echo "Run this script with user privileges"
         exit 1
     fi
 }

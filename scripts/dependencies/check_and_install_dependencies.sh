@@ -53,7 +53,7 @@ function Sudo {
 
 function check_sudo {
     if [ "$USER" != root ]; then 
-        echo -e "\\rThis script runned as user. Fail dependense: $1. You should run scripts/dependencies/install_dependencies.sh as root."
+        echo "This script runned as user. Fail dependense: $1. You should run scripts/dependencies/install_dependencies.sh as root."
         rm $LOG_FILE
         exit 1
     fi
