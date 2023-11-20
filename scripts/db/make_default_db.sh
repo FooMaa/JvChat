@@ -1,6 +1,8 @@
 #!/bin/bash
 
 DIR=$(realpath $0 | sed -e "s/\/make_default_db.*//g")
+CHECK_MARK="\033[0;32m\xE2\x9c\x94\033[0m"
+CROSS_MARK="\033[0;31m\xE2\x9c\x97\033[0m"
 
 function check_root {
     USER=$(whoami)
@@ -11,8 +13,13 @@ function check_root {
 }
 
 function run {
-    $DIR/pre_inst_db.sh -i -p
-    $DIR/db_creator.py
+    bash $DIR"/pre_inst_db.sh" -i -p
+    EXIT_CODE=$?
+    if [[ $EXIT_CODE -ne 0 ]]; then
+        echo -e "\\r[ $CROSS_MARK ] . Fail pre_inst_db.sh.sh.."
+        exit 1 
+    fi
+    $DIR"/db_creator.py"
 }
 
 check_root

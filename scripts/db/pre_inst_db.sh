@@ -15,10 +15,10 @@ CROSS_MARK="\033[0;31m\xE2\x9c\x97\033[0m"
 function usage {
     cat <<EOF
     Usage: $0 [options]
-    -i      install dependencies    install dependencies ( OPTIONAL ) Example $0 -i
-    -h      help menu               to see this help ( OPTIONAL ) Example $0 -h
-    -p      need make pg_hba.conf   copy pg_hba.conf from repo ( OPTIONAL ) Example $0 -h
-    -w      set password            set defaut password to postgres ( OPTIONAL ) Example $0 -w '9999'
+    -i      install dependencies    install dependencies (OPTIONAL) Example $0 -i
+    -h      help menu               to see this help (OPTIONAL) Example $0 -h
+    -p      need make pg_hba.conf   copy pg_hba.conf from repo (OPTIONAL) Example $0 -h
+    -w      set password            set defaut password to postgres (OPTIONAL) Example $0 -w '9999'
 EOF
 }
 
@@ -46,34 +46,13 @@ function check_root_and_param {
     echo -e "\\r[ $CHECK_MARK ] check and scan parameters"
 }
 
-function install_package { 
-    if [[ $UPDATING_REPO == false ]]; then
-        apt update >> $LOG_FILE 2>&1
-        UPDATING_REPO=true
+function check_packages {
+    $PROJECT_DIR"scripts/dependencies/check_dependencies.sh"
+    EXIT_CODE=$?
+    if [[ $EXIT_CODE -ne 0 ]]; then
+        echo -e "\\r[ $CROSS_MARK ] check packages. Fail check_dependencies.sh.."
+        exit 1 
     fi
-    
-    apt install -y $1 >> $LOG_FILE 2>&1
-}
-
-function check_package {
-    (dpkg -s $1 | grep "Status") >> $LOG_FILE 2>&1
-    
-    if [[ $? -eq 1 ]]; then
-        install_package $1
-    fi
-    
-}
-
-function install_dependencies {
-    echo -n "[...] check and install package"
-
-    mapfile -t DEPENDENCIES < <(cat $PROJECT_DIR"data/dependencies")
-    for dep in "${!DEPENDENCIES[@]}"
-    do
-        check_package ${DEPENDENCIES[$dep]}
-    done    
-    
-    echo -e "\\r[ $CHECK_MARK ] check and install package"
 }
 
 function set_pwd_postgres {
@@ -124,7 +103,7 @@ done
 check_root_and_param
 
 if [[ $NEED_INSTALL == true ]]; then 
-    install_dependencies
+    check_packages
 fi
 
 set_pwd_postgres

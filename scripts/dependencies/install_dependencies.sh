@@ -31,8 +31,8 @@ function install_package {
 
 function check_package {
     (dpkg -s $1 | grep "Status") >> $LOG_FILE 2>&1
-    
-    if [[ $? -eq 1 ]]; then
+    EXIT_CODE=$?
+    if [[ $EXIT_CODE -ne 0 ]]; then
         install_package $1
     fi
 }
@@ -40,7 +40,7 @@ function check_package {
 function install_dependencies {
     echo -n "[...] check and install package"
 
-    mapfile -t REQUIREMENTS < <(cat $PROJECT_DIR/data/dependencies)
+    mapfile -t REQUIREMENTS < <(cat $PROJECT_DIR"data/dependencies")
     for req in "${!REQUIREMENTS[@]}"
     do
         check_package ${REQUIREMENTS[$req]}
@@ -65,17 +65,6 @@ function install_arc_dependences {
     rm -r $NAME_PACKET 
     ln -sf /opt/$NAME_PACKET/bin/$NAME_COMMAND /usr/bin/$NAME_COMMAND
     echo -e "\\r[ $CHECK_MARK ] installing $1"
-}
-
-function install_git_lfs {
-    echo -n "[...] installing git-lfs"
-    tar -xzf $PROJECT_DIR"data/git-lfs"*".tar.gz"
-    bash "git-lfs"*"/install.sh" >> $LOG_FILE 2>&1
-    rm -r "git-lfs"* 
-    
-    git lfs install >> $LOG_FILE 2>&1
-    git lfs pull >> $LOG_FILE 2>&1
-    echo -e "\\r[ $CHECK_MARK ] installing git-lfs"
 }
 
 function download_gradle {
@@ -129,16 +118,28 @@ function check_internet {
 }
 
 function post_inst {
-    echo -n "[...] clear arc"
+    echo -n "[...] clear archive"
     rm -r $PROJECT_DIR"apache-maven"* >> $LOG_FILE 2>&1
     rm -r $PROJECT_DIR"gradle-"* >> $LOG_FILE 2>&1
     rm -r $PROJECT_DIR"data/apache-maven"*".tar.gz"* >> $LOG_FILE 2>&1
     rm -r $PROJECT_DIR"data/gradle-"*".zip"* >> $LOG_FILE 2>&1
-    echo -e "\\r[ $CHECK_MARK ] clear arc"
+    echo -e "\\r[ $CHECK_MARK ] clear archive"
+}
+
+function remove_conflict_package {
+    echo -n "[...] remove conflict package $1"
+    (dpkg -s $1 | grep "Status") >> $LOG_FILE 2>&1
+    EXIT_CODE=$?
+    if [[ $EXIT_CODE -eq 0 ]]; then
+        apt remove -y $1 >> $LOG_FILE 2>&1
+    fi
+    echo -e "\\r[ $CHECK_MARK ] remove conflict package $1"
 }
 
 check_root
 post_inst
+remove_conflict_package maven
+remove_conflict_package gradle
 install_dependencies
 download_gradle
 download_maven
