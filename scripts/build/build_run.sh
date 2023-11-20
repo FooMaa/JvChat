@@ -54,7 +54,7 @@ function build {
     EXIT_CODE=$?
     if [[ $EXIT_CODE -ne 0 ]]; then
         echo -e "\\r[ $CROSS_MARK ] building"
-        cat "$LOG_FILE"
+        tail -10 "$LOG_FILE"
         exit 1
     fi
     echo -e "\\r[ $CHECK_MARK ] building"

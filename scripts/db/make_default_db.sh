@@ -16,7 +16,7 @@ function run {
     bash $DIR"/pre_inst_db.sh" -i -p
     EXIT_CODE=$?
     if [[ $EXIT_CODE -ne 0 ]]; then
-        echo -e "\\r[ $CROSS_MARK ] . Fail pre_inst_db.sh.sh.."
+        echo -e "\\r[ $CROSS_MARK ] . Fail pre_inst_db.sh..."
         exit 1 
     fi
     $DIR"/db_creator.py"

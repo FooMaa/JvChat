@@ -74,7 +74,7 @@ function download_gradle {
     EXIT_CODE=$?
     if [[ $EXIT_CODE -ne 0 ]]; then
         echo -e "\\r[ $CROSS_MARK ] download gradle"
-        #cat "$LOG_FILE"
+        tail -10 "$LOG_FILE"
         exit 1
     fi
     echo -e "\\r[ $CHECK_MARK ] download gradle"
@@ -87,7 +87,7 @@ function download_maven {
     EXIT_CODE=$?
     if [[ $EXIT_CODE -ne 0 ]]; then
         echo -e "\\r[ $CROSS_MARK ] download maven"
-        #cat "$LOG_FILE"
+        tail -10 "$LOG_FILE"
         exit 1
     fi
     echo -e "\\r[ $CHECK_MARK ] download maven"
@@ -99,7 +99,7 @@ function check_builder {
     EXIT_CODE=$?
     if [[ $EXIT_CODE -ne 0 ]]; then
         echo -e "\\r[ $CROSS_MARK ] check builder $1"
-        cat "$LOG_FILE"
+        tail -10 "$LOG_FILE"
         exit 1
     fi
     echo -e "\\r[ $CHECK_MARK ] check builder $1"
@@ -111,7 +111,7 @@ function check_internet {
     EXIT_CODE=$?
     if [[ $EXIT_CODE -ne 0 ]]; then
         echo -e "\\r[ $CROSS_MARK ] check internet"
-        cat "$LOG_FILE"
+        tail -10 "$LOG_FILE"
         exit 1
     fi
     echo -e "\\r[ $CHECK_MARK ] check internet"
