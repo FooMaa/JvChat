@@ -1,7 +1,6 @@
 ### All ###
 scripts/db/Dump
-data/gradle-*
-data/apache-maven*
+
 ### Maven ###
 target/
 !.mvn/wrapper/maven-wrapper.jar
