@@ -16,7 +16,7 @@ function check_user {
 }
 
 function check_packages {
-    $PROJECT_DIR"scripts/dependencies/check_dependencies.sh"
+    $PROJECT_DIR"scripts/dependencies/check_and_install_dependencies.sh"
     EXIT_CODE=$?
     if [[ $EXIT_CODE -ne 0 ]]; then
         echo -e "\\r[ $CROSS_MARK ] check packages. Fail check_dependencies.sh.."
