@@ -2,12 +2,12 @@
 
 PROJECT_NAME=JvChat
 PROJECT_DIR=$( echo "$(realpath $0 | sed -r 's/scripts.+//g')" )
-LOG_FILE="/tmp/check_dependencies.log"
+LOG_FILE="/tmp/check_and_install_dependencies.log"
 USER=$(whoami)
 CHECK_MARK="\033[0;32m\xE2\x9c\x94\033[0m"
 CROSS_MARK="\033[0;31m\xE2\x9c\x97\033[0m"
 
-function check_packages {
+function check_and_install_packages {
     echo -n "[...] check packages"
     mvn -v >> $LOG_FILE 2>&1
     EXIT_CODE=$?
@@ -57,15 +57,10 @@ function Sudo {
 function check_sudo {
     if [ "$USER" != root ]; then 
         echo -e "\\rThis script runned as user. Fail dependense: $1. You should run scripts/dependencies/install_dependencies.sh as root."
+        rm $LOG_FILE
         exit 1
     fi
 } 
 
-function fix_log {
-    if [ "$USER" == root ]; then 
-        chmod 777 $LOG_FILE
-    fi
-}
-
-check_packages
-fix_log
+check_and_install_packages
+rm $LOG_FILE # убрать если понадобится лог
