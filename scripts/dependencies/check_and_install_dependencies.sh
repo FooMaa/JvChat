@@ -14,8 +14,7 @@ function check_and_install_packages {
     if [[ $EXIT_CODE -ne 0 ]]; then
         echo -e "\\r[ $CROSS_MARK ] check packages. Installing..."
         check_sudo mvn 
-        $PROJECT_DIR"scripts/dependencies/install_dependencies.sh"
-        return 
+        $PROJECT_DIR"scripts/dependencies/install_dependencies.sh" -m
     fi
 
     gradle -v >> $LOG_FILE 2>&1
@@ -23,8 +22,7 @@ function check_and_install_packages {
     if [[ $EXIT_CODE -ne 0 ]]; then
         echo -e "\\r[ $CROSS_MARK ] check packages. Installing..."
         check_sudo gradle
-        $PROJECT_DIR"scripts/dependencies/install_dependencies.sh"
-        return
+        $PROJECT_DIR"scripts/dependencies/install_dependencies.sh" -g
     fi
 
     mapfile -t REQUIREMENTS < <(cat $PROJECT_DIR"data/dependencies")
@@ -35,8 +33,7 @@ function check_and_install_packages {
         if [[ $EXIT_CODE -ne 0 ]]; then
             echo -e "\\r[ $CROSS_MARK ] check packages. Installing..."
             check_sudo ${REQUIREMENTS[$req]}
-            $PROJECT_DIR"scripts/dependencies/install_dependencies.sh"
-            return
+            $PROJECT_DIR"scripts/dependencies/install_dependencies.sh" -d
         fi
     done
     echo -e "\\r[ $CHECK_MARK ] check packages"

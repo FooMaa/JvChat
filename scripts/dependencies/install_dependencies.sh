@@ -7,6 +7,9 @@ POST_PWD=""
 UPDATING_REPO=false
 NEED_INSTALL=false
 NEED_PGHBA=false
+GRADLE=false
+MAVEN=false
+REPO=false
 LOG_FILE="/tmp/install_dependencies.log"
 USER_SYSTEM="postgres"
 CHECK_MARK="\033[0;32m\xE2\x9c\x94\033[0m"
@@ -16,6 +19,14 @@ function check_root {
     USER=$(whoami)
     if [ "$USER" != root ]; then 
         echo -e "\\rRun this script with root privileges"
+        exit 1
+    fi
+}
+
+function check_has_param {
+    if [ -z "$1" ]; then 
+        echo "This script need a parameters"
+        usage
         exit 1
     fi
 }
@@ -136,15 +147,51 @@ function remove_conflict_package {
     echo -e "\\r[ $CHECK_MARK ] remove conflict package $1"
 }
 
+function usage {
+    cat <<EOF
+    Usage: $0 [options]
+    -m	    reinstall maven		only reinstall maven (REQUIRED) Example $0 -m
+    -g	    reinstall gradle    only reinstall gradle (REQUIRED) Example $0 -g
+    -a	    reinstall all		only reinstall all (REQUIRED) Example $0 -a
+    -d	    reinstall repo      only reinstall from repo (REQUIRED) Example $0 -r
+    -h      help menu           to see this help (OPTIONAL) Example $0 -h
+EOF
+}
+
 check_root
+check_has_param $1
 post_inst
-remove_conflict_package maven
-remove_conflict_package gradle
-install_dependencies
-download_maven
-download_gradle
-install_arc_dependences "maven"
-install_arc_dependences "gradle"
+
+while [ -n "$1" ]; do
+    case "$1" in
+        -r ) REPO=true ;;
+        -m ) MAVEN=true ;;
+        -g ) GRADLE=true ;;
+        -a ) REPO=true; MAVEN=true; GRADLE=true ;;
+        -h ) usage; exit 1 ;;
+        -- ) usage; exit 1;;
+        * ) usage; exit 1 ;;
+    esac 
+    shift
+done
+
+if [[ $REPO == true ]]; then
+    install_dependencies
+fi
+
+if [[ $MAVEN == true ]]; then
+    remove_conflict_package maven
+    download_maven
+    install_arc_dependences "maven"
+fi
+
+if [[ $GRADLE == true ]]; then
+    remove_conflict_package gradle
+    download_gradle
+    install_arc_dependences "gradle"
+fi
+
 check_builder "mvn"
 check_builder "gradle"
+
 post_inst
