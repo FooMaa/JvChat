@@ -5,7 +5,7 @@ PROJECT_DIR=$( echo "$(realpath $0 | sed -r 's/scripts.+//g')" )
 LOG_FILE="/tmp/build-jvchat.log"
 USER_SYSTEM="postgres"
 BUILDER=""
-NEED_INSTALL=false
+NEED_CHECK=false
 CHECK_MARK="\033[0;32m\xE2\x9c\x94\033[0m"
 CROSS_MARK="\033[0;31m\xE2\x9c\x97\033[0m"
 
@@ -49,7 +49,7 @@ function build_start {
 function usage {
     cat <<EOF
     Usage: $0 [options]
-    -i      install dependencies    install dependencies (OPTIONAL) Example $0 -i
+    -c      check dependencies  check dependencies (OPTIONAL) Example $0 -c
     -g	    use gradle		    build with gradle 	(REQUIRED) Example $0 -g
     -m      use maven		    build use maven 	(REQUIRED) Example $0 -m
 EOF
@@ -76,7 +76,7 @@ check_has_param $1
 
 while [ -n "$1" ]; do
     case "$1" in
-        -i ) NEED_INSTALL=true ;;
+        -c ) NEED_CHECK=true ;;
         -m ) BUILDER="maven" ;;
         -g ) BUILDER="gradle"; shift ;;
         -h ) usage; exit 1;;
@@ -88,7 +88,7 @@ done
 
 check_set_param
 
-if [[ $NEED_INSTALL == true ]]; then 
+if [[ $NEED_CHECK == true ]]; then 
     check_packages
 fi
 

@@ -3,7 +3,7 @@ PROJECT_DIR=$( echo "$(realpath $0 | sed -r 's/scripts.+//g')" )
 LOG_FILE="/tmp/run-jvchat.log"
 PROFILE=""
 BUILDER=""
-NEED_INSTALL=false
+NEED_CHECK=false
 CHECK_MARK="\033[0;32m\xE2\x9c\x94\033[0m"
 CROSS_MARK="\033[0;31m\xE2\x9c\x97\033[0m"
 
@@ -63,13 +63,13 @@ function build {
 function usage {
     cat <<EOF
     Usage: $0 [options]
-    -i      install dependencies    install dependencies (OPTIONAL) Example $0 -i
+    -c      check dependencies      check dependencies (OPTIONAL) Example $0 -c
     -t      run tests               run only tests (REQUIRED) Example $0 -t
     -h      help menu               to see this help (OPTIONAL) Example $0 -h
     -u      run users               run users profile (REQUIRED) Example $0 -u
     -s      run servers             run servers profile (REQUIRED) Example $0 -s
-    -g	    use gradle		    build with gradle 	(REQUIRED) Example $0 -g
-    -m      use maven		    build use maven 	(REQUIRED) Example $0 -m
+    -g	    use gradle		        build with gradle 	(REQUIRED) Example $0 -g
+    -m      use maven		        build use maven 	(REQUIRED) Example $0 -m
 EOF
 }
 
@@ -100,7 +100,7 @@ check_has_param $1
 
 while [ -n "$1" ]; do
     case "$1" in
-        -i ) NEED_INSTALL=true ;;
+        -c ) NEED_CHECK=true ;;
         -t ) PROFILE="tests" ;;
         -u ) PROFILE="users" ;;
         -m ) BUILDER="maven" ;;
@@ -115,7 +115,7 @@ done
 
 check_set_param
 
-if [[ $NEED_INSTALL == true ]]; then 
+if [[ $NEED_CHECK == true ]]; then 
     check_packages
 fi
 
