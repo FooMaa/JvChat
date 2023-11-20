@@ -49,7 +49,7 @@ function check_package {
 }
 
 function install_dependencies {
-    echo -n "[...] check and install package"
+    echo -n "[...] check and install repo package"
 
     mapfile -t REQUIREMENTS < <(cat $PROJECT_DIR"data/dependencies")
     for req in "${!REQUIREMENTS[@]}"
@@ -57,7 +57,7 @@ function install_dependencies {
         check_package ${REQUIREMENTS[$req]}
     done    
     
-    echo -e "\\r[ $CHECK_MARK ] check and install package"
+    echo -e "\\r[ $CHECK_MARK ] check and install repo package"
 }
 
 function install_arc_dependences {
@@ -183,15 +183,14 @@ if [[ $MAVEN == true ]]; then
     remove_conflict_package maven
     download_maven
     install_arc_dependences "maven"
+    check_builder "mvn"
 fi
 
 if [[ $GRADLE == true ]]; then
     remove_conflict_package gradle
     download_gradle
     install_arc_dependences "gradle"
+    check_builder "gradle"
 fi
-
-check_builder "mvn"
-check_builder "gradle"
 
 post_inst
