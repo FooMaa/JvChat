@@ -52,6 +52,7 @@ function usage {
     -c      check dependencies  check dependencies (OPTIONAL) Example $0 -c
     -g	    use gradle		    build with gradle 	(REQUIRED) Example $0 -g
     -m      use maven		    build use maven 	(REQUIRED) Example $0 -m
+    -h      help menu           to see this help (OPTIONAL) Example $0 -h
 EOF
 }
 
