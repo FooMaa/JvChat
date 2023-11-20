@@ -160,7 +160,6 @@ EOF
 
 check_root
 check_has_param $1
-post_inst
 
 while [ -n "$1" ]; do
     case "$1" in
@@ -174,6 +173,8 @@ while [ -n "$1" ]; do
     esac 
     shift
 done
+
+post_inst
 
 if [[ $REPO == true ]]; then
     install_dependencies
