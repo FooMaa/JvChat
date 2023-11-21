@@ -301,10 +301,11 @@ def clear_all(db_name, db_user, db_schema):
 
     if db.exists('pg_roles', 'rolname', db_user):
         db.query("DROP ROLE {0};".format(db_user))
-        sys.stdout.write(SUCCESS + "Drop role {0}".format(db_user) + '\n')
+        print(SUCCESS + "Drop role {0}".format(db_user))
     else:
-        sys.stdout.write(SUCCESS + "No role {0}. Skipped drop".format(db_user) + '\n')
+        print(SUCCESS + "No role {0}. Skipped drop".format(db_user))
 
+    sys.stdout.flush()
     sys.stdout.write(SUCCESS + "Clear all" + '\n')
     db.close()
     #exit(1) если нужно просто стереть
