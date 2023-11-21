@@ -268,9 +268,14 @@ def make_pg_restore(backup_dir, db_name, file_name, db_user, host, schemas):
 
     sys.stdout.write('\r')
     db = DataBase(create_connection_db(db_name, db_user))
+    # пока удаляю каждую схему, можно просто удалять БД, закомментировано ниже
     for schema in schemas:
         db.query("DROP SCHEMA IF EXISTS {0} CASCADE;".format(schema))
     db.close()
+    
+    # раскомментировать, если потребуется при накатывании БД пересоздать БД 
+    #drop_database(db_name, db_user)
+    #create_database(db_name, db_user)
 
     rv = subprocess.call(backup_call, stdout=FNULL, stderr=FNULL)
 
@@ -283,23 +288,23 @@ def make_pg_restore(backup_dir, db_name, file_name, db_user, host, schemas):
     sys.stdout.write(SUCCESS + "Restore database {0} from dump".format(db_name) + '\n')
     exit(1) # если надо выйти из скрипта после накатывания дампа
 
-def clear_all(name, user, schema):
+def clear_all(db_name, db_user, db_schema):
     db = DataBase(admin_connection)
     #sys.stdout.write(PENDING + "Clear all")
     
-    db.query("DROP SCHEMA IF EXISTS {0};".format(schema))
+    db.query("DROP SCHEMA IF EXISTS {0};".format(db_schema))
     sys.stdout.flush()
-    sys.stdout.write(SUCCESS + "Drop schema {0}".format(schema) + '\n')
+    sys.stdout.write(SUCCESS + "Drop schema {0}".format(db_schema) + '\n')
 
-    drop_database(name, user)
+    drop_database(db_name, db_user)
 
-    if db.exists('pg_roles', 'rolname', user):
-        db.query("DROP ROLE {0};".format(user))
+    if db.exists('pg_roles', 'rolname', db_user):
+        db.query("DROP ROLE {0};".format(db_user))
         sys.stdout.flush()
-        sys.stdout.write(SUCCESS + "Drop role {0}".format(user) + '\n')
+        sys.stdout.write(SUCCESS + "Drop role {0}".format(db_user) + '\n')
     else:
         sys.stdout.flush()
-        sys.stdout.write(SUCCESS + "No role {0}. Skipped drop".format(user) + '\n')
+        sys.stdout.write(SUCCESS + "No role {0}. Skipped drop".format(db_user) + '\n')
 
     sys.stdout.flush()
     sys.stdout.write(SUCCESS + "Clear all" + '\n')
