@@ -317,16 +317,16 @@ def check_param():
     sys.stdout.write(PENDING + "Checking calc parameters")
     for i in range(len(sys.argv) - 1): 
         for j in range(i + 1, len(sys.argv)):
-            if (sys.argv[i] == sys.argv[j] and sys.argv[i].startswith('-')):
-                if sys.argv[i] == "-r":
+            if sys.argv[i].startswith('-'):
+                if sys.argv[i].find("-r") != -1 and sys.argv[j].find("-r") != -1 :
                     sys.stdout.flush()
                     sys.stdout.write(FAIL + "You have repeate param \"{0}\". See help.".format(sys.argv[i]) + '\n')
                     exit(1)
-                elif sys.argv[i] == "-u":
+                elif sys.argv[i].find("-u") != -1 and sys.argv[j].find("-u") != -1:
                     sys.stdout.flush()
                     sys.stdout.write(FAIL + "You have repeate param \"{0}\". See help.".format(sys.argv[i]) + '\n')
                     exit(1)
-                elif sys.argv[i] == "-a":
+                elif sys.argv[i].find("-a") != -1 and sys.argv[j].find("-a") != -1:
                     sys.stdout.flush()
                     sys.stdout.write(FAIL + "You have repeate param \"{0}\". See help.".format(sys.argv[i]) + '\n')
                     exit(1)
