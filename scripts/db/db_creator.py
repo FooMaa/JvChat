@@ -250,7 +250,7 @@ def make_dump_db(backup_dir, db_name, file_name, db_user, db_host):
 
     sys.stdout.flush()
     sys.stdout.write(SUCCESS + "Dump database {0}".format(db_name) + '\n')
-    exit(1) # если надо выйти из скрипта после создания дампа
+    exit(0) # если надо выйти из скрипта после создания дампа
 
 
 def make_pg_restore(backup_dir, db_name, file_name, db_user, db_host, db_schemas):
@@ -284,7 +284,7 @@ def make_pg_restore(backup_dir, db_name, file_name, db_user, db_host, db_schemas
 
     sys.stdout.flush()
     sys.stdout.write(SUCCESS + "Restore database {0} from dump".format(db_name) + '\n')
-    exit(1) # если надо выйти из скрипта после накатывания дампа
+    exit(0) # если надо выйти из скрипта после накатывания дампа
 
 def clear_all(db_name, db_user, db_schema):
     db = DataBase(admin_connection)
