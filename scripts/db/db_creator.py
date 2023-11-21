@@ -297,8 +297,8 @@ def clear_all(db_name, db_user, db_schema):
     sys.stdout.write(SUCCESS + "Drop schema {0}".format(db_schema) + '\n')
 
     drop_database(db_name, db_user)
-    sys.stdout.write(PENDING + "Drop role {0}".format(db_user))
 
+    sys.stdout.write(PENDING + "Drop role {0}".format(db_user))
     if db.exists('pg_roles', 'rolname', db_user):
         db.query("DROP ROLE {0};".format(db_user))
         sys.stdout.flush()
