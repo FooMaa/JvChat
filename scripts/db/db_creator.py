@@ -313,10 +313,26 @@ def clear_all(db_name, db_user, db_schema):
     db.close()
     #exit(1) если нужно просто стереть
 
+def check_param():
+    for argx in sys.argv: 
+        for argy in sys.argv:
+            if (argx == argy) and argx.startswith('-'):
+                if argx == "-r":
+                    sys.stdout.flush()
+                    sys.stdout.write(FAIL + "You have repeate param \"-r\". See help." + '\n')
+                    exit(1)
+                elif argx == "-u"
+                    sys.stdout.flush()
+                    sys.stdout.write(FAIL + "You have repeate param \"-u\". See help." + '\n')
+                    exit(1)
+                elif argx == "-a":
+                    sys.stdout.flush()
+                    sys.stdout.write(FAIL + "You have repeate param \"-a\". See help." + '\n')
+                    exit(1)
+
 if __name__ == '__main__':
-    #в дальнейшем дамп можно делать не в ./Dump, а в /tmp/Dump
-    for argv in sys.argv: 
-        print('argv:', argv)    
+    check_param()
+    #в дальнейшем дамп можно делать не в ./Dump, а в /tmp/Dump   
     if regime == 'dump':
         os.environ['PGPASSWORD'] = DB_USER_PWD
         make_dump_db('./Dump', DEFAULT_DB_NAME, 'dump.tar.gz',
