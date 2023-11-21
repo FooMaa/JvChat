@@ -311,7 +311,7 @@ def clear_all(db_name, db_user, db_schema):
     sys.stdout.flush()
     sys.stdout.write(SUCCESS + "Clear all" + '\n')
     db.close()
-    #exit(1) если нужно просто стереть
+    #exit(0) если нужно просто стереть
 
 def check_param():
     sys.stdout.write(PENDING + "Checking parameters")
