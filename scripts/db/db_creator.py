@@ -45,6 +45,11 @@ ADMIN_PWD = arg('ADMIN_PWD')
 DB_USER_PWD = arg('DB_USER_PWD')
 regime = arg('regime')
 
+if DB_USER_PWD == "" or DB_USER_PWD == None:
+    DB_USER_PWD = STOCK_USER_PWD
+if ADMIN_PWD == "" or ADMIN_PWD == None:
+    ADMIN_PWD = STOCK_ADMIN_PWD
+
 admin_connection = dict({"username": ADMIN_USER,
                          "host": DEFAULT_DB_IP,
                          "port": 5432,
@@ -333,9 +338,8 @@ def check_param():
     sys.stdout.flush()
     sys.stdout.write(SUCCESS + "Checking calc parameters" + '\n')
 
-if __name__ == '__main__':
-    check_param()
-    #в дальнейшем дамп можно делать не в ./Dump, а в /tmp/Dump   
+def check_regime():
+    #в дальнейшем дамп можно делать не в ./Dump, а в /tmp/Dump  
     if regime == 'dump':
         os.environ['PGPASSWORD'] = DB_USER_PWD
         make_dump_db('./Dump', DEFAULT_DB_NAME, 'dump.tar.gz',
@@ -352,6 +356,10 @@ if __name__ == '__main__':
         sys.stdout.flush()
         sys.stdout.write(FAIL + "See help to get correct parameter to regim" + '\n')
         exit(1)
+
+if __name__ == '__main__':
+    check_param() 
+    check_regime()
     
     create_user(DEFAULT_DB_USER, DB_USER_PWD)
     drop_database(DEFAULT_DB_NAME, DEFAULT_DB_USER)
