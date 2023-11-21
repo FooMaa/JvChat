@@ -305,7 +305,6 @@ def clear_all(db_name, db_user, db_schema):
     else:
         sys.stdout.write(SUCCESS + "No role {0}. Skipped drop".format(db_user) + '\n')
 
-    sys.stdout.flush()
     sys.stdout.write(SUCCESS + "Clear all" + '\n')
     db.close()
     #exit(1) если нужно просто стереть
