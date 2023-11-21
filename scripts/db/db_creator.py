@@ -242,11 +242,12 @@ def make_dump_db(backup_dir, db_name, file_name, db_user, db_host):
     backup_call = ['pg_dump', '-Fc', '--inserts', '-h', db_host, '-U', db_user,
                    db_name, '-f', dump_file]
     #rv = subprocess.call(backup_call, stdout=FNULL, stderr=FNULL)
-    rv = subprocess.run(backup_call, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    rv = subprocess.run(backup_call, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE) #change PIPE to DEVNULL if not need stderr
     #if rv != 0:
     if rv.returncode != 0:
         sys.stdout.flush()
         sys.stdout.write(FAIL + "Dump database {0}".format(db_name) + '\n')
+        sys.stdout.write(rv.stderr.decode() + '\n') #if need mistakes
         exit(1)
 
     sys.stdout.flush()
@@ -276,11 +277,12 @@ def make_pg_restore(backup_dir, db_name, file_name, db_user, db_host, db_schemas
     #drop_database(db_name, db_user)
     #create_database(db_name, db_user)
     #rv = subprocess.call(backup_call, stdout=FNULL, stderr=FNULL)
-    rv = subprocess.run(backup_call, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    rv = subprocess.run(backup_call, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE) #change PIPE to DEVNULL if not need stderr
     #if rv != 0:
     if rv.returncode != 0:
         sys.stdout.flush()
         sys.stdout.write(FAIL + "Restore database {0} from dump".format(db_name) + '\n')
+        sys.stdout.write(rv.stderr.decode() + '\n') #if need mistakes
         exit(1)
 
     sys.stdout.flush()
