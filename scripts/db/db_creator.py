@@ -314,7 +314,7 @@ def clear_all(db_name, db_user, db_schema):
     #exit(0) если нужно просто стереть
 
 def check_param():
-    sys.stdout.write(PENDING + "Checking parameters")
+    sys.stdout.write(PENDING + "Checking calc parameters")
     for i in range(len(sys.argv) - 1): 
         for j in range(i + 1, len(sys.argv)):
             if (sys.argv[i] == sys.argv[j] and sys.argv[i].startswith('-')):
@@ -331,7 +331,7 @@ def check_param():
                     sys.stdout.write(FAIL + "You have repeate param \"{0}\". See help.".format(sys.argv[i]) + '\n')
                     exit(1)
     sys.stdout.flush()
-    sys.stdout.write(SUCCESS + "Checking parameters" + '\n')
+    sys.stdout.write(SUCCESS + "Checking calc parameters" + '\n')
 
 if __name__ == '__main__':
     check_param()
