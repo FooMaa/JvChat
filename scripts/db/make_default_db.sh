@@ -19,7 +19,7 @@ function run {
         echo -e "\\r[ $CROSS_MARK ] . Fail pre_inst_db.sh..."
         exit 1 
     fi
-    $DIR"/db_creator.py" -r clear -a 9999 -a 1111
+    $DIR"/db_creator.py" -r clear
 }
 
 check_root
