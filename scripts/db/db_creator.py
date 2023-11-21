@@ -291,20 +291,24 @@ def make_pg_restore(backup_dir, db_name, file_name, db_user, db_host, db_schemas
 
 def clear_all(db_name, db_user, db_schema):
     db = DataBase(admin_connection)
-    sys.stdout.write(PENDING + "Clear all")
-    
+    #sys.stdout.write(PENDING + "Clear all")
+    sys.stdout.write(PENDING + "Drop schema {0}".format(db_schema))
     db.query("DROP SCHEMA IF EXISTS {0};".format(db_schema))
     sys.stdout.flush()
     sys.stdout.write(SUCCESS + "Drop schema {0}".format(db_schema) + '\n')
 
     drop_database(db_name, db_user)
+    sys.stdout.write(PENDING + "Drop role {0}".format(db_user))
 
     if db.exists('pg_roles', 'rolname', db_user):
         db.query("DROP ROLE {0};".format(db_user))
-        print(SUCCESS + "Drop role {0}".format(db_user))
+        sys.stdout.flush()
+        sys.stdout.write(SUCCESS + "Drop role {0}".format(db_user) + '\n')
     else:
-        print(SUCCESS + "No role {0}. Skipped drop".format(db_user))
+        sys.stdout.flush()
+        sys.stdout.write(SUCCESS + "No role {0}. Skipped drop".format(db_user) + '\n')
 
+    sys.stdout.write(PENDING + "Clear all")
     sys.stdout.flush()
     sys.stdout.write(SUCCESS + "Clear all" + '\n')
     db.close()
