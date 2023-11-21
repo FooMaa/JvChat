@@ -99,6 +99,7 @@ class DataBase:
             exit(1)
         self.cursor = self.connection.cursor()
         self.connection.autocommit = True
+        self.url = url
         sys.stdout.flush()
         sys.stdout.write(SUCCESS + "Create connection for {0}".format(url["username"]) + '\n')
 
@@ -128,9 +129,12 @@ class DataBase:
         return False
 
     def close(self):
+        sys.stdout.write(PENDING + "Close connection for {0}".format(self.url["username"]))
         self.connection.commit()
         self.cursor.close()
         self.connection.close()
+        sys.stdout.flush()
+        sys.stdout.write(SUCCESS + "Close connection for {0}".format(self.url["username"]) + '\n')
 
     def __enter__(self):
         return self
