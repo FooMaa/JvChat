@@ -317,7 +317,7 @@ def check_param():
     sys.stdout.write(PENDING + "Checking calc parameters")
     for i in range(len(sys.argv) - 1): 
         for j in range(i + 1, len(sys.argv)):
-            if sys.argv[i].startswith('-'):
+            if sys.argv[i].startswith('-') and sys.argv[j].startswith('-') :
                 if sys.argv[i].find("-r") != -1 and sys.argv[j].find("-r") != -1 :
                     sys.stdout.flush()
                     sys.stdout.write(FAIL + "You have repeate param \"{0}\". See help.".format(sys.argv[i]) + '\n')
