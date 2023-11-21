@@ -309,6 +309,7 @@ def clear_all(db_name, db_user, db_schema):
     sys.stdout.flush()
     sys.stdout.write(SUCCESS + "Clear all" + '\n')
     db.close()
+    #exit(1) если нужно просто стереть
 
 if __name__ == '__main__':
     if regime == 'dump':
