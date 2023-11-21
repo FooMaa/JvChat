@@ -94,18 +94,20 @@ class DataBase:
                                                host=self.url["host"],
                                                port=self.url["port"])
         except psycopg2.DatabaseError as err:
-            sys.stdout.write(FAIL + "Connection to database {0}\nError: {1}".format(self.url["database"], err))
+            sys.stdout.flush()
+            sys.stdout.write(FAIL + "Connection to database {0}\nError: {1}".format(self.url["database"], err) + '\n')
             exit(1)
         self.cursor = self.connection.cursor()
         self.connection.autocommit = True
-        print(SUCCESS + "Create connection for {0}".format(url["username"]))
+        sys.stdout.flush()
+        sys.stdout.write(SUCCESS + "Create connection for {0}".format(url["username"]) + '\n')
 
     def query(self, command):
         try:
             self.cursor.execute(command)
         except psycopg2.OperationalError as err:
             sys.stdout.flush()
-            sys.stdout.write(FAIL + "Execution fail.\nError: {0}".format(err))
+            sys.stdout.write(FAIL + "Execution fail.\nError: {0}".format(err) + '\n')
             exit(1)
 
     def get_data(self, table, columns):
@@ -114,7 +116,7 @@ class DataBase:
             self.query(command)
         except psycopg2.OperationalError as err:
             sys.stdout.flush()
-            sys.stdout.write(FAIL + "Execution fail.\nError: {0}".format(err))
+            sys.stdout.write(FAIL + "Execution fail.\nError: {0}".format(err) + '\n')
             exit(1)
         data = self.cursor.fetchall()
         return data
@@ -138,16 +140,18 @@ class DataBase:
 
 
 # self.cursor.execute(open("1_create_users.sql", "r").read())
-def create_user():
+def create_user(user, pwd):
     db = DataBase(admin_connection)
 
-    sys.stdout.write(PENDING + "Create user {0}".format(DEFAULT_DB_USER))
+    sys.stdout.write(PENDING + "Create user {0}".format(user))
 
-    if db.exists('pg_roles', 'rolname', DEFAULT_DB_USER):
-        print(SUCCESS + "Create user {0}. Role already exists".format(DEFAULT_DB_USER))
+    if db.exists('pg_roles', 'rolname', user):
+        sys.stdout.flush()
+        sys.stdout.write(SUCCESS + "Create user {0}. Role already exists".format(user) + '\n')
     else:
-        db.query("CREATE USER {0} CREATEDB CREATEROLE REPLICATION PASSWORD '{1}';".format(DEFAULT_DB_USER, DB_USER_PWD))
-        print(SUCCESS + "Create user {0}".format(DEFAULT_DB_USER))
+        db.query("CREATE USER {0} CREATEDB CREATEROLE REPLICATION PASSWORD '{1}';".format(user, pwd))
+        sys.stdout.flush()
+        sys.stdout.write(SUCCESS + "Create user {0}".format(user) + '\n')
 
     db.close()
 
@@ -158,10 +162,12 @@ def create_database(name, owner):
     sys.stdout.write(PENDING + "Create database {0}".format(name))
 
     if db.exists('pg_database', 'datname', name):
-        print(SUCCESS + "Create user {0}. Database already exists".format(name))
+        sys.stdout.flush()
+        sys.stdout.write(SUCCESS + "Create user {0}. Database already exists".format(name) + '\n')
     else:
         db.query("CREATE DATABASE \"{0}\" OWNER {1}".format(name, owner))
-        print(SUCCESS + "Create database {0}".format(name))
+        sys.stdout.flush()
+        sys.stdout.write(SUCCESS + "Create database {0}".format(name) + '\n')
 
     db.close()
 
@@ -173,8 +179,9 @@ def create_schema(schema_name, db_name, user):
 
     db.query("DROP SCHEMA IF EXISTS {0};".format(schema_name))
     db.query("CREATE SCHEMA {0};".format(schema_name))
-
-    print(SUCCESS + "Create database {0}".format(schema_name))
+    
+    sys.stdout.flush()
+    sys.stdout.write(SUCCESS + "Create schema {0}".format(schema_name) + '\n')
     db.close()
 
 
@@ -203,7 +210,8 @@ def create_tables(db_name, user):
     for table in db_tables:
         db.query(open(table, 'r').read())
 
-    print(SUCCESS + "Create all tables for {0}".format(db_name))
+    sys.stdout.flush()
+    sys.stdout.write(SUCCESS + "Create all tables for {0}".format(db_name) + '\n')
 
     db.close()
 
@@ -215,9 +223,11 @@ def drop_database(db_name, user):
 
     if db.exists('pg_database', 'datname', db_name):
         db.query("DROP DATABASE \"{0}\";".format(db_name))
-        print(SUCCESS + "Drop database {0}".format(db_name))
+        sys.stdout.flush()
+        sys.stdout.write(SUCCESS + "Drop database {0}".format(db_name) + '\n')
     else:
-        print(SUCCESS + "Drop database {0}. Database not exists, no need to drop".format(db_name))
+        sys.stdout.flush()
+        sys.stdout.write(SUCCESS + "Drop database {0}. Database not exists, no need to drop".format(db_name) + '\n')
 
     db.close()
 
@@ -232,10 +242,12 @@ def make_dump_db(backup_dir, db_name, file_name, db_user, host):
     rv = subprocess.call(backup_call, stdout=FNULL, stderr=FNULL)
 
     if rv != 0:
-        print(FAIL + "Dump database {0}".format(db_name))
+        sys.stdout.flush()
+        sys.stdout.write(FAIL + "Dump database {0}".format(db_name) + '\n')
         exit(1)
 
-    print(SUCCESS + "Dump database {0}".format(db_name))
+    sys.stdout.flush()
+    sys.stdout.write(SUCCESS + "Dump database {0}".format(db_name) + '\n')
     exit(1) # если надо выйти из скрипта после создания дампа
 
 
@@ -243,7 +255,8 @@ def make_pg_restore(backup_dir, db_name, file_name, db_user, host, schemas):
     sys.stdout.write(PENDING + "Restore database {0} from dump".format(db_name))
 
     if not os.path.isfile("{0}/{1}".format(backup_dir, file_name)):
-        print(FAIL + "Restore database {0} from dump".format(db_name))
+        sys.stdout.flush()
+        sys.stdout.write(FAIL + "Restore database {0} from dump".format(db_name) + '\n')
         exit(1)
 
     backup_call = ['pg_restore', '-Fc', '-h', host, '-U', db_user, '-d',
@@ -258,23 +271,35 @@ def make_pg_restore(backup_dir, db_name, file_name, db_user, host, schemas):
     rv = subprocess.call(backup_call, stdout=FNULL, stderr=FNULL)
 
     if rv != 0:
-        print(FAIL + "Restore database {0} from dump".format(db_name))
+        sys.stdout.flush()
+        sys.stdout.write(FAIL + "Restore database {0} from dump".format(db_name) + '\n')
         exit(1)
 
-    print(SUCCESS + "Restore database {0} from dump".format(db_name))
+    sys.stdout.flush()
+    sys.stdout.write(SUCCESS + "Restore database {0} from dump".format(db_name) + '\n')
     exit(1) # если надо выйти из скрипта после накатывания дампа
 
-def clear_all():
-    sys.stdout.write(PENDING + "Clear all")
-
+def clear_all(name, user, schema):
     db = DataBase(admin_connection)
-    db.query("DROP SCHEMA IF EXISTS {0};".format(DEFAULT_SCHEMA))
-    drop_database(DEFAULT_DB_NAME, DEFAULT_DB_USER)
+    #sys.stdout.write(PENDING + "Clear all")
+    
+    db.query("DROP SCHEMA IF EXISTS {0};".format(schema))
+    sys.stdout.flush()
+    sys.stdout.write(SUCCESS + "Drop schema {0}".format(schema) + '\n')
 
-    if db.exists('pg_roles', 'rolname', DEFAULT_DB_USER):
-        db.query("DROP ROLE {0};".format(DEFAULT_DB_USER))
+    drop_database(name, user)
 
-    print(SUCCESS + "Clear all")
+    if db.exists('pg_roles', 'rolname', user):
+        db.query("DROP ROLE {0};".format(user))
+        sys.stdout.flush()
+        sys.stdout.write(SUCCESS + "Drop role {0}".format(user) + '\n')
+    else:
+        sys.stdout.flush()
+        sys.stdout.write(SUCCESS + "No role {0}. Skipped drop".format(user) + '\n')
+
+    sys.stdout.flush()
+    sys.stdout.write(SUCCESS + "Clear all" + '\n')
+    db.close()
 
 if __name__ == '__main__':
     if regime == 'dump':
@@ -288,13 +313,14 @@ if __name__ == '__main__':
         make_pg_restore('./Dump', DEFAULT_DB_NAME, 'dump.tar.gz',
                     DEFAULT_DB_USER, '127.0.0.1', SCHEMA_LIST)
     elif regime != 'default':
-        print(FAIL + "See help to get correct parameter to regim")
+        sys.stdout.flush()
+        sys.stdout.write(FAIL + "See help to get correct parameter to regim" + '\n')
         exit(1)
 
     if clear == True:
-         clear_all()
+         clear_all(DEFAULT_DB_NAME, DEFAULT_DB_USER, DEFAULT_SCHEMA)
     
-    create_user()
+    create_user(DEFAULT_DB_USER, DB_USER_PWD)
     drop_database(DEFAULT_DB_NAME, DEFAULT_DB_USER)
     create_database(DEFAULT_DB_NAME, DEFAULT_DB_USER)  # если нужны новые Базы Данных, то вызывать также этот метод
     create_schema(DEFAULT_SCHEMA, DEFAULT_DB_NAME,
