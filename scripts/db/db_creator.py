@@ -321,7 +321,7 @@ def check_param():
                     sys.stdout.flush()
                     sys.stdout.write(FAIL + "You have repeate param \"-r\". See help." + '\n')
                     exit(1)
-                elif argx == "-u"
+                elif argx == "-u":
                     sys.stdout.flush()
                     sys.stdout.write(FAIL + "You have repeate param \"-u\". See help." + '\n')
                     exit(1)
