@@ -314,20 +314,20 @@ def clear_all(db_name, db_user, db_schema):
     #exit(1) если нужно просто стереть
 
 def check_param():
-    for argx in sys.argv: 
-        for argy in sys.argv:
-            if (argx == argy) and argx.startswith('-'):
-                if argx == "-r":
+    for i in range(len(sys.argv) - 1): 
+        for j in range(i + 1, len(sys.argv)):
+            if (sys.argv[i] == sys.argv[j]) and sys.argv[i].startswith('-'):
+                if sys.argv[i] == "-r":
                     sys.stdout.flush()
-                    sys.stdout.write(FAIL + "You have repeate param \"-r\". See help." + '\n')
+                    sys.stdout.write(FAIL + "You have repeate param \"{0}\". See help.".format(sys.argv[i]) + '\n')
                     exit(1)
-                elif argx == "-u":
+                elif sys.argv[i] == "-u":
                     sys.stdout.flush()
-                    sys.stdout.write(FAIL + "You have repeate param \"-u\". See help." + '\n')
+                    sys.stdout.write(FAIL + "You have repeate param \"{0}\". See help.".format(sys.argv[i]) + '\n')
                     exit(1)
-                elif argx == "-a":
+                elif sys.argv[i] == "-a":
                     sys.stdout.flush()
-                    sys.stdout.write(FAIL + "You have repeate param \"-a\". See help." + '\n')
+                    sys.stdout.write(FAIL + "You have repeate param \"{0}\". See help.".format(sys.argv[i]) + '\n')
                     exit(1)
 
 if __name__ == '__main__':
