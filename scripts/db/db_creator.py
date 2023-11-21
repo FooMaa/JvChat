@@ -256,11 +256,11 @@ def make_dump_db(backup_dir, db_name, file_name, db_user, db_host):
 
 
 def make_pg_restore(backup_dir, db_name, file_name, db_user, db_host, db_schemas):
-    sys.stdout.write(PENDING + "Restore database {0} from dump".format(db_name))
+    sys.stdout.write(PENDING + "Restore database {0} use dump".format(db_name))
 
     if not os.path.isfile("{0}/{1}".format(backup_dir, file_name)):
         sys.stdout.flush()
-        sys.stdout.write(FAIL + "Restore database {0} from dump".format(db_name) + '\n')
+        sys.stdout.write(FAIL + "Restore database {0} use dump".format(db_name) + '\n')
         exit(1)
 
     backup_call = ['pg_restore', '-Fc', '-h', db_host, '-U', db_user, '-d',
