@@ -290,6 +290,8 @@ def make_pg_restore(backup_dir, db_name, file_name, db_user, db_host, db_schemas
         sys.stdout.write(rv.stderr.decode() + '\n') #if need mistakes
         exit(1)
 
+    #если бьется вывод
+    #sys.stdout.write(PENDING + "Restore database {0} use dump".format(db_name))
     sys.stdout.flush()
     sys.stdout.write(SUCCESS + "Restore database {0} from dump".format(db_name) + '\n')
     exit(0) # если надо выйти из скрипта после накатывания дампа
