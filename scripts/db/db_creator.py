@@ -308,7 +308,7 @@ def clear_all(db_name, db_user, db_schema):
         sys.stdout.flush()
         sys.stdout.write(SUCCESS + "No role {0}. Skipped drop".format(db_user) + '\n')
 
-    sys.stdout.write(PENDING + "Clear all")
+    sys.stdout.write(PENDING + "Clear all") # чтоб не бить вывод
     sys.stdout.flush()
     sys.stdout.write(SUCCESS + "Clear all" + '\n')
     db.close()
