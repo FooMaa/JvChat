@@ -241,9 +241,10 @@ def make_dump_db(backup_dir, db_name, file_name, db_user, db_host):
     dump_file = os.path.join(os.path.normpath(backup_dir), file_name)
     backup_call = ['pg_dump', '-Fc', '--inserts', '-h', db_host, '-U', db_user,
                    db_name, '-f', dump_file]
-    rv = subprocess.call(backup_call, stdout=FNULL, stderr=FNULL)
-
-    if rv != 0:
+    #rv = subprocess.call(backup_call, stdout=FNULL, stderr=FNULL)
+    rv = subprocess.run(backup_call, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    #if rv != 0:
+    if rv.returncode != 0:
         sys.stdout.flush()
         sys.stdout.write(FAIL + "Dump database {0}".format(db_name) + '\n')
         exit(1)
@@ -274,10 +275,10 @@ def make_pg_restore(backup_dir, db_name, file_name, db_user, db_host, db_schemas
     # раскомментировать, если потребуется при накатывании БД пересоздать БД 
     #drop_database(db_name, db_user)
     #create_database(db_name, db_user)
-
-    rv = subprocess.call(backup_call, stdout=FNULL, stderr=FNULL)
-
-    if rv != 0:
+    #rv = subprocess.call(backup_call, stdout=FNULL, stderr=FNULL)
+    rv = subprocess.run(backup_call, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    #if rv != 0:
+    if rv.returncode != 0:
         sys.stdout.flush()
         sys.stdout.write(FAIL + "Restore database {0} from dump".format(db_name) + '\n')
         exit(1)
@@ -310,6 +311,7 @@ def clear_all(db_name, db_user, db_schema):
     #exit(1) если нужно просто стереть
 
 if __name__ == '__main__':
+    #в дальнейшем дамп можно делать не в ./Dump, а в /tmp/Dump
     if regime == 'dump':
         os.environ['PGPASSWORD'] = DB_USER_PWD
         make_dump_db('./Dump', DEFAULT_DB_NAME, 'dump.tar.gz',
