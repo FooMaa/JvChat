@@ -315,7 +315,7 @@ def clear_all(db_name, db_user, db_schema):
 
 if __name__ == '__main__':
     #в дальнейшем дамп можно делать не в ./Dump, а в /tmp/Dump
-    for action in args.cmd: 
+    for action in args: 
         print('action:', action)    
     if regime == 'dump':
         os.environ['PGPASSWORD'] = DB_USER_PWD
