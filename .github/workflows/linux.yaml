@@ -14,7 +14,7 @@ jobs:
         run: sudo scripts/dependencies/install_dependencies.sh -a
 
       - name: Build DB
-        run: sudo scripts/db/make_default_db.sh
+        run: sudo scripts/db/make_default_db.sh; scripts/db/bd_creator.py -r dump; scripts/db/db_creator.py -r restore
 
       - name: Build chat gradle
         run: scripts/build/build.sh -g -c
