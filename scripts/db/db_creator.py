@@ -50,16 +50,11 @@ if DB_USER_PWD == "" or DB_USER_PWD == None:
 if ADMIN_PWD == "" or ADMIN_PWD == None:
     ADMIN_PWD = STOCK_ADMIN_PWD
 
-admin_connection = dict({"username": ADMIN_USER,
+admin_default_connection = dict({"username": ADMIN_USER,
                          "host": DEFAULT_DB_IP,
                          "port": 5432,
                          "database": ADMIN_DB,
                          "password": ADMIN_PWD})
-user_default_connection = dict({"username": DEFAULT_DB_USER,
-                                "host": DEFAULT_DB_IP,
-                                "port": 5432,
-                                "database": ADMIN_DB,
-                                "password": DB_USER_PWD})
 
 
 def atoi(text):
@@ -163,7 +158,7 @@ def get_tables(db_name):
 # self.cursor.execute(open("1_create_users.sql", "r").read())
 def create_user(db_user, db_pwd):
     sys.stdout.write(PENDING + "Create user {0}".format(db_user))
-    db = DataBase(admin_connection)
+    db = DataBase(admin_default_connection)
 
     if db.exists('pg_roles', 'rolname', db_user):
         sys.stdout.flush()
@@ -179,7 +174,7 @@ def create_user(db_user, db_pwd):
 def drop_database(db_name, db_user):
     sys.stdout.write(PENDING + "Drop database {0}".format(db_name))
 
-    db = DataBase(admin_connection)
+    db = DataBase(admin_default_connection)
 
     if db.exists('pg_database', 'datname', db_name):
         db.query("DROP DATABASE \"{0}\";".format(db_name))
@@ -300,7 +295,7 @@ def make_pg_restore(backup_dir, db_name, file_name, db_user, db_host, db_schemas
 
 
 def clear_all(db_name, db_user, db_schema):
-    db = DataBase(admin_connection)
+    db = DataBase(admin_default_connection)
     sys.stdout.write(PENDING + "Drop schema {0}".format(db_schema))
     db.query("DROP SCHEMA IF EXISTS {0};".format(db_schema))
     sys.stdout.flush()
