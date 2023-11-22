@@ -271,7 +271,7 @@ def make_pg_restore(backup_dir, db_name, file_name, db_user, db_host, db_schemas
     backup_call = ['pg_restore', '-Fc', '-h', db_host, '-U', db_user, '-d',
                    db_name, "{0}/{1}".format(backup_dir, file_name)]
 
-    sys.stdout.write('\r')
+    #sys.stdout.write('\r')
     db = DataBase(create_connection_db(db_name, db_user))
     # пока удаляю каждую схему, можно просто удалять БД, закомментировано ниже
     for db_schema in db_schemas:
