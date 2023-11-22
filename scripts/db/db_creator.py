@@ -214,7 +214,7 @@ def create_schema(db_schema_name, db_name, db_user):
     sys.stdout.write(PENDING + "Create and update schemas {0}".format(db_schema_name))
 
     db = DataBase(create_connection_db(db_name, db_user, DB_USER_PWD))
-    db.query("DROP SCHEMA IF EXISTS {0};".format(db_schema_name))
+    db.query("DROP SCHEMA IF EXISTS {0} CASCADE;".format(db_schema_name))
     db.query("CREATE SCHEMA {0};".format(db_schema_name))
     
     db.close()
@@ -277,8 +277,8 @@ def make_pg_restore(backup_dir, db_name, file_name, db_user, db_host, db_schemas
     db.close()
     
     # раскомментировать, если потребуется при накатывании БД пересоздать БД 
-    #drop_database(db_name, db_user)
-    #create_database(db_name, db_user)
+    #drop_database(db_name, db_user) drop_database(DEFAULT_DB_NAME, DEFAULT_DB_USER)
+    #create_database(db_name, db_user) create_database(DEFAULT_DB_NAME, DEFAULT_DB_USER)
     #rv = subprocess.call(backup_call, stdout=FNULL, stderr=FNULL)
 
     rv = subprocess.run(backup_call, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE) #change PIPE to DEVNULL if not need stderr
@@ -299,7 +299,7 @@ def clear_all(db_name, db_user, db_schema):
 
     sys.stdout.write(PENDING + "Drop schema {0}".format(db_schema))
     db = DataBase(admin_default_connection)
-    db.query("DROP SCHEMA IF EXISTS {0};".format(db_schema))
+    db.query("DROP SCHEMA IF EXISTS {0} CASCADE;".format(db_schema))
     sys.stdout.flush()
     sys.stdout.write(SUCCESS + "Drop schema {0}".format(db_schema) + '\n')
 
