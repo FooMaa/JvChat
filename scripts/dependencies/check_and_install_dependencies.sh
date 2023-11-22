@@ -15,6 +15,7 @@ function check_and_install_packages {
         echo -e "\\r[ $CROSS_MARK ] check maven packages. Installing..."
         check_sudo mvn 
         $PROJECT_DIR"scripts/dependencies/install_dependencies.sh" -m
+        echo -n "[...] check packages"
     fi
 
     gradle -v >> $LOG_FILE 2>&1
@@ -23,6 +24,7 @@ function check_and_install_packages {
         echo -e "\\r[ $CROSS_MARK ] check gradle packages. Installing..."
         check_sudo gradle
         $PROJECT_DIR"scripts/dependencies/install_dependencies.sh" -g
+        echo -n "[...] check packages"
     fi
 
     mapfile -t REQUIREMENTS < <(cat $PROJECT_DIR"data/dependencies")
@@ -34,6 +36,7 @@ function check_and_install_packages {
             echo -e "\\r[ $CROSS_MARK ] check repo packages. Installing..."
             check_sudo ${REQUIREMENTS[$req]}
             $PROJECT_DIR"scripts/dependencies/install_dependencies.sh" -r
+            echo -n "[...] check packages"
         fi
     done
     echo -e "\\r[ $CHECK_MARK ] check packages"
