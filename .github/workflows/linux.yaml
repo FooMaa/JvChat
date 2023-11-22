@@ -17,7 +17,7 @@ jobs:
         run: sudo scripts/db/make_default_db.sh
 
       - name: Dump and restore DB
-        run: scripts/db/db_creator.py -r dump; scripts/db/db_creator.py -r restore
+        run: scripts/db/db_creator.py -r restore; scripts/db/db_creator.py -r restore
 
       - name: Build chat gradle
         run: scripts/build/build.sh -g -c
