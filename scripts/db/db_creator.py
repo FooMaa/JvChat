@@ -282,10 +282,10 @@ def make_pg_restore(backup_dir, db_name, file_name, db_user, db_host, db_schemas
     #drop_database(db_name, db_user)
     #create_database(db_name, db_user)
     #rv = subprocess.call(backup_call, stdout=FNULL, stderr=FNULL)
-    rv = subprocess.run(backup_call, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE) #change PIPE to DEVNULL if not need stderr
 
     #если бьется вывод
     sys.stdout.write(PENDING + "Restore database {0} use dump".format(db_name))
+    rv = subprocess.run(backup_call, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE) #change PIPE to DEVNULL if not need stderr
     #if rv != 0:
     if rv.returncode != 0:
         sys.stdout.flush()
