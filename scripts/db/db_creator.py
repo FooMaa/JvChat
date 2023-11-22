@@ -259,7 +259,7 @@ def make_dump_db(backup_dir, db_name, file_name, db_user, db_host):
 
 
 def make_pg_restore(backup_dir, db_name, file_name, db_user, db_host, db_schemas):
-    sys.stdout.write(PENDING + "Restore database {0} use dump".format(db_name))
+    sys.stdout.write(PENDING + "Restore database {0} use dump".format(db_name)) # comment if drop db
 
     if not os.path.isfile("{0}/{1}".format(backup_dir, file_name)):
         sys.stdout.write(PENDING + "Restore database {0} use dump".format(db_name))
@@ -270,7 +270,7 @@ def make_pg_restore(backup_dir, db_name, file_name, db_user, db_host, db_schemas
     backup_call = ['pg_restore', '-Fc', '-h', db_host, '-U', db_user, '-d',
                    db_name, "{0}/{1}".format(backup_dir, file_name)]
 
-    db = DataBase(create_connection_db(db_name, db_user, DB_USER_PWD))
+    db = DataBase(create_connection_db(db_name, db_user, DB_USER_PWD)) # if drop db move under create_database
     # пока удаляю каждую схему, можно просто удалять БД, закомментировано ниже
     for db_schema in db_schemas:
         db.query("DROP SCHEMA IF EXISTS {0} CASCADE;".format(db_schema))
@@ -279,6 +279,7 @@ def make_pg_restore(backup_dir, db_name, file_name, db_user, db_host, db_schemas
     # раскомментировать, если потребуется при накатывании БД пересоздать БД 
     #drop_database(db_name, db_user) drop_database(DEFAULT_DB_NAME, DEFAULT_DB_USER)
     #create_database(db_name, db_user) create_database(DEFAULT_DB_NAME, DEFAULT_DB_USER)
+    #sys.stdout.write(PENDING + "Restore database {0} use dump".format(db_name))
     #rv = subprocess.call(backup_call, stdout=FNULL, stderr=FNULL)
 
     rv = subprocess.run(backup_call, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE) #change PIPE to DEVNULL if not need stderr
