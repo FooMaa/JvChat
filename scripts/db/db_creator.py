@@ -328,17 +328,20 @@ def check_param():
     for i in range(len(sys.argv) - 1): 
         for j in range(i + 1, len(sys.argv)):
             if sys.argv[i].startswith('-') and sys.argv[j].startswith('-') :
-                if sys.argv[i].find("-r") != -1 and sys.argv[j].find("-r") != -1 :
+                #if sys.argv[i].find("-r") != -1 and sys.argv[j].find("-r") != -1:
+                if ("-r" in sys.argv[i]) and ("-r" in sys.argv[j]):
                     sys.stdout.flush()
-                    sys.stdout.write(FAIL + "You have repeate param \"{0}\". See help.".format(sys.argv[i]) + '\n')
+                    sys.stdout.write(FAIL + "You have repeate param \"-r\". See help." + '\n')
                     exit(1)
-                elif sys.argv[i].find("-u") != -1 and sys.argv[j].find("-u") != -1:
+                #elif sys.argv[i].find("-u") != -1 and sys.argv[j].find("-u") != -1:
+                elif ("-u" in sys.argv[i]) and ("-u" in sys.argv[j]):
                     sys.stdout.flush()
-                    sys.stdout.write(FAIL + "You have repeate param \"{0}\". See help.".format(sys.argv[i]) + '\n')
+                    sys.stdout.write(FAIL + "You have repeate param \"-u\". See help." + '\n')
                     exit(1)
-                elif sys.argv[i].find("-a") != -1 and sys.argv[j].find("-a") != -1:
+                #elif sys.argv[i].find("-a") != -1 and sys.argv[j].find("-a") != -1:
+                elif ("-a" in sys.argv[i]) and ("-a" in sys.argv[j]):
                     sys.stdout.flush()
-                    sys.stdout.write(FAIL + "You have repeate param \"{0}\". See help.".format(sys.argv[i]) + '\n')
+                    sys.stdout.write(FAIL + "You have repeate param \"-a\". See help." + '\n')
                     exit(1)
     sys.stdout.flush()
     sys.stdout.write(SUCCESS + "Checking calc parameters" + '\n')
