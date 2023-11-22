@@ -40,7 +40,6 @@ def arg(name):
     return args.__dict__[name]
 
 
-
 ADMIN_PWD = arg('ADMIN_PWD')
 DB_USER_PWD = arg('DB_USER_PWD')
 regime = arg('regime')
@@ -298,6 +297,7 @@ def make_pg_restore(backup_dir, db_name, file_name, db_user, db_host, db_schemas
     sys.stdout.write(SUCCESS + "Restore database {0} from dump".format(db_name) + '\n')
     exit(0) # если надо выйти из скрипта после накатывания дампа
 
+
 def clear_all(db_name, db_user, db_schema):
     db = DataBase(admin_connection)
     sys.stdout.write(PENDING + "Drop schema {0}".format(db_schema))
@@ -321,6 +321,7 @@ def clear_all(db_name, db_user, db_schema):
     sys.stdout.write(SUCCESS + "Clear all" + '\n')
     db.close()
     #exit(0) если нужно просто стереть
+
 
 def check_param():
     sys.stdout.write(PENDING + "Checking calc parameters")
