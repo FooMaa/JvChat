@@ -89,7 +89,7 @@ class DataBase:
 
     def open(self, url):
         try:
-            sys.stdout.write(PENDING + "Create connection for {0}".format(url["username"]))
+            #sys.stdout.write(PENDING + "Create connection for {0}".format(url["username"]))
             self.connection = psycopg2.connect(database=self.url["database"],
                                                user=self.url["username"],
                                                password=self.url["password"],
@@ -102,8 +102,8 @@ class DataBase:
         self.cursor = self.connection.cursor()
         self.connection.autocommit = True
         self.url = url
-        sys.stdout.flush()
-        sys.stdout.write(SUCCESS + "Create connection for {0}".format(url["username"]) + '\n')
+        #sys.stdout.flush()
+        #sys.stdout.write(SUCCESS + "Create connection for {0}".format(url["username"]) + '\n')
 
     def query(self, command):
         try:
@@ -131,12 +131,12 @@ class DataBase:
         return False
 
     def close(self):
-        sys.stdout.write(PENDING + "Close connection for {0}".format(self.url["username"]))
+        #sys.stdout.write(PENDING + "Close connection for {0}".format(self.url["username"]))
         self.connection.commit()
         self.cursor.close()
         self.connection.close()
-        sys.stdout.flush()
-        sys.stdout.write(SUCCESS + "Close connection for {0}".format(self.url["username"]) + '\n')
+        #sys.stdout.flush()
+        #sys.stdout.write(SUCCESS + "Close connection for {0}".format(self.url["username"]) + '\n')
 
     def __enter__(self):
         return self
@@ -145,11 +145,24 @@ class DataBase:
         self.close()
 
 
+def create_connection_db(db_name, db_user, db_pwd):
+    connection = dict({"username": db_user,
+                       "host": DEFAULT_DB_IP,
+                       "port": 5432,
+                       "database": db_name,
+                       "password": db_pwd})
+    return connection
+
+def get_tables(db_name):
+    if db_name == DEFAULT_DB_NAME:
+        create_tables = CREATE_TABLES[:]
+
+    return create_tables
+
 # self.cursor.execute(open("1_create_users.sql", "r").read())
 def create_user(db_user, db_pwd):
-    db = DataBase(admin_connection)
-
     sys.stdout.write(PENDING + "Create user {0}".format(db_user))
+    db = DataBase(admin_connection)
 
     if db.exists('pg_roles', 'rolname', db_user):
         sys.stdout.flush()
@@ -162,53 +175,59 @@ def create_user(db_user, db_pwd):
     db.close()
 
 
-def create_database(name, db_owner):
-    db = DataBase(user_default_connection)
+def drop_database(db_name, db_user):
+    sys.stdout.write(PENDING + "Drop database {0}".format(db_name))
 
-    sys.stdout.write(PENDING + "Create database {0}".format(name))
+    db = DataBase(admin_connection)
 
-    if db.exists('pg_database', 'datname', name):
+    if db.exists('pg_database', 'datname', db_name):
+        db.query("DROP DATABASE \"{0}\";".format(db_name))
         sys.stdout.flush()
-        sys.stdout.write(SUCCESS + "Create user {0}. Database already exists".format(name) + '\n')
+        sys.stdout.write(SUCCESS + "Drop database {0}".format(db_name) + '\n')
     else:
-        db.query("CREATE DATABASE \"{0}\" OWNER {1}".format(name, db_owner))
         sys.stdout.flush()
-        sys.stdout.write(SUCCESS + "Create database {0}".format(name) + '\n')
+        sys.stdout.write(SUCCESS + "Drop database {0}. Database not exists, no need to drop".format(db_name) + '\n')
+
+    db.close()
+
+
+def update_public_schema_db(db_name, db_user):
+    db_admin = DataBase(create_connection_db(db_name, ADMIN_USER, ADMIN_PWD))
+    db_admin.query("ALTER SCHEMA public OWNER TO {0};".format(db_user))
+    db_admin.close()
+
+
+def create_database(db_name, db_user):
+    sys.stdout.write(PENDING + "Create database {0}".format(db_name))
+    db = DataBase(create_connection_db(ADMIN_DB, db_user, DB_USER_PWD))
+
+    if db.exists('pg_database', 'datname', db_name):
+        update_public_schema_db(db_name, db_user)
+        sys.stdout.flush()
+        sys.stdout.write(SUCCESS + "Create database {0}. Database already exists".format(db_name) + '\n')
+    else:
+        db.query("CREATE DATABASE \"{0}\" OWNER {1}".format(db_name, db_user))
+        update_public_schema_db(db_name, db_user)
+        sys.stdout.flush()
+        sys.stdout.write(SUCCESS + "Create database {0}".format(db_name) + '\n')
 
     db.close()
 
 
 def create_schema(db_schema_name, db_name, db_user):
-    db = DataBase(create_connection_db(db_name, db_user))
+    sys.stdout.write(PENDING + "Create and update schemas {0}".format(db_schema_name))
 
-    sys.stdout.write(PENDING + "Create schema {0}".format(db_schema_name))
-
+    db = DataBase(create_connection_db(db_name, db_user, DB_USER_PWD))
     db.query("DROP SCHEMA IF EXISTS {0};".format(db_schema_name))
     db.query("CREATE SCHEMA {0};".format(db_schema_name))
     
-    sys.stdout.flush()
-    sys.stdout.write(SUCCESS + "Create schema {0}".format(db_schema_name) + '\n')
     db.close()
-
-
-def create_connection_db(db_name, db_user):
-    connection = dict({"username": db_user,
-                       "host": DEFAULT_DB_IP,
-                       "port": 5432,
-                       "database": db_name,
-                       "password": DB_USER_PWD})
-    return connection
-
-
-def get_tables(db_name):
-    if db_name == DEFAULT_DB_NAME:
-        create_tables = CREATE_TABLES[:]
-
-    return create_tables
+    sys.stdout.flush()
+    sys.stdout.write(SUCCESS + "Create and update schemas {0}".format(db_schema_name) + '\n')
 
 
 def create_tables(db_name, db_user):
-    db = DataBase(create_connection_db(db_name, db_user))
+    db = DataBase(create_connection_db(db_name, db_user, DB_USER_PWD))
 
     sys.stdout.write(PENDING + "Create all tables for {0}".format(db_name))
 
@@ -218,22 +237,6 @@ def create_tables(db_name, db_user):
 
     sys.stdout.flush()
     sys.stdout.write(SUCCESS + "Create all tables for {0}".format(db_name) + '\n')
-
-    db.close()
-
-
-def drop_database(db_name, db_user):
-    db = DataBase(admin_connection)
-
-    sys.stdout.write(PENDING + "Drop database {0}".format(db_name))
-
-    if db.exists('pg_database', 'datname', db_name):
-        db.query("DROP DATABASE \"{0}\";".format(db_name))
-        sys.stdout.flush()
-        sys.stdout.write(SUCCESS + "Drop database {0}".format(db_name) + '\n')
-    else:
-        sys.stdout.flush()
-        sys.stdout.write(SUCCESS + "Drop database {0}. Database not exists, no need to drop".format(db_name) + '\n')
 
     db.close()
 
@@ -256,11 +259,11 @@ def make_dump_db(backup_dir, db_name, file_name, db_user, db_host):
 
     sys.stdout.flush()
     sys.stdout.write(SUCCESS + "Dump database {0}".format(db_name) + '\n')
-    exit(0) # если надо выйти из скрипта после создания дампа
+    exit(0)
 
 
 def make_pg_restore(backup_dir, db_name, file_name, db_user, db_host, db_schemas):
-    #sys.stdout.write(PENDING + "Restore database {0} use dump".format(db_name))
+    sys.stdout.write(PENDING + "Restore database {0} use dump".format(db_name))
 
     if not os.path.isfile("{0}/{1}".format(backup_dir, file_name)):
         sys.stdout.write(PENDING + "Restore database {0} use dump".format(db_name))
@@ -271,8 +274,7 @@ def make_pg_restore(backup_dir, db_name, file_name, db_user, db_host, db_schemas
     backup_call = ['pg_restore', '-Fc', '-h', db_host, '-U', db_user, '-d',
                    db_name, "{0}/{1}".format(backup_dir, file_name)]
 
-    #sys.stdout.write('\r')
-    db = DataBase(create_connection_db(db_name, db_user))
+    db = DataBase(create_connection_db(db_name, db_user, DB_USER_PWD))
     # пока удаляю каждую схему, можно просто удалять БД, закомментировано ниже
     for db_schema in db_schemas:
         db.query("DROP SCHEMA IF EXISTS {0} CASCADE;".format(db_schema))
@@ -283,8 +285,6 @@ def make_pg_restore(backup_dir, db_name, file_name, db_user, db_host, db_schemas
     #create_database(db_name, db_user)
     #rv = subprocess.call(backup_call, stdout=FNULL, stderr=FNULL)
 
-    #если бьется вывод
-    sys.stdout.write(PENDING + "Restore database {0} use dump".format(db_name))
     rv = subprocess.run(backup_call, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE) #change PIPE to DEVNULL if not need stderr
     #if rv != 0:
     if rv.returncode != 0:
@@ -295,7 +295,7 @@ def make_pg_restore(backup_dir, db_name, file_name, db_user, db_host, db_schemas
 
     sys.stdout.flush()
     sys.stdout.write(SUCCESS + "Restore database {0} from dump".format(db_name) + '\n')
-    exit(0) # если надо выйти из скрипта после накатывания дампа
+    exit(0)
 
 
 def clear_all(db_name, db_user, db_schema):
@@ -320,11 +320,12 @@ def clear_all(db_name, db_user, db_schema):
     sys.stdout.flush()
     sys.stdout.write(SUCCESS + "Clear all" + '\n')
     db.close()
-    #exit(0) если нужно просто стереть
+    #exit(0) #если нужно просто стереть
 
 
 def check_param():
     sys.stdout.write(PENDING + "Checking calc parameters")
+
     for i in range(len(sys.argv) - 1): 
         for j in range(i + 1, len(sys.argv)):
             if sys.argv[i].startswith('-') and sys.argv[j].startswith('-') :
@@ -343,6 +344,7 @@ def check_param():
                     sys.stdout.flush()
                     sys.stdout.write(FAIL + "You have repeate param \"-a\". See help." + '\n')
                     exit(1)
+
     sys.stdout.flush()
     sys.stdout.write(SUCCESS + "Checking calc parameters" + '\n')
 
