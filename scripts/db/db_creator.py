@@ -341,7 +341,7 @@ def check_param():
 
     for i in range(len(sys.argv) - 1): 
         for j in range(i + 1, len(sys.argv)):
-            if sys.argv[i].startswith('-') and sys.argv[j].startswith('-') :
+            if sys.argv[i].startswith('-') and sys.argv[j].startswith('-') and (sys.argv[i][:2] == sys.argv[j][:2]):
                 #if sys.argv[i].find("-r") != -1 and sys.argv[j].find("-r") != -1:
                 if ("-r" in sys.argv[i]) and ("-r" in sys.argv[j]):
                     sys.stdout.flush()
