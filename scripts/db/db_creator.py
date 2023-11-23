@@ -163,6 +163,7 @@ def create_connection_db(db_name, db_user, db_pwd):
     return connection
 
 def get_tables(db_name):
+    # на каждую новую БД делать такую проверку
     if db_name == DEFAULT_DB_NAME:
         create_tables = CREATE_TABLES_DEFAULT_SCHEMA[:]
         for table in FILL_TABLES_DEFAULT_SCHEMA[:]:
