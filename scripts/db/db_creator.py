@@ -31,9 +31,9 @@ FNULL = open(os.devnull, 'w')
 
 parser = ArgumentParser()
 # скрипт правильно работает и при "--a", "--admin", "--adm", e.t.c. Если протребуется исключить, то убрать из add_argument 2 параметр типа "--adminpwd"
-parser.add_argument('-r', '--regime', nargs='?', type=str, dest='regime', default='default', help='[OPTIONAL] Set regime \'dump\' or \'restore\' or \'clear\'. Default \'default\'')
-parser.add_argument('-a', '--adminpwd', nargs='?', type=str, dest='ADMIN_PWD', default=STOCK_ADMIN_PWD, help='[OPTIONAL] Set password for admin. Default {0}'.format(STOCK_ADMIN_PWD))
-parser.add_argument('-u', '--userpwd', nargs='?', type=str, dest='DB_USER_PWD', default=STOCK_USER_PWD, help='[OPTIONAL] Set password for admin. Default {0}'.format(STOCK_USER_PWD))
+parser.add_argument('-r', nargs='?', type=str, dest='regime', default='default', help='[OPTIONAL] Set regime \'dump\' or \'restore\' or \'clear\'. Default \'default\'')
+parser.add_argument('-a', nargs='?', type=str, dest='ADMIN_PWD', default=STOCK_ADMIN_PWD, help='[OPTIONAL] Set password for admin. Default {0}'.format(STOCK_ADMIN_PWD))
+parser.add_argument('-u', nargs='?', type=str, dest='DB_USER_PWD', default=STOCK_USER_PWD, help='[OPTIONAL] Set password for admin. Default {0}'.format(STOCK_USER_PWD))
 args = parser.parse_args()
 
 
@@ -342,21 +342,9 @@ def check_param():
     for i in range(len(sys.argv) - 1): 
         for j in range(i + 1, len(sys.argv)):
             if sys.argv[i].startswith('-') and sys.argv[j].startswith('-') and (sys.argv[i][:2] == sys.argv[j][:2]):
-                #if sys.argv[i].find("-r") != -1 and sys.argv[j].find("-r") != -1:
-                if ("-r" in sys.argv[i]) and ("-r" in sys.argv[j]):
-                    sys.stdout.flush()
-                    sys.stdout.write(FAIL + "You have repeate param \"-r\". See help." + '\n')
-                    exit(1)
-                #elif sys.argv[i].find("-u") != -1 and sys.argv[j].find("-u") != -1:
-                elif ("-u" in sys.argv[i]) and ("-u" in sys.argv[j]):
-                    sys.stdout.flush()
-                    sys.stdout.write(FAIL + "You have repeate param \"-u\". See help." + '\n')
-                    exit(1)
-                #elif sys.argv[i].find("-a") != -1 and sys.argv[j].find("-a") != -1:
-                elif ("-a" in sys.argv[i]) and ("-a" in sys.argv[j]):
-                    sys.stdout.flush()
-                    sys.stdout.write(FAIL + "You have repeate param \"-a\". See help." + '\n')
-                    exit(1)
+                sys.stdout.flush()
+                sys.stdout.write(FAIL + "You have repeate param \"{0}\". See help.".format(sys.argv[i][:2]) + '\n')
+                exit(1)
 
     sys.stdout.flush()
     sys.stdout.write(SUCCESS + "Checking calc parameters" + '\n')
