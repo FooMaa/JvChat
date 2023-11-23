@@ -10,5 +10,3 @@ CREATE TABLE chat_schema.users (
 
 COMMENT ON TABLE chat_schema.users IS 'Логин и пароль пользователя';
 COMMENT ON COLUMN chat_schema.users.user_id IS 'ID пользователя';
-
-INSERT INTO chat_schema.users (user_id, name) VALUES (0, 'Anton');

@@ -71,6 +71,9 @@ ALL_TABLES = [sql for sql in glob.glob('*.sql')]
 CREATE_TABLES = [x for x in ALL_TABLES if "fill_" not in x]
 CREATE_TABLES.sort(key=natural_keys)
 
+FILL_TABLES = [x for x in ALL_TABLES if "fill_" in x]
+FILL_TABLES.sort(key=natural_keys)
+
 
 class DataBase:
     def __init__(self, url):
@@ -152,7 +155,9 @@ def create_connection_db(db_name, db_user, db_pwd):
 def get_tables(db_name):
     if db_name == DEFAULT_DB_NAME:
         create_tables = CREATE_TABLES[:]
-
+        for table in FILL_TABLES[:]:
+            create_tables.append(table)
+        
     return create_tables
 
 # self.cursor.execute(open("1_create_users.sql", "r").read())
@@ -223,16 +228,17 @@ def create_schema(db_schema_name, db_name, db_user):
 
 
 def create_tables(db_name, db_user):
+    sys.stdout.write(PENDING + "Create and fill all tables for {0}".format(db_name))
+
     db = DataBase(create_connection_db(db_name, db_user, DB_USER_PWD))
 
-    sys.stdout.write(PENDING + "Create all tables for {0}".format(db_name))
-
     db_tables = get_tables(db_name)
+
     for table in db_tables:
         db.query(open(table, 'r').read())
 
     sys.stdout.flush()
-    sys.stdout.write(SUCCESS + "Create all tables for {0}".format(db_name) + '\n')
+    sys.stdout.write(SUCCESS + "Create and fill all tables for {0}".format(db_name) + '\n')
 
     db.close()
 
@@ -259,11 +265,11 @@ def make_dump_db(backup_dir, db_name, file_name, db_user, db_host):
 
 
 def make_pg_restore(backup_dir, db_name, file_name, db_user, db_host, db_schemas):
-    sys.stdout.write(PENDING + "Restore database {0} use dump".format(db_name)) # comment if drop db
+    sys.stdout.write(PENDING + "Restore database {0} from dump".format(db_name)) # comment if drop db
 
     if not os.path.isfile("{0}/{1}".format(backup_dir, file_name)):
         sys.stdout.flush()
-        sys.stdout.write(FAIL + "Restore database {0} use dump. No path \"Dump\"".format(db_name) + '\n')
+        sys.stdout.write(FAIL + "Restore database {0} from dump. No path \"Dump\"".format(db_name) + '\n')
         exit(1)
 
     backup_call = ['pg_restore', '-Fc', '-h', db_host, '-U', db_user, '-d',
