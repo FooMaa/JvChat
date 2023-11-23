@@ -30,7 +30,6 @@ FAIL = "\r[ " + RED + "FAIL" + END + " ] "
 FNULL = open(os.devnull, 'w')
 
 parser = ArgumentParser()
-# скрипт правильно работает и при "--a", "--admin", "--adm", e.t.c. Если протребуется исключить, то убрать из add_argument 2 параметр типа "--adminpwd"
 parser.add_argument('-r', nargs='?', type=str, dest='regime', default='default', help='[OPTIONAL] Set regime \'dump\' or \'restore\' or \'clear\'. Default \'default\'')
 parser.add_argument('-a', nargs='?', type=str, dest='ADMIN_PWD', default=STOCK_ADMIN_PWD, help='[OPTIONAL] Set password for admin. Default {0}'.format(STOCK_ADMIN_PWD))
 parser.add_argument('-u', nargs='?', type=str, dest='DB_USER_PWD', default=STOCK_USER_PWD, help='[OPTIONAL] Set password for admin. Default {0}'.format(STOCK_USER_PWD))
@@ -98,7 +97,6 @@ class DataBase:
 
     def open(self, url):
         try:
-            #sys.stdout.write(PENDING + "Create connection for {0}".format(url["username"]))
             self.connection = psycopg2.connect(database=self.url["database"],
                                                user=self.url["username"],
                                                password=self.url["password"],
@@ -111,8 +109,6 @@ class DataBase:
         self.cursor = self.connection.cursor()
         self.connection.autocommit = True
         self.url = url
-        #sys.stdout.flush()
-        #sys.stdout.write(SUCCESS + "Create connection for {0}".format(url["username"]) + '\n')
 
     def query(self, command):
         try:
@@ -140,12 +136,9 @@ class DataBase:
         return False
 
     def close(self):
-        #sys.stdout.write(PENDING + "Close connection for {0}".format(self.url["username"]))
         self.connection.commit()
         self.cursor.close()
         self.connection.close()
-        #sys.stdout.flush()
-        #sys.stdout.write(SUCCESS + "Close connection for {0}".format(self.url["username"]) + '\n')
 
     def __enter__(self):
         return self
