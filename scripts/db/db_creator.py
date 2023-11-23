@@ -365,13 +365,13 @@ def check_regime():
     if regime == 'dump':
         os.environ['PGPASSWORD'] = DB_USER_PWD
         make_dump_db('./Dump', DEFAULT_DB_NAME, 'dump.tar.gz',
-                 DEFAULT_DB_USER, '127.0.0.1')
+                 DEFAULT_DB_USER, '127.0.0.1') # Если нужны еще дампы, то делать аналогично
     elif regime == 'restore':
         SCHEMA_LIST = [DEFAULT_SCHEMA]
         # ... SCHEMA_LIST.append(...)
         os.environ['PGPASSWORD'] = DB_USER_PWD
         make_pg_restore('./Dump', DEFAULT_DB_NAME, 'dump.tar.gz',
-                    DEFAULT_DB_USER, '127.0.0.1', SCHEMA_LIST)
+                    DEFAULT_DB_USER, '127.0.0.1', SCHEMA_LIST) # Если нужны из других дампов, то делать аналогично
     elif regime == 'clear':
         clear_all(DEFAULT_DB_NAME, DEFAULT_DB_USER, DEFAULT_SCHEMA)
     elif regime != 'default':
