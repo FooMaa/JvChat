@@ -68,11 +68,21 @@ def natural_keys(text):
 os.chdir(os.path.dirname(os.path.realpath(sys.argv[0])))
 ALL_TABLES = [sql for sql in glob.glob('*.sql')]
 
-CREATE_TABLES = [x for x in ALL_TABLES if "fill_" not in x]
-CREATE_TABLES.sort(key=natural_keys)
+#раскомментировать только для таблиц рядом со скриптом
+#CREATE_TABLES = [x for x in ALL_TABLES if "fill_" not in x]
+#CREATE_TABLES.sort(key=natural_keys)
+#FILL_TABLES = [x for x in ALL_TABLES if "fill_" in x]
+#FILL_TABLES.sort(key=natural_keys)
 
-FILL_TABLES = [x for x in ALL_TABLES if "fill_" in x]
-FILL_TABLES.sort(key=natural_keys)
+#если потребуются еще схемы, то делать аналогично
+CREATE_TABLES_DEFAULT_SCHEMA = [os.path.basename(sql) for sql in glob.glob("{0}/*.sql".format(DEFAULT_SCHEMA)) if "fill_" not in sql]
+CREATE_TABLES_DEFAULT_SCHEMA.sort(key=natural_keys)
+CREATE_TABLES_DEFAULT_SCHEMA = [DEFAULT_SCHEMA + '/' + x for x in CREATE_TABLES_DEFAULT_SCHEMA]
+
+FILL_TABLES_DEFAULT_SCHEMA = [os.path.basename(sql) for sql in glob.glob("{0}/*.sql".format(DEFAULT_SCHEMA)) if "fill_" in sql]
+FILL_TABLES_DEFAULT_SCHEMA.sort(key=natural_keys)
+FILL_TABLES_DEFAULT_SCHEMA = [DEFAULT_SCHEMA + '/' + x for x in FILL_TABLES_DEFAULT_SCHEMA]
+
 
 
 class DataBase:
@@ -154,8 +164,8 @@ def create_connection_db(db_name, db_user, db_pwd):
 
 def get_tables(db_name):
     if db_name == DEFAULT_DB_NAME:
-        create_tables = CREATE_TABLES[:]
-        for table in FILL_TABLES[:]:
+        create_tables = CREATE_TABLES_DEFAULT_SCHEMA[:]
+        for table in FILL_TABLES_DEFAULT_SCHEMA[:]:
             create_tables.append(table)
         
     return create_tables
