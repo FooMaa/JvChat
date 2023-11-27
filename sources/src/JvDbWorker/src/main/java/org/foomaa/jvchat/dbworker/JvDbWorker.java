@@ -15,9 +15,17 @@ public class JvDbWorker extends JvDbDefines {
     private static final String PASS = "1111";
     private static Statement stmt;
     private static Connection connection;
+    private static JvDbWorker instance; //#1
 
-    public JvDbWorker() throws SQLException {
+    private JvDbWorker() throws SQLException {
         getConnection();
+    }
+
+    public static JvDbWorker getInstance() throws SQLException { // #3
+        if(instance == null){
+            instance = new JvDbWorker();
+        }
+        return instance;
     }
 
     public void getConnection() throws SQLException {

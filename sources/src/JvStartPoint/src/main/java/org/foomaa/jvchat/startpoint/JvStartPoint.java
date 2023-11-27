@@ -9,7 +9,7 @@ import java.util.List;
 
 public class JvStartPoint {
     public static void main(String[] args) throws SQLException {
-        JvDbWorker db = new JvDbWorker();
+        JvDbWorker db = JvDbWorker.getInstance();
         JvStartAuthentication a = new JvStartAuthentication();
         ResultSet rs = db.makeExecution(JvDbDefines.exec);
         List<String> al = db.getStrDataAtRow(rs, 1);
