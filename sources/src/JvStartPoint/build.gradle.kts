@@ -11,7 +11,7 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":sources:src:JvDbWorker"))
+    implementation(project(":sources:src:JvControls"))
     implementation(project(":sources:src:JvAuthentication"))
     testImplementation("junit:junit:3.8.1")
 

@@ -79,8 +79,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.foomaa.jvchat.dbworker</groupId>
-            <artifactId>JvDbWorker</artifactId>
+            <groupId>org.foomaa.jvchat.ctrl</groupId>
+            <artifactId>JvControls</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 

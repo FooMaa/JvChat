@@ -1,13 +1,27 @@
 package org.foomaa.jvchat.ctrl;
 
-/**
- * Hello world!
- *
- */
+import org.foomaa.jvchat.dbworker.JvDbDefines;
+import org.foomaa.jvchat.dbworker.JvDbWorker;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
 public class JvDbCtrl
 {
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+    private static JvDbCtrl instance;
+
+    private JvDbCtrl() throws SQLException {
+        JvDbWorker db = JvDbWorker.getInstance();
+        ResultSet rs = db.makeExecution(JvDbDefines.exec);
+        List<String> al = db.getStrDataAtRow(rs, 1);
+        db.endConnection();
+    }
+
+    public static JvDbCtrl getInstance() throws SQLException {
+        if(instance == null){
+            instance = new JvDbCtrl();
+        }
+        return instance;
     }
 }

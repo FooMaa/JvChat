@@ -11,6 +11,7 @@ repositories {
 
 dependencies {
     testImplementation("junit:junit:3.8.1")
+    implementation(project(":sources:src:JvDbWorker"))
 }
 
 tasks.test {
