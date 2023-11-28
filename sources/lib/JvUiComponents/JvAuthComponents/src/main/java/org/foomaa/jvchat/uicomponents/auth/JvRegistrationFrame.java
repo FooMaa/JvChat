@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
+import java.util.Objects;
 
 public class JvRegistrationFrame extends JFrame {
     private final JPanel panel;
@@ -16,7 +17,6 @@ public class JvRegistrationFrame extends JFrame {
     private final JvAuthPasswordField tPassword;
     private final JvAuthPasswordField tPasswordConfirm;
     private final JvAuthButton bRegister;
-
     public JvRegistrationFrame() {
         super("RegistrationWindow");
 
@@ -83,7 +83,16 @@ public class JvRegistrationFrame extends JFrame {
         bRegister.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("kokokokokok");
+                if (!Objects.equals(tPassword.getInputText(), "") &&
+                        !Objects.equals(tPasswordConfirm.getInputText(), "") &&
+                        !Objects.equals(tPassword.getInputText(), tPasswordConfirm.getInputText())) {
+                    tInfo.setText("Введенные пароли должны совпадать");
+                }
+                if (Objects.equals(tPassword.getInputText(), "") ||
+                        Objects.equals(tPasswordConfirm.getInputText(), "") ||
+                        Objects.equals(tLogin.getInputText(), "")) {
+                    tInfo.setText("Все поля должны быть заполнены");
+                }
             }
         });
 

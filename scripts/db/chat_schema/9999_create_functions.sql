@@ -1,6 +1,7 @@
-CREATE OR REPLACE FUNCTION chat_schema.users_save (
-    f_user_id     bigint,
-    f_name        character varying(32)
+CREATE OR REPLACE FUNCTION chat_schema.logins_passwords_save (
+    f_id     bigint,
+    f_login       character varying,
+    f_password    character varying
 )
     RETURNS integer AS
 $BODY$
@@ -8,12 +9,12 @@ DECLARE
     rv integer;
 BEGIN
     rv := -1;
-    PERFORM * FROM chat_schema.users WHERE user_id=f_user_id;
+    PERFORM * FROM chat_schema.logins_passwords WHERE id=f_id;
     IF found THEN
-        UPDATE chat_schema.users SET user_id=f_user_id, name=f_name WHERE user_id=f_user_id;
+        UPDATE chat_schema.logins_passwords SET id=f_id, login=f_login, password=f_password WHERE id=f_id;
         rv := 1;
     ELSE
-        INSERT INTO chat_schema.users(user_id, name) VALUES (f_user_id, f_name);
+        INSERT INTO chat_schema.logins_passwords(id, login, password) VALUES (f_id, f_login, f_password);
         rv := 2;
     END IF;
 
@@ -21,23 +22,23 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION chat_schema.users_remove( f_id  integer )
+CREATE OR REPLACE FUNCTION chat_schema.logins_passwords_remove( f_id  integer )
     RETURNS boolean AS
 $BODY$
 DECLARE
 BEGIN
-    DELETE FROM chat_schema.users WHERE user_id=f_id;
+    DELETE FROM chat_schema.logins_passwords WHERE id=f_id;
     RETURN true;
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION chat_schema.users_get( f_id integer )
-    RETURNS SETOF chat_schema.users AS
+CREATE OR REPLACE FUNCTION chat_schema.logins_passwords_get( f_id integer )
+    RETURNS SETOF chat_schema.logins_passwords AS
 $BODY$
 DECLARE
-    rv chat_schema.users%rowtype;
+    rv chat_schema.logins_passwords%rowtype;
 BEGIN
-    SELECT * INTO rv FROM chat_schema.users WHERE user_id=f_id;
+    SELECT * INTO rv FROM chat_schema.logins_passwords WHERE id=f_id;
     if found then
         RETURN NEXT rv;
     end if;
