@@ -8,4 +8,8 @@ public class JvAuthLabel extends JLabel {
         setText(text);
         setFont(new Font("Times", Font.PLAIN, 20));
     }
+
+    public void resetSize(int size){
+        setFont(new Font("Times", Font.PLAIN, size));
+    }
 }

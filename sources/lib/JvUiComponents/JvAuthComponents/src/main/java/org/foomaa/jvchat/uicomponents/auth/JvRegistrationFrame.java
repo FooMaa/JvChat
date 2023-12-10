@@ -14,6 +14,7 @@ public class JvRegistrationFrame extends JFrame {
     private final JPanel panel;
     private final JvAuthLabel tInfo;
     private final JvAuthTextField tLogin;
+    private final JvAuthLabel tErrorHelpInfo;
     private final JvAuthPasswordField tPassword;
     private final JvAuthPasswordField tPasswordConfirm;
     private final JvAuthButton bRegister;
@@ -23,6 +24,8 @@ public class JvRegistrationFrame extends JFrame {
         panel = new JPanel();
         tInfo = new JvAuthLabel("Введите данные для регистрации:");
         tLogin = new JvAuthTextField("Логин");
+        tErrorHelpInfo = new JvAuthLabel("");
+        tErrorHelpInfo.resetSize(16);
         tPassword = new JvAuthPasswordField("Пароль");
         tPasswordConfirm = new JvAuthPasswordField("Подтвердите пароль");
         bRegister = new JvAuthButton("РЕГИСТРАЦИЯ");
@@ -66,6 +69,12 @@ public class JvRegistrationFrame extends JFrame {
         gbc.gridy = 3;
         panel.add(tPasswordConfirm, gbc);
 
+        gbc.fill = GridBagConstraints.CENTER;
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.insets = new Insets(0, insX, 0, insX);
+        gbc.gridy = 4;
+        panel.add(tErrorHelpInfo, gbc);
+
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.insets = new Insets(0, 0, 20, 0);
@@ -73,7 +82,7 @@ public class JvRegistrationFrame extends JFrame {
                 JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
         gbc.ipady = JvDisplaySettings.getResizeFromDisplay(0.01,
                 JvDisplaySettings.TypeOfDisplayBorder.HEIGHT);
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         panel.add(bRegister, gbc);
 
         getContentPane().add(panel);
@@ -86,12 +95,12 @@ public class JvRegistrationFrame extends JFrame {
                 if (!Objects.equals(tPassword.getInputText(), "") &&
                         !Objects.equals(tPasswordConfirm.getInputText(), "") &&
                         !Objects.equals(tPassword.getInputText(), tPasswordConfirm.getInputText())) {
-                    tInfo.setText("Введенные пароли должны совпадать");
+                    tErrorHelpInfo.setText("Введенные пароли должны совпадать");
                 }
                 if (Objects.equals(tPassword.getInputText(), "") ||
                         Objects.equals(tPasswordConfirm.getInputText(), "") ||
                         Objects.equals(tLogin.getInputText(), "")) {
-                    tInfo.setText("Все поля должны быть заполнены");
+                    tErrorHelpInfo.setText("Все поля должны быть заполнены");
                 }
             }
         });
