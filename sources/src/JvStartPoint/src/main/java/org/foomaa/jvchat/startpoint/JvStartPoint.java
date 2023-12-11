@@ -8,7 +8,7 @@ import java.util.List;
 
 public class JvStartPoint {
     public static void main(String[] args) throws SQLException {
-        JvDbCtrl db = JvDbCtrl.getInstance();
+//        JvDbCtrl db = JvDbCtrl.getInstance();
         JvStartAuthentication a = new JvStartAuthentication();
     }
 }

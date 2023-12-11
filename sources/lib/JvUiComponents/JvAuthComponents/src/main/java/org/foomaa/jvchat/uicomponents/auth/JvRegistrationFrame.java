@@ -21,11 +21,19 @@ public class JvRegistrationFrame extends JFrame {
     public JvRegistrationFrame() {
         super("RegistrationWindow");
 
+        Dimension dim = new Dimension(JvDisplaySettings.
+                getResizeFromDisplay(0.23,
+                        JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
+                JvDisplaySettings.getResizeFromDisplay(0.03,
+                        JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
+
         panel = new JPanel();
         tInfo = new JvAuthLabel("Введите данные для регистрации:");
         tLogin = new JvAuthTextField("Логин");
         tErrorHelpInfo = new JvAuthLabel("");
-        tErrorHelpInfo.resetSize(16);
+        tErrorHelpInfo.resetSize(12);
+        tErrorHelpInfo.setForeground(Color.RED);
+        tErrorHelpInfo.setPreferredSize(dim);
         tPassword = new JvAuthPasswordField("Пароль");
         tPasswordConfirm = new JvAuthPasswordField("Подтвердите пароль");
         bRegister = new JvAuthButton("РЕГИСТРАЦИЯ");
@@ -77,7 +85,7 @@ public class JvRegistrationFrame extends JFrame {
 
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.NORTH;
-        gbc.insets = new Insets(0, 0, 20, 0);
+        gbc.insets = new Insets(0, 0, 0, 0);
         gbc.ipadx = JvDisplaySettings.getResizeFromDisplay(0.03,
                 JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
         gbc.ipady = JvDisplaySettings.getResizeFromDisplay(0.01,
@@ -119,7 +127,7 @@ public class JvRegistrationFrame extends JFrame {
         setTitle("РЕГИСТРАЦИЯ");
         setSize(JvDisplaySettings.getResizeFromDisplay(0.3,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
-                JvDisplaySettings.getResizeFromDisplay(0.3,
+                JvDisplaySettings.getResizeFromDisplay(0.34,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
         setResizable(false);
         setLocationRelativeTo(null);

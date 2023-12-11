@@ -4,6 +4,7 @@ import org.foomaa.jvchat.syssettings.JvDisplaySettings;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -21,20 +22,19 @@ public class JvAuthPasswordField extends JPanel {
     private boolean unLockPass = false;
     private JPasswordField passwordField;
     private JButton button;
-    private final JPanel passwordFieldWithButtonsPanel;
     private String defaultText;
     private final int gap = 5;
+    private final int borderSize = 1;
 
     public JvAuthPasswordField(String text) {
         visibleImage = setIcon("/eye.png");
         invisibleImage = setIcon("/eye-close.png");
 
-        passwordFieldWithButtonsPanel = new JPanel(new FlowLayout(
-                FlowLayout.LEADING, gap, 0));
+        setLayout(new FlowLayout(FlowLayout.LEADING, gap, 0));
         defaultText = text;
 
         settingPassAndButtonPanel();
-        settingGeneralPanel();
+        addListenerToElem();
     }
 
     private BufferedImage setIcon(String path) {
@@ -46,7 +46,7 @@ public class JvAuthPasswordField extends JPanel {
         return null;
     }
 
-    private void addButtonToPanel(JPanel panel) {
+    private void addButtonToPanel() {
         button = new JButton(new ImageIcon(invisibleImage));
         button.setContentAreaFilled(false);
         button.setBorderPainted(false);
@@ -55,7 +55,7 @@ public class JvAuthPasswordField extends JPanel {
         button.setFocusPainted(false);
         button.setPreferredSize(new Dimension(invisibleImage.getWidth() + gap,
                 invisibleImage.getHeight()));
-        panel.add(button);
+        add(button);
     }
 
     private void addListenerToElem() {
@@ -126,14 +126,14 @@ public class JvAuthPasswordField extends JPanel {
                 JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
                 JvDisplaySettings.getResizeFromDisplay(0.03,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
-        passwordFieldWithButtonsPanel.setPreferredSize(dim);
-
+        setPreferredSize(dim);
         makePassField(dim);
+        add(passwordField);
 
-        passwordFieldWithButtonsPanel.add(passwordField);
-        addButtonToPanel(passwordFieldWithButtonsPanel);
-        passwordFieldWithButtonsPanel.setBackground(passwordField.getBackground());
-        passwordFieldWithButtonsPanel.setBorder(null);
+        addButtonToPanel();
+
+        setBackground(passwordField.getBackground());
+        setBorder(null);
 
         settingPassField();
     }
@@ -141,24 +141,18 @@ public class JvAuthPasswordField extends JPanel {
     private void makePassField(Dimension dim) {
         passwordField = new JPasswordField();
         Dimension calcNewDim = new Dimension((int) dim.getWidth() -
-                visibleImage.getWidth() - (gap * 3),
-                (int) dim.getHeight());
+                visibleImage.getWidth(),
+                (int) dim.getHeight() - borderSize * 2);
         passwordField.setPreferredSize(calcNewDim);
     }
 
     private void settingPassField() {
         passwordField.setBorder(null);
         passwordField.setText(defaultText);
-        passwordField.setFont(new Font("Times",
-                Font.BOLD, 14));
+        passwordField.setFont(new Font("Times", Font.BOLD, 14));
         passwordField.setForeground(Color.lightGray);
         passwordField.setFocusable(false);
         passwordField.setEchoChar((char) 0);
-    }
-
-    private void settingGeneralPanel() {
-        addListenerToElem();
-        add(passwordFieldWithButtonsPanel);
     }
 
     public String getInputText() {
@@ -166,5 +160,13 @@ public class JvAuthPasswordField extends JPanel {
             return passwordField.getText();
         }
         return "";
+    }
+
+    public void setErrorBorder() {
+        setBorder(new LineBorder(Color.red, borderSize));
+    }
+
+    public void setNormalBorder() {
+        setBorder(null);
     }
 }

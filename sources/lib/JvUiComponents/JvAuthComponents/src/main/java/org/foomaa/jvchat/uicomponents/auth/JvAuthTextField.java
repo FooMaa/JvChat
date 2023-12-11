@@ -4,6 +4,7 @@ import org.foomaa.jvchat.syssettings.JvDisplaySettings;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -18,17 +19,17 @@ public class JvAuthTextField extends JPanel {
     private BufferedImage visibleImage;
     private JButton button;
     private JTextField textField;
-    private final JPanel textFieldWithButtonsPanel;
+
     private String defaultText;
     private final int gap = 5;
+    private final int borderSize = 1;
 
     public JvAuthTextField(String text) {
-        textFieldWithButtonsPanel = new JPanel(new FlowLayout(
-                FlowLayout.LEADING, gap, 0));
+        setLayout(new FlowLayout(FlowLayout.LEADING, gap, 0));
         defaultText = text;
 
         settingTextAndButtonPanel();
-        settingGeneralPanel();
+        addListenerToElem();
     }
 
     private BufferedImage setIcon(String path) {
@@ -40,7 +41,7 @@ public class JvAuthTextField extends JPanel {
         return null;
     }
 
-    private void addButtonToPanel(JPanel panel) {
+    private void addButtonToPanel() {
         button = new JButton(new ImageIcon(visibleImage));
         button.setContentAreaFilled(false);
         button.setBorderPainted(false);
@@ -49,7 +50,7 @@ public class JvAuthTextField extends JPanel {
         button.setFocusPainted(false);
         button.setPreferredSize(new Dimension(visibleImage.getWidth() + gap,
                 visibleImage.getHeight()));
-        panel.add(button);
+        add(button);
     }
 
     private void addListenerToElem() {
@@ -89,19 +90,21 @@ public class JvAuthTextField extends JPanel {
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
                 JvDisplaySettings.getResizeFromDisplay(0.03,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
-        textFieldWithButtonsPanel.setPreferredSize(dim);
+        setPreferredSize(dim);
         makeTextField(dim);
 
-        textFieldWithButtonsPanel.add(textField);
-        textFieldWithButtonsPanel.setBackground(textField.getBackground());
-        textFieldWithButtonsPanel.setBorder(null);
+        add(textField);
+        setBackground(textField.getBackground());
+        setBorder(null);
 
         settingTextField();
     }
 
     private void makeTextField(Dimension dim) {
         textField = new JTextField();
-        textField.setPreferredSize(dim);
+        Dimension calcNewDim = new Dimension((int) dim.getWidth(),
+                (int) dim.getHeight() - borderSize * 2);
+        textField.setPreferredSize(calcNewDim);
     }
 
     private void settingTextField() {
@@ -112,15 +115,19 @@ public class JvAuthTextField extends JPanel {
         textField.setFocusable(false);
     }
 
-    private void settingGeneralPanel() {
-        addListenerToElem();
-        add(textFieldWithButtonsPanel);
-    }
 
     public String getInputText() {
         if (!Objects.equals(textField.getText(), defaultText)) {
             return textField.getText();
         }
         return "";
+    }
+
+    public void setErrorBorder() {
+        setBorder(new LineBorder(Color.red, borderSize));
+    }
+
+    public void setNormalBorder() {
+        setBorder(null);
     }
 }

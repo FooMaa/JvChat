@@ -3,8 +3,10 @@ package org.foomaa.jvchat.uicomponents.auth;
 import org.foomaa.jvchat.syssettings.JvDisplaySettings;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Objects;
 
 public class JvAuthFrame extends JFrame {
     private final JPanel panel;
@@ -59,6 +61,7 @@ public class JvAuthFrame extends JFrame {
         gbc.gridy = 2;
         panel.add(tPassword, gbc);
 
+
         gbc.fill = GridBagConstraints.CENTER;
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.insets = new Insets(0, 0, 5, 0);
@@ -88,7 +91,12 @@ public class JvAuthFrame extends JFrame {
         bEnter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("kokokokokok");
+                if (Objects.equals(tPassword.getInputText(), "")) {
+                    tPassword.setErrorBorder();
+                }
+                if (Objects.equals(tLogin.getInputText(), "")) {
+                    tLogin.setErrorBorder();
+                }
             }
         });
 
@@ -120,7 +128,7 @@ public class JvAuthFrame extends JFrame {
         setTitle("ВХОД");
         setSize(JvDisplaySettings.getResizeFromDisplay(0.3,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
-                JvDisplaySettings.getResizeFromDisplay(0.3,
+                JvDisplaySettings.getResizeFromDisplay(0.28,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
         setResizable(false);
         setLocationRelativeTo(null);
