@@ -9,6 +9,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.util.Objects;
+import java.util.Vector;
 
 public class JvRegistrationFrame extends JFrame {
     private final JPanel panel;
@@ -21,19 +22,11 @@ public class JvRegistrationFrame extends JFrame {
     public JvRegistrationFrame() {
         super("RegistrationWindow");
 
-        Dimension dim = new Dimension(JvDisplaySettings.
-                getResizeFromDisplay(0.23,
-                        JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
-                JvDisplaySettings.getResizeFromDisplay(0.03,
-                        JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
-
         panel = new JPanel();
         tInfo = new JvAuthLabel("Введите данные для регистрации:");
         tLogin = new JvAuthTextField("Логин");
         tErrorHelpInfo = new JvAuthLabel("");
-        tErrorHelpInfo.resetSize(12);
-        tErrorHelpInfo.setForeground(Color.RED);
-        tErrorHelpInfo.setPreferredSize(dim);
+        tErrorHelpInfo.settingToError();
         tPassword = new JvAuthPasswordField("Пароль");
         tPasswordConfirm = new JvAuthPasswordField("Подтвердите пароль");
         bRegister = new JvAuthButton("РЕГИСТРАЦИЯ");
@@ -61,13 +54,13 @@ public class JvRegistrationFrame extends JFrame {
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX, 10, insX);
+        gbc.insets = new Insets(0, insX, 5, insX);
         gbc.gridy = 1;
         panel.add(tLogin, gbc);
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX, 10, insX);
+        gbc.insets = new Insets(0, insX, 5, insX);
         gbc.gridy = 2;
         panel.add(tPassword, gbc);
 
@@ -100,16 +93,7 @@ public class JvRegistrationFrame extends JFrame {
         bRegister.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!Objects.equals(tPassword.getInputText(), "") &&
-                        !Objects.equals(tPasswordConfirm.getInputText(), "") &&
-                        !Objects.equals(tPassword.getInputText(), tPasswordConfirm.getInputText())) {
-                    tErrorHelpInfo.setText("Введенные пароли должны совпадать");
-                }
-                if (Objects.equals(tPassword.getInputText(), "") ||
-                        Objects.equals(tPasswordConfirm.getInputText(), "") ||
-                        Objects.equals(tLogin.getInputText(), "")) {
-                    tErrorHelpInfo.setText("Все поля должны быть заполнены");
-                }
+                checkFields();
             }
         });
 
@@ -122,12 +106,54 @@ public class JvRegistrationFrame extends JFrame {
 
     }
 
+    private void checkFields() {
+        tLogin.setNormalBorder();
+        tPassword.setNormalBorder();
+        tPasswordConfirm.setNormalBorder();
+        tErrorHelpInfo.setText("");
+
+        Vector<String> fields = new Vector<String>();
+
+        if (Objects.equals(tLogin.getInputText(), "")) {
+            tLogin.setErrorBorder();
+            fields.add("\"Логин\"");
+        }
+        if (Objects.equals(tPassword.getInputText(), "")) {
+            tPassword.setErrorBorder();
+            fields.add("\"Пароль\"");
+        }
+        if (Objects.equals(tPasswordConfirm.getInputText(), "")) {
+            tPasswordConfirm.setErrorBorder();
+            fields.add("\"Подтвердите пароль\"");
+        }
+        if (!Objects.equals(tPassword.getInputText(), "") &&
+                !Objects.equals(tPasswordConfirm.getInputText(), "") &&
+                !Objects.equals(tPassword.getInputText(), tPasswordConfirm.getInputText())) {
+            tPassword.setErrorBorder();
+            tPasswordConfirm.setErrorBorder();
+            tErrorHelpInfo.setText("Введенные пароли должны совпадать");
+        }
+
+        String concatFields = "";
+        if (fields.size() != 0) {
+            for (int i = 0; i < fields.size(); i++) {
+                concatFields += fields.elementAt(i) + ", ";
+            }
+            concatFields = concatFields.substring(0, concatFields.length() - 2);
+            if (fields.size() == 1) {
+                tErrorHelpInfo.setText(String.format("Поле %s должно быть заполнено", concatFields));
+            } else {
+                tErrorHelpInfo.setText(String.format("Поля %s должны быть заполнены", concatFields));
+            }
+        }
+    }
+
     private void addGeneralSettingsToWidget() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("РЕГИСТРАЦИЯ");
-        setSize(JvDisplaySettings.getResizeFromDisplay(0.3,
+        setSize(JvDisplaySettings.getResizeFromDisplay(0.32,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
-                JvDisplaySettings.getResizeFromDisplay(0.33,
+                JvDisplaySettings.getResizeFromDisplay(0.30,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
         setResizable(false);
         setLocationRelativeTo(null);

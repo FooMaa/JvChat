@@ -7,6 +7,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Objects;
+import java.util.Vector;
 
 public class JvAuthFrame extends JFrame {
     private final JPanel panel;
@@ -125,17 +126,29 @@ public class JvAuthFrame extends JFrame {
         tPassword.setNormalBorder();
         tLogin.setNormalBorder();
         tErrorHelpInfo.setText("");
-        if (Objects.equals(tPassword.getInputText(), "")) {
-            tPassword.setErrorBorder();
-            tErrorHelpInfo.setText("Поле пароля не заполнено");
-        }
+
+        Vector<String> fields = new Vector<String>();
+
         if (Objects.equals(tLogin.getInputText(), "")) {
             tLogin.setErrorBorder();
-            tErrorHelpInfo.setText("Поле логина не заполнено");
+            fields.add("\"Логин\"");
         }
-        if ( Objects.equals(tPassword.getInputText(), "") &&
-                Objects.equals(tLogin.getInputText(), "")) {
-            tErrorHelpInfo.setText("Поля не заполнены");
+        if (Objects.equals(tPassword.getInputText(), "")) {
+            tPassword.setErrorBorder();
+            fields.add("\"Пароль\"");
+        }
+
+        String concatFields = "";
+        if (fields.size() != 0) {
+            for (int i = 0; i < fields.size(); i++) {
+                concatFields += fields.elementAt(i) + ", ";
+            }
+            concatFields = concatFields.substring(0, concatFields.length() - 2);
+            if (fields.size() == 1) {
+                tErrorHelpInfo.setText(String.format("Поле %s должно быть заполнено", concatFields));
+            } else {
+                tErrorHelpInfo.setText(String.format("Поля %s должны быть заполнены", concatFields));
+            }
         }
     }
 
@@ -150,7 +163,7 @@ public class JvAuthFrame extends JFrame {
         setTitle("ВХОД");
         setSize(JvDisplaySettings.getResizeFromDisplay(0.3,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
-                JvDisplaySettings.getResizeFromDisplay(0.30,
+                JvDisplaySettings.getResizeFromDisplay(0.28,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
         setResizable(false);
         setLocationRelativeTo(null);
