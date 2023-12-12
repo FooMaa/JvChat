@@ -151,7 +151,7 @@ public class JvRegistrationFrame extends JFrame {
     private void addGeneralSettingsToWidget() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("РЕГИСТРАЦИЯ");
-        setSize(JvDisplaySettings.getResizeFromDisplay(0.32,
+        setSize(JvDisplaySettings.getResizeFromDisplay(0.3,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
                 JvDisplaySettings.getResizeFromDisplay(0.30,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
