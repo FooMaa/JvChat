@@ -12,6 +12,7 @@ public class JvAuthFrame extends JFrame {
     private final JPanel panel;
     private final JvAuthLabel tInfo;
     private final JvAuthTextField tLogin;
+    private final JvAuthLabel tErrorHelpInfo;
     private final JvAuthPasswordField tPassword;
     private final JvAuthButton bEnter;
     private final JvAuthActiveLabel activeRegisterLabel;
@@ -23,6 +24,8 @@ public class JvAuthFrame extends JFrame {
         panel = new JPanel();
         tInfo = new JvAuthLabel("Введите данные для входа:");
         tLogin = new JvAuthTextField("Логин");
+        tErrorHelpInfo = new JvAuthLabel("");
+        tErrorHelpInfo.settingToError();
         tPassword = new JvAuthPasswordField("Пароль");
         bEnter = new JvAuthButton("ВОЙТИ");
         activeMissLabel = new JvAuthActiveLabel("Не помню пароль");
@@ -70,9 +73,15 @@ public class JvAuthFrame extends JFrame {
 
         gbc.fill = GridBagConstraints.CENTER;
         gbc.anchor = GridBagConstraints.NORTH;
-        gbc.insets = new Insets(0, 0, 20, 0);
+        gbc.insets = new Insets(0, 0, 10, 0);
         gbc.gridy = 4;
         panel.add(activeRegisterLabel, gbc);
+
+        gbc.fill = GridBagConstraints.CENTER;
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.insets = new Insets(0, insX, 10, insX);
+        gbc.gridy = 5;
+        panel.add(tErrorHelpInfo, gbc);
 
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.SOUTH;
@@ -81,7 +90,7 @@ public class JvAuthFrame extends JFrame {
                 JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
         gbc.ipady = JvDisplaySettings.getResizeFromDisplay(0.01,
                 JvDisplaySettings.TypeOfDisplayBorder.HEIGHT);
-        gbc.gridy = 5;
+        gbc.gridy = 6;
         panel.add(bEnter, gbc);
 
         getContentPane().add(panel);
@@ -91,12 +100,7 @@ public class JvAuthFrame extends JFrame {
         bEnter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (Objects.equals(tPassword.getInputText(), "")) {
-                    tPassword.setErrorBorder();
-                }
-                if (Objects.equals(tLogin.getInputText(), "")) {
-                    tLogin.setErrorBorder();
-                }
+                checkFields();
             }
         });
 
@@ -117,6 +121,24 @@ public class JvAuthFrame extends JFrame {
 
     }
 
+    private void checkFields() {
+        tPassword.setNormalBorder();
+        tLogin.setNormalBorder();
+        tErrorHelpInfo.setText("");
+        if (Objects.equals(tPassword.getInputText(), "")) {
+            tPassword.setErrorBorder();
+            tErrorHelpInfo.setText("Поле пароля не заполнено");
+        }
+        if (Objects.equals(tLogin.getInputText(), "")) {
+            tLogin.setErrorBorder();
+            tErrorHelpInfo.setText("Поле логина не заполнено");
+        }
+        if ( Objects.equals(tPassword.getInputText(), "") &&
+                Objects.equals(tLogin.getInputText(), "")) {
+            tErrorHelpInfo.setText("Поля не заполнены");
+        }
+    }
+
     private void closeWindow() {
         dispose();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -128,7 +150,7 @@ public class JvAuthFrame extends JFrame {
         setTitle("ВХОД");
         setSize(JvDisplaySettings.getResizeFromDisplay(0.3,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
-                JvDisplaySettings.getResizeFromDisplay(0.28,
+                JvDisplaySettings.getResizeFromDisplay(0.30,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
         setResizable(false);
         setLocationRelativeTo(null);

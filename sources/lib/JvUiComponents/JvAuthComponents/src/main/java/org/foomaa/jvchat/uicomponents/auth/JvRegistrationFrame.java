@@ -61,13 +61,13 @@ public class JvRegistrationFrame extends JFrame {
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX, -30, insX);
+        gbc.insets = new Insets(0, insX, 10, insX);
         gbc.gridy = 1;
         panel.add(tLogin, gbc);
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX, -30, insX);
+        gbc.insets = new Insets(0, insX, 10, insX);
         gbc.gridy = 2;
         panel.add(tPassword, gbc);
 
@@ -79,13 +79,13 @@ public class JvRegistrationFrame extends JFrame {
 
         gbc.fill = GridBagConstraints.CENTER;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX, 0, insX);
+        gbc.insets = new Insets(0, insX, 10, insX);
         gbc.gridy = 4;
         panel.add(tErrorHelpInfo, gbc);
 
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.NORTH;
-        gbc.insets = new Insets(0, 0, 0, 0);
+        gbc.insets = new Insets(0, 0, 20, 0);
         gbc.ipadx = JvDisplaySettings.getResizeFromDisplay(0.03,
                 JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
         gbc.ipady = JvDisplaySettings.getResizeFromDisplay(0.01,
@@ -127,7 +127,7 @@ public class JvRegistrationFrame extends JFrame {
         setTitle("РЕГИСТРАЦИЯ");
         setSize(JvDisplaySettings.getResizeFromDisplay(0.3,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
-                JvDisplaySettings.getResizeFromDisplay(0.34,
+                JvDisplaySettings.getResizeFromDisplay(0.33,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
         setResizable(false);
         setLocationRelativeTo(null);
