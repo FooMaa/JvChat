@@ -59,7 +59,7 @@ public class JvAuthFrame extends JFrame {
         gbc.gridy = 1;
         panel.add(tLogin, gbc);
 
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.fill = GridBagConstraints.CENTER;
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.insets = new Insets(0, insX, 0, insX);
         gbc.gridy = 2;

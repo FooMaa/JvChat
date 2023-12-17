@@ -110,9 +110,7 @@ public class JvAuthTextField extends JPanel {
     private void settingTextField() {
         textField.setBorder(null);
         textField.setText(defaultText);
-        int size = JvDisplaySettings.getResizeFromDisplay(0.012,
-                JvDisplaySettings.TypeOfDisplayBorder.HEIGHT);
-        textField.setFont(new Font("Times", Font.BOLD, size));
+        textField.setFont(new Font("Times", Font.BOLD, JvDisplaySettings.getSizeFont(0.012)));
         textField.setForeground(Color.lightGray);
         textField.setFocusable(false);
     }

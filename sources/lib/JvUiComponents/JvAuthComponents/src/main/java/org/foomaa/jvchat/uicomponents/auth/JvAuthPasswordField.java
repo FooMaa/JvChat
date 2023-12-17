@@ -46,16 +46,15 @@ public class JvAuthPasswordField extends JPanel {
         return null;
     }
 
-    private void addButtonToPanel() {
+    private void settingButtonImage() {
         button = new JButton(new ImageIcon(invisibleImage));
         button.setContentAreaFilled(false);
         button.setBorderPainted(false);
-        button.setMargin(new Insets(0, 0, 0, gap));
+        button.setMargin(new Insets(0, 0, 0, 0));
         button.setEnabled(false);
         button.setFocusPainted(false);
         button.setPreferredSize(new Dimension(invisibleImage.getWidth() + gap,
                 invisibleImage.getHeight()));
-        add(button);
     }
 
     private void addListenerToElem() {
@@ -122,15 +121,16 @@ public class JvAuthPasswordField extends JPanel {
     }
 
     private void settingPassAndButtonPanel() {
-        Dimension dim = new Dimension(JvDisplaySettings.getResizeFromDisplay(0.23,
+        Dimension dim = new Dimension(JvDisplaySettings.getResizeFromDisplay(0.25,
                 JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
                 JvDisplaySettings.getResizeFromDisplay(0.03,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
-        setPreferredSize(dim);
+        settingButtonImage();
         makePassField(dim);
-        add(passwordField);
+        setPreferredSize(dim);
 
-        addButtonToPanel();
+        add(passwordField);
+        add(button);
 
         setBackground(passwordField.getBackground());
         setBorder(null);
@@ -141,7 +141,7 @@ public class JvAuthPasswordField extends JPanel {
     private void makePassField(Dimension dim) {
         passwordField = new JPasswordField();
         Dimension calcNewDim = new Dimension((int) dim.getWidth() -
-                visibleImage.getWidth(),
+                button.getPreferredSize().width + gap * 3,
                 (int) dim.getHeight() - borderSize * 2);
         passwordField.setPreferredSize(calcNewDim);
     }
@@ -149,9 +149,7 @@ public class JvAuthPasswordField extends JPanel {
     private void settingPassField() {
         passwordField.setBorder(null);
         passwordField.setText(defaultText);
-        int size = JvDisplaySettings.getResizeFromDisplay(0.012,
-                JvDisplaySettings.TypeOfDisplayBorder.HEIGHT);
-        passwordField.setFont(new Font("Times", Font.BOLD, size));
+        passwordField.setFont(new Font("Times", Font.BOLD, JvDisplaySettings.getSizeFont(0.012)));
         passwordField.setForeground(Color.lightGray);
         passwordField.setFocusable(false);
         passwordField.setEchoChar((char) 0);
