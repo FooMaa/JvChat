@@ -8,7 +8,9 @@ import java.awt.*;
 public class JvAuthLabel extends JLabel {
     public JvAuthLabel(String text) {
         setText(text);
-        setFont(new Font("Times", Font.PLAIN, 20));
+        int size = JvDisplaySettings.getResizeFromDisplay(0.017,
+                        JvDisplaySettings.TypeOfDisplayBorder.HEIGHT);
+        setFont(new Font("Times", Font.PLAIN, size));
     }
 
     public void settingToError() {
@@ -17,8 +19,10 @@ public class JvAuthLabel extends JLabel {
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
                 JvDisplaySettings.getResizeFromDisplay(0.03,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
+        int size = JvDisplaySettings.getResizeFromDisplay(0.01,
+                JvDisplaySettings.TypeOfDisplayBorder.HEIGHT);
 
-        setFont(new Font("Times", Font.BOLD, 12));
+        setFont(new Font("Times", Font.BOLD, size));
         setForeground(Color.RED);
         setPreferredSize(dim);
         setHorizontalAlignment(SwingConstants.CENTER);

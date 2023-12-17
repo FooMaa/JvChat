@@ -149,7 +149,9 @@ public class JvAuthPasswordField extends JPanel {
     private void settingPassField() {
         passwordField.setBorder(null);
         passwordField.setText(defaultText);
-        passwordField.setFont(new Font("Times", Font.BOLD, 14));
+        int size = JvDisplaySettings.getResizeFromDisplay(0.012,
+                JvDisplaySettings.TypeOfDisplayBorder.HEIGHT);
+        passwordField.setFont(new Font("Times", Font.BOLD, size));
         passwordField.setForeground(Color.lightGray);
         passwordField.setFocusable(false);
         passwordField.setEchoChar((char) 0);

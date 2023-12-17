@@ -1,5 +1,7 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
+import org.foomaa.jvchat.syssettings.JvDisplaySettings;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -9,9 +11,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JvAuthActiveLabel extends JLabel {
+    int size;
     public JvAuthActiveLabel(String text) {
         setText(text);
-        Font defaultfont = new Font("Times", Font.PLAIN, 11);
+        size = JvDisplaySettings.getResizeFromDisplay(0.009,
+                JvDisplaySettings.TypeOfDisplayBorder.HEIGHT);
+        Font defaultfont = new Font("Times", Font.PLAIN, size);
         Map<TextAttribute, Object> attributes = new HashMap<>(defaultfont.getAttributes());
         attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
         setFont(defaultfont.deriveFont(attributes));
@@ -23,7 +28,7 @@ public class JvAuthActiveLabel extends JLabel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                Font font = new Font("Times", Font.BOLD, 11);
+                Font font = new Font("Times", Font.BOLD, size);
                 Map<TextAttribute, Object> attributes = new HashMap<>(font.getAttributes());
                 attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
                 setFont(font.deriveFont(attributes));
@@ -31,7 +36,7 @@ public class JvAuthActiveLabel extends JLabel {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                Font font = new Font("Times", Font.PLAIN, 11);
+                Font font = new Font("Times", Font.PLAIN, size);
                 Map<TextAttribute, Object> attributes = new HashMap<>(font.getAttributes());
                 attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
                 setFont(defaultFont.deriveFont(attributes));
