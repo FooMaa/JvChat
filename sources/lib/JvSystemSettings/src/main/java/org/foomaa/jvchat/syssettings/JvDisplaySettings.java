@@ -28,7 +28,10 @@ public class JvDisplaySettings {
         return 0;
     }
 
-    public static int getSizeFont(double scale) {
+    public static int getResizePixel(double scale) {
         return (int) Math.round(scale * heightScreen);
+    }
+    public static int getResizeFont(double scale) {
+        return (int) Math.floor(scale * widthScreen);
     }
 }

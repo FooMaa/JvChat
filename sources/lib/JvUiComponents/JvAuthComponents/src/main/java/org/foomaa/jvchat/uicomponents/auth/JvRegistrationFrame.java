@@ -47,20 +47,20 @@ public class JvRegistrationFrame extends JFrame {
         gbc.weightx = 0.5;
         gbc.weighty = 0.5;
         gbc.fill = GridBagConstraints.PAGE_START;
-        gbc.anchor = GridBagConstraints.SOUTH;
-        gbc.insets = new Insets(10, 0, 5, 0);
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.insets = new Insets(JvDisplaySettings.getResizePixel(0.0125), 0, JvDisplaySettings.getResizePixel(0.0084), 0);
         gbc.gridy = 0;
         panel.add(tInfo, gbc);
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX, 5, insX);
+        gbc.insets = new Insets(0, insX, JvDisplaySettings.getResizePixel(0.004), insX);
         gbc.gridy = 1;
         panel.add(tLogin, gbc);
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX, 5, insX);
+        gbc.insets = new Insets(0, insX, JvDisplaySettings.getResizePixel(0.004), insX);
         gbc.gridy = 2;
         panel.add(tPassword, gbc);
 
@@ -70,15 +70,15 @@ public class JvRegistrationFrame extends JFrame {
         gbc.gridy = 3;
         panel.add(tPasswordConfirm, gbc);
 
-        gbc.fill = GridBagConstraints.CENTER;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX, 10, insX);
+        gbc.insets = new Insets(0, insX, JvDisplaySettings.getResizePixel(0.0084), insX);
         gbc.gridy = 4;
         panel.add(tErrorHelpInfo, gbc);
 
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.NORTH;
-        gbc.insets = new Insets(0, 0, 20, 0);
+        gbc.insets = new Insets(0, 0, JvDisplaySettings.getResizePixel(0.017), 0);
         gbc.ipadx = JvDisplaySettings.getResizeFromDisplay(0.03,
                 JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
         gbc.ipady = JvDisplaySettings.getResizeFromDisplay(0.01,

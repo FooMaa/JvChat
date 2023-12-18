@@ -9,7 +9,6 @@ import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -49,11 +48,10 @@ public class JvAuthPasswordField extends JPanel {
     private void settingButtonImage() {
         button = new JButton(new ImageIcon(invisibleImage));
         button.setContentAreaFilled(false);
-        button.setBorderPainted(false);
-        button.setMargin(new Insets(0, 0, 0, 0));
+        button.setBorder(null);
         button.setEnabled(false);
         button.setFocusPainted(false);
-        button.setPreferredSize(new Dimension(invisibleImage.getWidth() + gap,
+        button.setPreferredSize(new Dimension(invisibleImage.getWidth(),
                 invisibleImage.getHeight()));
     }
 
@@ -121,35 +119,28 @@ public class JvAuthPasswordField extends JPanel {
     }
 
     private void settingPassAndButtonPanel() {
-        Dimension dim = new Dimension(JvDisplaySettings.getResizeFromDisplay(0.25,
+        Dimension dim = new Dimension(JvDisplaySettings.getResizeFromDisplay(0.23,
                 JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
                 JvDisplaySettings.getResizeFromDisplay(0.03,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
         settingButtonImage();
-        makePassField(dim);
-        setPreferredSize(dim);
-
+        settingPassField(dim);
         add(passwordField);
         add(button);
-
         setBackground(passwordField.getBackground());
         setBorder(null);
-
-        settingPassField();
+        setPreferredSize(dim);
     }
 
-    private void makePassField(Dimension dim) {
+    private void settingPassField(Dimension dim) {
         passwordField = new JPasswordField();
         Dimension calcNewDim = new Dimension((int) dim.getWidth() -
-                button.getPreferredSize().width + gap * 3,
+                button.getPreferredSize().width,
                 (int) dim.getHeight() - borderSize * 2);
         passwordField.setPreferredSize(calcNewDim);
-    }
-
-    private void settingPassField() {
         passwordField.setBorder(null);
         passwordField.setText(defaultText);
-        passwordField.setFont(new Font("Times", Font.BOLD, JvDisplaySettings.getSizeFont(0.012)));
+        passwordField.setFont(new Font("Times", Font.BOLD, JvDisplaySettings.getResizePixel(0.012)));
         passwordField.setForeground(Color.lightGray);
         passwordField.setFocusable(false);
         passwordField.setEchoChar((char) 0);

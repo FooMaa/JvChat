@@ -25,7 +25,7 @@ public class JvAuthTextField extends JPanel {
     private final int borderSize = 1;
 
     public JvAuthTextField(String text) {
-        setLayout(new FlowLayout(FlowLayout.LEADING, gap, 0));
+        setLayout(new FlowLayout(FlowLayout.LEFT, gap, 0));
         defaultText = text;
 
         settingTextAndButtonPanel();
@@ -50,7 +50,6 @@ public class JvAuthTextField extends JPanel {
         button.setFocusPainted(false);
         button.setPreferredSize(new Dimension(visibleImage.getWidth() + gap,
                 visibleImage.getHeight()));
-        add(button);
     }
 
     private void addListenerToElem() {
@@ -90,27 +89,21 @@ public class JvAuthTextField extends JPanel {
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
                 JvDisplaySettings.getResizeFromDisplay(0.03,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
-        setPreferredSize(dim);
-        makeTextField(dim);
-
+        settingTextField(dim);
         add(textField);
         setBackground(textField.getBackground());
         setBorder(null);
-
-        settingTextField();
+        setPreferredSize(dim);
     }
 
-    private void makeTextField(Dimension dim) {
+    private void settingTextField(Dimension dim) {
         textField = new JTextField();
         Dimension calcNewDim = new Dimension((int) dim.getWidth(),
                 (int) dim.getHeight() - borderSize * 2);
         textField.setPreferredSize(calcNewDim);
-    }
-
-    private void settingTextField() {
         textField.setBorder(null);
         textField.setText(defaultText);
-        textField.setFont(new Font("Times", Font.BOLD, JvDisplaySettings.getSizeFont(0.012)));
+        textField.setFont(new Font("Times", Font.BOLD, JvDisplaySettings.getResizePixel(0.012)));
         textField.setForeground(Color.lightGray);
         textField.setFocusable(false);
     }
