@@ -10,8 +10,9 @@ repositories {
 }
 
 dependencies {
+    implementation(project(mapOf("path" to ":sources:src:JvControls")))
     testImplementation("junit:junit:3.8.1")
-    implementation(project(":sources:lib:JvSystemSettings"))
+    implementation(project(mapOf("path" to ":sources:lib:JvSystemSettings")))
 }
 
 tasks.test {

@@ -1,6 +1,7 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
 import org.foomaa.jvchat.syssettings.JvDisplaySettings;
+import org.foomaa.jvchat.ctrl.JvDbCtrl;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
+import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Vector;
 
@@ -94,6 +96,11 @@ public class JvRegistrationFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 checkFields();
+                try {
+                    writeUserInDb();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 
@@ -104,6 +111,10 @@ public class JvRegistrationFrame extends JFrame {
             }
         });
 
+    }
+
+    private void writeUserInDb() throws SQLException {
+        JvDbCtrl db = JvDbCtrl.getInstance();
     }
 
     private void checkFields() {
