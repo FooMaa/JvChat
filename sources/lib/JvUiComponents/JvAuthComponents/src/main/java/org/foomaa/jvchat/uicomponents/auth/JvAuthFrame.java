@@ -162,7 +162,7 @@ public class JvAuthFrame extends JFrame {
         setTitle("ВХОД");
         setSize(JvDisplaySettings.getResizeFromDisplay(0.3,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
-                JvDisplaySettings.getResizeFromDisplay(0.28,
+                JvDisplaySettings.getResizeFromDisplay(0.3,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
         setResizable(false);
         setLocationRelativeTo(null);
