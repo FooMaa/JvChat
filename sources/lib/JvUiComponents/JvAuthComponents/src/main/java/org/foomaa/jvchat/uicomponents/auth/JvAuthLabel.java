@@ -17,7 +17,7 @@ public class JvAuthLabel extends JLabel {
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
                 JvDisplaySettings.getResizeFromDisplay(0.03,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
-        setFont(new Font("Times", Font.BOLD, JvDisplaySettings.getResizePixel(0.0099)));
+        setFont(new Font("Times", Font.BOLD, JvDisplaySettings.getResizeFont(0.006)));
         setForeground(Color.RED);
         setPreferredSize(dim);
         setHorizontalAlignment(SwingConstants.CENTER);

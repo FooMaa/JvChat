@@ -115,6 +115,7 @@ public class JvRegistrationFrame extends JFrame {
 
     private void writeUserInDb() throws SQLException {
         JvDbCtrl db = JvDbCtrl.getInstance();
+
     }
 
     private void checkFields() {

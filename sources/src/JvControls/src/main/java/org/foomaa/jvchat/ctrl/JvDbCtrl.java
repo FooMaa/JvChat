@@ -10,9 +10,13 @@ import java.util.List;
 public class JvDbCtrl
 {
     private static JvDbCtrl instance;
+    private static JvDbWorker db;
+    enum TypeExecution {
+        InsertRegisterForm
+    }
 
     private JvDbCtrl() throws SQLException {
-        JvDbWorker db = JvDbWorker.getInstance();
+        db = JvDbWorker.getInstance();
         ResultSet rs = db.makeExecution(JvDbDefines.exec);
         List<String> al = db.getStrDataAtRow(rs, 1);
         db.endConnection();
@@ -23,5 +27,18 @@ public class JvDbCtrl
             instance = new JvDbCtrl();
         }
         return instance;
+    }
+
+    public String makeQuery(TypeExecution type) {
+        switch (type) {
+            case InsertRegisterForm -> {
+                return JvDbDefines.insertFromRegForm("aaa", "aaa");
+            }
+        }
+        return null;
+    }
+
+    public void query(String qr) throws SQLException {
+        db.makeExecution(makeQuery(TypeExecution.InsertRegisterForm));
     }
 }

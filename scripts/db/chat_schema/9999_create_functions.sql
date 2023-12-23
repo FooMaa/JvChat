@@ -1,5 +1,5 @@
 CREATE OR REPLACE FUNCTION chat_schema.logins_passwords_save (
-    f_id     bigint,
+    -- f_id     bigint,
     f_login       character varying,
     f_password    character varying
 )
@@ -14,7 +14,7 @@ BEGIN
         UPDATE chat_schema.logins_passwords SET id=f_id, login=f_login, password=f_password WHERE id=f_id;
         rv := 1;
     ELSE
-        INSERT INTO chat_schema.logins_passwords(id, login, password) VALUES (f_id, f_login, f_password);
+        INSERT INTO chat_schema.logins_passwords(login, password) VALUES (f_login, f_password);
         rv := 2;
     END IF;
 
