@@ -60,7 +60,6 @@ public class JvDbWorker extends JvDbDefines {
 
         resultSet = stmt.executeQuery(execution);
         return resultSet;
-
     }
 
     public List<String> getStrDataAtRow(ResultSet resultSet, int row) throws SQLException {

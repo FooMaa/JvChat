@@ -11,7 +11,7 @@ public class JvDbCtrl
 {
     private static JvDbCtrl instance;
     private static JvDbWorker db;
-    enum TypeExecution {
+    public enum TypeExecution {
         InsertRegisterForm
     }
 
@@ -19,7 +19,7 @@ public class JvDbCtrl
         db = JvDbWorker.getInstance();
         ResultSet rs = db.makeExecution(JvDbDefines.exec);
         List<String> al = db.getStrDataAtRow(rs, 1);
-        db.endConnection();
+        //db.endConnection();
     }
 
     public static JvDbCtrl getInstance() throws SQLException {
@@ -29,16 +29,16 @@ public class JvDbCtrl
         return instance;
     }
 
-    public String makeQuery(TypeExecution type) {
+    public void querySaveRegForm(String login, String password) throws SQLException {
+        db.makeExecution(JvDbDefines.insertToRegForm(login, password));
+    }
+
+    public String makeQuery(TypeExecution type) throws SQLException {
         switch (type) {
             case InsertRegisterForm -> {
-                return JvDbDefines.insertFromRegForm("aaa", "aaa");
+               return JvDbDefines.insertToRegForm("aa","12");
             }
         }
         return null;
-    }
-
-    public void query(String qr) throws SQLException {
-        db.makeExecution(makeQuery(TypeExecution.InsertRegisterForm));
     }
 }

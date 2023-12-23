@@ -9,7 +9,7 @@ DECLARE
     rv integer;
 BEGIN
     rv := -1;
-    PERFORM * FROM chat_schema.logins_passwords WHERE id=f_id;
+    --PERFORM * FROM chat_schema.logins_passwords WHERE id=f_id;
     IF found THEN
         UPDATE chat_schema.logins_passwords SET id=f_id, login=f_login, password=f_password WHERE id=f_id;
         rv := 1;
