@@ -17,9 +17,8 @@ public class JvDbCtrl
 
     private JvDbCtrl() throws SQLException {
         db = JvDbWorker.getInstance();
-        ResultSet rs = db.makeExecution(JvDbDefines.exec);
-        List<String> al = db.getStrDataAtRow(rs, 1);
-        //db.endConnection();
+        //ResultSet rs = db.makeExecution(JvDbDefines.exec);
+        //List<String> al = db.getStrDataAtRow(rs, 1);
     }
 
     public static JvDbCtrl getInstance() throws SQLException {
@@ -29,16 +28,15 @@ public class JvDbCtrl
         return instance;
     }
 
-    public void querySaveRegForm(String login, String password) throws SQLException {
-        db.makeExecution(JvDbDefines.insertToRegForm(login, password));
-    }
-
-    public String makeQuery(TypeExecution type) throws SQLException {
+    public void queryToDataBase(TypeExecution type, String ... parameters) throws SQLException {
         switch (type) {
             case InsertRegisterForm -> {
-               return JvDbDefines.insertToRegForm("aa","12");
+                if (parameters.length == 2) {
+                    String login = parameters[0];
+                    String password = parameters[1];
+                    db.makeExecution(JvDbDefines.insertToRegForm(login, password));
+                }
             }
         }
-        return null;
     }
 }
