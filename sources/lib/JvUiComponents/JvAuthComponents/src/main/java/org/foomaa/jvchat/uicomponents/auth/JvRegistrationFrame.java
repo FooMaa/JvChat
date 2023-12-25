@@ -95,9 +95,10 @@ public class JvRegistrationFrame extends JFrame {
         bRegister.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                checkFields();
                 try {
-                    writeUserInDb();
+                    if (checkFields()) {
+                        writeUserInDb();
+                    }
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -119,7 +120,7 @@ public class JvRegistrationFrame extends JFrame {
                 tLogin.getInputText(), tPassword.getInputText());
     }
 
-    private void checkFields() {
+    private boolean checkFields() {
         tLogin.setNormalBorder();
         tPassword.setNormalBorder();
         tPasswordConfirm.setNormalBorder();
@@ -158,7 +159,9 @@ public class JvRegistrationFrame extends JFrame {
             } else {
                 tErrorHelpInfo.setText(String.format("Поля %s должны быть заполнены", concatFields));
             }
+            return false;
         }
+        return true;
     }
 
     private void addGeneralSettingsToWidget() {

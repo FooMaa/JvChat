@@ -121,7 +121,7 @@ public class JvAuthFrame extends JFrame {
 
     }
 
-    private void checkFields() {
+    private boolean checkFields() {
         tPassword.setNormalBorder();
         tLogin.setNormalBorder();
         tErrorHelpInfo.setText("");
@@ -148,7 +148,9 @@ public class JvAuthFrame extends JFrame {
             } else {
                 tErrorHelpInfo.setText(String.format("Поля %s должны быть заполнены", concatFields));
             }
+            return false;
         }
+        return true;
     }
 
     private void closeWindow() {
