@@ -22,7 +22,7 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION chat_schema.logins_passwords_remove( f_id  integer )
+CREATE OR REPLACE FUNCTION chat_schema.logins_passwords_remove(f_id  integer)
     RETURNS boolean AS
 $BODY$
 DECLARE
@@ -32,16 +32,32 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION chat_schema.logins_passwords_get( f_id integer )
+CREATE OR REPLACE FUNCTION chat_schema.logins_passwords_get(f_id integer)
     RETURNS SETOF chat_schema.logins_passwords AS
 $BODY$
 DECLARE
     rv chat_schema.logins_passwords%rowtype;
 BEGIN
     SELECT * INTO rv FROM chat_schema.logins_passwords WHERE id=f_id;
-    if found then
+    IF found THEN
         RETURN NEXT rv;
-    end if;
+    END IF;
     RETURN;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION chat_schema.logins_passwords_check_login_password(
+    f_login character varying,
+    f_password character varying
+)
+    RETURNS SETOF chat_schema.logins_passwords AS
+$BODY$
+DECLARE
+    rv chat_schema.logins_passwords%rowtype;
+BEGIN
+    SELECT * INTO rv FROM chat_schema.logins_passwords WHERE login=f_login AND password=f_password;
+    IF found THEN
+        RETURN NEXT rv;
+    END IF;
 END;
 $BODY$ LANGUAGE plpgsql;

@@ -76,8 +76,11 @@ public class JvDbWorker extends JvDbDefines {
             result.add(resultSet.getString(i));
         }
 
-        System.out.println(result);
         return result;
+    }
+
+    public boolean ifExistsLineInTable(ResultSet resultSet) throws SQLException {
+        return resultSet.next();
     }
 }
 

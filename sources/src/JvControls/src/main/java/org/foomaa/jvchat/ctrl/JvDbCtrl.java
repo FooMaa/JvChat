@@ -5,14 +5,16 @@ import org.foomaa.jvchat.dbworker.JvDbWorker;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 public class JvDbCtrl
 {
     private static JvDbCtrl instance;
     private static JvDbWorker db;
-    public enum TypeExecution {
-        InsertRegisterForm
+    public enum TypeExecutionInsert {
+        RegisterForm
+    }
+    public enum TypeExecutionCheck {
+        UserPassword
     }
 
     private JvDbCtrl() throws SQLException {
@@ -28,15 +30,30 @@ public class JvDbCtrl
         return instance;
     }
 
-    public void queryToDataBase(TypeExecution type, String ... parameters) throws SQLException {
+    public void insertQueryToDB(TypeExecutionInsert type, String ... parameters) throws SQLException {
         switch (type) {
-            case InsertRegisterForm -> {
+            case RegisterForm -> {
                 if (parameters.length == 2) {
                     String login = parameters[0];
                     String password = parameters[1];
                     db.makeExecution(JvDbDefines.insertToRegForm(login, password));
                 }
             }
+
         }
+    }
+
+    public boolean checkQueryToDB(TypeExecutionCheck type, String ... parameters) throws SQLException {
+        switch (type) {
+            case UserPassword -> {
+                if (parameters.length == 2) {
+                    String login = parameters[0];
+                    String password = parameters[1];
+                    ResultSet rs = db.makeExecution(JvDbDefines.checkUserPassword(login, password));
+                    return rs.next();
+                }
+            }
+        }
+        return false;
     }
 }

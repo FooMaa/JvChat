@@ -1,11 +1,12 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
+import org.foomaa.jvchat.ctrl.JvDbCtrl;
 import org.foomaa.jvchat.syssettings.JvDisplaySettings;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Vector;
 
@@ -100,7 +101,17 @@ public class JvAuthFrame extends JFrame {
         bEnter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                checkFields();
+                try {
+                    if (checkFields()) {
+                        if (checkUserInDb()) {
+                            System.out.println("Вход выполнен");
+                        } else {
+                            System.out.println("Ошибочные данные");
+                        }
+                    }
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 
@@ -119,6 +130,12 @@ public class JvAuthFrame extends JFrame {
             }
         });
 
+    }
+
+    private boolean checkUserInDb() throws SQLException {
+        JvDbCtrl db = JvDbCtrl.getInstance();
+        return db.checkQueryToDB(JvDbCtrl.TypeExecutionCheck.UserPassword,
+                tLogin.getInputText(), tPassword.getInputText());
     }
 
     private boolean checkFields() {
