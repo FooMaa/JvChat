@@ -98,6 +98,7 @@ public class JvRegistrationFrame extends JFrame {
                 try {
                     if (checkFields()) {
                         writeUserInDb();
+                        closeWindow();
                     }
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
@@ -176,5 +177,11 @@ public class JvRegistrationFrame extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         toFront();
         setVisible(true);
+    }
+
+    private void closeWindow() {
+        setVisible(false);
+        dispose();
+        JvAuthFrame authFrame = new JvAuthFrame();
     }
 }

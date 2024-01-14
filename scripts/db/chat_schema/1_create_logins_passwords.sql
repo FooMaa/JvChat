@@ -6,7 +6,7 @@ CREATE TABLE chat_schema.logins_passwords (
     id          serial,            --    parent_id   bigint,
     login       character varying, --    FOREIGN KEY (parent_id) REFERENCES parent (id) MATCH SIMPLE
     password    character varying, --    FOREIGN KEY (parent_id) REFERENCES parent (id) MATCH SIMPLE
-    PRIMARY KEY ( id )        --        ON UPDATE CASCADE ON DELETE CASCADE
+    PRIMARY KEY ( id )
 );
 
 COMMENT ON TABLE chat_schema.logins_passwords IS 'Логин и пароль пользователя';

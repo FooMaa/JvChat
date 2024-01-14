@@ -1,5 +1,4 @@
 CREATE OR REPLACE FUNCTION chat_schema.logins_passwords_save (
-    -- f_id     bigint,
     f_login       character varying,
     f_password    character varying
 )
