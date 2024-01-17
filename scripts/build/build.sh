@@ -22,7 +22,7 @@ function check_packages {
     EXIT_CODE=$?
     if [[ $EXIT_CODE -ne 0 ]]; then
         # если тут бьется вывод, то убрать \\r
-        echo -e "\\r[ $CROSS_MARK ] check packages. Fail check_dependencies.sh.."
+        echo -e "\\r[ $CROSS_MARK ] check packages. Fail check_dependencies.sh."
         exit 1 
     fi
 }
