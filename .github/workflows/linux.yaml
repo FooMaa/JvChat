@@ -19,9 +19,9 @@ jobs:
       - name: Dump and restore DB
         run: scripts/db/db_creator.py -r dump; scripts/db/db_creator.py -r restore
 
-      - name: Build chat gradle
-        run: scripts/build/build.sh -g -c
+      - name: Build chat gradle users
+        run: scripts/build/build.sh -g -c -p users
         
-      - name: Build chat maven
-        run: scripts/build/build.sh -m -c
+      - name: Build chat maven users
+        run: scripts/build/build.sh -m -c -p users
     
