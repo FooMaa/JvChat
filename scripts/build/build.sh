@@ -4,6 +4,7 @@ PROJECT_NAME=JvChat
 PROJECT_DIR=$( echo "$(realpath $0 | sed -r 's/scripts.+//g')" )
 LOG_FILE="/tmp/build-jvchat.log"
 USER_SYSTEM="postgres"
+PROFILE=""
 BUILDER=""
 NEED_CHECK=false
 CHECK_MARK="\033[0;32m\xE2\x9c\x94\033[0m"
@@ -18,7 +19,7 @@ function check_user {
 }
 
 function check_packages {
-    $PROJECT_DIR"scripts/dependencies/check_and_install_dependencies.sh"
+    $PROJECT_DIR"scripts/dependencies/check_and_install_dependencies.sh" -p $PROFILE
     EXIT_CODE=$?
     if [[ $EXIT_CODE -ne 0 ]]; then
         # если тут бьется вывод, то убрать \\r
@@ -53,6 +54,7 @@ function usage {
     -c      check dependencies  check dependencies (OPTIONAL) Example $0 -c
     -g	    use gradle		    build with gradle 	(REQUIRED) Example $0 -g
     -m      use maven		    build use maven 	(REQUIRED) Example $0 -m
+    -p      run profile         run servers profile (REQUIRED) Example $0 -p users
     -h      help menu           to see this help (OPTIONAL) Example $0 -h
 EOF
 }
@@ -66,6 +68,18 @@ function check_has_param {
 }
 
 function check_set_param {
+    if [[ -z "$PROFILE" && $NEED_CHECK == true ]]; then
+        echo -e "Profile not defined."
+        usage
+        exit 1
+    fi
+
+    if [[ $NEED_CHECK == true && $PROFILE != "tests" && $PROFILE != "users" && $PROFILE != "servers" ]]; then
+        echo "Give correct profile param to script."
+        usage
+        exit 1
+    fi    
+
     if [[ $BUILDER != "maven" && $BUILDER != "gradle" ]]; then
        echo "Give builder param to script"
        usage
@@ -81,6 +95,7 @@ while [ -n "$1" ]; do
         -c ) NEED_CHECK=true ;;
         -m ) if [[ $BUILDER != "" ]]; then echo -e "\\rGive 1 builder"; usage; exit 1; else BUILDER="maven"; fi ;;
         -g ) if [[ $BUILDER != "" ]]; then echo -e "\\rGive 1 builder"; usage; exit 1; else BUILDER="gradle"; fi ;;
+        -p ) if [[ $PROFILE != "" ]]; then echo -e "\\rGive 1 profile"; usage; exit 1; else  PROFILE=$2 ; fi; shift ;;
         -h ) usage; exit 1 ;;
         -- ) usage; exit 1;;
         * ) usage; exit 1 ;;

@@ -12,7 +12,7 @@ MAVEN=false
 REPO=false
 LOG_FILE="/tmp/install_dependencies.log"
 USER_SYSTEM="postgres"
-PROFILE=false
+PROFILE=""
 CHECK_MARK="\033[0;32m\xE2\x9c\x94\033[0m"
 CROSS_MARK="\033[0;31m\xE2\x9c\x97\033[0m"
 
@@ -42,7 +42,7 @@ function install_package {
 }
 
 function check_package {
-    (dpkg -s $1 | grep "Status") >> $LOG_FILE 2>&1
+    (dpkg -s $1 | grep "install ok installed") >> $LOG_FILE 2>&1
     EXIT_CODE=$?
     if [[ $EXIT_CODE -ne 0 ]]; then
         install_package $1
@@ -155,16 +155,16 @@ function remove_conflict_package {
 function usage {
     cat <<EOF
     Usage: $0 [options]
-    -m	    reinstall maven		only reinstall maven (REQUIRED) Example $0 -m
+    -m	    reinstall maven     only reinstall maven (REQUIRED) Example $0 -m
     -g	    reinstall gradle    only reinstall gradle (REQUIRED) Example $0 -g
-    -a	    reinstall all		only reinstall all (REQUIRED) Example $0 -a
+    -a	    reinstall all       only reinstall all (REQUIRED) Example $0 -a
     -r	    reinstall repo      only reinstall from repo (REQUIRED) Example $0 -r
     -h      help menu           to see this help (OPTIONAL) Example $0 -h
-    -t      profile             profile dependencies (REQUIRED) Example $0 -t users
+    -p      profile             profile dependencies (REQUIRED) Example $0 -p users
 EOF
 }
 
-function check_parameters {
+function check_parameters_profile {
     echo -n "[...] check parameters"
     if [[ -z "$PROFILE" ]]; then
         echo -e "\\r[ $CROSS_MARK ] Profile not defined."
@@ -178,6 +178,16 @@ function check_parameters {
     echo -e "\\r[ $CHECK_MARK ] check parameters"
 }
 
+function check_param_deps {
+    echo -n "[...] check parameters dependencies"
+    if [[ $REPO == false && $MAVEN == false && $GRADLE == false ]]; then 
+        echo -e "\\r[ $CROSS_MARK ] check parameters dependencies. Accepted: -r, -m, -g, -a"
+        usage
+        exit 1
+    fi
+    echo -e "\\r[ $CHECK_MARK ] check parameters dependencies"
+}
+
 check_root
 check_has_param $1
 
@@ -187,7 +197,7 @@ while [ -n "$1" ]; do
         -m ) MAVEN=true ;;
         -g ) GRADLE=true ;;
         -a ) REPO=true; MAVEN=true; GRADLE=true ;;
-        -t ) if [[ $PROFILE != "" ]]; then echo -e "\\rGive 1 profile"; usage; exit 1; else  PROFILE=$2 ; fi; shift ;;
+        -p ) if [[ $PROFILE != "" ]]; then echo -e "\\rGive 1 profile"; usage; exit 1; else  PROFILE=$2 ; fi; shift ;;
         -h ) usage; exit 1 ;;
         -- ) usage; exit 1;;
         * ) usage; exit 1 ;;
@@ -195,11 +205,11 @@ while [ -n "$1" ]; do
     shift
 done
 
-check_parameters
-
+check_param_deps
 post_inst
 
 if [[ $REPO == true ]]; then
+    check_parameters_profile
     install_dependencies
 fi
 

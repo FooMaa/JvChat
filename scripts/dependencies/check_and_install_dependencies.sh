@@ -12,7 +12,8 @@ CROSS_MARK="\033[0;31m\xE2\x9c\x97\033[0m"
 function usage {
     cat <<EOF
     Usage: $0 [options]
-    -t      check dependencies profile    check dependencies by profile (REQUIRED) Example $0 -t users
+    -p      check dependencies profile      check dependencies by profile (REQUIRED) Example $0 -p users
+    -h      help menu                       to see this help (OPTIONAL) Example $0 -h
 EOF
 }
 
@@ -39,12 +40,12 @@ function check_and_install_packages {
     mapfile -t REQUIREMENTS < <(cat $PROJECT_DIR"data/dependencies_$PROFILE")
     for req in "${!REQUIREMENTS[@]}"
     do
-        (dpkg -s ${REQUIREMENTS[$req]} | grep "Status") >> $LOG_FILE 2>&1
+        (dpkg -s ${REQUIREMENTS[$req]} | grep "install ok installed") >> $LOG_FILE 2>&1
         EXIT_CODE=$?
         if [[ $EXIT_CODE -ne 0 ]]; then
             echo -e "\\r[ $CROSS_MARK ] check repo packages. Installing..."
             check_sudo ${REQUIREMENTS[$req]}
-            $PROJECT_DIR"scripts/dependencies/install_dependencies.sh" -r -t $PROFILE
+            $PROJECT_DIR"scripts/dependencies/install_dependencies.sh" -r -p $PROFILE
             echo -n "[...] check packages for $PROFILE"
         fi
     done
@@ -97,7 +98,7 @@ check_has_param $1
 
 while [ -n "$1" ]; do
     case "$1" in
-        -t ) if [[ $PROFILE != "" ]]; then echo -e "\\rGive 1 profile"; usage; exit 1; else  PROFILE=$2 ; fi; shift ;;
+        -p ) if [[ $PROFILE != "" ]]; then echo -e "\\rGive 1 profile"; usage; exit 1; else  PROFILE=$2 ; fi; shift ;;
         -h ) usage; exit 1;;
         -- ) usage; exit 1;;
         * ) usage; exit 1 ;;

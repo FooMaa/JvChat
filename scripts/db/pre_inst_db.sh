@@ -48,7 +48,7 @@ function check_root_and_param {
 }
 
 function check_packages {
-    $PROJECT_DIR"scripts/dependencies/check_and_install_dependencies.sh" -t servers
+    $PROJECT_DIR"scripts/dependencies/check_and_install_dependencies.sh" -p servers
     EXIT_CODE=$?
     if [[ $EXIT_CODE -ne 0 ]]; then
         echo -e "\\r[ $CROSS_MARK ] check packages. Fail check_dependencies.sh.."
