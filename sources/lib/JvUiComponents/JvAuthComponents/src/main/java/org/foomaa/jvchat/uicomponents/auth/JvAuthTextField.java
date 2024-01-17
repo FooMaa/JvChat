@@ -4,6 +4,7 @@ import org.foomaa.jvchat.syssettings.JvDisplaySettings;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -18,14 +19,17 @@ public class JvAuthTextField extends JPanel {
     private BufferedImage visibleImage;
     private JButton button;
     private JTextField textField;
-    private final JPanel textFieldWithButtonsPanel;
+
+    private String defaultText;
     private final int gap = 5;
+    private final int borderSize = 1;
 
     public JvAuthTextField(String text) {
-        textFieldWithButtonsPanel = new JPanel(new FlowLayout(
-                FlowLayout.LEADING, gap, 0));
-        settingTextAndButtonPanel(text);
-        settingGeneralPanel(text);
+        setLayout(new FlowLayout(FlowLayout.LEFT, gap, 0));
+        defaultText = text;
+
+        settingTextAndButtonPanel();
+        addListenerToElem();
     }
 
     private BufferedImage setIcon(String path) {
@@ -37,7 +41,7 @@ public class JvAuthTextField extends JPanel {
         return null;
     }
 
-    private void addButtonToPanel(JPanel panel) {
+    private void addButtonToPanel() {
         button = new JButton(new ImageIcon(visibleImage));
         button.setContentAreaFilled(false);
         button.setBorderPainted(false);
@@ -46,10 +50,9 @@ public class JvAuthTextField extends JPanel {
         button.setFocusPainted(false);
         button.setPreferredSize(new Dimension(visibleImage.getWidth() + gap,
                 visibleImage.getHeight()));
-        panel.add(button);
     }
 
-    private void addListenerToElem(String text) {
+    private void addListenerToElem() {
         textField.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -74,43 +77,50 @@ public class JvAuthTextField extends JPanel {
             public void focusLost(FocusEvent e) {
                 if (Objects.equals(textField.getText(), "")) {
                     textField.setForeground(Color.lightGray);
-                    textField.setText(text);
+                    textField.setText(defaultText);
                 }
             }
         });
     }
 
-    private void settingTextAndButtonPanel(String text) {
+    private void settingTextAndButtonPanel() {
         Dimension dim = new Dimension(JvDisplaySettings.
                 getResizeFromDisplay(0.23,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
                 JvDisplaySettings.getResizeFromDisplay(0.03,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
-        textFieldWithButtonsPanel.setPreferredSize(dim);
-        makeTextField(dim);
-
-        textFieldWithButtonsPanel.add(textField);
-        textFieldWithButtonsPanel.setBackground(textField.getBackground());
-        textFieldWithButtonsPanel.setBorder(null);
-
-        settingTextField(text);
+        settingTextField(dim);
+        add(textField);
+        setBackground(textField.getBackground());
+        setBorder(null);
+        setPreferredSize(dim);
     }
 
-    private void makeTextField(Dimension dim) {
+    private void settingTextField(Dimension dim) {
         textField = new JTextField();
-        textField.setPreferredSize(dim);
-    }
-
-    private void settingTextField(String text) {
+        Dimension calcNewDim = new Dimension((int) dim.getWidth(),
+                (int) dim.getHeight() - borderSize * 2);
+        textField.setPreferredSize(calcNewDim);
         textField.setBorder(null);
-        textField.setText(text);
-        textField.setFont(new Font("Times", Font.BOLD, 14));
+        textField.setText(defaultText);
+        textField.setFont(new Font("Times", Font.BOLD, JvDisplaySettings.getResizePixel(0.012)));
         textField.setForeground(Color.lightGray);
         textField.setFocusable(false);
     }
 
-    private void settingGeneralPanel(String text) {
-        addListenerToElem(text);
-        add(textFieldWithButtonsPanel);
+
+    public String getInputText() {
+        if (!Objects.equals(textField.getText(), defaultText)) {
+            return textField.getText();
+        }
+        return "";
+    }
+
+    public void setErrorBorder() {
+        setBorder(new LineBorder(Color.red, borderSize));
+    }
+
+    public void setNormalBorder() {
+        setBorder(null);
     }
 }

@@ -16,6 +16,7 @@
         <module>sources/src/JvDbWorker</module>
         <module>sources/lib/JvSystemSettings</module>
         <module>sources/lib/JvUiComponents</module>
+        <module>sources/src/JvControls</module>
     </modules>
 
     <properties>

@@ -15,9 +15,17 @@ public class JvDbWorker extends JvDbDefines {
     private static final String PASS = "1111";
     private static Statement stmt;
     private static Connection connection;
+    private static JvDbWorker instance;
 
-    public JvDbWorker() throws SQLException {
+    private JvDbWorker() throws SQLException {
         getConnection();
+    }
+
+    public static JvDbWorker getInstance() throws SQLException {
+        if(instance == null){
+            instance = new JvDbWorker();
+        }
+        return instance;
     }
 
     public void getConnection() throws SQLException {
@@ -52,7 +60,6 @@ public class JvDbWorker extends JvDbDefines {
 
         resultSet = stmt.executeQuery(execution);
         return resultSet;
-
     }
 
     public List<String> getStrDataAtRow(ResultSet resultSet, int row) throws SQLException {
@@ -69,8 +76,11 @@ public class JvDbWorker extends JvDbDefines {
             result.add(resultSet.getString(i));
         }
 
-        System.out.println(result);
         return result;
+    }
+
+    public boolean ifExistsLineInTable(ResultSet resultSet) throws SQLException {
+        return resultSet.next();
     }
 }
 

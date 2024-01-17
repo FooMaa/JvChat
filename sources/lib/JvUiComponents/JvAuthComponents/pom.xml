@@ -40,5 +40,11 @@
             <artifactId>JvSystemSettings</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.foomaa.jvchat.ctrl</groupId>
+            <artifactId>JvControls</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>

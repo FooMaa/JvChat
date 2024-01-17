@@ -1,9 +1,8 @@
 plugins {
     id("java")
-    application
 }
 
-group = "org.foomaa.jvchat.startpoint"
+group = "org.foomaa.jvchat.ctrl"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -11,22 +10,8 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":sources:src:JvControls"))
-    implementation(project(":sources:src:JvAuthentication"))
     testImplementation("junit:junit:3.8.1")
-
-}
-
-application {
-    mainClass.set("org.foomaa.jvchat.startpoint.JvStartPoint")
-}
-
-tasks {
-    "run" {
-        onlyIf {
-            project.hasProperty("users")
-        }
-    }
+    implementation(project(":sources:src:JvDbWorker"))
 }
 
 tasks.test {
