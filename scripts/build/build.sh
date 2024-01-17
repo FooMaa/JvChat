@@ -74,7 +74,7 @@ function check_set_param {
         exit 1
     fi
 
-    if [[ $NEED_CHECK == true && $PROFILE != "tests" && $PROFILE != "users" && $PROFILE != "servers" ]]; then
+    if [[ ( $PROFILE != "" || $NEED_CHECK == true ) && $PROFILE != "tests" && $PROFILE != "users" && $PROFILE != "servers" ]]; then
         echo "Give correct profile param to script."
         usage
         exit 1
