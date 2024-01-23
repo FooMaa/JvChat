@@ -5,6 +5,8 @@ plugins {
 
 group = "org.foomaa.jvchat.startpoint"
 version = "1.0-SNAPSHOT"
+buildDir = File("jvchat-gradle")
+var PROFILE = ""
 
 repositories {
     mavenCentral()
@@ -14,7 +16,6 @@ dependencies {
     implementation(project(":sources:src:JvControls"))
     implementation(project(":sources:src:JvAuthentication"))
     testImplementation("junit:junit:3.8.1")
-
 }
 
 application {
@@ -24,14 +25,44 @@ application {
 tasks {
     "run" {
         onlyIf {
-            project.hasProperty("users")
+            PROFILE == "users" || PROFILE == "servers"
+        }
+    }
+
+    "build" {
+        doLast {
+            var count = 0
+            if (project.hasProperty("tests")) {
+                count++
+                PROFILE = "tests"
+            }
+            if (project.hasProperty("users")) {
+                count++
+                PROFILE = "users"
+            }
+            if (project.hasProperty("servers")) {
+                count++
+                PROFILE = "servers"
+            }
+            if (count == 0) {
+                throw GradleException("No profile!")
+            }
+            if (count > 1) {
+                throw GradleException("Wrong profile!")
+            }
+            var dirBuild = project.buildDir.toString()
+            delete(dirBuild + "/profile")
+            project.file("$dirBuild/profile").mkdir()
+            project.file("$dirBuild/profile/profile.txt").createNewFile()
+            project.file("$dirBuild/profile/profile.txt").writeText(PROFILE)
+            ext{PROFILE}
         }
     }
 }
 
 tasks.test {
     onlyIf {
-        project.hasProperty("tests")
+        PROFILE == "tests"
     }
 
     useJUnit()
