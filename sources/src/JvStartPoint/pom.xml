@@ -52,7 +52,7 @@
                             <execution>
                                 <phase>generate-resources</phase>
                                 <goals>
-                                    <goal>write-project-properties</goal>
+                                    <goal>write-active-profile-properties</goal>
                                 </goals>
                                 <configuration>
                                     <outputFile>${project.build.directory}/profile/profile.txt</outputFile>
@@ -93,7 +93,7 @@
                             <execution>
                                 <phase>generate-resources</phase>
                                 <goals>
-                                    <goal>write-project-properties</goal>
+                                    <goal>write-active-profile-properties</goal>
                                 </goals>
                                 <configuration>
                                     <outputFile>${project.build.directory}/profile/profile.txt</outputFile>
@@ -134,7 +134,7 @@
                             <execution>
                                 <phase>generate-resources</phase>
                                 <goals>
-                                    <goal>write-project-properties</goal>
+                                    <goal>write-active-profile-properties</goal>
                                 </goals>
                                 <configuration>
                                     <outputFile>${project.build.directory}/profile/profile.txt</outputFile>
