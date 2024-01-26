@@ -51,7 +51,7 @@ tasks {
                 throw GradleException("Wrong profile!")
             }
             var dirBuild = project.buildDir.toString()
-            delete(dirBuild + "/profile")
+            delete("$dirBuild/profile")
             project.file("$dirBuild/profile").mkdir()
             project.file("$dirBuild/profile/profile.txt").createNewFile()
             project.file("$dirBuild/profile/profile.txt").writeText("#Properties\ntarget=$PROFILE")
