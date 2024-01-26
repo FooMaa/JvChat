@@ -25,7 +25,7 @@ application {
 tasks {
     "run" {
         onlyIf {
-            PROFILE == "users" || PROFILE == "servers"
+            project.hasProperty("users") || project.hasProperty("servers")
         }
     }
 
@@ -62,7 +62,7 @@ tasks {
 
 tasks.test {
     onlyIf {
-        PROFILE == "tests"
+        project.hasProperty("tests")
     }
 
     useJUnit()
