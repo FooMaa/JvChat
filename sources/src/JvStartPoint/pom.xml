@@ -29,6 +29,7 @@
                 <activeByDefault>false</activeByDefault>
             </activation>
             <build>
+                <directory>jvchat-maven</directory>
                 <plugins>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
@@ -49,6 +50,7 @@
                 <activeByDefault>false</activeByDefault>
             </activation>
             <build>
+                <directory>jvchat-maven</directory>
                 <plugins>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>

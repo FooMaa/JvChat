@@ -23,6 +23,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <build>
+        <directory>jvchat-maven</directory>
+    </build>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>

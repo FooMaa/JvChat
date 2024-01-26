@@ -20,6 +20,7 @@
     </properties>
 
     <build>
+        <directory>jvchat-maven</directory>
         <resources>
             <resource>
                 <directory>../../../res/icons/</directory>
