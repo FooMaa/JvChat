@@ -30,13 +30,13 @@ function run {
     pushd $PROJECT_DIR >> $LOG_FILE 2>&1
     if [[ $BUILDER == "maven" ]]; then 
     	if [[ $PROFILE == "tests" ]]; then
-            mvn test -Ptests
+            mvn install -P$PROFILE
         else
             mvn exec:java -P$PROFILE >> $LOG_FILE 2>&1
         fi
     elif [[ $BUILDER == "gradle" ]]; then
     	if [[ $PROFILE == "tests" ]]; then
-            gradle test -Ptests
+            gradle clean build -P$PROFILE
         else
             gradle run -P$PROFILE >> $LOG_FILE 2>&1
         fi
