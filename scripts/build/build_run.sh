@@ -41,6 +41,14 @@ function run {
             gradle run -P$PROFILE >> $LOG_FILE 2>&1
         fi
     fi
+
+    EXIT_CODE=$?
+    if [[ $EXIT_CODE -ne 0 ]]; then
+        echo -e "\\r[ $CROSS_MARK ] running $PROFILE"
+        tail -10 "$LOG_FILE"
+        exit 1
+    fi
+
     echo -e "\\r[ $CHECK_MARK ] running $PROFILE"
 }
 
