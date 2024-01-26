@@ -2,14 +2,16 @@
 scripts/db/Dump
 
 ### Maven ###
-target/
+#target/
+jvchat-maven/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
 ### Gradle ###
 .gradle
-build/
+#build/
+jvchat-gradle/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/

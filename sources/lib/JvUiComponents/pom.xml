@@ -21,7 +21,12 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <buildDir>jvchat-maven</buildDir>
     </properties>
+
+    <build>
+        <directory>${buildDir}</directory>
+    </build>
 
     <dependencies>
         <dependency>

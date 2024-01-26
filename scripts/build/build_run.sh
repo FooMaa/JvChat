@@ -16,11 +16,11 @@ function check_user {
 }
 
 function check_packages {
-    $PROJECT_DIR"scripts/dependencies/check_and_install_dependencies.sh"
+    $PROJECT_DIR"scripts/dependencies/check_and_install_dependencies.sh" -p $PROFILE
     EXIT_CODE=$?
     if [[ $EXIT_CODE -ne 0 ]]; then
         # если тут бьется вывод, то убрать \\r
-        echo -e "\\r[ $CROSS_MARK ] check packages. Fail check_dependencies.sh.." 
+        echo -e "\\r[ $CROSS_MARK ] check packages. Fail check_dependencies.sh." 
         exit 1 
     fi
 }
@@ -30,13 +30,13 @@ function run {
     pushd $PROJECT_DIR >> $LOG_FILE 2>&1
     if [[ $BUILDER == "maven" ]]; then 
     	if [[ $PROFILE == "tests" ]]; then
-            mvn test -Ptests
+            mvn install -P$PROFILE
         else
             mvn exec:java -P$PROFILE >> $LOG_FILE 2>&1
         fi
     elif [[ $BUILDER == "gradle" ]]; then
     	if [[ $PROFILE == "tests" ]]; then
-            gradle test -Ptests
+            gradle clean build -P$PROFILE
         else
             gradle run -P$PROFILE >> $LOG_FILE 2>&1
         fi
@@ -47,9 +47,9 @@ function run {
 function build {
     echo -n "[...] building"
     if [[ $BUILDER == "maven" ]]; then
-    	bash $PROJECT_DIR"scripts/build/build.sh" -m >> $LOG_FILE 2>&1
+    	bash $PROJECT_DIR"scripts/build/build.sh" -m -p $PROFILE >> $LOG_FILE 2>&1
     elif [[ $BUILDER == "gradle" ]]; then 
-    	bash $PROJECT_DIR"scripts/build/build.sh" -g >> $LOG_FILE 2>&1
+    	bash $PROJECT_DIR"scripts/build/build.sh" -g -p $PROFILE >> $LOG_FILE 2>&1
     fi
     
     EXIT_CODE=$?
@@ -65,10 +65,8 @@ function usage {
     cat <<EOF
     Usage: $0 [options]
     -c      check dependencies      check dependencies (OPTIONAL) Example $0 -c
-    -t      run tests               run only tests (REQUIRED) Example $0 -t
     -h      help menu               to see this help (OPTIONAL) Example $0 -h
-    -u      run users               run users profile (REQUIRED) Example $0 -u
-    -s      run servers             run servers profile (REQUIRED) Example $0 -s
+    -p      run profile             run servers profile (REQUIRED) Example $0 -p users
     -g	    use gradle		        build with gradle 	(REQUIRED) Example $0 -g
     -m      use maven		        build use maven 	(REQUIRED) Example $0 -m
 EOF
@@ -83,8 +81,14 @@ function check_has_param {
 }
 
 function check_set_param {
+    if [[ -z "$PROFILE" ]]; then
+        echo -e "Profile not defined."
+        usage
+        exit 1
+    fi
+
     if [[ $PROFILE != "tests" && $PROFILE != "users" && $PROFILE != "servers" ]]; then
-        echo "Give profile param to script"
+        echo "Give correct profile param to script."
         usage
         exit 1
     fi
@@ -102,11 +106,9 @@ check_has_param $1
 while [ -n "$1" ]; do
     case "$1" in
         -c ) NEED_CHECK=true ;;
-        -t ) if [[ $PROFILE != "" ]]; then echo -e "\\rGive 1 profile"; usage; exit 1; else  PROFILE="tests" ; fi ;;
-        -u ) if [[ $PROFILE != "" ]]; then echo -e "\\rGive 1 profile"; usage; exit 1; else  PROFILE="users" ; fi ;;
         -m ) if [[ $BUILDER != "" ]]; then echo -e "\\rGive 1 builder"; usage; exit 1; else BUILDER="maven"; fi ;;
         -g ) if [[ $BUILDER != "" ]]; then echo -e "\\rGive 1 builder"; usage; exit 1; else BUILDER="gradle"; fi ;;
-        -s ) if [[ $PROFILE != "" ]]; then echo -e "\\rGive 1 profile"; usage; exit 1; else  PROFILE="servers" ; fi ;;
+        -p ) if [[ $PROFILE != "" ]]; then echo -e "\\rGive 1 profile"; usage; exit 1; else  PROFILE=$2 ; fi; shift ;;
         -h ) usage; exit 1;;
         -- ) usage; exit 1;;
         * ) usage; exit 1 ;;
