@@ -29,7 +29,7 @@ function check_packages {
 }
 
 function build_start {
-    echo -n "[...] building"
+    echo -n "[...] building $PROFILE ($BUILDER)"
     export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
     pushd $PROJECT_DIR >> $LOG_FILE 2>&1
     
@@ -41,11 +41,11 @@ function build_start {
     
     EXIT_CODE=$?
     if [[ $EXIT_CODE -ne 0 ]]; then
-        echo -e "\\r[ $CROSS_MARK ] building"
+        echo -e "\\r[ $CROSS_MARK ] building $PROFILE ($BUILDER)"
         tail -10 "$LOG_FILE"
         exit 1
     fi
-    echo -e "\\r[ $CHECK_MARK ] building"
+    echo -e "\\r[ $CHECK_MARK ] building $PROFILE ($BUILDER)"
 }
 
 function usage {

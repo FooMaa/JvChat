@@ -53,7 +53,7 @@ function run {
 }
 
 function build {
-    echo -n "[...] building"
+    echo -n "[...] building $PROFILE ($BUILDER)"
     if [[ $BUILDER == "maven" && $PROFILE != "tests" ]]; then
     	bash $PROJECT_DIR"scripts/build/build.sh" -m -p $PROFILE >> $LOG_FILE 2>&1
     elif [[ $BUILDER == "gradle" && $PROFILE != "tests" ]]; then 
@@ -62,14 +62,14 @@ function build {
     
     EXIT_CODE=$?
     if [[ $EXIT_CODE -ne 0 ]]; then
-        echo -e "\\r[ $CROSS_MARK ] building"
+        echo -e "\\r[ $CROSS_MARK ] building ($BUILDER)"
         tail -10 "$LOG_FILE"
         exit 1
     fi
     if [[ $PROFILE != "tests" ]]; then
-        echo -e "\\r[ $CHECK_MARK ] building"
+        echo -e "\\r[ $CHECK_MARK ] building $PROFILE ($BUILDER)"
     else
-        echo -e "\\r[ $CHECK_MARK ] skip building for $PROFILE"
+        echo -e "\\r[ $CHECK_MARK ] skip building for $PROFILE ($BUILDER)"
     fi
 }
 
