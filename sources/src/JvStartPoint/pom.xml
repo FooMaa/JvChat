@@ -19,6 +19,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mainClass>org.foomaa.jvchat.startpoint.JvStartPoint</mainClass>
         <exec.skip>false</exec.skip>
+        <buildDir>jvchat-maven</buildDir>
     </properties>
 
 
@@ -32,7 +33,7 @@
                 <activeByDefault>false</activeByDefault>
             </activation>
             <build>
-                <directory>jvchat-maven</directory>
+                <directory>${buildDir}</directory>
                 <plugins>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
@@ -73,7 +74,7 @@
                 <activeByDefault>false</activeByDefault>
             </activation>
             <build>
-                <directory>jvchat-maven</directory>
+                <directory>${buildDir}</directory>
                 <plugins>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
@@ -114,7 +115,7 @@
                 <activeByDefault>false</activeByDefault>
             </activation>
             <build>
-                <directory>jvchat-maven</directory>
+                <directory>${buildDir}</directory>
                 <plugins>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
@@ -146,6 +147,47 @@
             </build>
         </profile>
     </profiles>
+
+    <build>
+        <directory>${buildDir}</directory>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.4.1</version>
+                <executions>
+                    <execution>
+                        <id>enforce</id>
+                        <configuration>
+                            <rules>
+                                <requireProfileIdsExist/>
+                                <requireActiveProfile>
+                                    <profiles>users,servers,tests</profiles>
+                                    <all>false</all>
+                                </requireActiveProfile>
+                                <evaluateBeanshell>
+                                    <condition><![CDATA[
+                                        print("Checking if only one profile is active...");
+                                        int count = 0;
+                                        for(s: "${project.activeProfiles}".replaceAll("\\[?\\s?Profile \\{id: (?<profile>\\w+), source: \\w+\\}\\]?", "${profile}").split(",")) {
+                                            print("Active profile: " + s);
+                                            count++;
+                                        }
+                                        print("Count profiles (should 1): " + count);
+                                        return (count == 1);
+                                    ]]></condition>
+                                </evaluateBeanshell>
+                            </rules>
+                            <failFast>true</failFast>
+                        </configuration>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencies>
         <dependency>

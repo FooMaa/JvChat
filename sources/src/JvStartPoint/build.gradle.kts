@@ -54,7 +54,7 @@ tasks {
             delete(dirBuild + "/profile")
             project.file("$dirBuild/profile").mkdir()
             project.file("$dirBuild/profile/profile.txt").createNewFile()
-            project.file("$dirBuild/profile/profile.txt").writeText("target=$PROFILE")
+            project.file("$dirBuild/profile/profile.txt").writeText("#Properties\ntarget=$PROFILE")
             ext{PROFILE}
         }
     }
