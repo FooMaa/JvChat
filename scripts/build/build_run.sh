@@ -26,29 +26,29 @@ function check_packages {
 }
 
 function run {
-    echo -n "[...] running"
+    echo -n "[...] running $PROFILE"
     pushd $PROJECT_DIR >> $LOG_FILE 2>&1
     if [[ $BUILDER == "maven" ]]; then 
     	if [[ $PROFILE == "tests" ]]; then
-            mvn install -P$PROFILE
+            mvn clean install exec:java -P$PROFILE
         else
             mvn exec:java -P$PROFILE >> $LOG_FILE 2>&1
         fi
     elif [[ $BUILDER == "gradle" ]]; then
     	if [[ $PROFILE == "tests" ]]; then
-            gradle clean build -P$PROFILE
+            gradle clean build run -P$PROFILE
         else
             gradle run -P$PROFILE >> $LOG_FILE 2>&1
         fi
     fi
-    echo -e "\\r[ $CHECK_MARK ] running"
+    echo -e "\\r[ $CHECK_MARK ] running $PROFILE"
 }
 
 function build {
     echo -n "[...] building"
-    if [[ $BUILDER == "maven" ]]; then
+    if [[ $BUILDER == "maven" && $PROFILE != "tests" ]]; then
     	bash $PROJECT_DIR"scripts/build/build.sh" -m -p $PROFILE >> $LOG_FILE 2>&1
-    elif [[ $BUILDER == "gradle" ]]; then 
+    elif [[ $BUILDER == "gradle" && $PROFILE != "tests" ]]; then 
     	bash $PROJECT_DIR"scripts/build/build.sh" -g -p $PROFILE >> $LOG_FILE 2>&1
     fi
     
@@ -58,7 +58,11 @@ function build {
         tail -10 "$LOG_FILE"
         exit 1
     fi
-    echo -e "\\r[ $CHECK_MARK ] building"
+    if [[ $PROFILE != "tests" ]]; then
+        echo -e "\\r[ $CHECK_MARK ] building"
+    else
+        echo -e "\\r[ $CHECK_MARK ] skip building for $PROFILE"
+    fi
 }
 
 function usage {
