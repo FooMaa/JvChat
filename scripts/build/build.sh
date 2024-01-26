@@ -34,9 +34,9 @@ function build_start {
     pushd $PROJECT_DIR >> $LOG_FILE 2>&1
     
     if [[ $BUILDER == "maven" ]]; then 
-       mvn clean install >> $LOG_FILE 2>&1
+       mvn clean install -P$PROFILE >> $LOG_FILE 2>&1
     elif [[ $BUILDER == "gradle" ]]; then
-       gradle clean build >> $LOG_FILE 2>&1
+       gradle clean build -P$PROFILE >> $LOG_FILE 2>&1
     fi
     
     EXIT_CODE=$?
