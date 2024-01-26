@@ -47,9 +47,9 @@ function run {
 function build {
     echo -n "[...] building"
     if [[ $BUILDER == "maven" ]]; then
-    	bash $PROJECT_DIR"scripts/build/build.sh" -m >> $LOG_FILE 2>&1
+    	bash $PROJECT_DIR"scripts/build/build.sh" -m -p $PROFILE >> $LOG_FILE 2>&1
     elif [[ $BUILDER == "gradle" ]]; then 
-    	bash $PROJECT_DIR"scripts/build/build.sh" -g >> $LOG_FILE 2>&1
+    	bash $PROJECT_DIR"scripts/build/build.sh" -g -p $PROFILE >> $LOG_FILE 2>&1
     fi
     
     EXIT_CODE=$?

@@ -68,13 +68,13 @@ function check_has_param {
 }
 
 function check_set_param {
-    if [[ -z "$PROFILE" && $NEED_CHECK == true ]]; then
+    if [[ -z "$PROFILE" ]]; then
         echo -e "Profile not defined."
         usage
         exit 1
     fi
 
-    if [[ ( $PROFILE != "" || $NEED_CHECK == true ) && $PROFILE != "tests" && $PROFILE != "users" && $PROFILE != "servers" ]]; then
+    if [[ $PROFILE != "" && $PROFILE != "tests" && $PROFILE != "users" && $PROFILE != "servers" ]]; then
         echo "Give correct profile param to script."
         usage
         exit 1
