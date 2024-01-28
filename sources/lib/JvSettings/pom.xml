@@ -8,11 +8,11 @@
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.foomaa.jvchat.syssettings</groupId>
-    <artifactId>JvSystemSettings</artifactId>
+    <groupId>org.foomaa.jvchat.settings</groupId>
+    <artifactId>JvSettings</artifactId>
     <packaging>jar</packaging>
 
-    <name>JvSystemSettings</name>
+    <name>JvSettings</name>
     <url>http://maven.apache.org</url>
 
     <properties>

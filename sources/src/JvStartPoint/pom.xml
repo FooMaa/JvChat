@@ -198,6 +198,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.foomaa.jvchat.settings</groupId>
+            <artifactId>JvSettings</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.foomaa.jvchat.auth</groupId>
             <artifactId>JvAuthentication</artifactId>
             <version>1.0-SNAPSHOT</version>
@@ -208,6 +214,7 @@
             <artifactId>JvControls</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+
 
     </dependencies>
 </project>

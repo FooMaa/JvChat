@@ -1,21 +1,21 @@
-package org.foomaa.jvchat.syssettings;
+package org.foomaa.jvchat.settings;
 
 import java.awt.*;
 
 public class JvDisplaySettings {
+    public enum TypeOfDisplayBorder {
+        HEIGHT,
+        WIDTH
+    }
     private static final Dimension screenSize;
     public static int heightScreen;
+
     public static int widthScreen;
 
     static {
         screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         heightScreen = screenSize.height;
         widthScreen = screenSize.width;
-    }
-
-    public enum TypeOfDisplayBorder {
-        HEIGHT,
-        WIDTH
     }
 
     public static int getResizeFromDisplay(double scale, TypeOfDisplayBorder displayBorder) {
