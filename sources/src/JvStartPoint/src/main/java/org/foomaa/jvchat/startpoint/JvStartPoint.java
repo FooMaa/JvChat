@@ -8,6 +8,7 @@ import java.util.List;
 
 public class JvStartPoint {
     public static void main(String[] args) throws SQLException {
+
         JvInitControls db = JvInitControls.getInstance();
         JvStartAuthentication a = new JvStartAuthentication();
     }
