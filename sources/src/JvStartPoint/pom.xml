@@ -166,6 +166,7 @@
                                     <all>false</all>
                                 </requireActiveProfile>
                                 <evaluateBeanshell>
+                                    <!--suppress UnresolvedMavenProperty -->
                                     <condition><![CDATA[
                                         print("Checking if only one profile is active...");
                                         int count = 0;

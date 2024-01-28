@@ -14,13 +14,11 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 import org.foomaa.jvchat.settings.JvMainSettings;
+import org.foomaa.jvchat.tools.JvTools;
 
 public class JvStartPoint {
     public static void main(String[] args) throws SQLException, URISyntaxException, IOException {
-//        Path buildPath = Paths.get(Objects.requireNonNull(JvStartPoint.class.getResource("/")).toURI()).getParent();
-//        String content = Files.readAllLines(Paths.get(buildPath.toString() + "/profile/profile.txt"), StandardCharsets.UTF_8).toString();
-//
-//        System.out.println(content);
+        JvTools.getProfileFromBuildDir();
 
 //        JvMainSettings.setProfile();
         JvInitControls ctrls = JvInitControls.getInstance();
