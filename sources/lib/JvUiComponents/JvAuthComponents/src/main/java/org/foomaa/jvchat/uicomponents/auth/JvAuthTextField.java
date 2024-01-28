@@ -34,7 +34,7 @@ public class JvAuthTextField extends JPanel {
 
     private BufferedImage setIcon(String path) {
         try {
-            return ImageIO.read(new File(path));
+            return ImageIO.read(Objects.requireNonNull(getClass().getResource(path)));
         } catch (IOException ex) {
             System.out.println("Нет иконки глазка");
         }

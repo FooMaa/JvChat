@@ -7,5 +7,15 @@ public class JvMainSettings {
         USERS,
         SERVERS;
     }
-    private TypeProfiles PROFILE;
+    private static TypeProfiles PROFILE;
+
+    public static void setProfile(TypeProfiles profile) {
+        if (PROFILE != profile) {
+            PROFILE = profile;
+        }
+    }
+
+    public static TypeProfiles getProfile() {
+        return PROFILE;
+    }
 }
