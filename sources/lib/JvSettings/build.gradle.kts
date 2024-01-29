@@ -2,7 +2,7 @@ plugins {
     id("java")
 }
 
-group = "org.foomaa.jvchat.uicomponents.auth"
+group = "org.foomaa.jvchat.settings"
 version = "1.0-SNAPSHOT"
 buildDir = File("jvchat-gradle")
 
@@ -11,9 +11,7 @@ repositories {
 }
 
 dependencies {
-    implementation(project(mapOf("path" to ":sources:src:JvControls")))
     testImplementation("junit:junit:3.8.1")
-    implementation(project(mapOf("path" to ":sources:lib:JvSettings")))
 }
 
 tasks.test {
@@ -31,25 +29,8 @@ tasks.test {
     }
 }
 
-tasks {
-    javadoc {
-        options.encoding = "UTF-8"
-    }
-    compileJava {
-        options.encoding = "UTF-8"
-    }
-    compileTestJava {
-        options.encoding = "UTF-8"
-    }
-}
-
-tasks.withType<ProcessResources> {
-    duplicatesStrategy = DuplicatesStrategy.INCLUDE
-}
-
 sourceSets.getByName("main") {
     java.srcDir("src/main/java/")
-    resources.srcDir("../../../res/icons/")
 }
 sourceSets.getByName("test") {
     java.srcDir("src/test/java/")

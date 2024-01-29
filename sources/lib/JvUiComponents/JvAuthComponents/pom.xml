@@ -38,8 +38,8 @@
         <!--        </dependency>-->
 
         <dependency>
-            <groupId>org.foomaa.jvchat.syssettings</groupId>
-            <artifactId>JvSystemSettings</artifactId>
+            <groupId>org.foomaa.jvchat.settings</groupId>
+            <artifactId>JvSettings</artifactId>
             <version>${project.version}</version>
         </dependency>
 

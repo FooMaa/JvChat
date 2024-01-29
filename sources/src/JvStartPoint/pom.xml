@@ -166,6 +166,7 @@
                                     <all>false</all>
                                 </requireActiveProfile>
                                 <evaluateBeanshell>
+                                    <!--suppress UnresolvedMavenProperty -->
                                     <condition><![CDATA[
                                         print("Checking if only one profile is active...");
                                         int count = 0;
@@ -189,6 +190,7 @@
         </plugins>
     </build>
 
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -206,6 +208,12 @@
         <dependency>
             <groupId>org.foomaa.jvchat.ctrl</groupId>
             <artifactId>JvControls</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.foomaa.jvchat.tools</groupId>
+            <artifactId>JvTools</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 

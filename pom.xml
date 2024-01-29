@@ -14,9 +14,10 @@
         <module>sources/src/JvStartPoint</module>
         <module>sources/src/JvAuthentication</module>
         <module>sources/src/JvDbWorker</module>
-        <module>sources/lib/JvSystemSettings</module>
+        <module>sources/lib/JvSettings</module>
         <module>sources/lib/JvUiComponents</module>
         <module>sources/src/JvControls</module>
+        <module>sources/lib/JvTools</module>
     </modules>
 
     <properties>

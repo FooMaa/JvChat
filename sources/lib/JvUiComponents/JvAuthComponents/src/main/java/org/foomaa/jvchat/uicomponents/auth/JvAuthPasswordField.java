@@ -1,6 +1,6 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import org.foomaa.jvchat.syssettings.JvDisplaySettings;
+import org.foomaa.jvchat.settings.JvDisplaySettings;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -38,7 +38,7 @@ public class JvAuthPasswordField extends JPanel {
 
     private BufferedImage setIcon(String path) {
         try {
-            return ImageIO.read(getClass().getResource(path));
+            return ImageIO.read(Objects.requireNonNull(getClass().getResource(path)));
         } catch (IOException ex) {
             System.out.println("Нет иконки глазка");
         }
@@ -147,8 +147,9 @@ public class JvAuthPasswordField extends JPanel {
     }
 
     public String getInputText() {
-        if (!Objects.equals(passwordField.getText(), defaultText)) {
-            return passwordField.getText();
+        String password = new String(passwordField.getPassword());
+        if (!Objects.equals(password, defaultText)) {
+            return password;
         }
         return "";
     }

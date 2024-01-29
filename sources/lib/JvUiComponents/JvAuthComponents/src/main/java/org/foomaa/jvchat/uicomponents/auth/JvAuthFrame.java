@@ -1,7 +1,7 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
 import org.foomaa.jvchat.ctrl.JvDbCtrl;
-import org.foomaa.jvchat.syssettings.JvDisplaySettings;
+import org.foomaa.jvchat.settings.JvDisplaySettings;
 
 import javax.swing.*;
 import java.awt.*;

@@ -2,6 +2,7 @@ package org.foomaa.jvchat.ctrl;
 
 import org.foomaa.jvchat.dbworker.JvDbDefines;
 import org.foomaa.jvchat.dbworker.JvDbWorker;
+import org.foomaa.jvchat.settings.JvMainSettings;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +19,10 @@ public class JvDbCtrl
     }
 
     private JvDbCtrl() throws SQLException {
+        System.out.printf("DATABASE BUILD: %b", JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS);
+//        if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
         db = JvDbWorker.getInstance();
+//        }
         //ResultSet rs = db.makeExecution(JvDbDefines.exec);
         //List<String> al = db.getStrDataAtRow(rs, 1);
     }

@@ -1,6 +1,6 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import org.foomaa.jvchat.syssettings.JvDisplaySettings;
+import org.foomaa.jvchat.settings.JvDisplaySettings;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -34,7 +34,7 @@ public class JvAuthTextField extends JPanel {
 
     private BufferedImage setIcon(String path) {
         try {
-            return ImageIO.read(new File(path));
+            return ImageIO.read(Objects.requireNonNull(getClass().getResource(path)));
         } catch (IOException ex) {
             System.out.println("Нет иконки глазка");
         }
