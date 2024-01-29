@@ -1,8 +1,9 @@
 package org.foomaa.jvchat.tools;
 
+import org.foomaa.jvchat.settings.JvMainSettings;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,9 +13,9 @@ import java.util.Objects;
 
 public class JvTools
 {
-    public static String getProfileFromBuildDir() throws IOException, URISyntaxException {
+    private static String getProfileFromBuildDir(Class<?> mainClass) throws IOException, URISyntaxException {
         Path buildPath = Paths.get(Objects.requireNonNull(
-                JvTools.class.getResource("/")).toURI());
+                mainClass.getResource("/")).toURI());
         String dirToProfile = buildPath.toString().substring(0,
                 buildPath.toString().lastIndexOf("/classes")) + "/profile/profile.txt";
         List<String> readingFile = Files.readAllLines(Path.of(dirToProfile),
@@ -22,11 +23,24 @@ public class JvTools
 
         String flag = "target=";
         String profile = "";
-        for (int i = 0; i < readingFile.size(); i++) {
-            String element = readingFile.get(i);
+        for (String element : readingFile) {
             profile = element.substring(element.lastIndexOf(flag) + flag.length());
         }
-        System.out.println(profile);
+
         return profile;
+    }
+
+    public static void setProfileSetting(Class<?> mainClass) throws IOException, URISyntaxException {
+        final String profile = getProfileFromBuildDir(mainClass);
+
+        if (Objects.equals(profile, JvMainSettings.TypeProfiles.TESTS.toString())) {
+            JvMainSettings.setProfile(JvMainSettings.TypeProfiles.TESTS);
+        } else if (Objects.equals(profile, JvMainSettings.TypeProfiles.USERS.toString())) {
+            JvMainSettings.setProfile(JvMainSettings.TypeProfiles.TESTS);
+        } else if (Objects.equals(profile, JvMainSettings.TypeProfiles.SERVERS.toString())) {
+            JvMainSettings.setProfile(JvMainSettings.TypeProfiles.SERVERS);
+        } else {
+            return;
+        }
     }
 }

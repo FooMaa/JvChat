@@ -11,6 +11,7 @@ repositories {
 }
 
 dependencies {
+    implementation(project(":sources:lib:JvSettings"))
     testImplementation("junit:junit:3.8.1")
 }
 
