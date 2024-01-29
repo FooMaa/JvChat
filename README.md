@@ -1,17 +1,17 @@
 # JvChat
 Чат на java с maven
 ## Запустить ПО после клонирования с git
-- Установить зависимости
+- Установить зависимости, если это вариант для пользователей
 ``` bash
-sudo scripts/dependencies/install_dependencies.sh -a
+sudo scripts/dependencies/install_dependencies.sh -a -p users
 ```
-- Создать БД по умолчанию
+- Создать БД по умолчанию, если это серверный вариант
 ``` bash
 sudo scripts/db/make_default_db.sh
 ```
 - Собрать и запустить
 ``` bash
-scripts/build/build_run.sh -m -u -c
+scripts/build/build_run.sh -m -c -p users
 ```
 - Вернуть БД к начальному виду (перенакатить)
 ``` bash

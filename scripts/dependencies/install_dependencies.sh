@@ -165,9 +165,9 @@ EOF
 }
 
 function check_parameters_profile {
-    echo -n "[...] check parameters"
+    echo -n "[...] check parameters profile"
     if [[ -z "$PROFILE" ]]; then
-        echo -e "\\r[ $CROSS_MARK ] Profile not defined."
+        echo -e "\\r[ $CROSS_MARK ] Profile not defined. Get correct profile"
         exit 1
     fi
 
@@ -175,7 +175,7 @@ function check_parameters_profile {
         echo -e "\\r[ $CROSS_MARK ] Wrong profile defined. Acceptible profiles: users, servers, tests."
         exit 1
     fi
-    echo -e "\\r[ $CHECK_MARK ] check parameters"
+    echo -e "\\r[ $CHECK_MARK ] check parameters profile"
 }
 
 function check_param_deps {
