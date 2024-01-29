@@ -147,8 +147,9 @@ public class JvAuthPasswordField extends JPanel {
     }
 
     public String getInputText() {
-        if (!Objects.equals(passwordField.getText(), defaultText)) {
-            return passwordField.getText();
+        String password = new String(passwordField.getPassword());
+        if (!Objects.equals(password, defaultText)) {
+            return password;
         }
         return "";
     }
