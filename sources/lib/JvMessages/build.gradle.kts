@@ -11,6 +11,7 @@ repositories {
 }
 
 dependencies {
+    implementation ("com.google.protobuf:protobuf-java:3.16.3")
     testImplementation("junit:junit:3.8.1")
 }
 
