@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+message DbAuthProto {
+    string login = 1;
+    string password = 2;
+}
+
+message DbRegistrationProto {
+    string login = 1;
+    string password = 2;
+}

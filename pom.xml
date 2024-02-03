@@ -18,6 +18,7 @@
         <module>sources/lib/JvUiComponents</module>
         <module>sources/src/JvControls</module>
         <module>sources/lib/JvTools</module>
+        <module>sources/lib/JvMessages</module>
     </modules>
 
     <properties>
