@@ -32,7 +32,7 @@ FNULL = open(os.devnull, 'w')
 parser = ArgumentParser()
 parser.add_argument('-r', nargs='?', type=str, dest='regime', default='default', help='[OPTIONAL] Set regime \'dump\' or \'restore\' or \'clear\'. Default \'default\'')
 parser.add_argument('-a', nargs='?', type=str, dest='ADMIN_PWD', default=STOCK_ADMIN_PWD, help='[OPTIONAL] Set password for admin. Default {0}'.format(STOCK_ADMIN_PWD))
-parser.add_argument('-u', nargs='?', type=str, dest='DB_USER_PWD', default=STOCK_USER_PWD, help='[OPTIONAL] Set password for admin. Default {0}'.format(STOCK_USER_PWD))
+parser.add_argument('-u', nargs='?', type=str, dest='DB_USER_PWD', default=STOCK_USER_PWD, help='[OPTIONAL] Set password for user. Default {0}'.format(STOCK_USER_PWD))
 args = parser.parse_args()
 
 

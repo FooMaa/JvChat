@@ -3,3 +3,4 @@ python3-psycopg2
 openjdk-17-jre
 openjdk-17-jdk
 python3
+protobuf-compiler
