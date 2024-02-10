@@ -187,5 +187,6 @@ public class JvAuthFrame extends JFrame {
         setLocationRelativeTo(null);
         toFront();
         setVisible(true);
+        requestFocus();
     }
 }

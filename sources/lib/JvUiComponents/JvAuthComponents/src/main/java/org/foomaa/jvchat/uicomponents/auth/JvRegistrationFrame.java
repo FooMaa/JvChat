@@ -177,6 +177,7 @@ public class JvRegistrationFrame extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         toFront();
         setVisible(true);
+        requestFocus();
     }
 
     private void closeWindow() {
