@@ -147,6 +147,7 @@ public class JvRegistrationFrame extends JFrame {
             tPassword.setErrorBorder();
             tPasswordConfirm.setErrorBorder();
             tErrorHelpInfo.setText("Введенные пароли должны совпадать");
+            return false;
         }
 
         String concatFields = "";
