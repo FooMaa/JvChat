@@ -19,6 +19,7 @@
         <module>sources/src/JvControls</module>
         <module>sources/lib/JvTools</module>
         <module>sources/lib/JvMessages</module>
+        <module>sources/src/JvNetwork</module>
     </modules>
 
     <properties>
