@@ -109,7 +109,7 @@ public class JvRegistrationFrame extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                JvAuthFrame authFrame = new JvAuthFrame();
+                JvEntryFrame authFrame = new JvEntryFrame();
             }
         });
 
@@ -184,6 +184,6 @@ public class JvRegistrationFrame extends JFrame {
     private void closeWindow() {
         setVisible(false);
         dispose();
-        JvAuthFrame authFrame = new JvAuthFrame();
+        JvEntryFrame authFrame = new JvEntryFrame();
     }
 }

@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Vector;
 
-public class JvAuthFrame extends JFrame {
+public class JvEntryFrame extends JFrame {
     private final JPanel panel;
     private final JvAuthLabel tInfo;
     private final JvAuthTextField tLogin;
@@ -20,7 +20,7 @@ public class JvAuthFrame extends JFrame {
     private final JvAuthActiveLabel activeRegisterLabel;
     private final JvAuthActiveLabel activeMissLabel;
 
-    public JvAuthFrame() {
+    public JvEntryFrame() {
         super("AuthenticationWindow");
 
         panel = new JPanel();

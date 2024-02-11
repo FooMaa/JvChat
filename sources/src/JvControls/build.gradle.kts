@@ -13,6 +13,7 @@ repositories {
 dependencies {
     testImplementation("junit:junit:3.8.1")
     implementation(project(":sources:lib:JvSettings"))
+    implementation(project(":sources:lib:JvMessages"))
     implementation(project(":sources:src:JvDbWorker"))
 }
 

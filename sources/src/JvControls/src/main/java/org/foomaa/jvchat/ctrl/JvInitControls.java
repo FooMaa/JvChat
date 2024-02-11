@@ -5,6 +5,7 @@ public class JvInitControls {
     private static JvInitControls instance;
     private JvInitControls() throws SQLException {
         JvDbCtrl dbCtrl = JvDbCtrl.getInstance();
+        JvMessageCtrl msgCtrl = JvMessageCtrl.getInstance();
     }
 
     public static JvInitControls getInstance() throws SQLException {
