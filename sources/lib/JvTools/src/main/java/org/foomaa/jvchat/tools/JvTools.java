@@ -16,8 +16,14 @@ public class JvTools
     private static String getProfileFromBuildDir(Class<?> mainClass) throws IOException, URISyntaxException {
         Path buildPath = Paths.get(Objects.requireNonNull(
                 mainClass.getResource("/")).toURI());
+
+        String key = "/classes";
+        if (!buildPath.toString().contains(key)) {
+            key = "\\classes";
+        }
+
         String dirToProfile = buildPath.toString().substring(0,
-                buildPath.toString().lastIndexOf("/classes")) + "/profile/profile.txt";
+                buildPath.toString().lastIndexOf(key)) + "/profile/profile.txt";
         List<String> readingFile = Files.readAllLines(Path.of(dirToProfile),
                 StandardCharsets.UTF_8);
 
