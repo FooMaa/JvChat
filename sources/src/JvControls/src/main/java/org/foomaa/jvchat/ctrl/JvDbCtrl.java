@@ -19,10 +19,9 @@ public class JvDbCtrl
     }
 
     private JvDbCtrl() throws SQLException {
-        System.out.printf("DATABASE BUILD: %b\n", JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS);
-//        if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
-        db = JvDbWorker.getInstance();
-//        }
+        if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
+            db = JvDbWorker.getInstance();
+        }
         //ResultSet rs = db.makeExecution(JvDbDefines.exec);
         //List<String> al = db.getStrDataAtRow(rs, 1);
     }

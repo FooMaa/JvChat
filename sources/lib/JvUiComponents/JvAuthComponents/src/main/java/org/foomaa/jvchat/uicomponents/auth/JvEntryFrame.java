@@ -1,6 +1,7 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
 import org.foomaa.jvchat.ctrl.JvDbCtrl;
+import org.foomaa.jvchat.ctrl.JvMessageCtrl;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 
 import javax.swing.*;
@@ -103,6 +104,7 @@ public class JvEntryFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     if (checkFields()) {
+                        JvMessageCtrl.sendEntryMessage(tLogin.getInputText(), tPassword.getInputText());
                         if (checkUserInDb()) {
                             System.out.println("Вход выполнен");
                         } else {

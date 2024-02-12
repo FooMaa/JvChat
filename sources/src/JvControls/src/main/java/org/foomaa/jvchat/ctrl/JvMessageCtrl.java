@@ -1,13 +1,13 @@
 package org.foomaa.jvchat.ctrl;
 
+import org.foomaa.jvchat.messages.JvSerializatorData;
+
 import java.sql.SQLException;
 
 public class JvMessageCtrl {
     private static JvMessageCtrl instance;
 
     private JvMessageCtrl() {
-        System.out.println("hello msg");
-        // hello
     }
 
     public static JvMessageCtrl getInstance() {
@@ -15,5 +15,9 @@ public class JvMessageCtrl {
             instance = new JvMessageCtrl();
         }
         return instance;
+    }
+
+    public static void sendEntryMessage(String login, String password) {
+        byte[] bodyMessage = JvSerializatorData.serialiseData(JvSerializatorData.TypeMessage.Entry, login, password);
     }
 }
