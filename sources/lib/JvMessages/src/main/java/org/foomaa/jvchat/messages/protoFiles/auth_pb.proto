@@ -4,11 +4,13 @@ option java_outer_classname = "Auth_pb";
 option java_package = "org.foomaa.jvchat.messages";
 
 message DbEntryProto {
-    string login = 1;
-    string password = 2;
+    uint32 type = 1;
+    string login = 2;
+    string password = 3;
 }
 
 message DbRegistrationProto {
-    string login = 1;
-    string password = 2;
+    uint32 type = 1;
+    string login = 2;
+    string password = 3;
 }
