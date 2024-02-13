@@ -3,6 +3,7 @@ PROJECT_DIR=$( echo "$(realpath $0 | sed -r 's/scripts.+//g')" )
 LOG_FILE="/tmp/run-jvchat.log"
 PROFILE=""
 BUILDER=""
+ARG_IP=""
 NEED_CHECK=false
 CHECK_MARK="\033[0;32m\xE2\x9c\x94\033[0m"
 CROSS_MARK="\033[0;31m\xE2\x9c\x97\033[0m"
@@ -32,14 +33,18 @@ function run {
     	if [[ $PROFILE == "tests" ]]; then
             export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
             mvn clean install exec:java -P$PROFILE
-        else
+        elif [[ $PROFILE == "users" ]]; then
+            mvn exec:java -Dexec.args=$ARG_IP -P$PROFILE >> $LOG_FILE 2>&1
+        elif [[ $PROFILE == "servers" ]]; then
             mvn exec:java -P$PROFILE >> $LOG_FILE 2>&1
         fi
     elif [[ $BUILDER == "gradle" ]]; then
     	if [[ $PROFILE == "tests" ]]; then
             export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
             gradle clean build run -P$PROFILE
-        else
+        elif [[ $PROFILE == "users" ]]; then
+            gradle run --args='$ARG_IP' -P$PROFILE >> $LOG_FILE 2>&1
+        elif [[ $PROFILE == "servers" ]]; then
             gradle run -P$PROFILE >> $LOG_FILE 2>&1
         fi
     fi
@@ -81,8 +86,9 @@ function usage {
     -c      check dependencies      check dependencies (OPTIONAL) Example $0 -c
     -h      help menu               to see this help (OPTIONAL) Example $0 -h
     -p      run profile             run servers profile (REQUIRED) Example $0 -p users
-    -g	    use gradle		        build with gradle 	(REQUIRED) Example $0 -g
-    -m      use maven		        build use maven 	(REQUIRED) Example $0 -m
+    -g	    use gradle              build with gradle 	(REQUIRED) Example $0 -g
+    -m      use maven               build use maven 	(REQUIRED) Example $0 -m
+    -i      set ip                  set ip for args[] in main (REQUIRED) Example $0 -i 192.168.23.1
 EOF
 }
 
@@ -112,6 +118,19 @@ function check_set_param {
        usage
        exit 1
     fi
+
+    if [[ -z "$ARG_IP" ]]; then
+        echo -e "IP not defined."
+        usage
+        exit 1
+    fi
+
+    if  [[ $PROFILE == "users" && ! "$ARG_IP" =~ ^(([1-9]?[0-9]|1[0-9][0-9]|2([0-4][0-9]|5[0-5]))\.){3}([1-9]?[0-9]|1[0-9][0-9]|2([0-4][0-9]|5[0-5]))$ ]]; then
+        echo -e "IP not correct."
+        usage
+        exit 1
+    fi
+        
 }
 
 check_user
@@ -123,6 +142,7 @@ while [ -n "$1" ]; do
         -m ) if [[ $BUILDER != "" ]]; then echo -e "\\rGive 1 builder"; usage; exit 1; else BUILDER="maven"; fi ;;
         -g ) if [[ $BUILDER != "" ]]; then echo -e "\\rGive 1 builder"; usage; exit 1; else BUILDER="gradle"; fi ;;
         -p ) if [[ $PROFILE != "" ]]; then echo -e "\\rGive 1 profile"; usage; exit 1; else  PROFILE=$2 ; fi; shift ;;
+        -i ) if [[ $ARG_IP != "" ]]; then echo -e "\\rGive 1 ip"; usage; exit 1; else  ARG_IP=$2 ; fi; shift ;;
         -h ) usage; exit 1;;
         -- ) usage; exit 1;;
         * ) usage; exit 1 ;;
