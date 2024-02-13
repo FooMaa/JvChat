@@ -31,6 +31,18 @@ tasks.test {
     }
 }
 
+tasks {
+    javadoc {
+        options.encoding = "UTF-8"
+    }
+    compileJava {
+        options.encoding = "UTF-8"
+    }
+    compileTestJava {
+        options.encoding = "UTF-8"
+    }
+}
+
 sourceSets.getByName("main") {
     java.srcDir("src/main/java/")
 }

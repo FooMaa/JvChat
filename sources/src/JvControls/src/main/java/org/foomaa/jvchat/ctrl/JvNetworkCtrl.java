@@ -3,7 +3,7 @@ package org.foomaa.jvchat.ctrl;
 import org.foomaa.jvchat.settings.JvMainSettings;
 
 import org.foomaa.jvchat.network.JvServersSocket;
-import org.foomaa.jvchat.network.JvUsers;
+import org.foomaa.jvchat.network.JvUsersSocket;
 
 import java.io.IOException;
 
@@ -14,7 +14,7 @@ public class JvNetworkCtrl {
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             JvServersSocket.getInstance();
         } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
-            JvUsers.getInstance();
+            JvUsersSocket.getInstance();
         }
     }
 

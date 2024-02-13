@@ -14,12 +14,13 @@ public class JvServersSocket {
     private JvServersSocket() {
         System.out.println("Server is started");
         try {
-            ServerSocket servSocket = new ServerSocket(JvMainSettings.port, 1000,InetAddress.getByName(JvMainSettings.ip));
+            ServerSocket servSocket = new ServerSocket(JvMainSettings.port,
+                    1000, InetAddress.getByName(JvMainSettings.ip));
             while (true) {
                 // Получив соединение начинаем работать с сокетом
                 Socket fromClientSocket = servSocket.accept();
                 // Стартуем новый поток для обработки запроса клиента
-                new SocketThread(fromClientSocket).start();
+                new JvSocketThread(fromClientSocket).start();
             }
         } catch (IOException ex) {
             ex.printStackTrace(System.out);
@@ -34,11 +35,11 @@ public class JvServersSocket {
     }
 }
 
-class SocketThread extends Thread
+class JvSocketThread extends Thread
 {
     private Socket fromClient;
 
-    public SocketThread(Socket fromClientSocket) {
+    public JvSocketThread(Socket fromClientSocket) {
         this.fromClient = fromClientSocket;
     }
 
