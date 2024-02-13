@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.URISyntaxException;
+import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -102,8 +103,13 @@ public class JvTools
             JvMainSettings.setIp(ip);
         } else {
             System.out.println("Жди автоопределения IP-адреса ...");
-            Socket socket = new Socket() ;
-            socket.connect(new InetSocketAddress("google.com", 80));
+            Socket socket = new Socket();
+            try {
+                socket.connect(new InetSocketAddress("google.com", 80));
+            } catch (UnknownHostException exception) {
+                System.out.println("Не получилось выйти в сеть, проверь подключение и попытайся снова!");
+                System.exit(1);
+            }
             JvMainSettings.setIp(socket.getLocalAddress().getHostAddress());
         }
     }
