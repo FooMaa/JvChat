@@ -19,11 +19,11 @@ public class JvStartPoint {
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             JvTools.initServersParameters();
         }
-        if (args.length == 0) {
-            new JvErrorStart("Дайте в параметр IP-адрес сервера!");
-            System.exit(1);
-        }
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
+            if (args.length == 0) {
+                new JvErrorStart("Дайте в параметр IP-адрес сервера!");
+                System.exit(1);
+            }
             JvMainSettings.setIp(args[0]);
         }
 
