@@ -2,7 +2,7 @@ package org.foomaa.jvchat.ctrl;
 
 import org.foomaa.jvchat.settings.JvMainSettings;
 
-import org.foomaa.jvchat.network.JvServers;
+import org.foomaa.jvchat.network.JvServersSocket;
 import org.foomaa.jvchat.network.JvUsers;
 
 import java.io.IOException;
@@ -12,7 +12,7 @@ public class JvNetworkCtrl {
 
     private JvNetworkCtrl() throws IOException {
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
-            JvServers.getInstance();
+            JvServersSocket.getInstance();
         } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
             JvUsers.getInstance();
         }

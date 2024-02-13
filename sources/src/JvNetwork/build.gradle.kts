@@ -12,6 +12,7 @@ repositories {
 
 dependencies {
     testImplementation("junit:junit:3.8.1")
+    implementation(project(":sources:lib:JvSettings"))
 }
 
 tasks.test {

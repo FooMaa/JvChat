@@ -1,32 +1,24 @@
 package org.foomaa.jvchat.network;
 
+import org.foomaa.jvchat.settings.JvMainSettings;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketAddress;
 
 public class JvUsers {
     private static JvUsers instance;
 
     private JvUsers() throws IOException {
-            // Определяем номер порта, на котором нас ожидает сервер для ответа
             int portNumber = 9999;
             // Подготавливаем строку для запроса - просто строка
             String str = "Тестовая строка для передачи";
 
-            // Пишем, что стартовали клиент
-            System.out.println("Client is started");
-
-            // Открыть сокет (Socket) для обращения к локальному компьютеру
-            // Сервер мы будем запускать на этом же компьютере
-            // Это специальный класс для сетевого взаимодействия c клиентской стороны
-            Socket socket = new Socket("192.168.83.83", portNumber);
-
-            // Создать поток для чтения символов из сокета
-            // Для этого надо открыть поток сокета - socket.getInputStream()
-            // Потом преобразовать его в поток символов - new InputStreamReader
-            // И уже потом сделать его читателем строк - BufferedReader
+            Socket socket = new Socket(JvMainSettings.ip, JvMainSettings.port);
             BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             // Создать поток для записи символов в сокет
@@ -49,7 +41,7 @@ public class JvUsers {
 
             br.close();
             pw.close();
-            socket.close();
+//            socket.close();
         }
 
     public static JvUsers getInstance() throws IOException {

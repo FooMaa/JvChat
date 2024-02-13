@@ -1,7 +1,7 @@
 package org.foomaa.jvchat.settings;
 
 public class JvMainSettings {
-
+    // PROFILE
     public enum TypeProfiles {
         TESTS("tests"),
         USERS("users"),
@@ -27,4 +27,8 @@ public class JvMainSettings {
     public static TypeProfiles getProfile() {
         return PROFILE;
     }
+
+    // NETWORK
+    public static final int port = 4004;
+    public static final String ip = "192.168.83.83";
 }
