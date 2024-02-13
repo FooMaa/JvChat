@@ -11,11 +11,11 @@ import java.net.InetSocketAddress;
 
 public class JvServersSocket {
     private static JvServersSocket instance;
-
+    private static ServerSocket servSocket;
     private JvServersSocket() {
+
         System.out.println("Server is started");
         try {
-            ServerSocket servSocket;
             if (JvMainSettings.getIp().isEmpty()) {
                 servSocket = new ServerSocket(JvMainSettings.getPort());
             } else {
@@ -24,6 +24,16 @@ public class JvServersSocket {
             }
             System.out.println(servSocket.getInetAddress().toString());
             System.out.println(servSocket.getLocalPort());
+
+            closeSocketWhenKill();
+
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                try {
+                    servSocket.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }));
 
             while (true) {
                 // Получив соединение начинаем работать с сокетом
@@ -41,6 +51,17 @@ public class JvServersSocket {
             instance = new JvServersSocket();
         }
         return instance;
+    }
+
+    private static void closeSocketWhenKill() {
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            try {
+                System.out.println("Закрываем серверный сокет ...");
+                servSocket.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }));
     }
 }
 
