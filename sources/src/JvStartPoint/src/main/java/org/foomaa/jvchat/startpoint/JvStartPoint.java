@@ -10,22 +10,30 @@ import java.io.IOException;
 import java.net.ConnectException;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
-import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class JvStartPoint {
     public static void main(String[] args) throws SQLException, URISyntaxException, IOException {
         JvTools.setProfileSetting(JvStartPoint.class);
+
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             JvTools.initServersParameters();
         }
+        if (args.length == 0) {
+            new JvErrorStart("Дайте в параметр IP-адрес сервера!");
+            System.exit(1);
+        }
+        if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
+            JvMainSettings.setIp(args[0]);
+        }
+
         try {
             JvInitControls.getInstance();
         } catch (ConnectException exception) {
             new JvErrorStart(
                     "Не удалось подключиться к серверу.\nПроверьте наличие сети и попробуйте снова!");
-            return;
+            System.exit(1);;
         }
+
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
             new JvStartAuthentication();
         }

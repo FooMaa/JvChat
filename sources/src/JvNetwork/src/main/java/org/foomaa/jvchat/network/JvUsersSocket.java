@@ -12,16 +12,20 @@ import java.net.Socket;
 
 public class JvUsersSocket {
     private static JvUsersSocket instance;
-
+    private static Socket socket;
     private JvUsersSocket() throws IOException {
         String str = "Тестовая строка для передачи";
-        Socket socket = new Socket();
+        socket = new Socket();
         socket.connect(new InetSocketAddress(JvMainSettings.getIp(), JvMainSettings.getPort()), 4000);
+        closeSocketWhenKill();
+
         BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         // Создать поток для записи символов в сокет
         PrintWriter pw = new PrintWriter(socket.getOutputStream(), true);
         // Отправляем тестовую строку в сокет
         pw.println("Тестовая строка для передачи");
+
+
 
         // Входим в цикл чтения, что нам ответил сервер
 //            while ((str = br.readLine()) != null) {
@@ -45,5 +49,16 @@ public class JvUsersSocket {
             instance = new JvUsersSocket();
         }
         return instance;
+    }
+
+    private static void closeSocketWhenKill() {
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            try {
+                System.out.println("Закрываем сокет ...");
+                socket.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }));
     }
 }

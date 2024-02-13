@@ -6,7 +6,6 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.InetAddress;
-import java.net.InetSocketAddress;
 
 
 public class JvServersSocket {
@@ -39,7 +38,7 @@ public class JvServersSocket {
                 // Получив соединение начинаем работать с сокетом
                 Socket fromClientSocket = servSocket.accept();
                 // Стартуем новый поток для обработки запроса клиента
-                new JvSocketThread(fromClientSocket).start();
+                new JvServersSocketThread(fromClientSocket).start();
             }
         } catch (IOException ex) {
             ex.printStackTrace(System.out);
@@ -65,11 +64,11 @@ public class JvServersSocket {
     }
 }
 
-class JvSocketThread extends Thread
+class JvServersSocketThread extends Thread
 {
     private Socket fromClient;
 
-    public JvSocketThread(Socket fromClientSocket) {
+    public JvServersSocketThread(Socket fromClientSocket) {
         this.fromClient = fromClientSocket;
     }
 
