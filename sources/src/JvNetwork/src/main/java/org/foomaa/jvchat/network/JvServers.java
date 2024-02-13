@@ -10,7 +10,7 @@ import java.net.InetAddress;
 
 public class JvServers {
     private static JvServers instance;
-    private static final int port = 4004;
+    private static final int port = 80;
 
     private JvServers() {
         System.out.println("Server is started");

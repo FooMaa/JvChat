@@ -11,7 +11,7 @@ public class JvUsers {
 
     private JvUsers() throws IOException {
             // Определяем номер порта, на котором нас ожидает сервер для ответа
-            int portNumber = 4004;
+            int portNumber = 80;
             // Подготавливаем строку для запроса - просто строка
             String str = "Тестовая строка для передачи";
 
