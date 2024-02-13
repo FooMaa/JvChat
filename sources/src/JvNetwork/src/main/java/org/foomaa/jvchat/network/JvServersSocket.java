@@ -6,6 +6,7 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 
 
 public class JvServersSocket {
@@ -14,9 +15,16 @@ public class JvServersSocket {
     private JvServersSocket() {
         System.out.println("Server is started");
         try {
-            ServerSocket servSocket = new ServerSocket(JvMainSettings.port,
-                    1000, InetAddress.getByName(JvMainSettings.ip));
+            ServerSocket servSocket;
+            if (JvMainSettings.getIp().isEmpty()) {
+                servSocket = new ServerSocket(JvMainSettings.getPort());
+            } else {
+                servSocket = new ServerSocket(JvMainSettings.getPort(),
+                        1000, InetAddress.getByName(JvMainSettings.getIp()));
+            }
             System.out.println(servSocket.getInetAddress().toString());
+            System.out.println(servSocket.getLocalPort());
+
             while (true) {
                 // Получив соединение начинаем работать с сокетом
                 Socket fromClientSocket = servSocket.accept();

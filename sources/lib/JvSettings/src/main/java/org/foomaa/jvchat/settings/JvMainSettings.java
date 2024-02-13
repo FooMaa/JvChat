@@ -29,7 +29,27 @@ public class JvMainSettings {
     }
 
     // NETWORK
-    public static int port = 4004;
-    public static String ip = "192.168.83.83";
+    private static int port = 4004;
+    private static String ip = "";
+    private static int quantityConnections = 1000;
 
+    public static void setIp(String newIp) {
+        if (ip != newIp) {
+            ip = newIp;
+        }
+    }
+
+    public static void setPort(int newPort) {
+        if (port != newPort) {
+            port = newPort;
+        }
+    }
+
+    public static String getIp() {
+        return ip;
+    }
+
+    public static int getPort() {
+        return port;
+    }
 }

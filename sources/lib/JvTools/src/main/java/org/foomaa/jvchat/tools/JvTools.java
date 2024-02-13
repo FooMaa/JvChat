@@ -3,6 +3,8 @@ package org.foomaa.jvchat.tools;
 import org.foomaa.jvchat.settings.JvMainSettings;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -10,6 +12,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
+import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class JvTools
 {
@@ -47,6 +51,60 @@ public class JvTools
             JvMainSettings.setProfile(JvMainSettings.TypeProfiles.SERVERS);
         } else {
             return;
+        }
+    }
+
+    public static void initServersParameters() throws IOException {
+        Scanner in = new Scanner(System.in);
+
+        Pattern regex = Pattern.compile(
+                "^(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])$");
+        System.out.println("Введи IP-адрес или нажми Enter для значения по умолчанию (по умолчанию auto): ");
+        while (true) {
+            String ip = in.nextLine();
+            if (validateInputServers(regex, ip)) {
+                setIpToSettings(ip);
+                break;
+            } else {
+                System.out.println("Это не похоже на IP-адрес. Введи снова IP-адрес или нажми Enter для значения по умолчанию: ");
+            }
+        }
+
+        regex = Pattern.compile(
+                "^([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$");
+        System.out.println("Введи порт или нажми Enter для значения по умолчанию (по умолчанию = 4004): ");
+        while (true) {
+            String port = in.nextLine();
+            if (validateInputServers(regex, port)) {
+                if (!port.isEmpty()) {
+                    JvMainSettings.setPort(Integer.parseInt(port));
+                }
+                break;
+            } else {
+                System.out.println("Введи заново порт или нажми Enter для значения по умолчанию (по умолчанию = 4004): ");
+            }
+        }
+    }
+
+    private static boolean validateInputServers(Pattern regex, String param) {
+        if (param.isEmpty()) {
+            return true;
+        }
+        if (regex.matcher(param).matches()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private static void setIpToSettings(String ip) throws IOException {
+        if (!ip.isEmpty()) {
+            JvMainSettings.setIp(ip);
+        } else {
+            System.out.println("Жди автоопределения IP-адреса ...");
+            Socket socket = new Socket() ;
+            socket.connect(new InetSocketAddress("google.com", 80));
+            JvMainSettings.setIp(socket.getLocalAddress().getHostAddress());
         }
     }
 }

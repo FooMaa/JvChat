@@ -10,15 +10,14 @@ import java.io.IOException;
 import java.net.ConnectException;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class JvStartPoint {
     public static void main(String[] args) throws SQLException, URISyntaxException, IOException {
         JvTools.setProfileSetting(JvStartPoint.class);
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
-            Scanner in = new Scanner(System.in);
-            System.out.print("Введи IP-адрес: ");
-
+            JvTools.initServersParameters();
         }
         try {
             JvInitControls.getInstance();

@@ -16,7 +16,7 @@ public class JvUsersSocket {
     private JvUsersSocket() throws IOException {
         String str = "Тестовая строка для передачи";
         Socket socket = new Socket();
-        socket.connect(new InetSocketAddress(JvMainSettings.ip, JvMainSettings.port), 4000);
+        socket.connect(new InetSocketAddress(JvMainSettings.getIp(), JvMainSettings.getPort()), 4000);
         BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         // Создать поток для записи символов в сокет
         PrintWriter pw = new PrintWriter(socket.getOutputStream(), true);
