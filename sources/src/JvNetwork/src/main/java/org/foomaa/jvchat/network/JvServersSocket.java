@@ -6,6 +6,7 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.InetAddress;
+import java.net.SocketException;
 
 
 public class JvServersSocket {
@@ -57,8 +58,8 @@ public class JvServersSocket {
             try {
                 System.out.println("Закрываем серверный сокет ...");
                 servSocket.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            } catch (IOException exception) {
+                throw new RuntimeException(exception);
             }
         }));
     }
