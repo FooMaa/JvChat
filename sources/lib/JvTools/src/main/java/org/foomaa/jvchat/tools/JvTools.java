@@ -42,7 +42,7 @@ public class JvTools
         if (Objects.equals(profile, JvMainSettings.TypeProfiles.TESTS.toString())) {
             JvMainSettings.setProfile(JvMainSettings.TypeProfiles.TESTS);
         } else if (Objects.equals(profile, JvMainSettings.TypeProfiles.USERS.toString())) {
-            JvMainSettings.setProfile(JvMainSettings.TypeProfiles.TESTS);
+            JvMainSettings.setProfile(JvMainSettings.TypeProfiles.USERS);
         } else if (Objects.equals(profile, JvMainSettings.TypeProfiles.SERVERS.toString())) {
             JvMainSettings.setProfile(JvMainSettings.TypeProfiles.SERVERS);
         } else {

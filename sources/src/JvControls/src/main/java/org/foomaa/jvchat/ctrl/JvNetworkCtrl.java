@@ -14,7 +14,7 @@ public class JvNetworkCtrl {
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             JvServers.getInstance();
         } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
-            JvServers.getInstance();
+            JvUsers.getInstance();
         }
     }
 

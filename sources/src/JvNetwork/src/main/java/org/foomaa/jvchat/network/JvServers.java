@@ -13,6 +13,7 @@ public class JvServers {
     private static final int port = 4004;
 
     private JvServers() {
+        System.out.println("Server is started");
         try {
             ServerSocket servSocket = new ServerSocket(port, 1000,InetAddress.getByName("192.168.83.83"));
             while (true) {
