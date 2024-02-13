@@ -29,6 +29,7 @@ public class JvMainSettings {
     }
 
     // NETWORK
-    public static final int port = 4004;
-    public static final String ip = "192.168.83.83";
+    public static int port = 4004;
+    public static String ip = "192.168.83.83";
+
 }

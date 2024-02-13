@@ -10,19 +10,25 @@ import java.io.IOException;
 import java.net.ConnectException;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class JvStartPoint {
     public static void main(String[] args) throws SQLException, URISyntaxException, IOException {
         JvTools.setProfileSetting(JvStartPoint.class);
+        if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
+            Scanner in = new Scanner(System.in);
+            System.out.print("Введи IP-адрес: ");
+
+        }
         try {
             JvInitControls.getInstance();
         } catch (ConnectException exception) {
-            JvErrorStart err = new JvErrorStart(
+            new JvErrorStart(
                     "Не удалось подключиться к серверу.\nПроверьте наличие сети и попробуйте снова!");
             return;
         }
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
-            JvStartAuthentication auth = new JvStartAuthentication();
+            new JvStartAuthentication();
         }
     }
 }

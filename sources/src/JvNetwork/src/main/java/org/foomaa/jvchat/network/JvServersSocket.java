@@ -14,8 +14,8 @@ public class JvServersSocket {
     private JvServersSocket() {
         System.out.println("Server is started");
         try {
-            ServerSocket servSocket = new ServerSocket(JvMainSettings.port,
-                    1000, InetAddress.getByName(JvMainSettings.ip));
+            ServerSocket servSocket = new ServerSocket(JvMainSettings.port);
+//                    1000, InetAddress.getByName(JvMainSettings.ip));
             while (true) {
                 // Получив соединение начинаем работать с сокетом
                 Socket fromClientSocket = servSocket.accept();
