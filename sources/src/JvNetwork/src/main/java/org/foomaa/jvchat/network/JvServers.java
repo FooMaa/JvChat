@@ -14,7 +14,7 @@ public class JvServers {
 
     private JvServers() {
         try {
-            ServerSocket servSocket = new ServerSocket(port);
+            ServerSocket servSocket = new ServerSocket(port, 1000,InetAddress.getByName("192.168.83.83"));
             while (true) {
                 // Получив соединение начинаем работать с сокетом
                 Socket fromClientSocket = servSocket.accept();
