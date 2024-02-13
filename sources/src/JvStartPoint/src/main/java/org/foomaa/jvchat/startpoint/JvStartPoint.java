@@ -8,6 +8,7 @@ import org.foomaa.jvchat.settings.JvMainSettings;
 
 import java.io.IOException;
 import java.net.ConnectException;
+import java.net.SocketTimeoutException;
 import java.net.URISyntaxException;
 import java.sql.SQLException;
 
@@ -28,7 +29,7 @@ public class JvStartPoint {
 
         try {
             JvInitControls.getInstance();
-        } catch (ConnectException exception) {
+        } catch (ConnectException | SocketTimeoutException exception) {
             new JvErrorStart(
                     "Не удалось подключиться к серверу.\nПроверьте наличие сети и попробуйте снова!");
             System.exit(1);;
