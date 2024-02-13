@@ -119,7 +119,7 @@ function check_set_param {
        exit 1
     fi
 
-    if [[ -z "$ARG_IP" ]]; then
+    if [[ $PROFILE == "users" && -z "$ARG_IP" ]]; then
         echo -e "IP not defined."
         usage
         exit 1
