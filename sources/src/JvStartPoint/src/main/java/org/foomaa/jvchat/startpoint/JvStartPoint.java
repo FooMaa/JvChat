@@ -24,7 +24,12 @@ public class JvStartPoint {
                 new JvErrorStart("Дайте в параметр IP-адрес сервера!");
                 System.exit(1);
             }
-            JvMainSettings.setIp(args[0]);
+            if (JvTools.validateInputIp(args[0])) {
+                JvMainSettings.setIp(args[0]);
+            } else {
+                new JvErrorStart("В параметре запуска не верный IP!");
+                System.exit(1);
+            }
         }
 
         try {

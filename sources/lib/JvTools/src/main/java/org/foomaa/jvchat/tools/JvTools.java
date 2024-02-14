@@ -58,12 +58,10 @@ public class JvTools
     public static void initServersParameters() throws IOException {
         Scanner in = new Scanner(System.in);
 
-        Pattern regex = Pattern.compile(
-                "^(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])$");
         System.out.println("Введи IP-адрес или нажми Enter для значения по умолчанию (по умолчанию auto): ");
         while (true) {
             String ip = in.nextLine();
-            if (validateInputServers(regex, ip)) {
+            if (validateInputIp(ip)) {
                 setIpToSettings(ip);
                 break;
             } else {
@@ -71,15 +69,11 @@ public class JvTools
             }
         }
 
-        regex = Pattern.compile(
-                "^([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$");
         System.out.println("Введи порт или нажми Enter для значения по умолчанию (по умолчанию = 4004): ");
         while (true) {
             String port = in.nextLine();
-            if (validateInputServers(regex, port)) {
-                if (!port.isEmpty()) {
-                    JvMainSettings.setPort(Integer.parseInt(port));
-                }
+            if (validateInputPort(port)) {
+                JvMainSettings.setPort(Integer.parseInt(port));
                 break;
             } else {
                 System.out.println("Введи заново порт или нажми Enter для значения по умолчанию (по умолчанию = 4004): ");
@@ -87,9 +81,24 @@ public class JvTools
         }
     }
 
-    private static boolean validateInputServers(Pattern regex, String param) {
+    public static boolean validateInputIp(String param) {
+        Pattern regex = Pattern.compile(
+                "^(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])$");
         if (param.isEmpty()) {
             return true;
+        }
+        if (regex.matcher(param).matches()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean validateInputPort(String param) {
+        Pattern regex = Pattern.compile(
+                "^([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$");
+        if (param.isEmpty()) {
+            return false;
         }
         if (regex.matcher(param).matches()) {
             return true;

@@ -5,8 +5,7 @@ import org.foomaa.jvchat.messages.JvSerializatorData;
 public class JvMessageCtrl {
     private static JvMessageCtrl instance;
 
-    private JvMessageCtrl() {
-    }
+    private JvMessageCtrl() {}
 
     public static JvMessageCtrl getInstance() {
         if(instance == null){

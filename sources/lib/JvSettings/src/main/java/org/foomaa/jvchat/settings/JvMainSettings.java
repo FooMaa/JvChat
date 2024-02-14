@@ -52,4 +52,10 @@ public class JvMainSettings {
     public static int getPort() {
         return port;
     }
+
+    public static int getQuantityConnections() {
+        return quantityConnections;
+    }
+
+    // DATABASE
 }

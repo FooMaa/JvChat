@@ -5,9 +5,9 @@ import java.sql.SQLException;
 public class JvInitControls {
     private static JvInitControls instance;
     private JvInitControls() throws SQLException, IOException {
-        JvDbCtrl dbCtrl = JvDbCtrl.getInstance();
-        JvMessageCtrl msgCtrl = JvMessageCtrl.getInstance();
-        JvNetworkCtrl netCtrl = JvNetworkCtrl.getInstance();
+        JvDbCtrl.getInstance();
+        JvMessageCtrl.getInstance();
+        JvNetworkCtrl.getInstance();
     }
 
     public static JvInitControls getInstance() throws SQLException, IOException {

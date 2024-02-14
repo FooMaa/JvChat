@@ -22,8 +22,6 @@ public class JvDbCtrl
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             db = JvDbWorker.getInstance();
         }
-        //ResultSet rs = db.makeExecution(JvDbDefines.exec);
-        //List<String> al = db.getStrDataAtRow(rs, 1);
     }
 
     public static JvDbCtrl getInstance() throws SQLException {
