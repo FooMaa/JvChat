@@ -12,9 +12,9 @@ from argparse import ArgumentParser
 
 ADMIN_USER = 'postgres'
 ADMIN_DB = 'postgres'
-STOCK_ADMIN_PWD = '9999'  # base64.b64decode('1234567890').decode('utf-8')
+STOCK_ADMIN_PWD = base64.b64decode('OTk5OQ==').decode('utf-8')
 DEFAULT_DB_USER = 'jvchat'
-STOCK_USER_PWD = '1111'
+STOCK_USER_PWD = base64.b64decode('MTExMQ==').decode('utf-8')
 DEFAULT_DB_IP = '127.0.0.1'
 DEFAULT_DB_NAME = 'chat'
 DEFAULT_BACKUP_FOLDER = '/tmp/'
