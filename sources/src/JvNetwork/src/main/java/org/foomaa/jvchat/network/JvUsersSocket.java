@@ -19,32 +19,7 @@ public class JvUsersSocket {
         socketUsers = new Socket();
         socketUsers.connect(new InetSocketAddress(JvMainSettings.getIp(), JvMainSettings.getPort()), 4000);
         closeSocketWhenKill();
-
-        repeatFromServer = new BufferedReader(new InputStreamReader(socketUsers.getInputStream()));
-        sendToServer = new PrintWriter(socketUsers.getOutputStream(), true);
-        sendToServer.println("Тестовая строка для передачи");
-
-        String str;
-//        while ((str = repeatFromServer.readLine()) != null) {
-//            System.out.println(str);
-//        }
-
-
-        // Входим в цикл чтения, что нам ответил сервер
-//            while ((str = br.readLine()) != null) {
-//                // Если пришел ответ “bye”, то заканчиваем цикл
-//                if (str.equals("bye")) {
-//                    break;
-//                }
-//                // Печатаем ответ от сервера на консоль для проверки
-//                System.out.println(str);
-//                // Посылаем ему "bye" для окончания "разговора"
-//                pw.println("bye");
-//            }
-
-//            br.close();
-//            pw.close();
-//            socket.close();
+        new JvUsersThread(socketUsers);
     }
 
     public static JvUsersSocket getInstance() throws IOException {
@@ -58,8 +33,6 @@ public class JvUsersSocket {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             try {
                 System.out.println("Закрываем сокет ...");
-                repeatFromServer.close();
-                sendToServer.close();
                 socketUsers.close();
             } catch (IOException e) {
                 throw new RuntimeException(e);

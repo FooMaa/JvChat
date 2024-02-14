@@ -6,11 +6,13 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.InetAddress;
+import java.util.LinkedList;
 
 
 public class JvServersSocket {
     private static JvServersSocket instance;
     private static ServerSocket socketServers;
+    public static LinkedList<JvServersThread> connectionList = new LinkedList<>(); // список всех подключений
 
     private JvServersSocket() {
         System.out.println("Server is started");
@@ -30,8 +32,9 @@ public class JvServersSocket {
 
             while (true) {
                 Socket fromSocketUser = socketServers.accept();
-                new JvServersListenThread(fromSocketUser).start();
-                new JvServersWriteThread(fromSocketUser).start();
+                JvServersThread thread = new JvServersThread(fromSocketUser);
+                connectionList.add(thread);
+                thread.send("IT.S SERVER");
             }
         } catch (IOException exception) {
             System.out.println("Server is aborted");;
