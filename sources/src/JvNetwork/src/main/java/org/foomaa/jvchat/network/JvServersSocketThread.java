@@ -24,7 +24,7 @@ class JvServersSocketThread extends Thread
             while ((str = br.readLine()) != null) {
                 System.out.println("The message: " + str);
             }
-            pw.write("KILL");
+            pw.println("KILL");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
