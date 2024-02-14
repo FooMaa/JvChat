@@ -30,7 +30,8 @@ public class JvServersSocket {
 
             while (true) {
                 Socket fromSocketUser = socketServers.accept();
-                new JvServersSocketThread(fromSocketUser).start();
+                new JvServersListenThread(fromSocketUser).start();
+                new JvServersWriteThread(fromSocketUser).start();
             }
         } catch (IOException exception) {
             System.out.println("Server is aborted");;

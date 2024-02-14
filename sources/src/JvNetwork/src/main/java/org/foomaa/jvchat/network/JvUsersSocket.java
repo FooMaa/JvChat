@@ -25,9 +25,9 @@ public class JvUsersSocket {
         sendToServer.println("Тестовая строка для передачи");
 
         String str;
-        while ((str = repeatFromServer.readLine()) != null) {
-            System.out.println(str);
-        }
+//        while ((str = repeatFromServer.readLine()) != null) {
+//            System.out.println(str);
+//        }
 
 
         // Входим в цикл чтения, что нам ответил сервер
