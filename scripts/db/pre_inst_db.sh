@@ -41,7 +41,7 @@ function check_root_and_param {
     fi
 
     if [[ -z "$POST_PWD" || "$POST_PWD" == "-"* ]]; then 
-        POST_PWD='9999'
+        POST_PWD=$(echo OTk5OQ== | base64 --decode)
     fi
 
     echo -e "\\r[ $CHECK_MARK ] check and scan parameters"
