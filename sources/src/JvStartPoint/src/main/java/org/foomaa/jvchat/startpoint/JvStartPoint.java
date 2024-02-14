@@ -22,13 +22,11 @@ public class JvStartPoint {
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
             if (args.length == 0) {
                 new JvErrorStart("Дайте в параметр IP-адрес сервера!");
-                System.exit(1);
             }
             if (JvTools.validateInputIp(args[0])) {
                 JvMainSettings.setIp(args[0]);
             } else {
                 new JvErrorStart("В параметре запуска не верный IP!");
-                System.exit(1);
             }
         }
 
@@ -37,7 +35,6 @@ public class JvStartPoint {
         } catch (ConnectException | SocketTimeoutException exception) {
             new JvErrorStart(
                     "Не удалось подключиться к серверу.\nПроверьте наличие сети и попробуйте снова!");
-            System.exit(1);;
         }
 
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {

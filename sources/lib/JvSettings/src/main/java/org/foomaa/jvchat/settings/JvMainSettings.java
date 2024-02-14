@@ -1,5 +1,7 @@
 package org.foomaa.jvchat.settings;
 
+import java.util.Base64;
+
 public class JvMainSettings {
     // PROFILE
     public enum TypeProfiles {
@@ -58,4 +60,19 @@ public class JvMainSettings {
     }
 
     // DATABASE
+    private static final String dbUrl = "jdbc:postgresql://127.0.0.1:5432/chat";
+    private static final String dbUser = "jvchat";
+    private static final String magicStringDb = new String(Base64.getDecoder().decode("MTExMQ==".getBytes()));
+
+    public static String getDbUrl() {
+        return dbUrl;
+    }
+
+    public static String getDbUser () {
+        return dbUser;
+    }
+
+    public static String getMagicStringDb() {
+        return magicStringDb;
+    }
 }

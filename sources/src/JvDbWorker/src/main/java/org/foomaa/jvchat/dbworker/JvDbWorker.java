@@ -1,5 +1,7 @@
 package org.foomaa.jvchat.dbworker;
 
+import org.foomaa.jvchat.settings.JvMainSettings;
+
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -10,9 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JvDbWorker extends JvDbDefines {
-    private static final String DB_URL = "jdbc:postgresql://127.0.0.1:5432/chat";
-    private static final String USER = "jvchat";
-    private static final String PASS = "1111";
     private static Statement stmt;
     private static Connection connection;
     private static JvDbWorker instance;
@@ -39,7 +38,8 @@ public class JvDbWorker extends JvDbDefines {
         connection = null;
 
         try {
-            connection = DriverManager.getConnection(DB_URL, USER, PASS);
+            connection = DriverManager.getConnection(JvMainSettings.getDbUrl(),
+                    JvMainSettings.getDbUser(), JvMainSettings.getMagicStringDb());
         } catch (SQLException e) {
             e.printStackTrace();
             return;
