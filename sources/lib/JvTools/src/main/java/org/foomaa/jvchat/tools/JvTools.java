@@ -73,7 +73,9 @@ public class JvTools
         while (true) {
             String port = in.nextLine();
             if (validateInputPort(port)) {
-                JvMainSettings.setPort(Integer.parseInt(port));
+                if (!port.isEmpty()) {
+                    JvMainSettings.setPort(Integer.parseInt(port));
+                }
                 break;
             } else {
                 System.out.println("Введи заново порт или нажми Enter для значения по умолчанию (по умолчанию = 4004): ");
@@ -98,7 +100,7 @@ public class JvTools
         Pattern regex = Pattern.compile(
                 "^([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$");
         if (param.isEmpty()) {
-            return false;
+            return true;
         }
         if (regex.matcher(param).matches()) {
             return true;
