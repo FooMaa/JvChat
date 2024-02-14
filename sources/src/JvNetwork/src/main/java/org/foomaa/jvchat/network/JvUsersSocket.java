@@ -3,7 +3,6 @@ package org.foomaa.jvchat.network;
 import org.foomaa.jvchat.settings.JvMainSettings;
 
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
@@ -21,7 +20,7 @@ public class JvUsersSocket {
         socketUsers.connect(new InetSocketAddress(JvMainSettings.getIp(), JvMainSettings.getPort()), 4000);
         closeSocketWhenKill();
         thread = new JvUsersThread(socketUsers);
-        thread.send("IT.S USER");
+        thread.send("IT.S USER".getBytes());
     }
 
     public static JvUsersSocket getInstance() throws IOException {
@@ -40,5 +39,9 @@ public class JvUsersSocket {
                 throw new RuntimeException(e);
             }
         }));
+    }
+
+    public JvUsersThread getCurrentThread(){
+        return thread;
     }
 }

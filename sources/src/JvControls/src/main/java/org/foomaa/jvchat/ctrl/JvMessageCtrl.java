@@ -21,6 +21,7 @@ public class JvMessageCtrl {
                     String login = parameters[0];
                     String password = parameters[1];
                     sendEntryMessage(type, login, password);
+                    break;
                 } else {
                     break;
                 }
@@ -29,6 +30,7 @@ public class JvMessageCtrl {
                     String login = parameters[0];
                     String password = parameters[1];
                     sendRegistrationMessage(type, login, password);
+                    break;
                 } else {
                     break;
                 }
@@ -36,11 +38,15 @@ public class JvMessageCtrl {
 
     }
 
-    public static void sendEntryMessage(JvSerializatorData.TypeMessage type, String login, String password) {
+    private static void sendEntryMessage(JvSerializatorData.TypeMessage type, String login, String password) {
         byte[] bodyMessage = JvSerializatorData.serialiseData(type, login, password);
+        JvNetworkCtrl.putMessage(bodyMessage);
     }
 
-    public static void sendRegistrationMessage(JvSerializatorData.TypeMessage type, String login, String password) {
+    private static void sendRegistrationMessage(JvSerializatorData.TypeMessage type, String login, String password) {
         byte[] bodyMessage = JvSerializatorData.serialiseData(type, login, password);
+        JvNetworkCtrl.putMessage(bodyMessage);
     }
+
+
 }
