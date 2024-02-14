@@ -34,7 +34,7 @@ public class JvServersSocket {
                 Socket fromSocketUser = socketServers.accept();
                 JvServersThread thread = new JvServersThread(fromSocketUser);
                 connectionList.add(thread);
-                thread.send("IT.S SERVER");
+                thread.send("IT.S SERVER".getBytes());
             }
         } catch (IOException exception) {
             System.out.println("Server is aborted");;

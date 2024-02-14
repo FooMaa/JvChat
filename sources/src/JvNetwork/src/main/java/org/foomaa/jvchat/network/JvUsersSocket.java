@@ -40,8 +40,4 @@ public class JvUsersSocket {
             }
         }));
     }
-
-    public JvUsersThread getCurrentThread(){
-        return thread;
-    }
 }

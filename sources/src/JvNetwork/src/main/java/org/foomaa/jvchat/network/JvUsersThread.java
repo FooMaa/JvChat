@@ -2,14 +2,11 @@ package org.foomaa.jvchat.network;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
 
 public class JvUsersThread extends Thread {
     private Socket socketTread;
     private BufferedReader readFromServer;
     private PrintWriter sendToServer;
-    private  List<String> buffMessages = new ArrayList<String>();
 
     public JvUsersThread(Socket fromSocketUser) throws IOException {
         this.socketTread = fromSocketUser;
@@ -31,6 +28,4 @@ public class JvUsersThread extends Thread {
         sendToServer.write(messages + "\n");
         sendToServer.flush();
     }
-
-
 }

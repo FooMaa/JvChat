@@ -3,7 +3,7 @@ package org.foomaa.jvchat.network;
 import java.io.*;
 import java.net.Socket;
 
-class JvServersThread extends Thread
+public class JvServersThread extends Thread
 {
     private Socket socketTread;
     private BufferedReader readFromUser;
@@ -30,7 +30,7 @@ class JvServersThread extends Thread
         }
     }
 
-    public void send(String messages) {
+    public void send(byte[] messages) {
         try {
             writeToUser.write(messages + "\n");
             writeToUser.flush();
