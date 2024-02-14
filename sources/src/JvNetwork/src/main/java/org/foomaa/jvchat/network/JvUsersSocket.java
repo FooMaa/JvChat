@@ -14,12 +14,14 @@ public class JvUsersSocket {
     private static Socket socketUsers;
     private BufferedReader repeatFromServer;
     private PrintWriter sendToServer;
+    private static JvUsersThread thread;
 
     private JvUsersSocket() throws IOException {
         socketUsers = new Socket();
         socketUsers.connect(new InetSocketAddress(JvMainSettings.getIp(), JvMainSettings.getPort()), 4000);
         closeSocketWhenKill();
-        new JvUsersThread(socketUsers);
+        thread = new JvUsersThread(socketUsers);
+        thread.send("IT.S USER");
     }
 
     public static JvUsersSocket getInstance() throws IOException {

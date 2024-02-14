@@ -21,8 +21,13 @@ public class JvUsersThread extends Thread {
             while (true) {
                 System.out.println("The message: " + readFromServer.readLine());
             }
-        } catch (IOException e) {
-                throw new RuntimeException(e);
+        } catch (IOException exception) {
+//                exception.printStackTrace();
         }
+    }
+
+    public void send(String msg) {
+        sendToServer.write(msg + "\n");
+        sendToServer.flush();
     }
 }

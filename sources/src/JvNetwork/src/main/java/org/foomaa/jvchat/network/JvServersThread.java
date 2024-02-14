@@ -21,6 +21,9 @@ class JvServersThread extends Thread
         try {
             while (true) {
                 System.out.println("The message: " + readFromUser.readLine());
+                if (readFromUser.readLine() == null) {
+                    break;
+                }
             }
         } catch (IOException exception) {
             exception.printStackTrace();
