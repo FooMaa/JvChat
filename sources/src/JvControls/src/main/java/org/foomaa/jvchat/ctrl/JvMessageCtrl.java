@@ -40,15 +40,13 @@ public class JvMessageCtrl {
 
     private static void sendEntryMessage(JvSerializatorData.TypeMessage type, String login, String password) {
         byte[] bodyMessage = JvSerializatorData.serialiseData(type, login, password);
-        JvNetworkCtrl.setMessage(bodyMessage);
+        JvNetworkCtrl.putMessage(bodyMessage);
     }
 
     private static void sendRegistrationMessage(JvSerializatorData.TypeMessage type, String login, String password) {
         byte[] bodyMessage = JvSerializatorData.serialiseData(type, login, password);
-        JvNetworkCtrl.setMessage(bodyMessage);
+        JvNetworkCtrl.putMessage(bodyMessage);
     }
-    
-    public static void takeMessage(byte[] dataMsg) {
-        JvSerializatorData.deSerialiseData(dataMsg);
-    }
+
+
 }
