@@ -11,8 +11,6 @@ import java.net.Socket;
 public class JvUsersSocket {
     private static JvUsersSocket instance;
     private static Socket socketUsers;
-    private BufferedReader repeatFromServer;
-    private PrintWriter sendToServer;
     private static JvUsersThread thread;
 
     private JvUsersSocket() throws IOException {
@@ -39,5 +37,9 @@ public class JvUsersSocket {
                 throw new RuntimeException(e);
             }
         }));
+    }
+
+    public Thread getCurrentThread() {
+        return thread;
     }
 }

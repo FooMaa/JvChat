@@ -103,17 +103,9 @@ public class JvEntryFrame extends JFrame {
         bEnter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    if (checkFields()) {
-                        JvMessageCtrl.sendMessage(JvSerializatorData.TypeMessage.EntryRequest, tLogin.getInputText(), tPassword.getInputText());
-                        if (checkUserInDb()) {
-                            System.out.println("Вход выполнен");
-                        } else {
-                            System.out.println("Ошибочные данные");
-                        }
-                    }
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
+                if (checkFields()) {
+                    JvMessageCtrl.sendMessage(JvSerializatorData.TypeMessage.EntryRequest,
+                            tLogin.getInputText(), tPassword.getInputText());
                 }
             }
         });

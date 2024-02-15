@@ -30,9 +30,9 @@ public class JvServersThread extends Thread
         }
     }
 
-    public void send(byte[] messages) {
+    public void send(byte[] message) {
         try {
-            writeToUser.write(messages + "\n");
+            writeToUser.write(message + "\n");
             writeToUser.flush();
         } catch (IOException exception) {
             exception.printStackTrace();

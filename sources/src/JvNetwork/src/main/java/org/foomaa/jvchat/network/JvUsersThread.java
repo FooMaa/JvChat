@@ -24,8 +24,8 @@ public class JvUsersThread extends Thread {
         } catch (IOException exception) {}
     }
 
-    public void send(byte[] messages) {
-        sendToServer.write(messages + "\n");
+    public void send(byte[] message) {
+        sendToServer.write(message + "\n");
         sendToServer.flush();
     }
 }

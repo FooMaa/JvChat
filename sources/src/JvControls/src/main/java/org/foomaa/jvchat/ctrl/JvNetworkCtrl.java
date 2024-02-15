@@ -17,7 +17,7 @@ public class JvNetworkCtrl {
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             JvServersSocket.getInstance();
         } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
-            JvUsersSocket.getInstance();
+            thread = JvUsersSocket.getInstance().getCurrentThread();
         }
     }
 
@@ -30,10 +30,15 @@ public class JvNetworkCtrl {
 
 
     public static void takeMessage(byte[] message, Thread thr) {
-            thread = thread;
+            thread = thr;
     }
 
     public static void putMessage(byte[] message) {
+        if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
+            ((JvServersThread) thread).send(message);
+        } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
+            ((JvUsersThread) thread).send(message);;
+        }
     }
 
 }

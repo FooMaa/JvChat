@@ -1,6 +1,8 @@
 package org.foomaa.jvchat.messages;
 
 
+import com.google.protobuf.InvalidProtocolBufferException;
+
 public class JvSerializatorData {
     public enum TypeMessage {
         EntryRequest(0),
@@ -37,8 +39,12 @@ public class JvSerializatorData {
                     return new byte[0];
                 }
         }
-
         return new byte[0];
+    }
+
+    public static byte[] deserialiseData(byte[] data) throws InvalidProtocolBufferException {
+        final  Auth_pb.EntryRequestProto copiedAlbumProtos = Auth_pb.EntryRequestProto.parseFrom(data);
+        return data;
     }
 
     private static byte[] createEntryMessage(TypeMessage type, String login, String password) {
