@@ -2,6 +2,8 @@ package org.foomaa.jvchat.ctrl;
 
 import org.foomaa.jvchat.messages.JvSerializatorData;
 
+import java.io.IOException;
+
 public class JvMessageCtrl {
     private static JvMessageCtrl instance;
 
@@ -14,7 +16,7 @@ public class JvMessageCtrl {
         return instance;
     }
 
-    public static void sendMessage(JvSerializatorData.TypeMessage type, String ... parameters) {
+    public static void sendMessage(JvSerializatorData.TypeMessage type, String ... parameters) throws IOException {
         switch (type) {
             case EntryRequest:
                 if (parameters.length == 2) {
@@ -38,12 +40,12 @@ public class JvMessageCtrl {
 
     }
 
-    private static void sendEntryMessage(JvSerializatorData.TypeMessage type, String login, String password) {
+    private static void sendEntryMessage(JvSerializatorData.TypeMessage type, String login, String password) throws IOException {
         byte[] bodyMessage = JvSerializatorData.serialiseData(type, login, password);
         JvNetworkCtrl.setMessage(bodyMessage);
     }
 
-    private static void sendRegistrationMessage(JvSerializatorData.TypeMessage type, String login, String password) {
+    private static void sendRegistrationMessage(JvSerializatorData.TypeMessage type, String login, String password) throws IOException {
         byte[] bodyMessage = JvSerializatorData.serialiseData(type, login, password);
         JvNetworkCtrl.setMessage(bodyMessage);
     }

@@ -5,13 +5,13 @@ import java.net.Socket;
 
 public class JvUsersSocketThreadCtrl extends Thread {
     private Socket socketTread;
-    private BufferedReader readFromServer;
-    private PrintWriter sendToServer;
+    private DataInputStream readFromServer;
+    private DataOutputStream sendToServer;
 
     public JvUsersSocketThreadCtrl(Socket fromSocketUser) throws IOException {
         this.socketTread = fromSocketUser;
-        readFromServer = new BufferedReader(new InputStreamReader(socketTread.getInputStream()));
-        sendToServer = new PrintWriter(new OutputStreamWriter(socketTread.getOutputStream()));
+        sendToServer = new DataOutputStream(socketTread.getOutputStream());
+        readFromServer =  new DataInputStream(socketTread.getInputStream());
         start();
     }
 
@@ -19,19 +19,24 @@ public class JvUsersSocketThreadCtrl extends Thread {
     public void run() {
         try {
             while (true) {
-                System.out.println(readFromServer.readLine());
-                JvNetworkCtrl.takeMessage(readFromServer.readLine(), currentThread());
+                int length = readFromServer.readInt();
+                if (length > 0) {
+                    byte[] message = new byte[length];
+                    readFromServer.readFully(message, 0, message.length);
+                    System.out.println(message);
+                    JvNetworkCtrl.takeMessage(message, currentThread());
+                }
             }
         } catch (IOException exception) {}
     }
 
-    public void send(byte[] message) {
-        sendToServer.write(message + "\n");
-        sendToServer.flush();
-    }
-
-    public void send(String message) {
-        sendToServer.write(message + "\n");
-        sendToServer.flush();
+    public void send(byte[] message) throws IOException {
+        try {
+            sendToServer.writeInt(message.length);
+            sendToServer.write(message);
+            sendToServer.flush();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
     }
 }

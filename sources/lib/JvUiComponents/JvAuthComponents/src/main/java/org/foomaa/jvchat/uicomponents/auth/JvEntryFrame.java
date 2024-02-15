@@ -8,6 +8,7 @@ import org.foomaa.jvchat.messages.JvSerializatorData;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Vector;
@@ -104,8 +105,12 @@ public class JvEntryFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (checkFields()) {
-                    JvMessageCtrl.sendMessage(JvSerializatorData.TypeMessage.EntryRequest,
-                            tLogin.getInputText(), tPassword.getInputText());
+                    try {
+                        JvMessageCtrl.sendMessage(JvSerializatorData.TypeMessage.EntryRequest,
+                                tLogin.getInputText(), tPassword.getInputText());
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
                 }
             }
         });
