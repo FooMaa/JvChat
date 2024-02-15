@@ -29,4 +29,9 @@ public class JvUsersSocketThreadCtrl extends Thread {
         sendToServer.write(message + "\n");
         sendToServer.flush();
     }
+
+    public void send(String message) {
+        sendToServer.write(message + "\n");
+        sendToServer.flush();
+    }
 }

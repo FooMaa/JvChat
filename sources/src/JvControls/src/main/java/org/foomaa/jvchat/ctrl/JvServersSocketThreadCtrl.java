@@ -39,4 +39,13 @@ public class JvServersSocketThreadCtrl extends Thread
             exception.printStackTrace();
         }
     }
+
+    public void send(String message) {
+        try {
+            writeToUser.write(message + "\n");
+            writeToUser.flush();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+    }
 }
