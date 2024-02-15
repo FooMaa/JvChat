@@ -38,7 +38,7 @@ public class JvNetworkCtrl {
         return instance;
     }
 
-    public static void takeMessage(byte[] message, Thread thr) {
+    public static void takeMessage(byte[] message, JvServersSocketThreadCtrl thr) {
             serversThread = (JvServersSocketThreadCtrl) thr;
             JvMessageCtrl.takeMessage(message);
     }
