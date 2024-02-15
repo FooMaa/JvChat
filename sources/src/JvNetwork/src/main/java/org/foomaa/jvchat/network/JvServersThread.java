@@ -1,5 +1,7 @@
 package org.foomaa.jvchat.network;
 
+import org.foomaa.jvchat.ctrl.JvNetworkCtrl;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -20,10 +22,11 @@ public class JvServersThread extends Thread
     public void run() {
         try {
             while (true) {
-                System.out.println("The message: " + readFromUser.readLine());
                 if (readFromUser.readLine() == null) {
                     break;
                 }
+                System.out.println("The message: " + readFromUser.readLine());
+                JvNetworkCtrl.takeMessage(readFromUser.readLine(), currentThread());
             }
         } catch (IOException exception) {
             exception.printStackTrace();
