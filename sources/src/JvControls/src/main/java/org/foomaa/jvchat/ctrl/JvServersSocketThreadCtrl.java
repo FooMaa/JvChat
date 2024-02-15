@@ -20,9 +20,6 @@ public class JvServersSocketThreadCtrl extends Thread
     public void run() {
         try {
             while (true) {
-                if (readFromUser.readLine() == null) {
-                    break;
-                }
                 int length = readFromUser.readInt();
                 if (length > 0) {
                     byte[] message = new byte[length];
