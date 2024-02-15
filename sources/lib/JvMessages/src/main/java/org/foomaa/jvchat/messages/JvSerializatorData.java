@@ -18,6 +18,7 @@ public class JvSerializatorData {
         public int getValue() {
             return value;
         }
+
     }
 
     public static byte[] serialiseData(TypeMessage type, String ... parameters) {
@@ -26,7 +27,7 @@ public class JvSerializatorData {
                 if (parameters.length == 2) {
                     String login = parameters[0];
                     String password = parameters[1];
-                    return createEntryMessage(type, login, password);
+                    return createEntryRequestMessage(type, login, password);
                 } else {
                     return new byte[0];
                 }
@@ -34,7 +35,7 @@ public class JvSerializatorData {
                 if (parameters.length == 2) {
                     String login = parameters[0];
                     String password = parameters[1];
-                    return createRegistrationMessage(type, login, password);
+                    return createRegistrationRequestMessage(type, login, password);
                 } else {
                     return new byte[0];
                 }
@@ -42,26 +43,48 @@ public class JvSerializatorData {
         return new byte[0];
     }
 
-    public static byte[] deserialiseData(byte[] data) throws InvalidProtocolBufferException {
-        final  Auth_pb.EntryRequestProto copiedAlbumProtos = Auth_pb.EntryRequestProto.parseFrom(data);
-        return data;
+    public static void deSerialiseData(byte[] data) {
+        TypeMessage type = null;
+        try {
+            int numberType = Auth_pb.GeneralAuthProto.parseFrom(data).getType();
+            type = TypeMessage.values()[numberType];
+        } catch (InvalidProtocolBufferException exception) {
+            System.out.println("Error in protobuf deserialised");
+        }
+
+        switch (type) {
+            case EntryRequest:
+                break;
+            case RegistrationRequest:
+                break;
+        }
     }
 
-    private static byte[] createEntryMessage(TypeMessage type, String login, String password) {
-        Auth_pb.EntryRequestProto msg = Auth_pb.EntryRequestProto.newBuilder()
-                .setType(type.getValue())
+    private static byte[] createEntryRequestMessage(TypeMessage type, String login, String password) {
+        Auth_pb.EntryRequestProto msgEntryRequest = Auth_pb.EntryRequestProto.newBuilder()
                 .setLogin(login)
                 .setPassword(password)
                 .build();
-        return msg.toByteArray();
+        Auth_pb.GeneralAuthProto resMsg = Auth_pb.GeneralAuthProto.newBuilder()
+                .setType(type.getValue())
+                .setEntryRequest(msgEntryRequest)
+                .build();
+        return resMsg.toByteArray();
     }
 
-    private static byte[] createRegistrationMessage(TypeMessage type, String login, String password) {
-        Auth_pb.RegistrationRequestProto msg = Auth_pb.RegistrationRequestProto.newBuilder()
-                .setType(type.getValue())
+    private static byte[] createRegistrationRequestMessage(TypeMessage type, String login, String password) {
+        Auth_pb.RegistrationRequestProto msgRegRequest = Auth_pb.RegistrationRequestProto.newBuilder()
                 .setLogin(login)
                 .setPassword(password)
                 .build();
-        return msg.toByteArray();
+        Auth_pb.GeneralAuthProto resMsg = Auth_pb.GeneralAuthProto.newBuilder()
+                .setType(type.getValue())
+                .setRegistrationRequest(msgRegRequest)
+                .build();
+        return resMsg.toByteArray();
+    }
+
+    private static void takeEntryRequestMessage(Auth_pb.EntryRequestProto entryRequest) {
+        System.out.println("Deserialize: " + entryRequest.getLogin() + " " + entryRequest.getPassword());
     }
 }

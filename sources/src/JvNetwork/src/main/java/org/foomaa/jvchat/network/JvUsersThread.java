@@ -23,6 +23,7 @@ public class JvUsersThread extends Thread {
         try {
             while (true) {
                 System.out.println(readFromServer.readLine());
+                connectFunction.accept(readFromServer.readLine(), currentThread());
             }
         } catch (IOException exception) {}
     }

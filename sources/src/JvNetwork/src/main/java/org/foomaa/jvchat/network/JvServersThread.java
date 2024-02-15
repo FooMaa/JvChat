@@ -22,7 +22,6 @@ public class JvServersThread extends Thread {
     public void run() {
         try {
             while (true) {
-                System.out.println("The message: " + readFromUser.readLine());
                 if (readFromUser.readLine() == null) {
                     break;
                 }
