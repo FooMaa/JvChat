@@ -12,7 +12,7 @@ import java.util.LinkedList;
 public class JvServersSocket {
     private static JvServersSocket instance;
     private static ServerSocket socketServers;
-    public static LinkedList<JvServersThread> connectionList = new LinkedList<>(); // список всех подключений
+
 
     private JvServersSocket() {
         System.out.println("Server is started");
@@ -29,13 +29,6 @@ public class JvServersSocket {
             System.out.println(socketServers.getLocalPort());
 
             closeSocketWhenKill();
-
-            while (true) {
-                Socket fromSocketUser = socketServers.accept();
-                JvServersThread thread = new JvServersThread(fromSocketUser);
-                connectionList.add(thread);
-                thread.send("IT.S SERVER".getBytes());
-            }
         } catch (IOException exception) {
             System.out.println("Server is aborted");;
         }
@@ -57,6 +50,10 @@ public class JvServersSocket {
                 throw new RuntimeException(exception);
             }
         }));
+    }
+
+    public ServerSocket getSocketServers() {
+        return socketServers;
     }
 }
 

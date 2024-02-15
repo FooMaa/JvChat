@@ -11,14 +11,11 @@ import java.net.Socket;
 public class JvUsersSocket {
     private static JvUsersSocket instance;
     private static Socket socketUsers;
-    private static JvUsersThread thread;
 
     private JvUsersSocket() throws IOException {
         socketUsers = new Socket();
         socketUsers.connect(new InetSocketAddress(JvMainSettings.getIp(), JvMainSettings.getPort()), 4000);
         closeSocketWhenKill();
-        thread = new JvUsersThread(socketUsers);
-        thread.send("IT.S USER".getBytes());
     }
 
     public static JvUsersSocket getInstance() throws IOException {
@@ -39,7 +36,7 @@ public class JvUsersSocket {
         }));
     }
 
-    public Thread getCurrentThread() {
-        return thread;
+    public Socket getCurrentSocket() {
+        return socketUsers;
     }
 }

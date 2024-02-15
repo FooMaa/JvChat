@@ -1,22 +1,33 @@
 package org.foomaa.jvchat.ctrl;
 
-import org.foomaa.jvchat.network.JvServersThread;
-import org.foomaa.jvchat.network.JvUsersThread;
 import org.foomaa.jvchat.settings.JvMainSettings;
 import org.foomaa.jvchat.network.JvServersSocket;
 import org.foomaa.jvchat.network.JvUsersSocket;
 
 import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.LinkedList;
 
 public class JvNetworkCtrl {
     private static JvNetworkCtrl instance;
-    private static Thread thread;
+    private static JvUsersSocketThreadCtrl usersThread;
+    private static JvServersSocketThreadCtrl serversThread;
+    public static LinkedList<JvServersSocketThreadCtrl> connectionList = new LinkedList<>(); // список всех подключений
 
     private JvNetworkCtrl() throws IOException {
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
-            JvServersSocket.getInstance();
+            ServerSocket socketServers = JvServersSocket.getInstance().getSocketServers();
+            while (true) {
+                Socket fromSocketUser = socketServers.accept();
+                JvServersSocketThreadCtrl thread = new JvServersSocketThreadCtrl(fromSocketUser);
+                connectionList.add(thread);
+                thread.send("IT.S SERVER".getBytes());
+            }
         } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
-            thread = JvUsersSocket.getInstance().getCurrentThread();
+            Socket socketUsers = JvUsersSocket.getInstance().getCurrentSocket();
+            usersThread = new JvUsersSocketThreadCtrl(socketUsers);
+            usersThread.send("IT.S USER".getBytes());
         }
     }
 
@@ -29,16 +40,16 @@ public class JvNetworkCtrl {
 
 
     public static void takeMessage(String message, Thread thr) {
-            thread = thr;
+            serversThread = (JvServersSocketThreadCtrl) thr;
             byte[] dataMsg = message.getBytes();
             JvMessageCtrl.takeMessage(dataMsg);
     }
 
     public static void setMessage(byte[] message) {
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
-            ((JvServersThread) thread).send(message);
+            serversThread.send(message);
         } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
-            ((JvUsersThread) thread).send(message);;
+            usersThread.send(message);;
         }
     }
 }

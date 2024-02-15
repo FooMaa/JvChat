@@ -1,17 +1,15 @@
-package org.foomaa.jvchat.network;
-
-import org.foomaa.jvchat.ctrl.JvNetworkCtrl;
+package org.foomaa.jvchat.ctrl;
 
 import java.io.*;
 import java.net.Socket;
 
-public class JvServersThread extends Thread
+public class JvServersSocketThreadCtrl extends Thread
 {
     private Socket socketTread;
     private BufferedReader readFromUser;
     private BufferedWriter writeToUser;
 
-    public JvServersThread(Socket fromSocketUser) throws IOException {
+    public JvServersSocketThreadCtrl(Socket fromSocketUser) throws IOException {
         this.socketTread = fromSocketUser;
         readFromUser = new BufferedReader(new InputStreamReader(socketTread.getInputStream()));
         writeToUser = new BufferedWriter(new OutputStreamWriter(socketTread.getOutputStream()));
