@@ -43,7 +43,7 @@ public class JvSerializatorData {
         return new byte[0];
     }
 
-    public static void deSerialiseData(byte[] data) {
+    public static void deSerialiseData(byte[] data) throws InvalidProtocolBufferException {
         TypeMessage type = null;
         try {
             int numberType = Auth_pb.GeneralAuthProto.parseFrom(data).getType();
@@ -54,6 +54,7 @@ public class JvSerializatorData {
 
         switch (type) {
             case EntryRequest:
+                System.out.println(Auth_pb.EntryRequestProto.parseFrom(data).getLogin());
                 break;
             case RegistrationRequest:
                 break;
