@@ -105,7 +105,7 @@ public class JvEntryFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     if (checkFields()) {
-                        JvMessageCtrl.sendMessage(JvSerializatorData.TypeMessage.Entry, tLogin.getInputText(), tPassword.getInputText());
+                        JvMessageCtrl.sendMessage(JvSerializatorData.TypeMessage.EntryRequest, tLogin.getInputText(), tPassword.getInputText());
                         if (checkUserInDb()) {
                             System.out.println("Вход выполнен");
                         } else {

@@ -16,7 +16,7 @@ public class JvMessageCtrl {
 
     public static void sendMessage(JvSerializatorData.TypeMessage type, String ... parameters) {
         switch (type) {
-            case Entry:
+            case EntryRequest:
                 if (parameters.length == 2) {
                     String login = parameters[0];
                     String password = parameters[1];
@@ -25,7 +25,7 @@ public class JvMessageCtrl {
                 } else {
                     break;
                 }
-            case Registration:
+            case RegistrationRequest:
                 if (parameters.length == 2) {
                     String login = parameters[0];
                     String password = parameters[1];

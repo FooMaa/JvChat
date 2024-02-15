@@ -1,12 +1,12 @@
 package org.foomaa.jvchat.messages;
 
-import java.util.Map;
-
 
 public class JvSerializatorData {
     public enum TypeMessage {
-        Entry(0),
-        Registration(1);
+        EntryRequest(0),
+        EntryReply(1),
+        RegistrationRequest(2),
+        RegistrationReply(3);
 
         private final int value;
         private TypeMessage(int value) {
@@ -20,19 +20,19 @@ public class JvSerializatorData {
 
     public static byte[] serialiseData(TypeMessage type, String ... parameters) {
         switch (type) {
-            case Entry:
+            case EntryRequest:
                 if (parameters.length == 2) {
                     String login = parameters[0];
                     String password = parameters[1];
-                    return entryMessage(type, login, password);
+                    return createEntryMessage(type, login, password);
                 } else {
                     return new byte[0];
                 }
-            case Registration:
+            case RegistrationRequest:
                 if (parameters.length == 2) {
                     String login = parameters[0];
                     String password = parameters[1];
-                    return registrationMessage(type, login, password);
+                    return createRegistrationMessage(type, login, password);
                 } else {
                     return new byte[0];
                 }
@@ -41,8 +41,8 @@ public class JvSerializatorData {
         return new byte[0];
     }
 
-    private static byte[] entryMessage(TypeMessage type, String login, String password) {
-        Auth_pb.DbEntryProto msg = Auth_pb.DbEntryProto.newBuilder()
+    private static byte[] createEntryMessage(TypeMessage type, String login, String password) {
+        Auth_pb.EntryRequestProto msg = Auth_pb.EntryRequestProto.newBuilder()
                 .setType(type.getValue())
                 .setLogin(login)
                 .setPassword(password)
@@ -50,8 +50,8 @@ public class JvSerializatorData {
         return msg.toByteArray();
     }
 
-    private static byte[] registrationMessage(TypeMessage type, String login, String password) {
-        Auth_pb.DbEntryProto msg = Auth_pb.DbEntryProto.newBuilder()
+    private static byte[] createRegistrationMessage(TypeMessage type, String login, String password) {
+        Auth_pb.RegistrationRequestProto msg = Auth_pb.RegistrationRequestProto.newBuilder()
                 .setType(type.getValue())
                 .setLogin(login)
                 .setPassword(password)
