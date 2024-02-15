@@ -1494,24 +1494,24 @@ public final class Auth_pb {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string login = 2;</code>
+     * <code>string login = 1;</code>
      * @return The login.
      */
     java.lang.String getLogin();
     /**
-     * <code>string login = 2;</code>
+     * <code>string login = 1;</code>
      * @return The bytes for login.
      */
     com.google.protobuf.ByteString
         getLoginBytes();
 
     /**
-     * <code>string password = 3;</code>
+     * <code>string password = 2;</code>
      * @return The password.
      */
     java.lang.String getPassword();
     /**
-     * <code>string password = 3;</code>
+     * <code>string password = 2;</code>
      * @return The bytes for password.
      */
     com.google.protobuf.ByteString
@@ -1564,13 +1564,13 @@ public final class Auth_pb {
             case 0:
               done = true;
               break;
-            case 18: {
+            case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
               login_ = s;
               break;
             }
-            case 26: {
+            case 18: {
               java.lang.String s = input.readStringRequireUtf8();
 
               password_ = s;
@@ -1608,10 +1608,10 @@ public final class Auth_pb {
               org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.class, org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.Builder.class);
     }
 
-    public static final int LOGIN_FIELD_NUMBER = 2;
+    public static final int LOGIN_FIELD_NUMBER = 1;
     private volatile java.lang.Object login_;
     /**
-     * <code>string login = 2;</code>
+     * <code>string login = 1;</code>
      * @return The login.
      */
     @java.lang.Override
@@ -1628,7 +1628,7 @@ public final class Auth_pb {
       }
     }
     /**
-     * <code>string login = 2;</code>
+     * <code>string login = 1;</code>
      * @return The bytes for login.
      */
     @java.lang.Override
@@ -1646,10 +1646,10 @@ public final class Auth_pb {
       }
     }
 
-    public static final int PASSWORD_FIELD_NUMBER = 3;
+    public static final int PASSWORD_FIELD_NUMBER = 2;
     private volatile java.lang.Object password_;
     /**
-     * <code>string password = 3;</code>
+     * <code>string password = 2;</code>
      * @return The password.
      */
     @java.lang.Override
@@ -1666,7 +1666,7 @@ public final class Auth_pb {
       }
     }
     /**
-     * <code>string password = 3;</code>
+     * <code>string password = 2;</code>
      * @return The bytes for password.
      */
     @java.lang.Override
@@ -1699,10 +1699,10 @@ public final class Auth_pb {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getLoginBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, login_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, login_);
       }
       if (!getPasswordBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, password_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, password_);
       }
       unknownFields.writeTo(output);
     }
@@ -1714,10 +1714,10 @@ public final class Auth_pb {
 
       size = 0;
       if (!getLoginBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, login_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, login_);
       }
       if (!getPasswordBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, password_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, password_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -2005,7 +2005,7 @@ public final class Auth_pb {
 
       private java.lang.Object login_ = "";
       /**
-       * <code>string login = 2;</code>
+       * <code>string login = 1;</code>
        * @return The login.
        */
       public java.lang.String getLogin() {
@@ -2021,7 +2021,7 @@ public final class Auth_pb {
         }
       }
       /**
-       * <code>string login = 2;</code>
+       * <code>string login = 1;</code>
        * @return The bytes for login.
        */
       public com.google.protobuf.ByteString
@@ -2038,7 +2038,7 @@ public final class Auth_pb {
         }
       }
       /**
-       * <code>string login = 2;</code>
+       * <code>string login = 1;</code>
        * @param value The login to set.
        * @return This builder for chaining.
        */
@@ -2053,7 +2053,7 @@ public final class Auth_pb {
         return this;
       }
       /**
-       * <code>string login = 2;</code>
+       * <code>string login = 1;</code>
        * @return This builder for chaining.
        */
       public Builder clearLogin() {
@@ -2063,7 +2063,7 @@ public final class Auth_pb {
         return this;
       }
       /**
-       * <code>string login = 2;</code>
+       * <code>string login = 1;</code>
        * @param value The bytes for login to set.
        * @return This builder for chaining.
        */
@@ -2081,7 +2081,7 @@ public final class Auth_pb {
 
       private java.lang.Object password_ = "";
       /**
-       * <code>string password = 3;</code>
+       * <code>string password = 2;</code>
        * @return The password.
        */
       public java.lang.String getPassword() {
@@ -2097,7 +2097,7 @@ public final class Auth_pb {
         }
       }
       /**
-       * <code>string password = 3;</code>
+       * <code>string password = 2;</code>
        * @return The bytes for password.
        */
       public com.google.protobuf.ByteString
@@ -2114,7 +2114,7 @@ public final class Auth_pb {
         }
       }
       /**
-       * <code>string password = 3;</code>
+       * <code>string password = 2;</code>
        * @param value The password to set.
        * @return This builder for chaining.
        */
@@ -2129,7 +2129,7 @@ public final class Auth_pb {
         return this;
       }
       /**
-       * <code>string password = 3;</code>
+       * <code>string password = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearPassword() {
@@ -2139,7 +2139,7 @@ public final class Auth_pb {
         return this;
       }
       /**
-       * <code>string password = 3;</code>
+       * <code>string password = 2;</code>
        * @param value The bytes for password to set.
        * @return This builder for chaining.
        */
@@ -2212,7 +2212,7 @@ public final class Auth_pb {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>bool reply = 2;</code>
+     * <code>bool reply = 1;</code>
      * @return The reply.
      */
     boolean getReply();
@@ -2262,7 +2262,7 @@ public final class Auth_pb {
             case 0:
               done = true;
               break;
-            case 16: {
+            case 8: {
 
               reply_ = input.readBool();
               break;
@@ -2299,10 +2299,10 @@ public final class Auth_pb {
               org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.class, org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.Builder.class);
     }
 
-    public static final int REPLY_FIELD_NUMBER = 2;
+    public static final int REPLY_FIELD_NUMBER = 1;
     private boolean reply_;
     /**
-     * <code>bool reply = 2;</code>
+     * <code>bool reply = 1;</code>
      * @return The reply.
      */
     @java.lang.Override
@@ -2325,7 +2325,7 @@ public final class Auth_pb {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (reply_ != false) {
-        output.writeBool(2, reply_);
+        output.writeBool(1, reply_);
       }
       unknownFields.writeTo(output);
     }
@@ -2338,7 +2338,7 @@ public final class Auth_pb {
       size = 0;
       if (reply_ != false) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(2, reply_);
+          .computeBoolSize(1, reply_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -2615,7 +2615,7 @@ public final class Auth_pb {
 
       private boolean reply_ ;
       /**
-       * <code>bool reply = 2;</code>
+       * <code>bool reply = 1;</code>
        * @return The reply.
        */
       @java.lang.Override
@@ -2623,7 +2623,7 @@ public final class Auth_pb {
         return reply_;
       }
       /**
-       * <code>bool reply = 2;</code>
+       * <code>bool reply = 1;</code>
        * @param value The reply to set.
        * @return This builder for chaining.
        */
@@ -2634,7 +2634,7 @@ public final class Auth_pb {
         return this;
       }
       /**
-       * <code>bool reply = 2;</code>
+       * <code>bool reply = 1;</code>
        * @return This builder for chaining.
        */
       public Builder clearReply() {
@@ -2701,24 +2701,24 @@ public final class Auth_pb {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string login = 2;</code>
+     * <code>string login = 1;</code>
      * @return The login.
      */
     java.lang.String getLogin();
     /**
-     * <code>string login = 2;</code>
+     * <code>string login = 1;</code>
      * @return The bytes for login.
      */
     com.google.protobuf.ByteString
         getLoginBytes();
 
     /**
-     * <code>string password = 3;</code>
+     * <code>string password = 2;</code>
      * @return The password.
      */
     java.lang.String getPassword();
     /**
-     * <code>string password = 3;</code>
+     * <code>string password = 2;</code>
      * @return The bytes for password.
      */
     com.google.protobuf.ByteString
@@ -2771,13 +2771,13 @@ public final class Auth_pb {
             case 0:
               done = true;
               break;
-            case 18: {
+            case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
               login_ = s;
               break;
             }
-            case 26: {
+            case 18: {
               java.lang.String s = input.readStringRequireUtf8();
 
               password_ = s;
@@ -2815,10 +2815,10 @@ public final class Auth_pb {
               org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.class, org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.Builder.class);
     }
 
-    public static final int LOGIN_FIELD_NUMBER = 2;
+    public static final int LOGIN_FIELD_NUMBER = 1;
     private volatile java.lang.Object login_;
     /**
-     * <code>string login = 2;</code>
+     * <code>string login = 1;</code>
      * @return The login.
      */
     @java.lang.Override
@@ -2835,7 +2835,7 @@ public final class Auth_pb {
       }
     }
     /**
-     * <code>string login = 2;</code>
+     * <code>string login = 1;</code>
      * @return The bytes for login.
      */
     @java.lang.Override
@@ -2853,10 +2853,10 @@ public final class Auth_pb {
       }
     }
 
-    public static final int PASSWORD_FIELD_NUMBER = 3;
+    public static final int PASSWORD_FIELD_NUMBER = 2;
     private volatile java.lang.Object password_;
     /**
-     * <code>string password = 3;</code>
+     * <code>string password = 2;</code>
      * @return The password.
      */
     @java.lang.Override
@@ -2873,7 +2873,7 @@ public final class Auth_pb {
       }
     }
     /**
-     * <code>string password = 3;</code>
+     * <code>string password = 2;</code>
      * @return The bytes for password.
      */
     @java.lang.Override
@@ -2906,10 +2906,10 @@ public final class Auth_pb {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getLoginBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, login_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, login_);
       }
       if (!getPasswordBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, password_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, password_);
       }
       unknownFields.writeTo(output);
     }
@@ -2921,10 +2921,10 @@ public final class Auth_pb {
 
       size = 0;
       if (!getLoginBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, login_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, login_);
       }
       if (!getPasswordBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, password_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, password_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -3212,7 +3212,7 @@ public final class Auth_pb {
 
       private java.lang.Object login_ = "";
       /**
-       * <code>string login = 2;</code>
+       * <code>string login = 1;</code>
        * @return The login.
        */
       public java.lang.String getLogin() {
@@ -3228,7 +3228,7 @@ public final class Auth_pb {
         }
       }
       /**
-       * <code>string login = 2;</code>
+       * <code>string login = 1;</code>
        * @return The bytes for login.
        */
       public com.google.protobuf.ByteString
@@ -3245,7 +3245,7 @@ public final class Auth_pb {
         }
       }
       /**
-       * <code>string login = 2;</code>
+       * <code>string login = 1;</code>
        * @param value The login to set.
        * @return This builder for chaining.
        */
@@ -3260,7 +3260,7 @@ public final class Auth_pb {
         return this;
       }
       /**
-       * <code>string login = 2;</code>
+       * <code>string login = 1;</code>
        * @return This builder for chaining.
        */
       public Builder clearLogin() {
@@ -3270,7 +3270,7 @@ public final class Auth_pb {
         return this;
       }
       /**
-       * <code>string login = 2;</code>
+       * <code>string login = 1;</code>
        * @param value The bytes for login to set.
        * @return This builder for chaining.
        */
@@ -3288,7 +3288,7 @@ public final class Auth_pb {
 
       private java.lang.Object password_ = "";
       /**
-       * <code>string password = 3;</code>
+       * <code>string password = 2;</code>
        * @return The password.
        */
       public java.lang.String getPassword() {
@@ -3304,7 +3304,7 @@ public final class Auth_pb {
         }
       }
       /**
-       * <code>string password = 3;</code>
+       * <code>string password = 2;</code>
        * @return The bytes for password.
        */
       public com.google.protobuf.ByteString
@@ -3321,7 +3321,7 @@ public final class Auth_pb {
         }
       }
       /**
-       * <code>string password = 3;</code>
+       * <code>string password = 2;</code>
        * @param value The password to set.
        * @return This builder for chaining.
        */
@@ -3336,7 +3336,7 @@ public final class Auth_pb {
         return this;
       }
       /**
-       * <code>string password = 3;</code>
+       * <code>string password = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearPassword() {
@@ -3346,7 +3346,7 @@ public final class Auth_pb {
         return this;
       }
       /**
-       * <code>string password = 3;</code>
+       * <code>string password = 2;</code>
        * @param value The bytes for password to set.
        * @return This builder for chaining.
        */
@@ -3419,7 +3419,7 @@ public final class Auth_pb {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>bool reply = 2;</code>
+     * <code>bool reply = 1;</code>
      * @return The reply.
      */
     boolean getReply();
@@ -3469,7 +3469,7 @@ public final class Auth_pb {
             case 0:
               done = true;
               break;
-            case 16: {
+            case 8: {
 
               reply_ = input.readBool();
               break;
@@ -3506,10 +3506,10 @@ public final class Auth_pb {
               org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.class, org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Builder.class);
     }
 
-    public static final int REPLY_FIELD_NUMBER = 2;
+    public static final int REPLY_FIELD_NUMBER = 1;
     private boolean reply_;
     /**
-     * <code>bool reply = 2;</code>
+     * <code>bool reply = 1;</code>
      * @return The reply.
      */
     @java.lang.Override
@@ -3532,7 +3532,7 @@ public final class Auth_pb {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (reply_ != false) {
-        output.writeBool(2, reply_);
+        output.writeBool(1, reply_);
       }
       unknownFields.writeTo(output);
     }
@@ -3545,7 +3545,7 @@ public final class Auth_pb {
       size = 0;
       if (reply_ != false) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(2, reply_);
+          .computeBoolSize(1, reply_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -3822,7 +3822,7 @@ public final class Auth_pb {
 
       private boolean reply_ ;
       /**
-       * <code>bool reply = 2;</code>
+       * <code>bool reply = 1;</code>
        * @return The reply.
        */
       @java.lang.Override
@@ -3830,7 +3830,7 @@ public final class Auth_pb {
         return reply_;
       }
       /**
-       * <code>bool reply = 2;</code>
+       * <code>bool reply = 1;</code>
        * @param value The reply to set.
        * @return This builder for chaining.
        */
@@ -3841,7 +3841,7 @@ public final class Auth_pb {
         return this;
       }
       /**
-       * <code>bool reply = 2;</code>
+       * <code>bool reply = 1;</code>
        * @return This builder for chaining.
        */
       public Builder clearReply() {
@@ -3944,10 +3944,10 @@ public final class Auth_pb {
       "\001(\0132\031.RegistrationRequestProtoH\000\0224\n\021regi" +
       "strationReply\030\005 \001(\0132\027.RegistrationReplyP" +
       "rotoH\000B\006\n\004body\"4\n\021EntryRequestProto\022\r\n\005l" +
-      "ogin\030\002 \001(\t\022\020\n\010password\030\003 \001(\t\" \n\017EntryRep" +
-      "lyProto\022\r\n\005reply\030\002 \001(\010\";\n\030RegistrationRe" +
-      "questProto\022\r\n\005login\030\002 \001(\t\022\020\n\010password\030\003 " +
-      "\001(\t\"\'\n\026RegistrationReplyProto\022\r\n\005reply\030\002" +
+      "ogin\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\" \n\017EntryRep" +
+      "lyProto\022\r\n\005reply\030\001 \001(\010\";\n\030RegistrationRe" +
+      "questProto\022\r\n\005login\030\001 \001(\t\022\020\n\010password\030\002 " +
+      "\001(\t\"\'\n\026RegistrationReplyProto\022\r\n\005reply\030\001" +
       " \001(\010B%\n\032org.foomaa.jvchat.messagesB\007Auth" +
       "_pbb\006proto3"
     };
