@@ -14,8 +14,8 @@ public final class Auth_pb {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
-  public interface EntryRequestProtoOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:EntryRequestProto)
+  public interface GeneralAuthProtoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:GeneralAuthProto)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -23,6 +23,1475 @@ public final class Auth_pb {
      * @return The type.
      */
     int getType();
+
+    /**
+     * <code>.EntryRequestProto entryRequest = 2;</code>
+     * @return Whether the entryRequest field is set.
+     */
+    boolean hasEntryRequest();
+    /**
+     * <code>.EntryRequestProto entryRequest = 2;</code>
+     * @return The entryRequest.
+     */
+    org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto getEntryRequest();
+    /**
+     * <code>.EntryRequestProto entryRequest = 2;</code>
+     */
+    org.foomaa.jvchat.messages.Auth_pb.EntryRequestProtoOrBuilder getEntryRequestOrBuilder();
+
+    /**
+     * <code>.EntryReplyProto entryReply = 3;</code>
+     * @return Whether the entryReply field is set.
+     */
+    boolean hasEntryReply();
+    /**
+     * <code>.EntryReplyProto entryReply = 3;</code>
+     * @return The entryReply.
+     */
+    org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto getEntryReply();
+    /**
+     * <code>.EntryReplyProto entryReply = 3;</code>
+     */
+    org.foomaa.jvchat.messages.Auth_pb.EntryReplyProtoOrBuilder getEntryReplyOrBuilder();
+
+    /**
+     * <code>.RegistrationRequestProto registrationRequest = 4;</code>
+     * @return Whether the registrationRequest field is set.
+     */
+    boolean hasRegistrationRequest();
+    /**
+     * <code>.RegistrationRequestProto registrationRequest = 4;</code>
+     * @return The registrationRequest.
+     */
+    org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto getRegistrationRequest();
+    /**
+     * <code>.RegistrationRequestProto registrationRequest = 4;</code>
+     */
+    org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProtoOrBuilder getRegistrationRequestOrBuilder();
+
+    /**
+     * <code>.RegistrationReplyProto registrationReply = 5;</code>
+     * @return Whether the registrationReply field is set.
+     */
+    boolean hasRegistrationReply();
+    /**
+     * <code>.RegistrationReplyProto registrationReply = 5;</code>
+     * @return The registrationReply.
+     */
+    org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto getRegistrationReply();
+    /**
+     * <code>.RegistrationReplyProto registrationReply = 5;</code>
+     */
+    org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProtoOrBuilder getRegistrationReplyOrBuilder();
+
+    public org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto.BodyCase getBodyCase();
+  }
+  /**
+   * Protobuf type {@code GeneralAuthProto}
+   */
+  public static final class GeneralAuthProto extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:GeneralAuthProto)
+      GeneralAuthProtoOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GeneralAuthProto.newBuilder() to construct.
+    private GeneralAuthProto(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GeneralAuthProto() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new GeneralAuthProto();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GeneralAuthProto(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              type_ = input.readUInt32();
+              break;
+            }
+            case 18: {
+              org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.Builder subBuilder = null;
+              if (bodyCase_ == 2) {
+                subBuilder = ((org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto) body_).toBuilder();
+              }
+              body_ =
+                  input.readMessage(org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto) body_);
+                body_ = subBuilder.buildPartial();
+              }
+              bodyCase_ = 2;
+              break;
+            }
+            case 26: {
+              org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.Builder subBuilder = null;
+              if (bodyCase_ == 3) {
+                subBuilder = ((org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) body_).toBuilder();
+              }
+              body_ =
+                  input.readMessage(org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) body_);
+                body_ = subBuilder.buildPartial();
+              }
+              bodyCase_ = 3;
+              break;
+            }
+            case 34: {
+              org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.Builder subBuilder = null;
+              if (bodyCase_ == 4) {
+                subBuilder = ((org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto) body_).toBuilder();
+              }
+              body_ =
+                  input.readMessage(org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto) body_);
+                body_ = subBuilder.buildPartial();
+              }
+              bodyCase_ = 4;
+              break;
+            }
+            case 42: {
+              org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Builder subBuilder = null;
+              if (bodyCase_ == 5) {
+                subBuilder = ((org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto) body_).toBuilder();
+              }
+              body_ =
+                  input.readMessage(org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom((org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto) body_);
+                body_ = subBuilder.buildPartial();
+              }
+              bodyCase_ = 5;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return org.foomaa.jvchat.messages.Auth_pb.internal_static_GeneralAuthProto_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return org.foomaa.jvchat.messages.Auth_pb.internal_static_GeneralAuthProto_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto.class, org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto.Builder.class);
+    }
+
+    private int bodyCase_ = 0;
+    private java.lang.Object body_;
+    public enum BodyCase
+        implements com.google.protobuf.Internal.EnumLite,
+            com.google.protobuf.AbstractMessage.InternalOneOfEnum {
+      ENTRYREQUEST(2),
+      ENTRYREPLY(3),
+      REGISTRATIONREQUEST(4),
+      REGISTRATIONREPLY(5),
+      BODY_NOT_SET(0);
+      private final int value;
+      private BodyCase(int value) {
+        this.value = value;
+      }
+      /**
+       * @param value The number of the enum to look for.
+       * @return The enum associated with the given number.
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static BodyCase valueOf(int value) {
+        return forNumber(value);
+      }
+
+      public static BodyCase forNumber(int value) {
+        switch (value) {
+          case 2: return ENTRYREQUEST;
+          case 3: return ENTRYREPLY;
+          case 4: return REGISTRATIONREQUEST;
+          case 5: return REGISTRATIONREPLY;
+          case 0: return BODY_NOT_SET;
+          default: return null;
+        }
+      }
+      public int getNumber() {
+        return this.value;
+      }
+    };
+
+    public BodyCase
+    getBodyCase() {
+      return BodyCase.forNumber(
+          bodyCase_);
+    }
+
+    public static final int TYPE_FIELD_NUMBER = 1;
+    private int type_;
+    /**
+     * <code>uint32 type = 1;</code>
+     * @return The type.
+     */
+    @java.lang.Override
+    public int getType() {
+      return type_;
+    }
+
+    public static final int ENTRYREQUEST_FIELD_NUMBER = 2;
+    /**
+     * <code>.EntryRequestProto entryRequest = 2;</code>
+     * @return Whether the entryRequest field is set.
+     */
+    @java.lang.Override
+    public boolean hasEntryRequest() {
+      return bodyCase_ == 2;
+    }
+    /**
+     * <code>.EntryRequestProto entryRequest = 2;</code>
+     * @return The entryRequest.
+     */
+    @java.lang.Override
+    public org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto getEntryRequest() {
+      if (bodyCase_ == 2) {
+         return (org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto) body_;
+      }
+      return org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.getDefaultInstance();
+    }
+    /**
+     * <code>.EntryRequestProto entryRequest = 2;</code>
+     */
+    @java.lang.Override
+    public org.foomaa.jvchat.messages.Auth_pb.EntryRequestProtoOrBuilder getEntryRequestOrBuilder() {
+      if (bodyCase_ == 2) {
+         return (org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto) body_;
+      }
+      return org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.getDefaultInstance();
+    }
+
+    public static final int ENTRYREPLY_FIELD_NUMBER = 3;
+    /**
+     * <code>.EntryReplyProto entryReply = 3;</code>
+     * @return Whether the entryReply field is set.
+     */
+    @java.lang.Override
+    public boolean hasEntryReply() {
+      return bodyCase_ == 3;
+    }
+    /**
+     * <code>.EntryReplyProto entryReply = 3;</code>
+     * @return The entryReply.
+     */
+    @java.lang.Override
+    public org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto getEntryReply() {
+      if (bodyCase_ == 3) {
+         return (org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) body_;
+      }
+      return org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.getDefaultInstance();
+    }
+    /**
+     * <code>.EntryReplyProto entryReply = 3;</code>
+     */
+    @java.lang.Override
+    public org.foomaa.jvchat.messages.Auth_pb.EntryReplyProtoOrBuilder getEntryReplyOrBuilder() {
+      if (bodyCase_ == 3) {
+         return (org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) body_;
+      }
+      return org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.getDefaultInstance();
+    }
+
+    public static final int REGISTRATIONREQUEST_FIELD_NUMBER = 4;
+    /**
+     * <code>.RegistrationRequestProto registrationRequest = 4;</code>
+     * @return Whether the registrationRequest field is set.
+     */
+    @java.lang.Override
+    public boolean hasRegistrationRequest() {
+      return bodyCase_ == 4;
+    }
+    /**
+     * <code>.RegistrationRequestProto registrationRequest = 4;</code>
+     * @return The registrationRequest.
+     */
+    @java.lang.Override
+    public org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto getRegistrationRequest() {
+      if (bodyCase_ == 4) {
+         return (org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto) body_;
+      }
+      return org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.getDefaultInstance();
+    }
+    /**
+     * <code>.RegistrationRequestProto registrationRequest = 4;</code>
+     */
+    @java.lang.Override
+    public org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProtoOrBuilder getRegistrationRequestOrBuilder() {
+      if (bodyCase_ == 4) {
+         return (org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto) body_;
+      }
+      return org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.getDefaultInstance();
+    }
+
+    public static final int REGISTRATIONREPLY_FIELD_NUMBER = 5;
+    /**
+     * <code>.RegistrationReplyProto registrationReply = 5;</code>
+     * @return Whether the registrationReply field is set.
+     */
+    @java.lang.Override
+    public boolean hasRegistrationReply() {
+      return bodyCase_ == 5;
+    }
+    /**
+     * <code>.RegistrationReplyProto registrationReply = 5;</code>
+     * @return The registrationReply.
+     */
+    @java.lang.Override
+    public org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto getRegistrationReply() {
+      if (bodyCase_ == 5) {
+         return (org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto) body_;
+      }
+      return org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.getDefaultInstance();
+    }
+    /**
+     * <code>.RegistrationReplyProto registrationReply = 5;</code>
+     */
+    @java.lang.Override
+    public org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProtoOrBuilder getRegistrationReplyOrBuilder() {
+      if (bodyCase_ == 5) {
+         return (org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto) body_;
+      }
+      return org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.getDefaultInstance();
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (type_ != 0) {
+        output.writeUInt32(1, type_);
+      }
+      if (bodyCase_ == 2) {
+        output.writeMessage(2, (org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto) body_);
+      }
+      if (bodyCase_ == 3) {
+        output.writeMessage(3, (org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) body_);
+      }
+      if (bodyCase_ == 4) {
+        output.writeMessage(4, (org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto) body_);
+      }
+      if (bodyCase_ == 5) {
+        output.writeMessage(5, (org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto) body_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (type_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(1, type_);
+      }
+      if (bodyCase_ == 2) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, (org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto) body_);
+      }
+      if (bodyCase_ == 3) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, (org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) body_);
+      }
+      if (bodyCase_ == 4) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, (org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto) body_);
+      }
+      if (bodyCase_ == 5) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, (org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto) body_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto)) {
+        return super.equals(obj);
+      }
+      org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto other = (org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto) obj;
+
+      if (getType()
+          != other.getType()) return false;
+      if (!getBodyCase().equals(other.getBodyCase())) return false;
+      switch (bodyCase_) {
+        case 2:
+          if (!getEntryRequest()
+              .equals(other.getEntryRequest())) return false;
+          break;
+        case 3:
+          if (!getEntryReply()
+              .equals(other.getEntryReply())) return false;
+          break;
+        case 4:
+          if (!getRegistrationRequest()
+              .equals(other.getRegistrationRequest())) return false;
+          break;
+        case 5:
+          if (!getRegistrationReply()
+              .equals(other.getRegistrationReply())) return false;
+          break;
+        case 0:
+        default:
+      }
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + getType();
+      switch (bodyCase_) {
+        case 2:
+          hash = (37 * hash) + ENTRYREQUEST_FIELD_NUMBER;
+          hash = (53 * hash) + getEntryRequest().hashCode();
+          break;
+        case 3:
+          hash = (37 * hash) + ENTRYREPLY_FIELD_NUMBER;
+          hash = (53 * hash) + getEntryReply().hashCode();
+          break;
+        case 4:
+          hash = (37 * hash) + REGISTRATIONREQUEST_FIELD_NUMBER;
+          hash = (53 * hash) + getRegistrationRequest().hashCode();
+          break;
+        case 5:
+          hash = (37 * hash) + REGISTRATIONREPLY_FIELD_NUMBER;
+          hash = (53 * hash) + getRegistrationReply().hashCode();
+          break;
+        case 0:
+        default:
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code GeneralAuthProto}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:GeneralAuthProto)
+        org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return org.foomaa.jvchat.messages.Auth_pb.internal_static_GeneralAuthProto_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return org.foomaa.jvchat.messages.Auth_pb.internal_static_GeneralAuthProto_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto.class, org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto.Builder.class);
+      }
+
+      // Construct using org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        type_ = 0;
+
+        bodyCase_ = 0;
+        body_ = null;
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return org.foomaa.jvchat.messages.Auth_pb.internal_static_GeneralAuthProto_descriptor;
+      }
+
+      @java.lang.Override
+      public org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto getDefaultInstanceForType() {
+        return org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto build() {
+        org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto buildPartial() {
+        org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto result = new org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto(this);
+        result.type_ = type_;
+        if (bodyCase_ == 2) {
+          if (entryRequestBuilder_ == null) {
+            result.body_ = body_;
+          } else {
+            result.body_ = entryRequestBuilder_.build();
+          }
+        }
+        if (bodyCase_ == 3) {
+          if (entryReplyBuilder_ == null) {
+            result.body_ = body_;
+          } else {
+            result.body_ = entryReplyBuilder_.build();
+          }
+        }
+        if (bodyCase_ == 4) {
+          if (registrationRequestBuilder_ == null) {
+            result.body_ = body_;
+          } else {
+            result.body_ = registrationRequestBuilder_.build();
+          }
+        }
+        if (bodyCase_ == 5) {
+          if (registrationReplyBuilder_ == null) {
+            result.body_ = body_;
+          } else {
+            result.body_ = registrationReplyBuilder_.build();
+          }
+        }
+        result.bodyCase_ = bodyCase_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto) {
+          return mergeFrom((org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto other) {
+        if (other == org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto.getDefaultInstance()) return this;
+        if (other.getType() != 0) {
+          setType(other.getType());
+        }
+        switch (other.getBodyCase()) {
+          case ENTRYREQUEST: {
+            mergeEntryRequest(other.getEntryRequest());
+            break;
+          }
+          case ENTRYREPLY: {
+            mergeEntryReply(other.getEntryReply());
+            break;
+          }
+          case REGISTRATIONREQUEST: {
+            mergeRegistrationRequest(other.getRegistrationRequest());
+            break;
+          }
+          case REGISTRATIONREPLY: {
+            mergeRegistrationReply(other.getRegistrationReply());
+            break;
+          }
+          case BODY_NOT_SET: {
+            break;
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bodyCase_ = 0;
+      private java.lang.Object body_;
+      public BodyCase
+          getBodyCase() {
+        return BodyCase.forNumber(
+            bodyCase_);
+      }
+
+      public Builder clearBody() {
+        bodyCase_ = 0;
+        body_ = null;
+        onChanged();
+        return this;
+      }
+
+
+      private int type_ ;
+      /**
+       * <code>uint32 type = 1;</code>
+       * @return The type.
+       */
+      @java.lang.Override
+      public int getType() {
+        return type_;
+      }
+      /**
+       * <code>uint32 type = 1;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
+       */
+      public Builder setType(int value) {
+        
+        type_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>uint32 type = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearType() {
+        
+        type_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto, org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.Builder, org.foomaa.jvchat.messages.Auth_pb.EntryRequestProtoOrBuilder> entryRequestBuilder_;
+      /**
+       * <code>.EntryRequestProto entryRequest = 2;</code>
+       * @return Whether the entryRequest field is set.
+       */
+      @java.lang.Override
+      public boolean hasEntryRequest() {
+        return bodyCase_ == 2;
+      }
+      /**
+       * <code>.EntryRequestProto entryRequest = 2;</code>
+       * @return The entryRequest.
+       */
+      @java.lang.Override
+      public org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto getEntryRequest() {
+        if (entryRequestBuilder_ == null) {
+          if (bodyCase_ == 2) {
+            return (org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto) body_;
+          }
+          return org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.getDefaultInstance();
+        } else {
+          if (bodyCase_ == 2) {
+            return entryRequestBuilder_.getMessage();
+          }
+          return org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.EntryRequestProto entryRequest = 2;</code>
+       */
+      public Builder setEntryRequest(org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto value) {
+        if (entryRequestBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          body_ = value;
+          onChanged();
+        } else {
+          entryRequestBuilder_.setMessage(value);
+        }
+        bodyCase_ = 2;
+        return this;
+      }
+      /**
+       * <code>.EntryRequestProto entryRequest = 2;</code>
+       */
+      public Builder setEntryRequest(
+          org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.Builder builderForValue) {
+        if (entryRequestBuilder_ == null) {
+          body_ = builderForValue.build();
+          onChanged();
+        } else {
+          entryRequestBuilder_.setMessage(builderForValue.build());
+        }
+        bodyCase_ = 2;
+        return this;
+      }
+      /**
+       * <code>.EntryRequestProto entryRequest = 2;</code>
+       */
+      public Builder mergeEntryRequest(org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto value) {
+        if (entryRequestBuilder_ == null) {
+          if (bodyCase_ == 2 &&
+              body_ != org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.getDefaultInstance()) {
+            body_ = org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.newBuilder((org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto) body_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            body_ = value;
+          }
+          onChanged();
+        } else {
+          if (bodyCase_ == 2) {
+            entryRequestBuilder_.mergeFrom(value);
+          }
+          entryRequestBuilder_.setMessage(value);
+        }
+        bodyCase_ = 2;
+        return this;
+      }
+      /**
+       * <code>.EntryRequestProto entryRequest = 2;</code>
+       */
+      public Builder clearEntryRequest() {
+        if (entryRequestBuilder_ == null) {
+          if (bodyCase_ == 2) {
+            bodyCase_ = 0;
+            body_ = null;
+            onChanged();
+          }
+        } else {
+          if (bodyCase_ == 2) {
+            bodyCase_ = 0;
+            body_ = null;
+          }
+          entryRequestBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>.EntryRequestProto entryRequest = 2;</code>
+       */
+      public org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.Builder getEntryRequestBuilder() {
+        return getEntryRequestFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.EntryRequestProto entryRequest = 2;</code>
+       */
+      @java.lang.Override
+      public org.foomaa.jvchat.messages.Auth_pb.EntryRequestProtoOrBuilder getEntryRequestOrBuilder() {
+        if ((bodyCase_ == 2) && (entryRequestBuilder_ != null)) {
+          return entryRequestBuilder_.getMessageOrBuilder();
+        } else {
+          if (bodyCase_ == 2) {
+            return (org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto) body_;
+          }
+          return org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.EntryRequestProto entryRequest = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto, org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.Builder, org.foomaa.jvchat.messages.Auth_pb.EntryRequestProtoOrBuilder> 
+          getEntryRequestFieldBuilder() {
+        if (entryRequestBuilder_ == null) {
+          if (!(bodyCase_ == 2)) {
+            body_ = org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.getDefaultInstance();
+          }
+          entryRequestBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto, org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.Builder, org.foomaa.jvchat.messages.Auth_pb.EntryRequestProtoOrBuilder>(
+                  (org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto) body_,
+                  getParentForChildren(),
+                  isClean());
+          body_ = null;
+        }
+        bodyCase_ = 2;
+        onChanged();;
+        return entryRequestBuilder_;
+      }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto, org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.Builder, org.foomaa.jvchat.messages.Auth_pb.EntryReplyProtoOrBuilder> entryReplyBuilder_;
+      /**
+       * <code>.EntryReplyProto entryReply = 3;</code>
+       * @return Whether the entryReply field is set.
+       */
+      @java.lang.Override
+      public boolean hasEntryReply() {
+        return bodyCase_ == 3;
+      }
+      /**
+       * <code>.EntryReplyProto entryReply = 3;</code>
+       * @return The entryReply.
+       */
+      @java.lang.Override
+      public org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto getEntryReply() {
+        if (entryReplyBuilder_ == null) {
+          if (bodyCase_ == 3) {
+            return (org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) body_;
+          }
+          return org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.getDefaultInstance();
+        } else {
+          if (bodyCase_ == 3) {
+            return entryReplyBuilder_.getMessage();
+          }
+          return org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.EntryReplyProto entryReply = 3;</code>
+       */
+      public Builder setEntryReply(org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto value) {
+        if (entryReplyBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          body_ = value;
+          onChanged();
+        } else {
+          entryReplyBuilder_.setMessage(value);
+        }
+        bodyCase_ = 3;
+        return this;
+      }
+      /**
+       * <code>.EntryReplyProto entryReply = 3;</code>
+       */
+      public Builder setEntryReply(
+          org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.Builder builderForValue) {
+        if (entryReplyBuilder_ == null) {
+          body_ = builderForValue.build();
+          onChanged();
+        } else {
+          entryReplyBuilder_.setMessage(builderForValue.build());
+        }
+        bodyCase_ = 3;
+        return this;
+      }
+      /**
+       * <code>.EntryReplyProto entryReply = 3;</code>
+       */
+      public Builder mergeEntryReply(org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto value) {
+        if (entryReplyBuilder_ == null) {
+          if (bodyCase_ == 3 &&
+              body_ != org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.getDefaultInstance()) {
+            body_ = org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.newBuilder((org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) body_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            body_ = value;
+          }
+          onChanged();
+        } else {
+          if (bodyCase_ == 3) {
+            entryReplyBuilder_.mergeFrom(value);
+          }
+          entryReplyBuilder_.setMessage(value);
+        }
+        bodyCase_ = 3;
+        return this;
+      }
+      /**
+       * <code>.EntryReplyProto entryReply = 3;</code>
+       */
+      public Builder clearEntryReply() {
+        if (entryReplyBuilder_ == null) {
+          if (bodyCase_ == 3) {
+            bodyCase_ = 0;
+            body_ = null;
+            onChanged();
+          }
+        } else {
+          if (bodyCase_ == 3) {
+            bodyCase_ = 0;
+            body_ = null;
+          }
+          entryReplyBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>.EntryReplyProto entryReply = 3;</code>
+       */
+      public org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.Builder getEntryReplyBuilder() {
+        return getEntryReplyFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.EntryReplyProto entryReply = 3;</code>
+       */
+      @java.lang.Override
+      public org.foomaa.jvchat.messages.Auth_pb.EntryReplyProtoOrBuilder getEntryReplyOrBuilder() {
+        if ((bodyCase_ == 3) && (entryReplyBuilder_ != null)) {
+          return entryReplyBuilder_.getMessageOrBuilder();
+        } else {
+          if (bodyCase_ == 3) {
+            return (org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) body_;
+          }
+          return org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.EntryReplyProto entryReply = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto, org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.Builder, org.foomaa.jvchat.messages.Auth_pb.EntryReplyProtoOrBuilder> 
+          getEntryReplyFieldBuilder() {
+        if (entryReplyBuilder_ == null) {
+          if (!(bodyCase_ == 3)) {
+            body_ = org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.getDefaultInstance();
+          }
+          entryReplyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto, org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.Builder, org.foomaa.jvchat.messages.Auth_pb.EntryReplyProtoOrBuilder>(
+                  (org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) body_,
+                  getParentForChildren(),
+                  isClean());
+          body_ = null;
+        }
+        bodyCase_ = 3;
+        onChanged();;
+        return entryReplyBuilder_;
+      }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto, org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.Builder, org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProtoOrBuilder> registrationRequestBuilder_;
+      /**
+       * <code>.RegistrationRequestProto registrationRequest = 4;</code>
+       * @return Whether the registrationRequest field is set.
+       */
+      @java.lang.Override
+      public boolean hasRegistrationRequest() {
+        return bodyCase_ == 4;
+      }
+      /**
+       * <code>.RegistrationRequestProto registrationRequest = 4;</code>
+       * @return The registrationRequest.
+       */
+      @java.lang.Override
+      public org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto getRegistrationRequest() {
+        if (registrationRequestBuilder_ == null) {
+          if (bodyCase_ == 4) {
+            return (org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto) body_;
+          }
+          return org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.getDefaultInstance();
+        } else {
+          if (bodyCase_ == 4) {
+            return registrationRequestBuilder_.getMessage();
+          }
+          return org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.RegistrationRequestProto registrationRequest = 4;</code>
+       */
+      public Builder setRegistrationRequest(org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto value) {
+        if (registrationRequestBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          body_ = value;
+          onChanged();
+        } else {
+          registrationRequestBuilder_.setMessage(value);
+        }
+        bodyCase_ = 4;
+        return this;
+      }
+      /**
+       * <code>.RegistrationRequestProto registrationRequest = 4;</code>
+       */
+      public Builder setRegistrationRequest(
+          org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.Builder builderForValue) {
+        if (registrationRequestBuilder_ == null) {
+          body_ = builderForValue.build();
+          onChanged();
+        } else {
+          registrationRequestBuilder_.setMessage(builderForValue.build());
+        }
+        bodyCase_ = 4;
+        return this;
+      }
+      /**
+       * <code>.RegistrationRequestProto registrationRequest = 4;</code>
+       */
+      public Builder mergeRegistrationRequest(org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto value) {
+        if (registrationRequestBuilder_ == null) {
+          if (bodyCase_ == 4 &&
+              body_ != org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.getDefaultInstance()) {
+            body_ = org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.newBuilder((org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto) body_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            body_ = value;
+          }
+          onChanged();
+        } else {
+          if (bodyCase_ == 4) {
+            registrationRequestBuilder_.mergeFrom(value);
+          }
+          registrationRequestBuilder_.setMessage(value);
+        }
+        bodyCase_ = 4;
+        return this;
+      }
+      /**
+       * <code>.RegistrationRequestProto registrationRequest = 4;</code>
+       */
+      public Builder clearRegistrationRequest() {
+        if (registrationRequestBuilder_ == null) {
+          if (bodyCase_ == 4) {
+            bodyCase_ = 0;
+            body_ = null;
+            onChanged();
+          }
+        } else {
+          if (bodyCase_ == 4) {
+            bodyCase_ = 0;
+            body_ = null;
+          }
+          registrationRequestBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>.RegistrationRequestProto registrationRequest = 4;</code>
+       */
+      public org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.Builder getRegistrationRequestBuilder() {
+        return getRegistrationRequestFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.RegistrationRequestProto registrationRequest = 4;</code>
+       */
+      @java.lang.Override
+      public org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProtoOrBuilder getRegistrationRequestOrBuilder() {
+        if ((bodyCase_ == 4) && (registrationRequestBuilder_ != null)) {
+          return registrationRequestBuilder_.getMessageOrBuilder();
+        } else {
+          if (bodyCase_ == 4) {
+            return (org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto) body_;
+          }
+          return org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.RegistrationRequestProto registrationRequest = 4;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto, org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.Builder, org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProtoOrBuilder> 
+          getRegistrationRequestFieldBuilder() {
+        if (registrationRequestBuilder_ == null) {
+          if (!(bodyCase_ == 4)) {
+            body_ = org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.getDefaultInstance();
+          }
+          registrationRequestBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto, org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.Builder, org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProtoOrBuilder>(
+                  (org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto) body_,
+                  getParentForChildren(),
+                  isClean());
+          body_ = null;
+        }
+        bodyCase_ = 4;
+        onChanged();;
+        return registrationRequestBuilder_;
+      }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto, org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Builder, org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProtoOrBuilder> registrationReplyBuilder_;
+      /**
+       * <code>.RegistrationReplyProto registrationReply = 5;</code>
+       * @return Whether the registrationReply field is set.
+       */
+      @java.lang.Override
+      public boolean hasRegistrationReply() {
+        return bodyCase_ == 5;
+      }
+      /**
+       * <code>.RegistrationReplyProto registrationReply = 5;</code>
+       * @return The registrationReply.
+       */
+      @java.lang.Override
+      public org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto getRegistrationReply() {
+        if (registrationReplyBuilder_ == null) {
+          if (bodyCase_ == 5) {
+            return (org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto) body_;
+          }
+          return org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.getDefaultInstance();
+        } else {
+          if (bodyCase_ == 5) {
+            return registrationReplyBuilder_.getMessage();
+          }
+          return org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.RegistrationReplyProto registrationReply = 5;</code>
+       */
+      public Builder setRegistrationReply(org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto value) {
+        if (registrationReplyBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          body_ = value;
+          onChanged();
+        } else {
+          registrationReplyBuilder_.setMessage(value);
+        }
+        bodyCase_ = 5;
+        return this;
+      }
+      /**
+       * <code>.RegistrationReplyProto registrationReply = 5;</code>
+       */
+      public Builder setRegistrationReply(
+          org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Builder builderForValue) {
+        if (registrationReplyBuilder_ == null) {
+          body_ = builderForValue.build();
+          onChanged();
+        } else {
+          registrationReplyBuilder_.setMessage(builderForValue.build());
+        }
+        bodyCase_ = 5;
+        return this;
+      }
+      /**
+       * <code>.RegistrationReplyProto registrationReply = 5;</code>
+       */
+      public Builder mergeRegistrationReply(org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto value) {
+        if (registrationReplyBuilder_ == null) {
+          if (bodyCase_ == 5 &&
+              body_ != org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.getDefaultInstance()) {
+            body_ = org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.newBuilder((org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto) body_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            body_ = value;
+          }
+          onChanged();
+        } else {
+          if (bodyCase_ == 5) {
+            registrationReplyBuilder_.mergeFrom(value);
+          }
+          registrationReplyBuilder_.setMessage(value);
+        }
+        bodyCase_ = 5;
+        return this;
+      }
+      /**
+       * <code>.RegistrationReplyProto registrationReply = 5;</code>
+       */
+      public Builder clearRegistrationReply() {
+        if (registrationReplyBuilder_ == null) {
+          if (bodyCase_ == 5) {
+            bodyCase_ = 0;
+            body_ = null;
+            onChanged();
+          }
+        } else {
+          if (bodyCase_ == 5) {
+            bodyCase_ = 0;
+            body_ = null;
+          }
+          registrationReplyBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>.RegistrationReplyProto registrationReply = 5;</code>
+       */
+      public org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Builder getRegistrationReplyBuilder() {
+        return getRegistrationReplyFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.RegistrationReplyProto registrationReply = 5;</code>
+       */
+      @java.lang.Override
+      public org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProtoOrBuilder getRegistrationReplyOrBuilder() {
+        if ((bodyCase_ == 5) && (registrationReplyBuilder_ != null)) {
+          return registrationReplyBuilder_.getMessageOrBuilder();
+        } else {
+          if (bodyCase_ == 5) {
+            return (org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto) body_;
+          }
+          return org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.RegistrationReplyProto registrationReply = 5;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto, org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Builder, org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProtoOrBuilder> 
+          getRegistrationReplyFieldBuilder() {
+        if (registrationReplyBuilder_ == null) {
+          if (!(bodyCase_ == 5)) {
+            body_ = org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.getDefaultInstance();
+          }
+          registrationReplyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto, org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Builder, org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProtoOrBuilder>(
+                  (org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto) body_,
+                  getParentForChildren(),
+                  isClean());
+          body_ = null;
+        }
+        bodyCase_ = 5;
+        onChanged();;
+        return registrationReplyBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:GeneralAuthProto)
+    }
+
+    // @@protoc_insertion_point(class_scope:GeneralAuthProto)
+    private static final org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto();
+    }
+
+    public static org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GeneralAuthProto>
+        PARSER = new com.google.protobuf.AbstractParser<GeneralAuthProto>() {
+      @java.lang.Override
+      public GeneralAuthProto parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GeneralAuthProto(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GeneralAuthProto> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GeneralAuthProto> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface EntryRequestProtoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:EntryRequestProto)
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <code>string login = 2;</code>
@@ -95,11 +1564,6 @@ public final class Auth_pb {
             case 0:
               done = true;
               break;
-            case 8: {
-
-              type_ = input.readUInt32();
-              break;
-            }
             case 18: {
               java.lang.String s = input.readStringRequireUtf8();
 
@@ -142,17 +1606,6 @@ public final class Auth_pb {
       return org.foomaa.jvchat.messages.Auth_pb.internal_static_EntryRequestProto_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.class, org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.Builder.class);
-    }
-
-    public static final int TYPE_FIELD_NUMBER = 1;
-    private int type_;
-    /**
-     * <code>uint32 type = 1;</code>
-     * @return The type.
-     */
-    @java.lang.Override
-    public int getType() {
-      return type_;
     }
 
     public static final int LOGIN_FIELD_NUMBER = 2;
@@ -245,9 +1698,6 @@ public final class Auth_pb {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (type_ != 0) {
-        output.writeUInt32(1, type_);
-      }
       if (!getLoginBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, login_);
       }
@@ -263,10 +1713,6 @@ public final class Auth_pb {
       if (size != -1) return size;
 
       size = 0;
-      if (type_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(1, type_);
-      }
       if (!getLoginBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, login_);
       }
@@ -288,8 +1734,6 @@ public final class Auth_pb {
       }
       org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto other = (org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto) obj;
 
-      if (getType()
-          != other.getType()) return false;
       if (!getLogin()
           .equals(other.getLogin())) return false;
       if (!getPassword()
@@ -305,8 +1749,6 @@ public final class Auth_pb {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + TYPE_FIELD_NUMBER;
-      hash = (53 * hash) + getType();
       hash = (37 * hash) + LOGIN_FIELD_NUMBER;
       hash = (53 * hash) + getLogin().hashCode();
       hash = (37 * hash) + PASSWORD_FIELD_NUMBER;
@@ -444,8 +1886,6 @@ public final class Auth_pb {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        type_ = 0;
-
         login_ = "";
 
         password_ = "";
@@ -476,7 +1916,6 @@ public final class Auth_pb {
       @java.lang.Override
       public org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto buildPartial() {
         org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto result = new org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto(this);
-        result.type_ = type_;
         result.login_ = login_;
         result.password_ = password_;
         onBuilt();
@@ -527,9 +1966,6 @@ public final class Auth_pb {
 
       public Builder mergeFrom(org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto other) {
         if (other == org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.getDefaultInstance()) return this;
-        if (other.getType() != 0) {
-          setType(other.getType());
-        }
         if (!other.getLogin().isEmpty()) {
           login_ = other.login_;
           onChanged();
@@ -564,37 +2000,6 @@ public final class Auth_pb {
             mergeFrom(parsedMessage);
           }
         }
-        return this;
-      }
-
-      private int type_ ;
-      /**
-       * <code>uint32 type = 1;</code>
-       * @return The type.
-       */
-      @java.lang.Override
-      public int getType() {
-        return type_;
-      }
-      /**
-       * <code>uint32 type = 1;</code>
-       * @param value The type to set.
-       * @return This builder for chaining.
-       */
-      public Builder setType(int value) {
-        
-        type_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>uint32 type = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearType() {
-        
-        type_ = 0;
-        onChanged();
         return this;
       }
 
@@ -802,15 +2207,498 @@ public final class Auth_pb {
 
   }
 
-  public interface RegistrationRequestProtoOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:RegistrationRequestProto)
+  public interface EntryReplyProtoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:EntryReplyProto)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>uint32 type = 1;</code>
-     * @return The type.
+     * <code>bool reply = 2;</code>
+     * @return The reply.
      */
-    int getType();
+    boolean getReply();
+  }
+  /**
+   * Protobuf type {@code EntryReplyProto}
+   */
+  public static final class EntryReplyProto extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:EntryReplyProto)
+      EntryReplyProtoOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use EntryReplyProto.newBuilder() to construct.
+    private EntryReplyProto(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private EntryReplyProto() {
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new EntryReplyProto();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private EntryReplyProto(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 16: {
+
+              reply_ = input.readBool();
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return org.foomaa.jvchat.messages.Auth_pb.internal_static_EntryReplyProto_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return org.foomaa.jvchat.messages.Auth_pb.internal_static_EntryReplyProto_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.class, org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.Builder.class);
+    }
+
+    public static final int REPLY_FIELD_NUMBER = 2;
+    private boolean reply_;
+    /**
+     * <code>bool reply = 2;</code>
+     * @return The reply.
+     */
+    @java.lang.Override
+    public boolean getReply() {
+      return reply_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (reply_ != false) {
+        output.writeBool(2, reply_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (reply_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(2, reply_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto)) {
+        return super.equals(obj);
+      }
+      org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto other = (org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) obj;
+
+      if (getReply()
+          != other.getReply()) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + REPLY_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getReply());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code EntryReplyProto}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:EntryReplyProto)
+        org.foomaa.jvchat.messages.Auth_pb.EntryReplyProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return org.foomaa.jvchat.messages.Auth_pb.internal_static_EntryReplyProto_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return org.foomaa.jvchat.messages.Auth_pb.internal_static_EntryReplyProto_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.class, org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.Builder.class);
+      }
+
+      // Construct using org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        reply_ = false;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return org.foomaa.jvchat.messages.Auth_pb.internal_static_EntryReplyProto_descriptor;
+      }
+
+      @java.lang.Override
+      public org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto getDefaultInstanceForType() {
+        return org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto build() {
+        org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto buildPartial() {
+        org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto result = new org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto(this);
+        result.reply_ = reply_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) {
+          return mergeFrom((org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto other) {
+        if (other == org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.getDefaultInstance()) return this;
+        if (other.getReply() != false) {
+          setReply(other.getReply());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private boolean reply_ ;
+      /**
+       * <code>bool reply = 2;</code>
+       * @return The reply.
+       */
+      @java.lang.Override
+      public boolean getReply() {
+        return reply_;
+      }
+      /**
+       * <code>bool reply = 2;</code>
+       * @param value The reply to set.
+       * @return This builder for chaining.
+       */
+      public Builder setReply(boolean value) {
+        
+        reply_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool reply = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearReply() {
+        
+        reply_ = false;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:EntryReplyProto)
+    }
+
+    // @@protoc_insertion_point(class_scope:EntryReplyProto)
+    private static final org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto();
+    }
+
+    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<EntryReplyProto>
+        PARSER = new com.google.protobuf.AbstractParser<EntryReplyProto>() {
+      @java.lang.Override
+      public EntryReplyProto parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new EntryReplyProto(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<EntryReplyProto> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<EntryReplyProto> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface RegistrationRequestProtoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:RegistrationRequestProto)
+      com.google.protobuf.MessageOrBuilder {
 
     /**
      * <code>string login = 2;</code>
@@ -883,11 +2771,6 @@ public final class Auth_pb {
             case 0:
               done = true;
               break;
-            case 8: {
-
-              type_ = input.readUInt32();
-              break;
-            }
             case 18: {
               java.lang.String s = input.readStringRequireUtf8();
 
@@ -930,17 +2813,6 @@ public final class Auth_pb {
       return org.foomaa.jvchat.messages.Auth_pb.internal_static_RegistrationRequestProto_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.class, org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.Builder.class);
-    }
-
-    public static final int TYPE_FIELD_NUMBER = 1;
-    private int type_;
-    /**
-     * <code>uint32 type = 1;</code>
-     * @return The type.
-     */
-    @java.lang.Override
-    public int getType() {
-      return type_;
     }
 
     public static final int LOGIN_FIELD_NUMBER = 2;
@@ -1033,9 +2905,6 @@ public final class Auth_pb {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (type_ != 0) {
-        output.writeUInt32(1, type_);
-      }
       if (!getLoginBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 2, login_);
       }
@@ -1051,10 +2920,6 @@ public final class Auth_pb {
       if (size != -1) return size;
 
       size = 0;
-      if (type_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(1, type_);
-      }
       if (!getLoginBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, login_);
       }
@@ -1076,8 +2941,6 @@ public final class Auth_pb {
       }
       org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto other = (org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto) obj;
 
-      if (getType()
-          != other.getType()) return false;
       if (!getLogin()
           .equals(other.getLogin())) return false;
       if (!getPassword()
@@ -1093,8 +2956,6 @@ public final class Auth_pb {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + TYPE_FIELD_NUMBER;
-      hash = (53 * hash) + getType();
       hash = (37 * hash) + LOGIN_FIELD_NUMBER;
       hash = (53 * hash) + getLogin().hashCode();
       hash = (37 * hash) + PASSWORD_FIELD_NUMBER;
@@ -1232,8 +3093,6 @@ public final class Auth_pb {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        type_ = 0;
-
         login_ = "";
 
         password_ = "";
@@ -1264,7 +3123,6 @@ public final class Auth_pb {
       @java.lang.Override
       public org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto buildPartial() {
         org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto result = new org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto(this);
-        result.type_ = type_;
         result.login_ = login_;
         result.password_ = password_;
         onBuilt();
@@ -1315,9 +3173,6 @@ public final class Auth_pb {
 
       public Builder mergeFrom(org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto other) {
         if (other == org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.getDefaultInstance()) return this;
-        if (other.getType() != 0) {
-          setType(other.getType());
-        }
         if (!other.getLogin().isEmpty()) {
           login_ = other.login_;
           onChanged();
@@ -1352,37 +3207,6 @@ public final class Auth_pb {
             mergeFrom(parsedMessage);
           }
         }
-        return this;
-      }
-
-      private int type_ ;
-      /**
-       * <code>uint32 type = 1;</code>
-       * @return The type.
-       */
-      @java.lang.Override
-      public int getType() {
-        return type_;
-      }
-      /**
-       * <code>uint32 type = 1;</code>
-       * @param value The type to set.
-       * @return This builder for chaining.
-       */
-      public Builder setType(int value) {
-        
-        type_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>uint32 type = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearType() {
-        
-        type_ = 0;
-        onChanged();
         return this;
       }
 
@@ -1590,574 +3414,9 @@ public final class Auth_pb {
 
   }
 
-  public interface EntryReplyProtoOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:EntryReplyProto)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>uint32 type = 1;</code>
-     * @return The type.
-     */
-    int getType();
-
-    /**
-     * <code>bool reply = 2;</code>
-     * @return The reply.
-     */
-    boolean getReply();
-  }
-  /**
-   * Protobuf type {@code EntryReplyProto}
-   */
-  public static final class EntryReplyProto extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:EntryReplyProto)
-      EntryReplyProtoOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use EntryReplyProto.newBuilder() to construct.
-    private EntryReplyProto(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private EntryReplyProto() {
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new EntryReplyProto();
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private EntryReplyProto(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 8: {
-
-              type_ = input.readUInt32();
-              break;
-            }
-            case 16: {
-
-              reply_ = input.readBool();
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return org.foomaa.jvchat.messages.Auth_pb.internal_static_EntryReplyProto_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return org.foomaa.jvchat.messages.Auth_pb.internal_static_EntryReplyProto_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.class, org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.Builder.class);
-    }
-
-    public static final int TYPE_FIELD_NUMBER = 1;
-    private int type_;
-    /**
-     * <code>uint32 type = 1;</code>
-     * @return The type.
-     */
-    @java.lang.Override
-    public int getType() {
-      return type_;
-    }
-
-    public static final int REPLY_FIELD_NUMBER = 2;
-    private boolean reply_;
-    /**
-     * <code>bool reply = 2;</code>
-     * @return The reply.
-     */
-    @java.lang.Override
-    public boolean getReply() {
-      return reply_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (type_ != 0) {
-        output.writeUInt32(1, type_);
-      }
-      if (reply_ != false) {
-        output.writeBool(2, reply_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (type_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(1, type_);
-      }
-      if (reply_ != false) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(2, reply_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto)) {
-        return super.equals(obj);
-      }
-      org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto other = (org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) obj;
-
-      if (getType()
-          != other.getType()) return false;
-      if (getReply()
-          != other.getReply()) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + TYPE_FIELD_NUMBER;
-      hash = (53 * hash) + getType();
-      hash = (37 * hash) + REPLY_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getReply());
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code EntryReplyProto}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:EntryReplyProto)
-        org.foomaa.jvchat.messages.Auth_pb.EntryReplyProtoOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_EntryReplyProto_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_EntryReplyProto_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.class, org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.Builder.class);
-      }
-
-      // Construct using org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        type_ = 0;
-
-        reply_ = false;
-
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_EntryReplyProto_descriptor;
-      }
-
-      @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto getDefaultInstanceForType() {
-        return org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto build() {
-        org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto buildPartial() {
-        org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto result = new org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto(this);
-        result.type_ = type_;
-        result.reply_ = reply_;
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) {
-          return mergeFrom((org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto other) {
-        if (other == org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.getDefaultInstance()) return this;
-        if (other.getType() != 0) {
-          setType(other.getType());
-        }
-        if (other.getReply() != false) {
-          setReply(other.getReply());
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private int type_ ;
-      /**
-       * <code>uint32 type = 1;</code>
-       * @return The type.
-       */
-      @java.lang.Override
-      public int getType() {
-        return type_;
-      }
-      /**
-       * <code>uint32 type = 1;</code>
-       * @param value The type to set.
-       * @return This builder for chaining.
-       */
-      public Builder setType(int value) {
-        
-        type_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>uint32 type = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearType() {
-        
-        type_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private boolean reply_ ;
-      /**
-       * <code>bool reply = 2;</code>
-       * @return The reply.
-       */
-      @java.lang.Override
-      public boolean getReply() {
-        return reply_;
-      }
-      /**
-       * <code>bool reply = 2;</code>
-       * @param value The reply to set.
-       * @return This builder for chaining.
-       */
-      public Builder setReply(boolean value) {
-        
-        reply_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>bool reply = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearReply() {
-        
-        reply_ = false;
-        onChanged();
-        return this;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:EntryReplyProto)
-    }
-
-    // @@protoc_insertion_point(class_scope:EntryReplyProto)
-    private static final org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto();
-    }
-
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<EntryReplyProto>
-        PARSER = new com.google.protobuf.AbstractParser<EntryReplyProto>() {
-      @java.lang.Override
-      public EntryReplyProto parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new EntryReplyProto(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<EntryReplyProto> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<EntryReplyProto> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
   public interface RegistrationReplyProtoOrBuilder extends
       // @@protoc_insertion_point(interface_extends:RegistrationReplyProto)
       com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>uint32 type = 1;</code>
-     * @return The type.
-     */
-    int getType();
 
     /**
      * <code>bool reply = 2;</code>
@@ -2210,11 +3469,6 @@ public final class Auth_pb {
             case 0:
               done = true;
               break;
-            case 8: {
-
-              type_ = input.readUInt32();
-              break;
-            }
             case 16: {
 
               reply_ = input.readBool();
@@ -2252,17 +3506,6 @@ public final class Auth_pb {
               org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.class, org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Builder.class);
     }
 
-    public static final int TYPE_FIELD_NUMBER = 1;
-    private int type_;
-    /**
-     * <code>uint32 type = 1;</code>
-     * @return The type.
-     */
-    @java.lang.Override
-    public int getType() {
-      return type_;
-    }
-
     public static final int REPLY_FIELD_NUMBER = 2;
     private boolean reply_;
     /**
@@ -2288,9 +3531,6 @@ public final class Auth_pb {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (type_ != 0) {
-        output.writeUInt32(1, type_);
-      }
       if (reply_ != false) {
         output.writeBool(2, reply_);
       }
@@ -2303,10 +3543,6 @@ public final class Auth_pb {
       if (size != -1) return size;
 
       size = 0;
-      if (type_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(1, type_);
-      }
       if (reply_ != false) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(2, reply_);
@@ -2326,8 +3562,6 @@ public final class Auth_pb {
       }
       org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto other = (org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto) obj;
 
-      if (getType()
-          != other.getType()) return false;
       if (getReply()
           != other.getReply()) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
@@ -2341,8 +3575,6 @@ public final class Auth_pb {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + TYPE_FIELD_NUMBER;
-      hash = (53 * hash) + getType();
       hash = (37 * hash) + REPLY_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getReply());
@@ -2479,8 +3711,6 @@ public final class Auth_pb {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        type_ = 0;
-
         reply_ = false;
 
         return this;
@@ -2509,7 +3739,6 @@ public final class Auth_pb {
       @java.lang.Override
       public org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto buildPartial() {
         org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto result = new org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto(this);
-        result.type_ = type_;
         result.reply_ = reply_;
         onBuilt();
         return result;
@@ -2559,9 +3788,6 @@ public final class Auth_pb {
 
       public Builder mergeFrom(org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto other) {
         if (other == org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.getDefaultInstance()) return this;
-        if (other.getType() != 0) {
-          setType(other.getType());
-        }
         if (other.getReply() != false) {
           setReply(other.getReply());
         }
@@ -2591,37 +3817,6 @@ public final class Auth_pb {
             mergeFrom(parsedMessage);
           }
         }
-        return this;
-      }
-
-      private int type_ ;
-      /**
-       * <code>uint32 type = 1;</code>
-       * @return The type.
-       */
-      @java.lang.Override
-      public int getType() {
-        return type_;
-      }
-      /**
-       * <code>uint32 type = 1;</code>
-       * @param value The type to set.
-       * @return This builder for chaining.
-       */
-      public Builder setType(int value) {
-        
-        type_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>uint32 type = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearType() {
-        
-        type_ = 0;
-        onChanged();
         return this;
       }
 
@@ -2709,20 +3904,25 @@ public final class Auth_pb {
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_GeneralAuthProto_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_GeneralAuthProto_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_EntryRequestProto_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_EntryRequestProto_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_RegistrationRequestProto_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_RegistrationRequestProto_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_EntryReplyProto_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_EntryReplyProto_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_RegistrationRequestProto_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_RegistrationRequestProto_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_RegistrationReplyProto_descriptor;
   private static final 
@@ -2737,43 +3937,54 @@ public final class Auth_pb {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\rauth_pb.proto\"B\n\021EntryRequestProto\022\014\n\004" +
-      "type\030\001 \001(\r\022\r\n\005login\030\002 \001(\t\022\020\n\010password\030\003 " +
-      "\001(\t\"I\n\030RegistrationRequestProto\022\014\n\004type\030" +
-      "\001 \001(\r\022\r\n\005login\030\002 \001(\t\022\020\n\010password\030\003 \001(\t\"." +
-      "\n\017EntryReplyProto\022\014\n\004type\030\001 \001(\r\022\r\n\005reply" +
-      "\030\002 \001(\010\"5\n\026RegistrationReplyProto\022\014\n\004type" +
-      "\030\001 \001(\r\022\r\n\005reply\030\002 \001(\010B%\n\032org.foomaa.jvch" +
-      "at.messagesB\007Auth_pbb\006proto3"
+      "\n\rauth_pb.proto\"\354\001\n\020GeneralAuthProto\022\014\n\004" +
+      "type\030\001 \001(\r\022*\n\014entryRequest\030\002 \001(\0132\022.Entry" +
+      "RequestProtoH\000\022&\n\nentryReply\030\003 \001(\0132\020.Ent" +
+      "ryReplyProtoH\000\0228\n\023registrationRequest\030\004 " +
+      "\001(\0132\031.RegistrationRequestProtoH\000\0224\n\021regi" +
+      "strationReply\030\005 \001(\0132\027.RegistrationReplyP" +
+      "rotoH\000B\006\n\004body\"4\n\021EntryRequestProto\022\r\n\005l" +
+      "ogin\030\002 \001(\t\022\020\n\010password\030\003 \001(\t\" \n\017EntryRep" +
+      "lyProto\022\r\n\005reply\030\002 \001(\010\";\n\030RegistrationRe" +
+      "questProto\022\r\n\005login\030\002 \001(\t\022\020\n\010password\030\003 " +
+      "\001(\t\"\'\n\026RegistrationReplyProto\022\r\n\005reply\030\002" +
+      " \001(\010B%\n\032org.foomaa.jvchat.messagesB\007Auth" +
+      "_pbb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         });
-    internal_static_EntryRequestProto_descriptor =
+    internal_static_GeneralAuthProto_descriptor =
       getDescriptor().getMessageTypes().get(0);
+    internal_static_GeneralAuthProto_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_GeneralAuthProto_descriptor,
+        new java.lang.String[] { "Type", "EntryRequest", "EntryReply", "RegistrationRequest", "RegistrationReply", "Body", });
+    internal_static_EntryRequestProto_descriptor =
+      getDescriptor().getMessageTypes().get(1);
     internal_static_EntryRequestProto_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_EntryRequestProto_descriptor,
-        new java.lang.String[] { "Type", "Login", "Password", });
-    internal_static_RegistrationRequestProto_descriptor =
-      getDescriptor().getMessageTypes().get(1);
-    internal_static_RegistrationRequestProto_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_RegistrationRequestProto_descriptor,
-        new java.lang.String[] { "Type", "Login", "Password", });
+        new java.lang.String[] { "Login", "Password", });
     internal_static_EntryReplyProto_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_EntryReplyProto_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_EntryReplyProto_descriptor,
-        new java.lang.String[] { "Type", "Reply", });
-    internal_static_RegistrationReplyProto_descriptor =
+        new java.lang.String[] { "Reply", });
+    internal_static_RegistrationRequestProto_descriptor =
       getDescriptor().getMessageTypes().get(3);
+    internal_static_RegistrationRequestProto_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_RegistrationRequestProto_descriptor,
+        new java.lang.String[] { "Login", "Password", });
+    internal_static_RegistrationReplyProto_descriptor =
+      getDescriptor().getMessageTypes().get(4);
     internal_static_RegistrationReplyProto_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_RegistrationReplyProto_descriptor,
-        new java.lang.String[] { "Type", "Reply", });
+        new java.lang.String[] { "Reply", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
