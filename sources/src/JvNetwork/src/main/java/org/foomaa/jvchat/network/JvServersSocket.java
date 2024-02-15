@@ -4,10 +4,7 @@ import org.foomaa.jvchat.settings.JvMainSettings;
 
 import java.io.*;
 import java.net.ServerSocket;
-import java.net.Socket;
 import java.net.InetAddress;
-import java.util.LinkedList;
-
 
 public class JvServersSocket {
     private static JvServersSocket instance;

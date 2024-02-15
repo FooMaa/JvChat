@@ -2,6 +2,7 @@ package org.foomaa.jvchat.ctrl;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Arrays;
 
 public class JvUsersSocketThreadCtrl extends Thread {
     private Socket socketTread;
@@ -23,7 +24,7 @@ public class JvUsersSocketThreadCtrl extends Thread {
                 if (length > 0) {
                     byte[] message = new byte[length];
                     readFromServer.readFully(message, 0, message.length);
-                    System.out.println(message);
+                    System.out.println(Arrays.toString(message));
                     JvNetworkCtrl.takeMessage(message, currentThread());
                 }
             }

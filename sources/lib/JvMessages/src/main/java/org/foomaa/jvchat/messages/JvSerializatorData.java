@@ -1,6 +1,5 @@
 package org.foomaa.jvchat.messages;
 
-
 import com.google.protobuf.InvalidProtocolBufferException;
 
 public class JvSerializatorData {
@@ -43,21 +42,20 @@ public class JvSerializatorData {
         return new byte[0];
     }
 
-    public static void deSerialiseData(byte[] data) throws InvalidProtocolBufferException {
+    public static void deSerialiseData(byte[] data) {
         TypeMessage type = null;
         try {
             int numberType = Auth_pb.GeneralAuthProto.parseFrom(data).getType();
             type = TypeMessage.values()[numberType];
+            switch (type) {
+                case EntryRequest:
+                    System.out.println(Auth_pb.EntryRequestProto.parseFrom(data).getLogin());
+                    break;
+                case RegistrationRequest:
+                    break;
+            }
         } catch (InvalidProtocolBufferException exception) {
             System.out.println("Error in protobuf deserialised");
-        }
-
-        switch (type) {
-            case EntryRequest:
-                System.out.println(Auth_pb.EntryRequestProto.parseFrom(data).getLogin());
-                break;
-            case RegistrationRequest:
-                break;
         }
     }
 

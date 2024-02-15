@@ -1,6 +1,5 @@
 package org.foomaa.jvchat.ctrl;
 
-import com.google.protobuf.InvalidProtocolBufferException;
 import org.foomaa.jvchat.settings.JvMainSettings;
 import org.foomaa.jvchat.network.JvServersSocket;
 import org.foomaa.jvchat.network.JvUsersSocket;
@@ -39,8 +38,7 @@ public class JvNetworkCtrl {
         return instance;
     }
 
-
-    public static void takeMessage(byte[] message, Thread thr) throws InvalidProtocolBufferException {
+    public static void takeMessage(byte[] message, Thread thr) {
             serversThread = (JvServersSocketThreadCtrl) thr;
             JvMessageCtrl.takeMessage(message);
     }
