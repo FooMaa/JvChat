@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.ctrl;
 
+import com.google.protobuf.InvalidProtocolBufferException;
 import org.foomaa.jvchat.messages.JvSerializatorData;
 
 import java.io.IOException;
@@ -50,7 +51,7 @@ public class JvMessageCtrl {
         JvNetworkCtrl.setMessage(bodyMessage);
     }
     
-    public static void takeMessage(byte[] dataMsg) {
+    public static void takeMessage(byte[] dataMsg) throws InvalidProtocolBufferException {
         JvSerializatorData.deSerialiseData(dataMsg);
     }
 }
