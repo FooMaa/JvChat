@@ -1,20 +1,20 @@
 package org.foomaa.jvchat.network;
 
+import org.foomaa.jvchat.ctrl.JvNetworkCtrl;
+
 import java.io.*;
 import java.net.Socket;
-import java.util.function.BiConsumer;
 
-public class JvServersThread extends Thread {
+public class JvServersThread extends Thread
+{
     private Socket socketTread;
     private BufferedReader readFromUser;
     private BufferedWriter writeToUser;
-    private BiConsumer<String,Thread> connectFunction;
 
-    public JvServersThread(Socket fromSocketUser, BiConsumer<String,Thread> func) throws IOException {
+    public JvServersThread(Socket fromSocketUser) throws IOException {
         this.socketTread = fromSocketUser;
         readFromUser = new BufferedReader(new InputStreamReader(socketTread.getInputStream()));
         writeToUser = new BufferedWriter(new OutputStreamWriter(socketTread.getOutputStream()));
-        connectFunction = func;
         start();
     }
 
@@ -26,7 +26,7 @@ public class JvServersThread extends Thread {
                     break;
                 }
                 System.out.println("The message: " + readFromUser.readLine());
-//                JvNetworkCtrl.takeMessage(readFromUser.readLine(), currentThread());
+                JvNetworkCtrl.takeMessage(readFromUser.readLine(), currentThread());
             }
         } catch (IOException exception) {
             exception.printStackTrace();
