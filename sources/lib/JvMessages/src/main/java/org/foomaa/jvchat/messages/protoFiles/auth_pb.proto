@@ -3,14 +3,24 @@ syntax = "proto3";
 option java_outer_classname = "Auth_pb";
 option java_package = "org.foomaa.jvchat.messages";
 
-message DbEntryProto {
+message EntryRequestProto {
     uint32 type = 1;
     string login = 2;
     string password = 3;
 }
 
-message DbRegistrationProto {
+message RegistrationRequestProto {
     uint32 type = 1;
     string login = 2;
     string password = 3;
+}
+
+message EntryReplyProto {
+    uint32 type = 1;
+    bool reply = 2;
+}
+
+message RegistrationReplyProto {
+    uint32 type = 1;
+    bool reply = 2;
 }
