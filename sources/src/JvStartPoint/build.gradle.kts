@@ -89,6 +89,10 @@ tasks {
     }
 }
 
+tasks.withType<JavaExec>() {
+    standardInput = System.`in`
+}
+
 sourceSets.getByName("main") {
     java.srcDir("src/main/java/")
 }

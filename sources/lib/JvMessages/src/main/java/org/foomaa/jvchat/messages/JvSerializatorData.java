@@ -49,8 +49,8 @@ public class JvSerializatorData {
             type = TypeMessage.values()[numberType];
             switch (type) {
                 case EntryRequest:
-                    System.out.println("Login:\t" + Auth_pb.GeneralAuthProto.parseFrom(data).getEntryRequest().getLogin());
-                    System.out.println("Password:" + Auth_pb.GeneralAuthProto.parseFrom(data).getEntryRequest().getPassword());
+                    System.out.println("Login:\t\t" + Auth_pb.GeneralAuthProto.parseFrom(data).getEntryRequest().getLogin());
+                    System.out.println("Password: " + Auth_pb.GeneralAuthProto.parseFrom(data).getEntryRequest().getPassword());
                     break;
                 case RegistrationRequest:
                     break;
