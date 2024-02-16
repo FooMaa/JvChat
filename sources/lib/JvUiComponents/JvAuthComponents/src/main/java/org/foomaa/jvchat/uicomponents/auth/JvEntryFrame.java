@@ -105,12 +105,8 @@ public class JvEntryFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (checkFields()) {
-                    try {
-                        JvMessageCtrl.sendMessage(JvSerializatorData.TypeMessage.EntryRequest,
-                                tLogin.getInputText(), tPassword.getInputText());
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
+                    JvMessageCtrl.sendMessage(JvSerializatorData.TypeMessage.EntryRequest,
+                            tLogin.getInputText(), tPassword.getInputText());
                 }
             }
         });

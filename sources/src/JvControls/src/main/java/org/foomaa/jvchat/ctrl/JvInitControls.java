@@ -4,13 +4,13 @@ import java.io.IOException;
 import java.sql.SQLException;
 public class JvInitControls {
     private static JvInitControls instance;
-    private JvInitControls() throws SQLException, IOException {
+    private JvInitControls() throws IOException {
         JvDbCtrl.getInstance();
         JvMessageCtrl.getInstance();
         JvNetworkCtrl.getInstance();
     }
 
-    public static JvInitControls getInstance() throws SQLException, IOException {
+    public static JvInitControls getInstance() throws IOException {
         if(instance == null){
             instance = new JvInitControls();
         }

@@ -12,7 +12,8 @@ public class JvUsersSocket {
 
     private JvUsersSocket() throws IOException {
         socketUsers = new Socket();
-        socketUsers.connect(new InetSocketAddress(JvMainSettings.getIp(), JvMainSettings.getPort()), 4000);
+        socketUsers.connect(new InetSocketAddress(JvMainSettings.getIp(),
+                JvMainSettings.getPort()), 4000);
         closeSocketWhenKill();
     }
 

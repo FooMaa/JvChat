@@ -16,7 +16,7 @@ public class JvMessageCtrl {
         return instance;
     }
 
-    public static void sendMessage(JvSerializatorData.TypeMessage type, String ... parameters) throws IOException {
+    public static void sendMessage(JvSerializatorData.TypeMessage type, String ... parameters) {
         switch (type) {
             case EntryRequest:
                 if (parameters.length == 2) {
@@ -40,12 +40,12 @@ public class JvMessageCtrl {
 
     }
 
-    private static void sendEntryMessage(JvSerializatorData.TypeMessage type, String login, String password) throws IOException {
+    private static void sendEntryMessage(JvSerializatorData.TypeMessage type, String login, String password) {
         byte[] bodyMessage = JvSerializatorData.serialiseData(type, login, password);
         JvNetworkCtrl.setMessage(bodyMessage);
     }
 
-    private static void sendRegistrationMessage(JvSerializatorData.TypeMessage type, String login, String password) throws IOException {
+    private static void sendRegistrationMessage(JvSerializatorData.TypeMessage type, String login, String password) {
         byte[] bodyMessage = JvSerializatorData.serialiseData(type, login, password);
         JvNetworkCtrl.setMessage(bodyMessage);
     }

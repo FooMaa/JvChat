@@ -1,6 +1,5 @@
 package org.foomaa.jvchat.auth;
 
-
 import org.foomaa.jvchat.uicomponents.auth.JvAuthOptionPane;
 
 public class JvErrorStart {

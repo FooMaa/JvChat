@@ -13,7 +13,7 @@ public class JvNetworkCtrl {
     private static JvNetworkCtrl instance;
     private static JvUsersSocketThreadCtrl usersThread;
     private static JvServersSocketThreadCtrl serversThread;
-    public static LinkedList<JvServersSocketThreadCtrl> connectionList = new LinkedList<>(); // список всех подключений
+    public static LinkedList<JvServersSocketThreadCtrl> connectionList = new LinkedList<>();
 
     private JvNetworkCtrl() throws IOException {
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
@@ -43,7 +43,7 @@ public class JvNetworkCtrl {
             JvMessageCtrl.takeMessage(message);
     }
 
-    public static void setMessage(byte[] message) throws IOException {
+    public static void setMessage(byte[] message) {
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             serversThread.send(message);
         } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {

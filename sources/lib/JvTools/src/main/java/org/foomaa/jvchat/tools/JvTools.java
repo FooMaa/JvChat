@@ -55,7 +55,7 @@ public class JvTools
         }
     }
 
-    public static void initServersParameters() throws IOException {
+    public static void initServersParameters() {
         Scanner in = new Scanner(System.in);
 
         System.out.println("Введи IP-адрес или нажми Enter для значения по умолчанию (по умолчанию auto): ");
@@ -109,7 +109,7 @@ public class JvTools
         }
     }
 
-    private static void setIpToSettings(String ip) throws IOException {
+    private static void setIpToSettings(String ip) {
         if (!ip.isEmpty()) {
             JvMainSettings.setIp(ip);
         } else {
@@ -117,7 +117,7 @@ public class JvTools
             Socket socket = new Socket();
             try {
                 socket.connect(new InetSocketAddress("google.com", 80));
-            } catch (UnknownHostException exception) {
+            } catch (IOException exception) {
                 System.out.println("Не получилось выйти в сеть, проверь подключение и попытайся снова!");
                 System.exit(1);
             }

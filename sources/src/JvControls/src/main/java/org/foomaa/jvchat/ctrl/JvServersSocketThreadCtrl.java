@@ -9,10 +9,14 @@ public class JvServersSocketThreadCtrl extends Thread
     private DataInputStream readFromUser;
     private DataOutputStream sendToUser;
 
-    public JvServersSocketThreadCtrl(Socket fromSocketUser) throws IOException {
+    public JvServersSocketThreadCtrl(Socket fromSocketUser) {
         this.socketTread = fromSocketUser;
-        sendToUser = new DataOutputStream(socketTread.getOutputStream());
-        readFromUser =  new DataInputStream(socketTread.getInputStream());
+        try {
+            sendToUser = new DataOutputStream(socketTread.getOutputStream());
+            readFromUser =  new DataInputStream(socketTread.getInputStream());
+        } catch (IOException exception) {
+            System.out.println("Ошибка в создании потоков отправки и принятия сообщений");
+        }
         start();
     }
 

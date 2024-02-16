@@ -27,7 +27,7 @@ public class JvServersSocket {
 
             closeSocketWhenKill();
         } catch (IOException exception) {
-            System.out.println("Server is aborted");;
+            System.out.println("Ошибка при создании сокета сервера");;
         }
     }
 
