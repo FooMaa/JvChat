@@ -22,12 +22,12 @@ public class JvNetworkCtrl {
                 Socket fromSocketUser = socketServers.accept();
                 JvServersSocketThreadCtrl thread = new JvServersSocketThreadCtrl(fromSocketUser);
                 connectionList.add(thread);
-                thread.send("IT.S SERVER".getBytes());
+//                thread.send("IT.S SERVER".getBytes());
             }
         } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
             Socket socketUsers = JvUsersSocket.getInstance().getCurrentSocket();
             usersThread = new JvUsersSocketThreadCtrl(socketUsers);
-            usersThread.send("IT.S USER".getBytes());
+//            usersThread.send("IT.S USER".getBytes());
         }
     }
 
