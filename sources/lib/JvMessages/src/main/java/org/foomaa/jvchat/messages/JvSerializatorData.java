@@ -50,7 +50,7 @@ public class JvSerializatorData {
             switch (type) {
                 case EntryRequest:
                     System.out.println(data);
-                    System.out.println(Auth_pb.EntryRequestProto.parseFrom(data).getPassword());
+                    System.out.println(Auth_pb.GeneralAuthProto.parseFrom(data).getEntryRequest().getLogin());
                     break;
                 case RegistrationRequest:
                     break;
