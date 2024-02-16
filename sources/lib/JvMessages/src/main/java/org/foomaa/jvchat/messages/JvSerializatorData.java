@@ -10,7 +10,7 @@ public class JvSerializatorData {
         RegistrationReply(3);
 
         private final int value;
-        private TypeMessage(int value) {
+        TypeMessage(int value) {
             this.value = value;
         }
 
@@ -49,6 +49,7 @@ public class JvSerializatorData {
             type = TypeMessage.values()[numberType];
             switch (type) {
                 case EntryRequest:
+                    System.out.println(data);
                     System.out.println(Auth_pb.EntryRequestProto.parseFrom(data).getLogin());
                     break;
                 case RegistrationRequest:

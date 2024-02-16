@@ -2,8 +2,6 @@ package org.foomaa.jvchat.ctrl;
 
 import org.foomaa.jvchat.messages.JvSerializatorData;
 
-import java.io.IOException;
-
 public class JvMessageCtrl {
     private static JvMessageCtrl instance;
 

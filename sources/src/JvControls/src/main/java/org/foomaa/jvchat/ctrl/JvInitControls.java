@@ -1,7 +1,7 @@
 package org.foomaa.jvchat.ctrl;
 
 import java.io.IOException;
-import java.sql.SQLException;
+
 public class JvInitControls {
     private static JvInitControls instance;
     private JvInitControls() throws IOException {
