@@ -22,12 +22,10 @@ public class JvNetworkCtrl {
                 Socket fromSocketUser = socketServers.accept();
                 JvServersSocketThreadCtrl thread = new JvServersSocketThreadCtrl(fromSocketUser);
                 connectionList.add(thread);
-//                thread.send("IT.S SERVER".getBytes());
             }
         } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
             Socket socketUsers = JvUsersSocket.getInstance().getCurrentSocket();
             usersThread = new JvUsersSocketThreadCtrl(socketUsers);
-//            usersThread.send("IT.S USER".getBytes());
         }
     }
 
@@ -38,9 +36,13 @@ public class JvNetworkCtrl {
         return instance;
     }
 
-    public static void takeMessage(byte[] message, JvServersSocketThreadCtrl thr) {
+    public static void takeMessage(byte[] message, Thread thr) {
+        if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             serversThread = (JvServersSocketThreadCtrl) thr;
-            JvMessageCtrl.takeMessage(message);
+        } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
+            usersThread = (JvUsersSocketThreadCtrl) thr;
+        }
+        JvMessageCtrl.takeMessage(message);
     }
 
     public static void setMessage(byte[] message) {

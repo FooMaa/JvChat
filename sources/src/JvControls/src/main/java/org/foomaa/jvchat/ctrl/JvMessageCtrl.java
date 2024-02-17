@@ -2,6 +2,8 @@ package org.foomaa.jvchat.ctrl;
 
 import org.foomaa.jvchat.messages.JvSerializatorData;
 
+import java.util.HashMap;
+
 public class JvMessageCtrl {
     private static JvMessageCtrl instance;
 
@@ -49,6 +51,18 @@ public class JvMessageCtrl {
     }
     
     public static void takeMessage(byte[] dataMsg) {
-        JvSerializatorData.deSerialiseData(dataMsg);
+        JvSerializatorData.TypeMessage type = JvSerializatorData.getTypeMessage(dataMsg);
+        HashMap<JvSerializatorData.TypeData, String> map;
+        switch (type) {
+            case EntryRequest:
+                map = JvSerializatorData.takeEntryRequestMessage(dataMsg);
+                boolean requestDB = JvDbCtrl.getInstance().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.UserPassword,
+                        map.get(JvSerializatorData.TypeData.Login),  map.get(JvSerializatorData.TypeData.Password));
+                System.out.println(requestDB);
+                break;
+            case RegistrationRequest:
+                map = JvSerializatorData.takeRegistrationRequestMessage(dataMsg);
+                break;
+        }
     }
 }

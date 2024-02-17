@@ -2,6 +2,8 @@ package org.foomaa.jvchat.messages;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
+import java.util.HashMap;
+
 public class JvSerializatorData {
     public enum TypeMessage {
         EntryRequest(0),
@@ -18,6 +20,12 @@ public class JvSerializatorData {
             return value;
         }
 
+    }
+
+    public enum TypeData {
+        Login,
+        Password,
+        Request
     }
 
     public static byte[] serialiseData(TypeMessage type, String ... parameters) {
@@ -42,22 +50,15 @@ public class JvSerializatorData {
         return new byte[0];
     }
 
-    public static void deSerialiseData(byte[] data) {
+    public static TypeMessage getTypeMessage(byte[] data) {
         TypeMessage type = null;
         try {
             int numberType = Auth_pb.GeneralAuthProto.parseFrom(data).getType();
             type = TypeMessage.values()[numberType];
-            switch (type) {
-                case EntryRequest:
-                    System.out.println("Login: " + Auth_pb.GeneralAuthProto.parseFrom(data).getEntryRequest().getLogin());
-                    System.out.println("Password: " + Auth_pb.GeneralAuthProto.parseFrom(data).getEntryRequest().getPassword());
-                    break;
-                case RegistrationRequest:
-                    break;
-            }
         } catch (InvalidProtocolBufferException exception) {
-            System.out.println("Error in protobuf deserialised");
+            System.out.println("Error in protobuf deserialised type");
         }
+        return type;
     }
 
     private static byte[] createEntryRequestMessage(TypeMessage type, String login, String password) {
@@ -84,7 +85,29 @@ public class JvSerializatorData {
         return resMsg.toByteArray();
     }
 
-    private static void takeEntryRequestMessage(Auth_pb.EntryRequestProto entryRequest) {
-        System.out.println("Deserialize: " + entryRequest.getLogin() + " " + entryRequest.getPassword());
+    public static HashMap<TypeData, String> takeEntryRequestMessage(byte[] data) {
+        HashMap<TypeData, String> result = new HashMap<>();
+        try {
+            result.put(TypeData.Login, Auth_pb.GeneralAuthProto.parseFrom(data)
+                    .getEntryRequest().getLogin());
+            result.put(TypeData.Password, Auth_pb.GeneralAuthProto.parseFrom(data)
+                    .getEntryRequest().getPassword());
+        } catch (InvalidProtocolBufferException exception) {
+            System.out.println("Error in protobuf deserialised data");
+        }
+        return result;
+    }
+
+    public static HashMap<TypeData, String> takeRegistrationRequestMessage(byte[] data) {
+        HashMap<TypeData, String> result = new HashMap<>();
+        try {
+            result.put(TypeData.Login, Auth_pb.GeneralAuthProto.parseFrom(data).
+                    getRegistrationRequest().getLogin());
+            result.put(TypeData.Password, Auth_pb.GeneralAuthProto.parseFrom(data).
+                    getRegistrationRequest().getPassword());
+        } catch (InvalidProtocolBufferException exception) {
+            System.out.println("Error in protobuf deserialised data");
+        }
+        return result;
     }
 }
