@@ -62,7 +62,7 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION chat_schema.logins_passwords_check_login(
-    f_login character varying,
+    f_login character varying
 )
     RETURNS SETOF chat_schema.logins_passwords AS
 $BODY$
