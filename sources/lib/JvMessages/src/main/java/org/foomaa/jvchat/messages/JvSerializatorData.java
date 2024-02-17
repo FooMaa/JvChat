@@ -28,12 +28,12 @@ public class JvSerializatorData {
         BoolReply
     }
 
-    public static <TYPE> byte[] serialiseData(TypeMessage type, TYPE ... parameters) {
+    public static <TYPEPARAM> byte[] serialiseData(TypeMessage type, TYPEPARAM... parameters) {
         switch (type) {
             case EntryRequest:
                 if (parameters.length == 2) {
-                    TYPE login = parameters[0];
-                    TYPE password = parameters[1];
+                    TYPEPARAM login = parameters[0];
+                    TYPEPARAM password = parameters[1];
                     return createEntryRequestMessage(type,
                             (String) login, (String) password);
                 } else {
@@ -41,8 +41,8 @@ public class JvSerializatorData {
                 }
             case RegistrationRequest:
                 if (parameters.length == 2) {
-                    TYPE login = parameters[0];
-                    TYPE password = parameters[1];
+                    TYPEPARAM login = parameters[0];
+                    TYPEPARAM password = parameters[1];
                     return createRegistrationRequestMessage(type,
                             (String) login, (String) password);
                 } else {
@@ -50,8 +50,15 @@ public class JvSerializatorData {
                 }
             case EntryReply:
                 if (parameters.length == 1) {
-                    TYPE reply = parameters[0];
+                    TYPEPARAM reply = parameters[0];
                     return createEntryReplyMessage(type, (Boolean) reply);
+                } else {
+                    return new byte[0];
+                }
+            case RegistrationReply:
+                if (parameters.length == 1) {
+                    TYPEPARAM reply = parameters[0];
+                    return createRegistrationReplyMessage(type, (Boolean) reply);
                 } else {
                     return new byte[0];
                 }
@@ -83,12 +90,12 @@ public class JvSerializatorData {
     }
 
     private static byte[] createEntryReplyMessage(TypeMessage type, boolean reply) {
-        Auth_pb.EntryReplyProto msgReplyRequest = Auth_pb.EntryReplyProto.newBuilder()
+        Auth_pb.EntryReplyProto msgEntryReply = Auth_pb.EntryReplyProto.newBuilder()
                 .setReply(reply)
                 .build();
         Auth_pb.GeneralAuthProto resMsg = Auth_pb.GeneralAuthProto.newBuilder()
                 .setType(type.getValue())
-                .setEntryReply(msgReplyRequest)
+                .setEntryReply(msgEntryReply)
                 .build();
         return resMsg.toByteArray();
     }
@@ -101,6 +108,17 @@ public class JvSerializatorData {
         Auth_pb.GeneralAuthProto resMsg = Auth_pb.GeneralAuthProto.newBuilder()
                 .setType(type.getValue())
                 .setRegistrationRequest(msgRegRequest)
+                .build();
+        return resMsg.toByteArray();
+    }
+
+    private static byte[] createRegistrationReplyMessage(TypeMessage type, boolean reply) {
+        Auth_pb.RegistrationReplyProto msgRegReply = Auth_pb.RegistrationReplyProto.newBuilder()
+                .setReply(reply)
+                .build();
+        Auth_pb.GeneralAuthProto resMsg = Auth_pb.GeneralAuthProto.newBuilder()
+                .setType(type.getValue())
+                .setRegistrationReply(msgRegReply)
                 .build();
         return resMsg.toByteArray();
     }
@@ -136,6 +154,17 @@ public class JvSerializatorData {
         try {
             result.put(TypeData.BoolReply, Auth_pb.GeneralAuthProto.parseFrom(data)
                     .getEntryReply().getReply());
+        } catch (InvalidProtocolBufferException exception) {
+            System.out.println("Error in protobuf deserialised data");
+        }
+        return result;
+    }
+
+    public static HashMap<TypeData, Boolean> takeRegistrationReplyMessage(byte[] data) {
+        HashMap<TypeData, Boolean> result = new HashMap<>();
+        try {
+            result.put(TypeData.BoolReply, Auth_pb.GeneralAuthProto.parseFrom(data)
+                    .getRegistrationReply().getReply());
         } catch (InvalidProtocolBufferException exception) {
             System.out.println("Error in protobuf deserialised data");
         }

@@ -15,7 +15,8 @@ public class JvDbCtrl
         RegisterForm
     }
     public enum TypeExecutionCheck {
-        UserPassword
+        UserPassword,
+        Login
     }
 
     private JvDbCtrl() {
@@ -31,22 +32,26 @@ public class JvDbCtrl
         return instance;
     }
 
-    public void insertQueryToDB(TypeExecutionInsert type, String ... parameters) {
+    public boolean insertQueryToDB(TypeExecutionInsert type, String ... parameters) {
         switch (type) {
-            case RegisterForm -> {
+            case RegisterForm:
                 if (parameters.length == 2) {
                     String login = parameters[0];
                     String password = parameters[1];
-                    db.makeExecution(JvDbDefines.insertToRegForm(login, password));
+                    if (!checkQueryToDB(TypeExecutionCheck.Login, login)) {
+                        db.makeExecution(JvDbDefines.insertToRegForm(login, password));
+                        return true;
+                    } else {
+                        return false;
+                    }
                 }
-            }
-
         }
+        return false;
     }
 
     public boolean checkQueryToDB(TypeExecutionCheck type, String ... parameters) {
         switch (type) {
-            case UserPassword -> {
+            case UserPassword:
                 if (parameters.length == 2) {
                     String login = parameters[0];
                     String password = parameters[1];
@@ -57,7 +62,16 @@ public class JvDbCtrl
                         System.out.println("Ошибка проверки запроса к БД");
                     }
                 }
-            }
+            case Login:
+                if (parameters.length == 1) {
+                    String login = parameters[0];
+                    ResultSet rs = db.makeExecution(JvDbDefines.checkLogin(login));
+                    try {
+                        return rs.next();
+                    } catch (SQLException exception) {
+                        System.out.println("Ошибка проверки запроса к БД");
+                    }
+                }
         }
         return false;
     }

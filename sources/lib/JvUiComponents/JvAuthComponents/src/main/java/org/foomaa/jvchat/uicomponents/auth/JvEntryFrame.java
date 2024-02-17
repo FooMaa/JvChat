@@ -8,7 +8,6 @@ import org.foomaa.jvchat.messages.JvSerializatorData;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Vector;
