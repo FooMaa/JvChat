@@ -1,5 +1,7 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
+import org.foomaa.jvchat.ctrl.JvMessageCtrl;
+import org.foomaa.jvchat.messages.JvSerializatorData;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.ctrl.JvDbCtrl;
 
@@ -95,13 +97,9 @@ public class JvRegistrationFrame extends JFrame {
         bRegister.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    if (checkFields()) {
-                        writeUserInDb();
-                        closeWindow();
-                    }
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
+                if (checkFields()) {
+                    JvMessageCtrl.sendMessage(JvSerializatorData.TypeMessage.RegistrationRequest,
+                            tLogin.getInputText(), tPassword.getInputText());
                 }
             }
         });
