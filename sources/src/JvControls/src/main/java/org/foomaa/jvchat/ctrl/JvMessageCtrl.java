@@ -1,6 +1,5 @@
 package org.foomaa.jvchat.ctrl;
 
-import org.foomaa.jvchat.messages.Auth_pb;
 import org.foomaa.jvchat.messages.JvSerializatorData;
 
 import java.util.HashMap;

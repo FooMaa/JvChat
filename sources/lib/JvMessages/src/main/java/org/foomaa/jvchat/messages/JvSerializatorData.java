@@ -134,7 +134,7 @@ public class JvSerializatorData {
     public static HashMap<TypeData, Boolean> takeEntryReplyMessage(byte[] data) {
         HashMap<TypeData, Boolean> result = new HashMap<>();
         try {
-            result.put(TypeData.Login, Auth_pb.GeneralAuthProto.parseFrom(data)
+            result.put(TypeData.BoolReply, Auth_pb.GeneralAuthProto.parseFrom(data)
                     .getEntryReply().getReply());
         } catch (InvalidProtocolBufferException exception) {
             System.out.println("Error in protobuf deserialised data");
