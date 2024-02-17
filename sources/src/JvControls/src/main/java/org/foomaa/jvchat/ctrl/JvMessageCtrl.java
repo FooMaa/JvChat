@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.ctrl;
 
+import org.foomaa.jvchat.messages.Auth_pb;
 import org.foomaa.jvchat.messages.JvSerializatorData;
 
 import java.util.HashMap;
@@ -52,17 +53,35 @@ public class JvMessageCtrl {
     
     public static void takeMessage(byte[] dataMsg) {
         JvSerializatorData.TypeMessage type = JvSerializatorData.getTypeMessage(dataMsg);
-        HashMap<JvSerializatorData.TypeData, String> map;
         switch (type) {
             case EntryRequest:
-                map = JvSerializatorData.takeEntryRequestMessage(dataMsg);
-                boolean requestDB = JvDbCtrl.getInstance().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.UserPassword,
-                        map.get(JvSerializatorData.TypeData.Login),  map.get(JvSerializatorData.TypeData.Password));
-                System.out.println(requestDB);
+                workEntryRequestMessage(dataMsg);
                 break;
             case RegistrationRequest:
-                map = JvSerializatorData.takeRegistrationRequestMessage(dataMsg);
+                //map = JvSerializatorData.takeRegistrationRequestMessage(dataMsg);
                 break;
+            case EntryReply:
+                workEntryReplyMessage(dataMsg);
+                break;
+        }
+    }
+
+    private static void workEntryRequestMessage(byte[] dataMsg) {
+        HashMap<JvSerializatorData.TypeData, String> map = JvSerializatorData.takeEntryRequestMessage(dataMsg);
+        boolean requestDB = JvDbCtrl.getInstance().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.UserPassword,
+                map.get(JvSerializatorData.TypeData.Login),
+                map.get(JvSerializatorData.TypeData.Password));
+        byte[] bodyMessage = JvSerializatorData.serialiseData(
+                JvSerializatorData.TypeMessage.EntryReply, requestDB);
+        JvNetworkCtrl.setMessage(bodyMessage);
+    }
+
+    private static void workEntryReplyMessage(byte[] dataMsg) {
+        HashMap<JvSerializatorData.TypeData, Boolean> map = JvSerializatorData.takeEntryReplyMessage(dataMsg);
+        if (map.get(JvSerializatorData.TypeData.BoolReply)) {
+            System.out.println("Вход разрешен");
+        } else {
+            System.out.println("Вход запрещен");
         }
     }
 }
