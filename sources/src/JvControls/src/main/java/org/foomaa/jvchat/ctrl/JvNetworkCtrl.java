@@ -7,6 +7,7 @@ import org.foomaa.jvchat.network.JvUsersSocket;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.LinkedList;
 
 public class JvNetworkCtrl {
@@ -37,6 +38,7 @@ public class JvNetworkCtrl {
     }
 
     public void takeMessage(byte[] message, Thread thr) {
+        System.out.println(Arrays.toString(message));
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             serversThread = (JvServersSocketThreadCtrl) thr;
         } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
@@ -45,7 +47,7 @@ public class JvNetworkCtrl {
         JvMessageCtrl.getInstance().takeMessage(message);
     }
 
-    public void setMessage(byte[] message) {
+    public void sendMessage(byte[] message) {
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             serversThread.send(message);
         } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {

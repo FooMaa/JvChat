@@ -3,7 +3,6 @@ package org.foomaa.jvchat.ctrl;
 import org.foomaa.jvchat.messages.JvSerializatorData;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class JvMessageCtrl {
@@ -74,7 +73,6 @@ public class JvMessageCtrl {
 
     public void takeMessage(byte[] dataMsg) {
         JvSerializatorData.TypeMessage type = JvSerializatorData.getTypeMessage(dataMsg);
-        System.out.println(Arrays.toString(dataMsg));
         switch (type) {
             case EntryRequest:
                 workEntryRequestMessage(dataMsg);
@@ -93,7 +91,7 @@ public class JvMessageCtrl {
 
     private void sendReadyMessageNetwork(byte[] bodyMessage) {
         try {
-            JvNetworkCtrl.getInstance().setMessage(bodyMessage);
+            JvNetworkCtrl.getInstance().sendMessage(bodyMessage);
         } catch (IOException exception) {
             System.out.println("Error send");
         }
