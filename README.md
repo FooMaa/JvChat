@@ -11,7 +11,7 @@ sudo scripts/db/make_default_db.sh
 ```
 - Собрать и запустить
 ``` bash
-scripts/build/build_run.sh -m -c -p users
+scripts/build/build_run.sh -m -c -p users -i 192.168.23.1
 ```
 - Вернуть БД к начальному виду (перенакатить)
 ``` bash
