@@ -38,6 +38,7 @@ public class JvMessageCtrl {
                             (String) login,
                             (String) password);
                     sendReadyMessageNetwork(bodyMessage);
+                    ENTRYREQUEST = TypeFlags.DEFAULT;
                 }
                 break;
             case RegistrationRequest:
@@ -48,6 +49,7 @@ public class JvMessageCtrl {
                             (String) login,
                             (String) password);
                     sendReadyMessageNetwork(bodyMessage);
+                    REGISTRATIONREQUEST = TypeFlags.DEFAULT;
                 }
                 break;
             case EntryReply:
