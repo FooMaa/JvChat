@@ -6,13 +6,15 @@ import java.util.Arrays;
 
 public class JvServersSocketThreadCtrl extends Thread
 {
+    private Socket socketThread;
     private DataInputStream readFromUser;
     private DataOutputStream sendToUser;
 
     public JvServersSocketThreadCtrl(Socket fromSocketUser) {
+        this.socketThread = fromSocketUser;
         try {
-            sendToUser = new DataOutputStream(fromSocketUser.getOutputStream());
-            readFromUser =  new DataInputStream(fromSocketUser.getInputStream());
+            sendToUser = new DataOutputStream(socketThread.getOutputStream());
+            readFromUser =  new DataInputStream(socketThread.getInputStream());
         } catch (IOException exception) {
             System.out.println("Ошибка в создании потоков отправки и принятия сообщений");
         }
