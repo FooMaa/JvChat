@@ -2,7 +2,6 @@ package org.foomaa.jvchat.ctrl;
 
 import org.foomaa.jvchat.messages.JvSerializatorData;
 
-import java.io.IOException;
 import java.util.HashMap;
 
 public class JvMessageCtrl {
@@ -72,7 +71,6 @@ public class JvMessageCtrl {
     }
 
     public void takeMessage(byte[] dataMsg) {
-        System.out.println(dataMsg);
         JvSerializatorData.TypeMessage type = JvSerializatorData.getTypeMessage(dataMsg);
         switch (type) {
             case EntryRequest:
