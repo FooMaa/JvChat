@@ -3,6 +3,7 @@ package org.foomaa.jvchat.ctrl;
 import org.foomaa.jvchat.messages.JvSerializatorData;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class JvMessageCtrl {
@@ -36,8 +37,8 @@ public class JvMessageCtrl {
                     TYPEPARAM login = parameters[0];
                     TYPEPARAM password = parameters[1];
                     byte[] bodyMessage = createBodyEntryRequestMessage(type,
-                            (String) login, (String) password);
-                    sendReadyMessageNetwork(bodyMessage);
+                            (String) login,
+                            (String) password);
                     sendReadyMessageNetwork(bodyMessage);
                 }
                 break;
@@ -46,7 +47,8 @@ public class JvMessageCtrl {
                     TYPEPARAM login = parameters[0];
                     TYPEPARAM password = parameters[1];
                     byte[] bodyMessage = createBodyRegistrationRequestMessage(type,
-                            (String) login, (String) password);
+                            (String) login,
+                            (String) password);
                     sendReadyMessageNetwork(bodyMessage);
                 }
                 break;
@@ -72,6 +74,7 @@ public class JvMessageCtrl {
 
     public void takeMessage(byte[] dataMsg) {
         JvSerializatorData.TypeMessage type = JvSerializatorData.getTypeMessage(dataMsg);
+        System.out.println(Arrays.toString(dataMsg));
         switch (type) {
             case EntryRequest:
                 workEntryRequestMessage(dataMsg);
