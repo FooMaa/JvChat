@@ -10,6 +10,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowAdapter;
 import java.util.Objects;
 import java.util.Vector;
+import java.util.concurrent.TimeUnit;
 
 public class JvRegistrationFrame extends JFrame {
     private final JPanel panel;
@@ -94,6 +95,7 @@ public class JvRegistrationFrame extends JFrame {
             if (checkFields()) {
                 JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.RegistrationRequest,
                         tLogin.getInputText(), tPassword.getInputText());
+                waitRepeatServer();
             }
         });
 
@@ -170,5 +172,26 @@ public class JvRegistrationFrame extends JFrame {
         setVisible(false);
         dispose();
         new JvEntryFrame();
+    }
+
+    private void waitRepeatServer() {
+        setEnabled(false);
+        while (JvMessageCtrl.getInstance().REGISTRATIONREQUEST
+                == JvMessageCtrl.TypeFlags.DEFAULT) {
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException exception) {
+                System.out.println("Не удалось ждать");
+            }
+        }
+        if (JvMessageCtrl.getInstance().REGISTRATIONREQUEST
+                == JvMessageCtrl.TypeFlags.TRUE) {
+            closeWindow();
+            System.out.println("Регистрация выполнена");
+        } else if (JvMessageCtrl.getInstance().REGISTRATIONREQUEST
+                == JvMessageCtrl.TypeFlags.FALSE) {
+            setEnabled(true);
+            System.out.println("Регистрация неудачна");
+        }
     }
 }

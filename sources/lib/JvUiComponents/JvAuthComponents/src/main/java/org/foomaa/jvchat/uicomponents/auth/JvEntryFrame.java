@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Objects;
 import java.util.Vector;
+import java.util.concurrent.TimeUnit;
 
 public class JvEntryFrame extends JFrame {
     private final JPanel panel;
@@ -102,6 +103,7 @@ public class JvEntryFrame extends JFrame {
             if (checkFields()) {
                 JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.EntryRequest,
                         tLogin.getInputText(), tPassword.getInputText());
+                waitRepeatServer();
             }
         });
 
@@ -172,5 +174,26 @@ public class JvEntryFrame extends JFrame {
         toFront();
         setVisible(true);
         requestFocus();
+    }
+
+    private void waitRepeatServer() {
+        setEnabled(false);
+        while (JvMessageCtrl.getInstance().ENTRYREQUEST
+                == JvMessageCtrl.TypeFlags.DEFAULT) {
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException exception) {
+                System.out.println("Не удалось ждать");
+            }
+        }
+        if (JvMessageCtrl.getInstance().ENTRYREQUEST
+                == JvMessageCtrl.TypeFlags.TRUE) {
+            closeWindow();
+            System.out.println("Вход выполнен");
+        } else if (JvMessageCtrl.getInstance().ENTRYREQUEST
+                == JvMessageCtrl.TypeFlags.FALSE) {
+            setEnabled(true);
+            System.out.println("Вход неудачен");
+        }
     }
 }

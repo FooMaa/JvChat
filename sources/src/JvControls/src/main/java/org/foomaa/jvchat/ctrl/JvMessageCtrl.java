@@ -8,6 +8,17 @@ import java.util.HashMap;
 public class JvMessageCtrl {
     private static JvMessageCtrl instance;
 
+    // FLAGS
+    public enum TypeFlags {
+        TRUE,
+        FALSE,
+        DEFAULT
+    }
+    public TypeFlags ENTRYREQUEST = TypeFlags.DEFAULT;
+    public TypeFlags REGISTRATIONREQUEST = TypeFlags.DEFAULT;
+    // FLAGS
+
+
     private JvMessageCtrl() {}
 
     public static JvMessageCtrl getInstance() {
@@ -120,18 +131,18 @@ public class JvMessageCtrl {
     private void workEntryReplyMessage(byte[] dataMsg) {
         HashMap<JvSerializatorData.TypeData, Boolean> map = JvSerializatorData.takeEntryReplyMessage(dataMsg);
         if (map.get(JvSerializatorData.TypeData.BoolReply)) {
-            System.out.println("Вход разрешен");
+            ENTRYREQUEST = TypeFlags.TRUE;
         } else {
-            System.out.println("Вход запрещен");
+            ENTRYREQUEST = TypeFlags.FALSE;
         }
     }
 
     private void workRegistrationReplyMessage(byte[] dataMsg) {
         HashMap<JvSerializatorData.TypeData, Boolean> map = JvSerializatorData.takeRegistrationReplyMessage(dataMsg);
         if (map.get(JvSerializatorData.TypeData.BoolReply)) {
-            System.out.println("Зарегистрирован");
+            REGISTRATIONREQUEST = TypeFlags.TRUE;
         } else {
-            System.out.println("Пользователь с таким ником уже есть");
+            REGISTRATIONREQUEST = TypeFlags.FALSE;
         }
     }
 }
