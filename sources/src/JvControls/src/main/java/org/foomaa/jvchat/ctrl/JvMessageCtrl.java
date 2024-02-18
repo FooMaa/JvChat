@@ -72,6 +72,7 @@ public class JvMessageCtrl {
     }
 
     public void takeMessage(byte[] dataMsg) {
+        System.out.println(dataMsg);
         JvSerializatorData.TypeMessage type = JvSerializatorData.getTypeMessage(dataMsg);
         switch (type) {
             case EntryRequest:

@@ -103,7 +103,7 @@ public class JvEntryFrame extends JFrame {
             if (checkFields()) {
                 JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.EntryRequest,
                         tLogin.getInputText(), tPassword.getInputText());
-                waitRepeatServer();
+               // waitRepeatServer();
             }
         });
 

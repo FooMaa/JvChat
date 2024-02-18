@@ -45,7 +45,7 @@ public class JvNetworkCtrl {
         JvMessageCtrl.getInstance().takeMessage(message);
     }
 
-    public void sendMessage(byte[] message) {
+    public static void sendMessage(byte[] message) {
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             serversThread.send(message);
         } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
