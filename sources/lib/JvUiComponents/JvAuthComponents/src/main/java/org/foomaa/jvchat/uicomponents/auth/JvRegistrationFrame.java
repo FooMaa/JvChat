@@ -1,17 +1,16 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
+import org.foomaa.jvchat.ctrl.JvMessageCtrl;
+import org.foomaa.jvchat.messages.JvSerializatorData;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
-import org.foomaa.jvchat.ctrl.JvDbCtrl;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
-import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Vector;
+import java.util.concurrent.TimeUnit;
 
 public class JvRegistrationFrame extends JFrame {
     private final JPanel panel;
@@ -92,33 +91,21 @@ public class JvRegistrationFrame extends JFrame {
     }
 
     private void addListenerToElements() {
-        bRegister.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    if (checkFields()) {
-                        writeUserInDb();
-                        closeWindow();
-                    }
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                }
+        bRegister.addActionListener(event -> {
+            if (checkFields()) {
+                JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.RegistrationRequest,
+                        tLogin.getInputText(), tPassword.getInputText());
+                waitRepeatServer();
             }
         });
 
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                JvAuthFrame authFrame = new JvAuthFrame();
+                new JvEntryFrame();
             }
         });
 
-    }
-
-    private void writeUserInDb() throws SQLException {
-        JvDbCtrl db = JvDbCtrl.getInstance();
-        db.insertQueryToDB(JvDbCtrl.TypeExecutionInsert.RegisterForm,
-                tLogin.getInputText(), tPassword.getInputText());
     }
 
     private boolean checkFields() {
@@ -127,7 +114,7 @@ public class JvRegistrationFrame extends JFrame {
         tPasswordConfirm.setNormalBorder();
         tErrorHelpInfo.setText("");
 
-        Vector<String> fields = new Vector<String>();
+        Vector<String> fields = new Vector<>();
 
         if (Objects.equals(tLogin.getInputText(), "")) {
             tLogin.setErrorBorder();
@@ -147,14 +134,15 @@ public class JvRegistrationFrame extends JFrame {
             tPassword.setErrorBorder();
             tPasswordConfirm.setErrorBorder();
             tErrorHelpInfo.setText("Введенные пароли должны совпадать");
+            return false;
         }
 
-        String concatFields = "";
-        if (fields.size() != 0) {
+        StringBuilder concatFields = new StringBuilder();
+        if (!fields.isEmpty()) {
             for (int i = 0; i < fields.size(); i++) {
-                concatFields += fields.elementAt(i) + ", ";
+                concatFields.append(fields.elementAt(i)).append(", ");
             }
-            concatFields = concatFields.substring(0, concatFields.length() - 2);
+            concatFields = new StringBuilder(concatFields.substring(0, concatFields.length() - 2));
             if (fields.size() == 1) {
                 tErrorHelpInfo.setText(String.format("Поле %s должно быть заполнено", concatFields));
             } else {
@@ -177,11 +165,33 @@ public class JvRegistrationFrame extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         toFront();
         setVisible(true);
+        requestFocus();
     }
 
     private void closeWindow() {
         setVisible(false);
         dispose();
-        JvAuthFrame authFrame = new JvAuthFrame();
+        new JvEntryFrame();
+    }
+
+    private void waitRepeatServer() {
+        setEnabled(false);
+        while (JvMessageCtrl.getInstance().REGISTRATIONREQUEST
+                == JvMessageCtrl.TypeFlags.DEFAULT) {
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException exception) {
+                System.out.println("Не удалось ждать");
+            }
+        }
+        if (JvMessageCtrl.getInstance().REGISTRATIONREQUEST
+                == JvMessageCtrl.TypeFlags.TRUE) {
+            closeWindow();
+            System.out.println("Регистрация выполнена");
+        } else if (JvMessageCtrl.getInstance().REGISTRATIONREQUEST
+                == JvMessageCtrl.TypeFlags.FALSE) {
+            setEnabled(true);
+            System.out.println("Регистрация неудачна");
+        }
     }
 }

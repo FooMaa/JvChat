@@ -12,7 +12,6 @@ repositories {
 
 dependencies {
     testImplementation("junit:junit:3.8.1")
-    implementation(project(":sources:lib:JvSettings"))
     implementation(project(":sources:lib:JvUiComponents:JvAuthComponents"))
 }
 
@@ -28,6 +27,18 @@ tasks.test {
 
     testLogging {
         events("passed", "failed", "skipped")
+    }
+}
+
+tasks {
+    javadoc {
+        options.encoding = "UTF-8"
+    }
+    compileJava {
+        options.encoding = "UTF-8"
+    }
+    compileTestJava {
+        options.encoding = "UTF-8"
     }
 }
 

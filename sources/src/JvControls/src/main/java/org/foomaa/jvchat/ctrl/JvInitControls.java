@@ -1,16 +1,18 @@
 package org.foomaa.jvchat.ctrl;
 
-import java.sql.SQLException;
+import java.io.IOException;
+
 public class JvInitControls {
     private static JvInitControls instance;
-    private JvInitControls() throws SQLException {
-        JvDbCtrl dbCtrl = JvDbCtrl.getInstance();
+    private JvInitControls() throws IOException {
+        JvDbCtrl.getInstance();
+        JvMessageCtrl.getInstance();
+        JvNetworkCtrl.getInstance();
     }
 
-    public static JvInitControls getInstance() throws SQLException {
+    public static void getInstance() throws IOException {
         if(instance == null){
             instance = new JvInitControls();
         }
-        return instance;
     }
 }

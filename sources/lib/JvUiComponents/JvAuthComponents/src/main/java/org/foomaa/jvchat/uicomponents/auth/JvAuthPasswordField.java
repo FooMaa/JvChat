@@ -15,20 +15,20 @@ import java.awt.event.MouseEvent;
 import java.util.Objects;
 
 public class JvAuthPasswordField extends JPanel {
-    private BufferedImage visibleImage;
-    private BufferedImage invisibleImage;
+    private final BufferedImage visibleImage;
+    private final BufferedImage invisibleImage;
     private boolean flagEye = false;
     private boolean unLockPass = false;
     private JPasswordField passwordField;
     private JButton button;
-    private String defaultText;
-    private final int gap = 5;
+    private final String defaultText;
     private final int borderSize = 1;
 
     public JvAuthPasswordField(String text) {
         visibleImage = setIcon("/eye.png");
         invisibleImage = setIcon("/eye-close.png");
 
+        int gap = 5;
         setLayout(new FlowLayout(FlowLayout.LEADING, gap, 0));
         defaultText = text;
 
@@ -61,10 +61,12 @@ public class JvAuthPasswordField extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 if (unLockPass) {
                     if (flagEye) {
+                        assert invisibleImage != null;
                         button.setIcon(new ImageIcon(invisibleImage));
                         passwordField.setEchoChar('•');
                         flagEye = false;
                     } else {
+                        assert visibleImage != null;
                         button.setIcon(new ImageIcon(visibleImage));
                         passwordField.setEchoChar((char) 0);
                         flagEye = true;

@@ -15,48 +15,63 @@ public class JvDbCtrl
         RegisterForm
     }
     public enum TypeExecutionCheck {
-        UserPassword
+        UserPassword,
+        Login
     }
 
-    private JvDbCtrl() throws SQLException {
-        System.out.printf("DATABASE BUILD: %b", JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS);
-//        if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
-        db = JvDbWorker.getInstance();
-//        }
-        //ResultSet rs = db.makeExecution(JvDbDefines.exec);
-        //List<String> al = db.getStrDataAtRow(rs, 1);
+    private JvDbCtrl() {
+        if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
+            db = JvDbWorker.getInstance();
+        }
     }
 
-    public static JvDbCtrl getInstance() throws SQLException {
+    public static JvDbCtrl getInstance() {
         if(instance == null){
             instance = new JvDbCtrl();
         }
         return instance;
     }
 
-    public void insertQueryToDB(TypeExecutionInsert type, String ... parameters) throws SQLException {
+    public boolean insertQueryToDB(TypeExecutionInsert type, String ... parameters) {
         switch (type) {
-            case RegisterForm -> {
+            case RegisterForm:
                 if (parameters.length == 2) {
                     String login = parameters[0];
                     String password = parameters[1];
-                    db.makeExecution(JvDbDefines.insertToRegForm(login, password));
+                    if (!checkQueryToDB(TypeExecutionCheck.Login, login)) {
+                        db.makeExecution(JvDbDefines.insertToRegForm(login, password));
+                        return true;
+                    } else {
+                        return false;
+                    }
                 }
-            }
-
         }
+        return false;
     }
 
-    public boolean checkQueryToDB(TypeExecutionCheck type, String ... parameters) throws SQLException {
+    public boolean checkQueryToDB(TypeExecutionCheck type, String ... parameters) {
         switch (type) {
-            case UserPassword -> {
+            case UserPassword:
                 if (parameters.length == 2) {
                     String login = parameters[0];
                     String password = parameters[1];
                     ResultSet rs = db.makeExecution(JvDbDefines.checkUserPassword(login, password));
-                    return rs.next();
+                    try {
+                        return rs.next();
+                    } catch (SQLException exception) {
+                        System.out.println("Ошибка проверки запроса к БД");
+                    }
                 }
-            }
+            case Login:
+                if (parameters.length == 1) {
+                    String login = parameters[0];
+                    ResultSet rs = db.makeExecution(JvDbDefines.checkLogin(login));
+                    try {
+                        return rs.next();
+                    } catch (SQLException exception) {
+                        System.out.println("Ошибка проверки запроса к БД");
+                    }
+                }
         }
         return false;
     }

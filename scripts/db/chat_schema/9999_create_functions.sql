@@ -60,3 +60,18 @@ BEGIN
     END IF;
 END;
 $BODY$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION chat_schema.logins_passwords_check_login(
+    f_login character varying
+)
+    RETURNS SETOF chat_schema.logins_passwords AS
+$BODY$
+DECLARE
+    rv chat_schema.logins_passwords%rowtype;
+BEGIN
+    SELECT * INTO rv FROM chat_schema.logins_passwords WHERE login=f_login;
+    IF found THEN
+        RETURN NEXT rv;
+    END IF;
+END;
+$BODY$ LANGUAGE plpgsql;

@@ -13,6 +13,7 @@ repositories {
 dependencies {
     testImplementation("junit:junit:3.8.1")
     implementation("org.postgresql:postgresql:42.6.0")
+    implementation(project(":sources:lib:JvSettings"))
 }
 
 tasks.test {

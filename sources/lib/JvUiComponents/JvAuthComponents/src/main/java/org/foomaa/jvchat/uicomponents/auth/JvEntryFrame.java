@@ -1,16 +1,17 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import org.foomaa.jvchat.ctrl.JvDbCtrl;
+import org.foomaa.jvchat.ctrl.JvMessageCtrl;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
+import org.foomaa.jvchat.messages.JvSerializatorData;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Vector;
+import java.util.concurrent.TimeUnit;
 
-public class JvAuthFrame extends JFrame {
+public class JvEntryFrame extends JFrame {
     private final JPanel panel;
     private final JvAuthLabel tInfo;
     private final JvAuthTextField tLogin;
@@ -20,7 +21,7 @@ public class JvAuthFrame extends JFrame {
     private final JvAuthActiveLabel activeRegisterLabel;
     private final JvAuthActiveLabel activeMissLabel;
 
-    public JvAuthFrame() {
+    public JvEntryFrame() {
         super("AuthenticationWindow");
 
         panel = new JPanel();
@@ -98,44 +99,29 @@ public class JvAuthFrame extends JFrame {
     }
 
     private void addListenerToElements() {
-        bEnter.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    if (checkFields()) {
-                        if (checkUserInDb()) {
-                            System.out.println("Вход выполнен");
-                        } else {
-                            System.out.println("Ошибочные данные");
-                        }
-                    }
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                }
+        bEnter.addActionListener(event -> {
+            if (checkFields()) {
+                JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.EntryRequest,
+                        tLogin.getInputText(), tPassword.getInputText());
+                waitRepeatServer();
             }
         });
 
         activeMissLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("ayayayayay");
+                System.out.println("No listener");
             }
         });
 
         activeRegisterLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JvRegistrationFrame registrationFrame = new JvRegistrationFrame();
+                new JvRegistrationFrame();
                 closeWindow();
             }
         });
 
-    }
-
-    private boolean checkUserInDb() throws SQLException {
-        JvDbCtrl db = JvDbCtrl.getInstance();
-        return db.checkQueryToDB(JvDbCtrl.TypeExecutionCheck.UserPassword,
-                tLogin.getInputText(), tPassword.getInputText());
     }
 
     private boolean checkFields() {
@@ -143,7 +129,7 @@ public class JvAuthFrame extends JFrame {
         tLogin.setNormalBorder();
         tErrorHelpInfo.setText("");
 
-        Vector<String> fields = new Vector<String>();
+        Vector<String> fields = new Vector<>();
 
         if (Objects.equals(tLogin.getInputText(), "")) {
             tLogin.setErrorBorder();
@@ -154,12 +140,12 @@ public class JvAuthFrame extends JFrame {
             fields.add("\"Пароль\"");
         }
 
-        String concatFields = "";
-        if (fields.size() != 0) {
+        StringBuilder concatFields = new StringBuilder();
+        if (!fields.isEmpty()) {
             for (int i = 0; i < fields.size(); i++) {
-                concatFields += fields.elementAt(i) + ", ";
+                concatFields.append(fields.elementAt(i)).append(", ");
             }
-            concatFields = concatFields.substring(0, concatFields.length() - 2);
+            concatFields = new StringBuilder(concatFields.substring(0, concatFields.length() - 2));
             if (fields.size() == 1) {
                 tErrorHelpInfo.setText(String.format("Поле %s должно быть заполнено", concatFields));
             } else {
@@ -187,5 +173,27 @@ public class JvAuthFrame extends JFrame {
         setLocationRelativeTo(null);
         toFront();
         setVisible(true);
+        requestFocus();
+    }
+
+    private void waitRepeatServer() {
+        setEnabled(false);
+        while (JvMessageCtrl.getInstance().ENTRYREQUEST
+                == JvMessageCtrl.TypeFlags.DEFAULT) {
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException exception) {
+                System.out.println("Не удалось ждать");
+            }
+        }
+        if (JvMessageCtrl.getInstance().ENTRYREQUEST
+                == JvMessageCtrl.TypeFlags.TRUE) {
+            closeWindow();
+            System.out.println("Вход выполнен");
+        } else if (JvMessageCtrl.getInstance().ENTRYREQUEST
+                == JvMessageCtrl.TypeFlags.FALSE) {
+            setEnabled(true);
+            System.out.println("Вход неудачен");
+        }
     }
 }

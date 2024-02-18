@@ -12,9 +12,9 @@ from argparse import ArgumentParser
 
 ADMIN_USER = 'postgres'
 ADMIN_DB = 'postgres'
-STOCK_ADMIN_PWD = '9999'  # base64.b64decode('1234567890').decode('utf-8')
+STOCK_ADMIN_PWD = base64.b64decode('OTk5OQ==').decode('utf-8')
 DEFAULT_DB_USER = 'jvchat'
-STOCK_USER_PWD = '1111'
+STOCK_USER_PWD = base64.b64decode('MTExMQ==').decode('utf-8')
 DEFAULT_DB_IP = '127.0.0.1'
 DEFAULT_DB_NAME = 'chat'
 DEFAULT_BACKUP_FOLDER = '/tmp/'
@@ -32,7 +32,7 @@ FNULL = open(os.devnull, 'w')
 parser = ArgumentParser()
 parser.add_argument('-r', nargs='?', type=str, dest='regime', default='default', help='[OPTIONAL] Set regime \'dump\' or \'restore\' or \'clear\'. Default \'default\'')
 parser.add_argument('-a', nargs='?', type=str, dest='ADMIN_PWD', default=STOCK_ADMIN_PWD, help='[OPTIONAL] Set password for admin. Default {0}'.format(STOCK_ADMIN_PWD))
-parser.add_argument('-u', nargs='?', type=str, dest='DB_USER_PWD', default=STOCK_USER_PWD, help='[OPTIONAL] Set password for admin. Default {0}'.format(STOCK_USER_PWD))
+parser.add_argument('-u', nargs='?', type=str, dest='DB_USER_PWD', default=STOCK_USER_PWD, help='[OPTIONAL] Set password for user. Default {0}'.format(STOCK_USER_PWD))
 args = parser.parse_args()
 
 
