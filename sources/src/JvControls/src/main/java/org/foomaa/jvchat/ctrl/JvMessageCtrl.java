@@ -91,11 +91,7 @@ public class JvMessageCtrl {
     }
 
     private void sendReadyMessageNetwork(byte[] bodyMessage) {
-        try {
-            JvNetworkCtrl.getInstance().sendMessage(bodyMessage);
-        } catch (IOException exception) {
-            System.out.println("Error send");
-        }
+        JvNetworkCtrl.sendMessage(bodyMessage);
     }
 
     private byte[] createBodyEntryRequestMessage(JvSerializatorData.TypeMessage type, String login, String password) {
