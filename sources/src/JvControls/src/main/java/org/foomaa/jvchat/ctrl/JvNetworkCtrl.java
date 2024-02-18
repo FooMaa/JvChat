@@ -37,7 +37,7 @@ public class JvNetworkCtrl {
         return instance;
     }
 
-    public void takeMessage(byte[] message, Thread thr) {
+    public static void takeMessage(byte[] message, Thread thr) {
         System.out.println(Arrays.toString(message));
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             serversThread = (JvServersSocketThreadCtrl) thr;
