@@ -12,8 +12,8 @@ import java.util.LinkedList;
 
 public class JvNetworkCtrl {
     private static JvNetworkCtrl instance;
-    private JvUsersSocketThreadCtrl usersThread;
-    private JvServersSocketThreadCtrl serversThread;
+    private static JvUsersSocketThreadCtrl usersThread;
+    private static JvServersSocketThreadCtrl serversThread;
     public LinkedList<JvServersSocketThreadCtrl> connectionList = new LinkedList<>();
 
     private JvNetworkCtrl() throws IOException {
@@ -37,7 +37,7 @@ public class JvNetworkCtrl {
         return instance;
     }
 
-    public void takeMessage(byte[] message, Thread thr) {
+    public static void takeMessage(byte[] message, Thread thr) {
         System.out.println(Arrays.toString(message));
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             serversThread = (JvServersSocketThreadCtrl) thr;

@@ -6,15 +6,13 @@ import java.util.Arrays;
 
 public class JvServersSocketThreadCtrl extends Thread
 {
-    private Socket socketThread;
     private DataInputStream readFromUser;
     private DataOutputStream sendToUser;
 
     public JvServersSocketThreadCtrl(Socket fromSocketUser) {
-        this.socketThread = fromSocketUser;
         try {
-            sendToUser = new DataOutputStream(socketThread.getOutputStream());
-            readFromUser =  new DataInputStream(socketThread.getInputStream());
+            sendToUser = new DataOutputStream(fromSocketUser.getOutputStream());
+            readFromUser =  new DataInputStream(fromSocketUser.getInputStream());
         } catch (IOException exception) {
             System.out.println("Ошибка в создании потоков отправки и принятия сообщений");
         }
@@ -30,7 +28,7 @@ public class JvServersSocketThreadCtrl extends Thread
                     byte[] message = new byte[length];
                     readFromUser.readFully(message, 0, message.length);
                     System.out.println(Arrays.toString(message));
-                    JvNetworkCtrl.getInstance().takeMessage(message, currentThread());
+                    JvNetworkCtrl.takeMessage(message, currentThread());
                 }
             }
         } catch (IOException exception) {
