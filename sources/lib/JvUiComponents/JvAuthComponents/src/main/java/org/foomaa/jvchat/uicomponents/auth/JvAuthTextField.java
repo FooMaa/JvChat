@@ -11,7 +11,6 @@ import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -20,7 +19,7 @@ public class JvAuthTextField extends JPanel {
     private JButton button;
     private JTextField textField;
 
-    private String defaultText;
+    private final String defaultText;
     private final int gap = 5;
     private final int borderSize = 1;
 

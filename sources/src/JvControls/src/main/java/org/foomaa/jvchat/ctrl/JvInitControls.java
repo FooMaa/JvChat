@@ -10,10 +10,9 @@ public class JvInitControls {
         JvNetworkCtrl.getInstance();
     }
 
-    public static JvInitControls getInstance() throws IOException {
+    public static void getInstance() throws IOException {
         if(instance == null){
             instance = new JvInitControls();
         }
-        return instance;
     }
 }

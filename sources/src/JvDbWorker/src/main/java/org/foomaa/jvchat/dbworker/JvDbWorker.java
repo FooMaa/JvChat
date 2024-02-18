@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JvDbWorker extends JvDbDefines {
-    private static Statement stmt;
     private static Connection connection;
     private static JvDbWorker instance;
 
@@ -31,7 +30,7 @@ public class JvDbWorker extends JvDbDefines {
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Error in connect to DB");
             return;
         }
 
@@ -41,7 +40,7 @@ public class JvDbWorker extends JvDbDefines {
             connection = DriverManager.getConnection(JvMainSettings.getDbUrl(),
                     JvMainSettings.getDbUser(), JvMainSettings.getMagicStringDb());
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Error in connect to DB");
             return;
         }
 
@@ -55,7 +54,7 @@ public class JvDbWorker extends JvDbDefines {
     public ResultSet makeExecution(String execution) {
         ResultSet resultSet = null;
         try {
-            stmt = connection.createStatement(
+            Statement stmt = connection.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY);
             resultSet = stmt.executeQuery(execution);
@@ -67,7 +66,7 @@ public class JvDbWorker extends JvDbDefines {
 
     public List<String> getStrDataAtRow(ResultSet resultSet, int row) {
         // в БД нумерация рядов и столбцов не с 0, а с 1
-        ResultSetMetaData metadata = null;
+        ResultSetMetaData metadata;
         int columnCount = 0;
         try {
             metadata = resultSet.getMetaData();
@@ -76,8 +75,8 @@ public class JvDbWorker extends JvDbDefines {
             System.out.println("Не возможно получить данные по столбцам и метаданные");
         }
 
-        List<String> columns = new ArrayList<String>();
-        List<String> result = new ArrayList<String>(columnCount);
+        // List<String> columns = new ArrayList<>();
+        List<String> result = new ArrayList<>(columnCount);
 
         try {
             resultSet.absolute(row);

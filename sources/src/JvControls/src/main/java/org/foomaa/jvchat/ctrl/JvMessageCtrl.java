@@ -2,6 +2,7 @@ package org.foomaa.jvchat.ctrl;
 
 import org.foomaa.jvchat.messages.JvSerializatorData;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 public class JvMessageCtrl {
@@ -16,49 +17,49 @@ public class JvMessageCtrl {
         return instance;
     }
 
-    public static <TYPEPARAM> void sendMessage(JvSerializatorData.TypeMessage type, TYPEPARAM... parameters) {
+    @SafeVarargs
+    public final <TYPEPARAM> void sendMessage(JvSerializatorData.TypeMessage type, TYPEPARAM... parameters) {
         switch (type) {
             case EntryRequest:
                 if (parameters.length == 2) {
                     TYPEPARAM login = parameters[0];
                     TYPEPARAM password = parameters[1];
-                    sendEntryRequestMessage(type,
+                    byte[] bodyMessage = createBodyEntryRequestMessage(type,
                             (String) login, (String) password);
-                    break;
-                } else {
-                    break;
+                    sendReadyMessageNetwork(bodyMessage);
+                    sendReadyMessageNetwork(bodyMessage);
                 }
+                break;
             case RegistrationRequest:
                 if (parameters.length == 2) {
                     TYPEPARAM login = parameters[0];
                     TYPEPARAM password = parameters[1];
-                    sendRegistrationRequestMessage(type,
+                    byte[] bodyMessage = createBodyRegistrationRequestMessage(type,
                             (String) login, (String) password);
-                    break;
-                } else {
-                    break;
+                    sendReadyMessageNetwork(bodyMessage);
                 }
+                break;
             case EntryReply:
                 if (parameters.length == 1) {
                     TYPEPARAM reply = parameters[0];
-                    sendEntryReplyMessage(type, (Boolean) reply);
-                    break;
-                } else {
-                    break;
+                    byte[] bodyMessage = createBodyEntryReplyMessage(type,
+                            (Boolean) reply);
+                    sendReadyMessageNetwork(bodyMessage);
                 }
+                break;
             case RegistrationReply:
                 if (parameters.length == 1) {
                     TYPEPARAM reply = parameters[0];
-                    sendRegistrationReplyMessage(type, (Boolean) reply);
-                    break;
-                } else {
-                    break;
+                    byte[] bodyMessage = createBodyRegistrationReplyMessage(type,
+                            (Boolean) reply);
+                    sendReadyMessageNetwork(bodyMessage);
                 }
+                break;
         }
 
     }
 
-    public static void takeMessage(byte[] dataMsg) {
+    public void takeMessage(byte[] dataMsg) {
         JvSerializatorData.TypeMessage type = JvSerializatorData.getTypeMessage(dataMsg);
         switch (type) {
             case EntryRequest:
@@ -76,27 +77,31 @@ public class JvMessageCtrl {
         }
     }
 
-    private static void sendEntryRequestMessage(JvSerializatorData.TypeMessage type, String login, String password) {
-        byte[] bodyMessage = JvSerializatorData.serialiseData(type, login, password);
-        JvNetworkCtrl.setMessage(bodyMessage);
+    private void sendReadyMessageNetwork(byte[] bodyMessage) {
+        try {
+            JvNetworkCtrl.getInstance().setMessage(bodyMessage);
+        } catch (IOException exception) {
+            System.out.println("Error send");
+        }
     }
 
-    private static void sendRegistrationRequestMessage(JvSerializatorData.TypeMessage type, String login, String password) {
-        byte[] bodyMessage = JvSerializatorData.serialiseData(type, login, password);
-        JvNetworkCtrl.setMessage(bodyMessage);
+    private byte[] createBodyEntryRequestMessage(JvSerializatorData.TypeMessage type, String login, String password) {
+        return JvSerializatorData.serialiseData(type, login, password);
     }
 
-    private static void sendEntryReplyMessage(JvSerializatorData.TypeMessage type, Boolean reply) {
-        byte[] bodyMessage = JvSerializatorData.serialiseData(type, reply);
-        JvNetworkCtrl.setMessage(bodyMessage);
+    private byte[] createBodyRegistrationRequestMessage(JvSerializatorData.TypeMessage type, String login, String password) {
+        return JvSerializatorData.serialiseData(type, login, password);
     }
 
-    private static void sendRegistrationReplyMessage(JvSerializatorData.TypeMessage type, Boolean reply) {
-        byte[] bodyMessage = JvSerializatorData.serialiseData(type, reply);
-        JvNetworkCtrl.setMessage(bodyMessage);
+    private byte[] createBodyEntryReplyMessage(JvSerializatorData.TypeMessage type, Boolean reply) {
+        return JvSerializatorData.serialiseData(type, reply);
     }
 
-    private static void workEntryRequestMessage(byte[] dataMsg) {
+    private byte[] createBodyRegistrationReplyMessage(JvSerializatorData.TypeMessage type, Boolean reply) {
+        return JvSerializatorData.serialiseData(type, reply);
+    }
+
+    private void workEntryRequestMessage(byte[] dataMsg) {
         HashMap<JvSerializatorData.TypeData, String> map = JvSerializatorData.takeEntryRequestMessage(dataMsg);
         boolean requestDB = JvDbCtrl.getInstance().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.UserPassword,
                 map.get(JvSerializatorData.TypeData.Login),
@@ -104,7 +109,7 @@ public class JvMessageCtrl {
         sendMessage(JvSerializatorData.TypeMessage.EntryReply, requestDB);
     }
 
-    private static void workRegistrationRequestMessage(byte[] dataMsg) {
+    private void workRegistrationRequestMessage(byte[] dataMsg) {
         HashMap<JvSerializatorData.TypeData, String> map = JvSerializatorData.takeRegistrationRequestMessage(dataMsg);
         boolean requestDB = JvDbCtrl.getInstance().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.RegisterForm,
                 map.get(JvSerializatorData.TypeData.Login),
@@ -112,7 +117,7 @@ public class JvMessageCtrl {
         sendMessage(JvSerializatorData.TypeMessage.RegistrationReply, requestDB);
     }
 
-    private static void workEntryReplyMessage(byte[] dataMsg) {
+    private void workEntryReplyMessage(byte[] dataMsg) {
         HashMap<JvSerializatorData.TypeData, Boolean> map = JvSerializatorData.takeEntryReplyMessage(dataMsg);
         if (map.get(JvSerializatorData.TypeData.BoolReply)) {
             System.out.println("Вход разрешен");
@@ -121,7 +126,7 @@ public class JvMessageCtrl {
         }
     }
 
-    private static void workRegistrationReplyMessage(byte[] dataMsg) {
+    private void workRegistrationReplyMessage(byte[] dataMsg) {
         HashMap<JvSerializatorData.TypeData, Boolean> map = JvSerializatorData.takeRegistrationReplyMessage(dataMsg);
         if (map.get(JvSerializatorData.TypeData.BoolReply)) {
             System.out.println("Зарегистрирован");

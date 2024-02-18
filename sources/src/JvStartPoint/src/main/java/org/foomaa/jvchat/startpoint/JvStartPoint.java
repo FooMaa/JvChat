@@ -11,10 +11,9 @@ import java.net.ConnectException;
 import java.net.NoRouteToHostException;
 import java.net.SocketTimeoutException;
 import java.net.URISyntaxException;
-import java.sql.SQLException;
 
 public class JvStartPoint {
-    public static void main(String[] args) throws SQLException, URISyntaxException, IOException {
+    public static void main(String[] args) throws URISyntaxException, IOException {
         JvTools.setProfileSetting(JvStartPoint.class);
 
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {

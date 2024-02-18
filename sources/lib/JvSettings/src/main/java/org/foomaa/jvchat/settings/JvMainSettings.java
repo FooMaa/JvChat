@@ -1,6 +1,7 @@
 package org.foomaa.jvchat.settings;
 
 import java.util.Base64;
+import java.util.Objects;
 
 public class JvMainSettings {
     // PROFILE
@@ -36,7 +37,7 @@ public class JvMainSettings {
     private static int quantityConnections = 1000;
 
     public static void setIp(String newIp) {
-        if (ip != newIp) {
+        if (!Objects.equals(ip, newIp)) {
             ip = newIp;
         }
     }
@@ -44,6 +45,12 @@ public class JvMainSettings {
     public static void setPort(int newPort) {
         if (port != newPort) {
             port = newPort;
+        }
+    }
+
+    public static void setQuantityConnections(int newQuantityConnections) {
+        if (quantityConnections != newQuantityConnections) {
+            quantityConnections = newQuantityConnections;
         }
     }
 

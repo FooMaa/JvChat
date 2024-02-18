@@ -49,8 +49,6 @@ public class JvTools
             JvMainSettings.setProfile(JvMainSettings.TypeProfiles.USERS);
         } else if (Objects.equals(profile, JvMainSettings.TypeProfiles.SERVERS.toString())) {
             JvMainSettings.setProfile(JvMainSettings.TypeProfiles.SERVERS);
-        } else {
-            return;
         }
     }
 
@@ -80,6 +78,19 @@ public class JvTools
                 System.out.println("Введи заново порт или нажми Enter для значения по умолчанию (по умолчанию = 4004): ");
             }
         }
+
+        System.out.println("Введи лимит подключений или нажми Enter для значения по умолчанию (по умолчанию = 1000): ");
+        while (true) {
+            String limitConnection = in.nextLine();
+            if (validateInputLimitConnections(limitConnection)) {
+                if (!limitConnection.isEmpty()) {
+                    JvMainSettings.setPort(Integer.parseInt(limitConnection));
+                }
+                break;
+            } else {
+                System.out.println("Введи заново лимит подключений или нажми Enter для значения по умолчанию (по умолчанию = 1000): ");
+            }
+        }
     }
 
     public static boolean validateInputIp(String param) {
@@ -88,11 +99,7 @@ public class JvTools
         if (param.isEmpty()) {
             return true;
         }
-        if (regex.matcher(param).matches()) {
-            return true;
-        } else {
-            return false;
-        }
+        return regex.matcher(param).matches();
     }
 
     public static boolean validateInputPort(String param) {
@@ -101,11 +108,16 @@ public class JvTools
         if (param.isEmpty()) {
             return true;
         }
-        if (regex.matcher(param).matches()) {
+        return regex.matcher(param).matches();
+    }
+
+    public static boolean validateInputLimitConnections(String param) {
+        Pattern regex = Pattern.compile(
+                "^\\d+$");
+        if (param.isEmpty()) {
             return true;
-        } else {
-            return false;
         }
+        return regex.matcher(param).matches();
     }
 
     private static void setIpToSettings(String ip) {

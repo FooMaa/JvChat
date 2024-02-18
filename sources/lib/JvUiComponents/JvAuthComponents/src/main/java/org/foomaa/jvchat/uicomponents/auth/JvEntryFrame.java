@@ -1,6 +1,5 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import org.foomaa.jvchat.ctrl.JvDbCtrl;
 import org.foomaa.jvchat.ctrl.JvMessageCtrl;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.messages.JvSerializatorData;
@@ -8,7 +7,6 @@ import org.foomaa.jvchat.messages.JvSerializatorData;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Vector;
 
@@ -100,37 +98,28 @@ public class JvEntryFrame extends JFrame {
     }
 
     private void addListenerToElements() {
-        bEnter.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (checkFields()) {
-                    JvMessageCtrl.sendMessage(JvSerializatorData.TypeMessage.EntryRequest,
-                            tLogin.getInputText(), tPassword.getInputText());
-                }
+        bEnter.addActionListener(event -> {
+            if (checkFields()) {
+                JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.EntryRequest,
+                        tLogin.getInputText(), tPassword.getInputText());
             }
         });
 
         activeMissLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("ayayayayay");
+                System.out.println("No listener");
             }
         });
 
         activeRegisterLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JvRegistrationFrame registrationFrame = new JvRegistrationFrame();
+                new JvRegistrationFrame();
                 closeWindow();
             }
         });
 
-    }
-
-    private boolean checkUserInDb() throws SQLException {
-        JvDbCtrl db = JvDbCtrl.getInstance();
-        return db.checkQueryToDB(JvDbCtrl.TypeExecutionCheck.UserPassword,
-                tLogin.getInputText(), tPassword.getInputText());
     }
 
     private boolean checkFields() {
@@ -138,7 +127,7 @@ public class JvEntryFrame extends JFrame {
         tLogin.setNormalBorder();
         tErrorHelpInfo.setText("");
 
-        Vector<String> fields = new Vector<String>();
+        Vector<String> fields = new Vector<>();
 
         if (Objects.equals(tLogin.getInputText(), "")) {
             tLogin.setErrorBorder();
@@ -149,12 +138,12 @@ public class JvEntryFrame extends JFrame {
             fields.add("\"Пароль\"");
         }
 
-        String concatFields = "";
-        if (fields.size() != 0) {
+        StringBuilder concatFields = new StringBuilder();
+        if (!fields.isEmpty()) {
             for (int i = 0; i < fields.size(); i++) {
-                concatFields += fields.elementAt(i) + ", ";
+                concatFields.append(fields.elementAt(i)).append(", ");
             }
-            concatFields = concatFields.substring(0, concatFields.length() - 2);
+            concatFields = new StringBuilder(concatFields.substring(0, concatFields.length() - 2));
             if (fields.size() == 1) {
                 tErrorHelpInfo.setText(String.format("Поле %s должно быть заполнено", concatFields));
             } else {

@@ -36,20 +36,20 @@ public class JvNetworkCtrl {
         return instance;
     }
 
-    public static void takeMessage(byte[] message, Thread thr) {
+    public void takeMessage(byte[] message, Thread thr) {
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             serversThread = (JvServersSocketThreadCtrl) thr;
         } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
             usersThread = (JvUsersSocketThreadCtrl) thr;
         }
-        JvMessageCtrl.takeMessage(message);
+        JvMessageCtrl.getInstance().takeMessage(message);
     }
 
-    public static void setMessage(byte[] message) {
+    public void setMessage(byte[] message) {
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             serversThread.send(message);
         } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
-            usersThread.send(message);;
+            usersThread.send(message);
         }
     }
 }

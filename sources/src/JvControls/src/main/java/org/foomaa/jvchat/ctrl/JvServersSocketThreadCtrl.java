@@ -5,15 +5,13 @@ import java.net.Socket;
 
 public class JvServersSocketThreadCtrl extends Thread
 {
-    private Socket socketTread;
     private DataInputStream readFromUser;
     private DataOutputStream sendToUser;
 
     public JvServersSocketThreadCtrl(Socket fromSocketUser) {
-        this.socketTread = fromSocketUser;
         try {
-            sendToUser = new DataOutputStream(socketTread.getOutputStream());
-            readFromUser =  new DataInputStream(socketTread.getInputStream());
+            sendToUser = new DataOutputStream(fromSocketUser.getOutputStream());
+            readFromUser =  new DataInputStream(fromSocketUser.getInputStream());
         } catch (IOException exception) {
             System.out.println("Ошибка в создании потоков отправки и принятия сообщений");
         }
@@ -28,11 +26,11 @@ public class JvServersSocketThreadCtrl extends Thread
                 if (length > 0) {
                     byte[] message = new byte[length];
                     readFromUser.readFully(message, 0, message.length);
-                    JvNetworkCtrl.takeMessage(message, currentThread());
+                    JvNetworkCtrl.getInstance().takeMessage(message, currentThread());
                 }
             }
         } catch (IOException exception) {
-            exception.printStackTrace();
+            System.out.println("Error in network");
         }
     }
 
@@ -42,7 +40,7 @@ public class JvServersSocketThreadCtrl extends Thread
             sendToUser.write(message);
             sendToUser.flush();
         } catch (IOException exception) {
-            exception.printStackTrace();
+            System.out.println("Error in network");
         }
     }
 }

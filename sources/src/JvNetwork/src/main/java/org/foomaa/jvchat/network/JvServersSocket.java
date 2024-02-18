@@ -19,7 +19,8 @@ public class JvServersSocket {
                 socketServers = new ServerSocket(JvMainSettings.getPort());
             } else {
                 socketServers = new ServerSocket(JvMainSettings.getPort(),
-                        1000, InetAddress.getByName(JvMainSettings.getIp()));
+                        JvMainSettings.getQuantityConnections(),
+                        InetAddress.getByName(JvMainSettings.getIp()));
             }
 
             System.out.println(socketServers.getInetAddress().toString());
@@ -27,7 +28,7 @@ public class JvServersSocket {
 
             closeSocketWhenKill();
         } catch (IOException exception) {
-            System.out.println("Ошибка при создании сокета сервера");;
+            System.out.println("Ошибка при создании сокета сервера");
         }
     }
 

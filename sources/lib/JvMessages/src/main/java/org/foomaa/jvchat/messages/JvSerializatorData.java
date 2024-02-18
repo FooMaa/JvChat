@@ -12,6 +12,7 @@ public class JvSerializatorData {
         RegistrationReply(3);
 
         private final int value;
+
         TypeMessage(int value) {
             this.value = value;
         }
@@ -19,7 +20,6 @@ public class JvSerializatorData {
         public int getValue() {
             return value;
         }
-
     }
 
     public enum TypeData {
@@ -28,6 +28,7 @@ public class JvSerializatorData {
         BoolReply
     }
 
+    @SafeVarargs
     public static <TYPEPARAM> byte[] serialiseData(TypeMessage type, TYPEPARAM... parameters) {
         switch (type) {
             case EntryRequest:
