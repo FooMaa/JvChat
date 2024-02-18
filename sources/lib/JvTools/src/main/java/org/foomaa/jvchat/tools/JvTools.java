@@ -84,7 +84,7 @@ public class JvTools
             String limitConnection = in.nextLine();
             if (validateInputLimitConnections(limitConnection)) {
                 if (!limitConnection.isEmpty()) {
-                    JvMainSettings.setPort(Integer.parseInt(limitConnection));
+                    JvMainSettings.setQuantityConnections(Integer.parseInt(limitConnection));
                 }
                 break;
             } else {
