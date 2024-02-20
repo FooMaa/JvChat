@@ -176,7 +176,7 @@ public class JvRegistrationFrame extends JFrame {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (JvMessageCtrl.getInstance().REGISTRATIONREQUEST
+        while (JvMessageCtrl.getInstance().getRegistrationRequestFlag()
                 == JvMessageCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
@@ -184,11 +184,11 @@ public class JvRegistrationFrame extends JFrame {
                 System.out.println("Не удалось ждать");
             }
         }
-        if (JvMessageCtrl.getInstance().REGISTRATIONREQUEST
+        if (JvMessageCtrl.getInstance().getRegistrationRequestFlag()
                 == JvMessageCtrl.TypeFlags.TRUE) {
             closeWindow();
             System.out.println("Регистрация выполнена");
-        } else if (JvMessageCtrl.getInstance().REGISTRATIONREQUEST
+        } else if (JvMessageCtrl.getInstance().getRegistrationRequestFlag()
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             System.out.println("Регистрация неудачна");

@@ -178,7 +178,7 @@ public class JvEntryFrame extends JFrame {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (JvMessageCtrl.getInstance().ENTRYREQUEST
+        while (JvMessageCtrl.getInstance().getEntryRequestFlag()
                 == JvMessageCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
@@ -186,11 +186,11 @@ public class JvEntryFrame extends JFrame {
                 System.out.println("Не удалось ждать");
             }
         }
-        if (JvMessageCtrl.getInstance().ENTRYREQUEST
+        if (JvMessageCtrl.getInstance().getEntryRequestFlag()
                 == JvMessageCtrl.TypeFlags.TRUE) {
             closeWindow();
             System.out.println("Вход выполнен");
-        } else if (JvMessageCtrl.getInstance().ENTRYREQUEST
+        } else if (JvMessageCtrl.getInstance().getEntryRequestFlag()
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             System.out.println("Вход неудачен");

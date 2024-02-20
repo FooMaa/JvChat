@@ -13,8 +13,8 @@ public class JvMessageCtrl {
         FALSE,
         DEFAULT
     }
-    public TypeFlags ENTRYREQUEST = TypeFlags.DEFAULT;
-    public TypeFlags REGISTRATIONREQUEST = TypeFlags.DEFAULT;
+    private TypeFlags EntryRequestFlag = TypeFlags.DEFAULT;
+    private TypeFlags RegistratonRequestFlag = TypeFlags.DEFAULT;
     // FLAGS
 
 
@@ -38,7 +38,7 @@ public class JvMessageCtrl {
                             (String) login,
                             (String) password);
                     sendReadyMessageNetwork(bodyMessage);
-                    ENTRYREQUEST = TypeFlags.DEFAULT;
+                    EntryRequestFlag = TypeFlags.DEFAULT;
                 }
                 break;
             case RegistrationRequest:
@@ -49,7 +49,7 @@ public class JvMessageCtrl {
                             (String) login,
                             (String) password);
                     sendReadyMessageNetwork(bodyMessage);
-                    REGISTRATIONREQUEST = TypeFlags.DEFAULT;
+                    RegistratonRequestFlag = TypeFlags.DEFAULT;
                 }
                 break;
             case EntryReply:
@@ -129,18 +129,26 @@ public class JvMessageCtrl {
     private void workEntryReplyMessage(byte[] dataMsg) {
         HashMap<JvSerializatorData.TypeData, Boolean> map = JvSerializatorData.takeEntryReplyMessage(dataMsg);
         if (map.get(JvSerializatorData.TypeData.BoolReply)) {
-            ENTRYREQUEST = TypeFlags.TRUE;
+            EntryRequestFlag = TypeFlags.TRUE;
         } else {
-            ENTRYREQUEST = TypeFlags.FALSE;
+            EntryRequestFlag = TypeFlags.FALSE;
         }
     }
 
     private void workRegistrationReplyMessage(byte[] dataMsg) {
         HashMap<JvSerializatorData.TypeData, Boolean> map = JvSerializatorData.takeRegistrationReplyMessage(dataMsg);
         if (map.get(JvSerializatorData.TypeData.BoolReply)) {
-            REGISTRATIONREQUEST = TypeFlags.TRUE;
+            RegistratonRequestFlag = TypeFlags.TRUE;
         } else {
-            REGISTRATIONREQUEST = TypeFlags.FALSE;
+            RegistratonRequestFlag = TypeFlags.FALSE;
         }
+    }
+
+    public TypeFlags getEntryRequestFlag() {
+        return EntryRequestFlag;
+    }
+
+    public TypeFlags getRegistrationRequestFlag() {
+        return RegistratonRequestFlag;
     }
 }
