@@ -3,6 +3,7 @@ package org.foomaa.jvchat.uicomponents.auth;
 import org.foomaa.jvchat.ctrl.JvMessageCtrl;
 import org.foomaa.jvchat.messages.JvSerializatorData;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
+import org.foomaa.jvchat.tools.JvTools;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +17,7 @@ public class JvRegistrationFrame extends JFrame {
     private final JPanel panel;
     private final JvAuthLabel tInfo;
     private final JvAuthTextField tLogin;
+    private final JvAuthTextField tEmail;
     private final JvAuthLabel tErrorHelpInfo;
     private final JvAuthPasswordField tPassword;
     private final JvAuthPasswordField tPasswordConfirm;
@@ -26,6 +28,7 @@ public class JvRegistrationFrame extends JFrame {
         panel = new JPanel();
         tInfo = new JvAuthLabel("Введите данные для регистрации:");
         tLogin = new JvAuthTextField("Логин");
+        tEmail = new JvAuthTextField("Почта");
         tErrorHelpInfo = new JvAuthLabel("");
         tErrorHelpInfo.settingToError();
         tPassword = new JvAuthPasswordField("Пароль");
@@ -44,38 +47,51 @@ public class JvRegistrationFrame extends JFrame {
         int insX = JvDisplaySettings.
                 getResizeFromDisplay(0.025,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
+        int gridyNum = 0;
 
         gbc.weightx = 0.5;
         gbc.weighty = 0.5;
         gbc.fill = GridBagConstraints.PAGE_START;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(JvDisplaySettings.getResizePixel(0.0125), 0, JvDisplaySettings.getResizePixel(0.0084), 0);
-        gbc.gridy = 0;
+        gbc.gridy = gridyNum;
         panel.add(tInfo, gbc);
+        gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(0, insX, JvDisplaySettings.getResizePixel(0.004), insX);
-        gbc.gridy = 1;
+        gbc.gridy = gridyNum;
         panel.add(tLogin, gbc);
+        gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(0, insX, JvDisplaySettings.getResizePixel(0.004), insX);
-        gbc.gridy = 2;
+        gbc.gridy = gridyNum;
+        panel.add(tEmail, gbc);
+        gridyNum++;
+
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.insets = new Insets(0, insX, JvDisplaySettings.getResizePixel(0.004), insX);
+        gbc.gridy = gridyNum;
         panel.add(tPassword, gbc);
+        gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(0, insX, 0, insX);
-        gbc.gridy = 3;
+        gbc.gridy = gridyNum;
         panel.add(tPasswordConfirm, gbc);
+        gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(0, insX, JvDisplaySettings.getResizePixel(0.0084), insX);
-        gbc.gridy = 4;
+        gbc.gridy = gridyNum;
         panel.add(tErrorHelpInfo, gbc);
+        gridyNum++;
 
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.NORTH;
@@ -84,7 +100,7 @@ public class JvRegistrationFrame extends JFrame {
                 JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
         gbc.ipady = JvDisplaySettings.getResizeFromDisplay(0.01,
                 JvDisplaySettings.TypeOfDisplayBorder.HEIGHT);
-        gbc.gridy = 5;
+        gbc.gridy = gridyNum;
         panel.add(bRegister, gbc);
 
         getContentPane().add(panel);
@@ -94,7 +110,7 @@ public class JvRegistrationFrame extends JFrame {
         bRegister.addActionListener(event -> {
             if (checkFields()) {
                 JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.RegistrationRequest,
-                        tLogin.getInputText(), tPassword.getInputText());
+                        tLogin.getInputText(), tEmail.getInputText(), tPassword.getInputText());
                 waitRepeatServer();
             }
         });
@@ -110,6 +126,7 @@ public class JvRegistrationFrame extends JFrame {
 
     private boolean checkFields() {
         tLogin.setNormalBorder();
+        tEmail.setNormalBorder();
         tPassword.setNormalBorder();
         tPasswordConfirm.setNormalBorder();
         tErrorHelpInfo.setText("");
@@ -120,6 +137,11 @@ public class JvRegistrationFrame extends JFrame {
             tLogin.setErrorBorder();
             fields.add("\"Логин\"");
         }
+        if (Objects.equals(tEmail.getInputText(), "") ||
+                !JvTools.checkEmail(tEmail.getInputText())) {
+            tEmail.setErrorBorder();
+            fields.add("\"Почта\"");
+        }
         if (Objects.equals(tPassword.getInputText(), "")) {
             tPassword.setErrorBorder();
             fields.add("\"Пароль\"");
@@ -128,6 +150,7 @@ public class JvRegistrationFrame extends JFrame {
             tPasswordConfirm.setErrorBorder();
             fields.add("\"Подтвердите пароль\"");
         }
+
         if (!Objects.equals(tPassword.getInputText(), "") &&
                 !Objects.equals(tPasswordConfirm.getInputText(), "") &&
                 !Objects.equals(tPassword.getInputText(), tPasswordConfirm.getInputText())) {
@@ -144,9 +167,9 @@ public class JvRegistrationFrame extends JFrame {
             }
             concatFields = new StringBuilder(concatFields.substring(0, concatFields.length() - 2));
             if (fields.size() == 1) {
-                tErrorHelpInfo.setText(String.format("Поле %s должно быть заполнено", concatFields));
+                tErrorHelpInfo.setText(String.format("Поле %s должно быть заполнено или исправлено", concatFields));
             } else {
-                tErrorHelpInfo.setText(String.format("Поля %s должны быть заполнены", concatFields));
+                tErrorHelpInfo.setText(String.format("Поля %s должны быть заполнены или исправлены", concatFields));
             }
             return false;
         }

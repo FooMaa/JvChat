@@ -37,9 +37,10 @@ public class JvDbCtrl
             case RegisterForm:
                 if (parameters.length == 2) {
                     String login = parameters[0];
-                    String password = parameters[1];
+                    String email = parameters[1];
+                    String password = parameters[2];
                     if (!checkQueryToDB(TypeExecutionCheck.Login, login)) {
-                        db.makeExecution(JvDbDefines.insertToRegForm(login, password));
+                        db.makeExecution(JvDbDefines.insertToRegForm(login, email, password));
                         return true;
                     } else {
                         return false;

@@ -24,6 +24,7 @@ public class JvSerializatorData {
 
     public enum TypeData {
         Login,
+        Email,
         Password,
         BoolReply
     }
@@ -43,9 +44,10 @@ public class JvSerializatorData {
             case RegistrationRequest:
                 if (parameters.length == 2) {
                     TYPEPARAM login = parameters[0];
-                    TYPEPARAM password = parameters[1];
+                    TYPEPARAM email = parameters[1];
+                    TYPEPARAM password = parameters[2];
                     return createRegistrationRequestMessage(type,
-                            (String) login, (String) password);
+                            (String) login, (String) email, (String) password);
                 } else {
                     return new byte[0];
                 }
@@ -101,9 +103,10 @@ public class JvSerializatorData {
         return resMsg.toByteArray();
     }
 
-    private static byte[] createRegistrationRequestMessage(TypeMessage type, String login, String password) {
+    private static byte[] createRegistrationRequestMessage(TypeMessage type, String login, String email, String password) {
         Auth_pb.RegistrationRequestProto msgRegRequest = Auth_pb.RegistrationRequestProto.newBuilder()
                 .setLogin(login)
+                .setEmail(email)
                 .setPassword(password)
                 .build();
         Auth_pb.GeneralAuthProto resMsg = Auth_pb.GeneralAuthProto.newBuilder()
@@ -142,6 +145,8 @@ public class JvSerializatorData {
         try {
             result.put(TypeData.Login, Auth_pb.GeneralAuthProto.parseFrom(data).
                     getRegistrationRequest().getLogin());
+            result.put(TypeData.Email, Auth_pb.GeneralAuthProto.parseFrom(data).
+                    getRegistrationRequest().getEmail());
             result.put(TypeData.Password, Auth_pb.GeneralAuthProto.parseFrom(data).
                     getRegistrationRequest().getPassword());
         } catch (InvalidProtocolBufferException exception) {

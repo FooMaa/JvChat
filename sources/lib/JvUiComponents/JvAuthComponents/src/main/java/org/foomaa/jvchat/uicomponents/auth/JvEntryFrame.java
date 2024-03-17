@@ -46,44 +46,51 @@ public class JvEntryFrame extends JFrame {
         int insX = JvDisplaySettings.
                 getResizeFromDisplay(0.025,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
+        int gridyNum = 0;
 
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.PAGE_START;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(JvDisplaySettings.getResizePixel(0.0125), 0, JvDisplaySettings.getResizePixel(0.0084), 0);
-        gbc.gridy = 0;
+        gbc.gridy = gridyNum;
         panel.add(tInfo, gbc);
+        gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(0, insX, JvDisplaySettings.getResizePixel(0.004), insX);
-        gbc.gridy = 1;
+        gbc.gridy = gridyNum;
         panel.add(tLogin, gbc);
+        gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(0, insX, 0, insX);
-        gbc.gridy = 2;
+        gbc.gridy = gridyNum;
         panel.add(tPassword, gbc);
+        gridyNum++;
 
         gbc.fill = GridBagConstraints.CENTER;
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.insets = new Insets(0, 0, JvDisplaySettings.getResizePixel(0.004), 0);
-        gbc.gridy = 3;
+        gbc.gridy = gridyNum;
         panel.add(activeMissLabel, gbc);
+        gridyNum++;
 
         gbc.fill = GridBagConstraints.CENTER;
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.insets = new Insets(0, 0, JvDisplaySettings.getResizePixel(0.0084), 0);
-        gbc.gridy = 4;
+        gbc.gridy = gridyNum;
         panel.add(activeRegisterLabel, gbc);
+        gridyNum++;
 
         gbc.fill = GridBagConstraints.CENTER;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(0, insX, JvDisplaySettings.getResizePixel(0.0084), insX);
-        gbc.gridy = 5;
+        gbc.gridy = gridyNum;
         panel.add(tErrorHelpInfo, gbc);
+        gridyNum++;
 
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.SOUTH;
@@ -92,7 +99,7 @@ public class JvEntryFrame extends JFrame {
                 JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
         gbc.ipady = JvDisplaySettings.getResizeFromDisplay(0.01,
                 JvDisplaySettings.TypeOfDisplayBorder.HEIGHT);
-        gbc.gridy = 6;
+        gbc.gridy = gridyNum;
         panel.add(bEnter, gbc);
 
         getContentPane().add(panel);

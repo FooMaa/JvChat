@@ -20,18 +20,15 @@ public final class Auth_pb {
 
     /**
      * <code>uint32 type = 1;</code>
-     * @return The type.
      */
     int getType();
 
     /**
      * <code>.EntryRequestProto entryRequest = 2;</code>
-     * @return Whether the entryRequest field is set.
      */
     boolean hasEntryRequest();
     /**
      * <code>.EntryRequestProto entryRequest = 2;</code>
-     * @return The entryRequest.
      */
     org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto getEntryRequest();
     /**
@@ -41,12 +38,10 @@ public final class Auth_pb {
 
     /**
      * <code>.EntryReplyProto entryReply = 3;</code>
-     * @return Whether the entryReply field is set.
      */
     boolean hasEntryReply();
     /**
      * <code>.EntryReplyProto entryReply = 3;</code>
-     * @return The entryReply.
      */
     org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto getEntryReply();
     /**
@@ -56,12 +51,10 @@ public final class Auth_pb {
 
     /**
      * <code>.RegistrationRequestProto registrationRequest = 4;</code>
-     * @return Whether the registrationRequest field is set.
      */
     boolean hasRegistrationRequest();
     /**
      * <code>.RegistrationRequestProto registrationRequest = 4;</code>
-     * @return The registrationRequest.
      */
     org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto getRegistrationRequest();
     /**
@@ -71,12 +64,10 @@ public final class Auth_pb {
 
     /**
      * <code>.RegistrationReplyProto registrationReply = 5;</code>
-     * @return Whether the registrationReply field is set.
      */
     boolean hasRegistrationReply();
     /**
      * <code>.RegistrationReplyProto registrationReply = 5;</code>
-     * @return The registrationReply.
      */
     org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto getRegistrationReply();
     /**
@@ -89,7 +80,7 @@ public final class Auth_pb {
   /**
    * Protobuf type {@code GeneralAuthProto}
    */
-  public static final class GeneralAuthProto extends
+  public  static final class GeneralAuthProto extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:GeneralAuthProto)
       GeneralAuthProtoOrBuilder {
@@ -99,13 +90,7 @@ public final class Auth_pb {
       super(builder);
     }
     private GeneralAuthProto() {
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new GeneralAuthProto();
+      type_ = 0;
     }
 
     @java.lang.Override
@@ -121,6 +106,7 @@ public final class Auth_pb {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
+      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -193,7 +179,7 @@ public final class Auth_pb {
               break;
             }
             default: {
-              if (!parseUnknownField(
+              if (!parseUnknownFieldProto3(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -227,8 +213,7 @@ public final class Auth_pb {
     private int bodyCase_ = 0;
     private java.lang.Object body_;
     public enum BodyCase
-        implements com.google.protobuf.Internal.EnumLite,
-            com.google.protobuf.AbstractMessage.InternalOneOfEnum {
+        implements com.google.protobuf.Internal.EnumLite {
       ENTRYREQUEST(2),
       ENTRYREPLY(3),
       REGISTRATIONREQUEST(4),
@@ -239,8 +224,6 @@ public final class Auth_pb {
         this.value = value;
       }
       /**
-       * @param value The number of the enum to look for.
-       * @return The enum associated with the given number.
        * @deprecated Use {@link #forNumber(int)} instead.
        */
       @java.lang.Deprecated
@@ -273,9 +256,7 @@ public final class Auth_pb {
     private int type_;
     /**
      * <code>uint32 type = 1;</code>
-     * @return The type.
      */
-    @java.lang.Override
     public int getType() {
       return type_;
     }
@@ -283,17 +264,13 @@ public final class Auth_pb {
     public static final int ENTRYREQUEST_FIELD_NUMBER = 2;
     /**
      * <code>.EntryRequestProto entryRequest = 2;</code>
-     * @return Whether the entryRequest field is set.
      */
-    @java.lang.Override
     public boolean hasEntryRequest() {
       return bodyCase_ == 2;
     }
     /**
      * <code>.EntryRequestProto entryRequest = 2;</code>
-     * @return The entryRequest.
      */
-    @java.lang.Override
     public org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto getEntryRequest() {
       if (bodyCase_ == 2) {
          return (org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto) body_;
@@ -303,7 +280,6 @@ public final class Auth_pb {
     /**
      * <code>.EntryRequestProto entryRequest = 2;</code>
      */
-    @java.lang.Override
     public org.foomaa.jvchat.messages.Auth_pb.EntryRequestProtoOrBuilder getEntryRequestOrBuilder() {
       if (bodyCase_ == 2) {
          return (org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto) body_;
@@ -314,17 +290,13 @@ public final class Auth_pb {
     public static final int ENTRYREPLY_FIELD_NUMBER = 3;
     /**
      * <code>.EntryReplyProto entryReply = 3;</code>
-     * @return Whether the entryReply field is set.
      */
-    @java.lang.Override
     public boolean hasEntryReply() {
       return bodyCase_ == 3;
     }
     /**
      * <code>.EntryReplyProto entryReply = 3;</code>
-     * @return The entryReply.
      */
-    @java.lang.Override
     public org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto getEntryReply() {
       if (bodyCase_ == 3) {
          return (org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) body_;
@@ -334,7 +306,6 @@ public final class Auth_pb {
     /**
      * <code>.EntryReplyProto entryReply = 3;</code>
      */
-    @java.lang.Override
     public org.foomaa.jvchat.messages.Auth_pb.EntryReplyProtoOrBuilder getEntryReplyOrBuilder() {
       if (bodyCase_ == 3) {
          return (org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) body_;
@@ -345,17 +316,13 @@ public final class Auth_pb {
     public static final int REGISTRATIONREQUEST_FIELD_NUMBER = 4;
     /**
      * <code>.RegistrationRequestProto registrationRequest = 4;</code>
-     * @return Whether the registrationRequest field is set.
      */
-    @java.lang.Override
     public boolean hasRegistrationRequest() {
       return bodyCase_ == 4;
     }
     /**
      * <code>.RegistrationRequestProto registrationRequest = 4;</code>
-     * @return The registrationRequest.
      */
-    @java.lang.Override
     public org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto getRegistrationRequest() {
       if (bodyCase_ == 4) {
          return (org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto) body_;
@@ -365,7 +332,6 @@ public final class Auth_pb {
     /**
      * <code>.RegistrationRequestProto registrationRequest = 4;</code>
      */
-    @java.lang.Override
     public org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProtoOrBuilder getRegistrationRequestOrBuilder() {
       if (bodyCase_ == 4) {
          return (org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto) body_;
@@ -376,17 +342,13 @@ public final class Auth_pb {
     public static final int REGISTRATIONREPLY_FIELD_NUMBER = 5;
     /**
      * <code>.RegistrationReplyProto registrationReply = 5;</code>
-     * @return Whether the registrationReply field is set.
      */
-    @java.lang.Override
     public boolean hasRegistrationReply() {
       return bodyCase_ == 5;
     }
     /**
      * <code>.RegistrationReplyProto registrationReply = 5;</code>
-     * @return The registrationReply.
      */
-    @java.lang.Override
     public org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto getRegistrationReply() {
       if (bodyCase_ == 5) {
          return (org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto) body_;
@@ -396,7 +358,6 @@ public final class Auth_pb {
     /**
      * <code>.RegistrationReplyProto registrationReply = 5;</code>
      */
-    @java.lang.Override
     public org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProtoOrBuilder getRegistrationReplyOrBuilder() {
       if (bodyCase_ == 5) {
          return (org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto) body_;
@@ -477,31 +438,34 @@ public final class Auth_pb {
       }
       org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto other = (org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto) obj;
 
-      if (getType()
-          != other.getType()) return false;
-      if (!getBodyCase().equals(other.getBodyCase())) return false;
+      boolean result = true;
+      result = result && (getType()
+          == other.getType());
+      result = result && getBodyCase().equals(
+          other.getBodyCase());
+      if (!result) return false;
       switch (bodyCase_) {
         case 2:
-          if (!getEntryRequest()
-              .equals(other.getEntryRequest())) return false;
+          result = result && getEntryRequest()
+              .equals(other.getEntryRequest());
           break;
         case 3:
-          if (!getEntryReply()
-              .equals(other.getEntryReply())) return false;
+          result = result && getEntryReply()
+              .equals(other.getEntryReply());
           break;
         case 4:
-          if (!getRegistrationRequest()
-              .equals(other.getRegistrationRequest())) return false;
+          result = result && getRegistrationRequest()
+              .equals(other.getRegistrationRequest());
           break;
         case 5:
-          if (!getRegistrationReply()
-              .equals(other.getRegistrationReply())) return false;
+          result = result && getRegistrationReply()
+              .equals(other.getRegistrationReply());
           break;
         case 0:
         default:
       }
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
     }
 
     @java.lang.Override
@@ -732,35 +696,35 @@ public final class Auth_pb {
 
       @java.lang.Override
       public Builder clone() {
-        return super.clone();
+        return (Builder) super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return super.setField(field, value);
+        return (Builder) super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
+        return (Builder) super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
+        return (Builder) super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
+        return (Builder) super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return super.addRepeatedField(field, value);
+        return (Builder) super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -845,16 +809,12 @@ public final class Auth_pb {
       private int type_ ;
       /**
        * <code>uint32 type = 1;</code>
-       * @return The type.
        */
-      @java.lang.Override
       public int getType() {
         return type_;
       }
       /**
        * <code>uint32 type = 1;</code>
-       * @param value The type to set.
-       * @return This builder for chaining.
        */
       public Builder setType(int value) {
         
@@ -864,7 +824,6 @@ public final class Auth_pb {
       }
       /**
        * <code>uint32 type = 1;</code>
-       * @return This builder for chaining.
        */
       public Builder clearType() {
         
@@ -877,17 +836,13 @@ public final class Auth_pb {
           org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto, org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.Builder, org.foomaa.jvchat.messages.Auth_pb.EntryRequestProtoOrBuilder> entryRequestBuilder_;
       /**
        * <code>.EntryRequestProto entryRequest = 2;</code>
-       * @return Whether the entryRequest field is set.
        */
-      @java.lang.Override
       public boolean hasEntryRequest() {
         return bodyCase_ == 2;
       }
       /**
        * <code>.EntryRequestProto entryRequest = 2;</code>
-       * @return The entryRequest.
        */
-      @java.lang.Override
       public org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto getEntryRequest() {
         if (entryRequestBuilder_ == null) {
           if (bodyCase_ == 2) {
@@ -981,7 +936,6 @@ public final class Auth_pb {
       /**
        * <code>.EntryRequestProto entryRequest = 2;</code>
        */
-      @java.lang.Override
       public org.foomaa.jvchat.messages.Auth_pb.EntryRequestProtoOrBuilder getEntryRequestOrBuilder() {
         if ((bodyCase_ == 2) && (entryRequestBuilder_ != null)) {
           return entryRequestBuilder_.getMessageOrBuilder();
@@ -1018,17 +972,13 @@ public final class Auth_pb {
           org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto, org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.Builder, org.foomaa.jvchat.messages.Auth_pb.EntryReplyProtoOrBuilder> entryReplyBuilder_;
       /**
        * <code>.EntryReplyProto entryReply = 3;</code>
-       * @return Whether the entryReply field is set.
        */
-      @java.lang.Override
       public boolean hasEntryReply() {
         return bodyCase_ == 3;
       }
       /**
        * <code>.EntryReplyProto entryReply = 3;</code>
-       * @return The entryReply.
        */
-      @java.lang.Override
       public org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto getEntryReply() {
         if (entryReplyBuilder_ == null) {
           if (bodyCase_ == 3) {
@@ -1122,7 +1072,6 @@ public final class Auth_pb {
       /**
        * <code>.EntryReplyProto entryReply = 3;</code>
        */
-      @java.lang.Override
       public org.foomaa.jvchat.messages.Auth_pb.EntryReplyProtoOrBuilder getEntryReplyOrBuilder() {
         if ((bodyCase_ == 3) && (entryReplyBuilder_ != null)) {
           return entryReplyBuilder_.getMessageOrBuilder();
@@ -1159,17 +1108,13 @@ public final class Auth_pb {
           org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto, org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.Builder, org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProtoOrBuilder> registrationRequestBuilder_;
       /**
        * <code>.RegistrationRequestProto registrationRequest = 4;</code>
-       * @return Whether the registrationRequest field is set.
        */
-      @java.lang.Override
       public boolean hasRegistrationRequest() {
         return bodyCase_ == 4;
       }
       /**
        * <code>.RegistrationRequestProto registrationRequest = 4;</code>
-       * @return The registrationRequest.
        */
-      @java.lang.Override
       public org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto getRegistrationRequest() {
         if (registrationRequestBuilder_ == null) {
           if (bodyCase_ == 4) {
@@ -1263,7 +1208,6 @@ public final class Auth_pb {
       /**
        * <code>.RegistrationRequestProto registrationRequest = 4;</code>
        */
-      @java.lang.Override
       public org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProtoOrBuilder getRegistrationRequestOrBuilder() {
         if ((bodyCase_ == 4) && (registrationRequestBuilder_ != null)) {
           return registrationRequestBuilder_.getMessageOrBuilder();
@@ -1300,17 +1244,13 @@ public final class Auth_pb {
           org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto, org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Builder, org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProtoOrBuilder> registrationReplyBuilder_;
       /**
        * <code>.RegistrationReplyProto registrationReply = 5;</code>
-       * @return Whether the registrationReply field is set.
        */
-      @java.lang.Override
       public boolean hasRegistrationReply() {
         return bodyCase_ == 5;
       }
       /**
        * <code>.RegistrationReplyProto registrationReply = 5;</code>
-       * @return The registrationReply.
        */
-      @java.lang.Override
       public org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto getRegistrationReply() {
         if (registrationReplyBuilder_ == null) {
           if (bodyCase_ == 5) {
@@ -1404,7 +1344,6 @@ public final class Auth_pb {
       /**
        * <code>.RegistrationReplyProto registrationReply = 5;</code>
        */
-      @java.lang.Override
       public org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProtoOrBuilder getRegistrationReplyOrBuilder() {
         if ((bodyCase_ == 5) && (registrationReplyBuilder_ != null)) {
           return registrationReplyBuilder_.getMessageOrBuilder();
@@ -1439,7 +1378,7 @@ public final class Auth_pb {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
       @java.lang.Override
@@ -1495,24 +1434,20 @@ public final class Auth_pb {
 
     /**
      * <code>string login = 1;</code>
-     * @return The login.
      */
     java.lang.String getLogin();
     /**
      * <code>string login = 1;</code>
-     * @return The bytes for login.
      */
     com.google.protobuf.ByteString
         getLoginBytes();
 
     /**
      * <code>string password = 2;</code>
-     * @return The password.
      */
     java.lang.String getPassword();
     /**
      * <code>string password = 2;</code>
-     * @return The bytes for password.
      */
     com.google.protobuf.ByteString
         getPasswordBytes();
@@ -1520,7 +1455,7 @@ public final class Auth_pb {
   /**
    * Protobuf type {@code EntryRequestProto}
    */
-  public static final class EntryRequestProto extends
+  public  static final class EntryRequestProto extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:EntryRequestProto)
       EntryRequestProtoOrBuilder {
@@ -1532,13 +1467,6 @@ public final class Auth_pb {
     private EntryRequestProto() {
       login_ = "";
       password_ = "";
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new EntryRequestProto();
     }
 
     @java.lang.Override
@@ -1554,6 +1482,7 @@ public final class Auth_pb {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
+      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -1577,7 +1506,7 @@ public final class Auth_pb {
               break;
             }
             default: {
-              if (!parseUnknownField(
+              if (!parseUnknownFieldProto3(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -1612,9 +1541,7 @@ public final class Auth_pb {
     private volatile java.lang.Object login_;
     /**
      * <code>string login = 1;</code>
-     * @return The login.
      */
-    @java.lang.Override
     public java.lang.String getLogin() {
       java.lang.Object ref = login_;
       if (ref instanceof java.lang.String) {
@@ -1629,9 +1556,7 @@ public final class Auth_pb {
     }
     /**
      * <code>string login = 1;</code>
-     * @return The bytes for login.
      */
-    @java.lang.Override
     public com.google.protobuf.ByteString
         getLoginBytes() {
       java.lang.Object ref = login_;
@@ -1650,9 +1575,7 @@ public final class Auth_pb {
     private volatile java.lang.Object password_;
     /**
      * <code>string password = 2;</code>
-     * @return The password.
      */
-    @java.lang.Override
     public java.lang.String getPassword() {
       java.lang.Object ref = password_;
       if (ref instanceof java.lang.String) {
@@ -1667,9 +1590,7 @@ public final class Auth_pb {
     }
     /**
      * <code>string password = 2;</code>
-     * @return The bytes for password.
      */
-    @java.lang.Override
     public com.google.protobuf.ByteString
         getPasswordBytes() {
       java.lang.Object ref = password_;
@@ -1734,12 +1655,13 @@ public final class Auth_pb {
       }
       org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto other = (org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto) obj;
 
-      if (!getLogin()
-          .equals(other.getLogin())) return false;
-      if (!getPassword()
-          .equals(other.getPassword())) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
+      boolean result = true;
+      result = result && getLogin()
+          .equals(other.getLogin());
+      result = result && getPassword()
+          .equals(other.getPassword());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
     }
 
     @java.lang.Override
@@ -1924,35 +1846,35 @@ public final class Auth_pb {
 
       @java.lang.Override
       public Builder clone() {
-        return super.clone();
+        return (Builder) super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return super.setField(field, value);
+        return (Builder) super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
+        return (Builder) super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
+        return (Builder) super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
+        return (Builder) super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return super.addRepeatedField(field, value);
+        return (Builder) super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -2006,7 +1928,6 @@ public final class Auth_pb {
       private java.lang.Object login_ = "";
       /**
        * <code>string login = 1;</code>
-       * @return The login.
        */
       public java.lang.String getLogin() {
         java.lang.Object ref = login_;
@@ -2022,7 +1943,6 @@ public final class Auth_pb {
       }
       /**
        * <code>string login = 1;</code>
-       * @return The bytes for login.
        */
       public com.google.protobuf.ByteString
           getLoginBytes() {
@@ -2039,8 +1959,6 @@ public final class Auth_pb {
       }
       /**
        * <code>string login = 1;</code>
-       * @param value The login to set.
-       * @return This builder for chaining.
        */
       public Builder setLogin(
           java.lang.String value) {
@@ -2054,7 +1972,6 @@ public final class Auth_pb {
       }
       /**
        * <code>string login = 1;</code>
-       * @return This builder for chaining.
        */
       public Builder clearLogin() {
         
@@ -2064,8 +1981,6 @@ public final class Auth_pb {
       }
       /**
        * <code>string login = 1;</code>
-       * @param value The bytes for login to set.
-       * @return This builder for chaining.
        */
       public Builder setLoginBytes(
           com.google.protobuf.ByteString value) {
@@ -2082,7 +1997,6 @@ public final class Auth_pb {
       private java.lang.Object password_ = "";
       /**
        * <code>string password = 2;</code>
-       * @return The password.
        */
       public java.lang.String getPassword() {
         java.lang.Object ref = password_;
@@ -2098,7 +2012,6 @@ public final class Auth_pb {
       }
       /**
        * <code>string password = 2;</code>
-       * @return The bytes for password.
        */
       public com.google.protobuf.ByteString
           getPasswordBytes() {
@@ -2115,8 +2028,6 @@ public final class Auth_pb {
       }
       /**
        * <code>string password = 2;</code>
-       * @param value The password to set.
-       * @return This builder for chaining.
        */
       public Builder setPassword(
           java.lang.String value) {
@@ -2130,7 +2041,6 @@ public final class Auth_pb {
       }
       /**
        * <code>string password = 2;</code>
-       * @return This builder for chaining.
        */
       public Builder clearPassword() {
         
@@ -2140,8 +2050,6 @@ public final class Auth_pb {
       }
       /**
        * <code>string password = 2;</code>
-       * @param value The bytes for password to set.
-       * @return This builder for chaining.
        */
       public Builder setPasswordBytes(
           com.google.protobuf.ByteString value) {
@@ -2157,7 +2065,7 @@ public final class Auth_pb {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
       @java.lang.Override
@@ -2213,14 +2121,13 @@ public final class Auth_pb {
 
     /**
      * <code>bool reply = 1;</code>
-     * @return The reply.
      */
     boolean getReply();
   }
   /**
    * Protobuf type {@code EntryReplyProto}
    */
-  public static final class EntryReplyProto extends
+  public  static final class EntryReplyProto extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:EntryReplyProto)
       EntryReplyProtoOrBuilder {
@@ -2230,13 +2137,7 @@ public final class Auth_pb {
       super(builder);
     }
     private EntryReplyProto() {
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new EntryReplyProto();
+      reply_ = false;
     }
 
     @java.lang.Override
@@ -2252,6 +2153,7 @@ public final class Auth_pb {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
+      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -2268,7 +2170,7 @@ public final class Auth_pb {
               break;
             }
             default: {
-              if (!parseUnknownField(
+              if (!parseUnknownFieldProto3(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -2303,9 +2205,7 @@ public final class Auth_pb {
     private boolean reply_;
     /**
      * <code>bool reply = 1;</code>
-     * @return The reply.
      */
-    @java.lang.Override
     public boolean getReply() {
       return reply_;
     }
@@ -2355,10 +2255,11 @@ public final class Auth_pb {
       }
       org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto other = (org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) obj;
 
-      if (getReply()
-          != other.getReply()) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
+      boolean result = true;
+      result = result && (getReply()
+          == other.getReply());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
     }
 
     @java.lang.Override
@@ -2539,35 +2440,35 @@ public final class Auth_pb {
 
       @java.lang.Override
       public Builder clone() {
-        return super.clone();
+        return (Builder) super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return super.setField(field, value);
+        return (Builder) super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
+        return (Builder) super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
+        return (Builder) super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
+        return (Builder) super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return super.addRepeatedField(field, value);
+        return (Builder) super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -2616,16 +2517,12 @@ public final class Auth_pb {
       private boolean reply_ ;
       /**
        * <code>bool reply = 1;</code>
-       * @return The reply.
        */
-      @java.lang.Override
       public boolean getReply() {
         return reply_;
       }
       /**
        * <code>bool reply = 1;</code>
-       * @param value The reply to set.
-       * @return This builder for chaining.
        */
       public Builder setReply(boolean value) {
         
@@ -2635,7 +2532,6 @@ public final class Auth_pb {
       }
       /**
        * <code>bool reply = 1;</code>
-       * @return This builder for chaining.
        */
       public Builder clearReply() {
         
@@ -2646,7 +2542,7 @@ public final class Auth_pb {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
       @java.lang.Override
@@ -2702,24 +2598,30 @@ public final class Auth_pb {
 
     /**
      * <code>string login = 1;</code>
-     * @return The login.
      */
     java.lang.String getLogin();
     /**
      * <code>string login = 1;</code>
-     * @return The bytes for login.
      */
     com.google.protobuf.ByteString
         getLoginBytes();
 
     /**
-     * <code>string password = 2;</code>
-     * @return The password.
+     * <code>string email = 2;</code>
+     */
+    java.lang.String getEmail();
+    /**
+     * <code>string email = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getEmailBytes();
+
+    /**
+     * <code>string password = 3;</code>
      */
     java.lang.String getPassword();
     /**
-     * <code>string password = 2;</code>
-     * @return The bytes for password.
+     * <code>string password = 3;</code>
      */
     com.google.protobuf.ByteString
         getPasswordBytes();
@@ -2727,7 +2629,7 @@ public final class Auth_pb {
   /**
    * Protobuf type {@code RegistrationRequestProto}
    */
-  public static final class RegistrationRequestProto extends
+  public  static final class RegistrationRequestProto extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:RegistrationRequestProto)
       RegistrationRequestProtoOrBuilder {
@@ -2738,14 +2640,8 @@ public final class Auth_pb {
     }
     private RegistrationRequestProto() {
       login_ = "";
+      email_ = "";
       password_ = "";
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new RegistrationRequestProto();
     }
 
     @java.lang.Override
@@ -2761,6 +2657,7 @@ public final class Auth_pb {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
+      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -2780,11 +2677,17 @@ public final class Auth_pb {
             case 18: {
               java.lang.String s = input.readStringRequireUtf8();
 
+              email_ = s;
+              break;
+            }
+            case 26: {
+              java.lang.String s = input.readStringRequireUtf8();
+
               password_ = s;
               break;
             }
             default: {
-              if (!parseUnknownField(
+              if (!parseUnknownFieldProto3(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -2819,9 +2722,7 @@ public final class Auth_pb {
     private volatile java.lang.Object login_;
     /**
      * <code>string login = 1;</code>
-     * @return The login.
      */
-    @java.lang.Override
     public java.lang.String getLogin() {
       java.lang.Object ref = login_;
       if (ref instanceof java.lang.String) {
@@ -2836,9 +2737,7 @@ public final class Auth_pb {
     }
     /**
      * <code>string login = 1;</code>
-     * @return The bytes for login.
      */
-    @java.lang.Override
     public com.google.protobuf.ByteString
         getLoginBytes() {
       java.lang.Object ref = login_;
@@ -2853,13 +2752,45 @@ public final class Auth_pb {
       }
     }
 
-    public static final int PASSWORD_FIELD_NUMBER = 2;
+    public static final int EMAIL_FIELD_NUMBER = 2;
+    private volatile java.lang.Object email_;
+    /**
+     * <code>string email = 2;</code>
+     */
+    public java.lang.String getEmail() {
+      java.lang.Object ref = email_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        email_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string email = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getEmailBytes() {
+      java.lang.Object ref = email_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        email_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PASSWORD_FIELD_NUMBER = 3;
     private volatile java.lang.Object password_;
     /**
-     * <code>string password = 2;</code>
-     * @return The password.
+     * <code>string password = 3;</code>
      */
-    @java.lang.Override
     public java.lang.String getPassword() {
       java.lang.Object ref = password_;
       if (ref instanceof java.lang.String) {
@@ -2873,10 +2804,8 @@ public final class Auth_pb {
       }
     }
     /**
-     * <code>string password = 2;</code>
-     * @return The bytes for password.
+     * <code>string password = 3;</code>
      */
-    @java.lang.Override
     public com.google.protobuf.ByteString
         getPasswordBytes() {
       java.lang.Object ref = password_;
@@ -2908,8 +2837,11 @@ public final class Auth_pb {
       if (!getLoginBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, login_);
       }
+      if (!getEmailBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, email_);
+      }
       if (!getPasswordBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, password_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, password_);
       }
       unknownFields.writeTo(output);
     }
@@ -2923,8 +2855,11 @@ public final class Auth_pb {
       if (!getLoginBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, login_);
       }
+      if (!getEmailBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, email_);
+      }
       if (!getPasswordBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, password_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, password_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -2941,12 +2876,15 @@ public final class Auth_pb {
       }
       org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto other = (org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto) obj;
 
-      if (!getLogin()
-          .equals(other.getLogin())) return false;
-      if (!getPassword()
-          .equals(other.getPassword())) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
+      boolean result = true;
+      result = result && getLogin()
+          .equals(other.getLogin());
+      result = result && getEmail()
+          .equals(other.getEmail());
+      result = result && getPassword()
+          .equals(other.getPassword());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
     }
 
     @java.lang.Override
@@ -2958,6 +2896,8 @@ public final class Auth_pb {
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + LOGIN_FIELD_NUMBER;
       hash = (53 * hash) + getLogin().hashCode();
+      hash = (37 * hash) + EMAIL_FIELD_NUMBER;
+      hash = (53 * hash) + getEmail().hashCode();
       hash = (37 * hash) + PASSWORD_FIELD_NUMBER;
       hash = (53 * hash) + getPassword().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
@@ -3095,6 +3035,8 @@ public final class Auth_pb {
         super.clear();
         login_ = "";
 
+        email_ = "";
+
         password_ = "";
 
         return this;
@@ -3124,6 +3066,7 @@ public final class Auth_pb {
       public org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto buildPartial() {
         org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto result = new org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto(this);
         result.login_ = login_;
+        result.email_ = email_;
         result.password_ = password_;
         onBuilt();
         return result;
@@ -3131,35 +3074,35 @@ public final class Auth_pb {
 
       @java.lang.Override
       public Builder clone() {
-        return super.clone();
+        return (Builder) super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return super.setField(field, value);
+        return (Builder) super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
+        return (Builder) super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
+        return (Builder) super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
+        return (Builder) super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return super.addRepeatedField(field, value);
+        return (Builder) super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -3175,6 +3118,10 @@ public final class Auth_pb {
         if (other == org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.getDefaultInstance()) return this;
         if (!other.getLogin().isEmpty()) {
           login_ = other.login_;
+          onChanged();
+        }
+        if (!other.getEmail().isEmpty()) {
+          email_ = other.email_;
           onChanged();
         }
         if (!other.getPassword().isEmpty()) {
@@ -3213,7 +3160,6 @@ public final class Auth_pb {
       private java.lang.Object login_ = "";
       /**
        * <code>string login = 1;</code>
-       * @return The login.
        */
       public java.lang.String getLogin() {
         java.lang.Object ref = login_;
@@ -3229,7 +3175,6 @@ public final class Auth_pb {
       }
       /**
        * <code>string login = 1;</code>
-       * @return The bytes for login.
        */
       public com.google.protobuf.ByteString
           getLoginBytes() {
@@ -3246,8 +3191,6 @@ public final class Auth_pb {
       }
       /**
        * <code>string login = 1;</code>
-       * @param value The login to set.
-       * @return This builder for chaining.
        */
       public Builder setLogin(
           java.lang.String value) {
@@ -3261,7 +3204,6 @@ public final class Auth_pb {
       }
       /**
        * <code>string login = 1;</code>
-       * @return This builder for chaining.
        */
       public Builder clearLogin() {
         
@@ -3271,8 +3213,6 @@ public final class Auth_pb {
       }
       /**
        * <code>string login = 1;</code>
-       * @param value The bytes for login to set.
-       * @return This builder for chaining.
        */
       public Builder setLoginBytes(
           com.google.protobuf.ByteString value) {
@@ -3286,10 +3226,78 @@ public final class Auth_pb {
         return this;
       }
 
+      private java.lang.Object email_ = "";
+      /**
+       * <code>string email = 2;</code>
+       */
+      public java.lang.String getEmail() {
+        java.lang.Object ref = email_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          email_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string email = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getEmailBytes() {
+        java.lang.Object ref = email_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          email_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string email = 2;</code>
+       */
+      public Builder setEmail(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        email_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string email = 2;</code>
+       */
+      public Builder clearEmail() {
+        
+        email_ = getDefaultInstance().getEmail();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string email = 2;</code>
+       */
+      public Builder setEmailBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        email_ = value;
+        onChanged();
+        return this;
+      }
+
       private java.lang.Object password_ = "";
       /**
-       * <code>string password = 2;</code>
-       * @return The password.
+       * <code>string password = 3;</code>
        */
       public java.lang.String getPassword() {
         java.lang.Object ref = password_;
@@ -3304,8 +3312,7 @@ public final class Auth_pb {
         }
       }
       /**
-       * <code>string password = 2;</code>
-       * @return The bytes for password.
+       * <code>string password = 3;</code>
        */
       public com.google.protobuf.ByteString
           getPasswordBytes() {
@@ -3321,9 +3328,7 @@ public final class Auth_pb {
         }
       }
       /**
-       * <code>string password = 2;</code>
-       * @param value The password to set.
-       * @return This builder for chaining.
+       * <code>string password = 3;</code>
        */
       public Builder setPassword(
           java.lang.String value) {
@@ -3336,8 +3341,7 @@ public final class Auth_pb {
         return this;
       }
       /**
-       * <code>string password = 2;</code>
-       * @return This builder for chaining.
+       * <code>string password = 3;</code>
        */
       public Builder clearPassword() {
         
@@ -3346,9 +3350,7 @@ public final class Auth_pb {
         return this;
       }
       /**
-       * <code>string password = 2;</code>
-       * @param value The bytes for password to set.
-       * @return This builder for chaining.
+       * <code>string password = 3;</code>
        */
       public Builder setPasswordBytes(
           com.google.protobuf.ByteString value) {
@@ -3364,7 +3366,7 @@ public final class Auth_pb {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
       @java.lang.Override
@@ -3420,14 +3422,13 @@ public final class Auth_pb {
 
     /**
      * <code>bool reply = 1;</code>
-     * @return The reply.
      */
     boolean getReply();
   }
   /**
    * Protobuf type {@code RegistrationReplyProto}
    */
-  public static final class RegistrationReplyProto extends
+  public  static final class RegistrationReplyProto extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:RegistrationReplyProto)
       RegistrationReplyProtoOrBuilder {
@@ -3437,13 +3438,7 @@ public final class Auth_pb {
       super(builder);
     }
     private RegistrationReplyProto() {
-    }
-
-    @java.lang.Override
-    @SuppressWarnings({"unused"})
-    protected java.lang.Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new RegistrationReplyProto();
+      reply_ = false;
     }
 
     @java.lang.Override
@@ -3459,6 +3454,7 @@ public final class Auth_pb {
       if (extensionRegistry == null) {
         throw new java.lang.NullPointerException();
       }
+      int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
           com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
@@ -3475,7 +3471,7 @@ public final class Auth_pb {
               break;
             }
             default: {
-              if (!parseUnknownField(
+              if (!parseUnknownFieldProto3(
                   input, unknownFields, extensionRegistry, tag)) {
                 done = true;
               }
@@ -3510,9 +3506,7 @@ public final class Auth_pb {
     private boolean reply_;
     /**
      * <code>bool reply = 1;</code>
-     * @return The reply.
      */
-    @java.lang.Override
     public boolean getReply() {
       return reply_;
     }
@@ -3562,10 +3556,11 @@ public final class Auth_pb {
       }
       org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto other = (org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto) obj;
 
-      if (getReply()
-          != other.getReply()) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
+      boolean result = true;
+      result = result && (getReply()
+          == other.getReply());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
     }
 
     @java.lang.Override
@@ -3746,35 +3741,35 @@ public final class Auth_pb {
 
       @java.lang.Override
       public Builder clone() {
-        return super.clone();
+        return (Builder) super.clone();
       }
       @java.lang.Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return super.setField(field, value);
+        return (Builder) super.setField(field, value);
       }
       @java.lang.Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
+        return (Builder) super.clearField(field);
       }
       @java.lang.Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
+        return (Builder) super.clearOneof(oneof);
       }
       @java.lang.Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           int index, java.lang.Object value) {
-        return super.setRepeatedField(field, index, value);
+        return (Builder) super.setRepeatedField(field, index, value);
       }
       @java.lang.Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
           java.lang.Object value) {
-        return super.addRepeatedField(field, value);
+        return (Builder) super.addRepeatedField(field, value);
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
@@ -3823,16 +3818,12 @@ public final class Auth_pb {
       private boolean reply_ ;
       /**
        * <code>bool reply = 1;</code>
-       * @return The reply.
        */
-      @java.lang.Override
       public boolean getReply() {
         return reply_;
       }
       /**
        * <code>bool reply = 1;</code>
-       * @param value The reply to set.
-       * @return This builder for chaining.
        */
       public Builder setReply(boolean value) {
         
@@ -3842,7 +3833,6 @@ public final class Auth_pb {
       }
       /**
        * <code>bool reply = 1;</code>
-       * @return This builder for chaining.
        */
       public Builder clearReply() {
         
@@ -3853,7 +3843,7 @@ public final class Auth_pb {
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
+        return super.setUnknownFieldsProto3(unknownFields);
       }
 
       @java.lang.Override
@@ -3945,16 +3935,24 @@ public final class Auth_pb {
       "strationReply\030\005 \001(\0132\027.RegistrationReplyP" +
       "rotoH\000B\006\n\004body\"4\n\021EntryRequestProto\022\r\n\005l" +
       "ogin\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\" \n\017EntryRep" +
-      "lyProto\022\r\n\005reply\030\001 \001(\010\";\n\030RegistrationRe" +
-      "questProto\022\r\n\005login\030\001 \001(\t\022\020\n\010password\030\002 " +
-      "\001(\t\"\'\n\026RegistrationReplyProto\022\r\n\005reply\030\001" +
-      " \001(\010B%\n\032org.foomaa.jvchat.messagesB\007Auth" +
-      "_pbb\006proto3"
+      "lyProto\022\r\n\005reply\030\001 \001(\010\"J\n\030RegistrationRe" +
+      "questProto\022\r\n\005login\030\001 \001(\t\022\r\n\005email\030\002 \001(\t" +
+      "\022\020\n\010password\030\003 \001(\t\"\'\n\026RegistrationReplyP" +
+      "roto\022\r\n\005reply\030\001 \001(\010B%\n\032org.foomaa.jvchat" +
+      ".messagesB\007Auth_pbb\006proto3"
     };
-    descriptor = com.google.protobuf.Descriptors.FileDescriptor
+    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
+        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
+          public com.google.protobuf.ExtensionRegistry assignDescriptors(
+              com.google.protobuf.Descriptors.FileDescriptor root) {
+            descriptor = root;
+            return null;
+          }
+        };
+    com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-        });
+        }, assigner);
     internal_static_GeneralAuthProto_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_GeneralAuthProto_fieldAccessorTable = new
@@ -3978,7 +3976,7 @@ public final class Auth_pb {
     internal_static_RegistrationRequestProto_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_RegistrationRequestProto_descriptor,
-        new java.lang.String[] { "Login", "Password", });
+        new java.lang.String[] { "Login", "Email", "Password", });
     internal_static_RegistrationReplyProto_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_RegistrationReplyProto_fieldAccessorTable = new

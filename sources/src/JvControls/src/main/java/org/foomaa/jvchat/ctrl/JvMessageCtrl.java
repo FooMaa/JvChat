@@ -17,7 +17,6 @@ public class JvMessageCtrl {
     private TypeFlags RegistratonRequestFlag = TypeFlags.DEFAULT;
     // FLAGS
 
-
     private JvMessageCtrl() {}
 
     public static JvMessageCtrl getInstance() {
@@ -44,9 +43,11 @@ public class JvMessageCtrl {
             case RegistrationRequest:
                 if (parameters.length == 2) {
                     TYPEPARAM login = parameters[0];
-                    TYPEPARAM password = parameters[1];
+                    TYPEPARAM email = parameters[1];
+                    TYPEPARAM password = parameters[2];
                     byte[] bodyMessage = createBodyRegistrationRequestMessage(type,
                             (String) login,
+                            (String) email,
                             (String) password);
                     sendReadyMessageNetwork(bodyMessage);
                     RegistratonRequestFlag = TypeFlags.DEFAULT;
@@ -98,8 +99,8 @@ public class JvMessageCtrl {
         return JvSerializatorData.serialiseData(type, login, password);
     }
 
-    private byte[] createBodyRegistrationRequestMessage(JvSerializatorData.TypeMessage type, String login, String password) {
-        return JvSerializatorData.serialiseData(type, login, password);
+    private byte[] createBodyRegistrationRequestMessage(JvSerializatorData.TypeMessage type, String login, String email, String password) {
+        return JvSerializatorData.serialiseData(type, login, email, password);
     }
 
     private byte[] createBodyEntryReplyMessage(JvSerializatorData.TypeMessage type, Boolean reply) {
@@ -122,6 +123,7 @@ public class JvMessageCtrl {
         HashMap<JvSerializatorData.TypeData, String> map = JvSerializatorData.takeRegistrationRequestMessage(dataMsg);
         boolean requestDB = JvDbCtrl.getInstance().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.RegisterForm,
                 map.get(JvSerializatorData.TypeData.Login),
+                map.get(JvSerializatorData.TypeData.Email),
                 map.get(JvSerializatorData.TypeData.Password));
         sendMessage(JvSerializatorData.TypeMessage.RegistrationReply, requestDB);
     }

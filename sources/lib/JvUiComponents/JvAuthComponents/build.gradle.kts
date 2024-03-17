@@ -15,6 +15,7 @@ dependencies {
     implementation(project(mapOf("path" to ":sources:src:JvControls")))
     implementation(project(mapOf("path" to ":sources:lib:JvSettings")))
     implementation(project(":sources:lib:JvMessages"))
+    implementation(project(":sources:lib:JvTools"))
 }
 
 tasks.test {

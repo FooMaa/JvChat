@@ -135,4 +135,10 @@ public class JvTools
             JvMainSettings.setIp(socket.getLocalAddress().getHostAddress());
         }
     }
+
+    public static boolean checkEmail(String param) {
+        Pattern regex = Pattern.compile(
+                "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");
+        return regex.matcher(param).matches();
+    }
 }
