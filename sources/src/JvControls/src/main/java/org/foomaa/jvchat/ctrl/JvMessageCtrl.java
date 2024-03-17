@@ -75,11 +75,13 @@ public class JvMessageCtrl {
 
     public void takeMessage(byte[] dataMsg) {
         JvSerializatorData.TypeMessage type = JvSerializatorData.getTypeMessage(dataMsg);
+        System.out.println(dataMsg);
         switch (type) {
             case EntryRequest:
                 workEntryRequestMessage(dataMsg);
                 break;
             case RegistrationRequest:
+                System.out.println(dataMsg);
                 workRegistrationRequestMessage(dataMsg);
                 break;
             case EntryReply:
@@ -125,7 +127,6 @@ public class JvMessageCtrl {
                 map.get(JvSerializatorData.TypeData.Login),
                 map.get(JvSerializatorData.TypeData.Email),
                 map.get(JvSerializatorData.TypeData.Password));
-        System.out.println(requestDB);
         sendMessage(JvSerializatorData.TypeMessage.RegistrationReply, requestDB);
     }
 
