@@ -125,6 +125,7 @@ public class JvMessageCtrl {
                 map.get(JvSerializatorData.TypeData.Login),
                 map.get(JvSerializatorData.TypeData.Email),
                 map.get(JvSerializatorData.TypeData.Password));
+        System.out.println(requestDB);
         sendMessage(JvSerializatorData.TypeMessage.RegistrationReply, requestDB);
     }
 
