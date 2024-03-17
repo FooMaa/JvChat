@@ -42,7 +42,7 @@ public class JvSerializatorData {
                     return new byte[0];
                 }
             case RegistrationRequest:
-                if (parameters.length == 2) {
+                if (parameters.length == 3) {
                     TYPEPARAM login = parameters[0];
                     TYPEPARAM email = parameters[1];
                     TYPEPARAM password = parameters[2];
