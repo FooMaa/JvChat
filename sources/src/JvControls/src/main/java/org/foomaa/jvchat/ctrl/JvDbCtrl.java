@@ -35,7 +35,7 @@ public class JvDbCtrl
     public boolean insertQueryToDB(TypeExecutionInsert type, String ... parameters) {
         switch (type) {
             case RegisterForm:
-                if (parameters.length == 2) {
+                if (parameters.length == 3) {
                     String login = parameters[0];
                     String email = parameters[1];
                     String password = parameters[2];
