@@ -82,4 +82,16 @@ public class JvMainSettings {
     public static String getMagicStringDb() {
         return magicStringDb;
     }
+
+    // EMAIL
+    private static final String emailAddress = "jvchat.foomaa@mail.ru";
+    private static final String magicStringEmail =  new String(Base64.getDecoder().decode("SnZDaGF0MTExMQ==".getBytes()));
+
+    public static String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public static String getMagicStringEmail() {
+        return magicStringEmail;
+    }
 }
