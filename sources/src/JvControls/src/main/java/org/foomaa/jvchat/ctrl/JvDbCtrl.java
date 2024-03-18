@@ -2,10 +2,8 @@ package org.foomaa.jvchat.ctrl;
 
 import org.foomaa.jvchat.dbworker.JvDbDefines;
 import org.foomaa.jvchat.dbworker.JvDbWorker;
-import org.foomaa.jvchat.network.JvEmailProcessor;
 import org.foomaa.jvchat.settings.JvMainSettings;
 
-import javax.mail.MessagingException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
