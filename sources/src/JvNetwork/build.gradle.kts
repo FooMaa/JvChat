@@ -13,6 +13,7 @@ repositories {
 dependencies {
     testImplementation("junit:junit:3.8.1")
     implementation(project(":sources:lib:JvSettings"))
+    implementation("com.sun.mail:javax.mail:1.6.2")
 }
 
 tasks.test {

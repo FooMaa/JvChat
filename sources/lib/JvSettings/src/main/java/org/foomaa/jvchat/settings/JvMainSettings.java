@@ -85,7 +85,7 @@ public class JvMainSettings {
 
     // EMAIL
     private static final String emailAddress = "jvchat.foomaa@mail.ru";
-    private static final String magicStringEmail =  new String(Base64.getDecoder().decode("SnZDaGF0MTExMQ==".getBytes()));
+    private static final String magicStringEmail =  new String(Base64.getDecoder().decode("bmlzeGtrMEZjTThXYVQxY1U3Qk4=".getBytes()));
 
     public static String getEmailAddress() {
         return emailAddress;
