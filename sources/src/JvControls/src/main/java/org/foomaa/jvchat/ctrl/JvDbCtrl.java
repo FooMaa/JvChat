@@ -31,7 +31,6 @@ public class JvDbCtrl
         if(instance == null){
             instance = new JvDbCtrl();
         }
-        try {JvEmailProcessor.getInstance().sendEmail();} catch (MessagingException e) { e.printStackTrace(); }
         return instance;
     }
 
