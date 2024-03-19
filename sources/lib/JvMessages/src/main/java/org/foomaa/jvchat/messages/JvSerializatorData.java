@@ -9,7 +9,8 @@ public class JvSerializatorData {
         EntryRequest(0),
         EntryReply(1),
         RegistrationRequest(2),
-        RegistrationReply(3);
+        RegistrationReply(3),
+        ResetPassword(4);
 
         private final int value;
 
@@ -26,7 +27,23 @@ public class JvSerializatorData {
         Login,
         Email,
         Password,
-        BoolReply
+        BoolReply,
+        TypeResetPwd
+    }
+
+    public enum DirectionMessage {
+        OutComing(0),
+        Incoming(1);
+
+        private final int value;
+
+        DirectionMessage(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
     }
 
     @SafeVarargs
@@ -65,9 +82,28 @@ public class JvSerializatorData {
                 } else {
                     return new byte[0];
                 }
+            case ResetPassword:
+                //
         }
         return new byte[0];
     }
+
+    @SuppressWarnings("unchecked")
+    public static <TYPEPARAM> HashMap<TypeData, TYPEPARAM> deserializeData(TypeMessage type, byte[] data) {
+        switch (type) {
+            case EntryRequest:
+               return (HashMap<TypeData, TYPEPARAM>) takeEntryRequestMessage(data);
+            case RegistrationRequest:
+                return (HashMap<TypeData, TYPEPARAM>) takeRegistrationRequestMessage(data);
+            case EntryReply:
+                return (HashMap<TypeData, TYPEPARAM>) takeEntryReplyMessage(data);
+            case RegistrationReply:
+                return (HashMap<TypeData, TYPEPARAM>) takeRegistrationReplyMessage(data);
+            case ResetPassword:
+                //
+        }
+        return new HashMap<>();
+     }
 
     public static TypeMessage getTypeMessage(byte[] data) {
         TypeMessage type = null;
@@ -127,7 +163,18 @@ public class JvSerializatorData {
         return resMsg.toByteArray();
     }
 
-    public static HashMap<TypeData, String> takeEntryRequestMessage(byte[] data) {
+//    private static byte[] createResetPasswordMessage(TypeMessage type, DirectionMessage direction) {
+//        Auth_pb.RegistrationReplyProto msgRes = Auth_pb.RegistrationReplyProto.newBuilder()
+//                .setReply(direction)
+//                .build();
+//        Auth_pb.GeneralAuthProto resMsg = Auth_pb.GeneralAuthProto.newBuilder()
+//                .setType(type.getValue())
+//                .setRegistrationReply(msgRes)
+//                .build();
+//        return resMsg.toByteArray();
+//    }
+
+    private static HashMap<TypeData, String> takeEntryRequestMessage(byte[] data) {
         HashMap<TypeData, String> result = new HashMap<>();
         try {
             result.put(TypeData.Login, Auth_pb.GeneralAuthProto.parseFrom(data)
@@ -140,7 +187,7 @@ public class JvSerializatorData {
         return result;
     }
 
-    public static HashMap<TypeData, String> takeRegistrationRequestMessage(byte[] data) {
+    private static HashMap<TypeData, String> takeRegistrationRequestMessage(byte[] data) {
         HashMap<TypeData, String> result = new HashMap<>();
         try {
             result.put(TypeData.Login, Auth_pb.GeneralAuthProto.parseFrom(data).
@@ -155,7 +202,7 @@ public class JvSerializatorData {
         return result;
     }
 
-    public static HashMap<TypeData, Boolean> takeEntryReplyMessage(byte[] data) {
+    private static HashMap<TypeData, Boolean> takeEntryReplyMessage(byte[] data) {
         HashMap<TypeData, Boolean> result = new HashMap<>();
         try {
             result.put(TypeData.BoolReply, Auth_pb.GeneralAuthProto.parseFrom(data)
@@ -166,7 +213,7 @@ public class JvSerializatorData {
         return result;
     }
 
-    public static HashMap<TypeData, Boolean> takeRegistrationReplyMessage(byte[] data) {
+    private static HashMap<TypeData, Boolean> takeRegistrationReplyMessage(byte[] data) {
         HashMap<TypeData, Boolean> result = new HashMap<>();
         try {
             result.put(TypeData.BoolReply, Auth_pb.GeneralAuthProto.parseFrom(data)

@@ -17,6 +17,7 @@ public class JvEmailProcessor {
     private final String host = "smtp.mail.ru";
     private final String userLogin = JvMainSettings.getEmailAddress();
     private final String userPassword = JvMainSettings.getMagicStringEmail();
+    private final int port = 465;
 
     private JvEmailProcessor() {
         Properties props = new Properties();
@@ -24,7 +25,7 @@ public class JvEmailProcessor {
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enabled", "false");
         props.put("mail.smtp.host", host);
-        props.put("mail.smtp.port", "465");
+        props.put("mail.smtp.port", String.valueOf(port));
         // for mail.ru
         props.put("mail.smtps.ssl.checkserveridentity", true);
         props.put("mail.smtp.ssl.trust", "smtp.mail.ru");
@@ -50,7 +51,7 @@ public class JvEmailProcessor {
         message.setSentDate(new Date());
 
         Transport transport = session.getTransport();
-        transport.connect(host, 465, userLogin, userPassword);
+        transport.connect(host, port, userLogin, userPassword);
         transport.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
         transport.close();
     }

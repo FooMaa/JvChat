@@ -77,18 +77,23 @@ public class JvMessageCtrl {
         JvSerializatorData.TypeMessage type = JvSerializatorData.getTypeMessage(dataMsg);
         switch (type) {
             case EntryRequest:
-                workEntryRequestMessage(dataMsg);
+                workEntryRequestMessage(getDeserializeMapData(type, dataMsg));
                 break;
             case RegistrationRequest:
-                workRegistrationRequestMessage(dataMsg);
+                workRegistrationRequestMessage(getDeserializeMapData(type, dataMsg));
                 break;
             case EntryReply:
-                workEntryReplyMessage(dataMsg);
+                workEntryReplyMessage(getDeserializeMapData(type, dataMsg));
                 break;
             case RegistrationReply:
-                workRegistrationReplyMessage(dataMsg);
+                workRegistrationReplyMessage(getDeserializeMapData(type, dataMsg));
                 break;
         }
+    }
+
+    private <TYPEPARAM> HashMap<JvSerializatorData.TypeData, TYPEPARAM>
+    getDeserializeMapData(JvSerializatorData.TypeMessage type, byte[] data) {
+        return JvSerializatorData.deserializeData(type, data);
     }
 
     private void sendReadyMessageNetwork(byte[] bodyMessage) {
@@ -111,16 +116,14 @@ public class JvMessageCtrl {
         return JvSerializatorData.serialiseData(type, reply);
     }
 
-    private void workEntryRequestMessage(byte[] dataMsg) {
-        HashMap<JvSerializatorData.TypeData, String> map = JvSerializatorData.takeEntryRequestMessage(dataMsg);
+    private void workEntryRequestMessage(HashMap<JvSerializatorData.TypeData, String> map) {
         boolean requestDB = JvDbCtrl.getInstance().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.UserPassword,
                 map.get(JvSerializatorData.TypeData.Login),
                 map.get(JvSerializatorData.TypeData.Password));
         sendMessage(JvSerializatorData.TypeMessage.EntryReply, requestDB);
     }
 
-    private void workRegistrationRequestMessage(byte[] dataMsg) {
-        HashMap<JvSerializatorData.TypeData, String> map = JvSerializatorData.takeRegistrationRequestMessage(dataMsg);
+    private void workRegistrationRequestMessage(HashMap<JvSerializatorData.TypeData, String> map) {
         boolean requestDB = JvDbCtrl.getInstance().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.RegisterForm,
                 map.get(JvSerializatorData.TypeData.Login),
                 map.get(JvSerializatorData.TypeData.Email),
@@ -128,8 +131,7 @@ public class JvMessageCtrl {
         sendMessage(JvSerializatorData.TypeMessage.RegistrationReply, requestDB);
     }
 
-    private void workEntryReplyMessage(byte[] dataMsg) {
-        HashMap<JvSerializatorData.TypeData, Boolean> map = JvSerializatorData.takeEntryReplyMessage(dataMsg);
+    private void workEntryReplyMessage(HashMap<JvSerializatorData.TypeData, Boolean> map) {
         if (map.get(JvSerializatorData.TypeData.BoolReply)) {
             EntryRequestFlag = TypeFlags.TRUE;
         } else {
@@ -137,8 +139,7 @@ public class JvMessageCtrl {
         }
     }
 
-    private void workRegistrationReplyMessage(byte[] dataMsg) {
-        HashMap<JvSerializatorData.TypeData, Boolean> map = JvSerializatorData.takeRegistrationReplyMessage(dataMsg);
+    private void workRegistrationReplyMessage( HashMap<JvSerializatorData.TypeData, Boolean> map) {
         if (map.get(JvSerializatorData.TypeData.BoolReply)) {
             RegistratonRequestFlag = TypeFlags.TRUE;
         } else {
