@@ -15,6 +15,8 @@ public class JvMessageCtrl {
     }
     private TypeFlags EntryRequestFlag = TypeFlags.DEFAULT;
     private TypeFlags RegistratonRequestFlag = TypeFlags.DEFAULT;
+    private TypeFlags ResetPasswordRequestFlag = TypeFlags.DEFAULT;
+    private TypeFlags VerifyResetPasswordRequestFlag = TypeFlags.DEFAULT;
     // FLAGS
 
     private JvMessageCtrl() {}
@@ -69,24 +71,68 @@ public class JvMessageCtrl {
                     sendReadyMessageNetwork(bodyMessage);
                 }
                 break;
+            case ResetPasswordRequest:
+                if (parameters.length == 1) {
+                    TYPEPARAM email = parameters[0];
+                    byte[] bodyMessage = createBodyResetPasswordRequestMessage(type,
+                            (String) email);
+                    sendReadyMessageNetwork(bodyMessage);
+                }
+                break;
+            case ResetPasswordReply:
+                if (parameters.length == 1) {
+                    TYPEPARAM reply = parameters[0];
+                    byte[] bodyMessage = createBodyResetPasswordReplyMessage(type,
+                            (Boolean) reply);
+                    sendReadyMessageNetwork(bodyMessage);
+                }
+                break;
+            case VerifyResetPasswordRequest:
+                if (parameters.length == 1) {
+                    TYPEPARAM code = parameters[0];
+                    byte[] bodyMessage = createBodyVerifyResetPasswordRequestMessage(type,
+                            (String) code);
+                    sendReadyMessageNetwork(bodyMessage);
+                }
+                break;
+            case VerifyResetPasswordReply:
+                if (parameters.length == 1) {
+                    TYPEPARAM reply = parameters[0];
+                    byte[] bodyMessage = createBodyVerifyResetPasswordReplyMessage(type,
+                            (Boolean) reply);
+                    sendReadyMessageNetwork(bodyMessage);
+                }
+                break;
         }
 
     }
 
-    public void takeMessage(byte[] dataMsg) {
-        JvSerializatorData.TypeMessage type = JvSerializatorData.getTypeMessage(dataMsg);
+    public void takeMessage(byte[] data) {
+        JvSerializatorData.TypeMessage type = JvSerializatorData.getTypeMessage(data);
         switch (type) {
             case EntryRequest:
-                workEntryRequestMessage(getDeserializeMapData(type, dataMsg));
+                workEntryRequestMessage(getDeserializeMapData(type, data));
                 break;
             case RegistrationRequest:
-                workRegistrationRequestMessage(getDeserializeMapData(type, dataMsg));
+                workRegistrationRequestMessage(getDeserializeMapData(type, data));
                 break;
             case EntryReply:
-                workEntryReplyMessage(getDeserializeMapData(type, dataMsg));
+                workEntryReplyMessage(getDeserializeMapData(type, data));
                 break;
             case RegistrationReply:
-                workRegistrationReplyMessage(getDeserializeMapData(type, dataMsg));
+                workRegistrationReplyMessage(getDeserializeMapData(type, data));
+                break;
+            case ResetPasswordRequest:
+                workResetPasswordRequestMessage(getDeserializeMapData(type, data));
+                break;
+            case ResetPasswordReply:
+                workResetPasswordReplyMessage(getDeserializeMapData(type, data));
+                break;
+            case VerifyResetPasswordRequest:
+                workVerifyResetPasswordRequestMessage(getDeserializeMapData(type, data));
+                break;
+            case VerifyResetPasswordReply:
+                workVerifyResetPasswordReplyMessage(getDeserializeMapData(type, data));
                 break;
         }
     }
@@ -116,6 +162,22 @@ public class JvMessageCtrl {
         return JvSerializatorData.serialiseData(type, reply);
     }
 
+    private byte[] createBodyResetPasswordRequestMessage(JvSerializatorData.TypeMessage type, String email) {
+        return JvSerializatorData.serialiseData(type, email);
+    }
+
+    private byte[] createBodyResetPasswordReplyMessage(JvSerializatorData.TypeMessage type, Boolean reply) {
+        return JvSerializatorData.serialiseData(type, reply);
+    }
+
+    private byte[] createBodyVerifyResetPasswordRequestMessage(JvSerializatorData.TypeMessage type, String code) {
+        return JvSerializatorData.serialiseData(type, code);
+    }
+
+    private byte[] createBodyVerifyResetPasswordReplyMessage(JvSerializatorData.TypeMessage type, Boolean reply) {
+        return JvSerializatorData.serialiseData(type, reply);
+    }
+
     private void workEntryRequestMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
         boolean requestDB = JvDbCtrl.getInstance().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.UserPassword,
                 (String) map.get(JvSerializatorData.TypeData.Login),
@@ -131,6 +193,22 @@ public class JvMessageCtrl {
         sendMessage(JvSerializatorData.TypeMessage.RegistrationReply, requestDB);
     }
 
+    private void workResetPasswordRequestMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
+//        boolean requestDB = JvDbCtrl.getInstance().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.RegisterForm,
+//                (String) map.get(JvSerializatorData.TypeData.Login),
+//                (String) map.get(JvSerializatorData.TypeData.Email),
+//                (String) map.get(JvSerializatorData.TypeData.Password));
+//        sendMessage(JvSerializatorData.TypeMessage.RegistrationReply, requestDB);
+    }
+
+    private void workVerifyResetPasswordRequestMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
+//        boolean requestDB = JvDbCtrl.getInstance().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.RegisterForm,
+//                (String) map.get(JvSerializatorData.TypeData.Login),
+//                (String) map.get(JvSerializatorData.TypeData.Email),
+//                (String) map.get(JvSerializatorData.TypeData.Password));
+//        sendMessage(JvSerializatorData.TypeMessage.RegistrationReply, requestDB);
+    }
+
     private void workEntryReplyMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
         if ((Boolean) map.get(JvSerializatorData.TypeData.BoolReply)) {
             EntryRequestFlag = TypeFlags.TRUE;
@@ -144,6 +222,22 @@ public class JvMessageCtrl {
             RegistratonRequestFlag = TypeFlags.TRUE;
         } else {
             RegistratonRequestFlag = TypeFlags.FALSE;
+        }
+    }
+
+    private void workResetPasswordReplyMessage( HashMap<JvSerializatorData.TypeData, ?> map) {
+        if ((Boolean) map.get(JvSerializatorData.TypeData.BoolReply)) {
+            ResetPasswordRequestFlag = TypeFlags.TRUE;
+        } else {
+            ResetPasswordRequestFlag = TypeFlags.FALSE;
+        }
+    }
+
+    private void workVerifyResetPasswordReplyMessage( HashMap<JvSerializatorData.TypeData, ?> map) {
+        if ((Boolean) map.get(JvSerializatorData.TypeData.BoolReply)) {
+            VerifyResetPasswordRequestFlag = TypeFlags.TRUE;
+        } else {
+            VerifyResetPasswordRequestFlag = TypeFlags.FALSE;
         }
     }
 
