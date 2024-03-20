@@ -246,7 +246,6 @@ public class JvMessageCtrl {
             RegistratonRequestFlag = TypeFlags.FALSE;
         }
         errorRegistrationFlag = (JvSerializatorData.TypeErrorRegistration) map.get(JvSerializatorData.TypeData.ErrorReg);
-        System.out.println(errorRegistrationFlag);
     }
 
     private void workResetPasswordReplyMessage( HashMap<JvSerializatorData.TypeData, ?> map) {
@@ -271,5 +270,9 @@ public class JvMessageCtrl {
 
     public TypeFlags getRegistrationRequestFlag() {
         return RegistratonRequestFlag;
+    }
+
+    public JvSerializatorData.TypeErrorRegistration getErrorRegistrationFlag() {
+        return errorRegistrationFlag;
     }
 }

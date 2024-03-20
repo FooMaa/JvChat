@@ -214,7 +214,24 @@ public class JvRegistrationFrame extends JFrame {
         } else if (JvMessageCtrl.getInstance().getRegistrationRequestFlag()
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            System.out.println("Регистрация неудачна");
+            openErrorPane();
+        }
+    }
+
+    private void openErrorPane() {
+        switch (JvMessageCtrl.getInstance().getErrorRegistrationFlag()) {
+            case NoError:
+                new JvAuthOptionPane("Ошибка не выяснена", JvAuthOptionPane.TypeDlg.ERROR);
+                break;
+            case Login:
+                new JvAuthOptionPane("Данный логин уже используется", JvAuthOptionPane.TypeDlg.ERROR);
+                break;
+            case Email:
+                new JvAuthOptionPane("Данная почта уже используется", JvAuthOptionPane.TypeDlg.ERROR);
+                break;
+            case LoginAndEmail:
+                new JvAuthOptionPane("Данные почта и логин уже используются", JvAuthOptionPane.TypeDlg.ERROR);
+                break;
         }
     }
 }
