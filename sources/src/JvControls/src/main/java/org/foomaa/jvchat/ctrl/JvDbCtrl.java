@@ -16,7 +16,8 @@ public class JvDbCtrl
     }
     public enum TypeExecutionCheck {
         UserPassword,
-        Login
+        Login,
+        Email
     }
 
     private JvDbCtrl() {
@@ -39,7 +40,8 @@ public class JvDbCtrl
                     String login = parameters[0];
                     String email = parameters[1];
                     String password = parameters[2];
-                    if (!checkQueryToDB(TypeExecutionCheck.Login, login)) {
+                    if (!checkQueryToDB(TypeExecutionCheck.Login, login) &&
+                            !checkQueryToDB(TypeExecutionCheck.Email, email)) {
                         db.makeExecution(JvDbDefines.insertToRegForm(login, email, password));
                         return true;
                     } else {
@@ -67,6 +69,16 @@ public class JvDbCtrl
                 if (parameters.length == 1) {
                     String login = parameters[0];
                     ResultSet rs = db.makeExecution(JvDbDefines.checkLogin(login));
+                    try {
+                        return rs.next();
+                    } catch (SQLException exception) {
+                        System.out.println("Ошибка проверки запроса к БД");
+                    }
+                }
+            case Email:
+                if (parameters.length == 1) {
+                    String email = parameters[0];
+                    ResultSet rs = db.makeExecution(JvDbDefines.checkEmail(email));
                     try {
                         return rs.next();
                     } catch (SQLException exception) {

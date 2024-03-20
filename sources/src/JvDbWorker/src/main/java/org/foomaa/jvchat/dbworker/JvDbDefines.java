@@ -21,4 +21,10 @@ public class JvDbDefines {
                 "SELECT * FROM chat_schema.auth_users_info_check_login('%s');",
                 login);
     }
+
+    public static String checkEmail(String email) {
+        return String.format(
+                "SELECT * FROM chat_schema.auth_users_info_check_email('%s');",
+                email);
+    }
 }
