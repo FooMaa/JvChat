@@ -201,7 +201,7 @@ public class JvEntryFrame extends JFrame {
         } else if (JvMessageCtrl.getInstance().getEntryRequestFlag()
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            System.out.println("Вход неудачен");
+            new JvAuthOptionPane("Вход не выполнен, данные не верные", JvAuthOptionPane.TypeDlg.ERROR);
         }
     }
 }

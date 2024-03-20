@@ -122,7 +122,6 @@ public class JvRegistrationFrame extends JFrame {
                 new JvEntryFrame();
             }
         });
-
     }
 
     private boolean checkFields() {

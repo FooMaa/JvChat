@@ -33,7 +33,13 @@ message RegistrationRequestProto {
 }
 
 message RegistrationReplyProto {
+    enum Error {
+        Login = 0;
+        EMAIL = 1;
+        LoginAndEmail = 3;
+    }
     bool reply = 1;
+    Error type = 2;
 }
 
 message ResetPasswordRequestProto {
