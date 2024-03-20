@@ -1,3 +1,6 @@
+-- ----------------------------------------------------------------------------------------------
+-- chat_schema.auth_users_info_save
+-- ----------------------------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION chat_schema.auth_users_info_save (
     f_login       character varying,
     f_email       character varying,
@@ -89,5 +92,58 @@ BEGIN
     IF found THEN
         RETURN NEXT rv;
     END IF;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION chat_schema.auth_users_info_get_id_by_email(
+    f_email character varying
+)
+    RETURNS integer AS
+$BODY$
+DECLARE
+    rv integer;
+BEGIN
+    SELECT id INTO rv FROM chat_schema.auth_users_info WHERE email=f_email;
+    IF found THEN
+        RETURN rv;
+    END IF;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+-- ----------------------------------------------------------------------------------------------
+-- chat_schema.reset_password_data
+-- ----------------------------------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION chat_schema.reset_password_data_save (
+    f_id_user       character varying,
+    f_code          character varying
+)
+    RETURNS integer AS
+$BODY$
+DECLARE
+    rv integer;
+BEGIN
+    rv := -1;
+    PERFORM * FROM chat_schema.reset_password_data WHERE id_user=f_id_user;
+    IF found THEN
+        UPDATE chat_schema.reset_password_data SET code=f_code WHERE id_user=f_id_user;
+        rv := 1;
+    ELSE
+        INSERT INTO chat_schema.reset_password_data(id_user, code) VALUES (f_id_user, f_code);
+        rv := 2;
+    END IF;
+
+    RETURN rv;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION chat_schema.reset_password_data_remove(f_id  integer)
+    RETURNS boolean AS
+$BODY$
+DECLARE
+BEGIN
+    DELETE FROM chat_schema.reset_password_data WHERE id=f_id;
+    RETURN true;
 END;
 $BODY$ LANGUAGE plpgsql;

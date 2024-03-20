@@ -7,7 +7,7 @@ CREATE TABLE chat_schema.auth_users_info (
     login       character varying,
     email       character varying,
     password    character varying,
-    PRIMARY KEY ( id )
+    PRIMARY KEY (id)
 );
 
 COMMENT ON TABLE chat_schema.auth_users_info IS 'Логин и пароль пользователя';
