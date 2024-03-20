@@ -76,3 +76,18 @@ BEGIN
     END IF;
 END;
 $BODY$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION chat_schema.auth_users_info_check_email(
+    f_email character varying
+)
+    RETURNS SETOF chat_schema.auth_users_info AS
+$BODY$
+DECLARE
+    rv chat_schema.auth_users_info%rowtype;
+BEGIN
+    SELECT * INTO rv FROM chat_schema.auth_users_info WHERE email=f_email;
+    IF found THEN
+        RETURN NEXT rv;
+    END IF;
+END;
+$BODY$ LANGUAGE plpgsql;
