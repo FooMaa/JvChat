@@ -31,8 +31,26 @@ public class JvSerializatorData {
         Login,
         Email,
         Password,
+        ErrorReg,
         BoolReply,
         VerifyCode,
+    }
+
+    public enum TypeErrorRegistration {
+        Login(0),
+        EMAIL(1),
+        LoginAndEmail(2),
+        NoError (9999);
+
+        private final int value;
+
+        TypeErrorRegistration(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
     }
 
     public static <TYPEPARAM> byte[] serialiseData(TypeMessage type, TYPEPARAM... parameters) {
@@ -64,9 +82,10 @@ public class JvSerializatorData {
                     return new byte[0];
                 }
             case RegistrationReply:
-                if (parameters.length == 1) {
+                if (parameters.length == 2) {
                     TYPEPARAM reply = parameters[0];
-                    return createRegistrationReplyMessage(type, (Boolean) reply);
+                    TYPEPARAM error = parameters[1];
+                    return createRegistrationReplyMessage(type, (Boolean) reply, (TypeErrorRegistration) error);
                 } else {
                     return new byte[0];
                 }
@@ -124,6 +143,17 @@ public class JvSerializatorData {
         return new HashMap<>();
      }
 
+     public static HashMap<TypeData, TypeErrorRegistration> getErrorRegistration(byte[] data) {
+         HashMap<TypeData, TypeErrorRegistration> result = new HashMap<>();
+         try {
+             result.put(TypeData.ErrorReg, TypeErrorRegistration.values()[
+                     Auth_pb.GeneralAuthProto.parseFrom(data).getRegistrationReply().getError().getNumber()]);
+         } catch (InvalidProtocolBufferException exception) {
+             System.out.println("Error in protobuf deserialised data");
+         }
+         return result;
+     }
+
     public static TypeMessage getTypeMessage(byte[] data) {
         TypeMessage type = null;
         try {
@@ -171,9 +201,10 @@ public class JvSerializatorData {
         return resMsg.toByteArray();
     }
 
-    private static byte[] createRegistrationReplyMessage(TypeMessage type, boolean reply) {
+    private static byte[] createRegistrationReplyMessage(TypeMessage type, boolean reply, TypeErrorRegistration error) {
         Auth_pb.RegistrationReplyProto msgRegReply = Auth_pb.RegistrationReplyProto.newBuilder()
                 .setReply(reply)
+                .setError(Auth_pb.RegistrationReplyProto.Error.valueOf(error.getValue()))
                 .build();
         Auth_pb.GeneralAuthProto resMsg = Auth_pb.GeneralAuthProto.newBuilder()
                 .setType(type.getValue())

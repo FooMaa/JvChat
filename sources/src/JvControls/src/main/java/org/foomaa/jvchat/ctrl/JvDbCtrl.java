@@ -40,7 +40,7 @@ public class JvDbCtrl
                     String login = parameters[0];
                     String email = parameters[1];
                     String password = parameters[2];
-                    if (!checkQueryToDB(TypeExecutionCheck.Login, login) &&
+                    if (!checkQueryToDB(TypeExecutionCheck.Login, login)  &&
                             !checkQueryToDB(TypeExecutionCheck.Email, email)) {
                         db.makeExecution(JvDbDefines.insertToRegForm(login, email, password));
                         return true;
