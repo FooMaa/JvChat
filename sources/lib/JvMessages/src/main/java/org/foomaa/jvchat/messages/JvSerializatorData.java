@@ -16,7 +16,6 @@ public class JvSerializatorData {
         VerifyResetPasswordRequest(6),
         VerifyResetPasswordReply(7);
 
-
         private final int value;
 
         TypeMessage(int value) {
@@ -32,7 +31,8 @@ public class JvSerializatorData {
         Login,
         Email,
         Password,
-        BoolReply
+        BoolReply,
+        VerifyCode,
     }
 
     public static <TYPEPARAM> byte[] serialiseData(TypeMessage type, TYPEPARAM... parameters) {
@@ -70,6 +70,34 @@ public class JvSerializatorData {
                 } else {
                     return new byte[0];
                 }
+            case ResetPasswordRequest:
+                if (parameters.length == 1) {
+                    TYPEPARAM email = parameters[0];
+                    return createResetPasswordRequestMessage(type, (String) email);
+                } else {
+                    return new byte[0];
+                }
+            case ResetPasswordReply:
+                if (parameters.length == 1) {
+                    TYPEPARAM reply = parameters[0];
+                    return createResetPasswordReplyMessage(type, (Boolean) reply);
+                } else {
+                    return new byte[0];
+                }
+            case VerifyResetPasswordRequest:
+                if (parameters.length == 1) {
+                    TYPEPARAM code = parameters[0];
+                    return createVerifyResetPasswordRequestMessage(type, (String) code);
+                } else {
+                    return new byte[0];
+                }
+            case VerifyResetPasswordReply:
+                if (parameters.length == 1) {
+                    TYPEPARAM reply = parameters[0];
+                    return createVerifyResetPasswordReplyMessage(type, (Boolean) reply);
+                } else {
+                    return new byte[0];
+                }
         }
         return new byte[0];
     }
@@ -84,6 +112,14 @@ public class JvSerializatorData {
                 return takeEntryReplyMessage(data);
             case RegistrationReply:
                 return takeRegistrationReplyMessage(data);
+            case ResetPasswordRequest:
+                return takeResetPasswordRequestMessage(data);
+            case ResetPasswordReply:
+                return takeResetPasswordReplyMessage(data);
+            case VerifyResetPasswordRequest:
+                return takeVerifyPasswordRequestMessage(data);
+            case VerifyResetPasswordReply:
+                return takeVerifyResetPasswordReplyMessage(data);
         }
         return new HashMap<>();
      }
@@ -146,16 +182,49 @@ public class JvSerializatorData {
         return resMsg.toByteArray();
     }
 
-//    private static byte[] createResetPasswordMessage(TypeMessage type, DirectionMessage direction) {
-//        Auth_pb.RegistrationReplyProto msgRes = Auth_pb.RegistrationReplyProto.newBuilder()
-//                .setReply(direction)
-//                .build();
-//        Auth_pb.GeneralAuthProto resMsg = Auth_pb.GeneralAuthProto.newBuilder()
-//                .setType(type.getValue())
-//                .setRegistrationReply(msgRes)
-//                .build();
-//        return resMsg.toByteArray();
-//    }
+    private static byte[] createResetPasswordRequestMessage(TypeMessage type, String email) {
+        Auth_pb.ResetPasswordRequestProto msgResetRequest = Auth_pb.ResetPasswordRequestProto.newBuilder()
+                .setEmail(email)
+                .build();
+        Auth_pb.GeneralAuthProto resMsg = Auth_pb.GeneralAuthProto.newBuilder()
+                .setType(type.getValue())
+                .setResetPasswordRequest(msgResetRequest)
+                .build();
+        return resMsg.toByteArray();
+    }
+
+    private static byte[] createResetPasswordReplyMessage(TypeMessage type, boolean reply) {
+        Auth_pb.ResetPasswordReplyProto msgResetReply = Auth_pb.ResetPasswordReplyProto.newBuilder()
+                .setReply(reply)
+                .build();
+        Auth_pb.GeneralAuthProto resMsg = Auth_pb.GeneralAuthProto.newBuilder()
+                .setType(type.getValue())
+                .setResetPasswordReply(msgResetReply)
+                .build();
+        return resMsg.toByteArray();
+    }
+
+    private static byte[] createVerifyResetPasswordRequestMessage(TypeMessage type, String code) {
+        Auth_pb.VerifyResetPasswordRequestProto msgVerifyResetPasswordRequest = Auth_pb.VerifyResetPasswordRequestProto.newBuilder()
+                .setCode(code)
+                .build();
+        Auth_pb.GeneralAuthProto resMsg = Auth_pb.GeneralAuthProto.newBuilder()
+                .setType(type.getValue())
+                .setVerifyResetPasswordRequest(msgVerifyResetPasswordRequest)
+                .build();
+        return resMsg.toByteArray();
+    }
+
+    private static byte[] createVerifyResetPasswordReplyMessage(TypeMessage type, boolean reply) {
+        Auth_pb.VerifyResetPasswordReplyProto msgVerifyResetPasswordReply = Auth_pb.VerifyResetPasswordReplyProto.newBuilder()
+                .setReply(reply)
+                .build();
+        Auth_pb.GeneralAuthProto resMsg = Auth_pb.GeneralAuthProto.newBuilder()
+                .setType(type.getValue())
+                .setVerifyResetPasswordReply(msgVerifyResetPasswordReply)
+                .build();
+        return resMsg.toByteArray();
+    }
 
     private static HashMap<TypeData, String> takeEntryRequestMessage(byte[] data) {
         HashMap<TypeData, String> result = new HashMap<>();
@@ -201,6 +270,50 @@ public class JvSerializatorData {
         try {
             result.put(TypeData.BoolReply, Auth_pb.GeneralAuthProto.parseFrom(data)
                     .getRegistrationReply().getReply());
+        } catch (InvalidProtocolBufferException exception) {
+            System.out.println("Error in protobuf deserialised data");
+        }
+        return result;
+    }
+
+    private static HashMap<TypeData, String> takeResetPasswordRequestMessage(byte[] data) {
+        HashMap<TypeData, String> result = new HashMap<>();
+        try {
+            result.put(TypeData.Email, Auth_pb.GeneralAuthProto.parseFrom(data).
+                    getResetPasswordRequest().getEmail());
+        } catch (InvalidProtocolBufferException exception) {
+            System.out.println("Error in protobuf deserialised data");
+        }
+        return result;
+    }
+
+    private static HashMap<TypeData, Boolean> takeResetPasswordReplyMessage(byte[] data) {
+        HashMap<TypeData, Boolean> result = new HashMap<>();
+        try {
+            result.put(TypeData.BoolReply, Auth_pb.GeneralAuthProto.parseFrom(data)
+                    .getResetPasswordReply().getReply());
+        } catch (InvalidProtocolBufferException exception) {
+            System.out.println("Error in protobuf deserialised data");
+        }
+        return result;
+    }
+
+    private static HashMap<TypeData, String> takeVerifyPasswordRequestMessage(byte[] data) {
+        HashMap<TypeData, String> result = new HashMap<>();
+        try {
+            result.put(TypeData.VerifyCode, Auth_pb.GeneralAuthProto.parseFrom(data).
+                    getVerifyResetPasswordRequest().getCode());
+        } catch (InvalidProtocolBufferException exception) {
+            System.out.println("Error in protobuf deserialised data");
+        }
+        return result;
+    }
+
+    private static HashMap<TypeData, Boolean> takeVerifyResetPasswordReplyMessage(byte[] data) {
+        HashMap<TypeData, Boolean> result = new HashMap<>();
+        try {
+            result.put(TypeData.BoolReply, Auth_pb.GeneralAuthProto.parseFrom(data)
+                    .getVerifyResetPasswordReply().getReply());
         } catch (InvalidProtocolBufferException exception) {
             System.out.println("Error in protobuf deserialised data");
         }
