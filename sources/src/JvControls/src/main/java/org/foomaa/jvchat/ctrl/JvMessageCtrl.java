@@ -124,7 +124,6 @@ public class JvMessageCtrl {
                 break;
             case RegistrationReply:
                 workRegistrationReplyMessage(getDeserializeMapData(type, data));
-                workErrorRegistrationFlag(data);
                 break;
             case ResetPasswordRequest:
                 workResetPasswordRequestMessage(getDeserializeMapData(type, data));
@@ -235,6 +234,7 @@ public class JvMessageCtrl {
         } else {
             EntryRequestFlag = TypeFlags.FALSE;
         }
+        errorRegistrationFlag = (JvSerializatorData.TypeErrorRegistration) map.get(JvSerializatorData.TypeData.ErrorReg);
     }
 
     private void workRegistrationReplyMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
@@ -243,11 +243,6 @@ public class JvMessageCtrl {
         } else {
             RegistratonRequestFlag = TypeFlags.FALSE;
         }
-    }
-
-    private void workErrorRegistrationFlag(byte[] data) {
-        errorRegistrationFlag = JvSerializatorData.getErrorRegistration(data).
-                get(JvSerializatorData.TypeData.ErrorReg);
     }
 
     private void workResetPasswordReplyMessage( HashMap<JvSerializatorData.TypeData, ?> map) {

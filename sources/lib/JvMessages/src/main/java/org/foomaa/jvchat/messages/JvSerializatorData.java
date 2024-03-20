@@ -51,6 +51,21 @@ public class JvSerializatorData {
         public int getValue() {
             return value;
         }
+
+        public boolean compare(int i) {
+            return value == i;
+        }
+
+        public static TypeErrorRegistration getError(int value)
+        {
+            TypeErrorRegistration[] errors = TypeErrorRegistration.values();
+            for(int i = 0; i < errors.length; i++)
+            {
+                if(errors[i].compare(value))
+                    return errors[i];
+            }
+            return TypeErrorRegistration.NoError;
+        }
     }
 
     public static <TYPEPARAM> byte[] serialiseData(TypeMessage type, TYPEPARAM... parameters) {
@@ -141,17 +156,6 @@ public class JvSerializatorData {
                 return takeVerifyResetPasswordReplyMessage(data);
         }
         return new HashMap<>();
-     }
-
-     public static HashMap<TypeData, TypeErrorRegistration> getErrorRegistration(byte[] data) {
-         HashMap<TypeData, TypeErrorRegistration> result = new HashMap<>();
-         try {
-             result.put(TypeData.ErrorReg, TypeErrorRegistration.values()[
-                     Auth_pb.GeneralAuthProto.parseFrom(data).getRegistrationReply().getError().getNumber()]);
-         } catch (InvalidProtocolBufferException exception) {
-             System.out.println("Error in protobuf deserialised data");
-         }
-         return result;
      }
 
     public static TypeMessage getTypeMessage(byte[] data) {
@@ -296,11 +300,13 @@ public class JvSerializatorData {
         return result;
     }
 
-    private static HashMap<TypeData, Boolean> takeRegistrationReplyMessage(byte[] data) {
-        HashMap<TypeData, Boolean> result = new HashMap<>();
+    private static HashMap<TypeData, Object> takeRegistrationReplyMessage(byte[] data) {
+        HashMap<TypeData, Object> result = new HashMap<>();
         try {
             result.put(TypeData.BoolReply, Auth_pb.GeneralAuthProto.parseFrom(data)
                     .getRegistrationReply().getReply());
+            result.put(TypeData.ErrorReg, TypeErrorRegistration.getError(
+                    Auth_pb.GeneralAuthProto.parseFrom(data).getRegistrationReply().getError().getNumber()));
         } catch (InvalidProtocolBufferException exception) {
             System.out.println("Error in protobuf deserialised data");
         }
