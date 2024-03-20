@@ -4607,6 +4607,10 @@ public final class Auth_pb {
        * <code>LoginAndEmail = 3;</code>
        */
       LoginAndEmail(3),
+      /**
+       * <code>NoError = 9999;</code>
+       */
+      NoError(9999),
       UNRECOGNIZED(-1),
       ;
 
@@ -4622,6 +4626,10 @@ public final class Auth_pb {
        * <code>LoginAndEmail = 3;</code>
        */
       public static final int LoginAndEmail_VALUE = 3;
+      /**
+       * <code>NoError = 9999;</code>
+       */
+      public static final int NoError_VALUE = 9999;
 
 
       public final int getNumber() {
@@ -4651,6 +4659,7 @@ public final class Auth_pb {
           case 0: return Login;
           case 1: return EMAIL;
           case 3: return LoginAndEmail;
+          case 9999: return NoError;
           default: return null;
         }
       }
@@ -7377,17 +7386,17 @@ public final class Auth_pb {
       "equestProto\022\r\n\005login\030\001 \001(\t\022\020\n\010password\030\002" +
       " \001(\t\" \n\017EntryReplyProto\022\r\n\005reply\030\001 \001(\010\"J" +
       "\n\030RegistrationRequestProto\022\r\n\005login\030\001 \001(" +
-      "\t\022\r\n\005email\030\002 \001(\t\022\020\n\010password\030\003 \001(\t\"\206\001\n\026R" +
+      "\t\022\r\n\005email\030\002 \001(\t\022\020\n\010password\030\003 \001(\t\"\224\001\n\026R" +
       "egistrationReplyProto\022\r\n\005reply\030\001 \001(\010\022+\n\004" +
       "type\030\002 \001(\0162\035.RegistrationReplyProto.Erro" +
-      "r\"0\n\005Error\022\t\n\005Login\020\000\022\t\n\005EMAIL\020\001\022\021\n\rLogi" +
-      "nAndEmail\020\003\"*\n\031ResetPasswordRequestProto" +
-      "\022\r\n\005email\030\001 \001(\t\"(\n\027ResetPasswordReplyPro" +
-      "to\022\r\n\005reply\030\001 \001(\010\"/\n\037VerifyResetPassword" +
-      "RequestProto\022\014\n\004code\030\001 \001(\t\".\n\035VerifyRese" +
-      "tPasswordReplyProto\022\r\n\005reply\030\001 \001(\010B%\n\032or" +
-      "g.foomaa.jvchat.messagesB\007Auth_pbb\006proto" +
-      "3"
+      "r\">\n\005Error\022\t\n\005Login\020\000\022\t\n\005EMAIL\020\001\022\021\n\rLogi" +
+      "nAndEmail\020\003\022\014\n\007NoError\020\217N\"*\n\031ResetPasswo" +
+      "rdRequestProto\022\r\n\005email\030\001 \001(\t\"(\n\027ResetPa" +
+      "sswordReplyProto\022\r\n\005reply\030\001 \001(\010\"/\n\037Verif" +
+      "yResetPasswordRequestProto\022\014\n\004code\030\001 \001(\t" +
+      "\".\n\035VerifyResetPasswordReplyProto\022\r\n\005rep" +
+      "ly\030\001 \001(\010B%\n\032org.foomaa.jvchat.messagesB\007" +
+      "Auth_pbb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
