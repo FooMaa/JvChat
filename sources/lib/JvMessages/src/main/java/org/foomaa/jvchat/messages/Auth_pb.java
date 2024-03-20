@@ -4491,15 +4491,15 @@ public final class Auth_pb {
     boolean getReply();
 
     /**
-     * <code>.RegistrationReplyProto.Error type = 2;</code>
-     * @return The enum numeric value on the wire for type.
+     * <code>.RegistrationReplyProto.Error error = 2;</code>
+     * @return The enum numeric value on the wire for error.
      */
-    int getTypeValue();
+    int getErrorValue();
     /**
-     * <code>.RegistrationReplyProto.Error type = 2;</code>
-     * @return The type.
+     * <code>.RegistrationReplyProto.Error error = 2;</code>
+     * @return The error.
      */
-    org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error getType();
+    org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error getError();
   }
   /**
    * Protobuf type {@code RegistrationReplyProto}
@@ -4514,7 +4514,7 @@ public final class Auth_pb {
       super(builder);
     }
     private RegistrationReplyProto() {
-      type_ = 0;
+      error_ = 0;
     }
 
     @java.lang.Override
@@ -4555,7 +4555,7 @@ public final class Auth_pb {
             case 16: {
               int rawValue = input.readEnum();
 
-              type_ = rawValue;
+              error_ = rawValue;
               break;
             }
             default: {
@@ -4727,22 +4727,22 @@ public final class Auth_pb {
       return reply_;
     }
 
-    public static final int TYPE_FIELD_NUMBER = 2;
-    private int type_;
+    public static final int ERROR_FIELD_NUMBER = 2;
+    private int error_;
     /**
-     * <code>.RegistrationReplyProto.Error type = 2;</code>
-     * @return The enum numeric value on the wire for type.
+     * <code>.RegistrationReplyProto.Error error = 2;</code>
+     * @return The enum numeric value on the wire for error.
      */
-    @java.lang.Override public int getTypeValue() {
-      return type_;
+    @java.lang.Override public int getErrorValue() {
+      return error_;
     }
     /**
-     * <code>.RegistrationReplyProto.Error type = 2;</code>
-     * @return The type.
+     * <code>.RegistrationReplyProto.Error error = 2;</code>
+     * @return The error.
      */
-    @java.lang.Override public org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error getType() {
+    @java.lang.Override public org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error getError() {
       @SuppressWarnings("deprecation")
-      org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error result = org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error.valueOf(type_);
+      org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error result = org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error.valueOf(error_);
       return result == null ? org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error.UNRECOGNIZED : result;
     }
 
@@ -4763,8 +4763,8 @@ public final class Auth_pb {
       if (reply_ != false) {
         output.writeBool(1, reply_);
       }
-      if (type_ != org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error.Login.getNumber()) {
-        output.writeEnum(2, type_);
+      if (error_ != org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error.Login.getNumber()) {
+        output.writeEnum(2, error_);
       }
       unknownFields.writeTo(output);
     }
@@ -4779,9 +4779,9 @@ public final class Auth_pb {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(1, reply_);
       }
-      if (type_ != org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error.Login.getNumber()) {
+      if (error_ != org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error.Login.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(2, type_);
+          .computeEnumSize(2, error_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -4800,7 +4800,7 @@ public final class Auth_pb {
 
       if (getReply()
           != other.getReply()) return false;
-      if (type_ != other.type_) return false;
+      if (error_ != other.error_) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -4815,8 +4815,8 @@ public final class Auth_pb {
       hash = (37 * hash) + REPLY_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getReply());
-      hash = (37 * hash) + TYPE_FIELD_NUMBER;
-      hash = (53 * hash) + type_;
+      hash = (37 * hash) + ERROR_FIELD_NUMBER;
+      hash = (53 * hash) + error_;
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -4952,7 +4952,7 @@ public final class Auth_pb {
         super.clear();
         reply_ = false;
 
-        type_ = 0;
+        error_ = 0;
 
         return this;
       }
@@ -4981,7 +4981,7 @@ public final class Auth_pb {
       public org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto buildPartial() {
         org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto result = new org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto(this);
         result.reply_ = reply_;
-        result.type_ = type_;
+        result.error_ = error_;
         onBuilt();
         return result;
       }
@@ -5033,8 +5033,8 @@ public final class Auth_pb {
         if (other.getReply() != false) {
           setReply(other.getReply());
         }
-        if (other.type_ != 0) {
-          setTypeValue(other.getTypeValue());
+        if (other.error_ != 0) {
+          setErrorValue(other.getErrorValue());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -5096,56 +5096,56 @@ public final class Auth_pb {
         return this;
       }
 
-      private int type_ = 0;
+      private int error_ = 0;
       /**
-       * <code>.RegistrationReplyProto.Error type = 2;</code>
-       * @return The enum numeric value on the wire for type.
+       * <code>.RegistrationReplyProto.Error error = 2;</code>
+       * @return The enum numeric value on the wire for error.
        */
-      @java.lang.Override public int getTypeValue() {
-        return type_;
+      @java.lang.Override public int getErrorValue() {
+        return error_;
       }
       /**
-       * <code>.RegistrationReplyProto.Error type = 2;</code>
-       * @param value The enum numeric value on the wire for type to set.
+       * <code>.RegistrationReplyProto.Error error = 2;</code>
+       * @param value The enum numeric value on the wire for error to set.
        * @return This builder for chaining.
        */
-      public Builder setTypeValue(int value) {
+      public Builder setErrorValue(int value) {
         
-        type_ = value;
+        error_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>.RegistrationReplyProto.Error type = 2;</code>
-       * @return The type.
+       * <code>.RegistrationReplyProto.Error error = 2;</code>
+       * @return The error.
        */
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error getType() {
+      public org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error getError() {
         @SuppressWarnings("deprecation")
-        org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error result = org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error.valueOf(type_);
+        org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error result = org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error.valueOf(error_);
         return result == null ? org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error.UNRECOGNIZED : result;
       }
       /**
-       * <code>.RegistrationReplyProto.Error type = 2;</code>
-       * @param value The type to set.
+       * <code>.RegistrationReplyProto.Error error = 2;</code>
+       * @param value The error to set.
        * @return This builder for chaining.
        */
-      public Builder setType(org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error value) {
+      public Builder setError(org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error value) {
         if (value == null) {
           throw new NullPointerException();
         }
         
-        type_ = value.getNumber();
+        error_ = value.getNumber();
         onChanged();
         return this;
       }
       /**
-       * <code>.RegistrationReplyProto.Error type = 2;</code>
+       * <code>.RegistrationReplyProto.Error error = 2;</code>
        * @return This builder for chaining.
        */
-      public Builder clearType() {
+      public Builder clearError() {
         
-        type_ = 0;
+        error_ = 0;
         onChanged();
         return this;
       }
@@ -7386,17 +7386,17 @@ public final class Auth_pb {
       "equestProto\022\r\n\005login\030\001 \001(\t\022\020\n\010password\030\002" +
       " \001(\t\" \n\017EntryReplyProto\022\r\n\005reply\030\001 \001(\010\"J" +
       "\n\030RegistrationRequestProto\022\r\n\005login\030\001 \001(" +
-      "\t\022\r\n\005email\030\002 \001(\t\022\020\n\010password\030\003 \001(\t\"\224\001\n\026R" +
-      "egistrationReplyProto\022\r\n\005reply\030\001 \001(\010\022+\n\004" +
-      "type\030\002 \001(\0162\035.RegistrationReplyProto.Erro" +
-      "r\">\n\005Error\022\t\n\005Login\020\000\022\t\n\005EMAIL\020\001\022\021\n\rLogi" +
-      "nAndEmail\020\002\022\014\n\007NoError\020\217N\"*\n\031ResetPasswo" +
-      "rdRequestProto\022\r\n\005email\030\001 \001(\t\"(\n\027ResetPa" +
-      "sswordReplyProto\022\r\n\005reply\030\001 \001(\010\"/\n\037Verif" +
-      "yResetPasswordRequestProto\022\014\n\004code\030\001 \001(\t" +
-      "\".\n\035VerifyResetPasswordReplyProto\022\r\n\005rep" +
-      "ly\030\001 \001(\010B%\n\032org.foomaa.jvchat.messagesB\007" +
-      "Auth_pbb\006proto3"
+      "\t\022\r\n\005email\030\002 \001(\t\022\020\n\010password\030\003 \001(\t\"\225\001\n\026R" +
+      "egistrationReplyProto\022\r\n\005reply\030\001 \001(\010\022,\n\005" +
+      "error\030\002 \001(\0162\035.RegistrationReplyProto.Err" +
+      "or\">\n\005Error\022\t\n\005Login\020\000\022\t\n\005EMAIL\020\001\022\021\n\rLog" +
+      "inAndEmail\020\002\022\014\n\007NoError\020\217N\"*\n\031ResetPassw" +
+      "ordRequestProto\022\r\n\005email\030\001 \001(\t\"(\n\027ResetP" +
+      "asswordReplyProto\022\r\n\005reply\030\001 \001(\010\"/\n\037Veri" +
+      "fyResetPasswordRequestProto\022\014\n\004code\030\001 \001(" +
+      "\t\".\n\035VerifyResetPasswordReplyProto\022\r\n\005re" +
+      "ply\030\001 \001(\010B%\n\032org.foomaa.jvchat.messagesB" +
+      "\007Auth_pbb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -7431,7 +7431,7 @@ public final class Auth_pb {
     internal_static_RegistrationReplyProto_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_RegistrationReplyProto_descriptor,
-        new java.lang.String[] { "Reply", "Type", });
+        new java.lang.String[] { "Reply", "Error", });
     internal_static_ResetPasswordRequestProto_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_ResetPasswordRequestProto_fieldAccessorTable = new

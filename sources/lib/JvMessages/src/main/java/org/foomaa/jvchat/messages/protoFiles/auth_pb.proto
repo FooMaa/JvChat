@@ -40,7 +40,7 @@ message RegistrationReplyProto {
         NoError = 9999;
     }
     bool reply = 1;
-    Error type = 2;
+    Error error = 2;
 }
 
 message ResetPasswordRequestProto {
