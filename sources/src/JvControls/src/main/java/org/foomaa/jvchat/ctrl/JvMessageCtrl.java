@@ -199,17 +199,17 @@ public class JvMessageCtrl {
                     (String) map.get(JvSerializatorData.TypeData.Login));
             boolean checkEmail =  JvDbCtrl.getInstance().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.Email,
                     (String) map.get(JvSerializatorData.TypeData.Email));
-            if (checkLogin && checkEmail) {
+            if (!checkLogin && !checkEmail) {
                 typeError = JvSerializatorData.TypeErrorRegistration.NoError;
             }
-            if (!checkLogin && !checkEmail) {
-                typeError = JvSerializatorData.TypeErrorRegistration.LoginAndEmail;
-            }
-            if (!checkLogin) {
+            if (checkLogin) {
                 typeError = JvSerializatorData.TypeErrorRegistration.Login;
             }
-            if (!checkEmail) {
+            if (checkEmail) {
                 typeError = JvSerializatorData.TypeErrorRegistration.Email;
+            }
+            if (checkLogin && checkEmail) {
+                typeError = JvSerializatorData.TypeErrorRegistration.LoginAndEmail;
             }
         }
         sendMessage(JvSerializatorData.TypeMessage.RegistrationReply, requestDB, typeError);
