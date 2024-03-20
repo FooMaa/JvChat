@@ -117,7 +117,8 @@ public class JvEntryFrame extends JFrame {
         activeMissLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("No listener");
+                new JvResetPasswordFrame();
+                closeWindow();
             }
         });
 

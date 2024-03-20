@@ -5,12 +5,17 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import java.util.HashMap;
 
 public class JvSerializatorData {
+
     public enum TypeMessage {
         EntryRequest(0),
         EntryReply(1),
         RegistrationRequest(2),
         RegistrationReply(3),
-        ResetPassword(4);
+        ResetPasswordRequest(4),
+        ResetPasswordReply(5),
+        VerifyResetPasswordRequest(6),
+        VerifyResetPasswordReply(7);
+
 
         private final int value;
 
@@ -27,26 +32,9 @@ public class JvSerializatorData {
         Login,
         Email,
         Password,
-        BoolReply,
-        TypeResetPwd
+        BoolReply
     }
 
-    public enum DirectionMessage {
-        OutComing(0),
-        Incoming(1);
-
-        private final int value;
-
-        DirectionMessage(int value) {
-            this.value = value;
-        }
-
-        public int getValue() {
-            return value;
-        }
-    }
-
-    @SafeVarargs
     public static <TYPEPARAM> byte[] serialiseData(TypeMessage type, TYPEPARAM... parameters) {
         switch (type) {
             case EntryRequest:
@@ -82,25 +70,20 @@ public class JvSerializatorData {
                 } else {
                     return new byte[0];
                 }
-            case ResetPassword:
-                //
         }
         return new byte[0];
     }
 
-    @SuppressWarnings("unchecked")
-    public static <TYPEPARAM> HashMap<TypeData, TYPEPARAM> deserializeData(TypeMessage type, byte[] data) {
+    public static HashMap<TypeData, ?> deserializeData(TypeMessage type, byte[] data) {
         switch (type) {
             case EntryRequest:
-               return (HashMap<TypeData, TYPEPARAM>) takeEntryRequestMessage(data);
+               return takeEntryRequestMessage(data);
             case RegistrationRequest:
-                return (HashMap<TypeData, TYPEPARAM>) takeRegistrationRequestMessage(data);
+                return takeRegistrationRequestMessage(data);
             case EntryReply:
-                return (HashMap<TypeData, TYPEPARAM>) takeEntryReplyMessage(data);
+                return takeEntryReplyMessage(data);
             case RegistrationReply:
-                return (HashMap<TypeData, TYPEPARAM>) takeRegistrationReplyMessage(data);
-            case ResetPassword:
-                //
+                return takeRegistrationReplyMessage(data);
         }
         return new HashMap<>();
      }

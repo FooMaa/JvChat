@@ -1,7 +1,6 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
 import org.foomaa.jvchat.ctrl.JvMessageCtrl;
-import org.foomaa.jvchat.messages.JvSerializatorData;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.tools.JvTools;
 
@@ -13,28 +12,22 @@ import java.util.Objects;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
-public class JvRegistrationFrame extends JFrame {
+public class JvResetPasswordFrame extends JFrame {
     private final JPanel panel;
     private final JvAuthLabel tInfo;
-    private final JvAuthTextField tLogin;
     private final JvAuthTextField tEmail;
     private final JvAuthLabel tErrorHelpInfo;
-    private final JvAuthPasswordField tPassword;
-    private final JvAuthPasswordField tPasswordConfirm;
-    private final JvAuthButton bRegister;
+    private final JvAuthButton bSet;
 
-    public JvRegistrationFrame() {
-        super("RegistrationWindow");
+    public JvResetPasswordFrame() {
+        super("ResetPasswordWindow");
 
         panel = new JPanel();
-        tInfo = new JvAuthLabel("Введите данные для регистрации:");
-        tLogin = new JvAuthTextField("Логин");
+        tInfo = new JvAuthLabel("Введите адрес почты:");
         tEmail = new JvAuthTextField("Почта");
         tErrorHelpInfo = new JvAuthLabel("");
         tErrorHelpInfo.settingToError();
-        tPassword = new JvAuthPasswordField("Пароль");
-        tPasswordConfirm = new JvAuthPasswordField("Подтвердите пароль");
-        bRegister = new JvAuthButton("РЕГИСТРАЦИЯ");
+        bSet = new JvAuthButton("ОТПРАВИТЬ");
 
         makeFrameSetting();
         addListenerToElements();
@@ -63,28 +56,7 @@ public class JvRegistrationFrame extends JFrame {
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(0, insX, JvDisplaySettings.getResizePixel(0.004), insX);
         gbc.gridy = gridyNum;
-        panel.add(tLogin, gbc);
-        gridyNum++;
-
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX, JvDisplaySettings.getResizePixel(0.004), insX);
-        gbc.gridy = gridyNum;
         panel.add(tEmail, gbc);
-        gridyNum++;
-
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX, JvDisplaySettings.getResizePixel(0.004), insX);
-        gbc.gridy = gridyNum;
-        panel.add(tPassword, gbc);
-        gridyNum++;
-
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX, 0, insX);
-        gbc.gridy = gridyNum;
-        panel.add(tPasswordConfirm, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -102,17 +74,16 @@ public class JvRegistrationFrame extends JFrame {
         gbc.ipady = JvDisplaySettings.getResizeFromDisplay(0.01,
                 JvDisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
-        panel.add(bRegister, gbc);
+        panel.add(bSet, gbc);
 
         getContentPane().add(panel);
     }
 
     private void addListenerToElements() {
-        bRegister.addActionListener(event -> {
+        bSet.addActionListener(event -> {
             if (checkFields()) {
-                JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.RegistrationRequest,
-                        tLogin.getInputText(), tEmail.getInputText(), tPassword.getInputText());
-                waitRepeatServer();
+                System.out.println("Set email");
+//                waitRepeatServer();
             }
         });
 
@@ -122,43 +93,18 @@ public class JvRegistrationFrame extends JFrame {
                 new JvEntryFrame();
             }
         });
-
     }
 
     private boolean checkFields() {
-        tLogin.setNormalBorder();
         tEmail.setNormalBorder();
-        tPassword.setNormalBorder();
-        tPasswordConfirm.setNormalBorder();
         tErrorHelpInfo.setText("");
 
         Vector<String> fields = new Vector<>();
 
-        if (Objects.equals(tLogin.getInputText(), "")) {
-            tLogin.setErrorBorder();
-            fields.add("\"Логин\"");
-        }
         if (Objects.equals(tEmail.getInputText(), "") ||
                 !JvTools.checkEmail(tEmail.getInputText())) {
             tEmail.setErrorBorder();
             fields.add("\"Почта\"");
-        }
-        if (Objects.equals(tPassword.getInputText(), "")) {
-            tPassword.setErrorBorder();
-            fields.add("\"Пароль\"");
-        }
-        if (Objects.equals(tPasswordConfirm.getInputText(), "")) {
-            tPasswordConfirm.setErrorBorder();
-            fields.add("\"Подтвердите пароль\"");
-        }
-
-        if (!Objects.equals(tPassword.getInputText(), "") &&
-                !Objects.equals(tPasswordConfirm.getInputText(), "") &&
-                !Objects.equals(tPassword.getInputText(), tPasswordConfirm.getInputText())) {
-            tPassword.setErrorBorder();
-            tPasswordConfirm.setErrorBorder();
-            tErrorHelpInfo.setText("Введенные пароли должны совпадать");
-            return false;
         }
 
         StringBuilder concatFields = new StringBuilder();
@@ -179,10 +125,10 @@ public class JvRegistrationFrame extends JFrame {
 
     private void addGeneralSettingsToWidget() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("РЕГИСТРАЦИЯ");
+        setTitle("ВОССТАНОВЛЕНИЕ ПАРОЛЯ");
         setSize(JvDisplaySettings.getResizeFromDisplay(0.3,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
-                JvDisplaySettings.getResizeFromDisplay(0.30,
+                JvDisplaySettings.getResizeFromDisplay(0.25,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
         setResizable(false);
         setLocationRelativeTo(null);
