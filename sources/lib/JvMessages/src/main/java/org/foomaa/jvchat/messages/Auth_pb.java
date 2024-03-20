@@ -4489,6 +4489,17 @@ public final class Auth_pb {
      * @return The reply.
      */
     boolean getReply();
+
+    /**
+     * <code>.RegistrationReplyProto.Error type = 2;</code>
+     * @return The enum numeric value on the wire for type.
+     */
+    int getTypeValue();
+    /**
+     * <code>.RegistrationReplyProto.Error type = 2;</code>
+     * @return The type.
+     */
+    org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error getType();
   }
   /**
    * Protobuf type {@code RegistrationReplyProto}
@@ -4503,6 +4514,7 @@ public final class Auth_pb {
       super(builder);
     }
     private RegistrationReplyProto() {
+      type_ = 0;
     }
 
     @java.lang.Override
@@ -4540,6 +4552,12 @@ public final class Auth_pb {
               reply_ = input.readBool();
               break;
             }
+            case 16: {
+              int rawValue = input.readEnum();
+
+              type_ = rawValue;
+              break;
+            }
             default: {
               if (!parseUnknownField(
                   input, unknownFields, extensionRegistry, tag)) {
@@ -4572,6 +4590,123 @@ public final class Auth_pb {
               org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.class, org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Builder.class);
     }
 
+    /**
+     * Protobuf enum {@code RegistrationReplyProto.Error}
+     */
+    public enum Error
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>Login = 0;</code>
+       */
+      Login(0),
+      /**
+       * <code>EMAIL = 1;</code>
+       */
+      EMAIL(1),
+      /**
+       * <code>LoginAndEmail = 3;</code>
+       */
+      LoginAndEmail(3),
+      UNRECOGNIZED(-1),
+      ;
+
+      /**
+       * <code>Login = 0;</code>
+       */
+      public static final int Login_VALUE = 0;
+      /**
+       * <code>EMAIL = 1;</code>
+       */
+      public static final int EMAIL_VALUE = 1;
+      /**
+       * <code>LoginAndEmail = 3;</code>
+       */
+      public static final int LoginAndEmail_VALUE = 3;
+
+
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
+      public static Error valueOf(int value) {
+        return forNumber(value);
+      }
+
+      /**
+       * @param value The numeric wire value of the corresponding enum entry.
+       * @return The enum associated with the given numeric wire value.
+       */
+      public static Error forNumber(int value) {
+        switch (value) {
+          case 0: return Login;
+          case 1: return EMAIL;
+          case 3: return LoginAndEmail;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<Error>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          Error> internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<Error>() {
+              public Error findValueByNumber(int number) {
+                return Error.forNumber(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
+        return getDescriptor().getValues().get(ordinal());
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final Error[] VALUES = values();
+
+      public static Error valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int value;
+
+      private Error(int value) {
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:RegistrationReplyProto.Error)
+    }
+
     public static final int REPLY_FIELD_NUMBER = 1;
     private boolean reply_;
     /**
@@ -4581,6 +4716,25 @@ public final class Auth_pb {
     @java.lang.Override
     public boolean getReply() {
       return reply_;
+    }
+
+    public static final int TYPE_FIELD_NUMBER = 2;
+    private int type_;
+    /**
+     * <code>.RegistrationReplyProto.Error type = 2;</code>
+     * @return The enum numeric value on the wire for type.
+     */
+    @java.lang.Override public int getTypeValue() {
+      return type_;
+    }
+    /**
+     * <code>.RegistrationReplyProto.Error type = 2;</code>
+     * @return The type.
+     */
+    @java.lang.Override public org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error getType() {
+      @SuppressWarnings("deprecation")
+      org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error result = org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error.valueOf(type_);
+      return result == null ? org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error.UNRECOGNIZED : result;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -4600,6 +4754,9 @@ public final class Auth_pb {
       if (reply_ != false) {
         output.writeBool(1, reply_);
       }
+      if (type_ != org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error.Login.getNumber()) {
+        output.writeEnum(2, type_);
+      }
       unknownFields.writeTo(output);
     }
 
@@ -4612,6 +4769,10 @@ public final class Auth_pb {
       if (reply_ != false) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(1, reply_);
+      }
+      if (type_ != org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error.Login.getNumber()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(2, type_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -4630,6 +4791,7 @@ public final class Auth_pb {
 
       if (getReply()
           != other.getReply()) return false;
+      if (type_ != other.type_) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
       return true;
     }
@@ -4644,6 +4806,8 @@ public final class Auth_pb {
       hash = (37 * hash) + REPLY_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
           getReply());
+      hash = (37 * hash) + TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + type_;
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -4779,6 +4943,8 @@ public final class Auth_pb {
         super.clear();
         reply_ = false;
 
+        type_ = 0;
+
         return this;
       }
 
@@ -4806,6 +4972,7 @@ public final class Auth_pb {
       public org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto buildPartial() {
         org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto result = new org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto(this);
         result.reply_ = reply_;
+        result.type_ = type_;
         onBuilt();
         return result;
       }
@@ -4856,6 +5023,9 @@ public final class Auth_pb {
         if (other == org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.getDefaultInstance()) return this;
         if (other.getReply() != false) {
           setReply(other.getReply());
+        }
+        if (other.type_ != 0) {
+          setTypeValue(other.getTypeValue());
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -4913,6 +5083,60 @@ public final class Auth_pb {
       public Builder clearReply() {
         
         reply_ = false;
+        onChanged();
+        return this;
+      }
+
+      private int type_ = 0;
+      /**
+       * <code>.RegistrationReplyProto.Error type = 2;</code>
+       * @return The enum numeric value on the wire for type.
+       */
+      @java.lang.Override public int getTypeValue() {
+        return type_;
+      }
+      /**
+       * <code>.RegistrationReplyProto.Error type = 2;</code>
+       * @param value The enum numeric value on the wire for type to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTypeValue(int value) {
+        
+        type_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.RegistrationReplyProto.Error type = 2;</code>
+       * @return The type.
+       */
+      @java.lang.Override
+      public org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error getType() {
+        @SuppressWarnings("deprecation")
+        org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error result = org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error.valueOf(type_);
+        return result == null ? org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error.UNRECOGNIZED : result;
+      }
+      /**
+       * <code>.RegistrationReplyProto.Error type = 2;</code>
+       * @param value The type to set.
+       * @return This builder for chaining.
+       */
+      public Builder setType(org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        
+        type_ = value.getNumber();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.RegistrationReplyProto.Error type = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearType() {
+        
+        type_ = 0;
         onChanged();
         return this;
       }
@@ -7153,14 +7377,17 @@ public final class Auth_pb {
       "equestProto\022\r\n\005login\030\001 \001(\t\022\020\n\010password\030\002" +
       " \001(\t\" \n\017EntryReplyProto\022\r\n\005reply\030\001 \001(\010\"J" +
       "\n\030RegistrationRequestProto\022\r\n\005login\030\001 \001(" +
-      "\t\022\r\n\005email\030\002 \001(\t\022\020\n\010password\030\003 \001(\t\"\'\n\026Re" +
-      "gistrationReplyProto\022\r\n\005reply\030\001 \001(\010\"*\n\031R" +
-      "esetPasswordRequestProto\022\r\n\005email\030\001 \001(\t\"" +
-      "(\n\027ResetPasswordReplyProto\022\r\n\005reply\030\001 \001(" +
-      "\010\"/\n\037VerifyResetPasswordRequestProto\022\014\n\004" +
-      "code\030\001 \001(\t\".\n\035VerifyResetPasswordReplyPr" +
-      "oto\022\r\n\005reply\030\001 \001(\010B%\n\032org.foomaa.jvchat." +
-      "messagesB\007Auth_pbb\006proto3"
+      "\t\022\r\n\005email\030\002 \001(\t\022\020\n\010password\030\003 \001(\t\"\206\001\n\026R" +
+      "egistrationReplyProto\022\r\n\005reply\030\001 \001(\010\022+\n\004" +
+      "type\030\002 \001(\0162\035.RegistrationReplyProto.Erro" +
+      "r\"0\n\005Error\022\t\n\005Login\020\000\022\t\n\005EMAIL\020\001\022\021\n\rLogi" +
+      "nAndEmail\020\003\"*\n\031ResetPasswordRequestProto" +
+      "\022\r\n\005email\030\001 \001(\t\"(\n\027ResetPasswordReplyPro" +
+      "to\022\r\n\005reply\030\001 \001(\010\"/\n\037VerifyResetPassword" +
+      "RequestProto\022\014\n\004code\030\001 \001(\t\".\n\035VerifyRese" +
+      "tPasswordReplyProto\022\r\n\005reply\030\001 \001(\010B%\n\032or" +
+      "g.foomaa.jvchat.messagesB\007Auth_pbb\006proto" +
+      "3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -7195,7 +7422,7 @@ public final class Auth_pb {
     internal_static_RegistrationReplyProto_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_RegistrationReplyProto_descriptor,
-        new java.lang.String[] { "Reply", });
+        new java.lang.String[] { "Reply", "Type", });
     internal_static_ResetPasswordRequestProto_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_ResetPasswordRequestProto_fieldAccessorTable = new
