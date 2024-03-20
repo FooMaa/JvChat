@@ -35,12 +35,12 @@ public class JvDbCtrl
 
     public boolean insertQueryToDB(TypeExecutionInsert type, String ... parameters) {
         switch (type) {
-            case RegisterForm:
+            case RegisterForm -> {
                 if (parameters.length == 3) {
                     String login = parameters[0];
                     String email = parameters[1];
                     String password = parameters[2];
-                    if (!checkQueryToDB(TypeExecutionCheck.Login, login)  &&
+                    if (!checkQueryToDB(TypeExecutionCheck.Login, login) &&
                             !checkQueryToDB(TypeExecutionCheck.Email, email)) {
                         db.makeExecution(JvDbDefines.insertToRegForm(login, email, password));
                         return true;
@@ -48,6 +48,7 @@ public class JvDbCtrl
                         return false;
                     }
                 }
+            }
         }
         return false;
     }

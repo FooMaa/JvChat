@@ -30,25 +30,24 @@ public class JvMessageCtrl {
         return instance;
     }
 
-    @SafeVarargs
-    public final <TYPEPARAM> void sendMessage(JvSerializatorData.TypeMessage type, TYPEPARAM... parameters) {
+    public final void sendMessage(JvSerializatorData.TypeMessage type, Object... parameters) {
         switch (type) {
-            case EntryRequest:
+            case EntryRequest -> {
                 if (parameters.length == 2) {
-                    TYPEPARAM login = parameters[0];
-                    TYPEPARAM password = parameters[1];
+                    Object login = parameters[0];
+                    Object password = parameters[1];
                     byte[] bodyMessage = createBodyEntryRequestMessage(type,
                             (String) login,
                             (String) password);
                     sendReadyMessageNetwork(bodyMessage);
                     EntryRequestFlag = TypeFlags.DEFAULT;
                 }
-                break;
-            case RegistrationRequest:
+            }
+            case RegistrationRequest -> {
                 if (parameters.length == 3) {
-                    TYPEPARAM login = parameters[0];
-                    TYPEPARAM email = parameters[1];
-                    TYPEPARAM password = parameters[2];
+                    Object login = parameters[0];
+                    Object email = parameters[1];
+                    Object password = parameters[2];
                     byte[] bodyMessage = createBodyRegistrationRequestMessage(type,
                             (String) login,
                             (String) email,
@@ -56,56 +55,56 @@ public class JvMessageCtrl {
                     sendReadyMessageNetwork(bodyMessage);
                     RegistratonRequestFlag = TypeFlags.DEFAULT;
                 }
-                break;
-            case EntryReply:
+            }
+            case EntryReply -> {
                 if (parameters.length == 1) {
-                    TYPEPARAM reply = parameters[0];
+                    Object reply = parameters[0];
                     byte[] bodyMessage = createBodyEntryReplyMessage(type,
                             (Boolean) reply);
                     sendReadyMessageNetwork(bodyMessage);
                 }
-                break;
-            case RegistrationReply:
+            }
+            case RegistrationReply -> {
                 if (parameters.length == 2) {
-                    TYPEPARAM reply = parameters[0];
-                    TYPEPARAM error = parameters[1];
+                    Object reply = parameters[0];
+                    Object error = parameters[1];
                     byte[] bodyMessage = createBodyRegistrationReplyMessage(type,
                             (Boolean) reply, (JvSerializatorData.TypeErrorRegistration) error);
                     sendReadyMessageNetwork(bodyMessage);
                 }
-                break;
-            case ResetPasswordRequest:
+            }
+            case ResetPasswordRequest -> {
                 if (parameters.length == 1) {
-                    TYPEPARAM email = parameters[0];
+                    Object email = parameters[0];
                     byte[] bodyMessage = createBodyResetPasswordRequestMessage(type,
                             (String) email);
                     sendReadyMessageNetwork(bodyMessage);
                 }
-                break;
-            case ResetPasswordReply:
+            }
+            case ResetPasswordReply -> {
                 if (parameters.length == 1) {
-                    TYPEPARAM reply = parameters[0];
+                    Object reply = parameters[0];
                     byte[] bodyMessage = createBodyResetPasswordReplyMessage(type,
                             (Boolean) reply);
                     sendReadyMessageNetwork(bodyMessage);
                 }
-                break;
-            case VerifyResetPasswordRequest:
+            }
+            case VerifyResetPasswordRequest -> {
                 if (parameters.length == 1) {
-                    TYPEPARAM code = parameters[0];
+                    Object code = parameters[0];
                     byte[] bodyMessage = createBodyVerifyResetPasswordRequestMessage(type,
                             (String) code);
                     sendReadyMessageNetwork(bodyMessage);
                 }
-                break;
-            case VerifyResetPasswordReply:
+            }
+            case VerifyResetPasswordReply -> {
                 if (parameters.length == 1) {
-                    TYPEPARAM reply = parameters[0];
+                    Object reply = parameters[0];
                     byte[] bodyMessage = createBodyVerifyResetPasswordReplyMessage(type,
                             (Boolean) reply);
                     sendReadyMessageNetwork(bodyMessage);
                 }
-                break;
+            }
         }
 
     }
@@ -113,30 +112,14 @@ public class JvMessageCtrl {
     public void takeMessage(byte[] data) {
         JvSerializatorData.TypeMessage type = JvSerializatorData.getTypeMessage(data);
         switch (type) {
-            case EntryRequest:
-                workEntryRequestMessage(getDeserializeMapData(type, data));
-                break;
-            case RegistrationRequest:
-                workRegistrationRequestMessage(getDeserializeMapData(type, data));
-                break;
-            case EntryReply:
-                workEntryReplyMessage(getDeserializeMapData(type, data));
-                break;
-            case RegistrationReply:
-                workRegistrationReplyMessage(getDeserializeMapData(type, data));
-                break;
-            case ResetPasswordRequest:
-                workResetPasswordRequestMessage(getDeserializeMapData(type, data));
-                break;
-            case ResetPasswordReply:
-                workResetPasswordReplyMessage(getDeserializeMapData(type, data));
-                break;
-            case VerifyResetPasswordRequest:
-                workVerifyResetPasswordRequestMessage(getDeserializeMapData(type, data));
-                break;
-            case VerifyResetPasswordReply:
-                workVerifyResetPasswordReplyMessage(getDeserializeMapData(type, data));
-                break;
+            case EntryRequest -> workEntryRequestMessage(getDeserializeMapData(type, data));
+            case RegistrationRequest -> workRegistrationRequestMessage(getDeserializeMapData(type, data));
+            case EntryReply -> workEntryReplyMessage(getDeserializeMapData(type, data));
+            case RegistrationReply -> workRegistrationReplyMessage(getDeserializeMapData(type, data));
+            case ResetPasswordRequest -> workResetPasswordRequestMessage(getDeserializeMapData(type, data));
+            case ResetPasswordReply -> workResetPasswordReplyMessage(getDeserializeMapData(type, data));
+            case VerifyResetPasswordRequest -> workVerifyResetPasswordRequestMessage(getDeserializeMapData(type, data));
+            case VerifyResetPasswordReply -> workVerifyResetPasswordReplyMessage(getDeserializeMapData(type, data));
         }
     }
 

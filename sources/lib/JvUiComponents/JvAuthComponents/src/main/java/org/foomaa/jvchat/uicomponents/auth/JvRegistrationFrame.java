@@ -138,7 +138,7 @@ public class JvRegistrationFrame extends JFrame {
             fields.add("\"Логин\"");
         }
         if (Objects.equals(tEmail.getInputText(), "") ||
-                !JvTools.checkEmail(tEmail.getInputText())) {
+                !JvTools.validateInputEmail(tEmail.getInputText())) {
             tEmail.setErrorBorder();
             fields.add("\"Почта\"");
         }
@@ -220,18 +220,11 @@ public class JvRegistrationFrame extends JFrame {
 
     private void openErrorPane() {
         switch (JvMessageCtrl.getInstance().getErrorRegistrationFlag()) {
-            case NoError:
-                new JvAuthOptionPane("Ошибка не выяснена", JvAuthOptionPane.TypeDlg.ERROR);
-                break;
-            case Login:
-                new JvAuthOptionPane("Данный логин уже используется", JvAuthOptionPane.TypeDlg.ERROR);
-                break;
-            case Email:
-                new JvAuthOptionPane("Данная почта уже используется", JvAuthOptionPane.TypeDlg.ERROR);
-                break;
-            case LoginAndEmail:
-                new JvAuthOptionPane("Данные почта и логин уже используются", JvAuthOptionPane.TypeDlg.ERROR);
-                break;
+            case NoError -> new JvAuthOptionPane("Ошибка не выяснена", JvAuthOptionPane.TypeDlg.ERROR);
+            case Login -> new JvAuthOptionPane("Данный логин уже используется", JvAuthOptionPane.TypeDlg.ERROR);
+            case Email -> new JvAuthOptionPane("Данная почта уже используется", JvAuthOptionPane.TypeDlg.ERROR);
+            case LoginAndEmail ->
+                    new JvAuthOptionPane("Данные почта и логин уже используются", JvAuthOptionPane.TypeDlg.ERROR);
         }
     }
 }

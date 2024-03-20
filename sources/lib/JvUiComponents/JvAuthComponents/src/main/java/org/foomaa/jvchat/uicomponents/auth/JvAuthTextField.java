@@ -2,7 +2,6 @@ package org.foomaa.jvchat.uicomponents.auth;
 
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -10,20 +9,21 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.Objects;
+//import javax.imageio.ImageIO;
+//import java.awt.image.BufferedImage;
+//import java.io.IOException;
 
 public class JvAuthTextField extends JPanel {
-    private BufferedImage visibleImage;
-    private JButton button;
+//    private BufferedImage visibleImage;
+//    private JButton button;
     private JTextField textField;
 
     private final String defaultText;
-    private final int gap = 5;
     private final int borderSize = 1;
 
     public JvAuthTextField(String text) {
+        int gap = 5;
         setLayout(new FlowLayout(FlowLayout.LEFT, gap, 0));
         defaultText = text;
 
@@ -31,25 +31,25 @@ public class JvAuthTextField extends JPanel {
         addListenerToElem();
     }
 
-    private BufferedImage setIcon(String path) {
-        try {
-            return ImageIO.read(Objects.requireNonNull(getClass().getResource(path)));
-        } catch (IOException ex) {
-            System.out.println("Нет иконки глазка");
-        }
-        return null;
-    }
+//    private BufferedImage setIcon(String path) {
+//        try {
+//            return ImageIO.read(Objects.requireNonNull(getClass().getResource(path)));
+//        } catch (IOException ex) {
+//            System.out.println("Нет иконки глазка");
+//        }
+//        return null;
+//    }
 
-    private void addButtonToPanel() {
-        button = new JButton(new ImageIcon(visibleImage));
-        button.setContentAreaFilled(false);
-        button.setBorderPainted(false);
-        button.setMargin(new Insets(0, 0, 0, gap));
-        button.setEnabled(false);
-        button.setFocusPainted(false);
-        button.setPreferredSize(new Dimension(visibleImage.getWidth() + gap,
-                visibleImage.getHeight()));
-    }
+//    private void addButtonToPanel() {
+//        button = new JButton(new ImageIcon(visibleImage));
+//        button.setContentAreaFilled(false);
+//        button.setBorderPainted(false);
+//        button.setMargin(new Insets(0, 0, 0, gap));
+//        button.setEnabled(false);
+//        button.setFocusPainted(false);
+//        button.setPreferredSize(new Dimension(visibleImage.getWidth() + gap,
+//                visibleImage.getHeight()));
+//    }
 
     private void addListenerToElem() {
         textField.addMouseListener(new MouseAdapter() {

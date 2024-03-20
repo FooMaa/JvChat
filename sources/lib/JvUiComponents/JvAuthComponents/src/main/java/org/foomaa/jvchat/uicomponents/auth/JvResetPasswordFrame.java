@@ -102,7 +102,7 @@ public class JvResetPasswordFrame extends JFrame {
         Vector<String> fields = new Vector<>();
 
         if (Objects.equals(tEmail.getInputText(), "") ||
-                !JvTools.checkEmail(tEmail.getInputText())) {
+                !JvTools.validateInputEmail(tEmail.getInputText())) {
             tEmail.setErrorBorder();
             fields.add("\"Почта\"");
         }

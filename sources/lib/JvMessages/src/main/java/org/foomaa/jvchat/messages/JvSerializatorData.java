@@ -36,6 +36,7 @@ public class JvSerializatorData {
         VerifyCode,
     }
 
+//  Здесь value должно стыковаться с протоколом Auth_pb.RegistrationReplyProto
     public enum TypeErrorRegistration {
         Login(0),
         Email(1),
@@ -59,104 +60,102 @@ public class JvSerializatorData {
         public static TypeErrorRegistration getError(int value)
         {
             TypeErrorRegistration[] errors = TypeErrorRegistration.values();
-            for(int i = 0; i < errors.length; i++)
-            {
-                if(errors[i].compare(value))
-                    return errors[i];
+            for (TypeErrorRegistration error : errors) {
+                if (error.compare(value))
+                    return error;
             }
             return TypeErrorRegistration.NoError;
         }
     }
 
-    public static <TYPEPARAM> byte[] serialiseData(TypeMessage type, TYPEPARAM... parameters) {
+    public static byte[] serialiseData(TypeMessage type, Object... parameters) {
         switch (type) {
-            case EntryRequest:
+            case EntryRequest -> {
                 if (parameters.length == 2) {
-                    TYPEPARAM login = parameters[0];
-                    TYPEPARAM password = parameters[1];
+                    Object login = parameters[0];
+                    Object password = parameters[1];
                     return createEntryRequestMessage(type,
                             (String) login, (String) password);
                 } else {
                     return new byte[0];
                 }
-            case RegistrationRequest:
+            }
+            case RegistrationRequest -> {
                 if (parameters.length == 3) {
-                    TYPEPARAM login = parameters[0];
-                    TYPEPARAM email = parameters[1];
-                    TYPEPARAM password = parameters[2];
+                    Object login = parameters[0];
+                    Object email = parameters[1];
+                    Object password = parameters[2];
                     return createRegistrationRequestMessage(type,
                             (String) login, (String) email, (String) password);
                 } else {
                     return new byte[0];
                 }
-            case EntryReply:
+            }
+            case EntryReply -> {
                 if (parameters.length == 1) {
-                    TYPEPARAM reply = parameters[0];
+                    Object reply = parameters[0];
                     return createEntryReplyMessage(type, (Boolean) reply);
                 } else {
                     return new byte[0];
                 }
-            case RegistrationReply:
+            }
+            case RegistrationReply -> {
                 if (parameters.length == 2) {
-                    TYPEPARAM reply = parameters[0];
-                    TYPEPARAM error = parameters[1];
+                    Object reply = parameters[0];
+                    Object error = parameters[1];
                     return createRegistrationReplyMessage(type, (Boolean) reply, (TypeErrorRegistration) error);
                 } else {
                     return new byte[0];
                 }
-            case ResetPasswordRequest:
+            }
+            case ResetPasswordRequest -> {
                 if (parameters.length == 1) {
-                    TYPEPARAM email = parameters[0];
+                    Object email = parameters[0];
                     return createResetPasswordRequestMessage(type, (String) email);
                 } else {
                     return new byte[0];
                 }
-            case ResetPasswordReply:
+            }
+            case ResetPasswordReply -> {
                 if (parameters.length == 1) {
-                    TYPEPARAM reply = parameters[0];
+                    Object reply = parameters[0];
                     return createResetPasswordReplyMessage(type, (Boolean) reply);
                 } else {
                     return new byte[0];
                 }
-            case VerifyResetPasswordRequest:
+            }
+            case VerifyResetPasswordRequest -> {
                 if (parameters.length == 1) {
-                    TYPEPARAM code = parameters[0];
+                    Object code = parameters[0];
                     return createVerifyResetPasswordRequestMessage(type, (String) code);
                 } else {
                     return new byte[0];
                 }
-            case VerifyResetPasswordReply:
+            }
+            case VerifyResetPasswordReply -> {
                 if (parameters.length == 1) {
-                    TYPEPARAM reply = parameters[0];
+                    Object reply = parameters[0];
                     return createVerifyResetPasswordReplyMessage(type, (Boolean) reply);
                 } else {
                     return new byte[0];
                 }
+            }
         }
         return new byte[0];
     }
 
     public static HashMap<TypeData, ?> deserializeData(TypeMessage type, byte[] data) {
-        switch (type) {
-            case EntryRequest:
-               return takeEntryRequestMessage(data);
-            case RegistrationRequest:
-                return takeRegistrationRequestMessage(data);
-            case EntryReply:
-                return takeEntryReplyMessage(data);
-            case RegistrationReply:
-                return takeRegistrationReplyMessage(data);
-            case ResetPasswordRequest:
-                return takeResetPasswordRequestMessage(data);
-            case ResetPasswordReply:
-                return takeResetPasswordReplyMessage(data);
-            case VerifyResetPasswordRequest:
-                return takeVerifyPasswordRequestMessage(data);
-            case VerifyResetPasswordReply:
-                return takeVerifyResetPasswordReplyMessage(data);
-        }
-        return new HashMap<>();
-     }
+        return switch (type) {
+            case EntryRequest -> takeEntryRequestMessage(data);
+            case RegistrationRequest -> takeRegistrationRequestMessage(data);
+            case EntryReply -> takeEntryReplyMessage(data);
+            case RegistrationReply -> takeRegistrationReplyMessage(data);
+            case ResetPasswordRequest -> takeResetPasswordRequestMessage(data);
+            case ResetPasswordReply -> takeResetPasswordReplyMessage(data);
+            case VerifyResetPasswordRequest -> takeVerifyPasswordRequestMessage(data);
+            case VerifyResetPasswordReply -> takeVerifyResetPasswordReplyMessage(data);
+        };
+    }
 
     public static TypeMessage getTypeMessage(byte[] data) {
         TypeMessage type = null;
@@ -208,7 +207,7 @@ public class JvSerializatorData {
     private static byte[] createRegistrationReplyMessage(TypeMessage type, boolean reply, TypeErrorRegistration error) {
         Auth_pb.RegistrationReplyProto msgRegReply = Auth_pb.RegistrationReplyProto.newBuilder()
                 .setReply(reply)
-                .setError(Auth_pb.RegistrationReplyProto.Error.valueOf(error.getValue()))
+                .setError(Auth_pb.RegistrationReplyProto.Error.forNumber(error.getValue()))
                 .build();
         Auth_pb.GeneralAuthProto resMsg = Auth_pb.GeneralAuthProto.newBuilder()
                 .setType(type.getValue())
@@ -306,7 +305,8 @@ public class JvSerializatorData {
             result.put(TypeData.BoolReply, Auth_pb.GeneralAuthProto.parseFrom(data)
                     .getRegistrationReply().getReply());
             result.put(TypeData.ErrorReg, TypeErrorRegistration.getError(
-                    Auth_pb.GeneralAuthProto.parseFrom(data).getRegistrationReply().getError().getNumber()));
+                    Auth_pb.GeneralAuthProto.parseFrom(data).
+                            getRegistrationReply().getError().getNumber()));
         } catch (InvalidProtocolBufferException exception) {
             System.out.println("Error in protobuf deserialised data");
         }
