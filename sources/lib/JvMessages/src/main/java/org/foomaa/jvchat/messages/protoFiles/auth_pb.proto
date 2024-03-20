@@ -36,7 +36,7 @@ message RegistrationReplyProto {
     enum Error {
         Login = 0;
         EMAIL = 1;
-        LoginAndEmail = 3;
+        LoginAndEmail = 2;
         NoError = 9999;
     }
     bool reply = 1;

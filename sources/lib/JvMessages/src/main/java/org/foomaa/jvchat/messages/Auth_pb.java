@@ -4604,9 +4604,9 @@ public final class Auth_pb {
        */
       EMAIL(1),
       /**
-       * <code>LoginAndEmail = 3;</code>
+       * <code>LoginAndEmail = 2;</code>
        */
-      LoginAndEmail(3),
+      LoginAndEmail(2),
       /**
        * <code>NoError = 9999;</code>
        */
@@ -4623,9 +4623,9 @@ public final class Auth_pb {
        */
       public static final int EMAIL_VALUE = 1;
       /**
-       * <code>LoginAndEmail = 3;</code>
+       * <code>LoginAndEmail = 2;</code>
        */
-      public static final int LoginAndEmail_VALUE = 3;
+      public static final int LoginAndEmail_VALUE = 2;
       /**
        * <code>NoError = 9999;</code>
        */
@@ -4658,7 +4658,7 @@ public final class Auth_pb {
         switch (value) {
           case 0: return Login;
           case 1: return EMAIL;
-          case 3: return LoginAndEmail;
+          case 2: return LoginAndEmail;
           case 9999: return NoError;
           default: return null;
         }
@@ -7390,7 +7390,7 @@ public final class Auth_pb {
       "egistrationReplyProto\022\r\n\005reply\030\001 \001(\010\022+\n\004" +
       "type\030\002 \001(\0162\035.RegistrationReplyProto.Erro" +
       "r\">\n\005Error\022\t\n\005Login\020\000\022\t\n\005EMAIL\020\001\022\021\n\rLogi" +
-      "nAndEmail\020\003\022\014\n\007NoError\020\217N\"*\n\031ResetPasswo" +
+      "nAndEmail\020\002\022\014\n\007NoError\020\217N\"*\n\031ResetPasswo" +
       "rdRequestProto\022\r\n\005email\030\001 \001(\t\"(\n\027ResetPa" +
       "sswordReplyProto\022\r\n\005reply\030\001 \001(\010\"/\n\037Verif" +
       "yResetPasswordRequestProto\022\014\n\004code\030\001 \001(\t" +
