@@ -201,12 +201,15 @@ public class JvMessageCtrl {
                     (String) map.get(JvSerializatorData.TypeData.Email));
             if (checkLogin && checkEmail) {
                 typeError = JvSerializatorData.TypeErrorRegistration.NoError;
-            } else if (!checkLogin && !checkEmail) {
+            }
+            if (!checkLogin && !checkEmail) {
                 typeError = JvSerializatorData.TypeErrorRegistration.LoginAndEmail;
-            } else if (!checkLogin) {
+            }
+            if (!checkLogin) {
                 typeError = JvSerializatorData.TypeErrorRegistration.Login;
-            } else if (!checkEmail) {
-                typeError = JvSerializatorData.TypeErrorRegistration.EMAIL;
+            }
+            if (!checkEmail) {
+                typeError = JvSerializatorData.TypeErrorRegistration.Email;
             }
         }
         sendMessage(JvSerializatorData.TypeMessage.RegistrationReply, requestDB, typeError);
@@ -234,7 +237,6 @@ public class JvMessageCtrl {
         } else {
             EntryRequestFlag = TypeFlags.FALSE;
         }
-        errorRegistrationFlag = (JvSerializatorData.TypeErrorRegistration) map.get(JvSerializatorData.TypeData.ErrorReg);
     }
 
     private void workRegistrationReplyMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
@@ -243,6 +245,8 @@ public class JvMessageCtrl {
         } else {
             RegistratonRequestFlag = TypeFlags.FALSE;
         }
+        errorRegistrationFlag = (JvSerializatorData.TypeErrorRegistration) map.get(JvSerializatorData.TypeData.ErrorReg);
+        System.out.println(errorRegistrationFlag);
     }
 
     private void workResetPasswordReplyMessage( HashMap<JvSerializatorData.TypeData, ?> map) {

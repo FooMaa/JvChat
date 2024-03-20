@@ -38,7 +38,7 @@ public class JvSerializatorData {
 
     public enum TypeErrorRegistration {
         Login(0),
-        EMAIL(1),
+        Email(1),
         LoginAndEmail(2),
         NoError (9999);
 
