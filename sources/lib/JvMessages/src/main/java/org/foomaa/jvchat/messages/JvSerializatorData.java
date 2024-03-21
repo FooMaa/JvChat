@@ -25,6 +25,20 @@ public class JvSerializatorData {
         public int getValue() {
             return value;
         }
+
+        public boolean compare(int i) {
+            return value == i;
+        }
+
+        public static TypeMessage getTypeMsg(int value)
+        {
+            TypeMessage[] errors = TypeMessage.values();
+            for (TypeMessage error : errors) {
+                if (error.compare(value))
+                    return error;
+            }
+            return null;
+        }
     }
 
     public enum TypeData {
@@ -57,7 +71,7 @@ public class JvSerializatorData {
             return value == i;
         }
 
-        public static TypeErrorRegistration getError(int value)
+        public static TypeErrorRegistration getTypeError(int value)
         {
             TypeErrorRegistration[] errors = TypeErrorRegistration.values();
             for (TypeErrorRegistration error : errors) {
@@ -161,7 +175,7 @@ public class JvSerializatorData {
         TypeMessage type = null;
         try {
             int numberType = Auth_pb.GeneralAuthProto.parseFrom(data).getType();
-            type = TypeMessage.values()[numberType];
+            type = TypeMessage.getTypeMsg(numberType);
         } catch (InvalidProtocolBufferException exception) {
             System.out.println("Error in protobuf deserialised type");
         }
@@ -304,7 +318,7 @@ public class JvSerializatorData {
         try {
             result.put(TypeData.BoolReply, Auth_pb.GeneralAuthProto.parseFrom(data)
                     .getRegistrationReply().getReply());
-            result.put(TypeData.ErrorReg, TypeErrorRegistration.getError(
+            result.put(TypeData.ErrorReg, TypeErrorRegistration.getTypeError(
                     Auth_pb.GeneralAuthProto.parseFrom(data).
                             getRegistrationReply().getError().getNumber()));
         } catch (InvalidProtocolBufferException exception) {
