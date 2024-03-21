@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option java_outer_classname = "Auth_pb";
+option java_outer_classname = "ClientServerSerializeProtocol_pb";
 option java_package = "org.foomaa.jvchat.messages";
 
 message GeneralAuthProto {
