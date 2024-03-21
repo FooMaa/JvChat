@@ -52,10 +52,10 @@ public class JvSerializatorData {
 
 //  Здесь value должно стыковаться с протоколом Auth_pb.RegistrationReplyProto
     public enum TypeErrorRegistration {
-        Login(0),
-        Email(1),
-        LoginAndEmail(2),
-        NoError (9999);
+        Login(ClientServerSerializeProtocol_pb.RegistrationReplyProto.Error.Login_VALUE),
+        Email(ClientServerSerializeProtocol_pb.RegistrationReplyProto.Error.Email_VALUE),
+        LoginAndEmail(ClientServerSerializeProtocol_pb.RegistrationReplyProto.Error.LoginAndEmail_VALUE),
+        NoError (ClientServerSerializeProtocol_pb.RegistrationReplyProto.Error.NoError_VALUE);
 
         private final int value;
 
@@ -174,7 +174,7 @@ public class JvSerializatorData {
     public static TypeMessage getTypeMessage(byte[] data) {
         TypeMessage type = null;
         try {
-            int numberType = Auth_pb.GeneralAuthProto.parseFrom(data).getType();
+            int numberType = ClientServerSerializeProtocol_pb.GeneralAuthProto.parseFrom(data).getType();
             type = TypeMessage.getTypeMsg(numberType);
         } catch (InvalidProtocolBufferException exception) {
             System.out.println("Error in protobuf deserialised type");
@@ -183,11 +183,11 @@ public class JvSerializatorData {
     }
 
     private static byte[] createEntryRequestMessage(TypeMessage type, String login, String password) {
-        Auth_pb.EntryRequestProto msgEntryRequest = Auth_pb.EntryRequestProto.newBuilder()
+        ClientServerSerializeProtocol_pb.EntryRequestProto msgEntryRequest = ClientServerSerializeProtocol_pb.EntryRequestProto.newBuilder()
                 .setLogin(login)
                 .setPassword(password)
                 .build();
-        Auth_pb.GeneralAuthProto resMsg = Auth_pb.GeneralAuthProto.newBuilder()
+        ClientServerSerializeProtocol_pb.GeneralAuthProto resMsg = ClientServerSerializeProtocol_pb.GeneralAuthProto.newBuilder()
                 .setType(type.getValue())
                 .setEntryRequest(msgEntryRequest)
                 .build();
@@ -195,10 +195,10 @@ public class JvSerializatorData {
     }
 
     private static byte[] createEntryReplyMessage(TypeMessage type, boolean reply) {
-        Auth_pb.EntryReplyProto msgEntryReply = Auth_pb.EntryReplyProto.newBuilder()
+        ClientServerSerializeProtocol_pb.EntryReplyProto msgEntryReply = ClientServerSerializeProtocol_pb.EntryReplyProto.newBuilder()
                 .setReply(reply)
                 .build();
-        Auth_pb.GeneralAuthProto resMsg = Auth_pb.GeneralAuthProto.newBuilder()
+        ClientServerSerializeProtocol_pb.GeneralAuthProto resMsg = ClientServerSerializeProtocol_pb.GeneralAuthProto.newBuilder()
                 .setType(type.getValue())
                 .setEntryReply(msgEntryReply)
                 .build();
@@ -206,12 +206,12 @@ public class JvSerializatorData {
     }
 
     private static byte[] createRegistrationRequestMessage(TypeMessage type, String login, String email, String password) {
-        Auth_pb.RegistrationRequestProto msgRegRequest = Auth_pb.RegistrationRequestProto.newBuilder()
+        ClientServerSerializeProtocol_pb.RegistrationRequestProto msgRegRequest = ClientServerSerializeProtocol_pb.RegistrationRequestProto.newBuilder()
                 .setLogin(login)
                 .setEmail(email)
                 .setPassword(password)
                 .build();
-        Auth_pb.GeneralAuthProto resMsg = Auth_pb.GeneralAuthProto.newBuilder()
+        ClientServerSerializeProtocol_pb.GeneralAuthProto resMsg = ClientServerSerializeProtocol_pb.GeneralAuthProto.newBuilder()
                 .setType(type.getValue())
                 .setRegistrationRequest(msgRegRequest)
                 .build();
@@ -219,11 +219,11 @@ public class JvSerializatorData {
     }
 
     private static byte[] createRegistrationReplyMessage(TypeMessage type, boolean reply, TypeErrorRegistration error) {
-        Auth_pb.RegistrationReplyProto msgRegReply = Auth_pb.RegistrationReplyProto.newBuilder()
+        ClientServerSerializeProtocol_pb.RegistrationReplyProto msgRegReply = ClientServerSerializeProtocol_pb.RegistrationReplyProto.newBuilder()
                 .setReply(reply)
-                .setError(Auth_pb.RegistrationReplyProto.Error.forNumber(error.getValue()))
+                .setError(ClientServerSerializeProtocol_pb.RegistrationReplyProto.Error.forNumber(error.getValue()))
                 .build();
-        Auth_pb.GeneralAuthProto resMsg = Auth_pb.GeneralAuthProto.newBuilder()
+        ClientServerSerializeProtocol_pb.GeneralAuthProto resMsg = ClientServerSerializeProtocol_pb.GeneralAuthProto.newBuilder()
                 .setType(type.getValue())
                 .setRegistrationReply(msgRegReply)
                 .build();
@@ -231,10 +231,10 @@ public class JvSerializatorData {
     }
 
     private static byte[] createResetPasswordRequestMessage(TypeMessage type, String email) {
-        Auth_pb.ResetPasswordRequestProto msgResetRequest = Auth_pb.ResetPasswordRequestProto.newBuilder()
+        ClientServerSerializeProtocol_pb.ResetPasswordRequestProto msgResetRequest = ClientServerSerializeProtocol_pb.ResetPasswordRequestProto.newBuilder()
                 .setEmail(email)
                 .build();
-        Auth_pb.GeneralAuthProto resMsg = Auth_pb.GeneralAuthProto.newBuilder()
+        ClientServerSerializeProtocol_pb.GeneralAuthProto resMsg = ClientServerSerializeProtocol_pb.GeneralAuthProto.newBuilder()
                 .setType(type.getValue())
                 .setResetPasswordRequest(msgResetRequest)
                 .build();
@@ -242,10 +242,10 @@ public class JvSerializatorData {
     }
 
     private static byte[] createResetPasswordReplyMessage(TypeMessage type, boolean reply) {
-        Auth_pb.ResetPasswordReplyProto msgResetReply = Auth_pb.ResetPasswordReplyProto.newBuilder()
+        ClientServerSerializeProtocol_pb.ResetPasswordReplyProto msgResetReply = ClientServerSerializeProtocol_pb.ResetPasswordReplyProto.newBuilder()
                 .setReply(reply)
                 .build();
-        Auth_pb.GeneralAuthProto resMsg = Auth_pb.GeneralAuthProto.newBuilder()
+        ClientServerSerializeProtocol_pb.GeneralAuthProto resMsg = ClientServerSerializeProtocol_pb.GeneralAuthProto.newBuilder()
                 .setType(type.getValue())
                 .setResetPasswordReply(msgResetReply)
                 .build();
@@ -253,10 +253,10 @@ public class JvSerializatorData {
     }
 
     private static byte[] createVerifyEmailRequestMessage(TypeMessage type, String code) {
-        Auth_pb.VerifyEmailRequestProto msgVerifyEmailRequest = Auth_pb.VerifyEmailRequestProto.newBuilder()
+        ClientServerSerializeProtocol_pb.VerifyEmailRequestProto msgVerifyEmailRequest = ClientServerSerializeProtocol_pb.VerifyEmailRequestProto.newBuilder()
                 .setCode(code)
                 .build();
-        Auth_pb.GeneralAuthProto resMsg = Auth_pb.GeneralAuthProto.newBuilder()
+        ClientServerSerializeProtocol_pb.GeneralAuthProto resMsg = ClientServerSerializeProtocol_pb.GeneralAuthProto.newBuilder()
                 .setType(type.getValue())
                 .setVerifyEmailRequest(msgVerifyEmailRequest)
                 .build();
@@ -264,10 +264,10 @@ public class JvSerializatorData {
     }
 
     private static byte[] createVerifyEmailReplyMessage(TypeMessage type, boolean reply) {
-        Auth_pb.VerifyEmailReplyProto msgVerifyEmailReply = Auth_pb.VerifyEmailReplyProto.newBuilder()
+        ClientServerSerializeProtocol_pb.VerifyEmailReplyProto msgVerifyEmailReply = ClientServerSerializeProtocol_pb.VerifyEmailReplyProto.newBuilder()
                 .setReply(reply)
                 .build();
-        Auth_pb.GeneralAuthProto resMsg = Auth_pb.GeneralAuthProto.newBuilder()
+        ClientServerSerializeProtocol_pb.GeneralAuthProto resMsg = ClientServerSerializeProtocol_pb.GeneralAuthProto.newBuilder()
                 .setType(type.getValue())
                 .setVerifyEmailReply(msgVerifyEmailReply)
                 .build();
@@ -277,9 +277,9 @@ public class JvSerializatorData {
     private static HashMap<TypeData, String> takeEntryRequestMessage(byte[] data) {
         HashMap<TypeData, String> result = new HashMap<>();
         try {
-            result.put(TypeData.Login, Auth_pb.GeneralAuthProto.parseFrom(data)
+            result.put(TypeData.Login, ClientServerSerializeProtocol_pb.GeneralAuthProto.parseFrom(data)
                     .getEntryRequest().getLogin());
-            result.put(TypeData.Password, Auth_pb.GeneralAuthProto.parseFrom(data)
+            result.put(TypeData.Password, ClientServerSerializeProtocol_pb.GeneralAuthProto.parseFrom(data)
                     .getEntryRequest().getPassword());
         } catch (InvalidProtocolBufferException exception) {
             System.out.println("Error in protobuf deserialised data");
@@ -290,11 +290,11 @@ public class JvSerializatorData {
     private static HashMap<TypeData, String> takeRegistrationRequestMessage(byte[] data) {
         HashMap<TypeData, String> result = new HashMap<>();
         try {
-            result.put(TypeData.Login, Auth_pb.GeneralAuthProto.parseFrom(data).
+            result.put(TypeData.Login, ClientServerSerializeProtocol_pb.GeneralAuthProto.parseFrom(data).
                     getRegistrationRequest().getLogin());
-            result.put(TypeData.Email, Auth_pb.GeneralAuthProto.parseFrom(data).
+            result.put(TypeData.Email, ClientServerSerializeProtocol_pb.GeneralAuthProto.parseFrom(data).
                     getRegistrationRequest().getEmail());
-            result.put(TypeData.Password, Auth_pb.GeneralAuthProto.parseFrom(data).
+            result.put(TypeData.Password, ClientServerSerializeProtocol_pb.GeneralAuthProto.parseFrom(data).
                     getRegistrationRequest().getPassword());
         } catch (InvalidProtocolBufferException exception) {
             System.out.println("Error in protobuf deserialised data");
@@ -305,7 +305,7 @@ public class JvSerializatorData {
     private static HashMap<TypeData, Boolean> takeEntryReplyMessage(byte[] data) {
         HashMap<TypeData, Boolean> result = new HashMap<>();
         try {
-            result.put(TypeData.BoolReply, Auth_pb.GeneralAuthProto.parseFrom(data)
+            result.put(TypeData.BoolReply, ClientServerSerializeProtocol_pb.GeneralAuthProto.parseFrom(data)
                     .getEntryReply().getReply());
         } catch (InvalidProtocolBufferException exception) {
             System.out.println("Error in protobuf deserialised data");
@@ -316,10 +316,10 @@ public class JvSerializatorData {
     private static HashMap<TypeData, Object> takeRegistrationReplyMessage(byte[] data) {
         HashMap<TypeData, Object> result = new HashMap<>();
         try {
-            result.put(TypeData.BoolReply, Auth_pb.GeneralAuthProto.parseFrom(data)
+            result.put(TypeData.BoolReply, ClientServerSerializeProtocol_pb.GeneralAuthProto.parseFrom(data)
                     .getRegistrationReply().getReply());
             result.put(TypeData.ErrorReg, TypeErrorRegistration.getTypeError(
-                    Auth_pb.GeneralAuthProto.parseFrom(data).
+                    ClientServerSerializeProtocol_pb.GeneralAuthProto.parseFrom(data).
                             getRegistrationReply().getError().getNumber()));
         } catch (InvalidProtocolBufferException exception) {
             System.out.println("Error in protobuf deserialised data");
@@ -330,7 +330,7 @@ public class JvSerializatorData {
     private static HashMap<TypeData, String> takeResetPasswordRequestMessage(byte[] data) {
         HashMap<TypeData, String> result = new HashMap<>();
         try {
-            result.put(TypeData.Email, Auth_pb.GeneralAuthProto.parseFrom(data).
+            result.put(TypeData.Email, ClientServerSerializeProtocol_pb.GeneralAuthProto.parseFrom(data).
                     getResetPasswordRequest().getEmail());
         } catch (InvalidProtocolBufferException exception) {
             System.out.println("Error in protobuf deserialised data");
@@ -341,7 +341,7 @@ public class JvSerializatorData {
     private static HashMap<TypeData, Boolean> takeResetPasswordReplyMessage(byte[] data) {
         HashMap<TypeData, Boolean> result = new HashMap<>();
         try {
-            result.put(TypeData.BoolReply, Auth_pb.GeneralAuthProto.parseFrom(data)
+            result.put(TypeData.BoolReply, ClientServerSerializeProtocol_pb.GeneralAuthProto.parseFrom(data)
                     .getResetPasswordReply().getReply());
         } catch (InvalidProtocolBufferException exception) {
             System.out.println("Error in protobuf deserialised data");
@@ -352,7 +352,7 @@ public class JvSerializatorData {
     private static HashMap<TypeData, String> takeVerifyEmailRequestMessage(byte[] data) {
         HashMap<TypeData, String> result = new HashMap<>();
         try {
-            result.put(TypeData.VerifyCode, Auth_pb.GeneralAuthProto.parseFrom(data).
+            result.put(TypeData.VerifyCode, ClientServerSerializeProtocol_pb.GeneralAuthProto.parseFrom(data).
                     getVerifyEmailRequest().getCode());
         } catch (InvalidProtocolBufferException exception) {
             System.out.println("Error in protobuf deserialised data");
@@ -363,7 +363,7 @@ public class JvSerializatorData {
     private static HashMap<TypeData, Boolean> takeVerifyEmailReplyMessage(byte[] data) {
         HashMap<TypeData, Boolean> result = new HashMap<>();
         try {
-            result.put(TypeData.BoolReply, Auth_pb.GeneralAuthProto.parseFrom(data)
+            result.put(TypeData.BoolReply, ClientServerSerializeProtocol_pb.GeneralAuthProto.parseFrom(data)
                     .getVerifyEmailReply().getReply());
         } catch (InvalidProtocolBufferException exception) {
             System.out.println("Error in protobuf deserialised data");

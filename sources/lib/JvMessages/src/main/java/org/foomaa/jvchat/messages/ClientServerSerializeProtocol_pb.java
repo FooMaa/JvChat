@@ -3,8 +3,8 @@
 
 package org.foomaa.jvchat.messages;
 
-public final class Auth_pb {
-  private Auth_pb() {}
+public final class ClientServerSerializeProtocol_pb {
+  private ClientServerSerializeProtocol_pb() {}
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistryLite registry) {
   }
@@ -33,11 +33,11 @@ public final class Auth_pb {
      * <code>.EntryRequestProto entryRequest = 2;</code>
      * @return The entryRequest.
      */
-    org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto getEntryRequest();
+    ClientServerSerializeProtocol_pb.EntryRequestProto getEntryRequest();
     /**
      * <code>.EntryRequestProto entryRequest = 2;</code>
      */
-    org.foomaa.jvchat.messages.Auth_pb.EntryRequestProtoOrBuilder getEntryRequestOrBuilder();
+    ClientServerSerializeProtocol_pb.EntryRequestProtoOrBuilder getEntryRequestOrBuilder();
 
     /**
      * <code>.EntryReplyProto entryReply = 3;</code>
@@ -48,11 +48,11 @@ public final class Auth_pb {
      * <code>.EntryReplyProto entryReply = 3;</code>
      * @return The entryReply.
      */
-    org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto getEntryReply();
+    ClientServerSerializeProtocol_pb.EntryReplyProto getEntryReply();
     /**
      * <code>.EntryReplyProto entryReply = 3;</code>
      */
-    org.foomaa.jvchat.messages.Auth_pb.EntryReplyProtoOrBuilder getEntryReplyOrBuilder();
+    ClientServerSerializeProtocol_pb.EntryReplyProtoOrBuilder getEntryReplyOrBuilder();
 
     /**
      * <code>.RegistrationRequestProto registrationRequest = 4;</code>
@@ -63,11 +63,11 @@ public final class Auth_pb {
      * <code>.RegistrationRequestProto registrationRequest = 4;</code>
      * @return The registrationRequest.
      */
-    org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto getRegistrationRequest();
+    ClientServerSerializeProtocol_pb.RegistrationRequestProto getRegistrationRequest();
     /**
      * <code>.RegistrationRequestProto registrationRequest = 4;</code>
      */
-    org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProtoOrBuilder getRegistrationRequestOrBuilder();
+    ClientServerSerializeProtocol_pb.RegistrationRequestProtoOrBuilder getRegistrationRequestOrBuilder();
 
     /**
      * <code>.RegistrationReplyProto registrationReply = 5;</code>
@@ -78,11 +78,11 @@ public final class Auth_pb {
      * <code>.RegistrationReplyProto registrationReply = 5;</code>
      * @return The registrationReply.
      */
-    org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto getRegistrationReply();
+    ClientServerSerializeProtocol_pb.RegistrationReplyProto getRegistrationReply();
     /**
      * <code>.RegistrationReplyProto registrationReply = 5;</code>
      */
-    org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProtoOrBuilder getRegistrationReplyOrBuilder();
+    ClientServerSerializeProtocol_pb.RegistrationReplyProtoOrBuilder getRegistrationReplyOrBuilder();
 
     /**
      * <code>.ResetPasswordRequestProto resetPasswordRequest = 6;</code>
@@ -93,11 +93,11 @@ public final class Auth_pb {
      * <code>.ResetPasswordRequestProto resetPasswordRequest = 6;</code>
      * @return The resetPasswordRequest.
      */
-    org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto getResetPasswordRequest();
+    ClientServerSerializeProtocol_pb.ResetPasswordRequestProto getResetPasswordRequest();
     /**
      * <code>.ResetPasswordRequestProto resetPasswordRequest = 6;</code>
      */
-    org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProtoOrBuilder getResetPasswordRequestOrBuilder();
+    ClientServerSerializeProtocol_pb.ResetPasswordRequestProtoOrBuilder getResetPasswordRequestOrBuilder();
 
     /**
      * <code>.ResetPasswordReplyProto resetPasswordReply = 7;</code>
@@ -108,11 +108,11 @@ public final class Auth_pb {
      * <code>.ResetPasswordReplyProto resetPasswordReply = 7;</code>
      * @return The resetPasswordReply.
      */
-    org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto getResetPasswordReply();
+    ClientServerSerializeProtocol_pb.ResetPasswordReplyProto getResetPasswordReply();
     /**
      * <code>.ResetPasswordReplyProto resetPasswordReply = 7;</code>
      */
-    org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProtoOrBuilder getResetPasswordReplyOrBuilder();
+    ClientServerSerializeProtocol_pb.ResetPasswordReplyProtoOrBuilder getResetPasswordReplyOrBuilder();
 
     /**
      * <code>.VerifyEmailRequestProto verifyEmailRequest = 8;</code>
@@ -123,11 +123,11 @@ public final class Auth_pb {
      * <code>.VerifyEmailRequestProto verifyEmailRequest = 8;</code>
      * @return The verifyEmailRequest.
      */
-    org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto getVerifyEmailRequest();
+    ClientServerSerializeProtocol_pb.VerifyEmailRequestProto getVerifyEmailRequest();
     /**
      * <code>.VerifyEmailRequestProto verifyEmailRequest = 8;</code>
      */
-    org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProtoOrBuilder getVerifyEmailRequestOrBuilder();
+    ClientServerSerializeProtocol_pb.VerifyEmailRequestProtoOrBuilder getVerifyEmailRequestOrBuilder();
 
     /**
      * <code>.VerifyEmailReplyProto verifyEmailReply = 9;</code>
@@ -138,13 +138,13 @@ public final class Auth_pb {
      * <code>.VerifyEmailReplyProto verifyEmailReply = 9;</code>
      * @return The verifyEmailReply.
      */
-    org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto getVerifyEmailReply();
+    ClientServerSerializeProtocol_pb.VerifyEmailReplyProto getVerifyEmailReply();
     /**
      * <code>.VerifyEmailReplyProto verifyEmailReply = 9;</code>
      */
-    org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProtoOrBuilder getVerifyEmailReplyOrBuilder();
+    ClientServerSerializeProtocol_pb.VerifyEmailReplyProtoOrBuilder getVerifyEmailReplyOrBuilder();
 
-    public org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto.BodyCase getBodyCase();
+    public ClientServerSerializeProtocol_pb.GeneralAuthProto.BodyCase getBodyCase();
   }
   /**
    * Protobuf type {@code GeneralAuthProto}
@@ -197,112 +197,112 @@ public final class Auth_pb {
               break;
             }
             case 18: {
-              org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.Builder subBuilder = null;
+              ClientServerSerializeProtocol_pb.EntryRequestProto.Builder subBuilder = null;
               if (bodyCase_ == 2) {
-                subBuilder = ((org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto) body_).toBuilder();
+                subBuilder = ((ClientServerSerializeProtocol_pb.EntryRequestProto) body_).toBuilder();
               }
               body_ =
-                  input.readMessage(org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.parser(), extensionRegistry);
+                  input.readMessage(ClientServerSerializeProtocol_pb.EntryRequestProto.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto) body_);
+                subBuilder.mergeFrom((ClientServerSerializeProtocol_pb.EntryRequestProto) body_);
                 body_ = subBuilder.buildPartial();
               }
               bodyCase_ = 2;
               break;
             }
             case 26: {
-              org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.Builder subBuilder = null;
+              ClientServerSerializeProtocol_pb.EntryReplyProto.Builder subBuilder = null;
               if (bodyCase_ == 3) {
-                subBuilder = ((org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) body_).toBuilder();
+                subBuilder = ((ClientServerSerializeProtocol_pb.EntryReplyProto) body_).toBuilder();
               }
               body_ =
-                  input.readMessage(org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.parser(), extensionRegistry);
+                  input.readMessage(ClientServerSerializeProtocol_pb.EntryReplyProto.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) body_);
+                subBuilder.mergeFrom((ClientServerSerializeProtocol_pb.EntryReplyProto) body_);
                 body_ = subBuilder.buildPartial();
               }
               bodyCase_ = 3;
               break;
             }
             case 34: {
-              org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.Builder subBuilder = null;
+              ClientServerSerializeProtocol_pb.RegistrationRequestProto.Builder subBuilder = null;
               if (bodyCase_ == 4) {
-                subBuilder = ((org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto) body_).toBuilder();
+                subBuilder = ((ClientServerSerializeProtocol_pb.RegistrationRequestProto) body_).toBuilder();
               }
               body_ =
-                  input.readMessage(org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.parser(), extensionRegistry);
+                  input.readMessage(ClientServerSerializeProtocol_pb.RegistrationRequestProto.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto) body_);
+                subBuilder.mergeFrom((ClientServerSerializeProtocol_pb.RegistrationRequestProto) body_);
                 body_ = subBuilder.buildPartial();
               }
               bodyCase_ = 4;
               break;
             }
             case 42: {
-              org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Builder subBuilder = null;
+              ClientServerSerializeProtocol_pb.RegistrationReplyProto.Builder subBuilder = null;
               if (bodyCase_ == 5) {
-                subBuilder = ((org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto) body_).toBuilder();
+                subBuilder = ((ClientServerSerializeProtocol_pb.RegistrationReplyProto) body_).toBuilder();
               }
               body_ =
-                  input.readMessage(org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.parser(), extensionRegistry);
+                  input.readMessage(ClientServerSerializeProtocol_pb.RegistrationReplyProto.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto) body_);
+                subBuilder.mergeFrom((ClientServerSerializeProtocol_pb.RegistrationReplyProto) body_);
                 body_ = subBuilder.buildPartial();
               }
               bodyCase_ = 5;
               break;
             }
             case 50: {
-              org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto.Builder subBuilder = null;
+              ClientServerSerializeProtocol_pb.ResetPasswordRequestProto.Builder subBuilder = null;
               if (bodyCase_ == 6) {
-                subBuilder = ((org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto) body_).toBuilder();
+                subBuilder = ((ClientServerSerializeProtocol_pb.ResetPasswordRequestProto) body_).toBuilder();
               }
               body_ =
-                  input.readMessage(org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto.parser(), extensionRegistry);
+                  input.readMessage(ClientServerSerializeProtocol_pb.ResetPasswordRequestProto.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto) body_);
+                subBuilder.mergeFrom((ClientServerSerializeProtocol_pb.ResetPasswordRequestProto) body_);
                 body_ = subBuilder.buildPartial();
               }
               bodyCase_ = 6;
               break;
             }
             case 58: {
-              org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto.Builder subBuilder = null;
+              ClientServerSerializeProtocol_pb.ResetPasswordReplyProto.Builder subBuilder = null;
               if (bodyCase_ == 7) {
-                subBuilder = ((org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto) body_).toBuilder();
+                subBuilder = ((ClientServerSerializeProtocol_pb.ResetPasswordReplyProto) body_).toBuilder();
               }
               body_ =
-                  input.readMessage(org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto.parser(), extensionRegistry);
+                  input.readMessage(ClientServerSerializeProtocol_pb.ResetPasswordReplyProto.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto) body_);
+                subBuilder.mergeFrom((ClientServerSerializeProtocol_pb.ResetPasswordReplyProto) body_);
                 body_ = subBuilder.buildPartial();
               }
               bodyCase_ = 7;
               break;
             }
             case 66: {
-              org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.Builder subBuilder = null;
+              ClientServerSerializeProtocol_pb.VerifyEmailRequestProto.Builder subBuilder = null;
               if (bodyCase_ == 8) {
-                subBuilder = ((org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto) body_).toBuilder();
+                subBuilder = ((ClientServerSerializeProtocol_pb.VerifyEmailRequestProto) body_).toBuilder();
               }
               body_ =
-                  input.readMessage(org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.parser(), extensionRegistry);
+                  input.readMessage(ClientServerSerializeProtocol_pb.VerifyEmailRequestProto.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto) body_);
+                subBuilder.mergeFrom((ClientServerSerializeProtocol_pb.VerifyEmailRequestProto) body_);
                 body_ = subBuilder.buildPartial();
               }
               bodyCase_ = 8;
               break;
             }
             case 74: {
-              org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.Builder subBuilder = null;
+              ClientServerSerializeProtocol_pb.VerifyEmailReplyProto.Builder subBuilder = null;
               if (bodyCase_ == 9) {
-                subBuilder = ((org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto) body_).toBuilder();
+                subBuilder = ((ClientServerSerializeProtocol_pb.VerifyEmailReplyProto) body_).toBuilder();
               }
               body_ =
-                  input.readMessage(org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.parser(), extensionRegistry);
+                  input.readMessage(ClientServerSerializeProtocol_pb.VerifyEmailReplyProto.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto) body_);
+                subBuilder.mergeFrom((ClientServerSerializeProtocol_pb.VerifyEmailReplyProto) body_);
                 body_ = subBuilder.buildPartial();
               }
               bodyCase_ = 9;
@@ -329,15 +329,15 @@ public final class Auth_pb {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return org.foomaa.jvchat.messages.Auth_pb.internal_static_GeneralAuthProto_descriptor;
+      return ClientServerSerializeProtocol_pb.internal_static_GeneralAuthProto_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return org.foomaa.jvchat.messages.Auth_pb.internal_static_GeneralAuthProto_fieldAccessorTable
+      return ClientServerSerializeProtocol_pb.internal_static_GeneralAuthProto_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto.class, org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto.Builder.class);
+              ClientServerSerializeProtocol_pb.GeneralAuthProto.class, ClientServerSerializeProtocol_pb.GeneralAuthProto.Builder.class);
     }
 
     private int bodyCase_ = 0;
@@ -418,21 +418,21 @@ public final class Auth_pb {
      * @return The entryRequest.
      */
     @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto getEntryRequest() {
+    public ClientServerSerializeProtocol_pb.EntryRequestProto getEntryRequest() {
       if (bodyCase_ == 2) {
-         return (org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto) body_;
+         return (ClientServerSerializeProtocol_pb.EntryRequestProto) body_;
       }
-      return org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.getDefaultInstance();
+      return ClientServerSerializeProtocol_pb.EntryRequestProto.getDefaultInstance();
     }
     /**
      * <code>.EntryRequestProto entryRequest = 2;</code>
      */
     @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.EntryRequestProtoOrBuilder getEntryRequestOrBuilder() {
+    public ClientServerSerializeProtocol_pb.EntryRequestProtoOrBuilder getEntryRequestOrBuilder() {
       if (bodyCase_ == 2) {
-         return (org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto) body_;
+         return (ClientServerSerializeProtocol_pb.EntryRequestProto) body_;
       }
-      return org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.getDefaultInstance();
+      return ClientServerSerializeProtocol_pb.EntryRequestProto.getDefaultInstance();
     }
 
     public static final int ENTRYREPLY_FIELD_NUMBER = 3;
@@ -449,21 +449,21 @@ public final class Auth_pb {
      * @return The entryReply.
      */
     @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto getEntryReply() {
+    public ClientServerSerializeProtocol_pb.EntryReplyProto getEntryReply() {
       if (bodyCase_ == 3) {
-         return (org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) body_;
+         return (ClientServerSerializeProtocol_pb.EntryReplyProto) body_;
       }
-      return org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.getDefaultInstance();
+      return ClientServerSerializeProtocol_pb.EntryReplyProto.getDefaultInstance();
     }
     /**
      * <code>.EntryReplyProto entryReply = 3;</code>
      */
     @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.EntryReplyProtoOrBuilder getEntryReplyOrBuilder() {
+    public ClientServerSerializeProtocol_pb.EntryReplyProtoOrBuilder getEntryReplyOrBuilder() {
       if (bodyCase_ == 3) {
-         return (org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) body_;
+         return (ClientServerSerializeProtocol_pb.EntryReplyProto) body_;
       }
-      return org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.getDefaultInstance();
+      return ClientServerSerializeProtocol_pb.EntryReplyProto.getDefaultInstance();
     }
 
     public static final int REGISTRATIONREQUEST_FIELD_NUMBER = 4;
@@ -480,21 +480,21 @@ public final class Auth_pb {
      * @return The registrationRequest.
      */
     @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto getRegistrationRequest() {
+    public ClientServerSerializeProtocol_pb.RegistrationRequestProto getRegistrationRequest() {
       if (bodyCase_ == 4) {
-         return (org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto) body_;
+         return (ClientServerSerializeProtocol_pb.RegistrationRequestProto) body_;
       }
-      return org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.getDefaultInstance();
+      return ClientServerSerializeProtocol_pb.RegistrationRequestProto.getDefaultInstance();
     }
     /**
      * <code>.RegistrationRequestProto registrationRequest = 4;</code>
      */
     @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProtoOrBuilder getRegistrationRequestOrBuilder() {
+    public ClientServerSerializeProtocol_pb.RegistrationRequestProtoOrBuilder getRegistrationRequestOrBuilder() {
       if (bodyCase_ == 4) {
-         return (org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto) body_;
+         return (ClientServerSerializeProtocol_pb.RegistrationRequestProto) body_;
       }
-      return org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.getDefaultInstance();
+      return ClientServerSerializeProtocol_pb.RegistrationRequestProto.getDefaultInstance();
     }
 
     public static final int REGISTRATIONREPLY_FIELD_NUMBER = 5;
@@ -511,21 +511,21 @@ public final class Auth_pb {
      * @return The registrationReply.
      */
     @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto getRegistrationReply() {
+    public ClientServerSerializeProtocol_pb.RegistrationReplyProto getRegistrationReply() {
       if (bodyCase_ == 5) {
-         return (org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto) body_;
+         return (ClientServerSerializeProtocol_pb.RegistrationReplyProto) body_;
       }
-      return org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.getDefaultInstance();
+      return ClientServerSerializeProtocol_pb.RegistrationReplyProto.getDefaultInstance();
     }
     /**
      * <code>.RegistrationReplyProto registrationReply = 5;</code>
      */
     @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProtoOrBuilder getRegistrationReplyOrBuilder() {
+    public ClientServerSerializeProtocol_pb.RegistrationReplyProtoOrBuilder getRegistrationReplyOrBuilder() {
       if (bodyCase_ == 5) {
-         return (org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto) body_;
+         return (ClientServerSerializeProtocol_pb.RegistrationReplyProto) body_;
       }
-      return org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.getDefaultInstance();
+      return ClientServerSerializeProtocol_pb.RegistrationReplyProto.getDefaultInstance();
     }
 
     public static final int RESETPASSWORDREQUEST_FIELD_NUMBER = 6;
@@ -542,21 +542,21 @@ public final class Auth_pb {
      * @return The resetPasswordRequest.
      */
     @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto getResetPasswordRequest() {
+    public ClientServerSerializeProtocol_pb.ResetPasswordRequestProto getResetPasswordRequest() {
       if (bodyCase_ == 6) {
-         return (org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto) body_;
+         return (ClientServerSerializeProtocol_pb.ResetPasswordRequestProto) body_;
       }
-      return org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto.getDefaultInstance();
+      return ClientServerSerializeProtocol_pb.ResetPasswordRequestProto.getDefaultInstance();
     }
     /**
      * <code>.ResetPasswordRequestProto resetPasswordRequest = 6;</code>
      */
     @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProtoOrBuilder getResetPasswordRequestOrBuilder() {
+    public ClientServerSerializeProtocol_pb.ResetPasswordRequestProtoOrBuilder getResetPasswordRequestOrBuilder() {
       if (bodyCase_ == 6) {
-         return (org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto) body_;
+         return (ClientServerSerializeProtocol_pb.ResetPasswordRequestProto) body_;
       }
-      return org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto.getDefaultInstance();
+      return ClientServerSerializeProtocol_pb.ResetPasswordRequestProto.getDefaultInstance();
     }
 
     public static final int RESETPASSWORDREPLY_FIELD_NUMBER = 7;
@@ -573,21 +573,21 @@ public final class Auth_pb {
      * @return The resetPasswordReply.
      */
     @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto getResetPasswordReply() {
+    public ClientServerSerializeProtocol_pb.ResetPasswordReplyProto getResetPasswordReply() {
       if (bodyCase_ == 7) {
-         return (org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto) body_;
+         return (ClientServerSerializeProtocol_pb.ResetPasswordReplyProto) body_;
       }
-      return org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto.getDefaultInstance();
+      return ClientServerSerializeProtocol_pb.ResetPasswordReplyProto.getDefaultInstance();
     }
     /**
      * <code>.ResetPasswordReplyProto resetPasswordReply = 7;</code>
      */
     @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProtoOrBuilder getResetPasswordReplyOrBuilder() {
+    public ClientServerSerializeProtocol_pb.ResetPasswordReplyProtoOrBuilder getResetPasswordReplyOrBuilder() {
       if (bodyCase_ == 7) {
-         return (org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto) body_;
+         return (ClientServerSerializeProtocol_pb.ResetPasswordReplyProto) body_;
       }
-      return org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto.getDefaultInstance();
+      return ClientServerSerializeProtocol_pb.ResetPasswordReplyProto.getDefaultInstance();
     }
 
     public static final int VERIFYEMAILREQUEST_FIELD_NUMBER = 8;
@@ -604,21 +604,21 @@ public final class Auth_pb {
      * @return The verifyEmailRequest.
      */
     @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto getVerifyEmailRequest() {
+    public ClientServerSerializeProtocol_pb.VerifyEmailRequestProto getVerifyEmailRequest() {
       if (bodyCase_ == 8) {
-         return (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto) body_;
+         return (ClientServerSerializeProtocol_pb.VerifyEmailRequestProto) body_;
       }
-      return org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.getDefaultInstance();
+      return ClientServerSerializeProtocol_pb.VerifyEmailRequestProto.getDefaultInstance();
     }
     /**
      * <code>.VerifyEmailRequestProto verifyEmailRequest = 8;</code>
      */
     @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProtoOrBuilder getVerifyEmailRequestOrBuilder() {
+    public ClientServerSerializeProtocol_pb.VerifyEmailRequestProtoOrBuilder getVerifyEmailRequestOrBuilder() {
       if (bodyCase_ == 8) {
-         return (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto) body_;
+         return (ClientServerSerializeProtocol_pb.VerifyEmailRequestProto) body_;
       }
-      return org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.getDefaultInstance();
+      return ClientServerSerializeProtocol_pb.VerifyEmailRequestProto.getDefaultInstance();
     }
 
     public static final int VERIFYEMAILREPLY_FIELD_NUMBER = 9;
@@ -635,21 +635,21 @@ public final class Auth_pb {
      * @return The verifyEmailReply.
      */
     @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto getVerifyEmailReply() {
+    public ClientServerSerializeProtocol_pb.VerifyEmailReplyProto getVerifyEmailReply() {
       if (bodyCase_ == 9) {
-         return (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto) body_;
+         return (ClientServerSerializeProtocol_pb.VerifyEmailReplyProto) body_;
       }
-      return org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.getDefaultInstance();
+      return ClientServerSerializeProtocol_pb.VerifyEmailReplyProto.getDefaultInstance();
     }
     /**
      * <code>.VerifyEmailReplyProto verifyEmailReply = 9;</code>
      */
     @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProtoOrBuilder getVerifyEmailReplyOrBuilder() {
+    public ClientServerSerializeProtocol_pb.VerifyEmailReplyProtoOrBuilder getVerifyEmailReplyOrBuilder() {
       if (bodyCase_ == 9) {
-         return (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto) body_;
+         return (ClientServerSerializeProtocol_pb.VerifyEmailReplyProto) body_;
       }
-      return org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.getDefaultInstance();
+      return ClientServerSerializeProtocol_pb.VerifyEmailReplyProto.getDefaultInstance();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -670,28 +670,28 @@ public final class Auth_pb {
         output.writeUInt32(1, type_);
       }
       if (bodyCase_ == 2) {
-        output.writeMessage(2, (org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto) body_);
+        output.writeMessage(2, (ClientServerSerializeProtocol_pb.EntryRequestProto) body_);
       }
       if (bodyCase_ == 3) {
-        output.writeMessage(3, (org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) body_);
+        output.writeMessage(3, (ClientServerSerializeProtocol_pb.EntryReplyProto) body_);
       }
       if (bodyCase_ == 4) {
-        output.writeMessage(4, (org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto) body_);
+        output.writeMessage(4, (ClientServerSerializeProtocol_pb.RegistrationRequestProto) body_);
       }
       if (bodyCase_ == 5) {
-        output.writeMessage(5, (org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto) body_);
+        output.writeMessage(5, (ClientServerSerializeProtocol_pb.RegistrationReplyProto) body_);
       }
       if (bodyCase_ == 6) {
-        output.writeMessage(6, (org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto) body_);
+        output.writeMessage(6, (ClientServerSerializeProtocol_pb.ResetPasswordRequestProto) body_);
       }
       if (bodyCase_ == 7) {
-        output.writeMessage(7, (org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto) body_);
+        output.writeMessage(7, (ClientServerSerializeProtocol_pb.ResetPasswordReplyProto) body_);
       }
       if (bodyCase_ == 8) {
-        output.writeMessage(8, (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto) body_);
+        output.writeMessage(8, (ClientServerSerializeProtocol_pb.VerifyEmailRequestProto) body_);
       }
       if (bodyCase_ == 9) {
-        output.writeMessage(9, (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto) body_);
+        output.writeMessage(9, (ClientServerSerializeProtocol_pb.VerifyEmailReplyProto) body_);
       }
       unknownFields.writeTo(output);
     }
@@ -708,35 +708,35 @@ public final class Auth_pb {
       }
       if (bodyCase_ == 2) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, (org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto) body_);
+          .computeMessageSize(2, (ClientServerSerializeProtocol_pb.EntryRequestProto) body_);
       }
       if (bodyCase_ == 3) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, (org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) body_);
+          .computeMessageSize(3, (ClientServerSerializeProtocol_pb.EntryReplyProto) body_);
       }
       if (bodyCase_ == 4) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, (org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto) body_);
+          .computeMessageSize(4, (ClientServerSerializeProtocol_pb.RegistrationRequestProto) body_);
       }
       if (bodyCase_ == 5) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(5, (org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto) body_);
+          .computeMessageSize(5, (ClientServerSerializeProtocol_pb.RegistrationReplyProto) body_);
       }
       if (bodyCase_ == 6) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(6, (org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto) body_);
+          .computeMessageSize(6, (ClientServerSerializeProtocol_pb.ResetPasswordRequestProto) body_);
       }
       if (bodyCase_ == 7) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(7, (org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto) body_);
+          .computeMessageSize(7, (ClientServerSerializeProtocol_pb.ResetPasswordReplyProto) body_);
       }
       if (bodyCase_ == 8) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(8, (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto) body_);
+          .computeMessageSize(8, (ClientServerSerializeProtocol_pb.VerifyEmailRequestProto) body_);
       }
       if (bodyCase_ == 9) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(9, (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto) body_);
+          .computeMessageSize(9, (ClientServerSerializeProtocol_pb.VerifyEmailReplyProto) body_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -748,10 +748,10 @@ public final class Auth_pb {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto)) {
+      if (!(obj instanceof ClientServerSerializeProtocol_pb.GeneralAuthProto)) {
         return super.equals(obj);
       }
-      org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto other = (org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto) obj;
+      ClientServerSerializeProtocol_pb.GeneralAuthProto other = (ClientServerSerializeProtocol_pb.GeneralAuthProto) obj;
 
       if (getType()
           != other.getType()) return false;
@@ -846,69 +846,69 @@ public final class Auth_pb {
       return hash;
     }
 
-    public static org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.GeneralAuthProto parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.GeneralAuthProto parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.GeneralAuthProto parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.GeneralAuthProto parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto parseFrom(byte[] data)
+    public static ClientServerSerializeProtocol_pb.GeneralAuthProto parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.GeneralAuthProto parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto parseFrom(java.io.InputStream input)
+    public static ClientServerSerializeProtocol_pb.GeneralAuthProto parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.GeneralAuthProto parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto parseDelimitedFrom(java.io.InputStream input)
+    public static ClientServerSerializeProtocol_pb.GeneralAuthProto parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto parseDelimitedFrom(
+    public static ClientServerSerializeProtocol_pb.GeneralAuthProto parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.GeneralAuthProto parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.GeneralAuthProto parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -921,7 +921,7 @@ public final class Auth_pb {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto prototype) {
+    public static Builder newBuilder(ClientServerSerializeProtocol_pb.GeneralAuthProto prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -942,18 +942,18 @@ public final class Auth_pb {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:GeneralAuthProto)
-        org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProtoOrBuilder {
+        ClientServerSerializeProtocol_pb.GeneralAuthProtoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_GeneralAuthProto_descriptor;
+        return ClientServerSerializeProtocol_pb.internal_static_GeneralAuthProto_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_GeneralAuthProto_fieldAccessorTable
+        return ClientServerSerializeProtocol_pb.internal_static_GeneralAuthProto_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto.class, org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto.Builder.class);
+                ClientServerSerializeProtocol_pb.GeneralAuthProto.class, ClientServerSerializeProtocol_pb.GeneralAuthProto.Builder.class);
       }
 
       // Construct using org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto.newBuilder()
@@ -984,17 +984,17 @@ public final class Auth_pb {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_GeneralAuthProto_descriptor;
+        return ClientServerSerializeProtocol_pb.internal_static_GeneralAuthProto_descriptor;
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto getDefaultInstanceForType() {
-        return org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto.getDefaultInstance();
+      public ClientServerSerializeProtocol_pb.GeneralAuthProto getDefaultInstanceForType() {
+        return ClientServerSerializeProtocol_pb.GeneralAuthProto.getDefaultInstance();
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto build() {
-        org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto result = buildPartial();
+      public ClientServerSerializeProtocol_pb.GeneralAuthProto build() {
+        ClientServerSerializeProtocol_pb.GeneralAuthProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -1002,8 +1002,8 @@ public final class Auth_pb {
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto buildPartial() {
-        org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto result = new org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto(this);
+      public ClientServerSerializeProtocol_pb.GeneralAuthProto buildPartial() {
+        ClientServerSerializeProtocol_pb.GeneralAuthProto result = new ClientServerSerializeProtocol_pb.GeneralAuthProto(this);
         result.type_ = type_;
         if (bodyCase_ == 2) {
           if (entryRequestBuilder_ == null) {
@@ -1100,16 +1100,16 @@ public final class Auth_pb {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto) {
-          return mergeFrom((org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto)other);
+        if (other instanceof ClientServerSerializeProtocol_pb.GeneralAuthProto) {
+          return mergeFrom((ClientServerSerializeProtocol_pb.GeneralAuthProto)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto other) {
-        if (other == org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto.getDefaultInstance()) return this;
+      public Builder mergeFrom(ClientServerSerializeProtocol_pb.GeneralAuthProto other) {
+        if (other == ClientServerSerializeProtocol_pb.GeneralAuthProto.getDefaultInstance()) return this;
         if (other.getType() != 0) {
           setType(other.getType());
         }
@@ -1165,11 +1165,11 @@ public final class Auth_pb {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto parsedMessage = null;
+        ClientServerSerializeProtocol_pb.GeneralAuthProto parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto) e.getUnfinishedMessage();
+          parsedMessage = (ClientServerSerializeProtocol_pb.GeneralAuthProto) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -1226,7 +1226,7 @@ public final class Auth_pb {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto, org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.Builder, org.foomaa.jvchat.messages.Auth_pb.EntryRequestProtoOrBuilder> entryRequestBuilder_;
+          ClientServerSerializeProtocol_pb.EntryRequestProto, ClientServerSerializeProtocol_pb.EntryRequestProto.Builder, ClientServerSerializeProtocol_pb.EntryRequestProtoOrBuilder> entryRequestBuilder_;
       /**
        * <code>.EntryRequestProto entryRequest = 2;</code>
        * @return Whether the entryRequest field is set.
@@ -1240,23 +1240,23 @@ public final class Auth_pb {
        * @return The entryRequest.
        */
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto getEntryRequest() {
+      public ClientServerSerializeProtocol_pb.EntryRequestProto getEntryRequest() {
         if (entryRequestBuilder_ == null) {
           if (bodyCase_ == 2) {
-            return (org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto) body_;
+            return (ClientServerSerializeProtocol_pb.EntryRequestProto) body_;
           }
-          return org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.getDefaultInstance();
+          return ClientServerSerializeProtocol_pb.EntryRequestProto.getDefaultInstance();
         } else {
           if (bodyCase_ == 2) {
             return entryRequestBuilder_.getMessage();
           }
-          return org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.getDefaultInstance();
+          return ClientServerSerializeProtocol_pb.EntryRequestProto.getDefaultInstance();
         }
       }
       /**
        * <code>.EntryRequestProto entryRequest = 2;</code>
        */
-      public Builder setEntryRequest(org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto value) {
+      public Builder setEntryRequest(ClientServerSerializeProtocol_pb.EntryRequestProto value) {
         if (entryRequestBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1273,7 +1273,7 @@ public final class Auth_pb {
        * <code>.EntryRequestProto entryRequest = 2;</code>
        */
       public Builder setEntryRequest(
-          org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.Builder builderForValue) {
+          ClientServerSerializeProtocol_pb.EntryRequestProto.Builder builderForValue) {
         if (entryRequestBuilder_ == null) {
           body_ = builderForValue.build();
           onChanged();
@@ -1286,11 +1286,11 @@ public final class Auth_pb {
       /**
        * <code>.EntryRequestProto entryRequest = 2;</code>
        */
-      public Builder mergeEntryRequest(org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto value) {
+      public Builder mergeEntryRequest(ClientServerSerializeProtocol_pb.EntryRequestProto value) {
         if (entryRequestBuilder_ == null) {
           if (bodyCase_ == 2 &&
-              body_ != org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.getDefaultInstance()) {
-            body_ = org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.newBuilder((org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto) body_)
+              body_ != ClientServerSerializeProtocol_pb.EntryRequestProto.getDefaultInstance()) {
+            body_ = ClientServerSerializeProtocol_pb.EntryRequestProto.newBuilder((ClientServerSerializeProtocol_pb.EntryRequestProto) body_)
                 .mergeFrom(value).buildPartial();
           } else {
             body_ = value;
@@ -1327,36 +1327,36 @@ public final class Auth_pb {
       /**
        * <code>.EntryRequestProto entryRequest = 2;</code>
        */
-      public org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.Builder getEntryRequestBuilder() {
+      public ClientServerSerializeProtocol_pb.EntryRequestProto.Builder getEntryRequestBuilder() {
         return getEntryRequestFieldBuilder().getBuilder();
       }
       /**
        * <code>.EntryRequestProto entryRequest = 2;</code>
        */
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.EntryRequestProtoOrBuilder getEntryRequestOrBuilder() {
+      public ClientServerSerializeProtocol_pb.EntryRequestProtoOrBuilder getEntryRequestOrBuilder() {
         if ((bodyCase_ == 2) && (entryRequestBuilder_ != null)) {
           return entryRequestBuilder_.getMessageOrBuilder();
         } else {
           if (bodyCase_ == 2) {
-            return (org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto) body_;
+            return (ClientServerSerializeProtocol_pb.EntryRequestProto) body_;
           }
-          return org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.getDefaultInstance();
+          return ClientServerSerializeProtocol_pb.EntryRequestProto.getDefaultInstance();
         }
       }
       /**
        * <code>.EntryRequestProto entryRequest = 2;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto, org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.Builder, org.foomaa.jvchat.messages.Auth_pb.EntryRequestProtoOrBuilder> 
+          ClientServerSerializeProtocol_pb.EntryRequestProto, ClientServerSerializeProtocol_pb.EntryRequestProto.Builder, ClientServerSerializeProtocol_pb.EntryRequestProtoOrBuilder>
           getEntryRequestFieldBuilder() {
         if (entryRequestBuilder_ == null) {
           if (!(bodyCase_ == 2)) {
-            body_ = org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.getDefaultInstance();
+            body_ = ClientServerSerializeProtocol_pb.EntryRequestProto.getDefaultInstance();
           }
           entryRequestBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto, org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.Builder, org.foomaa.jvchat.messages.Auth_pb.EntryRequestProtoOrBuilder>(
-                  (org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto) body_,
+              ClientServerSerializeProtocol_pb.EntryRequestProto, ClientServerSerializeProtocol_pb.EntryRequestProto.Builder, ClientServerSerializeProtocol_pb.EntryRequestProtoOrBuilder>(
+                  (ClientServerSerializeProtocol_pb.EntryRequestProto) body_,
                   getParentForChildren(),
                   isClean());
           body_ = null;
@@ -1367,7 +1367,7 @@ public final class Auth_pb {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto, org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.Builder, org.foomaa.jvchat.messages.Auth_pb.EntryReplyProtoOrBuilder> entryReplyBuilder_;
+          ClientServerSerializeProtocol_pb.EntryReplyProto, ClientServerSerializeProtocol_pb.EntryReplyProto.Builder, ClientServerSerializeProtocol_pb.EntryReplyProtoOrBuilder> entryReplyBuilder_;
       /**
        * <code>.EntryReplyProto entryReply = 3;</code>
        * @return Whether the entryReply field is set.
@@ -1381,23 +1381,23 @@ public final class Auth_pb {
        * @return The entryReply.
        */
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto getEntryReply() {
+      public ClientServerSerializeProtocol_pb.EntryReplyProto getEntryReply() {
         if (entryReplyBuilder_ == null) {
           if (bodyCase_ == 3) {
-            return (org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) body_;
+            return (ClientServerSerializeProtocol_pb.EntryReplyProto) body_;
           }
-          return org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.getDefaultInstance();
+          return ClientServerSerializeProtocol_pb.EntryReplyProto.getDefaultInstance();
         } else {
           if (bodyCase_ == 3) {
             return entryReplyBuilder_.getMessage();
           }
-          return org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.getDefaultInstance();
+          return ClientServerSerializeProtocol_pb.EntryReplyProto.getDefaultInstance();
         }
       }
       /**
        * <code>.EntryReplyProto entryReply = 3;</code>
        */
-      public Builder setEntryReply(org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto value) {
+      public Builder setEntryReply(ClientServerSerializeProtocol_pb.EntryReplyProto value) {
         if (entryReplyBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1414,7 +1414,7 @@ public final class Auth_pb {
        * <code>.EntryReplyProto entryReply = 3;</code>
        */
       public Builder setEntryReply(
-          org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.Builder builderForValue) {
+          ClientServerSerializeProtocol_pb.EntryReplyProto.Builder builderForValue) {
         if (entryReplyBuilder_ == null) {
           body_ = builderForValue.build();
           onChanged();
@@ -1427,11 +1427,11 @@ public final class Auth_pb {
       /**
        * <code>.EntryReplyProto entryReply = 3;</code>
        */
-      public Builder mergeEntryReply(org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto value) {
+      public Builder mergeEntryReply(ClientServerSerializeProtocol_pb.EntryReplyProto value) {
         if (entryReplyBuilder_ == null) {
           if (bodyCase_ == 3 &&
-              body_ != org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.getDefaultInstance()) {
-            body_ = org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.newBuilder((org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) body_)
+              body_ != ClientServerSerializeProtocol_pb.EntryReplyProto.getDefaultInstance()) {
+            body_ = ClientServerSerializeProtocol_pb.EntryReplyProto.newBuilder((ClientServerSerializeProtocol_pb.EntryReplyProto) body_)
                 .mergeFrom(value).buildPartial();
           } else {
             body_ = value;
@@ -1468,36 +1468,36 @@ public final class Auth_pb {
       /**
        * <code>.EntryReplyProto entryReply = 3;</code>
        */
-      public org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.Builder getEntryReplyBuilder() {
+      public ClientServerSerializeProtocol_pb.EntryReplyProto.Builder getEntryReplyBuilder() {
         return getEntryReplyFieldBuilder().getBuilder();
       }
       /**
        * <code>.EntryReplyProto entryReply = 3;</code>
        */
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.EntryReplyProtoOrBuilder getEntryReplyOrBuilder() {
+      public ClientServerSerializeProtocol_pb.EntryReplyProtoOrBuilder getEntryReplyOrBuilder() {
         if ((bodyCase_ == 3) && (entryReplyBuilder_ != null)) {
           return entryReplyBuilder_.getMessageOrBuilder();
         } else {
           if (bodyCase_ == 3) {
-            return (org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) body_;
+            return (ClientServerSerializeProtocol_pb.EntryReplyProto) body_;
           }
-          return org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.getDefaultInstance();
+          return ClientServerSerializeProtocol_pb.EntryReplyProto.getDefaultInstance();
         }
       }
       /**
        * <code>.EntryReplyProto entryReply = 3;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto, org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.Builder, org.foomaa.jvchat.messages.Auth_pb.EntryReplyProtoOrBuilder> 
+          ClientServerSerializeProtocol_pb.EntryReplyProto, ClientServerSerializeProtocol_pb.EntryReplyProto.Builder, ClientServerSerializeProtocol_pb.EntryReplyProtoOrBuilder>
           getEntryReplyFieldBuilder() {
         if (entryReplyBuilder_ == null) {
           if (!(bodyCase_ == 3)) {
-            body_ = org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.getDefaultInstance();
+            body_ = ClientServerSerializeProtocol_pb.EntryReplyProto.getDefaultInstance();
           }
           entryReplyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto, org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.Builder, org.foomaa.jvchat.messages.Auth_pb.EntryReplyProtoOrBuilder>(
-                  (org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) body_,
+              ClientServerSerializeProtocol_pb.EntryReplyProto, ClientServerSerializeProtocol_pb.EntryReplyProto.Builder, ClientServerSerializeProtocol_pb.EntryReplyProtoOrBuilder>(
+                  (ClientServerSerializeProtocol_pb.EntryReplyProto) body_,
                   getParentForChildren(),
                   isClean());
           body_ = null;
@@ -1508,7 +1508,7 @@ public final class Auth_pb {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto, org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.Builder, org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProtoOrBuilder> registrationRequestBuilder_;
+          ClientServerSerializeProtocol_pb.RegistrationRequestProto, ClientServerSerializeProtocol_pb.RegistrationRequestProto.Builder, ClientServerSerializeProtocol_pb.RegistrationRequestProtoOrBuilder> registrationRequestBuilder_;
       /**
        * <code>.RegistrationRequestProto registrationRequest = 4;</code>
        * @return Whether the registrationRequest field is set.
@@ -1522,23 +1522,23 @@ public final class Auth_pb {
        * @return The registrationRequest.
        */
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto getRegistrationRequest() {
+      public ClientServerSerializeProtocol_pb.RegistrationRequestProto getRegistrationRequest() {
         if (registrationRequestBuilder_ == null) {
           if (bodyCase_ == 4) {
-            return (org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto) body_;
+            return (ClientServerSerializeProtocol_pb.RegistrationRequestProto) body_;
           }
-          return org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.getDefaultInstance();
+          return ClientServerSerializeProtocol_pb.RegistrationRequestProto.getDefaultInstance();
         } else {
           if (bodyCase_ == 4) {
             return registrationRequestBuilder_.getMessage();
           }
-          return org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.getDefaultInstance();
+          return ClientServerSerializeProtocol_pb.RegistrationRequestProto.getDefaultInstance();
         }
       }
       /**
        * <code>.RegistrationRequestProto registrationRequest = 4;</code>
        */
-      public Builder setRegistrationRequest(org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto value) {
+      public Builder setRegistrationRequest(ClientServerSerializeProtocol_pb.RegistrationRequestProto value) {
         if (registrationRequestBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1555,7 +1555,7 @@ public final class Auth_pb {
        * <code>.RegistrationRequestProto registrationRequest = 4;</code>
        */
       public Builder setRegistrationRequest(
-          org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.Builder builderForValue) {
+          ClientServerSerializeProtocol_pb.RegistrationRequestProto.Builder builderForValue) {
         if (registrationRequestBuilder_ == null) {
           body_ = builderForValue.build();
           onChanged();
@@ -1568,11 +1568,11 @@ public final class Auth_pb {
       /**
        * <code>.RegistrationRequestProto registrationRequest = 4;</code>
        */
-      public Builder mergeRegistrationRequest(org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto value) {
+      public Builder mergeRegistrationRequest(ClientServerSerializeProtocol_pb.RegistrationRequestProto value) {
         if (registrationRequestBuilder_ == null) {
           if (bodyCase_ == 4 &&
-              body_ != org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.getDefaultInstance()) {
-            body_ = org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.newBuilder((org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto) body_)
+              body_ != ClientServerSerializeProtocol_pb.RegistrationRequestProto.getDefaultInstance()) {
+            body_ = ClientServerSerializeProtocol_pb.RegistrationRequestProto.newBuilder((ClientServerSerializeProtocol_pb.RegistrationRequestProto) body_)
                 .mergeFrom(value).buildPartial();
           } else {
             body_ = value;
@@ -1609,36 +1609,36 @@ public final class Auth_pb {
       /**
        * <code>.RegistrationRequestProto registrationRequest = 4;</code>
        */
-      public org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.Builder getRegistrationRequestBuilder() {
+      public ClientServerSerializeProtocol_pb.RegistrationRequestProto.Builder getRegistrationRequestBuilder() {
         return getRegistrationRequestFieldBuilder().getBuilder();
       }
       /**
        * <code>.RegistrationRequestProto registrationRequest = 4;</code>
        */
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProtoOrBuilder getRegistrationRequestOrBuilder() {
+      public ClientServerSerializeProtocol_pb.RegistrationRequestProtoOrBuilder getRegistrationRequestOrBuilder() {
         if ((bodyCase_ == 4) && (registrationRequestBuilder_ != null)) {
           return registrationRequestBuilder_.getMessageOrBuilder();
         } else {
           if (bodyCase_ == 4) {
-            return (org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto) body_;
+            return (ClientServerSerializeProtocol_pb.RegistrationRequestProto) body_;
           }
-          return org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.getDefaultInstance();
+          return ClientServerSerializeProtocol_pb.RegistrationRequestProto.getDefaultInstance();
         }
       }
       /**
        * <code>.RegistrationRequestProto registrationRequest = 4;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto, org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.Builder, org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProtoOrBuilder> 
+          ClientServerSerializeProtocol_pb.RegistrationRequestProto, ClientServerSerializeProtocol_pb.RegistrationRequestProto.Builder, ClientServerSerializeProtocol_pb.RegistrationRequestProtoOrBuilder>
           getRegistrationRequestFieldBuilder() {
         if (registrationRequestBuilder_ == null) {
           if (!(bodyCase_ == 4)) {
-            body_ = org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.getDefaultInstance();
+            body_ = ClientServerSerializeProtocol_pb.RegistrationRequestProto.getDefaultInstance();
           }
           registrationRequestBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto, org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.Builder, org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProtoOrBuilder>(
-                  (org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto) body_,
+              ClientServerSerializeProtocol_pb.RegistrationRequestProto, ClientServerSerializeProtocol_pb.RegistrationRequestProto.Builder, ClientServerSerializeProtocol_pb.RegistrationRequestProtoOrBuilder>(
+                  (ClientServerSerializeProtocol_pb.RegistrationRequestProto) body_,
                   getParentForChildren(),
                   isClean());
           body_ = null;
@@ -1649,7 +1649,7 @@ public final class Auth_pb {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto, org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Builder, org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProtoOrBuilder> registrationReplyBuilder_;
+          ClientServerSerializeProtocol_pb.RegistrationReplyProto, ClientServerSerializeProtocol_pb.RegistrationReplyProto.Builder, ClientServerSerializeProtocol_pb.RegistrationReplyProtoOrBuilder> registrationReplyBuilder_;
       /**
        * <code>.RegistrationReplyProto registrationReply = 5;</code>
        * @return Whether the registrationReply field is set.
@@ -1663,23 +1663,23 @@ public final class Auth_pb {
        * @return The registrationReply.
        */
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto getRegistrationReply() {
+      public ClientServerSerializeProtocol_pb.RegistrationReplyProto getRegistrationReply() {
         if (registrationReplyBuilder_ == null) {
           if (bodyCase_ == 5) {
-            return (org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto) body_;
+            return (ClientServerSerializeProtocol_pb.RegistrationReplyProto) body_;
           }
-          return org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.getDefaultInstance();
+          return ClientServerSerializeProtocol_pb.RegistrationReplyProto.getDefaultInstance();
         } else {
           if (bodyCase_ == 5) {
             return registrationReplyBuilder_.getMessage();
           }
-          return org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.getDefaultInstance();
+          return ClientServerSerializeProtocol_pb.RegistrationReplyProto.getDefaultInstance();
         }
       }
       /**
        * <code>.RegistrationReplyProto registrationReply = 5;</code>
        */
-      public Builder setRegistrationReply(org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto value) {
+      public Builder setRegistrationReply(ClientServerSerializeProtocol_pb.RegistrationReplyProto value) {
         if (registrationReplyBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1696,7 +1696,7 @@ public final class Auth_pb {
        * <code>.RegistrationReplyProto registrationReply = 5;</code>
        */
       public Builder setRegistrationReply(
-          org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Builder builderForValue) {
+          ClientServerSerializeProtocol_pb.RegistrationReplyProto.Builder builderForValue) {
         if (registrationReplyBuilder_ == null) {
           body_ = builderForValue.build();
           onChanged();
@@ -1709,11 +1709,11 @@ public final class Auth_pb {
       /**
        * <code>.RegistrationReplyProto registrationReply = 5;</code>
        */
-      public Builder mergeRegistrationReply(org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto value) {
+      public Builder mergeRegistrationReply(ClientServerSerializeProtocol_pb.RegistrationReplyProto value) {
         if (registrationReplyBuilder_ == null) {
           if (bodyCase_ == 5 &&
-              body_ != org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.getDefaultInstance()) {
-            body_ = org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.newBuilder((org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto) body_)
+              body_ != ClientServerSerializeProtocol_pb.RegistrationReplyProto.getDefaultInstance()) {
+            body_ = ClientServerSerializeProtocol_pb.RegistrationReplyProto.newBuilder((ClientServerSerializeProtocol_pb.RegistrationReplyProto) body_)
                 .mergeFrom(value).buildPartial();
           } else {
             body_ = value;
@@ -1750,36 +1750,36 @@ public final class Auth_pb {
       /**
        * <code>.RegistrationReplyProto registrationReply = 5;</code>
        */
-      public org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Builder getRegistrationReplyBuilder() {
+      public ClientServerSerializeProtocol_pb.RegistrationReplyProto.Builder getRegistrationReplyBuilder() {
         return getRegistrationReplyFieldBuilder().getBuilder();
       }
       /**
        * <code>.RegistrationReplyProto registrationReply = 5;</code>
        */
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProtoOrBuilder getRegistrationReplyOrBuilder() {
+      public ClientServerSerializeProtocol_pb.RegistrationReplyProtoOrBuilder getRegistrationReplyOrBuilder() {
         if ((bodyCase_ == 5) && (registrationReplyBuilder_ != null)) {
           return registrationReplyBuilder_.getMessageOrBuilder();
         } else {
           if (bodyCase_ == 5) {
-            return (org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto) body_;
+            return (ClientServerSerializeProtocol_pb.RegistrationReplyProto) body_;
           }
-          return org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.getDefaultInstance();
+          return ClientServerSerializeProtocol_pb.RegistrationReplyProto.getDefaultInstance();
         }
       }
       /**
        * <code>.RegistrationReplyProto registrationReply = 5;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto, org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Builder, org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProtoOrBuilder> 
+          ClientServerSerializeProtocol_pb.RegistrationReplyProto, ClientServerSerializeProtocol_pb.RegistrationReplyProto.Builder, ClientServerSerializeProtocol_pb.RegistrationReplyProtoOrBuilder>
           getRegistrationReplyFieldBuilder() {
         if (registrationReplyBuilder_ == null) {
           if (!(bodyCase_ == 5)) {
-            body_ = org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.getDefaultInstance();
+            body_ = ClientServerSerializeProtocol_pb.RegistrationReplyProto.getDefaultInstance();
           }
           registrationReplyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto, org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Builder, org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProtoOrBuilder>(
-                  (org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto) body_,
+              ClientServerSerializeProtocol_pb.RegistrationReplyProto, ClientServerSerializeProtocol_pb.RegistrationReplyProto.Builder, ClientServerSerializeProtocol_pb.RegistrationReplyProtoOrBuilder>(
+                  (ClientServerSerializeProtocol_pb.RegistrationReplyProto) body_,
                   getParentForChildren(),
                   isClean());
           body_ = null;
@@ -1790,7 +1790,7 @@ public final class Auth_pb {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto, org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto.Builder, org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProtoOrBuilder> resetPasswordRequestBuilder_;
+          ClientServerSerializeProtocol_pb.ResetPasswordRequestProto, ClientServerSerializeProtocol_pb.ResetPasswordRequestProto.Builder, ClientServerSerializeProtocol_pb.ResetPasswordRequestProtoOrBuilder> resetPasswordRequestBuilder_;
       /**
        * <code>.ResetPasswordRequestProto resetPasswordRequest = 6;</code>
        * @return Whether the resetPasswordRequest field is set.
@@ -1804,23 +1804,23 @@ public final class Auth_pb {
        * @return The resetPasswordRequest.
        */
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto getResetPasswordRequest() {
+      public ClientServerSerializeProtocol_pb.ResetPasswordRequestProto getResetPasswordRequest() {
         if (resetPasswordRequestBuilder_ == null) {
           if (bodyCase_ == 6) {
-            return (org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto) body_;
+            return (ClientServerSerializeProtocol_pb.ResetPasswordRequestProto) body_;
           }
-          return org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto.getDefaultInstance();
+          return ClientServerSerializeProtocol_pb.ResetPasswordRequestProto.getDefaultInstance();
         } else {
           if (bodyCase_ == 6) {
             return resetPasswordRequestBuilder_.getMessage();
           }
-          return org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto.getDefaultInstance();
+          return ClientServerSerializeProtocol_pb.ResetPasswordRequestProto.getDefaultInstance();
         }
       }
       /**
        * <code>.ResetPasswordRequestProto resetPasswordRequest = 6;</code>
        */
-      public Builder setResetPasswordRequest(org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto value) {
+      public Builder setResetPasswordRequest(ClientServerSerializeProtocol_pb.ResetPasswordRequestProto value) {
         if (resetPasswordRequestBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1837,7 +1837,7 @@ public final class Auth_pb {
        * <code>.ResetPasswordRequestProto resetPasswordRequest = 6;</code>
        */
       public Builder setResetPasswordRequest(
-          org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto.Builder builderForValue) {
+          ClientServerSerializeProtocol_pb.ResetPasswordRequestProto.Builder builderForValue) {
         if (resetPasswordRequestBuilder_ == null) {
           body_ = builderForValue.build();
           onChanged();
@@ -1850,11 +1850,11 @@ public final class Auth_pb {
       /**
        * <code>.ResetPasswordRequestProto resetPasswordRequest = 6;</code>
        */
-      public Builder mergeResetPasswordRequest(org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto value) {
+      public Builder mergeResetPasswordRequest(ClientServerSerializeProtocol_pb.ResetPasswordRequestProto value) {
         if (resetPasswordRequestBuilder_ == null) {
           if (bodyCase_ == 6 &&
-              body_ != org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto.getDefaultInstance()) {
-            body_ = org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto.newBuilder((org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto) body_)
+              body_ != ClientServerSerializeProtocol_pb.ResetPasswordRequestProto.getDefaultInstance()) {
+            body_ = ClientServerSerializeProtocol_pb.ResetPasswordRequestProto.newBuilder((ClientServerSerializeProtocol_pb.ResetPasswordRequestProto) body_)
                 .mergeFrom(value).buildPartial();
           } else {
             body_ = value;
@@ -1891,36 +1891,36 @@ public final class Auth_pb {
       /**
        * <code>.ResetPasswordRequestProto resetPasswordRequest = 6;</code>
        */
-      public org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto.Builder getResetPasswordRequestBuilder() {
+      public ClientServerSerializeProtocol_pb.ResetPasswordRequestProto.Builder getResetPasswordRequestBuilder() {
         return getResetPasswordRequestFieldBuilder().getBuilder();
       }
       /**
        * <code>.ResetPasswordRequestProto resetPasswordRequest = 6;</code>
        */
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProtoOrBuilder getResetPasswordRequestOrBuilder() {
+      public ClientServerSerializeProtocol_pb.ResetPasswordRequestProtoOrBuilder getResetPasswordRequestOrBuilder() {
         if ((bodyCase_ == 6) && (resetPasswordRequestBuilder_ != null)) {
           return resetPasswordRequestBuilder_.getMessageOrBuilder();
         } else {
           if (bodyCase_ == 6) {
-            return (org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto) body_;
+            return (ClientServerSerializeProtocol_pb.ResetPasswordRequestProto) body_;
           }
-          return org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto.getDefaultInstance();
+          return ClientServerSerializeProtocol_pb.ResetPasswordRequestProto.getDefaultInstance();
         }
       }
       /**
        * <code>.ResetPasswordRequestProto resetPasswordRequest = 6;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto, org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto.Builder, org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProtoOrBuilder> 
+          ClientServerSerializeProtocol_pb.ResetPasswordRequestProto, ClientServerSerializeProtocol_pb.ResetPasswordRequestProto.Builder, ClientServerSerializeProtocol_pb.ResetPasswordRequestProtoOrBuilder>
           getResetPasswordRequestFieldBuilder() {
         if (resetPasswordRequestBuilder_ == null) {
           if (!(bodyCase_ == 6)) {
-            body_ = org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto.getDefaultInstance();
+            body_ = ClientServerSerializeProtocol_pb.ResetPasswordRequestProto.getDefaultInstance();
           }
           resetPasswordRequestBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto, org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto.Builder, org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProtoOrBuilder>(
-                  (org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto) body_,
+              ClientServerSerializeProtocol_pb.ResetPasswordRequestProto, ClientServerSerializeProtocol_pb.ResetPasswordRequestProto.Builder, ClientServerSerializeProtocol_pb.ResetPasswordRequestProtoOrBuilder>(
+                  (ClientServerSerializeProtocol_pb.ResetPasswordRequestProto) body_,
                   getParentForChildren(),
                   isClean());
           body_ = null;
@@ -1931,7 +1931,7 @@ public final class Auth_pb {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto, org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto.Builder, org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProtoOrBuilder> resetPasswordReplyBuilder_;
+          ClientServerSerializeProtocol_pb.ResetPasswordReplyProto, ClientServerSerializeProtocol_pb.ResetPasswordReplyProto.Builder, ClientServerSerializeProtocol_pb.ResetPasswordReplyProtoOrBuilder> resetPasswordReplyBuilder_;
       /**
        * <code>.ResetPasswordReplyProto resetPasswordReply = 7;</code>
        * @return Whether the resetPasswordReply field is set.
@@ -1945,23 +1945,23 @@ public final class Auth_pb {
        * @return The resetPasswordReply.
        */
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto getResetPasswordReply() {
+      public ClientServerSerializeProtocol_pb.ResetPasswordReplyProto getResetPasswordReply() {
         if (resetPasswordReplyBuilder_ == null) {
           if (bodyCase_ == 7) {
-            return (org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto) body_;
+            return (ClientServerSerializeProtocol_pb.ResetPasswordReplyProto) body_;
           }
-          return org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto.getDefaultInstance();
+          return ClientServerSerializeProtocol_pb.ResetPasswordReplyProto.getDefaultInstance();
         } else {
           if (bodyCase_ == 7) {
             return resetPasswordReplyBuilder_.getMessage();
           }
-          return org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto.getDefaultInstance();
+          return ClientServerSerializeProtocol_pb.ResetPasswordReplyProto.getDefaultInstance();
         }
       }
       /**
        * <code>.ResetPasswordReplyProto resetPasswordReply = 7;</code>
        */
-      public Builder setResetPasswordReply(org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto value) {
+      public Builder setResetPasswordReply(ClientServerSerializeProtocol_pb.ResetPasswordReplyProto value) {
         if (resetPasswordReplyBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1978,7 +1978,7 @@ public final class Auth_pb {
        * <code>.ResetPasswordReplyProto resetPasswordReply = 7;</code>
        */
       public Builder setResetPasswordReply(
-          org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto.Builder builderForValue) {
+          ClientServerSerializeProtocol_pb.ResetPasswordReplyProto.Builder builderForValue) {
         if (resetPasswordReplyBuilder_ == null) {
           body_ = builderForValue.build();
           onChanged();
@@ -1991,11 +1991,11 @@ public final class Auth_pb {
       /**
        * <code>.ResetPasswordReplyProto resetPasswordReply = 7;</code>
        */
-      public Builder mergeResetPasswordReply(org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto value) {
+      public Builder mergeResetPasswordReply(ClientServerSerializeProtocol_pb.ResetPasswordReplyProto value) {
         if (resetPasswordReplyBuilder_ == null) {
           if (bodyCase_ == 7 &&
-              body_ != org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto.getDefaultInstance()) {
-            body_ = org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto.newBuilder((org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto) body_)
+              body_ != ClientServerSerializeProtocol_pb.ResetPasswordReplyProto.getDefaultInstance()) {
+            body_ = ClientServerSerializeProtocol_pb.ResetPasswordReplyProto.newBuilder((ClientServerSerializeProtocol_pb.ResetPasswordReplyProto) body_)
                 .mergeFrom(value).buildPartial();
           } else {
             body_ = value;
@@ -2032,36 +2032,36 @@ public final class Auth_pb {
       /**
        * <code>.ResetPasswordReplyProto resetPasswordReply = 7;</code>
        */
-      public org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto.Builder getResetPasswordReplyBuilder() {
+      public ClientServerSerializeProtocol_pb.ResetPasswordReplyProto.Builder getResetPasswordReplyBuilder() {
         return getResetPasswordReplyFieldBuilder().getBuilder();
       }
       /**
        * <code>.ResetPasswordReplyProto resetPasswordReply = 7;</code>
        */
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProtoOrBuilder getResetPasswordReplyOrBuilder() {
+      public ClientServerSerializeProtocol_pb.ResetPasswordReplyProtoOrBuilder getResetPasswordReplyOrBuilder() {
         if ((bodyCase_ == 7) && (resetPasswordReplyBuilder_ != null)) {
           return resetPasswordReplyBuilder_.getMessageOrBuilder();
         } else {
           if (bodyCase_ == 7) {
-            return (org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto) body_;
+            return (ClientServerSerializeProtocol_pb.ResetPasswordReplyProto) body_;
           }
-          return org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto.getDefaultInstance();
+          return ClientServerSerializeProtocol_pb.ResetPasswordReplyProto.getDefaultInstance();
         }
       }
       /**
        * <code>.ResetPasswordReplyProto resetPasswordReply = 7;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto, org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto.Builder, org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProtoOrBuilder> 
+          ClientServerSerializeProtocol_pb.ResetPasswordReplyProto, ClientServerSerializeProtocol_pb.ResetPasswordReplyProto.Builder, ClientServerSerializeProtocol_pb.ResetPasswordReplyProtoOrBuilder>
           getResetPasswordReplyFieldBuilder() {
         if (resetPasswordReplyBuilder_ == null) {
           if (!(bodyCase_ == 7)) {
-            body_ = org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto.getDefaultInstance();
+            body_ = ClientServerSerializeProtocol_pb.ResetPasswordReplyProto.getDefaultInstance();
           }
           resetPasswordReplyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto, org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto.Builder, org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProtoOrBuilder>(
-                  (org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto) body_,
+              ClientServerSerializeProtocol_pb.ResetPasswordReplyProto, ClientServerSerializeProtocol_pb.ResetPasswordReplyProto.Builder, ClientServerSerializeProtocol_pb.ResetPasswordReplyProtoOrBuilder>(
+                  (ClientServerSerializeProtocol_pb.ResetPasswordReplyProto) body_,
                   getParentForChildren(),
                   isClean());
           body_ = null;
@@ -2072,7 +2072,7 @@ public final class Auth_pb {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.Builder, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProtoOrBuilder> verifyEmailRequestBuilder_;
+          ClientServerSerializeProtocol_pb.VerifyEmailRequestProto, ClientServerSerializeProtocol_pb.VerifyEmailRequestProto.Builder, ClientServerSerializeProtocol_pb.VerifyEmailRequestProtoOrBuilder> verifyEmailRequestBuilder_;
       /**
        * <code>.VerifyEmailRequestProto verifyEmailRequest = 8;</code>
        * @return Whether the verifyEmailRequest field is set.
@@ -2086,23 +2086,23 @@ public final class Auth_pb {
        * @return The verifyEmailRequest.
        */
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto getVerifyEmailRequest() {
+      public ClientServerSerializeProtocol_pb.VerifyEmailRequestProto getVerifyEmailRequest() {
         if (verifyEmailRequestBuilder_ == null) {
           if (bodyCase_ == 8) {
-            return (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto) body_;
+            return (ClientServerSerializeProtocol_pb.VerifyEmailRequestProto) body_;
           }
-          return org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.getDefaultInstance();
+          return ClientServerSerializeProtocol_pb.VerifyEmailRequestProto.getDefaultInstance();
         } else {
           if (bodyCase_ == 8) {
             return verifyEmailRequestBuilder_.getMessage();
           }
-          return org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.getDefaultInstance();
+          return ClientServerSerializeProtocol_pb.VerifyEmailRequestProto.getDefaultInstance();
         }
       }
       /**
        * <code>.VerifyEmailRequestProto verifyEmailRequest = 8;</code>
        */
-      public Builder setVerifyEmailRequest(org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto value) {
+      public Builder setVerifyEmailRequest(ClientServerSerializeProtocol_pb.VerifyEmailRequestProto value) {
         if (verifyEmailRequestBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2119,7 +2119,7 @@ public final class Auth_pb {
        * <code>.VerifyEmailRequestProto verifyEmailRequest = 8;</code>
        */
       public Builder setVerifyEmailRequest(
-          org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.Builder builderForValue) {
+          ClientServerSerializeProtocol_pb.VerifyEmailRequestProto.Builder builderForValue) {
         if (verifyEmailRequestBuilder_ == null) {
           body_ = builderForValue.build();
           onChanged();
@@ -2132,11 +2132,11 @@ public final class Auth_pb {
       /**
        * <code>.VerifyEmailRequestProto verifyEmailRequest = 8;</code>
        */
-      public Builder mergeVerifyEmailRequest(org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto value) {
+      public Builder mergeVerifyEmailRequest(ClientServerSerializeProtocol_pb.VerifyEmailRequestProto value) {
         if (verifyEmailRequestBuilder_ == null) {
           if (bodyCase_ == 8 &&
-              body_ != org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.getDefaultInstance()) {
-            body_ = org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.newBuilder((org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto) body_)
+              body_ != ClientServerSerializeProtocol_pb.VerifyEmailRequestProto.getDefaultInstance()) {
+            body_ = ClientServerSerializeProtocol_pb.VerifyEmailRequestProto.newBuilder((ClientServerSerializeProtocol_pb.VerifyEmailRequestProto) body_)
                 .mergeFrom(value).buildPartial();
           } else {
             body_ = value;
@@ -2173,36 +2173,36 @@ public final class Auth_pb {
       /**
        * <code>.VerifyEmailRequestProto verifyEmailRequest = 8;</code>
        */
-      public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.Builder getVerifyEmailRequestBuilder() {
+      public ClientServerSerializeProtocol_pb.VerifyEmailRequestProto.Builder getVerifyEmailRequestBuilder() {
         return getVerifyEmailRequestFieldBuilder().getBuilder();
       }
       /**
        * <code>.VerifyEmailRequestProto verifyEmailRequest = 8;</code>
        */
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProtoOrBuilder getVerifyEmailRequestOrBuilder() {
+      public ClientServerSerializeProtocol_pb.VerifyEmailRequestProtoOrBuilder getVerifyEmailRequestOrBuilder() {
         if ((bodyCase_ == 8) && (verifyEmailRequestBuilder_ != null)) {
           return verifyEmailRequestBuilder_.getMessageOrBuilder();
         } else {
           if (bodyCase_ == 8) {
-            return (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto) body_;
+            return (ClientServerSerializeProtocol_pb.VerifyEmailRequestProto) body_;
           }
-          return org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.getDefaultInstance();
+          return ClientServerSerializeProtocol_pb.VerifyEmailRequestProto.getDefaultInstance();
         }
       }
       /**
        * <code>.VerifyEmailRequestProto verifyEmailRequest = 8;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.Builder, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProtoOrBuilder> 
+          ClientServerSerializeProtocol_pb.VerifyEmailRequestProto, ClientServerSerializeProtocol_pb.VerifyEmailRequestProto.Builder, ClientServerSerializeProtocol_pb.VerifyEmailRequestProtoOrBuilder>
           getVerifyEmailRequestFieldBuilder() {
         if (verifyEmailRequestBuilder_ == null) {
           if (!(bodyCase_ == 8)) {
-            body_ = org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.getDefaultInstance();
+            body_ = ClientServerSerializeProtocol_pb.VerifyEmailRequestProto.getDefaultInstance();
           }
           verifyEmailRequestBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.Builder, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProtoOrBuilder>(
-                  (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto) body_,
+              ClientServerSerializeProtocol_pb.VerifyEmailRequestProto, ClientServerSerializeProtocol_pb.VerifyEmailRequestProto.Builder, ClientServerSerializeProtocol_pb.VerifyEmailRequestProtoOrBuilder>(
+                  (ClientServerSerializeProtocol_pb.VerifyEmailRequestProto) body_,
                   getParentForChildren(),
                   isClean());
           body_ = null;
@@ -2213,7 +2213,7 @@ public final class Auth_pb {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.Builder, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProtoOrBuilder> verifyEmailReplyBuilder_;
+          ClientServerSerializeProtocol_pb.VerifyEmailReplyProto, ClientServerSerializeProtocol_pb.VerifyEmailReplyProto.Builder, ClientServerSerializeProtocol_pb.VerifyEmailReplyProtoOrBuilder> verifyEmailReplyBuilder_;
       /**
        * <code>.VerifyEmailReplyProto verifyEmailReply = 9;</code>
        * @return Whether the verifyEmailReply field is set.
@@ -2227,23 +2227,23 @@ public final class Auth_pb {
        * @return The verifyEmailReply.
        */
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto getVerifyEmailReply() {
+      public ClientServerSerializeProtocol_pb.VerifyEmailReplyProto getVerifyEmailReply() {
         if (verifyEmailReplyBuilder_ == null) {
           if (bodyCase_ == 9) {
-            return (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto) body_;
+            return (ClientServerSerializeProtocol_pb.VerifyEmailReplyProto) body_;
           }
-          return org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.getDefaultInstance();
+          return ClientServerSerializeProtocol_pb.VerifyEmailReplyProto.getDefaultInstance();
         } else {
           if (bodyCase_ == 9) {
             return verifyEmailReplyBuilder_.getMessage();
           }
-          return org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.getDefaultInstance();
+          return ClientServerSerializeProtocol_pb.VerifyEmailReplyProto.getDefaultInstance();
         }
       }
       /**
        * <code>.VerifyEmailReplyProto verifyEmailReply = 9;</code>
        */
-      public Builder setVerifyEmailReply(org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto value) {
+      public Builder setVerifyEmailReply(ClientServerSerializeProtocol_pb.VerifyEmailReplyProto value) {
         if (verifyEmailReplyBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2260,7 +2260,7 @@ public final class Auth_pb {
        * <code>.VerifyEmailReplyProto verifyEmailReply = 9;</code>
        */
       public Builder setVerifyEmailReply(
-          org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.Builder builderForValue) {
+          ClientServerSerializeProtocol_pb.VerifyEmailReplyProto.Builder builderForValue) {
         if (verifyEmailReplyBuilder_ == null) {
           body_ = builderForValue.build();
           onChanged();
@@ -2273,11 +2273,11 @@ public final class Auth_pb {
       /**
        * <code>.VerifyEmailReplyProto verifyEmailReply = 9;</code>
        */
-      public Builder mergeVerifyEmailReply(org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto value) {
+      public Builder mergeVerifyEmailReply(ClientServerSerializeProtocol_pb.VerifyEmailReplyProto value) {
         if (verifyEmailReplyBuilder_ == null) {
           if (bodyCase_ == 9 &&
-              body_ != org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.getDefaultInstance()) {
-            body_ = org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.newBuilder((org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto) body_)
+              body_ != ClientServerSerializeProtocol_pb.VerifyEmailReplyProto.getDefaultInstance()) {
+            body_ = ClientServerSerializeProtocol_pb.VerifyEmailReplyProto.newBuilder((ClientServerSerializeProtocol_pb.VerifyEmailReplyProto) body_)
                 .mergeFrom(value).buildPartial();
           } else {
             body_ = value;
@@ -2314,36 +2314,36 @@ public final class Auth_pb {
       /**
        * <code>.VerifyEmailReplyProto verifyEmailReply = 9;</code>
        */
-      public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.Builder getVerifyEmailReplyBuilder() {
+      public ClientServerSerializeProtocol_pb.VerifyEmailReplyProto.Builder getVerifyEmailReplyBuilder() {
         return getVerifyEmailReplyFieldBuilder().getBuilder();
       }
       /**
        * <code>.VerifyEmailReplyProto verifyEmailReply = 9;</code>
        */
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProtoOrBuilder getVerifyEmailReplyOrBuilder() {
+      public ClientServerSerializeProtocol_pb.VerifyEmailReplyProtoOrBuilder getVerifyEmailReplyOrBuilder() {
         if ((bodyCase_ == 9) && (verifyEmailReplyBuilder_ != null)) {
           return verifyEmailReplyBuilder_.getMessageOrBuilder();
         } else {
           if (bodyCase_ == 9) {
-            return (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto) body_;
+            return (ClientServerSerializeProtocol_pb.VerifyEmailReplyProto) body_;
           }
-          return org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.getDefaultInstance();
+          return ClientServerSerializeProtocol_pb.VerifyEmailReplyProto.getDefaultInstance();
         }
       }
       /**
        * <code>.VerifyEmailReplyProto verifyEmailReply = 9;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.Builder, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProtoOrBuilder> 
+          ClientServerSerializeProtocol_pb.VerifyEmailReplyProto, ClientServerSerializeProtocol_pb.VerifyEmailReplyProto.Builder, ClientServerSerializeProtocol_pb.VerifyEmailReplyProtoOrBuilder>
           getVerifyEmailReplyFieldBuilder() {
         if (verifyEmailReplyBuilder_ == null) {
           if (!(bodyCase_ == 9)) {
-            body_ = org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.getDefaultInstance();
+            body_ = ClientServerSerializeProtocol_pb.VerifyEmailReplyProto.getDefaultInstance();
           }
           verifyEmailReplyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.Builder, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProtoOrBuilder>(
-                  (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto) body_,
+              ClientServerSerializeProtocol_pb.VerifyEmailReplyProto, ClientServerSerializeProtocol_pb.VerifyEmailReplyProto.Builder, ClientServerSerializeProtocol_pb.VerifyEmailReplyProtoOrBuilder>(
+                  (ClientServerSerializeProtocol_pb.VerifyEmailReplyProto) body_,
                   getParentForChildren(),
                   isClean());
           body_ = null;
@@ -2369,12 +2369,12 @@ public final class Auth_pb {
     }
 
     // @@protoc_insertion_point(class_scope:GeneralAuthProto)
-    private static final org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto DEFAULT_INSTANCE;
+    private static final ClientServerSerializeProtocol_pb.GeneralAuthProto DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto();
+      DEFAULT_INSTANCE = new ClientServerSerializeProtocol_pb.GeneralAuthProto();
     }
 
-    public static org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto getDefaultInstance() {
+    public static ClientServerSerializeProtocol_pb.GeneralAuthProto getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -2399,7 +2399,7 @@ public final class Auth_pb {
     }
 
     @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto getDefaultInstanceForType() {
+    public ClientServerSerializeProtocol_pb.GeneralAuthProto getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -2513,15 +2513,15 @@ public final class Auth_pb {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return org.foomaa.jvchat.messages.Auth_pb.internal_static_EntryRequestProto_descriptor;
+      return ClientServerSerializeProtocol_pb.internal_static_EntryRequestProto_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return org.foomaa.jvchat.messages.Auth_pb.internal_static_EntryRequestProto_fieldAccessorTable
+      return ClientServerSerializeProtocol_pb.internal_static_EntryRequestProto_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.class, org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.Builder.class);
+              ClientServerSerializeProtocol_pb.EntryRequestProto.class, ClientServerSerializeProtocol_pb.EntryRequestProto.Builder.class);
     }
 
     public static final int LOGIN_FIELD_NUMBER = 1;
@@ -2645,10 +2645,10 @@ public final class Auth_pb {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto)) {
+      if (!(obj instanceof ClientServerSerializeProtocol_pb.EntryRequestProto)) {
         return super.equals(obj);
       }
-      org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto other = (org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto) obj;
+      ClientServerSerializeProtocol_pb.EntryRequestProto other = (ClientServerSerializeProtocol_pb.EntryRequestProto) obj;
 
       if (!getLogin()
           .equals(other.getLogin())) return false;
@@ -2674,69 +2674,69 @@ public final class Auth_pb {
       return hash;
     }
 
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.EntryRequestProto parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.EntryRequestProto parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.EntryRequestProto parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.EntryRequestProto parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto parseFrom(byte[] data)
+    public static ClientServerSerializeProtocol_pb.EntryRequestProto parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.EntryRequestProto parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto parseFrom(java.io.InputStream input)
+    public static ClientServerSerializeProtocol_pb.EntryRequestProto parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.EntryRequestProto parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto parseDelimitedFrom(java.io.InputStream input)
+    public static ClientServerSerializeProtocol_pb.EntryRequestProto parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto parseDelimitedFrom(
+    public static ClientServerSerializeProtocol_pb.EntryRequestProto parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.EntryRequestProto parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.EntryRequestProto parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2749,7 +2749,7 @@ public final class Auth_pb {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto prototype) {
+    public static Builder newBuilder(ClientServerSerializeProtocol_pb.EntryRequestProto prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -2770,18 +2770,18 @@ public final class Auth_pb {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:EntryRequestProto)
-        org.foomaa.jvchat.messages.Auth_pb.EntryRequestProtoOrBuilder {
+        ClientServerSerializeProtocol_pb.EntryRequestProtoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_EntryRequestProto_descriptor;
+        return ClientServerSerializeProtocol_pb.internal_static_EntryRequestProto_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_EntryRequestProto_fieldAccessorTable
+        return ClientServerSerializeProtocol_pb.internal_static_EntryRequestProto_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.class, org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.Builder.class);
+                ClientServerSerializeProtocol_pb.EntryRequestProto.class, ClientServerSerializeProtocol_pb.EntryRequestProto.Builder.class);
       }
 
       // Construct using org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.newBuilder()
@@ -2812,17 +2812,17 @@ public final class Auth_pb {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_EntryRequestProto_descriptor;
+        return ClientServerSerializeProtocol_pb.internal_static_EntryRequestProto_descriptor;
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto getDefaultInstanceForType() {
-        return org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.getDefaultInstance();
+      public ClientServerSerializeProtocol_pb.EntryRequestProto getDefaultInstanceForType() {
+        return ClientServerSerializeProtocol_pb.EntryRequestProto.getDefaultInstance();
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto build() {
-        org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto result = buildPartial();
+      public ClientServerSerializeProtocol_pb.EntryRequestProto build() {
+        ClientServerSerializeProtocol_pb.EntryRequestProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -2830,8 +2830,8 @@ public final class Auth_pb {
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto buildPartial() {
-        org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto result = new org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto(this);
+      public ClientServerSerializeProtocol_pb.EntryRequestProto buildPartial() {
+        ClientServerSerializeProtocol_pb.EntryRequestProto result = new ClientServerSerializeProtocol_pb.EntryRequestProto(this);
         result.login_ = login_;
         result.password_ = password_;
         onBuilt();
@@ -2872,16 +2872,16 @@ public final class Auth_pb {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto) {
-          return mergeFrom((org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto)other);
+        if (other instanceof ClientServerSerializeProtocol_pb.EntryRequestProto) {
+          return mergeFrom((ClientServerSerializeProtocol_pb.EntryRequestProto)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto other) {
-        if (other == org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto.getDefaultInstance()) return this;
+      public Builder mergeFrom(ClientServerSerializeProtocol_pb.EntryRequestProto other) {
+        if (other == ClientServerSerializeProtocol_pb.EntryRequestProto.getDefaultInstance()) return this;
         if (!other.getLogin().isEmpty()) {
           login_ = other.login_;
           onChanged();
@@ -2905,11 +2905,11 @@ public final class Auth_pb {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto parsedMessage = null;
+        ClientServerSerializeProtocol_pb.EntryRequestProto parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto) e.getUnfinishedMessage();
+          parsedMessage = (ClientServerSerializeProtocol_pb.EntryRequestProto) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -3087,12 +3087,12 @@ public final class Auth_pb {
     }
 
     // @@protoc_insertion_point(class_scope:EntryRequestProto)
-    private static final org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto DEFAULT_INSTANCE;
+    private static final ClientServerSerializeProtocol_pb.EntryRequestProto DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto();
+      DEFAULT_INSTANCE = new ClientServerSerializeProtocol_pb.EntryRequestProto();
     }
 
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto getDefaultInstance() {
+    public static ClientServerSerializeProtocol_pb.EntryRequestProto getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -3117,7 +3117,7 @@ public final class Auth_pb {
     }
 
     @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.EntryRequestProto getDefaultInstanceForType() {
+    public ClientServerSerializeProtocol_pb.EntryRequestProto getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -3204,15 +3204,15 @@ public final class Auth_pb {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return org.foomaa.jvchat.messages.Auth_pb.internal_static_EntryReplyProto_descriptor;
+      return ClientServerSerializeProtocol_pb.internal_static_EntryReplyProto_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return org.foomaa.jvchat.messages.Auth_pb.internal_static_EntryReplyProto_fieldAccessorTable
+      return ClientServerSerializeProtocol_pb.internal_static_EntryReplyProto_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.class, org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.Builder.class);
+              ClientServerSerializeProtocol_pb.EntryReplyProto.class, ClientServerSerializeProtocol_pb.EntryReplyProto.Builder.class);
     }
 
     public static final int REPLY_FIELD_NUMBER = 1;
@@ -3266,10 +3266,10 @@ public final class Auth_pb {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto)) {
+      if (!(obj instanceof ClientServerSerializeProtocol_pb.EntryReplyProto)) {
         return super.equals(obj);
       }
-      org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto other = (org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) obj;
+      ClientServerSerializeProtocol_pb.EntryReplyProto other = (ClientServerSerializeProtocol_pb.EntryReplyProto) obj;
 
       if (getReply()
           != other.getReply()) return false;
@@ -3292,69 +3292,69 @@ public final class Auth_pb {
       return hash;
     }
 
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.EntryReplyProto parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.EntryReplyProto parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.EntryReplyProto parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.EntryReplyProto parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseFrom(byte[] data)
+    public static ClientServerSerializeProtocol_pb.EntryReplyProto parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.EntryReplyProto parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseFrom(java.io.InputStream input)
+    public static ClientServerSerializeProtocol_pb.EntryReplyProto parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.EntryReplyProto parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseDelimitedFrom(java.io.InputStream input)
+    public static ClientServerSerializeProtocol_pb.EntryReplyProto parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseDelimitedFrom(
+    public static ClientServerSerializeProtocol_pb.EntryReplyProto parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.EntryReplyProto parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.EntryReplyProto parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -3367,7 +3367,7 @@ public final class Auth_pb {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto prototype) {
+    public static Builder newBuilder(ClientServerSerializeProtocol_pb.EntryReplyProto prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -3388,18 +3388,18 @@ public final class Auth_pb {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:EntryReplyProto)
-        org.foomaa.jvchat.messages.Auth_pb.EntryReplyProtoOrBuilder {
+        ClientServerSerializeProtocol_pb.EntryReplyProtoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_EntryReplyProto_descriptor;
+        return ClientServerSerializeProtocol_pb.internal_static_EntryReplyProto_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_EntryReplyProto_fieldAccessorTable
+        return ClientServerSerializeProtocol_pb.internal_static_EntryReplyProto_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.class, org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.Builder.class);
+                ClientServerSerializeProtocol_pb.EntryReplyProto.class, ClientServerSerializeProtocol_pb.EntryReplyProto.Builder.class);
       }
 
       // Construct using org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.newBuilder()
@@ -3428,17 +3428,17 @@ public final class Auth_pb {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_EntryReplyProto_descriptor;
+        return ClientServerSerializeProtocol_pb.internal_static_EntryReplyProto_descriptor;
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto getDefaultInstanceForType() {
-        return org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.getDefaultInstance();
+      public ClientServerSerializeProtocol_pb.EntryReplyProto getDefaultInstanceForType() {
+        return ClientServerSerializeProtocol_pb.EntryReplyProto.getDefaultInstance();
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto build() {
-        org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto result = buildPartial();
+      public ClientServerSerializeProtocol_pb.EntryReplyProto build() {
+        ClientServerSerializeProtocol_pb.EntryReplyProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -3446,8 +3446,8 @@ public final class Auth_pb {
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto buildPartial() {
-        org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto result = new org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto(this);
+      public ClientServerSerializeProtocol_pb.EntryReplyProto buildPartial() {
+        ClientServerSerializeProtocol_pb.EntryReplyProto result = new ClientServerSerializeProtocol_pb.EntryReplyProto(this);
         result.reply_ = reply_;
         onBuilt();
         return result;
@@ -3487,16 +3487,16 @@ public final class Auth_pb {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) {
-          return mergeFrom((org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto)other);
+        if (other instanceof ClientServerSerializeProtocol_pb.EntryReplyProto) {
+          return mergeFrom((ClientServerSerializeProtocol_pb.EntryReplyProto)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto other) {
-        if (other == org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto.getDefaultInstance()) return this;
+      public Builder mergeFrom(ClientServerSerializeProtocol_pb.EntryReplyProto other) {
+        if (other == ClientServerSerializeProtocol_pb.EntryReplyProto.getDefaultInstance()) return this;
         if (other.getReply() != false) {
           setReply(other.getReply());
         }
@@ -3515,11 +3515,11 @@ public final class Auth_pb {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto parsedMessage = null;
+        ClientServerSerializeProtocol_pb.EntryReplyProto parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto) e.getUnfinishedMessage();
+          parsedMessage = (ClientServerSerializeProtocol_pb.EntryReplyProto) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -3576,12 +3576,12 @@ public final class Auth_pb {
     }
 
     // @@protoc_insertion_point(class_scope:EntryReplyProto)
-    private static final org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto DEFAULT_INSTANCE;
+    private static final ClientServerSerializeProtocol_pb.EntryReplyProto DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto();
+      DEFAULT_INSTANCE = new ClientServerSerializeProtocol_pb.EntryReplyProto();
     }
 
-    public static org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto getDefaultInstance() {
+    public static ClientServerSerializeProtocol_pb.EntryReplyProto getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -3606,7 +3606,7 @@ public final class Auth_pb {
     }
 
     @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.EntryReplyProto getDefaultInstanceForType() {
+    public ClientServerSerializeProtocol_pb.EntryReplyProto getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -3739,15 +3739,15 @@ public final class Auth_pb {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return org.foomaa.jvchat.messages.Auth_pb.internal_static_RegistrationRequestProto_descriptor;
+      return ClientServerSerializeProtocol_pb.internal_static_RegistrationRequestProto_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return org.foomaa.jvchat.messages.Auth_pb.internal_static_RegistrationRequestProto_fieldAccessorTable
+      return ClientServerSerializeProtocol_pb.internal_static_RegistrationRequestProto_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.class, org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.Builder.class);
+              ClientServerSerializeProtocol_pb.RegistrationRequestProto.class, ClientServerSerializeProtocol_pb.RegistrationRequestProto.Builder.class);
     }
 
     public static final int LOGIN_FIELD_NUMBER = 1;
@@ -3915,10 +3915,10 @@ public final class Auth_pb {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto)) {
+      if (!(obj instanceof ClientServerSerializeProtocol_pb.RegistrationRequestProto)) {
         return super.equals(obj);
       }
-      org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto other = (org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto) obj;
+      ClientServerSerializeProtocol_pb.RegistrationRequestProto other = (ClientServerSerializeProtocol_pb.RegistrationRequestProto) obj;
 
       if (!getLogin()
           .equals(other.getLogin())) return false;
@@ -3948,69 +3948,69 @@ public final class Auth_pb {
       return hash;
     }
 
-    public static org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.RegistrationRequestProto parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.RegistrationRequestProto parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.RegistrationRequestProto parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.RegistrationRequestProto parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto parseFrom(byte[] data)
+    public static ClientServerSerializeProtocol_pb.RegistrationRequestProto parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.RegistrationRequestProto parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto parseFrom(java.io.InputStream input)
+    public static ClientServerSerializeProtocol_pb.RegistrationRequestProto parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.RegistrationRequestProto parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto parseDelimitedFrom(java.io.InputStream input)
+    public static ClientServerSerializeProtocol_pb.RegistrationRequestProto parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto parseDelimitedFrom(
+    public static ClientServerSerializeProtocol_pb.RegistrationRequestProto parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.RegistrationRequestProto parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.RegistrationRequestProto parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -4023,7 +4023,7 @@ public final class Auth_pb {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto prototype) {
+    public static Builder newBuilder(ClientServerSerializeProtocol_pb.RegistrationRequestProto prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -4044,18 +4044,18 @@ public final class Auth_pb {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:RegistrationRequestProto)
-        org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProtoOrBuilder {
+        ClientServerSerializeProtocol_pb.RegistrationRequestProtoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_RegistrationRequestProto_descriptor;
+        return ClientServerSerializeProtocol_pb.internal_static_RegistrationRequestProto_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_RegistrationRequestProto_fieldAccessorTable
+        return ClientServerSerializeProtocol_pb.internal_static_RegistrationRequestProto_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.class, org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.Builder.class);
+                ClientServerSerializeProtocol_pb.RegistrationRequestProto.class, ClientServerSerializeProtocol_pb.RegistrationRequestProto.Builder.class);
       }
 
       // Construct using org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.newBuilder()
@@ -4088,17 +4088,17 @@ public final class Auth_pb {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_RegistrationRequestProto_descriptor;
+        return ClientServerSerializeProtocol_pb.internal_static_RegistrationRequestProto_descriptor;
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto getDefaultInstanceForType() {
-        return org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.getDefaultInstance();
+      public ClientServerSerializeProtocol_pb.RegistrationRequestProto getDefaultInstanceForType() {
+        return ClientServerSerializeProtocol_pb.RegistrationRequestProto.getDefaultInstance();
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto build() {
-        org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto result = buildPartial();
+      public ClientServerSerializeProtocol_pb.RegistrationRequestProto build() {
+        ClientServerSerializeProtocol_pb.RegistrationRequestProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -4106,8 +4106,8 @@ public final class Auth_pb {
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto buildPartial() {
-        org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto result = new org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto(this);
+      public ClientServerSerializeProtocol_pb.RegistrationRequestProto buildPartial() {
+        ClientServerSerializeProtocol_pb.RegistrationRequestProto result = new ClientServerSerializeProtocol_pb.RegistrationRequestProto(this);
         result.login_ = login_;
         result.email_ = email_;
         result.password_ = password_;
@@ -4149,16 +4149,16 @@ public final class Auth_pb {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto) {
-          return mergeFrom((org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto)other);
+        if (other instanceof ClientServerSerializeProtocol_pb.RegistrationRequestProto) {
+          return mergeFrom((ClientServerSerializeProtocol_pb.RegistrationRequestProto)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto other) {
-        if (other == org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto.getDefaultInstance()) return this;
+      public Builder mergeFrom(ClientServerSerializeProtocol_pb.RegistrationRequestProto other) {
+        if (other == ClientServerSerializeProtocol_pb.RegistrationRequestProto.getDefaultInstance()) return this;
         if (!other.getLogin().isEmpty()) {
           login_ = other.login_;
           onChanged();
@@ -4186,11 +4186,11 @@ public final class Auth_pb {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto parsedMessage = null;
+        ClientServerSerializeProtocol_pb.RegistrationRequestProto parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto) e.getUnfinishedMessage();
+          parsedMessage = (ClientServerSerializeProtocol_pb.RegistrationRequestProto) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -4444,12 +4444,12 @@ public final class Auth_pb {
     }
 
     // @@protoc_insertion_point(class_scope:RegistrationRequestProto)
-    private static final org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto DEFAULT_INSTANCE;
+    private static final ClientServerSerializeProtocol_pb.RegistrationRequestProto DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto();
+      DEFAULT_INSTANCE = new ClientServerSerializeProtocol_pb.RegistrationRequestProto();
     }
 
-    public static org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto getDefaultInstance() {
+    public static ClientServerSerializeProtocol_pb.RegistrationRequestProto getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -4474,7 +4474,7 @@ public final class Auth_pb {
     }
 
     @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.RegistrationRequestProto getDefaultInstanceForType() {
+    public ClientServerSerializeProtocol_pb.RegistrationRequestProto getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -4499,7 +4499,7 @@ public final class Auth_pb {
      * <code>.RegistrationReplyProto.Error error = 2;</code>
      * @return The error.
      */
-    org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error getError();
+    ClientServerSerializeProtocol_pb.RegistrationReplyProto.Error getError();
   }
   /**
    * Protobuf type {@code RegistrationReplyProto}
@@ -4579,15 +4579,15 @@ public final class Auth_pb {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return org.foomaa.jvchat.messages.Auth_pb.internal_static_RegistrationReplyProto_descriptor;
+      return ClientServerSerializeProtocol_pb.internal_static_RegistrationReplyProto_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return org.foomaa.jvchat.messages.Auth_pb.internal_static_RegistrationReplyProto_fieldAccessorTable
+      return ClientServerSerializeProtocol_pb.internal_static_RegistrationReplyProto_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.class, org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Builder.class);
+              ClientServerSerializeProtocol_pb.RegistrationReplyProto.class, ClientServerSerializeProtocol_pb.RegistrationReplyProto.Builder.class);
     }
 
     /**
@@ -4690,7 +4690,7 @@ public final class Auth_pb {
       }
       public static final com.google.protobuf.Descriptors.EnumDescriptor
           getDescriptor() {
-        return org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.getDescriptor().getEnumTypes().get(0);
+        return ClientServerSerializeProtocol_pb.RegistrationReplyProto.getDescriptor().getEnumTypes().get(0);
       }
 
       private static final Error[] VALUES = values();
@@ -4740,10 +4740,10 @@ public final class Auth_pb {
      * <code>.RegistrationReplyProto.Error error = 2;</code>
      * @return The error.
      */
-    @java.lang.Override public org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error getError() {
+    @java.lang.Override public ClientServerSerializeProtocol_pb.RegistrationReplyProto.Error getError() {
       @SuppressWarnings("deprecation")
-      org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error result = org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error.valueOf(error_);
-      return result == null ? org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error.UNRECOGNIZED : result;
+      ClientServerSerializeProtocol_pb.RegistrationReplyProto.Error result = ClientServerSerializeProtocol_pb.RegistrationReplyProto.Error.valueOf(error_);
+      return result == null ? ClientServerSerializeProtocol_pb.RegistrationReplyProto.Error.UNRECOGNIZED : result;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -4763,7 +4763,7 @@ public final class Auth_pb {
       if (reply_ != false) {
         output.writeBool(1, reply_);
       }
-      if (error_ != org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error.Login.getNumber()) {
+      if (error_ != ClientServerSerializeProtocol_pb.RegistrationReplyProto.Error.Login.getNumber()) {
         output.writeEnum(2, error_);
       }
       unknownFields.writeTo(output);
@@ -4779,7 +4779,7 @@ public final class Auth_pb {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(1, reply_);
       }
-      if (error_ != org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error.Login.getNumber()) {
+      if (error_ != ClientServerSerializeProtocol_pb.RegistrationReplyProto.Error.Login.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(2, error_);
       }
@@ -4793,10 +4793,10 @@ public final class Auth_pb {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto)) {
+      if (!(obj instanceof ClientServerSerializeProtocol_pb.RegistrationReplyProto)) {
         return super.equals(obj);
       }
-      org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto other = (org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto) obj;
+      ClientServerSerializeProtocol_pb.RegistrationReplyProto other = (ClientServerSerializeProtocol_pb.RegistrationReplyProto) obj;
 
       if (getReply()
           != other.getReply()) return false;
@@ -4822,69 +4822,69 @@ public final class Auth_pb {
       return hash;
     }
 
-    public static org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.RegistrationReplyProto parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.RegistrationReplyProto parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.RegistrationReplyProto parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.RegistrationReplyProto parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto parseFrom(byte[] data)
+    public static ClientServerSerializeProtocol_pb.RegistrationReplyProto parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.RegistrationReplyProto parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto parseFrom(java.io.InputStream input)
+    public static ClientServerSerializeProtocol_pb.RegistrationReplyProto parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.RegistrationReplyProto parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto parseDelimitedFrom(java.io.InputStream input)
+    public static ClientServerSerializeProtocol_pb.RegistrationReplyProto parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto parseDelimitedFrom(
+    public static ClientServerSerializeProtocol_pb.RegistrationReplyProto parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.RegistrationReplyProto parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.RegistrationReplyProto parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -4897,7 +4897,7 @@ public final class Auth_pb {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto prototype) {
+    public static Builder newBuilder(ClientServerSerializeProtocol_pb.RegistrationReplyProto prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -4918,18 +4918,18 @@ public final class Auth_pb {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:RegistrationReplyProto)
-        org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProtoOrBuilder {
+        ClientServerSerializeProtocol_pb.RegistrationReplyProtoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_RegistrationReplyProto_descriptor;
+        return ClientServerSerializeProtocol_pb.internal_static_RegistrationReplyProto_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_RegistrationReplyProto_fieldAccessorTable
+        return ClientServerSerializeProtocol_pb.internal_static_RegistrationReplyProto_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.class, org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Builder.class);
+                ClientServerSerializeProtocol_pb.RegistrationReplyProto.class, ClientServerSerializeProtocol_pb.RegistrationReplyProto.Builder.class);
       }
 
       // Construct using org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.newBuilder()
@@ -4960,17 +4960,17 @@ public final class Auth_pb {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_RegistrationReplyProto_descriptor;
+        return ClientServerSerializeProtocol_pb.internal_static_RegistrationReplyProto_descriptor;
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto getDefaultInstanceForType() {
-        return org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.getDefaultInstance();
+      public ClientServerSerializeProtocol_pb.RegistrationReplyProto getDefaultInstanceForType() {
+        return ClientServerSerializeProtocol_pb.RegistrationReplyProto.getDefaultInstance();
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto build() {
-        org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto result = buildPartial();
+      public ClientServerSerializeProtocol_pb.RegistrationReplyProto build() {
+        ClientServerSerializeProtocol_pb.RegistrationReplyProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -4978,8 +4978,8 @@ public final class Auth_pb {
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto buildPartial() {
-        org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto result = new org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto(this);
+      public ClientServerSerializeProtocol_pb.RegistrationReplyProto buildPartial() {
+        ClientServerSerializeProtocol_pb.RegistrationReplyProto result = new ClientServerSerializeProtocol_pb.RegistrationReplyProto(this);
         result.reply_ = reply_;
         result.error_ = error_;
         onBuilt();
@@ -5020,16 +5020,16 @@ public final class Auth_pb {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto) {
-          return mergeFrom((org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto)other);
+        if (other instanceof ClientServerSerializeProtocol_pb.RegistrationReplyProto) {
+          return mergeFrom((ClientServerSerializeProtocol_pb.RegistrationReplyProto)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto other) {
-        if (other == org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.getDefaultInstance()) return this;
+      public Builder mergeFrom(ClientServerSerializeProtocol_pb.RegistrationReplyProto other) {
+        if (other == ClientServerSerializeProtocol_pb.RegistrationReplyProto.getDefaultInstance()) return this;
         if (other.getReply() != false) {
           setReply(other.getReply());
         }
@@ -5051,11 +5051,11 @@ public final class Auth_pb {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto parsedMessage = null;
+        ClientServerSerializeProtocol_pb.RegistrationReplyProto parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto) e.getUnfinishedMessage();
+          parsedMessage = (ClientServerSerializeProtocol_pb.RegistrationReplyProto) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -5120,17 +5120,17 @@ public final class Auth_pb {
        * @return The error.
        */
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error getError() {
+      public ClientServerSerializeProtocol_pb.RegistrationReplyProto.Error getError() {
         @SuppressWarnings("deprecation")
-        org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error result = org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error.valueOf(error_);
-        return result == null ? org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error.UNRECOGNIZED : result;
+        ClientServerSerializeProtocol_pb.RegistrationReplyProto.Error result = ClientServerSerializeProtocol_pb.RegistrationReplyProto.Error.valueOf(error_);
+        return result == null ? ClientServerSerializeProtocol_pb.RegistrationReplyProto.Error.UNRECOGNIZED : result;
       }
       /**
        * <code>.RegistrationReplyProto.Error error = 2;</code>
        * @param value The error to set.
        * @return This builder for chaining.
        */
-      public Builder setError(org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto.Error value) {
+      public Builder setError(ClientServerSerializeProtocol_pb.RegistrationReplyProto.Error value) {
         if (value == null) {
           throw new NullPointerException();
         }
@@ -5166,12 +5166,12 @@ public final class Auth_pb {
     }
 
     // @@protoc_insertion_point(class_scope:RegistrationReplyProto)
-    private static final org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto DEFAULT_INSTANCE;
+    private static final ClientServerSerializeProtocol_pb.RegistrationReplyProto DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto();
+      DEFAULT_INSTANCE = new ClientServerSerializeProtocol_pb.RegistrationReplyProto();
     }
 
-    public static org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto getDefaultInstance() {
+    public static ClientServerSerializeProtocol_pb.RegistrationReplyProto getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -5196,7 +5196,7 @@ public final class Auth_pb {
     }
 
     @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.RegistrationReplyProto getDefaultInstanceForType() {
+    public ClientServerSerializeProtocol_pb.RegistrationReplyProto getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -5291,15 +5291,15 @@ public final class Auth_pb {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return org.foomaa.jvchat.messages.Auth_pb.internal_static_ResetPasswordRequestProto_descriptor;
+      return ClientServerSerializeProtocol_pb.internal_static_ResetPasswordRequestProto_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return org.foomaa.jvchat.messages.Auth_pb.internal_static_ResetPasswordRequestProto_fieldAccessorTable
+      return ClientServerSerializeProtocol_pb.internal_static_ResetPasswordRequestProto_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto.class, org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto.Builder.class);
+              ClientServerSerializeProtocol_pb.ResetPasswordRequestProto.class, ClientServerSerializeProtocol_pb.ResetPasswordRequestProto.Builder.class);
     }
 
     public static final int EMAIL_FIELD_NUMBER = 1;
@@ -5379,10 +5379,10 @@ public final class Auth_pb {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto)) {
+      if (!(obj instanceof ClientServerSerializeProtocol_pb.ResetPasswordRequestProto)) {
         return super.equals(obj);
       }
-      org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto other = (org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto) obj;
+      ClientServerSerializeProtocol_pb.ResetPasswordRequestProto other = (ClientServerSerializeProtocol_pb.ResetPasswordRequestProto) obj;
 
       if (!getEmail()
           .equals(other.getEmail())) return false;
@@ -5404,69 +5404,69 @@ public final class Auth_pb {
       return hash;
     }
 
-    public static org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.ResetPasswordRequestProto parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.ResetPasswordRequestProto parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.ResetPasswordRequestProto parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.ResetPasswordRequestProto parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto parseFrom(byte[] data)
+    public static ClientServerSerializeProtocol_pb.ResetPasswordRequestProto parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.ResetPasswordRequestProto parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto parseFrom(java.io.InputStream input)
+    public static ClientServerSerializeProtocol_pb.ResetPasswordRequestProto parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.ResetPasswordRequestProto parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto parseDelimitedFrom(java.io.InputStream input)
+    public static ClientServerSerializeProtocol_pb.ResetPasswordRequestProto parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto parseDelimitedFrom(
+    public static ClientServerSerializeProtocol_pb.ResetPasswordRequestProto parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.ResetPasswordRequestProto parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.ResetPasswordRequestProto parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -5479,7 +5479,7 @@ public final class Auth_pb {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto prototype) {
+    public static Builder newBuilder(ClientServerSerializeProtocol_pb.ResetPasswordRequestProto prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -5500,18 +5500,18 @@ public final class Auth_pb {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:ResetPasswordRequestProto)
-        org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProtoOrBuilder {
+        ClientServerSerializeProtocol_pb.ResetPasswordRequestProtoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_ResetPasswordRequestProto_descriptor;
+        return ClientServerSerializeProtocol_pb.internal_static_ResetPasswordRequestProto_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_ResetPasswordRequestProto_fieldAccessorTable
+        return ClientServerSerializeProtocol_pb.internal_static_ResetPasswordRequestProto_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto.class, org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto.Builder.class);
+                ClientServerSerializeProtocol_pb.ResetPasswordRequestProto.class, ClientServerSerializeProtocol_pb.ResetPasswordRequestProto.Builder.class);
       }
 
       // Construct using org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto.newBuilder()
@@ -5540,17 +5540,17 @@ public final class Auth_pb {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_ResetPasswordRequestProto_descriptor;
+        return ClientServerSerializeProtocol_pb.internal_static_ResetPasswordRequestProto_descriptor;
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto getDefaultInstanceForType() {
-        return org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto.getDefaultInstance();
+      public ClientServerSerializeProtocol_pb.ResetPasswordRequestProto getDefaultInstanceForType() {
+        return ClientServerSerializeProtocol_pb.ResetPasswordRequestProto.getDefaultInstance();
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto build() {
-        org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto result = buildPartial();
+      public ClientServerSerializeProtocol_pb.ResetPasswordRequestProto build() {
+        ClientServerSerializeProtocol_pb.ResetPasswordRequestProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -5558,8 +5558,8 @@ public final class Auth_pb {
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto buildPartial() {
-        org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto result = new org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto(this);
+      public ClientServerSerializeProtocol_pb.ResetPasswordRequestProto buildPartial() {
+        ClientServerSerializeProtocol_pb.ResetPasswordRequestProto result = new ClientServerSerializeProtocol_pb.ResetPasswordRequestProto(this);
         result.email_ = email_;
         onBuilt();
         return result;
@@ -5599,16 +5599,16 @@ public final class Auth_pb {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto) {
-          return mergeFrom((org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto)other);
+        if (other instanceof ClientServerSerializeProtocol_pb.ResetPasswordRequestProto) {
+          return mergeFrom((ClientServerSerializeProtocol_pb.ResetPasswordRequestProto)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto other) {
-        if (other == org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto.getDefaultInstance()) return this;
+      public Builder mergeFrom(ClientServerSerializeProtocol_pb.ResetPasswordRequestProto other) {
+        if (other == ClientServerSerializeProtocol_pb.ResetPasswordRequestProto.getDefaultInstance()) return this;
         if (!other.getEmail().isEmpty()) {
           email_ = other.email_;
           onChanged();
@@ -5628,11 +5628,11 @@ public final class Auth_pb {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto parsedMessage = null;
+        ClientServerSerializeProtocol_pb.ResetPasswordRequestProto parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto) e.getUnfinishedMessage();
+          parsedMessage = (ClientServerSerializeProtocol_pb.ResetPasswordRequestProto) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -5734,12 +5734,12 @@ public final class Auth_pb {
     }
 
     // @@protoc_insertion_point(class_scope:ResetPasswordRequestProto)
-    private static final org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto DEFAULT_INSTANCE;
+    private static final ClientServerSerializeProtocol_pb.ResetPasswordRequestProto DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto();
+      DEFAULT_INSTANCE = new ClientServerSerializeProtocol_pb.ResetPasswordRequestProto();
     }
 
-    public static org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto getDefaultInstance() {
+    public static ClientServerSerializeProtocol_pb.ResetPasswordRequestProto getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -5764,7 +5764,7 @@ public final class Auth_pb {
     }
 
     @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.ResetPasswordRequestProto getDefaultInstanceForType() {
+    public ClientServerSerializeProtocol_pb.ResetPasswordRequestProto getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -5851,15 +5851,15 @@ public final class Auth_pb {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return org.foomaa.jvchat.messages.Auth_pb.internal_static_ResetPasswordReplyProto_descriptor;
+      return ClientServerSerializeProtocol_pb.internal_static_ResetPasswordReplyProto_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return org.foomaa.jvchat.messages.Auth_pb.internal_static_ResetPasswordReplyProto_fieldAccessorTable
+      return ClientServerSerializeProtocol_pb.internal_static_ResetPasswordReplyProto_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto.class, org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto.Builder.class);
+              ClientServerSerializeProtocol_pb.ResetPasswordReplyProto.class, ClientServerSerializeProtocol_pb.ResetPasswordReplyProto.Builder.class);
     }
 
     public static final int REPLY_FIELD_NUMBER = 1;
@@ -5913,10 +5913,10 @@ public final class Auth_pb {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto)) {
+      if (!(obj instanceof ClientServerSerializeProtocol_pb.ResetPasswordReplyProto)) {
         return super.equals(obj);
       }
-      org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto other = (org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto) obj;
+      ClientServerSerializeProtocol_pb.ResetPasswordReplyProto other = (ClientServerSerializeProtocol_pb.ResetPasswordReplyProto) obj;
 
       if (getReply()
           != other.getReply()) return false;
@@ -5939,69 +5939,69 @@ public final class Auth_pb {
       return hash;
     }
 
-    public static org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.ResetPasswordReplyProto parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.ResetPasswordReplyProto parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.ResetPasswordReplyProto parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.ResetPasswordReplyProto parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto parseFrom(byte[] data)
+    public static ClientServerSerializeProtocol_pb.ResetPasswordReplyProto parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.ResetPasswordReplyProto parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto parseFrom(java.io.InputStream input)
+    public static ClientServerSerializeProtocol_pb.ResetPasswordReplyProto parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.ResetPasswordReplyProto parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto parseDelimitedFrom(java.io.InputStream input)
+    public static ClientServerSerializeProtocol_pb.ResetPasswordReplyProto parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto parseDelimitedFrom(
+    public static ClientServerSerializeProtocol_pb.ResetPasswordReplyProto parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.ResetPasswordReplyProto parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.ResetPasswordReplyProto parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -6014,7 +6014,7 @@ public final class Auth_pb {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto prototype) {
+    public static Builder newBuilder(ClientServerSerializeProtocol_pb.ResetPasswordReplyProto prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -6035,18 +6035,18 @@ public final class Auth_pb {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:ResetPasswordReplyProto)
-        org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProtoOrBuilder {
+        ClientServerSerializeProtocol_pb.ResetPasswordReplyProtoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_ResetPasswordReplyProto_descriptor;
+        return ClientServerSerializeProtocol_pb.internal_static_ResetPasswordReplyProto_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_ResetPasswordReplyProto_fieldAccessorTable
+        return ClientServerSerializeProtocol_pb.internal_static_ResetPasswordReplyProto_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto.class, org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto.Builder.class);
+                ClientServerSerializeProtocol_pb.ResetPasswordReplyProto.class, ClientServerSerializeProtocol_pb.ResetPasswordReplyProto.Builder.class);
       }
 
       // Construct using org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto.newBuilder()
@@ -6075,17 +6075,17 @@ public final class Auth_pb {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_ResetPasswordReplyProto_descriptor;
+        return ClientServerSerializeProtocol_pb.internal_static_ResetPasswordReplyProto_descriptor;
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto getDefaultInstanceForType() {
-        return org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto.getDefaultInstance();
+      public ClientServerSerializeProtocol_pb.ResetPasswordReplyProto getDefaultInstanceForType() {
+        return ClientServerSerializeProtocol_pb.ResetPasswordReplyProto.getDefaultInstance();
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto build() {
-        org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto result = buildPartial();
+      public ClientServerSerializeProtocol_pb.ResetPasswordReplyProto build() {
+        ClientServerSerializeProtocol_pb.ResetPasswordReplyProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -6093,8 +6093,8 @@ public final class Auth_pb {
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto buildPartial() {
-        org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto result = new org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto(this);
+      public ClientServerSerializeProtocol_pb.ResetPasswordReplyProto buildPartial() {
+        ClientServerSerializeProtocol_pb.ResetPasswordReplyProto result = new ClientServerSerializeProtocol_pb.ResetPasswordReplyProto(this);
         result.reply_ = reply_;
         onBuilt();
         return result;
@@ -6134,16 +6134,16 @@ public final class Auth_pb {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto) {
-          return mergeFrom((org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto)other);
+        if (other instanceof ClientServerSerializeProtocol_pb.ResetPasswordReplyProto) {
+          return mergeFrom((ClientServerSerializeProtocol_pb.ResetPasswordReplyProto)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto other) {
-        if (other == org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto.getDefaultInstance()) return this;
+      public Builder mergeFrom(ClientServerSerializeProtocol_pb.ResetPasswordReplyProto other) {
+        if (other == ClientServerSerializeProtocol_pb.ResetPasswordReplyProto.getDefaultInstance()) return this;
         if (other.getReply() != false) {
           setReply(other.getReply());
         }
@@ -6162,11 +6162,11 @@ public final class Auth_pb {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto parsedMessage = null;
+        ClientServerSerializeProtocol_pb.ResetPasswordReplyProto parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto) e.getUnfinishedMessage();
+          parsedMessage = (ClientServerSerializeProtocol_pb.ResetPasswordReplyProto) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -6223,12 +6223,12 @@ public final class Auth_pb {
     }
 
     // @@protoc_insertion_point(class_scope:ResetPasswordReplyProto)
-    private static final org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto DEFAULT_INSTANCE;
+    private static final ClientServerSerializeProtocol_pb.ResetPasswordReplyProto DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto();
+      DEFAULT_INSTANCE = new ClientServerSerializeProtocol_pb.ResetPasswordReplyProto();
     }
 
-    public static org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto getDefaultInstance() {
+    public static ClientServerSerializeProtocol_pb.ResetPasswordReplyProto getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -6253,7 +6253,7 @@ public final class Auth_pb {
     }
 
     @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto getDefaultInstanceForType() {
+    public ClientServerSerializeProtocol_pb.ResetPasswordReplyProto getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -6348,15 +6348,15 @@ public final class Auth_pb {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return org.foomaa.jvchat.messages.Auth_pb.internal_static_VerifyEmailRequestProto_descriptor;
+      return ClientServerSerializeProtocol_pb.internal_static_VerifyEmailRequestProto_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return org.foomaa.jvchat.messages.Auth_pb.internal_static_VerifyEmailRequestProto_fieldAccessorTable
+      return ClientServerSerializeProtocol_pb.internal_static_VerifyEmailRequestProto_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.class, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.Builder.class);
+              ClientServerSerializeProtocol_pb.VerifyEmailRequestProto.class, ClientServerSerializeProtocol_pb.VerifyEmailRequestProto.Builder.class);
     }
 
     public static final int CODE_FIELD_NUMBER = 1;
@@ -6436,10 +6436,10 @@ public final class Auth_pb {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto)) {
+      if (!(obj instanceof ClientServerSerializeProtocol_pb.VerifyEmailRequestProto)) {
         return super.equals(obj);
       }
-      org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto other = (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto) obj;
+      ClientServerSerializeProtocol_pb.VerifyEmailRequestProto other = (ClientServerSerializeProtocol_pb.VerifyEmailRequestProto) obj;
 
       if (!getCode()
           .equals(other.getCode())) return false;
@@ -6461,69 +6461,69 @@ public final class Auth_pb {
       return hash;
     }
 
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.VerifyEmailRequestProto parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.VerifyEmailRequestProto parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.VerifyEmailRequestProto parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.VerifyEmailRequestProto parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto parseFrom(byte[] data)
+    public static ClientServerSerializeProtocol_pb.VerifyEmailRequestProto parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.VerifyEmailRequestProto parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto parseFrom(java.io.InputStream input)
+    public static ClientServerSerializeProtocol_pb.VerifyEmailRequestProto parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.VerifyEmailRequestProto parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto parseDelimitedFrom(java.io.InputStream input)
+    public static ClientServerSerializeProtocol_pb.VerifyEmailRequestProto parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto parseDelimitedFrom(
+    public static ClientServerSerializeProtocol_pb.VerifyEmailRequestProto parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.VerifyEmailRequestProto parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.VerifyEmailRequestProto parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -6536,7 +6536,7 @@ public final class Auth_pb {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto prototype) {
+    public static Builder newBuilder(ClientServerSerializeProtocol_pb.VerifyEmailRequestProto prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -6557,18 +6557,18 @@ public final class Auth_pb {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:VerifyEmailRequestProto)
-        org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProtoOrBuilder {
+        ClientServerSerializeProtocol_pb.VerifyEmailRequestProtoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_VerifyEmailRequestProto_descriptor;
+        return ClientServerSerializeProtocol_pb.internal_static_VerifyEmailRequestProto_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_VerifyEmailRequestProto_fieldAccessorTable
+        return ClientServerSerializeProtocol_pb.internal_static_VerifyEmailRequestProto_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.class, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.Builder.class);
+                ClientServerSerializeProtocol_pb.VerifyEmailRequestProto.class, ClientServerSerializeProtocol_pb.VerifyEmailRequestProto.Builder.class);
       }
 
       // Construct using org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.newBuilder()
@@ -6597,17 +6597,17 @@ public final class Auth_pb {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_VerifyEmailRequestProto_descriptor;
+        return ClientServerSerializeProtocol_pb.internal_static_VerifyEmailRequestProto_descriptor;
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto getDefaultInstanceForType() {
-        return org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.getDefaultInstance();
+      public ClientServerSerializeProtocol_pb.VerifyEmailRequestProto getDefaultInstanceForType() {
+        return ClientServerSerializeProtocol_pb.VerifyEmailRequestProto.getDefaultInstance();
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto build() {
-        org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto result = buildPartial();
+      public ClientServerSerializeProtocol_pb.VerifyEmailRequestProto build() {
+        ClientServerSerializeProtocol_pb.VerifyEmailRequestProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -6615,8 +6615,8 @@ public final class Auth_pb {
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto buildPartial() {
-        org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto result = new org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto(this);
+      public ClientServerSerializeProtocol_pb.VerifyEmailRequestProto buildPartial() {
+        ClientServerSerializeProtocol_pb.VerifyEmailRequestProto result = new ClientServerSerializeProtocol_pb.VerifyEmailRequestProto(this);
         result.code_ = code_;
         onBuilt();
         return result;
@@ -6656,16 +6656,16 @@ public final class Auth_pb {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto) {
-          return mergeFrom((org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto)other);
+        if (other instanceof ClientServerSerializeProtocol_pb.VerifyEmailRequestProto) {
+          return mergeFrom((ClientServerSerializeProtocol_pb.VerifyEmailRequestProto)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto other) {
-        if (other == org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.getDefaultInstance()) return this;
+      public Builder mergeFrom(ClientServerSerializeProtocol_pb.VerifyEmailRequestProto other) {
+        if (other == ClientServerSerializeProtocol_pb.VerifyEmailRequestProto.getDefaultInstance()) return this;
         if (!other.getCode().isEmpty()) {
           code_ = other.code_;
           onChanged();
@@ -6685,11 +6685,11 @@ public final class Auth_pb {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto parsedMessage = null;
+        ClientServerSerializeProtocol_pb.VerifyEmailRequestProto parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto) e.getUnfinishedMessage();
+          parsedMessage = (ClientServerSerializeProtocol_pb.VerifyEmailRequestProto) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -6791,12 +6791,12 @@ public final class Auth_pb {
     }
 
     // @@protoc_insertion_point(class_scope:VerifyEmailRequestProto)
-    private static final org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto DEFAULT_INSTANCE;
+    private static final ClientServerSerializeProtocol_pb.VerifyEmailRequestProto DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto();
+      DEFAULT_INSTANCE = new ClientServerSerializeProtocol_pb.VerifyEmailRequestProto();
     }
 
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto getDefaultInstance() {
+    public static ClientServerSerializeProtocol_pb.VerifyEmailRequestProto getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -6821,7 +6821,7 @@ public final class Auth_pb {
     }
 
     @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto getDefaultInstanceForType() {
+    public ClientServerSerializeProtocol_pb.VerifyEmailRequestProto getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -6908,15 +6908,15 @@ public final class Auth_pb {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return org.foomaa.jvchat.messages.Auth_pb.internal_static_VerifyEmailReplyProto_descriptor;
+      return ClientServerSerializeProtocol_pb.internal_static_VerifyEmailReplyProto_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return org.foomaa.jvchat.messages.Auth_pb.internal_static_VerifyEmailReplyProto_fieldAccessorTable
+      return ClientServerSerializeProtocol_pb.internal_static_VerifyEmailReplyProto_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.class, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.Builder.class);
+              ClientServerSerializeProtocol_pb.VerifyEmailReplyProto.class, ClientServerSerializeProtocol_pb.VerifyEmailReplyProto.Builder.class);
     }
 
     public static final int REPLY_FIELD_NUMBER = 1;
@@ -6970,10 +6970,10 @@ public final class Auth_pb {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto)) {
+      if (!(obj instanceof ClientServerSerializeProtocol_pb.VerifyEmailReplyProto)) {
         return super.equals(obj);
       }
-      org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto other = (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto) obj;
+      ClientServerSerializeProtocol_pb.VerifyEmailReplyProto other = (ClientServerSerializeProtocol_pb.VerifyEmailReplyProto) obj;
 
       if (getReply()
           != other.getReply()) return false;
@@ -6996,69 +6996,69 @@ public final class Auth_pb {
       return hash;
     }
 
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.VerifyEmailReplyProto parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.VerifyEmailReplyProto parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.VerifyEmailReplyProto parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.VerifyEmailReplyProto parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto parseFrom(byte[] data)
+    public static ClientServerSerializeProtocol_pb.VerifyEmailReplyProto parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.VerifyEmailReplyProto parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto parseFrom(java.io.InputStream input)
+    public static ClientServerSerializeProtocol_pb.VerifyEmailReplyProto parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.VerifyEmailReplyProto parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto parseDelimitedFrom(java.io.InputStream input)
+    public static ClientServerSerializeProtocol_pb.VerifyEmailReplyProto parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto parseDelimitedFrom(
+    public static ClientServerSerializeProtocol_pb.VerifyEmailReplyProto parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.VerifyEmailReplyProto parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto parseFrom(
+    public static ClientServerSerializeProtocol_pb.VerifyEmailReplyProto parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -7071,7 +7071,7 @@ public final class Auth_pb {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto prototype) {
+    public static Builder newBuilder(ClientServerSerializeProtocol_pb.VerifyEmailReplyProto prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -7092,18 +7092,18 @@ public final class Auth_pb {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:VerifyEmailReplyProto)
-        org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProtoOrBuilder {
+        ClientServerSerializeProtocol_pb.VerifyEmailReplyProtoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_VerifyEmailReplyProto_descriptor;
+        return ClientServerSerializeProtocol_pb.internal_static_VerifyEmailReplyProto_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_VerifyEmailReplyProto_fieldAccessorTable
+        return ClientServerSerializeProtocol_pb.internal_static_VerifyEmailReplyProto_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.class, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.Builder.class);
+                ClientServerSerializeProtocol_pb.VerifyEmailReplyProto.class, ClientServerSerializeProtocol_pb.VerifyEmailReplyProto.Builder.class);
       }
 
       // Construct using org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.newBuilder()
@@ -7132,17 +7132,17 @@ public final class Auth_pb {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_VerifyEmailReplyProto_descriptor;
+        return ClientServerSerializeProtocol_pb.internal_static_VerifyEmailReplyProto_descriptor;
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto getDefaultInstanceForType() {
-        return org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.getDefaultInstance();
+      public ClientServerSerializeProtocol_pb.VerifyEmailReplyProto getDefaultInstanceForType() {
+        return ClientServerSerializeProtocol_pb.VerifyEmailReplyProto.getDefaultInstance();
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto build() {
-        org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto result = buildPartial();
+      public ClientServerSerializeProtocol_pb.VerifyEmailReplyProto build() {
+        ClientServerSerializeProtocol_pb.VerifyEmailReplyProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -7150,8 +7150,8 @@ public final class Auth_pb {
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto buildPartial() {
-        org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto result = new org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto(this);
+      public ClientServerSerializeProtocol_pb.VerifyEmailReplyProto buildPartial() {
+        ClientServerSerializeProtocol_pb.VerifyEmailReplyProto result = new ClientServerSerializeProtocol_pb.VerifyEmailReplyProto(this);
         result.reply_ = reply_;
         onBuilt();
         return result;
@@ -7191,16 +7191,16 @@ public final class Auth_pb {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto) {
-          return mergeFrom((org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto)other);
+        if (other instanceof ClientServerSerializeProtocol_pb.VerifyEmailReplyProto) {
+          return mergeFrom((ClientServerSerializeProtocol_pb.VerifyEmailReplyProto)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto other) {
-        if (other == org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.getDefaultInstance()) return this;
+      public Builder mergeFrom(ClientServerSerializeProtocol_pb.VerifyEmailReplyProto other) {
+        if (other == ClientServerSerializeProtocol_pb.VerifyEmailReplyProto.getDefaultInstance()) return this;
         if (other.getReply() != false) {
           setReply(other.getReply());
         }
@@ -7219,11 +7219,11 @@ public final class Auth_pb {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto parsedMessage = null;
+        ClientServerSerializeProtocol_pb.VerifyEmailReplyProto parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto) e.getUnfinishedMessage();
+          parsedMessage = (ClientServerSerializeProtocol_pb.VerifyEmailReplyProto) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -7280,12 +7280,12 @@ public final class Auth_pb {
     }
 
     // @@protoc_insertion_point(class_scope:VerifyEmailReplyProto)
-    private static final org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto DEFAULT_INSTANCE;
+    private static final ClientServerSerializeProtocol_pb.VerifyEmailReplyProto DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto();
+      DEFAULT_INSTANCE = new ClientServerSerializeProtocol_pb.VerifyEmailReplyProto();
     }
 
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto getDefaultInstance() {
+    public static ClientServerSerializeProtocol_pb.VerifyEmailReplyProto getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
@@ -7310,7 +7310,7 @@ public final class Auth_pb {
     }
 
     @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto getDefaultInstanceForType() {
+    public ClientServerSerializeProtocol_pb.VerifyEmailReplyProto getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
