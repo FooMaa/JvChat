@@ -50,7 +50,6 @@ public class JvSerializatorData {
         VerifyCode,
     }
 
-//  Здесь value должно стыковаться с протоколом Auth_pb.RegistrationReplyProto
     public enum TypeErrorRegistration {
         Login(ClientServerSerializeProtocol_pb.RegistrationReplyProto.Error.Login_VALUE),
         Email(ClientServerSerializeProtocol_pb.RegistrationReplyProto.Error.Email_VALUE),
