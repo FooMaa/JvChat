@@ -112,10 +112,10 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 -- ----------------------------------------------------------------------------------------------
--- chat_schema.reset_password_data
+-- chat_schema.verify_email
 -- ----------------------------------------------------------------------------------------------
 
-CREATE OR REPLACE FUNCTION chat_schema.reset_password_data_save (
+CREATE OR REPLACE FUNCTION chat_schema.verify_email_save (
     f_id_user       character varying,
     f_code          character varying
 )
@@ -125,12 +125,12 @@ DECLARE
     rv integer;
 BEGIN
     rv := -1;
-    PERFORM * FROM chat_schema.reset_password_data WHERE id_user=f_id_user;
+    PERFORM * FROM chat_schema.verify_email WHERE id_user=f_id_user;
     IF found THEN
-        UPDATE chat_schema.reset_password_data SET code=f_code WHERE id_user=f_id_user;
+        UPDATE chat_schema.verify_email SET code=f_code WHERE id_user=f_id_user;
         rv := 1;
     ELSE
-        INSERT INTO chat_schema.reset_password_data(id_user, code) VALUES (f_id_user, f_code);
+        INSERT INTO chat_schema.verify_email(id_user, code) VALUES (f_id_user, f_code);
         rv := 2;
     END IF;
 
@@ -138,12 +138,12 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION chat_schema.reset_password_data_remove(f_id  integer)
+CREATE OR REPLACE FUNCTION chat_schema.verify_email_remove(f_id  integer)
     RETURNS boolean AS
 $BODY$
 DECLARE
 BEGIN
-    DELETE FROM chat_schema.reset_password_data WHERE id=f_id;
+    DELETE FROM chat_schema.verify_email WHERE id=f_id;
     RETURN true;
 END;
 $BODY$ LANGUAGE plpgsql;
