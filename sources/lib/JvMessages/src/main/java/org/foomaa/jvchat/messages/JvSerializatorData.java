@@ -239,23 +239,23 @@ public class JvSerializatorData {
     }
 
     private static byte[] createVerifyEmailRequestMessage(TypeMessage type, String code) {
-        Auth_pb.VerifyResetPasswordRequestProto msgVerifyResetPasswordRequest = Auth_pb.VerifyResetPasswordRequestProto.newBuilder()
+        Auth_pb.VerifyEmailRequestProto msgVerifyEmailRequest = Auth_pb.VerifyEmailRequestProto.newBuilder()
                 .setCode(code)
                 .build();
         Auth_pb.GeneralAuthProto resMsg = Auth_pb.GeneralAuthProto.newBuilder()
                 .setType(type.getValue())
-                .setVerifyResetPasswordRequest(msgVerifyResetPasswordRequest)
+                .setVerifyEmailRequest(msgVerifyEmailRequest)
                 .build();
         return resMsg.toByteArray();
     }
 
     private static byte[] createVerifyEmailReplyMessage(TypeMessage type, boolean reply) {
-        Auth_pb.VerifyResetPasswordReplyProto msgVerifyResetPasswordReply = Auth_pb.VerifyResetPasswordReplyProto.newBuilder()
+        Auth_pb.VerifyEmailReplyProto msgVerifyEmailReply = Auth_pb.VerifyEmailReplyProto.newBuilder()
                 .setReply(reply)
                 .build();
         Auth_pb.GeneralAuthProto resMsg = Auth_pb.GeneralAuthProto.newBuilder()
                 .setType(type.getValue())
-                .setVerifyResetPasswordReply(msgVerifyResetPasswordReply)
+                .setVerifyEmailReply(msgVerifyEmailReply)
                 .build();
         return resMsg.toByteArray();
     }
@@ -339,7 +339,7 @@ public class JvSerializatorData {
         HashMap<TypeData, String> result = new HashMap<>();
         try {
             result.put(TypeData.VerifyCode, Auth_pb.GeneralAuthProto.parseFrom(data).
-                    getVerifyResetPasswordRequest().getCode());
+                    getVerifyEmailRequest().getCode());
         } catch (InvalidProtocolBufferException exception) {
             System.out.println("Error in protobuf deserialised data");
         }
@@ -350,7 +350,7 @@ public class JvSerializatorData {
         HashMap<TypeData, Boolean> result = new HashMap<>();
         try {
             result.put(TypeData.BoolReply, Auth_pb.GeneralAuthProto.parseFrom(data)
-                    .getVerifyResetPasswordReply().getReply());
+                    .getVerifyEmailReply().getReply());
         } catch (InvalidProtocolBufferException exception) {
             System.out.println("Error in protobuf deserialised data");
         }
