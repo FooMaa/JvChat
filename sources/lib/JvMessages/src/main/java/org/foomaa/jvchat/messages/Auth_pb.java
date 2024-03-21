@@ -115,34 +115,34 @@ public final class Auth_pb {
     org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProtoOrBuilder getResetPasswordReplyOrBuilder();
 
     /**
-     * <code>.VerifyResetPasswordRequestProto verifyResetPasswordRequest = 8;</code>
-     * @return Whether the verifyResetPasswordRequest field is set.
+     * <code>.VerifyEmailRequestProto verifyEmailRequest = 8;</code>
+     * @return Whether the verifyEmailRequest field is set.
      */
-    boolean hasVerifyResetPasswordRequest();
+    boolean hasVerifyEmailRequest();
     /**
-     * <code>.VerifyResetPasswordRequestProto verifyResetPasswordRequest = 8;</code>
-     * @return The verifyResetPasswordRequest.
+     * <code>.VerifyEmailRequestProto verifyEmailRequest = 8;</code>
+     * @return The verifyEmailRequest.
      */
-    org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto getVerifyResetPasswordRequest();
+    org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto getVerifyEmailRequest();
     /**
-     * <code>.VerifyResetPasswordRequestProto verifyResetPasswordRequest = 8;</code>
+     * <code>.VerifyEmailRequestProto verifyEmailRequest = 8;</code>
      */
-    org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProtoOrBuilder getVerifyResetPasswordRequestOrBuilder();
+    org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProtoOrBuilder getVerifyEmailRequestOrBuilder();
 
     /**
-     * <code>.VerifyResetPasswordReplyProto verifyResetPasswordReply = 9;</code>
-     * @return Whether the verifyResetPasswordReply field is set.
+     * <code>.VerifyEmailReplyProto verifyEmailReply = 9;</code>
+     * @return Whether the verifyEmailReply field is set.
      */
-    boolean hasVerifyResetPasswordReply();
+    boolean hasVerifyEmailReply();
     /**
-     * <code>.VerifyResetPasswordReplyProto verifyResetPasswordReply = 9;</code>
-     * @return The verifyResetPasswordReply.
+     * <code>.VerifyEmailReplyProto verifyEmailReply = 9;</code>
+     * @return The verifyEmailReply.
      */
-    org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto getVerifyResetPasswordReply();
+    org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto getVerifyEmailReply();
     /**
-     * <code>.VerifyResetPasswordReplyProto verifyResetPasswordReply = 9;</code>
+     * <code>.VerifyEmailReplyProto verifyEmailReply = 9;</code>
      */
-    org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProtoOrBuilder getVerifyResetPasswordReplyOrBuilder();
+    org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProtoOrBuilder getVerifyEmailReplyOrBuilder();
 
     public org.foomaa.jvchat.messages.Auth_pb.GeneralAuthProto.BodyCase getBodyCase();
   }
@@ -281,28 +281,28 @@ public final class Auth_pb {
               break;
             }
             case 66: {
-              org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto.Builder subBuilder = null;
+              org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.Builder subBuilder = null;
               if (bodyCase_ == 8) {
-                subBuilder = ((org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto) body_).toBuilder();
+                subBuilder = ((org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto) body_).toBuilder();
               }
               body_ =
-                  input.readMessage(org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto.parser(), extensionRegistry);
+                  input.readMessage(org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto) body_);
+                subBuilder.mergeFrom((org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto) body_);
                 body_ = subBuilder.buildPartial();
               }
               bodyCase_ = 8;
               break;
             }
             case 74: {
-              org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto.Builder subBuilder = null;
+              org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.Builder subBuilder = null;
               if (bodyCase_ == 9) {
-                subBuilder = ((org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto) body_).toBuilder();
+                subBuilder = ((org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto) body_).toBuilder();
               }
               body_ =
-                  input.readMessage(org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto.parser(), extensionRegistry);
+                  input.readMessage(org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.parser(), extensionRegistry);
               if (subBuilder != null) {
-                subBuilder.mergeFrom((org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto) body_);
+                subBuilder.mergeFrom((org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto) body_);
                 body_ = subBuilder.buildPartial();
               }
               bodyCase_ = 9;
@@ -351,8 +351,8 @@ public final class Auth_pb {
       REGISTRATIONREPLY(5),
       RESETPASSWORDREQUEST(6),
       RESETPASSWORDREPLY(7),
-      VERIFYRESETPASSWORDREQUEST(8),
-      VERIFYRESETPASSWORDREPLY(9),
+      VERIFYEMAILREQUEST(8),
+      VERIFYEMAILREPLY(9),
       BODY_NOT_SET(0);
       private final int value;
       private BodyCase(int value) {
@@ -376,8 +376,8 @@ public final class Auth_pb {
           case 5: return REGISTRATIONREPLY;
           case 6: return RESETPASSWORDREQUEST;
           case 7: return RESETPASSWORDREPLY;
-          case 8: return VERIFYRESETPASSWORDREQUEST;
-          case 9: return VERIFYRESETPASSWORDREPLY;
+          case 8: return VERIFYEMAILREQUEST;
+          case 9: return VERIFYEMAILREPLY;
           case 0: return BODY_NOT_SET;
           default: return null;
         }
@@ -590,66 +590,66 @@ public final class Auth_pb {
       return org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto.getDefaultInstance();
     }
 
-    public static final int VERIFYRESETPASSWORDREQUEST_FIELD_NUMBER = 8;
+    public static final int VERIFYEMAILREQUEST_FIELD_NUMBER = 8;
     /**
-     * <code>.VerifyResetPasswordRequestProto verifyResetPasswordRequest = 8;</code>
-     * @return Whether the verifyResetPasswordRequest field is set.
+     * <code>.VerifyEmailRequestProto verifyEmailRequest = 8;</code>
+     * @return Whether the verifyEmailRequest field is set.
      */
     @java.lang.Override
-    public boolean hasVerifyResetPasswordRequest() {
+    public boolean hasVerifyEmailRequest() {
       return bodyCase_ == 8;
     }
     /**
-     * <code>.VerifyResetPasswordRequestProto verifyResetPasswordRequest = 8;</code>
-     * @return The verifyResetPasswordRequest.
+     * <code>.VerifyEmailRequestProto verifyEmailRequest = 8;</code>
+     * @return The verifyEmailRequest.
      */
     @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto getVerifyResetPasswordRequest() {
+    public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto getVerifyEmailRequest() {
       if (bodyCase_ == 8) {
-         return (org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto) body_;
+         return (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto) body_;
       }
-      return org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto.getDefaultInstance();
+      return org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.getDefaultInstance();
     }
     /**
-     * <code>.VerifyResetPasswordRequestProto verifyResetPasswordRequest = 8;</code>
+     * <code>.VerifyEmailRequestProto verifyEmailRequest = 8;</code>
      */
     @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProtoOrBuilder getVerifyResetPasswordRequestOrBuilder() {
+    public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProtoOrBuilder getVerifyEmailRequestOrBuilder() {
       if (bodyCase_ == 8) {
-         return (org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto) body_;
+         return (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto) body_;
       }
-      return org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto.getDefaultInstance();
+      return org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.getDefaultInstance();
     }
 
-    public static final int VERIFYRESETPASSWORDREPLY_FIELD_NUMBER = 9;
+    public static final int VERIFYEMAILREPLY_FIELD_NUMBER = 9;
     /**
-     * <code>.VerifyResetPasswordReplyProto verifyResetPasswordReply = 9;</code>
-     * @return Whether the verifyResetPasswordReply field is set.
+     * <code>.VerifyEmailReplyProto verifyEmailReply = 9;</code>
+     * @return Whether the verifyEmailReply field is set.
      */
     @java.lang.Override
-    public boolean hasVerifyResetPasswordReply() {
+    public boolean hasVerifyEmailReply() {
       return bodyCase_ == 9;
     }
     /**
-     * <code>.VerifyResetPasswordReplyProto verifyResetPasswordReply = 9;</code>
-     * @return The verifyResetPasswordReply.
+     * <code>.VerifyEmailReplyProto verifyEmailReply = 9;</code>
+     * @return The verifyEmailReply.
      */
     @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto getVerifyResetPasswordReply() {
+    public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto getVerifyEmailReply() {
       if (bodyCase_ == 9) {
-         return (org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto) body_;
+         return (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto) body_;
       }
-      return org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto.getDefaultInstance();
+      return org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.getDefaultInstance();
     }
     /**
-     * <code>.VerifyResetPasswordReplyProto verifyResetPasswordReply = 9;</code>
+     * <code>.VerifyEmailReplyProto verifyEmailReply = 9;</code>
      */
     @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProtoOrBuilder getVerifyResetPasswordReplyOrBuilder() {
+    public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProtoOrBuilder getVerifyEmailReplyOrBuilder() {
       if (bodyCase_ == 9) {
-         return (org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto) body_;
+         return (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto) body_;
       }
-      return org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto.getDefaultInstance();
+      return org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.getDefaultInstance();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -688,10 +688,10 @@ public final class Auth_pb {
         output.writeMessage(7, (org.foomaa.jvchat.messages.Auth_pb.ResetPasswordReplyProto) body_);
       }
       if (bodyCase_ == 8) {
-        output.writeMessage(8, (org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto) body_);
+        output.writeMessage(8, (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto) body_);
       }
       if (bodyCase_ == 9) {
-        output.writeMessage(9, (org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto) body_);
+        output.writeMessage(9, (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto) body_);
       }
       unknownFields.writeTo(output);
     }
@@ -732,11 +732,11 @@ public final class Auth_pb {
       }
       if (bodyCase_ == 8) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(8, (org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto) body_);
+          .computeMessageSize(8, (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto) body_);
       }
       if (bodyCase_ == 9) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(9, (org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto) body_);
+          .computeMessageSize(9, (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto) body_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -782,12 +782,12 @@ public final class Auth_pb {
               .equals(other.getResetPasswordReply())) return false;
           break;
         case 8:
-          if (!getVerifyResetPasswordRequest()
-              .equals(other.getVerifyResetPasswordRequest())) return false;
+          if (!getVerifyEmailRequest()
+              .equals(other.getVerifyEmailRequest())) return false;
           break;
         case 9:
-          if (!getVerifyResetPasswordReply()
-              .equals(other.getVerifyResetPasswordReply())) return false;
+          if (!getVerifyEmailReply()
+              .equals(other.getVerifyEmailReply())) return false;
           break;
         case 0:
         default:
@@ -831,12 +831,12 @@ public final class Auth_pb {
           hash = (53 * hash) + getResetPasswordReply().hashCode();
           break;
         case 8:
-          hash = (37 * hash) + VERIFYRESETPASSWORDREQUEST_FIELD_NUMBER;
-          hash = (53 * hash) + getVerifyResetPasswordRequest().hashCode();
+          hash = (37 * hash) + VERIFYEMAILREQUEST_FIELD_NUMBER;
+          hash = (53 * hash) + getVerifyEmailRequest().hashCode();
           break;
         case 9:
-          hash = (37 * hash) + VERIFYRESETPASSWORDREPLY_FIELD_NUMBER;
-          hash = (53 * hash) + getVerifyResetPasswordReply().hashCode();
+          hash = (37 * hash) + VERIFYEMAILREPLY_FIELD_NUMBER;
+          hash = (53 * hash) + getVerifyEmailReply().hashCode();
           break;
         case 0:
         default:
@@ -1048,17 +1048,17 @@ public final class Auth_pb {
           }
         }
         if (bodyCase_ == 8) {
-          if (verifyResetPasswordRequestBuilder_ == null) {
+          if (verifyEmailRequestBuilder_ == null) {
             result.body_ = body_;
           } else {
-            result.body_ = verifyResetPasswordRequestBuilder_.build();
+            result.body_ = verifyEmailRequestBuilder_.build();
           }
         }
         if (bodyCase_ == 9) {
-          if (verifyResetPasswordReplyBuilder_ == null) {
+          if (verifyEmailReplyBuilder_ == null) {
             result.body_ = body_;
           } else {
-            result.body_ = verifyResetPasswordReplyBuilder_.build();
+            result.body_ = verifyEmailReplyBuilder_.build();
           }
         }
         result.bodyCase_ = bodyCase_;
@@ -1138,12 +1138,12 @@ public final class Auth_pb {
             mergeResetPasswordReply(other.getResetPasswordReply());
             break;
           }
-          case VERIFYRESETPASSWORDREQUEST: {
-            mergeVerifyResetPasswordRequest(other.getVerifyResetPasswordRequest());
+          case VERIFYEMAILREQUEST: {
+            mergeVerifyEmailRequest(other.getVerifyEmailRequest());
             break;
           }
-          case VERIFYRESETPASSWORDREPLY: {
-            mergeVerifyResetPasswordReply(other.getVerifyResetPasswordReply());
+          case VERIFYEMAILREPLY: {
+            mergeVerifyEmailReply(other.getVerifyEmailReply());
             break;
           }
           case BODY_NOT_SET: {
@@ -2072,71 +2072,71 @@ public final class Auth_pb {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto, org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto.Builder, org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProtoOrBuilder> verifyResetPasswordRequestBuilder_;
+          org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.Builder, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProtoOrBuilder> verifyEmailRequestBuilder_;
       /**
-       * <code>.VerifyResetPasswordRequestProto verifyResetPasswordRequest = 8;</code>
-       * @return Whether the verifyResetPasswordRequest field is set.
+       * <code>.VerifyEmailRequestProto verifyEmailRequest = 8;</code>
+       * @return Whether the verifyEmailRequest field is set.
        */
       @java.lang.Override
-      public boolean hasVerifyResetPasswordRequest() {
+      public boolean hasVerifyEmailRequest() {
         return bodyCase_ == 8;
       }
       /**
-       * <code>.VerifyResetPasswordRequestProto verifyResetPasswordRequest = 8;</code>
-       * @return The verifyResetPasswordRequest.
+       * <code>.VerifyEmailRequestProto verifyEmailRequest = 8;</code>
+       * @return The verifyEmailRequest.
        */
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto getVerifyResetPasswordRequest() {
-        if (verifyResetPasswordRequestBuilder_ == null) {
+      public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto getVerifyEmailRequest() {
+        if (verifyEmailRequestBuilder_ == null) {
           if (bodyCase_ == 8) {
-            return (org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto) body_;
+            return (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto) body_;
           }
-          return org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto.getDefaultInstance();
+          return org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.getDefaultInstance();
         } else {
           if (bodyCase_ == 8) {
-            return verifyResetPasswordRequestBuilder_.getMessage();
+            return verifyEmailRequestBuilder_.getMessage();
           }
-          return org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto.getDefaultInstance();
+          return org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.getDefaultInstance();
         }
       }
       /**
-       * <code>.VerifyResetPasswordRequestProto verifyResetPasswordRequest = 8;</code>
+       * <code>.VerifyEmailRequestProto verifyEmailRequest = 8;</code>
        */
-      public Builder setVerifyResetPasswordRequest(org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto value) {
-        if (verifyResetPasswordRequestBuilder_ == null) {
+      public Builder setVerifyEmailRequest(org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto value) {
+        if (verifyEmailRequestBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
           body_ = value;
           onChanged();
         } else {
-          verifyResetPasswordRequestBuilder_.setMessage(value);
+          verifyEmailRequestBuilder_.setMessage(value);
         }
         bodyCase_ = 8;
         return this;
       }
       /**
-       * <code>.VerifyResetPasswordRequestProto verifyResetPasswordRequest = 8;</code>
+       * <code>.VerifyEmailRequestProto verifyEmailRequest = 8;</code>
        */
-      public Builder setVerifyResetPasswordRequest(
-          org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto.Builder builderForValue) {
-        if (verifyResetPasswordRequestBuilder_ == null) {
+      public Builder setVerifyEmailRequest(
+          org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.Builder builderForValue) {
+        if (verifyEmailRequestBuilder_ == null) {
           body_ = builderForValue.build();
           onChanged();
         } else {
-          verifyResetPasswordRequestBuilder_.setMessage(builderForValue.build());
+          verifyEmailRequestBuilder_.setMessage(builderForValue.build());
         }
         bodyCase_ = 8;
         return this;
       }
       /**
-       * <code>.VerifyResetPasswordRequestProto verifyResetPasswordRequest = 8;</code>
+       * <code>.VerifyEmailRequestProto verifyEmailRequest = 8;</code>
        */
-      public Builder mergeVerifyResetPasswordRequest(org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto value) {
-        if (verifyResetPasswordRequestBuilder_ == null) {
+      public Builder mergeVerifyEmailRequest(org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto value) {
+        if (verifyEmailRequestBuilder_ == null) {
           if (bodyCase_ == 8 &&
-              body_ != org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto.getDefaultInstance()) {
-            body_ = org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto.newBuilder((org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto) body_)
+              body_ != org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.getDefaultInstance()) {
+            body_ = org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.newBuilder((org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto) body_)
                 .mergeFrom(value).buildPartial();
           } else {
             body_ = value;
@@ -2144,18 +2144,18 @@ public final class Auth_pb {
           onChanged();
         } else {
           if (bodyCase_ == 8) {
-            verifyResetPasswordRequestBuilder_.mergeFrom(value);
+            verifyEmailRequestBuilder_.mergeFrom(value);
           }
-          verifyResetPasswordRequestBuilder_.setMessage(value);
+          verifyEmailRequestBuilder_.setMessage(value);
         }
         bodyCase_ = 8;
         return this;
       }
       /**
-       * <code>.VerifyResetPasswordRequestProto verifyResetPasswordRequest = 8;</code>
+       * <code>.VerifyEmailRequestProto verifyEmailRequest = 8;</code>
        */
-      public Builder clearVerifyResetPasswordRequest() {
-        if (verifyResetPasswordRequestBuilder_ == null) {
+      public Builder clearVerifyEmailRequest() {
+        if (verifyEmailRequestBuilder_ == null) {
           if (bodyCase_ == 8) {
             bodyCase_ = 0;
             body_ = null;
@@ -2166,118 +2166,118 @@ public final class Auth_pb {
             bodyCase_ = 0;
             body_ = null;
           }
-          verifyResetPasswordRequestBuilder_.clear();
+          verifyEmailRequestBuilder_.clear();
         }
         return this;
       }
       /**
-       * <code>.VerifyResetPasswordRequestProto verifyResetPasswordRequest = 8;</code>
+       * <code>.VerifyEmailRequestProto verifyEmailRequest = 8;</code>
        */
-      public org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto.Builder getVerifyResetPasswordRequestBuilder() {
-        return getVerifyResetPasswordRequestFieldBuilder().getBuilder();
+      public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.Builder getVerifyEmailRequestBuilder() {
+        return getVerifyEmailRequestFieldBuilder().getBuilder();
       }
       /**
-       * <code>.VerifyResetPasswordRequestProto verifyResetPasswordRequest = 8;</code>
+       * <code>.VerifyEmailRequestProto verifyEmailRequest = 8;</code>
        */
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProtoOrBuilder getVerifyResetPasswordRequestOrBuilder() {
-        if ((bodyCase_ == 8) && (verifyResetPasswordRequestBuilder_ != null)) {
-          return verifyResetPasswordRequestBuilder_.getMessageOrBuilder();
+      public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProtoOrBuilder getVerifyEmailRequestOrBuilder() {
+        if ((bodyCase_ == 8) && (verifyEmailRequestBuilder_ != null)) {
+          return verifyEmailRequestBuilder_.getMessageOrBuilder();
         } else {
           if (bodyCase_ == 8) {
-            return (org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto) body_;
+            return (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto) body_;
           }
-          return org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto.getDefaultInstance();
+          return org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.getDefaultInstance();
         }
       }
       /**
-       * <code>.VerifyResetPasswordRequestProto verifyResetPasswordRequest = 8;</code>
+       * <code>.VerifyEmailRequestProto verifyEmailRequest = 8;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto, org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto.Builder, org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProtoOrBuilder> 
-          getVerifyResetPasswordRequestFieldBuilder() {
-        if (verifyResetPasswordRequestBuilder_ == null) {
+          org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.Builder, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProtoOrBuilder> 
+          getVerifyEmailRequestFieldBuilder() {
+        if (verifyEmailRequestBuilder_ == null) {
           if (!(bodyCase_ == 8)) {
-            body_ = org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto.getDefaultInstance();
+            body_ = org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.getDefaultInstance();
           }
-          verifyResetPasswordRequestBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto, org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto.Builder, org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProtoOrBuilder>(
-                  (org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto) body_,
+          verifyEmailRequestBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.Builder, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProtoOrBuilder>(
+                  (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto) body_,
                   getParentForChildren(),
                   isClean());
           body_ = null;
         }
         bodyCase_ = 8;
         onChanged();;
-        return verifyResetPasswordRequestBuilder_;
+        return verifyEmailRequestBuilder_;
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto, org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto.Builder, org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProtoOrBuilder> verifyResetPasswordReplyBuilder_;
+          org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.Builder, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProtoOrBuilder> verifyEmailReplyBuilder_;
       /**
-       * <code>.VerifyResetPasswordReplyProto verifyResetPasswordReply = 9;</code>
-       * @return Whether the verifyResetPasswordReply field is set.
+       * <code>.VerifyEmailReplyProto verifyEmailReply = 9;</code>
+       * @return Whether the verifyEmailReply field is set.
        */
       @java.lang.Override
-      public boolean hasVerifyResetPasswordReply() {
+      public boolean hasVerifyEmailReply() {
         return bodyCase_ == 9;
       }
       /**
-       * <code>.VerifyResetPasswordReplyProto verifyResetPasswordReply = 9;</code>
-       * @return The verifyResetPasswordReply.
+       * <code>.VerifyEmailReplyProto verifyEmailReply = 9;</code>
+       * @return The verifyEmailReply.
        */
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto getVerifyResetPasswordReply() {
-        if (verifyResetPasswordReplyBuilder_ == null) {
+      public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto getVerifyEmailReply() {
+        if (verifyEmailReplyBuilder_ == null) {
           if (bodyCase_ == 9) {
-            return (org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto) body_;
+            return (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto) body_;
           }
-          return org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto.getDefaultInstance();
+          return org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.getDefaultInstance();
         } else {
           if (bodyCase_ == 9) {
-            return verifyResetPasswordReplyBuilder_.getMessage();
+            return verifyEmailReplyBuilder_.getMessage();
           }
-          return org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto.getDefaultInstance();
+          return org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.getDefaultInstance();
         }
       }
       /**
-       * <code>.VerifyResetPasswordReplyProto verifyResetPasswordReply = 9;</code>
+       * <code>.VerifyEmailReplyProto verifyEmailReply = 9;</code>
        */
-      public Builder setVerifyResetPasswordReply(org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto value) {
-        if (verifyResetPasswordReplyBuilder_ == null) {
+      public Builder setVerifyEmailReply(org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto value) {
+        if (verifyEmailReplyBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
           body_ = value;
           onChanged();
         } else {
-          verifyResetPasswordReplyBuilder_.setMessage(value);
+          verifyEmailReplyBuilder_.setMessage(value);
         }
         bodyCase_ = 9;
         return this;
       }
       /**
-       * <code>.VerifyResetPasswordReplyProto verifyResetPasswordReply = 9;</code>
+       * <code>.VerifyEmailReplyProto verifyEmailReply = 9;</code>
        */
-      public Builder setVerifyResetPasswordReply(
-          org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto.Builder builderForValue) {
-        if (verifyResetPasswordReplyBuilder_ == null) {
+      public Builder setVerifyEmailReply(
+          org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.Builder builderForValue) {
+        if (verifyEmailReplyBuilder_ == null) {
           body_ = builderForValue.build();
           onChanged();
         } else {
-          verifyResetPasswordReplyBuilder_.setMessage(builderForValue.build());
+          verifyEmailReplyBuilder_.setMessage(builderForValue.build());
         }
         bodyCase_ = 9;
         return this;
       }
       /**
-       * <code>.VerifyResetPasswordReplyProto verifyResetPasswordReply = 9;</code>
+       * <code>.VerifyEmailReplyProto verifyEmailReply = 9;</code>
        */
-      public Builder mergeVerifyResetPasswordReply(org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto value) {
-        if (verifyResetPasswordReplyBuilder_ == null) {
+      public Builder mergeVerifyEmailReply(org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto value) {
+        if (verifyEmailReplyBuilder_ == null) {
           if (bodyCase_ == 9 &&
-              body_ != org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto.getDefaultInstance()) {
-            body_ = org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto.newBuilder((org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto) body_)
+              body_ != org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.getDefaultInstance()) {
+            body_ = org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.newBuilder((org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto) body_)
                 .mergeFrom(value).buildPartial();
           } else {
             body_ = value;
@@ -2285,18 +2285,18 @@ public final class Auth_pb {
           onChanged();
         } else {
           if (bodyCase_ == 9) {
-            verifyResetPasswordReplyBuilder_.mergeFrom(value);
+            verifyEmailReplyBuilder_.mergeFrom(value);
           }
-          verifyResetPasswordReplyBuilder_.setMessage(value);
+          verifyEmailReplyBuilder_.setMessage(value);
         }
         bodyCase_ = 9;
         return this;
       }
       /**
-       * <code>.VerifyResetPasswordReplyProto verifyResetPasswordReply = 9;</code>
+       * <code>.VerifyEmailReplyProto verifyEmailReply = 9;</code>
        */
-      public Builder clearVerifyResetPasswordReply() {
-        if (verifyResetPasswordReplyBuilder_ == null) {
+      public Builder clearVerifyEmailReply() {
+        if (verifyEmailReplyBuilder_ == null) {
           if (bodyCase_ == 9) {
             bodyCase_ = 0;
             body_ = null;
@@ -2307,50 +2307,50 @@ public final class Auth_pb {
             bodyCase_ = 0;
             body_ = null;
           }
-          verifyResetPasswordReplyBuilder_.clear();
+          verifyEmailReplyBuilder_.clear();
         }
         return this;
       }
       /**
-       * <code>.VerifyResetPasswordReplyProto verifyResetPasswordReply = 9;</code>
+       * <code>.VerifyEmailReplyProto verifyEmailReply = 9;</code>
        */
-      public org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto.Builder getVerifyResetPasswordReplyBuilder() {
-        return getVerifyResetPasswordReplyFieldBuilder().getBuilder();
+      public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.Builder getVerifyEmailReplyBuilder() {
+        return getVerifyEmailReplyFieldBuilder().getBuilder();
       }
       /**
-       * <code>.VerifyResetPasswordReplyProto verifyResetPasswordReply = 9;</code>
+       * <code>.VerifyEmailReplyProto verifyEmailReply = 9;</code>
        */
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProtoOrBuilder getVerifyResetPasswordReplyOrBuilder() {
-        if ((bodyCase_ == 9) && (verifyResetPasswordReplyBuilder_ != null)) {
-          return verifyResetPasswordReplyBuilder_.getMessageOrBuilder();
+      public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProtoOrBuilder getVerifyEmailReplyOrBuilder() {
+        if ((bodyCase_ == 9) && (verifyEmailReplyBuilder_ != null)) {
+          return verifyEmailReplyBuilder_.getMessageOrBuilder();
         } else {
           if (bodyCase_ == 9) {
-            return (org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto) body_;
+            return (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto) body_;
           }
-          return org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto.getDefaultInstance();
+          return org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.getDefaultInstance();
         }
       }
       /**
-       * <code>.VerifyResetPasswordReplyProto verifyResetPasswordReply = 9;</code>
+       * <code>.VerifyEmailReplyProto verifyEmailReply = 9;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto, org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto.Builder, org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProtoOrBuilder> 
-          getVerifyResetPasswordReplyFieldBuilder() {
-        if (verifyResetPasswordReplyBuilder_ == null) {
+          org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.Builder, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProtoOrBuilder> 
+          getVerifyEmailReplyFieldBuilder() {
+        if (verifyEmailReplyBuilder_ == null) {
           if (!(bodyCase_ == 9)) {
-            body_ = org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto.getDefaultInstance();
+            body_ = org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.getDefaultInstance();
           }
-          verifyResetPasswordReplyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto, org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto.Builder, org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProtoOrBuilder>(
-                  (org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto) body_,
+          verifyEmailReplyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.Builder, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProtoOrBuilder>(
+                  (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto) body_,
                   getParentForChildren(),
                   isClean());
           body_ = null;
         }
         bodyCase_ = 9;
         onChanged();;
-        return verifyResetPasswordReplyBuilder_;
+        return verifyEmailReplyBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -6259,8 +6259,8 @@ public final class Auth_pb {
 
   }
 
-  public interface VerifyResetPasswordRequestProtoOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:VerifyResetPasswordRequestProto)
+  public interface VerifyEmailRequestProtoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:VerifyEmailRequestProto)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -6276,18 +6276,18 @@ public final class Auth_pb {
         getCodeBytes();
   }
   /**
-   * Protobuf type {@code VerifyResetPasswordRequestProto}
+   * Protobuf type {@code VerifyEmailRequestProto}
    */
-  public static final class VerifyResetPasswordRequestProto extends
+  public static final class VerifyEmailRequestProto extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:VerifyResetPasswordRequestProto)
-      VerifyResetPasswordRequestProtoOrBuilder {
+      // @@protoc_insertion_point(message_implements:VerifyEmailRequestProto)
+      VerifyEmailRequestProtoOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use VerifyResetPasswordRequestProto.newBuilder() to construct.
-    private VerifyResetPasswordRequestProto(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use VerifyEmailRequestProto.newBuilder() to construct.
+    private VerifyEmailRequestProto(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private VerifyResetPasswordRequestProto() {
+    private VerifyEmailRequestProto() {
       code_ = "";
     }
 
@@ -6295,7 +6295,7 @@ public final class Auth_pb {
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new VerifyResetPasswordRequestProto();
+      return new VerifyEmailRequestProto();
     }
 
     @java.lang.Override
@@ -6303,7 +6303,7 @@ public final class Auth_pb {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private VerifyResetPasswordRequestProto(
+    private VerifyEmailRequestProto(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -6348,15 +6348,15 @@ public final class Auth_pb {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return org.foomaa.jvchat.messages.Auth_pb.internal_static_VerifyResetPasswordRequestProto_descriptor;
+      return org.foomaa.jvchat.messages.Auth_pb.internal_static_VerifyEmailRequestProto_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return org.foomaa.jvchat.messages.Auth_pb.internal_static_VerifyResetPasswordRequestProto_fieldAccessorTable
+      return org.foomaa.jvchat.messages.Auth_pb.internal_static_VerifyEmailRequestProto_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto.class, org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto.Builder.class);
+              org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.class, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.Builder.class);
     }
 
     public static final int CODE_FIELD_NUMBER = 1;
@@ -6436,10 +6436,10 @@ public final class Auth_pb {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto)) {
+      if (!(obj instanceof org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto)) {
         return super.equals(obj);
       }
-      org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto other = (org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto) obj;
+      org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto other = (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto) obj;
 
       if (!getCode()
           .equals(other.getCode())) return false;
@@ -6461,69 +6461,69 @@ public final class Auth_pb {
       return hash;
     }
 
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto parseFrom(
+    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto parseFrom(
+    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto parseFrom(
+    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto parseFrom(
+    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto parseFrom(byte[] data)
+    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto parseFrom(
+    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto parseFrom(java.io.InputStream input)
+    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto parseFrom(
+    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto parseDelimitedFrom(java.io.InputStream input)
+    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto parseDelimitedFrom(
+    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto parseFrom(
+    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto parseFrom(
+    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -6536,7 +6536,7 @@ public final class Auth_pb {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto prototype) {
+    public static Builder newBuilder(org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -6552,26 +6552,26 @@ public final class Auth_pb {
       return builder;
     }
     /**
-     * Protobuf type {@code VerifyResetPasswordRequestProto}
+     * Protobuf type {@code VerifyEmailRequestProto}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:VerifyResetPasswordRequestProto)
-        org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProtoOrBuilder {
+        // @@protoc_insertion_point(builder_implements:VerifyEmailRequestProto)
+        org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProtoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_VerifyResetPasswordRequestProto_descriptor;
+        return org.foomaa.jvchat.messages.Auth_pb.internal_static_VerifyEmailRequestProto_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_VerifyResetPasswordRequestProto_fieldAccessorTable
+        return org.foomaa.jvchat.messages.Auth_pb.internal_static_VerifyEmailRequestProto_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto.class, org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto.Builder.class);
+                org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.class, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.Builder.class);
       }
 
-      // Construct using org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto.newBuilder()
+      // Construct using org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -6597,17 +6597,17 @@ public final class Auth_pb {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_VerifyResetPasswordRequestProto_descriptor;
+        return org.foomaa.jvchat.messages.Auth_pb.internal_static_VerifyEmailRequestProto_descriptor;
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto getDefaultInstanceForType() {
-        return org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto.getDefaultInstance();
+      public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto getDefaultInstanceForType() {
+        return org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.getDefaultInstance();
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto build() {
-        org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto result = buildPartial();
+      public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto build() {
+        org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -6615,8 +6615,8 @@ public final class Auth_pb {
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto buildPartial() {
-        org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto result = new org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto(this);
+      public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto buildPartial() {
+        org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto result = new org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto(this);
         result.code_ = code_;
         onBuilt();
         return result;
@@ -6656,16 +6656,16 @@ public final class Auth_pb {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto) {
-          return mergeFrom((org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto)other);
+        if (other instanceof org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto) {
+          return mergeFrom((org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto other) {
-        if (other == org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto.getDefaultInstance()) return this;
+      public Builder mergeFrom(org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto other) {
+        if (other == org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto.getDefaultInstance()) return this;
         if (!other.getCode().isEmpty()) {
           code_ = other.code_;
           onChanged();
@@ -6685,11 +6685,11 @@ public final class Auth_pb {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto parsedMessage = null;
+        org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto) e.getUnfinishedMessage();
+          parsedMessage = (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -6787,48 +6787,48 @@ public final class Auth_pb {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:VerifyResetPasswordRequestProto)
+      // @@protoc_insertion_point(builder_scope:VerifyEmailRequestProto)
     }
 
-    // @@protoc_insertion_point(class_scope:VerifyResetPasswordRequestProto)
-    private static final org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:VerifyEmailRequestProto)
+    private static final org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto();
+      DEFAULT_INSTANCE = new org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto();
     }
 
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto getDefaultInstance() {
+    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<VerifyResetPasswordRequestProto>
-        PARSER = new com.google.protobuf.AbstractParser<VerifyResetPasswordRequestProto>() {
+    private static final com.google.protobuf.Parser<VerifyEmailRequestProto>
+        PARSER = new com.google.protobuf.AbstractParser<VerifyEmailRequestProto>() {
       @java.lang.Override
-      public VerifyResetPasswordRequestProto parsePartialFrom(
+      public VerifyEmailRequestProto parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new VerifyResetPasswordRequestProto(input, extensionRegistry);
+        return new VerifyEmailRequestProto(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<VerifyResetPasswordRequestProto> parser() {
+    public static com.google.protobuf.Parser<VerifyEmailRequestProto> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<VerifyResetPasswordRequestProto> getParserForType() {
+    public com.google.protobuf.Parser<VerifyEmailRequestProto> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordRequestProto getDefaultInstanceForType() {
+    public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailRequestProto getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface VerifyResetPasswordReplyProtoOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:VerifyResetPasswordReplyProto)
+  public interface VerifyEmailReplyProtoOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:VerifyEmailReplyProto)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -6838,25 +6838,25 @@ public final class Auth_pb {
     boolean getReply();
   }
   /**
-   * Protobuf type {@code VerifyResetPasswordReplyProto}
+   * Protobuf type {@code VerifyEmailReplyProto}
    */
-  public static final class VerifyResetPasswordReplyProto extends
+  public static final class VerifyEmailReplyProto extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:VerifyResetPasswordReplyProto)
-      VerifyResetPasswordReplyProtoOrBuilder {
+      // @@protoc_insertion_point(message_implements:VerifyEmailReplyProto)
+      VerifyEmailReplyProtoOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use VerifyResetPasswordReplyProto.newBuilder() to construct.
-    private VerifyResetPasswordReplyProto(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use VerifyEmailReplyProto.newBuilder() to construct.
+    private VerifyEmailReplyProto(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private VerifyResetPasswordReplyProto() {
+    private VerifyEmailReplyProto() {
     }
 
     @java.lang.Override
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new VerifyResetPasswordReplyProto();
+      return new VerifyEmailReplyProto();
     }
 
     @java.lang.Override
@@ -6864,7 +6864,7 @@ public final class Auth_pb {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private VerifyResetPasswordReplyProto(
+    private VerifyEmailReplyProto(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -6908,15 +6908,15 @@ public final class Auth_pb {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return org.foomaa.jvchat.messages.Auth_pb.internal_static_VerifyResetPasswordReplyProto_descriptor;
+      return org.foomaa.jvchat.messages.Auth_pb.internal_static_VerifyEmailReplyProto_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return org.foomaa.jvchat.messages.Auth_pb.internal_static_VerifyResetPasswordReplyProto_fieldAccessorTable
+      return org.foomaa.jvchat.messages.Auth_pb.internal_static_VerifyEmailReplyProto_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto.class, org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto.Builder.class);
+              org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.class, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.Builder.class);
     }
 
     public static final int REPLY_FIELD_NUMBER = 1;
@@ -6970,10 +6970,10 @@ public final class Auth_pb {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto)) {
+      if (!(obj instanceof org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto)) {
         return super.equals(obj);
       }
-      org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto other = (org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto) obj;
+      org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto other = (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto) obj;
 
       if (getReply()
           != other.getReply()) return false;
@@ -6996,69 +6996,69 @@ public final class Auth_pb {
       return hash;
     }
 
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto parseFrom(
+    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto parseFrom(
+    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto parseFrom(
+    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto parseFrom(
+    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto parseFrom(byte[] data)
+    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto parseFrom(
+    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto parseFrom(java.io.InputStream input)
+    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto parseFrom(
+    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto parseDelimitedFrom(java.io.InputStream input)
+    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto parseDelimitedFrom(
+    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto parseFrom(
+    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto parseFrom(
+    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -7071,7 +7071,7 @@ public final class Auth_pb {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto prototype) {
+    public static Builder newBuilder(org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -7087,26 +7087,26 @@ public final class Auth_pb {
       return builder;
     }
     /**
-     * Protobuf type {@code VerifyResetPasswordReplyProto}
+     * Protobuf type {@code VerifyEmailReplyProto}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:VerifyResetPasswordReplyProto)
-        org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProtoOrBuilder {
+        // @@protoc_insertion_point(builder_implements:VerifyEmailReplyProto)
+        org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProtoOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_VerifyResetPasswordReplyProto_descriptor;
+        return org.foomaa.jvchat.messages.Auth_pb.internal_static_VerifyEmailReplyProto_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_VerifyResetPasswordReplyProto_fieldAccessorTable
+        return org.foomaa.jvchat.messages.Auth_pb.internal_static_VerifyEmailReplyProto_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto.class, org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto.Builder.class);
+                org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.class, org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.Builder.class);
       }
 
-      // Construct using org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto.newBuilder()
+      // Construct using org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -7132,17 +7132,17 @@ public final class Auth_pb {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return org.foomaa.jvchat.messages.Auth_pb.internal_static_VerifyResetPasswordReplyProto_descriptor;
+        return org.foomaa.jvchat.messages.Auth_pb.internal_static_VerifyEmailReplyProto_descriptor;
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto getDefaultInstanceForType() {
-        return org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto.getDefaultInstance();
+      public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto getDefaultInstanceForType() {
+        return org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.getDefaultInstance();
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto build() {
-        org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto result = buildPartial();
+      public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto build() {
+        org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -7150,8 +7150,8 @@ public final class Auth_pb {
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto buildPartial() {
-        org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto result = new org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto(this);
+      public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto buildPartial() {
+        org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto result = new org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto(this);
         result.reply_ = reply_;
         onBuilt();
         return result;
@@ -7191,16 +7191,16 @@ public final class Auth_pb {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto) {
-          return mergeFrom((org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto)other);
+        if (other instanceof org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto) {
+          return mergeFrom((org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto other) {
-        if (other == org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto.getDefaultInstance()) return this;
+      public Builder mergeFrom(org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto other) {
+        if (other == org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto.getDefaultInstance()) return this;
         if (other.getReply() != false) {
           setReply(other.getReply());
         }
@@ -7219,11 +7219,11 @@ public final class Auth_pb {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto parsedMessage = null;
+        org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto) e.getUnfinishedMessage();
+          parsedMessage = (org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -7276,41 +7276,41 @@ public final class Auth_pb {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:VerifyResetPasswordReplyProto)
+      // @@protoc_insertion_point(builder_scope:VerifyEmailReplyProto)
     }
 
-    // @@protoc_insertion_point(class_scope:VerifyResetPasswordReplyProto)
-    private static final org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:VerifyEmailReplyProto)
+    private static final org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto();
+      DEFAULT_INSTANCE = new org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto();
     }
 
-    public static org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto getDefaultInstance() {
+    public static org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<VerifyResetPasswordReplyProto>
-        PARSER = new com.google.protobuf.AbstractParser<VerifyResetPasswordReplyProto>() {
+    private static final com.google.protobuf.Parser<VerifyEmailReplyProto>
+        PARSER = new com.google.protobuf.AbstractParser<VerifyEmailReplyProto>() {
       @java.lang.Override
-      public VerifyResetPasswordReplyProto parsePartialFrom(
+      public VerifyEmailReplyProto parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new VerifyResetPasswordReplyProto(input, extensionRegistry);
+        return new VerifyEmailReplyProto(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<VerifyResetPasswordReplyProto> parser() {
+    public static com.google.protobuf.Parser<VerifyEmailReplyProto> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<VerifyResetPasswordReplyProto> getParserForType() {
+    public com.google.protobuf.Parser<VerifyEmailReplyProto> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public org.foomaa.jvchat.messages.Auth_pb.VerifyResetPasswordReplyProto getDefaultInstanceForType() {
+    public org.foomaa.jvchat.messages.Auth_pb.VerifyEmailReplyProto getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -7352,15 +7352,15 @@ public final class Auth_pb {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_ResetPasswordReplyProto_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_VerifyResetPasswordRequestProto_descriptor;
+    internal_static_VerifyEmailRequestProto_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_VerifyResetPasswordRequestProto_fieldAccessorTable;
+      internal_static_VerifyEmailRequestProto_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_VerifyResetPasswordReplyProto_descriptor;
+    internal_static_VerifyEmailReplyProto_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_VerifyResetPasswordReplyProto_fieldAccessorTable;
+      internal_static_VerifyEmailReplyProto_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -7370,7 +7370,7 @@ public final class Auth_pb {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\rauth_pb.proto\"\354\003\n\020GeneralAuthProto\022\014\n\004" +
+      "\n\rauth_pb.proto\"\314\003\n\020GeneralAuthProto\022\014\n\004" +
       "type\030\001 \001(\r\022*\n\014entryRequest\030\002 \001(\0132\022.Entry" +
       "RequestProtoH\000\022&\n\nentryReply\030\003 \001(\0132\020.Ent" +
       "ryReplyProtoH\000\0228\n\023registrationRequest\030\004 " +
@@ -7379,24 +7379,23 @@ public final class Auth_pb {
       "rotoH\000\022:\n\024resetPasswordRequest\030\006 \001(\0132\032.R" +
       "esetPasswordRequestProtoH\000\0226\n\022resetPassw" +
       "ordReply\030\007 \001(\0132\030.ResetPasswordReplyProto" +
-      "H\000\022F\n\032verifyResetPasswordRequest\030\010 \001(\0132 " +
-      ".VerifyResetPasswordRequestProtoH\000\022B\n\030ve" +
-      "rifyResetPasswordReply\030\t \001(\0132\036.VerifyRes" +
-      "etPasswordReplyProtoH\000B\006\n\004body\"4\n\021EntryR" +
-      "equestProto\022\r\n\005login\030\001 \001(\t\022\020\n\010password\030\002" +
-      " \001(\t\" \n\017EntryReplyProto\022\r\n\005reply\030\001 \001(\010\"J" +
-      "\n\030RegistrationRequestProto\022\r\n\005login\030\001 \001(" +
-      "\t\022\r\n\005email\030\002 \001(\t\022\020\n\010password\030\003 \001(\t\"\225\001\n\026R" +
-      "egistrationReplyProto\022\r\n\005reply\030\001 \001(\010\022,\n\005" +
-      "error\030\002 \001(\0162\035.RegistrationReplyProto.Err" +
-      "or\">\n\005Error\022\t\n\005Login\020\000\022\t\n\005Email\020\001\022\021\n\rLog" +
-      "inAndEmail\020\002\022\014\n\007NoError\020\217N\"*\n\031ResetPassw" +
-      "ordRequestProto\022\r\n\005email\030\001 \001(\t\"(\n\027ResetP" +
-      "asswordReplyProto\022\r\n\005reply\030\001 \001(\010\"/\n\037Veri" +
-      "fyResetPasswordRequestProto\022\014\n\004code\030\001 \001(" +
-      "\t\".\n\035VerifyResetPasswordReplyProto\022\r\n\005re" +
-      "ply\030\001 \001(\010B%\n\032org.foomaa.jvchat.messagesB" +
-      "\007Auth_pbb\006proto3"
+      "H\000\0226\n\022verifyEmailRequest\030\010 \001(\0132\030.VerifyE" +
+      "mailRequestProtoH\000\0222\n\020verifyEmailReply\030\t" +
+      " \001(\0132\026.VerifyEmailReplyProtoH\000B\006\n\004body\"4" +
+      "\n\021EntryRequestProto\022\r\n\005login\030\001 \001(\t\022\020\n\010pa" +
+      "ssword\030\002 \001(\t\" \n\017EntryReplyProto\022\r\n\005reply" +
+      "\030\001 \001(\010\"J\n\030RegistrationRequestProto\022\r\n\005lo" +
+      "gin\030\001 \001(\t\022\r\n\005email\030\002 \001(\t\022\020\n\010password\030\003 \001" +
+      "(\t\"\225\001\n\026RegistrationReplyProto\022\r\n\005reply\030\001" +
+      " \001(\010\022,\n\005error\030\002 \001(\0162\035.RegistrationReplyP" +
+      "roto.Error\">\n\005Error\022\t\n\005Login\020\000\022\t\n\005Email\020" +
+      "\001\022\021\n\rLoginAndEmail\020\002\022\014\n\007NoError\020\217N\"*\n\031Re" +
+      "setPasswordRequestProto\022\r\n\005email\030\001 \001(\t\"(" +
+      "\n\027ResetPasswordReplyProto\022\r\n\005reply\030\001 \001(\010" +
+      "\"\'\n\027VerifyEmailRequestProto\022\014\n\004code\030\001 \001(" +
+      "\t\"&\n\025VerifyEmailReplyProto\022\r\n\005reply\030\001 \001(" +
+      "\010B%\n\032org.foomaa.jvchat.messagesB\007Auth_pb" +
+      "b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -7407,7 +7406,7 @@ public final class Auth_pb {
     internal_static_GeneralAuthProto_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_GeneralAuthProto_descriptor,
-        new java.lang.String[] { "Type", "EntryRequest", "EntryReply", "RegistrationRequest", "RegistrationReply", "ResetPasswordRequest", "ResetPasswordReply", "VerifyResetPasswordRequest", "VerifyResetPasswordReply", "Body", });
+        new java.lang.String[] { "Type", "EntryRequest", "EntryReply", "RegistrationRequest", "RegistrationReply", "ResetPasswordRequest", "ResetPasswordReply", "VerifyEmailRequest", "VerifyEmailReply", "Body", });
     internal_static_EntryRequestProto_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_EntryRequestProto_fieldAccessorTable = new
@@ -7444,17 +7443,17 @@ public final class Auth_pb {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ResetPasswordReplyProto_descriptor,
         new java.lang.String[] { "Reply", });
-    internal_static_VerifyResetPasswordRequestProto_descriptor =
+    internal_static_VerifyEmailRequestProto_descriptor =
       getDescriptor().getMessageTypes().get(7);
-    internal_static_VerifyResetPasswordRequestProto_fieldAccessorTable = new
+    internal_static_VerifyEmailRequestProto_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_VerifyResetPasswordRequestProto_descriptor,
+        internal_static_VerifyEmailRequestProto_descriptor,
         new java.lang.String[] { "Code", });
-    internal_static_VerifyResetPasswordReplyProto_descriptor =
+    internal_static_VerifyEmailReplyProto_descriptor =
       getDescriptor().getMessageTypes().get(8);
-    internal_static_VerifyResetPasswordReplyProto_fieldAccessorTable = new
+    internal_static_VerifyEmailReplyProto_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_VerifyResetPasswordReplyProto_descriptor,
+        internal_static_VerifyEmailReplyProto_descriptor,
         new java.lang.String[] { "Reply", });
   }
 

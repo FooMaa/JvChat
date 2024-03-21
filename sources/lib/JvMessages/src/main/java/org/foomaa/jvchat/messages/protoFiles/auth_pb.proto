@@ -12,8 +12,8 @@ message GeneralAuthProto {
         RegistrationReplyProto registrationReply = 5;
         ResetPasswordRequestProto resetPasswordRequest = 6;
         ResetPasswordReplyProto resetPasswordReply = 7;
-        VerifyResetPasswordRequestProto verifyResetPasswordRequest = 8;
-        VerifyResetPasswordReplyProto verifyResetPasswordReply = 9;
+        VerifyEmailRequestProto verifyEmailRequest = 8;
+        VerifyEmailReplyProto verifyEmailReply = 9;
     }
 }
 
