@@ -3,36 +3,36 @@ syntax = "proto3";
 option java_outer_classname = "ClientServerSerializeProtocol_pb";
 option java_package = "org.foomaa.jvchat.messages";
 
-message GeneralAuthProto {
+message General {
     uint32 type = 1;
     oneof body {
-        EntryRequestProto entryRequest = 2;
-        EntryReplyProto entryReply = 3;
-        RegistrationRequestProto registrationRequest = 4;
-        RegistrationReplyProto registrationReply = 5;
-        ResetPasswordRequestProto resetPasswordRequest = 6;
-        ResetPasswordReplyProto resetPasswordReply = 7;
-        VerifyEmailRequestProto verifyEmailRequest = 8;
-        VerifyEmailReplyProto verifyEmailReply = 9;
+        EntryRequest entryRequest = 2;
+        EntryReply entryReply = 3;
+        RegistrationRequest registrationRequest = 4;
+        RegistrationReply registrationReply = 5;
+        ResetPasswordRequest resetPasswordRequest = 6;
+        ResetPasswordReply resetPasswordReply = 7;
+        VerifyEmailRequest verifyEmailRequest = 8;
+        VerifyEmailReply verifyEmailReply = 9;
     }
 }
 
-message EntryRequestProto {
+message EntryRequest {
     string login = 1;
     string password = 2;
 }
 
-message EntryReplyProto {
+message EntryReply {
     bool reply = 1;
 }
 
-message RegistrationRequestProto {
+message RegistrationRequest {
     string login = 1;
     string email = 2;
     string password = 3;
 }
 
-message RegistrationReplyProto {
+message RegistrationReply {
     enum Error {
         Login = 0;
         Email = 1;
@@ -43,18 +43,18 @@ message RegistrationReplyProto {
     Error error = 2;
 }
 
-message ResetPasswordRequestProto {
+message ResetPasswordRequest {
     string email = 1;
 }
 
-message ResetPasswordReplyProto {
+message ResetPasswordReply {
     bool reply = 1;
 }
 
-message VerifyEmailRequestProto {
+message VerifyEmailRequest {
     string code = 1;
 }
 
-message VerifyEmailReplyProto {
+message VerifyEmailReply {
     bool reply = 1;
 }
