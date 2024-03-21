@@ -51,10 +51,10 @@ message ResetPasswordReplyProto {
     bool reply = 1;
 }
 
-message VerifyResetPasswordRequestProto {
+message VerifyEmailRequestProto {
     string code = 1;
 }
 
-message VerifyResetPasswordReplyProto {
+message VerifyEmailReplyProto {
     bool reply = 1;
 }

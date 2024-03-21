@@ -16,7 +16,7 @@ public class JvMessageCtrl {
     private TypeFlags EntryRequestFlag = TypeFlags.DEFAULT;
     private TypeFlags RegistratonRequestFlag = TypeFlags.DEFAULT;
     private TypeFlags ResetPasswordRequestFlag = TypeFlags.DEFAULT;
-    private TypeFlags VerifyResetPasswordRequestFlag = TypeFlags.DEFAULT;
+    private TypeFlags VerifyEmailRequestFlag = TypeFlags.DEFAULT;
     private JvSerializatorData.TypeErrorRegistration errorRegistrationFlag =
             JvSerializatorData.TypeErrorRegistration.NoError;
     // FLAGS
@@ -89,18 +89,18 @@ public class JvMessageCtrl {
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
-            case VerifyResetPasswordRequest -> {
+            case VerifyEmailRequest -> {
                 if (parameters.length == 1) {
                     Object code = parameters[0];
-                    byte[] bodyMessage = createBodyVerifyResetPasswordRequestMessage(type,
+                    byte[] bodyMessage = createBodyVerifyEmailRequestMessage(type,
                             (String) code);
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
-            case VerifyResetPasswordReply -> {
+            case VerifyEmailReply -> {
                 if (parameters.length == 1) {
                     Object reply = parameters[0];
-                    byte[] bodyMessage = createBodyVerifyResetPasswordReplyMessage(type,
+                    byte[] bodyMessage = createBodyVerifyEmailReplyMessage(type,
                             (Boolean) reply);
                     sendReadyMessageNetwork(bodyMessage);
                 }
@@ -118,8 +118,8 @@ public class JvMessageCtrl {
             case RegistrationReply -> workRegistrationReplyMessage(getDeserializeMapData(type, data));
             case ResetPasswordRequest -> workResetPasswordRequestMessage(getDeserializeMapData(type, data));
             case ResetPasswordReply -> workResetPasswordReplyMessage(getDeserializeMapData(type, data));
-            case VerifyResetPasswordRequest -> workVerifyResetPasswordRequestMessage(getDeserializeMapData(type, data));
-            case VerifyResetPasswordReply -> workVerifyResetPasswordReplyMessage(getDeserializeMapData(type, data));
+            case VerifyEmailRequest -> workVerifyEmailRequestMessage(getDeserializeMapData(type, data));
+            case VerifyEmailReply -> workVerifyEmailReplyMessage(getDeserializeMapData(type, data));
         }
     }
 
@@ -156,11 +156,11 @@ public class JvMessageCtrl {
         return JvSerializatorData.serialiseData(type, reply);
     }
 
-    private byte[] createBodyVerifyResetPasswordRequestMessage(JvSerializatorData.TypeMessage type, String code) {
+    private byte[] createBodyVerifyEmailRequestMessage(JvSerializatorData.TypeMessage type, String code) {
         return JvSerializatorData.serialiseData(type, code);
     }
 
-    private byte[] createBodyVerifyResetPasswordReplyMessage(JvSerializatorData.TypeMessage type, Boolean reply) {
+    private byte[] createBodyVerifyEmailReplyMessage(JvSerializatorData.TypeMessage type, Boolean reply) {
         return JvSerializatorData.serialiseData(type, reply);
     }
 
@@ -206,7 +206,7 @@ public class JvMessageCtrl {
 //        sendMessage(JvSerializatorData.TypeMessage.RegistrationReply, requestDB);
     }
 
-    private void workVerifyResetPasswordRequestMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
+    private void workVerifyEmailRequestMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
 //        boolean requestDB = JvDbCtrl.getInstance().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.RegisterForm,
 //                (String) map.get(JvSerializatorData.TypeData.Login),
 //                (String) map.get(JvSerializatorData.TypeData.Email),
@@ -239,11 +239,11 @@ public class JvMessageCtrl {
         }
     }
 
-    private void workVerifyResetPasswordReplyMessage( HashMap<JvSerializatorData.TypeData, ?> map) {
+    private void workVerifyEmailReplyMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
         if ((Boolean) map.get(JvSerializatorData.TypeData.BoolReply)) {
-            VerifyResetPasswordRequestFlag = TypeFlags.TRUE;
+            VerifyEmailRequestFlag = TypeFlags.TRUE;
         } else {
-            VerifyResetPasswordRequestFlag = TypeFlags.FALSE;
+            VerifyEmailRequestFlag = TypeFlags.FALSE;
         }
     }
 

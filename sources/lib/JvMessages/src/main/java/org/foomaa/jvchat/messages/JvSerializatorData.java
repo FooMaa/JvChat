@@ -13,8 +13,8 @@ public class JvSerializatorData {
         RegistrationReply(3),
         ResetPasswordRequest(4),
         ResetPasswordReply(5),
-        VerifyResetPasswordRequest(6),
-        VerifyResetPasswordReply(7);
+        VerifyEmailRequest(6),
+        VerifyEmailReply(7);
 
         private final int value;
 
@@ -124,18 +124,18 @@ public class JvSerializatorData {
                     return new byte[0];
                 }
             }
-            case VerifyResetPasswordRequest -> {
+            case VerifyEmailRequest -> {
                 if (parameters.length == 1) {
                     Object code = parameters[0];
-                    return createVerifyResetPasswordRequestMessage(type, (String) code);
+                    return createVerifyEmailRequestMessage(type, (String) code);
                 } else {
                     return new byte[0];
                 }
             }
-            case VerifyResetPasswordReply -> {
+            case VerifyEmailReply -> {
                 if (parameters.length == 1) {
                     Object reply = parameters[0];
-                    return createVerifyResetPasswordReplyMessage(type, (Boolean) reply);
+                    return createVerifyEmailReplyMessage(type, (Boolean) reply);
                 } else {
                     return new byte[0];
                 }
@@ -152,8 +152,8 @@ public class JvSerializatorData {
             case RegistrationReply -> takeRegistrationReplyMessage(data);
             case ResetPasswordRequest -> takeResetPasswordRequestMessage(data);
             case ResetPasswordReply -> takeResetPasswordReplyMessage(data);
-            case VerifyResetPasswordRequest -> takeVerifyPasswordRequestMessage(data);
-            case VerifyResetPasswordReply -> takeVerifyResetPasswordReplyMessage(data);
+            case VerifyEmailRequest -> takeVerifyEmailRequestMessage(data);
+            case VerifyEmailReply -> takeVerifyEmailReplyMessage(data);
         };
     }
 
@@ -238,7 +238,7 @@ public class JvSerializatorData {
         return resMsg.toByteArray();
     }
 
-    private static byte[] createVerifyResetPasswordRequestMessage(TypeMessage type, String code) {
+    private static byte[] createVerifyEmailRequestMessage(TypeMessage type, String code) {
         Auth_pb.VerifyResetPasswordRequestProto msgVerifyResetPasswordRequest = Auth_pb.VerifyResetPasswordRequestProto.newBuilder()
                 .setCode(code)
                 .build();
@@ -249,7 +249,7 @@ public class JvSerializatorData {
         return resMsg.toByteArray();
     }
 
-    private static byte[] createVerifyResetPasswordReplyMessage(TypeMessage type, boolean reply) {
+    private static byte[] createVerifyEmailReplyMessage(TypeMessage type, boolean reply) {
         Auth_pb.VerifyResetPasswordReplyProto msgVerifyResetPasswordReply = Auth_pb.VerifyResetPasswordReplyProto.newBuilder()
                 .setReply(reply)
                 .build();
@@ -335,7 +335,7 @@ public class JvSerializatorData {
         return result;
     }
 
-    private static HashMap<TypeData, String> takeVerifyPasswordRequestMessage(byte[] data) {
+    private static HashMap<TypeData, String> takeVerifyEmailRequestMessage(byte[] data) {
         HashMap<TypeData, String> result = new HashMap<>();
         try {
             result.put(TypeData.VerifyCode, Auth_pb.GeneralAuthProto.parseFrom(data).
@@ -346,7 +346,7 @@ public class JvSerializatorData {
         return result;
     }
 
-    private static HashMap<TypeData, Boolean> takeVerifyResetPasswordReplyMessage(byte[] data) {
+    private static HashMap<TypeData, Boolean> takeVerifyEmailReplyMessage(byte[] data) {
         HashMap<TypeData, Boolean> result = new HashMap<>();
         try {
             result.put(TypeData.BoolReply, Auth_pb.GeneralAuthProto.parseFrom(data)
