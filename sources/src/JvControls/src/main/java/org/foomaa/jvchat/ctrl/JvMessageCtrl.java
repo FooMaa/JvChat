@@ -159,7 +159,7 @@ public class JvMessageCtrl {
     }
 
     private byte[] createBodyVerifyEmailRequestMessage(JvSerializatorData.TypeMessage type, String email, String code) {
-        return JvSerializatorData.serialiseData(type, code);
+        return JvSerializatorData.serialiseData(type, email, code);
     }
 
     private byte[] createBodyVerifyEmailReplyMessage(JvSerializatorData.TypeMessage type, Boolean reply) {
