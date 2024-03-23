@@ -3,7 +3,6 @@ package org.foomaa.jvchat.uicomponents.auth;
 import org.foomaa.jvchat.ctrl.JvMessageCtrl;
 import org.foomaa.jvchat.messages.JvSerializatorData;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
-import org.foomaa.jvchat.tools.JvTools;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,19 +12,21 @@ import java.util.Objects;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
-public class JvResetPasswordFrame extends JFrame {
+public class JvVerifyCodeFrame extends JFrame {
     private final JPanel panel;
     private final JvAuthLabel tInfo;
-    private final JvAuthTextField tEmail;
+    private final JvAuthTextField tCode;
     private final JvAuthLabel tErrorHelpInfo;
     private final JvAuthButton bSet;
+    private final String email;
 
-    public JvResetPasswordFrame() {
+    public JvVerifyCodeFrame(String post) {
         super("ResetPasswordWindow");
 
+        email = post;
         panel = new JPanel();
-        tInfo = new JvAuthLabel("Введите адрес почты:");
-        tEmail = new JvAuthTextField("Почта");
+        tInfo = new JvAuthLabel("Введите код, отправленный на почту:");
+        tCode = new JvAuthTextField("Код");
         tErrorHelpInfo = new JvAuthLabel("");
         tErrorHelpInfo.settingToError();
         bSet = new JvAuthButton("ОТПРАВИТЬ");
@@ -57,7 +58,7 @@ public class JvResetPasswordFrame extends JFrame {
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(0, insX, JvDisplaySettings.getResizePixel(0.004), insX);
         gbc.gridy = gridyNum;
-        panel.add(tEmail, gbc);
+        panel.add(tCode, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -83,8 +84,8 @@ public class JvResetPasswordFrame extends JFrame {
     private void addListenerToElements() {
         bSet.addActionListener(event -> {
             if (checkFields()) {
-                JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.ResetPasswordRequest,
-                        tEmail.getInputText());
+                JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.VerifyEmailRequest,
+                        tCode.getInputText());
                 waitRepeatServer();
             }
         });
@@ -98,15 +99,15 @@ public class JvResetPasswordFrame extends JFrame {
     }
 
     private boolean checkFields() {
-        tEmail.setNormalBorder();
+        tCode.setNormalBorder();
         tErrorHelpInfo.setText("");
 
         Vector<String> fields = new Vector<>();
 
-        if (Objects.equals(tEmail.getInputText(), "") ||
-                !JvTools.validateInputEmail(tEmail.getInputText())) {
-            tEmail.setErrorBorder();
-            fields.add("\"Почта\"");
+        if (Objects.equals(tCode.getInputText(), "") ||
+                (tCode.getInputText().length() != 6 )) {
+            tCode.setErrorBorder();
+            fields.add("\"Код\"");
         }
 
         StringBuilder concatFields = new StringBuilder();
@@ -116,9 +117,9 @@ public class JvResetPasswordFrame extends JFrame {
             }
             concatFields = new StringBuilder(concatFields.substring(0, concatFields.length() - 2));
             if (fields.size() == 1) {
-                tErrorHelpInfo.setText(String.format("Поле %s должно быть заполнено или исправлено", concatFields));
+                tErrorHelpInfo.setText(String.format("Поле %s должно быть заполнено и содержать отправленный код", concatFields));
             } else {
-                tErrorHelpInfo.setText(String.format("Поля %s должны быть заполнены или исправлены", concatFields));
+                tErrorHelpInfo.setText(String.format("Поля %s должны быть заполнены и содержать отправленный код", concatFields));
             }
             return false;
         }
@@ -143,6 +144,7 @@ public class JvResetPasswordFrame extends JFrame {
     private void closeWindow() {
         setVisible(false);
         dispose();
+        new JvEntryFrame();
     }
 
     private void waitRepeatServer() {
@@ -155,14 +157,14 @@ public class JvResetPasswordFrame extends JFrame {
                 System.out.println("Не удалось ждать");
             }
         }
-        if (JvMessageCtrl.getInstance().getResetPasswordRequestFlag()
+        if (JvMessageCtrl.getInstance().getVerifyEmailRequestFlag()
                 == JvMessageCtrl.TypeFlags.TRUE) {
-            new JvVerifyCodeFrame(tEmail.getInputText());
             closeWindow();
-        } else if (JvMessageCtrl.getInstance().getResetPasswordRequestFlag()
+            System.out.println("Код отправлен");
+        } else if (JvMessageCtrl.getInstance().getVerifyEmailRequestFlag()
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            new JvAuthOptionPane("Данная почта не зарегистрирована.", JvAuthOptionPane.TypeDlg.ERROR);
+            System.out.println("Код не отправлен");
         }
     }
 }

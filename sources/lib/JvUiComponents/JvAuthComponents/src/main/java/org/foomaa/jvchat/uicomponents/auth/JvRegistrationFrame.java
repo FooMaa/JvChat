@@ -210,7 +210,6 @@ public class JvRegistrationFrame extends JFrame {
         if (JvMessageCtrl.getInstance().getRegistrationRequestFlag()
                 == JvMessageCtrl.TypeFlags.TRUE) {
             closeWindow();
-            System.out.println("Регистрация выполнена");
         } else if (JvMessageCtrl.getInstance().getRegistrationRequestFlag()
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
@@ -220,11 +219,11 @@ public class JvRegistrationFrame extends JFrame {
 
     private void openErrorPane() {
         switch (JvMessageCtrl.getInstance().getErrorRegistrationFlag()) {
-            case NoError -> new JvAuthOptionPane("Ошибка не выяснена", JvAuthOptionPane.TypeDlg.ERROR);
-            case Login -> new JvAuthOptionPane("Данный логин уже используется", JvAuthOptionPane.TypeDlg.ERROR);
-            case Email -> new JvAuthOptionPane("Данная почта уже используется", JvAuthOptionPane.TypeDlg.ERROR);
+            case NoError -> new JvAuthOptionPane("Ошибка не выяснена.", JvAuthOptionPane.TypeDlg.ERROR);
+            case Login -> new JvAuthOptionPane("Данный логин уже используется.", JvAuthOptionPane.TypeDlg.ERROR);
+            case Email -> new JvAuthOptionPane("Данная почта уже используется.", JvAuthOptionPane.TypeDlg.ERROR);
             case LoginAndEmail ->
-                    new JvAuthOptionPane("Данные почта и логин уже используются", JvAuthOptionPane.TypeDlg.ERROR);
+                    new JvAuthOptionPane("Данные почта и логин уже используются.", JvAuthOptionPane.TypeDlg.ERROR);
         }
     }
 }
