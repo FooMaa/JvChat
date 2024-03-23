@@ -156,11 +156,11 @@ public class JvResetPasswordFrame extends JFrame {
                 System.out.println("Не удалось ждать");
             }
         }
-        if (JvMessageCtrl.getInstance().getRegistrationRequestFlag()
+        if (JvMessageCtrl.getInstance().getResetPasswordRequestFlag()
                 == JvMessageCtrl.TypeFlags.TRUE) {
             closeWindow();
             System.out.println("Код отправлен");
-        } else if (JvMessageCtrl.getInstance().getRegistrationRequestFlag()
+        } else if (JvMessageCtrl.getInstance().getResetPasswordRequestFlag()
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             System.out.println("Код не отправлен");

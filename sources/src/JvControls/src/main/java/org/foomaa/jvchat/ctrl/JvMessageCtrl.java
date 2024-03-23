@@ -262,4 +262,12 @@ public class JvMessageCtrl {
     public JvSerializatorData.TypeErrorRegistration getErrorRegistrationFlag() {
         return errorRegistrationFlag;
     }
+
+    public TypeFlags getResetPasswordRequestFlag() {
+        return ResetPasswordRequestFlag;
+    }
+
+    public TypeFlags getVerifyEmailRequestFlag() {
+        return VerifyEmailRequestFlag;
+    }
 }
