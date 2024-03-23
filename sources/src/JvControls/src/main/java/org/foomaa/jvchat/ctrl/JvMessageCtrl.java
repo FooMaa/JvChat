@@ -79,6 +79,7 @@ public class JvMessageCtrl {
                     byte[] bodyMessage = createBodyResetPasswordRequestMessage(type,
                             (String) email);
                     sendReadyMessageNetwork(bodyMessage);
+                    ResetPasswordRequestFlag = TypeFlags.DEFAULT;
                 }
             }
             case ResetPasswordReply -> {
