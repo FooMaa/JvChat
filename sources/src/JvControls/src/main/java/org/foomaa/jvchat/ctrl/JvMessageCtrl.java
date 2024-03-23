@@ -91,10 +91,11 @@ public class JvMessageCtrl {
                 }
             }
             case VerifyEmailRequest -> {
-                if (parameters.length == 1) {
-                    Object code = parameters[0];
+                if (parameters.length == 2) {
+                    Object email = parameters[0];
+                    Object code = parameters[1];
                     byte[] bodyMessage = createBodyVerifyEmailRequestMessage(type,
-                            (String) code);
+                            (String) email, (String) code);
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
@@ -157,7 +158,7 @@ public class JvMessageCtrl {
         return JvSerializatorData.serialiseData(type, reply);
     }
 
-    private byte[] createBodyVerifyEmailRequestMessage(JvSerializatorData.TypeMessage type, String code) {
+    private byte[] createBodyVerifyEmailRequestMessage(JvSerializatorData.TypeMessage type, String email, String code) {
         return JvSerializatorData.serialiseData(type, code);
     }
 
@@ -212,11 +213,10 @@ public class JvMessageCtrl {
     }
 
     private void workVerifyEmailRequestMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
-//        boolean requestDB = JvDbCtrl.getInstance().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.RegisterForm,
-//                (String) map.get(JvSerializatorData.TypeData.Login),
-//                (String) map.get(JvSerializatorData.TypeData.Email),
-//                (String) map.get(JvSerializatorData.TypeData.Password));
-//        sendMessage(JvSerializatorData.TypeMessage.RegistrationReply, requestDB);
+        boolean requestDB = JvDbCtrl.getInstance().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.EmailCode,
+                (String) map.get(JvSerializatorData.TypeData.Email),
+                (String) map.get(JvSerializatorData.TypeData.VerifyCode));
+        sendMessage(JvSerializatorData.TypeMessage.VerifyEmailReply, requestDB);
     }
 
     private void workEntryReplyMessage(HashMap<JvSerializatorData.TypeData, ?> map) {

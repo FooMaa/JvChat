@@ -147,3 +147,19 @@ BEGIN
     RETURN true;
 END;
 $BODY$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION chat_schema.verify_email_check_email_code(
+    f_email character varying,
+    f_code character varying
+)
+    RETURNS SETOF chat_schema.verify_email AS
+$BODY$
+DECLARE
+    rv chat_schema.verify_email%rowtype;
+BEGIN
+    SELECT * INTO rv FROM chat_schema.verify_email, chat_schema.auth_users_info WHERE chat_schema.auth_users_info.id = chat_schema.verify_email.id_user AND f_email = chat_schema.auth_users_info.email AND f_code = chat_schema.verify_email.code;
+    IF found THEN
+        RETURN NEXT rv;
+    END IF;
+END;
+$BODY$ LANGUAGE plpgsql;

@@ -40,4 +40,11 @@ public class JvDbDefines {
                 userId,
                 code);
     }
+
+    public static String checkEmailCode(String email, String code) {
+        return String.format(
+                "select * from chat_schema.verify_email_check_email_code('%s', '%s');",
+                email,
+                code);
+    }
 }

@@ -85,7 +85,7 @@ public class JvVerifyCodeFrame extends JFrame {
         bSet.addActionListener(event -> {
             if (checkFields()) {
                 JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.VerifyEmailRequest,
-                        tCode.getInputText());
+                        email, tCode.getInputText());
                 waitRepeatServer();
             }
         });

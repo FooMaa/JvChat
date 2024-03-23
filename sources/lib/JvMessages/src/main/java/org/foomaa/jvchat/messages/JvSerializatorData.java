@@ -138,9 +138,10 @@ public class JvSerializatorData {
                 }
             }
             case VerifyEmailRequest -> {
-                if (parameters.length == 1) {
-                    Object code = parameters[0];
-                    return createVerifyEmailRequestMessage(type, (String) code);
+                if (parameters.length == 2) {
+                    Object email = parameters[0];
+                    Object code = parameters[1];
+                    return createVerifyEmailRequestMessage(type, (String) email, (String) code);
                 } else {
                     return new byte[0];
                 }
@@ -251,8 +252,9 @@ public class JvSerializatorData {
         return resMsg.toByteArray();
     }
 
-    private static byte[] createVerifyEmailRequestMessage(TypeMessage type, String code) {
+    private static byte[] createVerifyEmailRequestMessage(TypeMessage type, String email, String code) {
         ClientServerSerializeProtocol_pb.VerifyEmailRequest msgVerifyEmailRequest = ClientServerSerializeProtocol_pb.VerifyEmailRequest.newBuilder()
+                .setEmail(email)
                 .setCode(code)
                 .build();
         ClientServerSerializeProtocol_pb.General resMsg = ClientServerSerializeProtocol_pb.General.newBuilder()
@@ -351,6 +353,8 @@ public class JvSerializatorData {
     private static HashMap<TypeData, String> takeVerifyEmailRequestMessage(byte[] data) {
         HashMap<TypeData, String> result = new HashMap<>();
         try {
+            result.put(TypeData.Email, ClientServerSerializeProtocol_pb.General.parseFrom(data).
+                    getVerifyEmailRequest().getEmail());
             result.put(TypeData.VerifyCode, ClientServerSerializeProtocol_pb.General.parseFrom(data).
                     getVerifyEmailRequest().getCode());
         } catch (InvalidProtocolBufferException exception) {

@@ -6264,12 +6264,24 @@ public final class ClientServerSerializeProtocol_pb {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>string code = 1;</code>
+     * <code>string email = 1;</code>
+     * @return The email.
+     */
+    java.lang.String getEmail();
+    /**
+     * <code>string email = 1;</code>
+     * @return The bytes for email.
+     */
+    com.google.protobuf.ByteString
+        getEmailBytes();
+
+    /**
+     * <code>string code = 2;</code>
      * @return The code.
      */
     java.lang.String getCode();
     /**
-     * <code>string code = 1;</code>
+     * <code>string code = 2;</code>
      * @return The bytes for code.
      */
     com.google.protobuf.ByteString
@@ -6288,6 +6300,7 @@ public final class ClientServerSerializeProtocol_pb {
       super(builder);
     }
     private VerifyEmailRequest() {
+      email_ = "";
       code_ = "";
     }
 
@@ -6322,6 +6335,12 @@ public final class ClientServerSerializeProtocol_pb {
               done = true;
               break;
             case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              email_ = s;
+              break;
+            }
+            case 18: {
               java.lang.String s = input.readStringRequireUtf8();
 
               code_ = s;
@@ -6359,10 +6378,48 @@ public final class ClientServerSerializeProtocol_pb {
               org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.VerifyEmailRequest.class, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.VerifyEmailRequest.Builder.class);
     }
 
-    public static final int CODE_FIELD_NUMBER = 1;
+    public static final int EMAIL_FIELD_NUMBER = 1;
+    private volatile java.lang.Object email_;
+    /**
+     * <code>string email = 1;</code>
+     * @return The email.
+     */
+    @java.lang.Override
+    public java.lang.String getEmail() {
+      java.lang.Object ref = email_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        email_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string email = 1;</code>
+     * @return The bytes for email.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getEmailBytes() {
+      java.lang.Object ref = email_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        email_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int CODE_FIELD_NUMBER = 2;
     private volatile java.lang.Object code_;
     /**
-     * <code>string code = 1;</code>
+     * <code>string code = 2;</code>
      * @return The code.
      */
     @java.lang.Override
@@ -6379,7 +6436,7 @@ public final class ClientServerSerializeProtocol_pb {
       }
     }
     /**
-     * <code>string code = 1;</code>
+     * <code>string code = 2;</code>
      * @return The bytes for code.
      */
     @java.lang.Override
@@ -6411,8 +6468,11 @@ public final class ClientServerSerializeProtocol_pb {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      if (!getEmailBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, email_);
+      }
       if (!getCodeBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, code_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, code_);
       }
       unknownFields.writeTo(output);
     }
@@ -6423,8 +6483,11 @@ public final class ClientServerSerializeProtocol_pb {
       if (size != -1) return size;
 
       size = 0;
+      if (!getEmailBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, email_);
+      }
       if (!getCodeBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, code_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, code_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -6441,6 +6504,8 @@ public final class ClientServerSerializeProtocol_pb {
       }
       org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.VerifyEmailRequest other = (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.VerifyEmailRequest) obj;
 
+      if (!getEmail()
+          .equals(other.getEmail())) return false;
       if (!getCode()
           .equals(other.getCode())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
@@ -6454,6 +6519,8 @@ public final class ClientServerSerializeProtocol_pb {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + EMAIL_FIELD_NUMBER;
+      hash = (53 * hash) + getEmail().hashCode();
       hash = (37 * hash) + CODE_FIELD_NUMBER;
       hash = (53 * hash) + getCode().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
@@ -6589,6 +6656,8 @@ public final class ClientServerSerializeProtocol_pb {
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        email_ = "";
+
         code_ = "";
 
         return this;
@@ -6617,6 +6686,7 @@ public final class ClientServerSerializeProtocol_pb {
       @java.lang.Override
       public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.VerifyEmailRequest buildPartial() {
         org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.VerifyEmailRequest result = new org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.VerifyEmailRequest(this);
+        result.email_ = email_;
         result.code_ = code_;
         onBuilt();
         return result;
@@ -6666,6 +6736,10 @@ public final class ClientServerSerializeProtocol_pb {
 
       public Builder mergeFrom(org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.VerifyEmailRequest other) {
         if (other == org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.VerifyEmailRequest.getDefaultInstance()) return this;
+        if (!other.getEmail().isEmpty()) {
+          email_ = other.email_;
+          onChanged();
+        }
         if (!other.getCode().isEmpty()) {
           code_ = other.code_;
           onChanged();
@@ -6699,9 +6773,85 @@ public final class ClientServerSerializeProtocol_pb {
         return this;
       }
 
+      private java.lang.Object email_ = "";
+      /**
+       * <code>string email = 1;</code>
+       * @return The email.
+       */
+      public java.lang.String getEmail() {
+        java.lang.Object ref = email_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          email_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string email = 1;</code>
+       * @return The bytes for email.
+       */
+      public com.google.protobuf.ByteString
+          getEmailBytes() {
+        java.lang.Object ref = email_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          email_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string email = 1;</code>
+       * @param value The email to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEmail(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        email_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string email = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearEmail() {
+        
+        email_ = getDefaultInstance().getEmail();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string email = 1;</code>
+       * @param value The bytes for email to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEmailBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        email_ = value;
+        onChanged();
+        return this;
+      }
+
       private java.lang.Object code_ = "";
       /**
-       * <code>string code = 1;</code>
+       * <code>string code = 2;</code>
        * @return The code.
        */
       public java.lang.String getCode() {
@@ -6717,7 +6867,7 @@ public final class ClientServerSerializeProtocol_pb {
         }
       }
       /**
-       * <code>string code = 1;</code>
+       * <code>string code = 2;</code>
        * @return The bytes for code.
        */
       public com.google.protobuf.ByteString
@@ -6734,7 +6884,7 @@ public final class ClientServerSerializeProtocol_pb {
         }
       }
       /**
-       * <code>string code = 1;</code>
+       * <code>string code = 2;</code>
        * @param value The code to set.
        * @return This builder for chaining.
        */
@@ -6749,7 +6899,7 @@ public final class ClientServerSerializeProtocol_pb {
         return this;
       }
       /**
-       * <code>string code = 1;</code>
+       * <code>string code = 2;</code>
        * @return This builder for chaining.
        */
       public Builder clearCode() {
@@ -6759,7 +6909,7 @@ public final class ClientServerSerializeProtocol_pb {
         return this;
       }
       /**
-       * <code>string code = 1;</code>
+       * <code>string code = 2;</code>
        * @param value The bytes for code to set.
        * @return This builder for chaining.
        */
@@ -7390,11 +7540,11 @@ public final class ClientServerSerializeProtocol_pb {
       "r\">\n\005Error\022\t\n\005Login\020\000\022\t\n\005Email\020\001\022\021\n\rLogi" +
       "nAndEmail\020\002\022\014\n\007NoError\020\217N\"%\n\024ResetPasswo" +
       "rdRequest\022\r\n\005email\030\001 \001(\t\"#\n\022ResetPasswor" +
-      "dReply\022\r\n\005reply\030\001 \001(\010\"\"\n\022VerifyEmailRequ" +
-      "est\022\014\n\004code\030\001 \001(\t\"!\n\020VerifyEmailReply\022\r\n" +
-      "\005reply\030\001 \001(\010B>\n\032org.foomaa.jvchat.messag" +
-      "esB ClientServerSerializeProtocol_pbb\006pr" +
-      "oto3"
+      "dReply\022\r\n\005reply\030\001 \001(\010\"1\n\022VerifyEmailRequ" +
+      "est\022\r\n\005email\030\001 \001(\t\022\014\n\004code\030\002 \001(\t\"!\n\020Veri" +
+      "fyEmailReply\022\r\n\005reply\030\001 \001(\010B>\n\032org.fooma" +
+      "a.jvchat.messagesB ClientServerSerialize" +
+      "Protocol_pbb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -7447,7 +7597,7 @@ public final class ClientServerSerializeProtocol_pb {
     internal_static_VerifyEmailRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_VerifyEmailRequest_descriptor,
-        new java.lang.String[] { "Code", });
+        new java.lang.String[] { "Email", "Code", });
     internal_static_VerifyEmailReply_descriptor =
       getDescriptor().getMessageTypes().get(8);
     internal_static_VerifyEmailReply_fieldAccessorTable = new

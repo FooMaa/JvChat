@@ -19,7 +19,8 @@ public class JvDbCtrl
     public enum TypeExecutionCheck {
         UserPassword,
         Login,
-        Email
+        Email,
+        EmailCode
     }
 
     private JvDbCtrl() {
@@ -101,6 +102,17 @@ public class JvDbCtrl
                 if (parameters.length == 1) {
                     String email = parameters[0];
                     ResultSet rs = db.makeExecution(JvDbDefines.checkEmail(email));
+                    try {
+                        return rs.next();
+                    } catch (SQLException exception) {
+                        System.out.println("Ошибка проверки запроса к БД");
+                    }
+                }
+            case EmailCode:
+                if (parameters.length == 2) {
+                    String email = parameters[0];
+                    String code = parameters[1];
+                    ResultSet rs = db.makeExecution(JvDbDefines.checkEmailCode(email, code));
                     try {
                         return rs.next();
                     } catch (SQLException exception) {
