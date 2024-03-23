@@ -97,6 +97,8 @@ public class JvMessageCtrl {
                     byte[] bodyMessage = createBodyVerifyEmailRequestMessage(type,
                             (String) email, (String) code);
                     sendReadyMessageNetwork(bodyMessage);
+                    VerifyEmailRequestFlag = TypeFlags.DEFAULT;
+
                 }
             }
             case VerifyEmailReply -> {

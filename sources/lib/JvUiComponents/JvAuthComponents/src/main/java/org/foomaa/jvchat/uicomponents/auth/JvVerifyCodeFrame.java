@@ -149,7 +149,7 @@ public class JvVerifyCodeFrame extends JFrame {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (JvMessageCtrl.getInstance().getResetPasswordRequestFlag()
+        while (JvMessageCtrl.getInstance().getVerifyEmailRequestFlag()
                 == JvMessageCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
@@ -164,7 +164,7 @@ public class JvVerifyCodeFrame extends JFrame {
         } else if (JvMessageCtrl.getInstance().getVerifyEmailRequestFlag()
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            System.out.println("Код не верен");
+            new JvAuthOptionPane("Код не верен. Введите код полученный по почте еще раз.", JvAuthOptionPane.TypeDlg.ERROR);
         }
     }
 }
