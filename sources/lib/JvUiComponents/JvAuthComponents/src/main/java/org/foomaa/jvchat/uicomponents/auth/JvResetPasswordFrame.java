@@ -84,7 +84,7 @@ public class JvResetPasswordFrame extends JFrame {
         bSet.addActionListener(event -> {
             if (checkFields()) {
                 JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.ResetPasswordRequest,
-                        tEmail.getInputText(), tEmail.getInputText(), tEmail.getInputText());
+                        tEmail.getInputText());
                 waitRepeatServer();
             }
         });

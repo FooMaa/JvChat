@@ -207,7 +207,7 @@ public class JvMessageCtrl {
             JvEmailCtrl.getInstance().startVerifyEmail(email);
             reply = true;
         }
-        sendMessage(JvSerializatorData.TypeMessage.RegistrationReply, reply);
+        sendMessage(JvSerializatorData.TypeMessage.ResetPasswordReply, reply);
     }
 
     private void workVerifyEmailRequestMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
