@@ -148,7 +148,7 @@ public class JvResetPasswordFrame extends JFrame {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (JvMessageCtrl.getInstance().getRegistrationRequestFlag()
+        while (JvMessageCtrl.getInstance().getResetPasswordRequestFlag()
                 == JvMessageCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
