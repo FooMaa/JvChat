@@ -27,4 +27,17 @@ public class JvDbDefines {
                 "SELECT * FROM chat_schema.auth_users_info_check_email('%s');",
                 email);
     }
+
+    public static String getUserId(String email) {
+        return String.format(
+                "SELECT * FROM chat_schema.auth_users_info_get_id_by_email('%s');",
+                email);
+    }
+
+    public static String insertCodeVerifyEmail(int userId, String code) {
+        return String.format(
+                "SELECT * FROM chat_schema.verify_email_save( %d,'%s');",
+                userId,
+                code);
+    }
 }

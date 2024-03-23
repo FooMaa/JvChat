@@ -1,6 +1,7 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
 import org.foomaa.jvchat.ctrl.JvMessageCtrl;
+import org.foomaa.jvchat.messages.JvSerializatorData;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.tools.JvTools;
 
@@ -82,8 +83,9 @@ public class JvResetPasswordFrame extends JFrame {
     private void addListenerToElements() {
         bSet.addActionListener(event -> {
             if (checkFields()) {
-                System.out.println("Set email");
-//                waitRepeatServer();
+                JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.ResetPasswordRequest,
+                        tEmail.getInputText(), tEmail.getInputText(), tEmail.getInputText());
+                waitRepeatServer();
             }
         });
 
@@ -157,11 +159,11 @@ public class JvResetPasswordFrame extends JFrame {
         if (JvMessageCtrl.getInstance().getRegistrationRequestFlag()
                 == JvMessageCtrl.TypeFlags.TRUE) {
             closeWindow();
-            System.out.println("Регистрация выполнена");
+            System.out.println("Код отправлен");
         } else if (JvMessageCtrl.getInstance().getRegistrationRequestFlag()
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            System.out.println("Регистрация неудачна");
+            System.out.println("Код не отправлен");
         }
     }
 }

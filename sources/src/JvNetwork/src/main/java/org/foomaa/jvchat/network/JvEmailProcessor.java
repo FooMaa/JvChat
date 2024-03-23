@@ -41,18 +41,21 @@ public class JvEmailProcessor {
         return instance;
     }
 
-    public void sendEmail(String msg, String address) throws MessagingException {
+    public void sendEmail(String email, String msg) {
         MimeMessage message = new MimeMessage(session);
+        try {
+            message.setSubject("JvChat message");
+            message.setText(msg);
+            message.setFrom(new InternetAddress(userLogin));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+            message.setSentDate(new Date());
 
-        message.setSubject("JvChat message");
-        message.setText(msg);
-        message.setFrom( new InternetAddress(userLogin));
-        message.addRecipient(Message.RecipientType.TO, new InternetAddress(address));
-        message.setSentDate(new Date());
-
-        Transport transport = session.getTransport();
-        transport.connect(host, port, userLogin, userPassword);
-        transport.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
-        transport.close();
+            Transport transport = session.getTransport();
+            transport.connect(host, port, userLogin, userPassword);
+            transport.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
+            transport.close();
+        } catch (MessagingException exception) {
+            System.out.println("Ошибка при отправке письма");
+        }
     }
 }

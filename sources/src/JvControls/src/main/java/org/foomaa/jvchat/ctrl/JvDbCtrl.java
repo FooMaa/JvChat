@@ -6,13 +6,15 @@ import org.foomaa.jvchat.settings.JvMainSettings;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class JvDbCtrl
 {
     private static JvDbCtrl instance;
     private static JvDbWorker db;
     public enum TypeExecutionInsert {
-        RegisterForm
+        RegisterForm,
+        VerifyEmail
     }
     public enum TypeExecutionCheck {
         UserPassword,
@@ -47,6 +49,25 @@ public class JvDbCtrl
                     } else {
                         return false;
                     }
+                }
+            }
+            case VerifyEmail -> {
+                if (parameters.length == 2) {
+                    String email = parameters[0];
+                    String code = parameters[1];
+                    int userId;
+                    if (checkQueryToDB(TypeExecutionCheck.Email, email)) {
+                        ResultSet resultSet = db.makeExecution(JvDbDefines.getUserId(email));
+                        List<String> result = db.getStrDataAtRow(resultSet, 1);
+                        if (!result.isEmpty()) {
+                            String strTmp = result.stream().findFirst().get();
+                            userId = Integer.parseInt(strTmp);
+                            db.makeExecution(JvDbDefines.insertCodeVerifyEmail(userId, code));
+                            return true;
+                        }
+                        return false;
+                    }
+                    return false;
                 }
             }
         }

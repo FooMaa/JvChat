@@ -199,11 +199,15 @@ public class JvMessageCtrl {
     }
 
     private void workResetPasswordRequestMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
-//        boolean requestDB = JvDbCtrl.getInstance().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.RegisterForm,
-//                (String) map.get(JvSerializatorData.TypeData.Login),
-//                (String) map.get(JvSerializatorData.TypeData.Email),
-//                (String) map.get(JvSerializatorData.TypeData.Password));
-//        sendMessage(JvSerializatorData.TypeMessage.RegistrationReply, requestDB);
+        String email = (String) map.get(JvSerializatorData.TypeData.Email);
+        boolean checkEmail = JvDbCtrl.getInstance().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.Email,
+                email);
+        boolean reply = false;
+        if (checkEmail) {
+            JvEmailCtrl.getInstance().startVerifyEmail(email);
+            reply = true;
+        }
+        sendMessage(JvSerializatorData.TypeMessage.RegistrationReply, reply);
     }
 
     private void workVerifyEmailRequestMessage(HashMap<JvSerializatorData.TypeData, ?> map) {

@@ -116,7 +116,7 @@ $BODY$ LANGUAGE plpgsql;
 -- ----------------------------------------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION chat_schema.verify_email_save (
-    f_id_user       character varying,
+    f_id_user       integer,
     f_code          character varying
 )
     RETURNS integer AS

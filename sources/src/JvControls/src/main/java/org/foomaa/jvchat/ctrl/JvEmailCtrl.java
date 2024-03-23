@@ -5,11 +5,11 @@ import org.foomaa.jvchat.settings.JvMainSettings;
 
 public class JvEmailCtrl {
     private static JvEmailCtrl instance;
-    private static JvEmailProcessor email;
+    private static JvEmailProcessor emailProc;
 
     private JvEmailCtrl() {
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
-            email = JvEmailProcessor.getInstance();
+            emailProc = JvEmailProcessor.getInstance();
         }
     }
 
@@ -18,6 +18,21 @@ public class JvEmailCtrl {
             instance = new JvEmailCtrl();
         }
         return instance;
+    }
+
+    public void startVerifyEmail(String email) {
+        int code = (int) ((Math.random() * 999999 ) + 1000000);
+        String message =  createVerifyEmailMessage(code);
+        emailProc.sendEmail(email, message);
+        JvDbCtrl.getInstance().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.VerifyEmail,
+                email, String.valueOf(code));
+    }
+
+    private String createVerifyEmailMessage(int code){
+        return String.format(
+                "Вы запросили восстановление пароля. Ваш код: %d. Никому не говорите и не отправляйте код. " +
+                        "Если это были не вы, свяжитесь с поддержкой по почте avodichenkov@mail.ru.",
+                code);
     }
 
 }
