@@ -160,11 +160,11 @@ public class JvVerifyCodeFrame extends JFrame {
         if (JvMessageCtrl.getInstance().getVerifyEmailRequestFlag()
                 == JvMessageCtrl.TypeFlags.TRUE) {
             closeWindow();
-            System.out.println("Код отправлен");
+            System.out.println("Код верен");
         } else if (JvMessageCtrl.getInstance().getVerifyEmailRequestFlag()
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            System.out.println("Код не отправлен");
+            System.out.println("Код не верен");
         }
     }
 }
