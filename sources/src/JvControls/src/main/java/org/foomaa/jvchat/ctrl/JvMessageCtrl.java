@@ -274,11 +274,19 @@ public class JvMessageCtrl {
         }
     }
 
+    private void workVerifyEmailReplyMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
+        if ((Boolean) map.get(JvSerializatorData.TypeData.BoolReply)) {
+            VerifyEmailRequestFlag = TypeFlags.TRUE;
+        } else {
+            VerifyEmailRequestFlag = TypeFlags.FALSE;
+        }
+    }
+
     private void workChangePasswordRequestMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
         boolean requestDB = JvDbCtrl.getInstance().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.ChangePassword,
                 (String) map.get(JvSerializatorData.TypeData.Email),
                 (String) map.get(JvSerializatorData.TypeData.Password));
-        sendMessage(JvSerializatorData.TypeMessage.VerifyEmailReply, requestDB);
+        sendMessage(JvSerializatorData.TypeMessage.ChangePasswordReply, requestDB);
     }
 
     private void workChangePasswordReplyMessage( HashMap<JvSerializatorData.TypeData, ?> map) {
@@ -286,14 +294,6 @@ public class JvMessageCtrl {
             ChangePasswordRequest = TypeFlags.TRUE;
         } else {
             ChangePasswordRequest = TypeFlags.FALSE;
-        }
-    }
-
-    private void workVerifyEmailReplyMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
-        if ((Boolean) map.get(JvSerializatorData.TypeData.BoolReply)) {
-            VerifyEmailRequestFlag = TypeFlags.TRUE;
-        } else {
-            VerifyEmailRequestFlag = TypeFlags.FALSE;
         }
     }
 
