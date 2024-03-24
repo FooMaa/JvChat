@@ -30,7 +30,7 @@ public class JvEmailCtrl {
 
     private String createVerifyEmailMessage(int code, String email){
         return String.format(
-                "Вы запросили восстановление пароля. Ваш код: %d. Ваш логин : %s.Никому не говорите и не отправляйте код. " +
+                "Вы запросили восстановление пароля. Ваш код: %d. Ваш логин: %s.Никому не говорите и не отправляйте код. " +
                         "Если это были не вы, свяжитесь с поддержкой по почте avodichenkov@mail.ru.",
                 code,
                 JvDbCtrl.getInstance().getInfoFromDb(JvDbCtrl.TypeExecutionGet.LoginByEmail, email));
