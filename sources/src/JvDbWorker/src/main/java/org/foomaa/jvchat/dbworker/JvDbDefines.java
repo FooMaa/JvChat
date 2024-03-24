@@ -34,16 +34,16 @@ public class JvDbDefines {
                 email);
     }
 
-    public static String insertCodeVerifyEmail(int userId, String code) {
+    public static String insertCodeVerifyFamousEmail(int userId, String code) {
         return String.format(
-                "SELECT * FROM chat_schema.verify_email_save( %d,'%s');",
+                "SELECT * FROM chat_schema.verify_famous_email_save( %d,'%s');",
                 userId,
                 code);
     }
 
-    public static String checkVerifyEmailCode(String email, String code) {
+    public static String checkVerifyFamousEmailCode(String email, String code) {
         return String.format(
-                "SELECT * FROM chat_schema.verify_email_check_email_code('%s', '%s');",
+                "SELECT * FROM chat_schema.verify_famous_email_check_email_code('%s', '%s');",
                 email,
                 code);
     }

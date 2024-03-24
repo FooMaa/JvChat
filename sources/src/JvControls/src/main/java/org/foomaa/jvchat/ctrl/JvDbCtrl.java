@@ -64,7 +64,7 @@ public class JvDbCtrl
                         if (!result.isEmpty()) {
                             String strTmp = result.stream().findFirst().get();
                             userId = Integer.parseInt(strTmp);
-                            db.makeExecution(JvDbDefines.insertCodeVerifyEmail(userId, code));
+                            db.makeExecution(JvDbDefines.insertCodeVerifyFamousEmail(userId, code));
                             return true;
                         }
                         return false;
@@ -122,7 +122,7 @@ public class JvDbCtrl
                 if (parameters.length == 2) {
                     String email = parameters[0];
                     String code = parameters[1];
-                    ResultSet rs = db.makeExecution(JvDbDefines.checkVerifyEmailCode(email, code));
+                    ResultSet rs = db.makeExecution(JvDbDefines.checkVerifyFamousEmailCode(email, code));
                     try {
                         return rs.next();
                     } catch (SQLException exception) {
