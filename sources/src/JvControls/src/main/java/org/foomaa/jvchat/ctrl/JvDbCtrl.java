@@ -12,16 +12,23 @@ public class JvDbCtrl
 {
     private static JvDbCtrl instance;
     private static JvDbWorker db;
+
     public enum TypeExecutionInsert {
         RegisterForm,
         VerifyFamousEmail,
         ChangePassword
     }
+
     public enum TypeExecutionCheck {
         UserPassword,
         Login,
         Email,
         VerifyFamousEmailCode
+    }
+
+    public enum TypeExecutionGet {
+        LoginByEmail,
+        IdByEmail
     }
 
     private JvDbCtrl() {
@@ -59,15 +66,9 @@ public class JvDbCtrl
                     String code = parameters[1];
                     int userId;
                     if (checkQueryToDB(TypeExecutionCheck.Email, email)) {
-                        ResultSet resultSet = db.makeExecution(JvDbDefines.getUserId(email));
-                        List<String> result = db.getStrDataAtRow(resultSet, 1);
-                        if (!result.isEmpty()) {
-                            String strTmp = result.stream().findFirst().get();
-                            userId = Integer.parseInt(strTmp);
-                            db.makeExecution(JvDbDefines.insertCodeVerifyFamousEmail(userId, code));
-                            return true;
-                        }
-                        return false;
+                        userId = Integer.parseInt(getInfoFromDb(TypeExecutionGet.IdByEmail));
+                        db.makeExecution(JvDbDefines.insertCodeVerifyFamousEmail(userId, code));
+                        return true;
                     }
                     return false;
                 }
@@ -131,5 +132,31 @@ public class JvDbCtrl
                 }
         }
         return false;
+    }
+
+    public String getInfoFromDb(TypeExecutionGet type, String ... parameters) {
+        switch (type) {
+            case LoginByEmail -> {
+                if (parameters.length == 1) {
+                    String email = parameters[0];
+                    ResultSet resultSet = db.makeExecution(JvDbDefines.getUserId(email));
+                    List<String> result = db.getStrDataAtRow(resultSet, 1);
+                    if (!result.isEmpty()) {
+                        return result.stream().findFirst().get();
+                    }
+                }
+            }
+            case IdByEmail -> {
+                if (parameters.length == 1) {
+                    String email = parameters[0];
+                    ResultSet resultSet = db.makeExecution(JvDbDefines.getUserId(email));
+                    List<String> result = db.getStrDataAtRow(resultSet, 1);
+                    if (!result.isEmpty()) {
+                        return result.stream().findFirst().get();
+                    }
+                }
+            }
+        }
+        return null;
     }
 }

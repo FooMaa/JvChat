@@ -22,16 +22,17 @@ public class JvEmailCtrl {
 
     public void startVerifyEmail(String email) {
         int code = (int) ((Math.random() * (999999 - 100000) ) + 100000);
-        String message =  createVerifyEmailMessage(code);
+        String message =  createVerifyEmailMessage(code, email);
         emailProc.sendEmail(email, message);
         JvDbCtrl.getInstance().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.VerifyFamousEmail,
                 email, String.valueOf(code));
     }
 
-    private String createVerifyEmailMessage(int code){
+    private String createVerifyEmailMessage(int code, String email){
         return String.format(
-                "Вы запросили восстановление пароля. Ваш код: %d. Никому не говорите и не отправляйте код. " +
+                "Вы запросили восстановление пароля. Ваш код: %d. Ваш логин : %s.Никому не говорите и не отправляйте код. " +
                         "Если это были не вы, свяжитесь с поддержкой по почте avodichenkov@mail.ru.",
-                code);
+                code,
+                JvDbCtrl.getInstance().getInfoFromDb(JvDbCtrl.TypeExecutionGet.LoginByEmail, email));
     }
 }

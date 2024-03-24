@@ -117,6 +117,22 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION chat_schema.auth_users_info_get_login_by_email(
+    f_email character varying
+)
+    RETURNS character varying AS
+$BODY$
+DECLARE
+    rv character varying;
+BEGIN
+    SELECT login INTO rv FROM chat_schema.auth_users_info WHERE email=f_email;
+    IF found THEN
+        RETURN rv;
+    END IF;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
 -- ----------------------------------------------------------------------------------------------
 -- chat_schema.verify_famous_email
 -- ----------------------------------------------------------------------------------------------
