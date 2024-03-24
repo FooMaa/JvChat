@@ -66,7 +66,7 @@ public class JvDbCtrl
                     String code = parameters[1];
                     int userId;
                     if (checkQueryToDB(TypeExecutionCheck.Email, email)) {
-                        userId = Integer.parseInt(getInfoFromDb(TypeExecutionGet.IdByEmail));
+                        userId = Integer.parseInt(getInfoFromDb(TypeExecutionGet.IdByEmail, email));
                         db.makeExecution(JvDbDefines.insertCodeVerifyFamousEmail(userId, code));
                         return true;
                     }
