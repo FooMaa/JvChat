@@ -139,7 +139,7 @@ public class JvDbCtrl
             case LoginByEmail -> {
                 if (parameters.length == 1) {
                     String email = parameters[0];
-                    ResultSet resultSet = db.makeExecution(JvDbDefines.getUserId(email));
+                    ResultSet resultSet = db.makeExecution(JvDbDefines.getLogin(email));
                     List<String> result = db.getStrDataAtRow(resultSet, 1);
                     if (!result.isEmpty()) {
                         return result.stream().findFirst().get();
