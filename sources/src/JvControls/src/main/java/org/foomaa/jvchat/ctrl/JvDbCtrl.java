@@ -15,15 +15,13 @@ public class JvDbCtrl
     public enum TypeExecutionInsert {
         RegisterForm,
         VerifyEmail,
-        CheckEmail,
         ChangePassword
     }
     public enum TypeExecutionCheck {
         UserPassword,
         Login,
         Email,
-        VerifyEmailCode,
-        RegistrationEmailCode
+        VerifyEmailCode
     }
 
     private JvDbCtrl() {
@@ -73,15 +71,6 @@ public class JvDbCtrl
                     }
                     return false;
                 }
-            }
-            case CheckEmail -> {
-                if (parameters.length == 2) {
-                    String email = parameters[0];
-                    String code = parameters[1];
-                    db.makeExecution(JvDbDefines.insertCodeCheckEmail(email, code));
-                    return true;
-                }
-                return false;
             }
             case ChangePassword -> {
                 if (parameters.length == 2) {
@@ -134,17 +123,6 @@ public class JvDbCtrl
                     String email = parameters[0];
                     String code = parameters[1];
                     ResultSet rs = db.makeExecution(JvDbDefines.checkVerifyEmailCode(email, code));
-                    try {
-                        return rs.next();
-                    } catch (SQLException exception) {
-                        System.out.println("Ошибка проверки запроса к БД");
-                    }
-                }
-            case RegistrationEmailCode:
-                if (parameters.length == 2) {
-                    String email = parameters[0];
-                    String code = parameters[1];
-                    ResultSet rs = db.makeExecution(JvDbDefines.checkCheckEmailCode(email, code));
                     try {
                         return rs.next();
                     } catch (SQLException exception) {

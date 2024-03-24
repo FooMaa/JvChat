@@ -91,7 +91,7 @@ public class JvVerifyCodeFrame extends JFrame {
     private void addListenerToElements() {
         bSet.addActionListener(event -> {
             if (checkFields()) {
-                JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.VerifyEmailRequest,
+                JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.VerifyFamousEmailRequest,
                         email, tCode.getInputText());
                 waitRepeatServer();
             }
@@ -160,7 +160,7 @@ public class JvVerifyCodeFrame extends JFrame {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (JvMessageCtrl.getInstance().getVerifyEmailRequestFlag()
+        while (JvMessageCtrl.getInstance().getVerifyFamousEmailRequestFlag()
                 == JvMessageCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
@@ -168,11 +168,11 @@ public class JvVerifyCodeFrame extends JFrame {
                 System.out.println("Не удалось ждать");
             }
         }
-        if (JvMessageCtrl.getInstance().getVerifyEmailRequestFlag()
+        if (JvMessageCtrl.getInstance().getVerifyFamousEmailRequestFlag()
                 == JvMessageCtrl.TypeFlags.TRUE) {
             closeWindow();
             System.out.println("Код верен");
-        } else if (JvMessageCtrl.getInstance().getVerifyEmailRequestFlag()
+        } else if (JvMessageCtrl.getInstance().getVerifyFamousEmailRequestFlag()
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             new JvAuthOptionPane("Код не верен. Введите код полученный по почте еще раз.", JvAuthOptionPane.TypeDlg.ERROR);

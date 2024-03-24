@@ -55,20 +55,6 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION chat_schema.auth_users_info_get(f_id integer)
-    RETURNS SETOF chat_schema.auth_users_info AS
-$BODY$
-DECLARE
-    rv chat_schema.auth_users_info%rowtype;
-BEGIN
-    SELECT * INTO rv FROM chat_schema.auth_users_info WHERE id=f_id;
-    IF found THEN
-        RETURN NEXT rv;
-    END IF;
-    RETURN;
-END;
-$BODY$ LANGUAGE plpgsql;
-
 CREATE OR REPLACE FUNCTION chat_schema.auth_users_info_check_login_password(
     f_login character varying,
     f_password character varying
@@ -132,10 +118,10 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 -- ----------------------------------------------------------------------------------------------
--- chat_schema.verify_email
+-- chat_schema.verify_famous_email
 -- ----------------------------------------------------------------------------------------------
 
-CREATE OR REPLACE FUNCTION chat_schema.verify_email_save (
+CREATE OR REPLACE FUNCTION chat_schema.verify_famous_email_save (
     f_id_user       integer,
     f_code          character varying
 )
@@ -145,12 +131,12 @@ DECLARE
     rv integer;
 BEGIN
     rv := -1;
-    PERFORM * FROM chat_schema.verify_email WHERE id_user=f_id_user;
+    PERFORM * FROM chat_schema.verify_famous_email WHERE id_user=f_id_user;
     IF found THEN
-        UPDATE chat_schema.verify_email SET code=f_code WHERE id_user=f_id_user;
+        UPDATE chat_schema.verify_famous_email SET code=f_code WHERE id_user=f_id_user;
         rv := 1;
     ELSE
-        INSERT INTO chat_schema.verify_email(id_user, code) VALUES (f_id_user, f_code);
+        INSERT INTO chat_schema.verify_famous_email(id_user, code) VALUES (f_id_user, f_code);
         rv := 2;
     END IF;
 
@@ -158,26 +144,26 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION chat_schema.verify_email_remove(f_id  integer)
+CREATE OR REPLACE FUNCTION chat_schema.verify_famous_email_remove(f_id_user  integer)
     RETURNS boolean AS
 $BODY$
 DECLARE
 BEGIN
-    DELETE FROM chat_schema.verify_email WHERE id=f_id;
+    DELETE FROM chat_schema.verify_famous_email WHERE id_user=f_id_user;
     RETURN true;
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION chat_schema.verify_email_check_email_code(
+CREATE OR REPLACE FUNCTION chat_schema.verify_famous_email_check_email_code(
     f_email character varying,
     f_code character varying
 )
-    RETURNS SETOF chat_schema.verify_email AS
+    RETURNS SETOF chat_schema.verify_famous_email AS
 $BODY$
 DECLARE
-    rv chat_schema.verify_email%rowtype;
+    rv chat_schema.verify_famous_email%rowtype;
 BEGIN
-    SELECT * INTO rv FROM chat_schema.verify_email, chat_schema.auth_users_info WHERE chat_schema.auth_users_info.id = chat_schema.verify_email.id_user AND f_email = chat_schema.auth_users_info.email AND f_code = chat_schema.verify_email.code;
+    SELECT * INTO rv FROM chat_schema.verify_famous_email, chat_schema.auth_users_info WHERE chat_schema.auth_users_info.id = chat_schema.verify_famous_email.id_user AND f_email = chat_schema.auth_users_info.email AND f_code = chat_schema.verify_famous_email.code;
     IF found THEN
         RETURN NEXT rv;
     END IF;
