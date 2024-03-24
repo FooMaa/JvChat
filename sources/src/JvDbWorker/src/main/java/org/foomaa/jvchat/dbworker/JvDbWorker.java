@@ -101,4 +101,3 @@ public class JvDbWorker extends JvDbDefines {
         return res;
     }
 }
-

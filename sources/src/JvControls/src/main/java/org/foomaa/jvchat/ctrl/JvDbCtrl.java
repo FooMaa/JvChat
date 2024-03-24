@@ -59,6 +59,7 @@ public class JvDbCtrl
                         return false;
                     }
                 }
+                return false;
             }
             case VerifyFamousEmail -> {
                 if (parameters.length == 2) {
@@ -99,6 +100,7 @@ public class JvDbCtrl
                         System.out.println("Ошибка проверки запроса к БД");
                     }
                 }
+                return false;
             case Login:
                 if (parameters.length == 1) {
                     String login = parameters[0];
@@ -109,6 +111,7 @@ public class JvDbCtrl
                         System.out.println("Ошибка проверки запроса к БД");
                     }
                 }
+                return false;
             case Email:
                 if (parameters.length == 1) {
                     String email = parameters[0];
@@ -119,6 +122,7 @@ public class JvDbCtrl
                         System.out.println("Ошибка проверки запроса к БД");
                     }
                 }
+                return false;
             case VerifyFamousEmailCode:
                 if (parameters.length == 2) {
                     String email = parameters[0];
@@ -130,6 +134,7 @@ public class JvDbCtrl
                         System.out.println("Ошибка проверки запроса к БД");
                     }
                 }
+                return false;
         }
         return false;
     }
@@ -145,6 +150,7 @@ public class JvDbCtrl
                         return result.stream().findFirst().get();
                     }
                 }
+                return null;
             }
             case IdByEmail -> {
                 if (parameters.length == 1) {
@@ -155,6 +161,7 @@ public class JvDbCtrl
                         return result.stream().findFirst().get();
                     }
                 }
+                return null;
             }
         }
         return null;

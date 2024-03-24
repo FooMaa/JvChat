@@ -1,7 +1,6 @@
 package org.foomaa.jvchat.messages;
 
 import com.google.protobuf.InvalidProtocolBufferException;
-
 import java.util.HashMap;
 
 public class JvSerializatorData {
