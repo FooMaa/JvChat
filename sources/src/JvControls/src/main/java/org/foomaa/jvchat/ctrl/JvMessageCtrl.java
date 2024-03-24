@@ -160,12 +160,12 @@ public class JvMessageCtrl {
         return JvSerializatorData.serialiseData(type, login, password);
     }
 
-    private byte[] createBodyRegistrationRequestMessage(JvSerializatorData.TypeMessage type, String login, String email, String password) {
-        return JvSerializatorData.serialiseData(type, login, email, password);
-    }
-
     private byte[] createBodyEntryReplyMessage(JvSerializatorData.TypeMessage type, Boolean reply) {
         return JvSerializatorData.serialiseData(type, reply);
+    }
+
+    private byte[] createBodyRegistrationRequestMessage(JvSerializatorData.TypeMessage type, String login, String email, String password) {
+        return JvSerializatorData.serialiseData(type, login, email, password);
     }
 
     private byte[] createBodyRegistrationReplyMessage(JvSerializatorData.TypeMessage type, Boolean reply, JvSerializatorData.TypeErrorRegistration error) {
@@ -203,6 +203,14 @@ public class JvMessageCtrl {
         sendMessage(JvSerializatorData.TypeMessage.EntryReply, requestDB);
     }
 
+    private void workEntryReplyMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
+        if ((Boolean) map.get(JvSerializatorData.TypeData.BoolReply)) {
+            EntryRequestFlag = TypeFlags.TRUE;
+        } else {
+            EntryRequestFlag = TypeFlags.FALSE;
+        }
+    }
+
     private void workRegistrationRequestMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
         boolean requestDB = JvDbCtrl.getInstance().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.RegisterForm,
                 (String) map.get(JvSerializatorData.TypeData.Login),
@@ -230,6 +238,15 @@ public class JvMessageCtrl {
         sendMessage(JvSerializatorData.TypeMessage.RegistrationReply, requestDB, typeError);
     }
 
+    private void workRegistrationReplyMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
+        if ((Boolean) map.get(JvSerializatorData.TypeData.BoolReply)) {
+            RegistratonRequestFlag = TypeFlags.TRUE;
+        } else {
+            RegistratonRequestFlag = TypeFlags.FALSE;
+        }
+        errorRegistrationFlag = (JvSerializatorData.TypeErrorRegistration) map.get(JvSerializatorData.TypeData.ErrorReg);
+    }
+
     private void workResetPasswordRequestMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
         String email = (String) map.get(JvSerializatorData.TypeData.Email);
         boolean checkEmail = JvDbCtrl.getInstance().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.Email,
@@ -242,36 +259,19 @@ public class JvMessageCtrl {
         sendMessage(JvSerializatorData.TypeMessage.ResetPasswordReply, reply);
     }
 
-    private void workVerifyFamousEmailRequestMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
-        boolean requestDB = JvDbCtrl.getInstance().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.VerifyEmailCode,
-                (String) map.get(JvSerializatorData.TypeData.Email),
-                (String) map.get(JvSerializatorData.TypeData.VerifyCode));
-        sendMessage(JvSerializatorData.TypeMessage.VerifyFamousEmailReply, requestDB);
-    }
-
-    private void workEntryReplyMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
-        if ((Boolean) map.get(JvSerializatorData.TypeData.BoolReply)) {
-            EntryRequestFlag = TypeFlags.TRUE;
-        } else {
-            EntryRequestFlag = TypeFlags.FALSE;
-        }
-    }
-
-    private void workRegistrationReplyMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
-        if ((Boolean) map.get(JvSerializatorData.TypeData.BoolReply)) {
-            RegistratonRequestFlag = TypeFlags.TRUE;
-        } else {
-            RegistratonRequestFlag = TypeFlags.FALSE;
-        }
-        errorRegistrationFlag = (JvSerializatorData.TypeErrorRegistration) map.get(JvSerializatorData.TypeData.ErrorReg);
-    }
-
     private void workResetPasswordReplyMessage( HashMap<JvSerializatorData.TypeData, ?> map) {
         if ((Boolean) map.get(JvSerializatorData.TypeData.BoolReply)) {
             ResetPasswordRequestFlag = TypeFlags.TRUE;
         } else {
             ResetPasswordRequestFlag = TypeFlags.FALSE;
         }
+    }
+
+    private void workVerifyFamousEmailRequestMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
+        boolean requestDB = JvDbCtrl.getInstance().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.VerifyFamousEmailCode,
+                (String) map.get(JvSerializatorData.TypeData.Email),
+                (String) map.get(JvSerializatorData.TypeData.VerifyCode));
+        sendMessage(JvSerializatorData.TypeMessage.VerifyFamousEmailReply, requestDB);
     }
 
     private void workVerifyFamousEmailReplyMessage(HashMap<JvSerializatorData.TypeData, ?> map) {

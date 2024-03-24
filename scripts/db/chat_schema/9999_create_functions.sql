@@ -45,12 +45,12 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION chat_schema.auth_users_info_remove(f_id  integer)
+CREATE OR REPLACE FUNCTION chat_schema.auth_users_info_remove(f_login  integer)
     RETURNS boolean AS
 $BODY$
 DECLARE
 BEGIN
-    DELETE FROM chat_schema.auth_users_info WHERE id=f_id;
+    DELETE FROM chat_schema.auth_users_info WHERE login=f_login;
     RETURN true;
 END;
 $BODY$ LANGUAGE plpgsql;
@@ -163,7 +163,10 @@ $BODY$
 DECLARE
     rv chat_schema.verify_famous_email%rowtype;
 BEGIN
-    SELECT * INTO rv FROM chat_schema.verify_famous_email, chat_schema.auth_users_info WHERE chat_schema.auth_users_info.id = chat_schema.verify_famous_email.id_user AND f_email = chat_schema.auth_users_info.email AND f_code = chat_schema.verify_famous_email.code;
+    SELECT * INTO rv FROM chat_schema.verify_famous_email, chat_schema.auth_users_info 
+    WHERE chat_schema.auth_users_info.id=chat_schema.verify_famous_email.id_user 
+    AND f_email=chat_schema.auth_users_info.email 
+    AND f_code=chat_schema.verify_famous_email.code;
     IF found THEN
         RETURN NEXT rv;
     END IF;

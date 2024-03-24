@@ -14,14 +14,14 @@ public class JvDbCtrl
     private static JvDbWorker db;
     public enum TypeExecutionInsert {
         RegisterForm,
-        VerifyEmail,
+        VerifyFamousEmail,
         ChangePassword
     }
     public enum TypeExecutionCheck {
         UserPassword,
         Login,
         Email,
-        VerifyEmailCode
+        VerifyFamousEmailCode
     }
 
     private JvDbCtrl() {
@@ -53,7 +53,7 @@ public class JvDbCtrl
                     }
                 }
             }
-            case VerifyEmail -> {
+            case VerifyFamousEmail -> {
                 if (parameters.length == 2) {
                     String email = parameters[0];
                     String code = parameters[1];
@@ -118,7 +118,7 @@ public class JvDbCtrl
                         System.out.println("Ошибка проверки запроса к БД");
                     }
                 }
-            case VerifyEmailCode:
+            case VerifyFamousEmailCode:
                 if (parameters.length == 2) {
                     String email = parameters[0];
                     String code = parameters[1];

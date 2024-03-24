@@ -22,7 +22,7 @@ public class JvNewPasswordFrame extends JFrame {
     private final String email;
 
     public JvNewPasswordFrame(String post) {
-        super("RegistrationWindow");
+        super("NewPasswordWindow");
 
         email = post;
         panel = new JPanel();

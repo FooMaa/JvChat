@@ -22,7 +22,7 @@ public class JvEntryFrame extends JFrame {
     private final JvAuthActiveLabel activeMissLabel;
 
     public JvEntryFrame() {
-        super("AuthenticationWindow");
+        super("EntryWindow");
 
         panel = new JPanel();
         tInfo = new JvAuthLabel("Введите данные для входа:");

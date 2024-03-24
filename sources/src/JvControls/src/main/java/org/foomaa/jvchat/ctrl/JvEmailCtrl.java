@@ -24,7 +24,7 @@ public class JvEmailCtrl {
         int code = (int) ((Math.random() * (999999 - 100000) ) + 100000);
         String message =  createVerifyEmailMessage(code);
         emailProc.sendEmail(email, message);
-        JvDbCtrl.getInstance().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.VerifyEmail,
+        JvDbCtrl.getInstance().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.VerifyFamousEmail,
                 email, String.valueOf(code));
     }
 

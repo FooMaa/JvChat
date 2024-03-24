@@ -185,8 +185,8 @@ public class JvSerializatorData {
             case RegistrationReply -> takeRegistrationReplyMessage(data);
             case ResetPasswordRequest -> takeResetPasswordRequestMessage(data);
             case ResetPasswordReply -> takeResetPasswordReplyMessage(data);
-            case VerifyFamousEmailRequest -> takeVerifyEmailRequestMessage(data);
-            case VerifyFamousEmailReply -> takeVerifyEmailReplyMessage(data);
+            case VerifyFamousEmailRequest -> takeVerifyFamousEmailRequestMessage(data);
+            case VerifyFamousEmailReply -> takeVerifyFamousEmailReplyMessage(data);
             case ChangePasswordRequest -> takeChangePasswordRequestMessage(data);
             case ChangePasswordReply -> takeChangePasswordReplyMessage(data);
         };
@@ -332,6 +332,17 @@ public class JvSerializatorData {
         return result;
     }
 
+    private static HashMap<TypeData, Boolean> takeEntryReplyMessage(byte[] data) {
+        HashMap<TypeData, Boolean> result = new HashMap<>();
+        try {
+            result.put(TypeData.BoolReply, ClientServerSerializeProtocol_pb.General.parseFrom(data)
+                    .getEntryReply().getReply());
+        } catch (InvalidProtocolBufferException exception) {
+            System.out.println("Error in protobuf deserialised data");
+        }
+        return result;
+    }
+
     private static HashMap<TypeData, String> takeRegistrationRequestMessage(byte[] data) {
         HashMap<TypeData, String> result = new HashMap<>();
         try {
@@ -341,17 +352,6 @@ public class JvSerializatorData {
                     getRegistrationRequest().getEmail());
             result.put(TypeData.Password, ClientServerSerializeProtocol_pb.General.parseFrom(data).
                     getRegistrationRequest().getPassword());
-        } catch (InvalidProtocolBufferException exception) {
-            System.out.println("Error in protobuf deserialised data");
-        }
-        return result;
-    }
-
-    private static HashMap<TypeData, Boolean> takeEntryReplyMessage(byte[] data) {
-        HashMap<TypeData, Boolean> result = new HashMap<>();
-        try {
-            result.put(TypeData.BoolReply, ClientServerSerializeProtocol_pb.General.parseFrom(data)
-                    .getEntryReply().getReply());
         } catch (InvalidProtocolBufferException exception) {
             System.out.println("Error in protobuf deserialised data");
         }
@@ -394,7 +394,7 @@ public class JvSerializatorData {
         return result;
     }
 
-    private static HashMap<TypeData, String> takeVerifyEmailRequestMessage(byte[] data) {
+    private static HashMap<TypeData, String> takeVerifyFamousEmailRequestMessage(byte[] data) {
         HashMap<TypeData, String> result = new HashMap<>();
         try {
             result.put(TypeData.Email, ClientServerSerializeProtocol_pb.General.parseFrom(data).
@@ -407,7 +407,7 @@ public class JvSerializatorData {
         return result;
     }
 
-    private static HashMap<TypeData, Boolean> takeVerifyEmailReplyMessage(byte[] data) {
+    private static HashMap<TypeData, Boolean> takeVerifyFamousEmailReplyMessage(byte[] data) {
         HashMap<TypeData, Boolean> result = new HashMap<>();
         try {
             result.put(TypeData.BoolReply, ClientServerSerializeProtocol_pb.General.parseFrom(data)
