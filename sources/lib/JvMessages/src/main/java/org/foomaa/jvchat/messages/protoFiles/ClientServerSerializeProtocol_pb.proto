@@ -14,6 +14,8 @@ message General {
         ResetPasswordReply resetPasswordReply = 7;
         VerifyEmailRequest verifyEmailRequest = 8;
         VerifyEmailReply verifyEmailReply = 9;
+        ChangePasswordRequest changePasswordRequest = 10;
+        ChangePasswordReply changePasswordReply = 11;
     }
 }
 
@@ -52,10 +54,29 @@ message ResetPasswordReply {
 }
 
 message VerifyEmailRequest {
+    enum TypeVerify {
+        Registration = 0;
+        ResetPassword = 1;
+    }
     string email = 1;
     string code = 2;
+    TypeVerify typeVerify = 3;
 }
 
 message VerifyEmailReply {
+    enum TypeVerify {
+        Registration = 0;
+        ResetPassword = 1;
+    }
+    bool reply = 1;
+    TypeVerify typeVerify = 2;
+}
+
+message ChangePasswordRequest {
+    string email = 1;
+    string password = 2;
+}
+
+message ChangePasswordReply {
     bool reply = 1;
 }

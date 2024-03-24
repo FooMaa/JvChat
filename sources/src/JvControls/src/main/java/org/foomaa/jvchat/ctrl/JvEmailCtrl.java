@@ -34,5 +34,4 @@ public class JvEmailCtrl {
                         "Если это были не вы, свяжитесь с поддержкой по почте avodichenkov@mail.ru.",
                 code);
     }
-
 }

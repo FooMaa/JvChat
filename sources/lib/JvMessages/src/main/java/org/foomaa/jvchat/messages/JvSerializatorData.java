@@ -14,7 +14,9 @@ public class JvSerializatorData {
         ResetPasswordRequest(4),
         ResetPasswordReply(5),
         VerifyEmailRequest(6),
-        VerifyEmailReply(7);
+        VerifyEmailReply(7),
+        ChangePasswordRequest(8),
+        ChangePasswordReply(9);
 
         private final int value;
 
@@ -140,8 +142,8 @@ public class JvSerializatorData {
             case VerifyEmailRequest -> {
                 if (parameters.length == 2) {
                     Object email = parameters[0];
-                    Object code = parameters[1];
-                    return createVerifyEmailRequestMessage(type, (String) email, (String) code);
+                    Object password = parameters[1];
+                    return createVerifyEmailRequestMessage(type, (String) email, (String) password);
                 } else {
                     return new byte[0];
                 }
@@ -150,6 +152,23 @@ public class JvSerializatorData {
                 if (parameters.length == 1) {
                     Object reply = parameters[0];
                     return createVerifyEmailReplyMessage(type, (Boolean) reply);
+                } else {
+                    return new byte[0];
+                }
+            }
+            case ChangePasswordRequest -> {
+                if (parameters.length == 2) {
+                    Object email = parameters[0];
+                    Object code = parameters[1];
+                    return createChangePasswordRequestMessage(type, (String) email, (String) code);
+                } else {
+                    return new byte[0];
+                }
+            }
+            case ChangePasswordReply -> {
+                if (parameters.length == 1) {
+                    Object reply = parameters[0];
+                    return createChangePasswordReplyMessage(type, (Boolean) reply);
                 } else {
                     return new byte[0];
                 }
@@ -168,6 +187,8 @@ public class JvSerializatorData {
             case ResetPasswordReply -> takeResetPasswordReplyMessage(data);
             case VerifyEmailRequest -> takeVerifyEmailRequestMessage(data);
             case VerifyEmailReply -> takeVerifyEmailReplyMessage(data);
+            case ChangePasswordRequest -> takeChangePasswordRequestMessage(data);
+            case ChangePasswordReply -> takeChangePasswordReplyMessage(data);
         };
     }
 
@@ -275,6 +296,29 @@ public class JvSerializatorData {
         return resMsg.toByteArray();
     }
 
+    private static byte[] createChangePasswordRequestMessage(TypeMessage type, String email, String password) {
+        ClientServerSerializeProtocol_pb.ChangePasswordRequest msgChangePasswordRequest = ClientServerSerializeProtocol_pb.ChangePasswordRequest.newBuilder()
+                .setEmail(email)
+                .setPassword(password)
+                .build();
+        ClientServerSerializeProtocol_pb.General resMsg = ClientServerSerializeProtocol_pb.General.newBuilder()
+                .setType(type.getValue())
+                .setChangePasswordRequest(msgChangePasswordRequest)
+                .build();
+        return resMsg.toByteArray();
+    }
+
+    private static byte[] createChangePasswordReplyMessage(TypeMessage type, boolean reply) {
+        ClientServerSerializeProtocol_pb.ChangePasswordReply msgChangePasswordReply = ClientServerSerializeProtocol_pb.ChangePasswordReply.newBuilder()
+                .setReply(reply)
+                .build();
+        ClientServerSerializeProtocol_pb.General resMsg = ClientServerSerializeProtocol_pb.General.newBuilder()
+                .setType(type.getValue())
+                .setChangePasswordReply(msgChangePasswordReply)
+                .build();
+        return resMsg.toByteArray();
+    }
+
     private static HashMap<TypeData, String> takeEntryRequestMessage(byte[] data) {
         HashMap<TypeData, String> result = new HashMap<>();
         try {
@@ -368,6 +412,30 @@ public class JvSerializatorData {
         try {
             result.put(TypeData.BoolReply, ClientServerSerializeProtocol_pb.General.parseFrom(data)
                     .getVerifyEmailReply().getReply());
+        } catch (InvalidProtocolBufferException exception) {
+            System.out.println("Error in protobuf deserialised data");
+        }
+        return result;
+    }
+
+    private static HashMap<TypeData, String> takeChangePasswordRequestMessage(byte[] data) {
+        HashMap<TypeData, String> result = new HashMap<>();
+        try {
+            result.put(TypeData.Email, ClientServerSerializeProtocol_pb.General.parseFrom(data).
+                    getChangePasswordRequest().getEmail());
+            result.put(TypeData.Password, ClientServerSerializeProtocol_pb.General.parseFrom(data).
+                    getChangePasswordRequest().getPassword());
+        } catch (InvalidProtocolBufferException exception) {
+            System.out.println("Error in protobuf deserialised data");
+        }
+        return result;
+    }
+
+    private static HashMap<TypeData, Boolean> takeChangePasswordReplyMessage(byte[] data) {
+        HashMap<TypeData, Boolean> result = new HashMap<>();
+        try {
+            result.put(TypeData.BoolReply, ClientServerSerializeProtocol_pb.General.parseFrom(data)
+                    .getChangePasswordReply().getReply());
         } catch (InvalidProtocolBufferException exception) {
             System.out.println("Error in protobuf deserialised data");
         }

@@ -157,7 +157,7 @@ public class JvResetPasswordFrame extends JFrame {
         }
         if (JvMessageCtrl.getInstance().getResetPasswordRequestFlag()
                 == JvMessageCtrl.TypeFlags.TRUE) {
-            new JvVerifyCodeFrame(tEmail.getInputText());
+            new JvVerifyCodeFrame(tEmail.getInputText(), JvVerifyCodeFrame.RegimeWork.ResetPassword);
             closeWindow();
         } else if (JvMessageCtrl.getInstance().getResetPasswordRequestFlag()
                 == JvMessageCtrl.TypeFlags.FALSE) {

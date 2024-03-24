@@ -41,9 +41,30 @@ public class JvDbDefines {
                 code);
     }
 
-    public static String checkEmailCode(String email, String code) {
+    public static String checkVerifyEmailCode(String email, String code) {
         return String.format(
-                "select * from chat_schema.verify_email_check_email_code('%s', '%s');",
+                "SELECT * FROM chat_schema.verify_email_check_email_code('%s', '%s');",
+                email,
+                code);
+    }
+
+    public static String insertChangePassword(String email, String password) {
+        return String.format(
+                "SELECT * FROM chat_schema.auth_users_info_change_password('%s', '%s');",
+                email,
+                password);
+    }
+
+    public static String insertCodeCheckEmail(String email, String code) {
+        return String.format(
+                "SELECT * FROM chat_schema.check_registration_email_save( '%s','%s');",
+                email,
+                code);
+    }
+
+    public static String checkCheckEmailCode(String email, String code) {
+        return String.format(
+                "SELECT * FROM chat_schema.check_registration_email_check_email_code('%s', '%s');",
                 email,
                 code);
     }

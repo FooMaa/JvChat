@@ -14,13 +14,16 @@ public class JvDbCtrl
     private static JvDbWorker db;
     public enum TypeExecutionInsert {
         RegisterForm,
-        VerifyEmail
+        VerifyEmail,
+        CheckEmail,
+        ChangePassword
     }
     public enum TypeExecutionCheck {
         UserPassword,
         Login,
         Email,
-        EmailCode
+        VerifyEmailCode,
+        RegistrationEmailCode
     }
 
     private JvDbCtrl() {
@@ -71,6 +74,24 @@ public class JvDbCtrl
                     return false;
                 }
             }
+            case CheckEmail -> {
+                if (parameters.length == 2) {
+                    String email = parameters[0];
+                    String code = parameters[1];
+                    db.makeExecution(JvDbDefines.insertCodeCheckEmail(email, code));
+                    return true;
+                }
+                return false;
+            }
+            case ChangePassword -> {
+                if (parameters.length == 2) {
+                    String email = parameters[0];
+                    String password = parameters[1];
+                    db.makeExecution(JvDbDefines.insertChangePassword(email, password));
+                    return true;
+                }
+                return false;
+            }
         }
         return false;
     }
@@ -108,11 +129,22 @@ public class JvDbCtrl
                         System.out.println("Ошибка проверки запроса к БД");
                     }
                 }
-            case EmailCode:
+            case VerifyEmailCode:
                 if (parameters.length == 2) {
                     String email = parameters[0];
                     String code = parameters[1];
-                    ResultSet rs = db.makeExecution(JvDbDefines.checkEmailCode(email, code));
+                    ResultSet rs = db.makeExecution(JvDbDefines.checkVerifyEmailCode(email, code));
+                    try {
+                        return rs.next();
+                    } catch (SQLException exception) {
+                        System.out.println("Ошибка проверки запроса к БД");
+                    }
+                }
+            case RegistrationEmailCode:
+                if (parameters.length == 2) {
+                    String email = parameters[0];
+                    String code = parameters[1];
+                    ResultSet rs = db.makeExecution(JvDbDefines.checkCheckEmailCode(email, code));
                     try {
                         return rs.next();
                     } catch (SQLException exception) {

@@ -12,31 +12,26 @@ import java.util.Objects;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
-public class JvVerifyCodeFrame extends JFrame {
+public class JvNewPasswordFrame extends JFrame {
     private final JPanel panel;
     private final JvAuthLabel tInfo;
-    private final JvAuthTextField tCode;
     private final JvAuthLabel tErrorHelpInfo;
-    private final JvAuthButton bSet;
+    private final JvAuthPasswordField tPassword;
+    private final JvAuthPasswordField tPasswordConfirm;
+    private final JvAuthButton bRegister;
     private final String email;
-    private final RegimeWork regime;
 
-    public enum RegimeWork {
-        Registration,
-        ResetPassword
-    }
+    public JvNewPasswordFrame(String post) {
+        super("RegistrationWindow");
 
-    public JvVerifyCodeFrame(String post, RegimeWork rg) {
-        super("VerifyCodeWindow");
-
-        regime = rg;
         email = post;
         panel = new JPanel();
-        tInfo = new JvAuthLabel("Введите код, отправленный на почту:");
-        tCode = new JvAuthTextField("Код");
+        tInfo = new JvAuthLabel("Введите новый пароль:");
         tErrorHelpInfo = new JvAuthLabel("");
         tErrorHelpInfo.settingToError();
-        bSet = new JvAuthButton("ОТПРАВИТЬ");
+        tPassword = new JvAuthPasswordField("Пароль");
+        tPasswordConfirm = new JvAuthPasswordField("Подтвердите пароль");
+        bRegister = new JvAuthButton("ПРИНЯТЬ");
 
         makeFrameSetting();
         addListenerToElements();
@@ -65,7 +60,14 @@ public class JvVerifyCodeFrame extends JFrame {
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(0, insX, JvDisplaySettings.getResizePixel(0.004), insX);
         gbc.gridy = gridyNum;
-        panel.add(tCode, gbc);
+        panel.add(tPassword, gbc);
+        gridyNum++;
+
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.insets = new Insets(0, insX, 0, insX);
+        gbc.gridy = gridyNum;
+        panel.add(tPasswordConfirm, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -83,16 +85,16 @@ public class JvVerifyCodeFrame extends JFrame {
         gbc.ipady = JvDisplaySettings.getResizeFromDisplay(0.01,
                 JvDisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
-        panel.add(bSet, gbc);
+        panel.add(bRegister, gbc);
 
         getContentPane().add(panel);
     }
 
     private void addListenerToElements() {
-        bSet.addActionListener(event -> {
+        bRegister.addActionListener(event -> {
             if (checkFields()) {
-                JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.VerifyEmailRequest,
-                        email, tCode.getInputText());
+                JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.ChangePasswordRequest,
+                        email, tPassword.getInputText());
                 waitRepeatServer();
             }
         });
@@ -106,15 +108,28 @@ public class JvVerifyCodeFrame extends JFrame {
     }
 
     private boolean checkFields() {
-        tCode.setNormalBorder();
+        tPassword.setNormalBorder();
+        tPasswordConfirm.setNormalBorder();
         tErrorHelpInfo.setText("");
 
         Vector<String> fields = new Vector<>();
 
-        if (Objects.equals(tCode.getInputText(), "") ||
-                (tCode.getInputText().length() != 6 )) {
-            tCode.setErrorBorder();
-            fields.add("\"Код\"");
+        if (Objects.equals(tPassword.getInputText(), "")) {
+            tPassword.setErrorBorder();
+            fields.add("\"Пароль\"");
+        }
+        if (Objects.equals(tPasswordConfirm.getInputText(), "")) {
+            tPasswordConfirm.setErrorBorder();
+            fields.add("\"Подтвердите пароль\"");
+        }
+
+        if (!Objects.equals(tPassword.getInputText(), "") &&
+                !Objects.equals(tPasswordConfirm.getInputText(), "") &&
+                !Objects.equals(tPassword.getInputText(), tPasswordConfirm.getInputText())) {
+            tPassword.setErrorBorder();
+            tPasswordConfirm.setErrorBorder();
+            tErrorHelpInfo.setText("Введенные пароли должны совпадать");
+            return false;
         }
 
         StringBuilder concatFields = new StringBuilder();
@@ -124,9 +139,9 @@ public class JvVerifyCodeFrame extends JFrame {
             }
             concatFields = new StringBuilder(concatFields.substring(0, concatFields.length() - 2));
             if (fields.size() == 1) {
-                tErrorHelpInfo.setText(String.format("Поле %s должно быть заполнено и содержать отправленный код", concatFields));
+                tErrorHelpInfo.setText(String.format("Поле %s должно быть заполнено или исправлено", concatFields));
             } else {
-                tErrorHelpInfo.setText(String.format("Поля %s должны быть заполнены и содержать отправленный код", concatFields));
+                tErrorHelpInfo.setText(String.format("Поля %s должны быть заполнены или исправлены", concatFields));
             }
             return false;
         }
@@ -138,7 +153,7 @@ public class JvVerifyCodeFrame extends JFrame {
         setTitle("ВОССТАНОВЛЕНИЕ ПАРОЛЯ");
         setSize(JvDisplaySettings.getResizeFromDisplay(0.3,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
-                JvDisplaySettings.getResizeFromDisplay(0.25,
+                JvDisplaySettings.getResizeFromDisplay(0.275,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
         setResizable(false);
         setLocationRelativeTo(null);
@@ -151,16 +166,12 @@ public class JvVerifyCodeFrame extends JFrame {
     private void closeWindow() {
         setVisible(false);
         dispose();
-        if (regime == RegimeWork.Registration) {
-            new JvEntryFrame();
-        } else if (regime == RegimeWork.ResetPassword) {
-            new JvNewPasswordFrame(email);
-        }
+        new JvEntryFrame();
     }
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (JvMessageCtrl.getInstance().getVerifyEmailRequestFlag()
+        while (JvMessageCtrl.getInstance().getChangePasswordRequest()
                 == JvMessageCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
@@ -168,14 +179,13 @@ public class JvVerifyCodeFrame extends JFrame {
                 System.out.println("Не удалось ждать");
             }
         }
-        if (JvMessageCtrl.getInstance().getVerifyEmailRequestFlag()
+        if (JvMessageCtrl.getInstance().getChangePasswordRequest()
                 == JvMessageCtrl.TypeFlags.TRUE) {
             closeWindow();
-            System.out.println("Код верен");
-        } else if (JvMessageCtrl.getInstance().getVerifyEmailRequestFlag()
+        } else if (JvMessageCtrl.getInstance().getChangePasswordRequest()
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            new JvAuthOptionPane("Код не верен. Введите код полученный по почте еще раз.", JvAuthOptionPane.TypeDlg.ERROR);
+            new JvAuthOptionPane("Не удалось сменить пароль.", JvAuthOptionPane.TypeDlg.ERROR);
         }
     }
 }
