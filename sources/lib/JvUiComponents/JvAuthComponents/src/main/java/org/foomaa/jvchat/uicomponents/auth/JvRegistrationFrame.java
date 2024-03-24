@@ -194,8 +194,8 @@ public class JvRegistrationFrame extends JFrame {
     private void closeWindow() {
         setVisible(false);
         dispose();
-        new JvEntryFrame();
-        //new JvVerifyCodeFrame(tEmail.getInputText(), JvVerifyCodeFrame.RegimeWork.Registration);
+        JvVerifyCodeFrame frm =  new JvVerifyCodeFrame(JvVerifyCodeFrame.RegimeWork.Registration);
+        frm.setParametersRegistration(tLogin.getInputText(), tEmail.getInputText(), tPassword.getInputText());
     }
 
     private void waitRepeatServer() {

@@ -10,8 +10,8 @@ public class JvSerializatorData {
         EntryReply(1),
         RegistrationRequest(2),
         RegistrationReply(3),
-        ResetPasswordRequest(4),
-        ResetPasswordReply(5),
+        CodeMsgEmailRequest(4),
+        CodeMsgEmailReply(5),
         VerifyFamousEmailRequest(6),
         VerifyFamousEmailReply(7),
         ChangePasswordRequest(8),
@@ -46,15 +46,18 @@ public class JvSerializatorData {
         Login,
         Email,
         Password,
+        RegCode,
         ErrorReg,
         BoolReply,
-        VerifyCode,
+        VerifyFamousCode,
+        TypeEmailCodeMsg
     }
 
     public enum TypeErrorRegistration {
         Login(ClientServerSerializeProtocol_pb.RegistrationReply.Error.Login_VALUE),
         Email(ClientServerSerializeProtocol_pb.RegistrationReply.Error.Email_VALUE),
         LoginAndEmail(ClientServerSerializeProtocol_pb.RegistrationReply.Error.LoginAndEmail_VALUE),
+        Code(ClientServerSerializeProtocol_pb.RegistrationReply.Error.Code_VALUE),
         NoError (ClientServerSerializeProtocol_pb.RegistrationReply.Error.NoError_VALUE);
 
         private final int value;
@@ -82,6 +85,37 @@ public class JvSerializatorData {
         }
     }
 
+    public enum TypeEmailCodeMsg {
+        Registration(ClientServerSerializeProtocol_pb.CodeMsgEmailRequest.
+                TypeMsg.Registration_VALUE),
+        ResetPassword(ClientServerSerializeProtocol_pb.CodeMsgEmailRequest.
+                TypeMsg.ResetPassword_VALUE);
+
+        private final int value;
+
+        TypeEmailCodeMsg(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+        public boolean compare(int i) {
+            return value == i;
+        }
+
+        public static TypeEmailCodeMsg getTypeEmailCodeMsg(int value)
+        {
+            TypeEmailCodeMsg[] typesCodeEmail = TypeEmailCodeMsg.values();
+            for (TypeEmailCodeMsg type : typesCodeEmail) {
+                if (type.compare(value))
+                    return type;
+            }
+            return null;
+        }
+    }
+
     public static byte[] serialiseData(TypeMessage type, Object... parameters) {
         switch (type) {
             case EntryRequest -> {
@@ -95,12 +129,13 @@ public class JvSerializatorData {
                 }
             }
             case RegistrationRequest -> {
-                if (parameters.length == 3) {
+                if (parameters.length == 4) {
                     Object login = parameters[0];
                     Object email = parameters[1];
                     Object password = parameters[2];
+                    Object code = parameters[3];
                     return createRegistrationRequestMessage(type,
-                            (String) login, (String) email, (String) password);
+                            (String) login, (String) email, (String) password, (String) code);
                 } else {
                     return new byte[0];
                 }
@@ -117,23 +152,31 @@ public class JvSerializatorData {
                 if (parameters.length == 2) {
                     Object reply = parameters[0];
                     Object error = parameters[1];
-                    return createRegistrationReplyMessage(type, (Boolean) reply, (TypeErrorRegistration) error);
+                    return createRegistrationReplyMessage(type,
+                            (Boolean) reply,
+                            (TypeErrorRegistration) error);
                 } else {
                     return new byte[0];
                 }
             }
-            case ResetPasswordRequest -> {
-                if (parameters.length == 1) {
-                    Object email = parameters[0];
-                    return createResetPasswordRequestMessage(type, (String) email);
+            case CodeMsgEmailRequest -> {
+                if (parameters.length == 2) {
+                    Object typeEmailCode = parameters[0];
+                    Object email = parameters[1];
+                    return createCodeMsgEmailRequestMessage(type,
+                            (TypeEmailCodeMsg) typeEmailCode,
+                            (String) email);
                 } else {
                     return new byte[0];
                 }
             }
-            case ResetPasswordReply -> {
-                if (parameters.length == 1) {
-                    Object reply = parameters[0];
-                    return createResetPasswordReplyMessage(type, (Boolean) reply);
+            case CodeMsgEmailReply -> {
+                if (parameters.length == 2) {
+                    Object typeEmailCode = parameters[0];
+                    Object reply = parameters[1];
+                    return createCodeMsgEmailReplyMessage(type,
+                            (TypeEmailCodeMsg) typeEmailCode,
+                            (Boolean) reply);
                 } else {
                     return new byte[0];
                 }
@@ -182,8 +225,8 @@ public class JvSerializatorData {
             case RegistrationRequest -> takeRegistrationRequestMessage(data);
             case EntryReply -> takeEntryReplyMessage(data);
             case RegistrationReply -> takeRegistrationReplyMessage(data);
-            case ResetPasswordRequest -> takeResetPasswordRequestMessage(data);
-            case ResetPasswordReply -> takeResetPasswordReplyMessage(data);
+            case CodeMsgEmailRequest -> takeCodeMsgEmailRequestMessage(data);
+            case CodeMsgEmailReply -> takeCodeMsgEmailReplyMessage(data);
             case VerifyFamousEmailRequest -> takeVerifyFamousEmailRequestMessage(data);
             case VerifyFamousEmailReply -> takeVerifyFamousEmailReplyMessage(data);
             case ChangePasswordRequest -> takeChangePasswordRequestMessage(data);
@@ -225,11 +268,12 @@ public class JvSerializatorData {
         return resMsg.toByteArray();
     }
 
-    private static byte[] createRegistrationRequestMessage(TypeMessage type, String login, String email, String password) {
+    private static byte[] createRegistrationRequestMessage(TypeMessage type, String login, String email, String password, String code) {
         ClientServerSerializeProtocol_pb.RegistrationRequest msgRegRequest = ClientServerSerializeProtocol_pb.RegistrationRequest.newBuilder()
                 .setLogin(login)
                 .setEmail(email)
                 .setPassword(password)
+                .setCode(code)
                 .build();
         ClientServerSerializeProtocol_pb.General resMsg = ClientServerSerializeProtocol_pb.General.newBuilder()
                 .setType(type.getValue())
@@ -250,47 +294,49 @@ public class JvSerializatorData {
         return resMsg.toByteArray();
     }
 
-    private static byte[] createResetPasswordRequestMessage(TypeMessage type, String email) {
-        ClientServerSerializeProtocol_pb.ResetPasswordRequest msgResetRequest = ClientServerSerializeProtocol_pb.ResetPasswordRequest.newBuilder()
+    private static byte[] createCodeMsgEmailRequestMessage(TypeMessage type, TypeEmailCodeMsg typeMsg, String email) {
+        ClientServerSerializeProtocol_pb.CodeMsgEmailRequest msgResetRequest = ClientServerSerializeProtocol_pb.CodeMsgEmailRequest.newBuilder()
+                .setTypeMsg(ClientServerSerializeProtocol_pb.CodeMsgEmailRequest.TypeMsg.forNumber(typeMsg.getValue()))
                 .setEmail(email)
                 .build();
         ClientServerSerializeProtocol_pb.General resMsg = ClientServerSerializeProtocol_pb.General.newBuilder()
                 .setType(type.getValue())
-                .setResetPasswordRequest(msgResetRequest)
+                .setCodeMsgEmailRequest(msgResetRequest)
                 .build();
         return resMsg.toByteArray();
     }
 
-    private static byte[] createResetPasswordReplyMessage(TypeMessage type, boolean reply) {
-        ClientServerSerializeProtocol_pb.ResetPasswordReply msgResetReply = ClientServerSerializeProtocol_pb.ResetPasswordReply.newBuilder()
+    private static byte[] createCodeMsgEmailReplyMessage(TypeMessage type, TypeEmailCodeMsg typeMsg, boolean reply) {
+        ClientServerSerializeProtocol_pb.CodeMsgEmailReply msgResetReply = ClientServerSerializeProtocol_pb.CodeMsgEmailReply.newBuilder()
+                .setTypeMsg(ClientServerSerializeProtocol_pb.CodeMsgEmailReply.TypeMsg.forNumber(typeMsg.getValue()))
                 .setReply(reply)
                 .build();
         ClientServerSerializeProtocol_pb.General resMsg = ClientServerSerializeProtocol_pb.General.newBuilder()
                 .setType(type.getValue())
-                .setResetPasswordReply(msgResetReply)
+                .setCodeMsgEmailReply(msgResetReply)
                 .build();
         return resMsg.toByteArray();
     }
 
     private static byte[] createVerifyFamousEmailRequestMessage(TypeMessage type, String email, String code) {
-        ClientServerSerializeProtocol_pb.VerifyFamousEmailRequest msgVerifyEmailRequest = ClientServerSerializeProtocol_pb.VerifyFamousEmailRequest.newBuilder()
+        ClientServerSerializeProtocol_pb.VerifyFamousEmailRequest msgVerifyFamousEmailRequest = ClientServerSerializeProtocol_pb.VerifyFamousEmailRequest.newBuilder()
                 .setEmail(email)
                 .setCode(code)
                 .build();
         ClientServerSerializeProtocol_pb.General resMsg = ClientServerSerializeProtocol_pb.General.newBuilder()
                 .setType(type.getValue())
-                .setVerifyFamousEmailRequest(msgVerifyEmailRequest)
+                .setVerifyFamousEmailRequest(msgVerifyFamousEmailRequest)
                 .build();
         return resMsg.toByteArray();
     }
 
     private static byte[] createVerifyFamousEmailReplyMessage(TypeMessage type, boolean reply) {
-        ClientServerSerializeProtocol_pb.VerifyFamousEmailReply msgVerifyEmailReply = ClientServerSerializeProtocol_pb.VerifyFamousEmailReply.newBuilder()
+        ClientServerSerializeProtocol_pb.VerifyFamousEmailReply msgVerifyFamousEmailReply = ClientServerSerializeProtocol_pb.VerifyFamousEmailReply.newBuilder()
                 .setReply(reply)
                 .build();
         ClientServerSerializeProtocol_pb.General resMsg = ClientServerSerializeProtocol_pb.General.newBuilder()
                 .setType(type.getValue())
-                .setVerifyFamousEmailReply(msgVerifyEmailReply)
+                .setVerifyFamousEmailReply(msgVerifyFamousEmailReply)
                 .build();
         return resMsg.toByteArray();
     }
@@ -351,6 +397,8 @@ public class JvSerializatorData {
                     getRegistrationRequest().getEmail());
             result.put(TypeData.Password, ClientServerSerializeProtocol_pb.General.parseFrom(data).
                     getRegistrationRequest().getPassword());
+            result.put(TypeData.RegCode, ClientServerSerializeProtocol_pb.General.parseFrom(data).
+                    getRegistrationRequest().getPassword());
         } catch (InvalidProtocolBufferException exception) {
             System.out.println("Error in protobuf deserialised data");
         }
@@ -371,22 +419,28 @@ public class JvSerializatorData {
         return result;
     }
 
-    private static HashMap<TypeData, String> takeResetPasswordRequestMessage(byte[] data) {
-        HashMap<TypeData, String> result = new HashMap<>();
+    private static HashMap<TypeData, Object> takeCodeMsgEmailRequestMessage(byte[] data) {
+        HashMap<TypeData, Object> result = new HashMap<>();
         try {
+            result.put(TypeData.TypeEmailCodeMsg, TypeEmailCodeMsg.getTypeEmailCodeMsg(
+                    ClientServerSerializeProtocol_pb.General.parseFrom(data).
+                    getCodeMsgEmailRequest().getTypeMsg().getNumber()));
             result.put(TypeData.Email, ClientServerSerializeProtocol_pb.General.parseFrom(data).
-                    getResetPasswordRequest().getEmail());
+                    getCodeMsgEmailRequest().getEmail());
         } catch (InvalidProtocolBufferException exception) {
             System.out.println("Error in protobuf deserialised data");
         }
         return result;
     }
 
-    private static HashMap<TypeData, Boolean> takeResetPasswordReplyMessage(byte[] data) {
-        HashMap<TypeData, Boolean> result = new HashMap<>();
+    private static HashMap<TypeData, Object> takeCodeMsgEmailReplyMessage(byte[] data) {
+        HashMap<TypeData, Object> result = new HashMap<>();
         try {
+            result.put(TypeData.TypeEmailCodeMsg, TypeEmailCodeMsg.getTypeEmailCodeMsg(
+                    ClientServerSerializeProtocol_pb.General.parseFrom(data).
+                            getCodeMsgEmailReply().getTypeMsg().getNumber()));
             result.put(TypeData.BoolReply, ClientServerSerializeProtocol_pb.General.parseFrom(data)
-                    .getResetPasswordReply().getReply());
+                    .getCodeMsgEmailReply().getReply());
         } catch (InvalidProtocolBufferException exception) {
             System.out.println("Error in protobuf deserialised data");
         }
@@ -398,7 +452,7 @@ public class JvSerializatorData {
         try {
             result.put(TypeData.Email, ClientServerSerializeProtocol_pb.General.parseFrom(data).
                     getVerifyFamousEmailRequest().getEmail());
-            result.put(TypeData.VerifyCode, ClientServerSerializeProtocol_pb.General.parseFrom(data).
+            result.put(TypeData.VerifyFamousCode, ClientServerSerializeProtocol_pb.General.parseFrom(data).
                     getVerifyFamousEmailRequest().getCode());
         } catch (InvalidProtocolBufferException exception) {
             System.out.println("Error in protobuf deserialised data");
