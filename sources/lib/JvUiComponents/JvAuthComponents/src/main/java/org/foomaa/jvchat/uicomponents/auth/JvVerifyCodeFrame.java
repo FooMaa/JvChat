@@ -171,7 +171,6 @@ public class JvVerifyCodeFrame extends JFrame {
         if (JvMessageCtrl.getInstance().getVerifyFamousEmailRequestFlag()
                 == JvMessageCtrl.TypeFlags.TRUE) {
             closeWindow();
-            System.out.println("Код верен");
         } else if (JvMessageCtrl.getInstance().getVerifyFamousEmailRequestFlag()
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
