@@ -15,7 +15,7 @@ public class JvMessageCtrl {
     }
     private TypeFlags EntryRequestFlag = TypeFlags.DEFAULT;
     private TypeFlags RegistratonRequestFlag = TypeFlags.DEFAULT;
-    private TypeFlags CodeMsgEmailRequestFlag = TypeFlags.DEFAULT;
+    private TypeFlags ResetPasswordRequestFlag = TypeFlags.DEFAULT;
     private TypeFlags VerifyFamousEmailRequestFlag = TypeFlags.DEFAULT;
     private JvSerializatorData.TypeErrorRegistration errorRegistrationFlag =
             JvSerializatorData.TypeErrorRegistration.NoError;
@@ -45,16 +45,14 @@ public class JvMessageCtrl {
                 }
             }
             case RegistrationRequest -> {
-                if (parameters.length == 4) {
+                if (parameters.length == 3) {
                     Object login = parameters[0];
                     Object email = parameters[1];
                     Object password = parameters[2];
-                    Object code = parameters[3];
                     byte[] bodyMessage = createBodyRegistrationRequestMessage(type,
                             (String) login,
                             (String) email,
-                            (String) password,
-                            (String) code);
+                            (String) password);
                     sendReadyMessageNetwork(bodyMessage);
                     RegistratonRequestFlag = TypeFlags.DEFAULT;
                 }
@@ -76,23 +74,19 @@ public class JvMessageCtrl {
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
-            case CodeMsgEmailRequest -> {
-                if (parameters.length == 2) {
-                    Object typeEmailCode = parameters[0];
-                    Object email = parameters[1];
-                    byte[] bodyMessage = createBodyCodeMsgEmailRequestMessage(type,
-                            (JvSerializatorData.TypeEmailCodeMsg) typeEmailCode,
+            case ResetPasswordRequest -> {
+                if (parameters.length == 1) {
+                    Object email = parameters[0];
+                    byte[] bodyMessage = createBodyResetPasswordRequestMessage(type,
                             (String) email);
                     sendReadyMessageNetwork(bodyMessage);
-                    CodeMsgEmailRequestFlag = TypeFlags.DEFAULT;
+                    ResetPasswordRequestFlag = TypeFlags.DEFAULT;
                 }
             }
-            case CodeMsgEmailReply -> {
-                if (parameters.length == 2) {
-                    Object typeEmailCode = parameters[0];
-                    Object reply = parameters[1];
-                    byte[] bodyMessage = createBodyCodeMsgEmailReplyMessage(type,
-                            (JvSerializatorData.TypeEmailCodeMsg) typeEmailCode,
+            case ResetPasswordReply -> {
+                if (parameters.length == 1) {
+                    Object reply = parameters[0];
+                    byte[] bodyMessage = createBodyResetPasswordReplyMessage(type,
                             (Boolean) reply);
                     sendReadyMessageNetwork(bodyMessage);
                 }
@@ -144,8 +138,8 @@ public class JvMessageCtrl {
             case RegistrationRequest -> workRegistrationRequestMessage(getDeserializeMapData(type, data));
             case EntryReply -> workEntryReplyMessage(getDeserializeMapData(type, data));
             case RegistrationReply -> workRegistrationReplyMessage(getDeserializeMapData(type, data));
-            case CodeMsgEmailRequest -> workCodeMsgEmailRequestMessage(getDeserializeMapData(type, data));
-            case CodeMsgEmailReply -> workCodeMsgEmailReplyMessage(getDeserializeMapData(type, data));
+            case ResetPasswordRequest -> workResetPasswordRequestMessage(getDeserializeMapData(type, data));
+            case ResetPasswordReply -> workResetPasswordReplyMessage(getDeserializeMapData(type, data));
             case VerifyFamousEmailRequest -> workVerifyFamousEmailRequestMessage(getDeserializeMapData(type, data));
             case VerifyFamousEmailReply -> workVerifyFamousEmailReplyMessage(getDeserializeMapData(type, data));
             case ChangePasswordRequest -> workChangePasswordRequestMessage(getDeserializeMapData(type, data));
@@ -170,20 +164,20 @@ public class JvMessageCtrl {
         return JvSerializatorData.serialiseData(type, reply);
     }
 
-    private byte[] createBodyRegistrationRequestMessage(JvSerializatorData.TypeMessage type, String login, String email, String password, String code) {
-        return JvSerializatorData.serialiseData(type, login, email, password, code);
+    private byte[] createBodyRegistrationRequestMessage(JvSerializatorData.TypeMessage type, String login, String email, String password) {
+        return JvSerializatorData.serialiseData(type, login, email, password);
     }
 
     private byte[] createBodyRegistrationReplyMessage(JvSerializatorData.TypeMessage type, Boolean reply, JvSerializatorData.TypeErrorRegistration error) {
         return JvSerializatorData.serialiseData(type, reply, error);
     }
 
-    private byte[] createBodyCodeMsgEmailRequestMessage(JvSerializatorData.TypeMessage type, JvSerializatorData.TypeEmailCodeMsg typeEmailCodeMsg, String email) {
-        return JvSerializatorData.serialiseData(type, typeEmailCodeMsg, email);
+    private byte[] createBodyResetPasswordRequestMessage(JvSerializatorData.TypeMessage type, String email) {
+        return JvSerializatorData.serialiseData(type, email);
     }
 
-    private byte[] createBodyCodeMsgEmailReplyMessage(JvSerializatorData.TypeMessage type, JvSerializatorData.TypeEmailCodeMsg typeEmailCodeMsg, Boolean reply) {
-        return JvSerializatorData.serialiseData(type, typeEmailCodeMsg, reply);
+    private byte[] createBodyResetPasswordReplyMessage(JvSerializatorData.TypeMessage type, Boolean reply) {
+        return JvSerializatorData.serialiseData(type, reply);
     }
 
     private byte[] createBodyVerifyFamousEmailRequestMessage(JvSerializatorData.TypeMessage type, String email, String code) {
@@ -253,36 +247,30 @@ public class JvMessageCtrl {
         errorRegistrationFlag = (JvSerializatorData.TypeErrorRegistration) map.get(JvSerializatorData.TypeData.ErrorReg);
     }
 
-    private void workCodeMsgEmailRequestMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
-        JvSerializatorData.TypeEmailCodeMsg typeMsg = (JvSerializatorData.TypeEmailCodeMsg) map.get(
-                JvSerializatorData.TypeData.TypeEmailCodeMsg);
-        if (typeMsg == JvSerializatorData.TypeEmailCodeMsg.ResetPassword) {
-            String email = (String) map.get(JvSerializatorData.TypeData.Email);
-            boolean checkEmail = JvDbCtrl.getInstance().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.Email,
-                    email);
-            boolean reply = false;
-            if (checkEmail) {
-                JvEmailCtrl.getInstance().startVerifyFamousEmail(email);
-                reply = true;
-            }
-            sendMessage(JvSerializatorData.TypeMessage.CodeMsgEmailReply, reply);
-        } else if (typeMsg == JvSerializatorData.TypeEmailCodeMsg.Registration) {
-            //
+    private void workResetPasswordRequestMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
+        String email = (String) map.get(JvSerializatorData.TypeData.Email);
+        boolean checkEmail = JvDbCtrl.getInstance().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.Email,
+                email);
+        boolean reply = false;
+        if (checkEmail) {
+            JvEmailCtrl.getInstance().startVerifyEmail(email);
+            reply = true;
         }
+        sendMessage(JvSerializatorData.TypeMessage.ResetPasswordReply, reply);
     }
 
-    private void workCodeMsgEmailReplyMessage( HashMap<JvSerializatorData.TypeData, ?> map) {
+    private void workResetPasswordReplyMessage( HashMap<JvSerializatorData.TypeData, ?> map) {
         if ((Boolean) map.get(JvSerializatorData.TypeData.BoolReply)) {
-            CodeMsgEmailRequestFlag = TypeFlags.TRUE;
+            ResetPasswordRequestFlag = TypeFlags.TRUE;
         } else {
-            CodeMsgEmailRequestFlag = TypeFlags.FALSE;
+            ResetPasswordRequestFlag = TypeFlags.FALSE;
         }
     }
 
     private void workVerifyFamousEmailRequestMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
         boolean requestDB = JvDbCtrl.getInstance().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.VerifyFamousEmailCode,
                 (String) map.get(JvSerializatorData.TypeData.Email),
-                (String) map.get(JvSerializatorData.TypeData.VerifyFamousCode));
+                (String) map.get(JvSerializatorData.TypeData.VerifyCode));
         sendMessage(JvSerializatorData.TypeMessage.VerifyFamousEmailReply, requestDB);
     }
 
@@ -321,8 +309,8 @@ public class JvMessageCtrl {
         return errorRegistrationFlag;
     }
 
-    public TypeFlags getCodeMsgEmailRequestFlag() {
-        return CodeMsgEmailRequestFlag;
+    public TypeFlags getResetPasswordRequestFlag() {
+        return ResetPasswordRequestFlag;
     }
 
     public TypeFlags getVerifyFamousEmailRequestFlag() {

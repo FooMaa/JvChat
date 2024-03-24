@@ -83,7 +83,7 @@ public class JvResetPasswordFrame extends JFrame {
     private void addListenerToElements() {
         bSet.addActionListener(event -> {
             if (checkFields()) {
-                JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.CodeMsgEmailRequest,
+                JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.ResetPasswordRequest,
                         tEmail.getInputText());
                 waitRepeatServer();
             }
@@ -147,7 +147,7 @@ public class JvResetPasswordFrame extends JFrame {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (JvMessageCtrl.getInstance().getCodeMsgEmailRequestFlag()
+        while (JvMessageCtrl.getInstance().getResetPasswordRequestFlag()
                 == JvMessageCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
@@ -155,12 +155,11 @@ public class JvResetPasswordFrame extends JFrame {
                 System.out.println("Не удалось ждать");
             }
         }
-        if (JvMessageCtrl.getInstance().getCodeMsgEmailRequestFlag()
+        if (JvMessageCtrl.getInstance().getResetPasswordRequestFlag()
                 == JvMessageCtrl.TypeFlags.TRUE) {
-            JvVerifyCodeFrame frm = new JvVerifyCodeFrame(JvVerifyCodeFrame.RegimeWork.ResetPassword);
-            frm.setParametersResetPassword(tEmail.getInputText());
+            new JvVerifyCodeFrame(tEmail.getInputText(), JvVerifyCodeFrame.RegimeWork.ResetPassword);
             closeWindow();
-        } else if (JvMessageCtrl.getInstance().getCodeMsgEmailRequestFlag()
+        } else if (JvMessageCtrl.getInstance().getResetPasswordRequestFlag()
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             new JvAuthOptionPane("Данная почта не зарегистрирована.", JvAuthOptionPane.TypeDlg.ERROR);

@@ -10,8 +10,8 @@ message General {
         EntryReply entryReply = 3;
         RegistrationRequest registrationRequest = 4;
         RegistrationReply registrationReply = 5;
-        CodeMsgEmailRequest codeMsgEmailRequest = 6;
-        CodeMsgEmailReply codeMsgEmailReply = 7;
+        ResetPasswordRequest resetPasswordRequest = 6;
+        ResetPasswordReply resetPasswordReply = 7;
         VerifyFamousEmailRequest verifyFamousEmailRequest = 8;
         VerifyFamousEmailReply verifyFamousEmailReply = 9;
         ChangePasswordRequest changePasswordRequest = 10;
@@ -32,7 +32,6 @@ message RegistrationRequest {
     string login = 1;
     string email = 2;
     string password = 3;
-    string code = 4;
 }
 
 message RegistrationReply {
@@ -40,29 +39,18 @@ message RegistrationReply {
         Login = 0;
         Email = 1;
         LoginAndEmail = 2;
-        Code = 3;
         NoError = 9999;
     }
     bool reply = 1;
     Error error = 2;
 }
 
-message CodeMsgEmailRequest {
-    enum TypeMsg {
-        Registration = 0;
-        ResetPassword = 1;
-    }
-    TypeMsg typeMsg = 1;
-    string email = 2;
+message ResetPasswordRequest {
+    string email = 1;
 }
 
-message CodeMsgEmailReply {
-    enum TypeMsg {
-        Registration = 0;
-        ResetPassword = 1;
-    }
-    TypeMsg typeMsg = 1;
-    bool reply = 2;
+message ResetPasswordReply {
+    bool reply = 1;
 }
 
 message VerifyFamousEmailRequest {

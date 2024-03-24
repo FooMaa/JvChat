@@ -20,15 +20,15 @@ public class JvEmailCtrl {
         return instance;
     }
 
-    public void startVerifyFamousEmail(String email) {
+    public void startVerifyEmail(String email) {
         int code = (int) ((Math.random() * (999999 - 100000) ) + 100000);
-        String message =  createVerifyFamousEmailMessage(code, email);
+        String message =  createVerifyEmailMessage(code, email);
         emailProc.sendEmail(email, message);
         JvDbCtrl.getInstance().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.VerifyFamousEmail,
                 email, String.valueOf(code));
     }
 
-    private String createVerifyFamousEmailMessage(int code, String email){
+    private String createVerifyEmailMessage(int code, String email){
         return String.format(
                 "Вы запросили восстановление пароля. Ваш код: %d. Ваш логин: %s. " +
                         "Никому не говорите и не отправляйте код. " +

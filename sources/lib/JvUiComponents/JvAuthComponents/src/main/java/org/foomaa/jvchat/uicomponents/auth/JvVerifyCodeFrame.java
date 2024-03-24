@@ -18,9 +18,7 @@ public class JvVerifyCodeFrame extends JFrame {
     private final JvAuthTextField tCode;
     private final JvAuthLabel tErrorHelpInfo;
     private final JvAuthButton bSet;
-    private String email = "";
-    private String password = "";
-    private String login = "";
+    private final String email;
     private final RegimeWork regime;
 
     public enum RegimeWork {
@@ -28,10 +26,11 @@ public class JvVerifyCodeFrame extends JFrame {
         ResetPassword
     }
 
-    public JvVerifyCodeFrame(RegimeWork rg) {
-        super("VerifyFamousCodeWindow");
+    public JvVerifyCodeFrame(String post, RegimeWork rg) {
+        super("VerifyCodeWindow");
 
         regime = rg;
+        email = post;
         panel = new JPanel();
         tInfo = new JvAuthLabel("Введите код, отправленный на почту:");
         tCode = new JvAuthTextField("Код");
@@ -42,16 +41,6 @@ public class JvVerifyCodeFrame extends JFrame {
         makeFrameSetting();
         addListenerToElements();
         addGeneralSettingsToWidget();
-    }
-
-    public void setParametersRegistration(String pLogin, String pEmail, String pPassword) {
-        login = pLogin;
-        email = pEmail;
-        password = pPassword;
-    }
-
-    public void setParametersResetPassword(String pEmail) {
-        email = pEmail;
     }
 
     private void makeFrameSetting() {
@@ -101,7 +90,7 @@ public class JvVerifyCodeFrame extends JFrame {
 
     private void addListenerToElements() {
         bSet.addActionListener(event -> {
-            if (checkFields() && !Objects.equals(email, "")) {
+            if (checkFields()) {
                 JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.VerifyFamousEmailRequest,
                         email, tCode.getInputText());
                 waitRepeatServer();
