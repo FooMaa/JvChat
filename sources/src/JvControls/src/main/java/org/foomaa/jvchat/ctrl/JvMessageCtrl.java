@@ -281,7 +281,7 @@ public class JvMessageCtrl {
     }
 
     private void workVerifyRegistrationEmailRequestMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
-        boolean checkCode = JvDbCtrl.getInstance().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.VerifyRegEmail,
+        boolean checkCode = JvDbCtrl.getInstance().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.VerifyRegistrationEmail,
                 (String) map.get(JvSerializatorData.TypeData.Email),
                 (String) map.get(JvSerializatorData.TypeData.VerifyCode));
         if (checkCode) {

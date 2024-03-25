@@ -15,9 +15,9 @@ public class JvDbCtrl
 
     public enum TypeExecutionInsert {
         RegisterForm,
-        VerifyFamousEmail,
         ChangePassword,
-        VerifyRegEmail
+        VerifyFamousEmail,
+        VerifyRegistrationEmail
     }
 
     public enum TypeExecutionCheck {
@@ -25,7 +25,7 @@ public class JvDbCtrl
         Login,
         Email,
         VerifyFamousEmailCode,
-        VerifyRegEmail
+        VerifyRegistrationEmail
     }
 
     public enum TypeExecutionGet {
@@ -63,6 +63,15 @@ public class JvDbCtrl
                 }
                 return false;
             }
+            case ChangePassword -> {
+                if (parameters.length == 2) {
+                    String email = parameters[0];
+                    String password = parameters[1];
+                    db.makeExecution(JvDbDefines.insertChangePassword(email, password));
+                    return true;
+                }
+                return false;
+            }
             case VerifyFamousEmail -> {
                 if (parameters.length == 2) {
                     String email = parameters[0];
@@ -76,16 +85,7 @@ public class JvDbCtrl
                     return false;
                 }
             }
-            case ChangePassword -> {
-                if (parameters.length == 2) {
-                    String email = parameters[0];
-                    String password = parameters[1];
-                    db.makeExecution(JvDbDefines.insertChangePassword(email, password));
-                    return true;
-                }
-                return false;
-            }
-            case VerifyRegEmail -> {
+            case VerifyRegistrationEmail -> {
                 if (parameters.length == 2) {
                     String email = parameters[0];
                     String code = parameters[1];
@@ -150,7 +150,7 @@ public class JvDbCtrl
                 }
                 return false;
             }
-            case VerifyRegEmail -> {
+            case VerifyRegistrationEmail -> {
                 if (parameters.length == 2) {
                     String email = parameters[0];
                     String code = parameters[1];
