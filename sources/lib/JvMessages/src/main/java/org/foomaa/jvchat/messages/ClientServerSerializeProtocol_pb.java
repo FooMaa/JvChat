@@ -7264,6 +7264,10 @@ public final class ClientServerSerializeProtocol_pb {
        */
       LoginAndEmail(2),
       /**
+       * <code>Code = 3;</code>
+       */
+      Code(3),
+      /**
        * <code>NoError = 9999;</code>
        */
       NoError(9999),
@@ -7282,6 +7286,10 @@ public final class ClientServerSerializeProtocol_pb {
        * <code>LoginAndEmail = 2;</code>
        */
       public static final int LoginAndEmail_VALUE = 2;
+      /**
+       * <code>Code = 3;</code>
+       */
+      public static final int Code_VALUE = 3;
       /**
        * <code>NoError = 9999;</code>
        */
@@ -7315,6 +7323,7 @@ public final class ClientServerSerializeProtocol_pb {
           case 0: return Login;
           case 1: return Email;
           case 2: return LoginAndEmail;
+          case 3: return Code;
           case 9999: return NoError;
           default: return null;
         }
@@ -11431,19 +11440,19 @@ public final class ClientServerSerializeProtocol_pb {
       "nAndEmail\020\002\022\014\n\007NoError\020\217N\"^\n\036VerifyRegis" +
       "trationEmailRequest\022\r\n\005login\030\001 \001(\t\022\r\n\005em" +
       "ail\030\002 \001(\t\022\020\n\010password\030\003 \001(\t\022\014\n\004code\030\004 \001(" +
-      "\t\"\241\001\n\034VerifyRegistrationEmailReply\022\r\n\005re" +
+      "\t\"\253\001\n\034VerifyRegistrationEmailReply\022\r\n\005re" +
       "ply\030\001 \001(\010\0222\n\005error\030\002 \001(\0162#.VerifyRegistr" +
-      "ationEmailReply.Error\">\n\005Error\022\t\n\005Login\020" +
-      "\000\022\t\n\005Email\020\001\022\021\n\rLoginAndEmail\020\002\022\014\n\007NoErr" +
-      "or\020\217N\"%\n\024ResetPasswordRequest\022\r\n\005email\030\001" +
-      " \001(\t\"#\n\022ResetPasswordReply\022\r\n\005reply\030\001 \001(" +
-      "\010\"7\n\030VerifyFamousEmailRequest\022\r\n\005email\030\001" +
-      " \001(\t\022\014\n\004code\030\002 \001(\t\"\'\n\026VerifyFamousEmailR" +
-      "eply\022\r\n\005reply\030\001 \001(\010\"8\n\025ChangePasswordReq" +
-      "uest\022\r\n\005email\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\"$\n" +
-      "\023ChangePasswordReply\022\r\n\005reply\030\001 \001(\010B>\n\032o" +
-      "rg.foomaa.jvchat.messagesB ClientServerS" +
-      "erializeProtocol_pbb\006proto3"
+      "ationEmailReply.Error\"H\n\005Error\022\t\n\005Login\020" +
+      "\000\022\t\n\005Email\020\001\022\021\n\rLoginAndEmail\020\002\022\010\n\004Code\020" +
+      "\003\022\014\n\007NoError\020\217N\"%\n\024ResetPasswordRequest\022" +
+      "\r\n\005email\030\001 \001(\t\"#\n\022ResetPasswordReply\022\r\n\005" +
+      "reply\030\001 \001(\010\"7\n\030VerifyFamousEmailRequest\022" +
+      "\r\n\005email\030\001 \001(\t\022\014\n\004code\030\002 \001(\t\"\'\n\026VerifyFa" +
+      "mousEmailReply\022\r\n\005reply\030\001 \001(\010\"8\n\025ChangeP" +
+      "asswordRequest\022\r\n\005email\030\001 \001(\t\022\020\n\010passwor" +
+      "d\030\002 \001(\t\"$\n\023ChangePasswordReply\022\r\n\005reply\030" +
+      "\001 \001(\010B>\n\032org.foomaa.jvchat.messagesB Cli" +
+      "entServerSerializeProtocol_pbb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
