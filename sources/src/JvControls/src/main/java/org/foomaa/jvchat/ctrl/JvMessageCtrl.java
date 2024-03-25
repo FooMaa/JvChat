@@ -21,6 +21,8 @@ public class JvMessageCtrl {
             JvSerializatorData.TypeErrorRegistration.NoError;
     private TypeFlags ChangePasswordRequest = TypeFlags.DEFAULT;
     private TypeFlags VerifyRegistrationEmailRequestFlag = TypeFlags.DEFAULT;
+    private JvSerializatorData.TypeErrorRegistration errorVerifyRegEmailFlag =
+            JvSerializatorData.TypeErrorRegistration.NoError;
     // FLAGS
 
     private JvMessageCtrl() {}
@@ -315,7 +317,7 @@ public class JvMessageCtrl {
         } else {
             VerifyRegistrationEmailRequestFlag = TypeFlags.FALSE;
         }
-        errorRegistrationFlag = (JvSerializatorData.TypeErrorRegistration) map.get(JvSerializatorData.TypeData.ErrorReg);
+        errorVerifyRegEmailFlag = (JvSerializatorData.TypeErrorRegistration) map.get(JvSerializatorData.TypeData.ErrorReg);
     }
 
     private void workResetPasswordRequestMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
@@ -394,5 +396,9 @@ public class JvMessageCtrl {
 
     public TypeFlags getVerifyRegistrationEmailRequestFlag() {
         return VerifyRegistrationEmailRequestFlag;
+    }
+
+    public JvSerializatorData.TypeErrorRegistration getErrorVerifyRegEmailFlag() {
+        return errorVerifyRegEmailFlag;
     }
 }

@@ -105,10 +105,12 @@ public class JvVerifyCodeFrame extends JFrame {
                 if (checkFields()) {
                     JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.VerifyFamousEmailRequest,
                             email, tCode.getInputText());
-                    waitRepeatServer();
+                    waitRepeatServerResetPassword();
                 }
             } else if (regime == RegimeWork.Registration) {
-                //
+                JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.VerifyRegistrationEmailRequest,
+                        login, email, password, tCode.getInputText());
+                waitRepeatServerRegistration();
             }
         });
 
@@ -173,7 +175,7 @@ public class JvVerifyCodeFrame extends JFrame {
         }
     }
 
-    private void waitRepeatServer() {
+    private void waitRepeatServerResetPassword() {
         setEnabled(false);
         while (JvMessageCtrl.getInstance().getVerifyFamousEmailRequestFlag()
                 == JvMessageCtrl.TypeFlags.DEFAULT) {
@@ -190,6 +192,37 @@ public class JvVerifyCodeFrame extends JFrame {
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             new JvAuthOptionPane("Код не верен. Введите код полученный по почте еще раз.", JvAuthOptionPane.TypeDlg.ERROR);
+        }
+    }
+
+    private void waitRepeatServerRegistration() {
+        setEnabled(false);
+        while (JvMessageCtrl.getInstance().getVerifyFamousEmailRequestFlag()
+                == JvMessageCtrl.TypeFlags.DEFAULT) {
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException exception) {
+                System.out.println("Не удалось ждать");
+            }
+        }
+        if (JvMessageCtrl.getInstance().getVerifyFamousEmailRequestFlag()
+                == JvMessageCtrl.TypeFlags.TRUE) {
+            closeWindow();
+        } else if (JvMessageCtrl.getInstance().getVerifyFamousEmailRequestFlag()
+                == JvMessageCtrl.TypeFlags.FALSE) {
+            setEnabled(true);
+            openErrorPane();
+        }
+    }
+
+    private void openErrorPane() {
+        switch (JvMessageCtrl.getInstance().getErrorVerifyRegEmailFlag()) {
+            case NoError -> new JvAuthOptionPane("Ошибка не выяснена.", JvAuthOptionPane.TypeDlg.ERROR);
+            case Login -> new JvAuthOptionPane("Данный логин уже используется.", JvAuthOptionPane.TypeDlg.ERROR);
+            case Email -> new JvAuthOptionPane("Данная почта уже используется.", JvAuthOptionPane.TypeDlg.ERROR);
+            case Code -> new JvAuthOptionPane("Введенный код не верен.", JvAuthOptionPane.TypeDlg.ERROR);
+            case LoginAndEmail ->
+                    new JvAuthOptionPane("Данные почта и логин уже используются.", JvAuthOptionPane.TypeDlg.ERROR);
         }
     }
 }
