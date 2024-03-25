@@ -20,6 +20,7 @@ public class JvMessageCtrl {
     private JvSerializatorData.TypeErrorRegistration errorRegistrationFlag =
             JvSerializatorData.TypeErrorRegistration.NoError;
     private TypeFlags ChangePasswordRequest = TypeFlags.DEFAULT;
+    private TypeFlags VerifyRegistrationEmailRequestFlag = TypeFlags.DEFAULT;
     // FLAGS
 
     private JvMessageCtrl() {}
@@ -44,6 +45,14 @@ public class JvMessageCtrl {
                     EntryRequestFlag = TypeFlags.DEFAULT;
                 }
             }
+            case EntryReply -> {
+                if (parameters.length == 1) {
+                    Object reply = parameters[0];
+                    byte[] bodyMessage = createBodyEntryReplyMessage(type,
+                            (Boolean) reply);
+                    sendReadyMessageNetwork(bodyMessage);
+                }
+            }
             case RegistrationRequest -> {
                 if (parameters.length == 3) {
                     Object login = parameters[0];
@@ -57,19 +66,35 @@ public class JvMessageCtrl {
                     RegistratonRequestFlag = TypeFlags.DEFAULT;
                 }
             }
-            case EntryReply -> {
-                if (parameters.length == 1) {
-                    Object reply = parameters[0];
-                    byte[] bodyMessage = createBodyEntryReplyMessage(type,
-                            (Boolean) reply);
-                    sendReadyMessageNetwork(bodyMessage);
-                }
-            }
             case RegistrationReply -> {
                 if (parameters.length == 2) {
                     Object reply = parameters[0];
                     Object error = parameters[1];
                     byte[] bodyMessage = createBodyRegistrationReplyMessage(type,
+                            (Boolean) reply, (JvSerializatorData.TypeErrorRegistration) error);
+                    sendReadyMessageNetwork(bodyMessage);
+                }
+            }
+            case VerifyRegistrationEmailRequest -> {
+                if (parameters.length == 4) {
+                    Object login = parameters[0];
+                    Object email = parameters[1];
+                    Object password = parameters[2];
+                    Object code = parameters[3];
+                    byte[] bodyMessage = createBodyVerifyRegistrationEmailRequestMessage(type,
+                            (String) login,
+                            (String) email,
+                            (String) password,
+                            (String) code);
+                    sendReadyMessageNetwork(bodyMessage);
+                    VerifyRegistrationEmailRequestFlag = TypeFlags.DEFAULT;
+                }
+            }
+            case VerifyRegistrationEmailReply -> {
+                if (parameters.length == 2) {
+                    Object reply = parameters[0];
+                    Object error = parameters[1];
+                    byte[] bodyMessage = createBodyVerifyRegistrationEmailReplyMessage(type,
                             (Boolean) reply, (JvSerializatorData.TypeErrorRegistration) error);
                     sendReadyMessageNetwork(bodyMessage);
                 }
@@ -135,9 +160,11 @@ public class JvMessageCtrl {
         JvSerializatorData.TypeMessage type = JvSerializatorData.getTypeMessage(data);
         switch (type) {
             case EntryRequest -> workEntryRequestMessage(getDeserializeMapData(type, data));
-            case RegistrationRequest -> workRegistrationRequestMessage(getDeserializeMapData(type, data));
             case EntryReply -> workEntryReplyMessage(getDeserializeMapData(type, data));
+            case RegistrationRequest -> workRegistrationRequestMessage(getDeserializeMapData(type, data));
             case RegistrationReply -> workRegistrationReplyMessage(getDeserializeMapData(type, data));
+            case VerifyRegistrationEmailRequest -> workVerifyRegistrationEmailRequestMessage(getDeserializeMapData(type, data));
+            case VerifyRegistrationEmailReply -> workVerifyRegistrationEmailReplyMessage(getDeserializeMapData(type, data));
             case ResetPasswordRequest -> workResetPasswordRequestMessage(getDeserializeMapData(type, data));
             case ResetPasswordReply -> workResetPasswordReplyMessage(getDeserializeMapData(type, data));
             case VerifyFamousEmailRequest -> workVerifyFamousEmailRequestMessage(getDeserializeMapData(type, data));
@@ -169,6 +196,14 @@ public class JvMessageCtrl {
     }
 
     private byte[] createBodyRegistrationReplyMessage(JvSerializatorData.TypeMessage type, Boolean reply, JvSerializatorData.TypeErrorRegistration error) {
+        return JvSerializatorData.serialiseData(type, reply, error);
+    }
+
+    private byte[] createBodyVerifyRegistrationEmailRequestMessage(JvSerializatorData.TypeMessage type, String login, String email, String password, String code) {
+        return JvSerializatorData.serialiseData(type, login, email, password, code);
+    }
+
+    private byte[] createBodyVerifyRegistrationEmailReplyMessage(JvSerializatorData.TypeMessage type, Boolean reply, JvSerializatorData.TypeErrorRegistration error) {
         return JvSerializatorData.serialiseData(type, reply, error);
     }
 
@@ -212,28 +247,24 @@ public class JvMessageCtrl {
     }
 
     private void workRegistrationRequestMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
-        boolean requestDB = JvDbCtrl.getInstance().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.RegisterForm,
-                (String) map.get(JvSerializatorData.TypeData.Login),
-                (String) map.get(JvSerializatorData.TypeData.Email),
-                (String) map.get(JvSerializatorData.TypeData.Password));
+        boolean requestDB = false;
         JvSerializatorData.TypeErrorRegistration typeError = JvSerializatorData.TypeErrorRegistration.NoError;
-        if (!requestDB) {
-            boolean checkLogin =  JvDbCtrl.getInstance().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.Login,
-                    (String) map.get(JvSerializatorData.TypeData.Login));
-            boolean checkEmail =  JvDbCtrl.getInstance().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.Email,
-                    (String) map.get(JvSerializatorData.TypeData.Email));
-            if (!checkLogin && !checkEmail) {
-                typeError = JvSerializatorData.TypeErrorRegistration.NoError;
-            }
-            if (checkLogin) {
-                typeError = JvSerializatorData.TypeErrorRegistration.Login;
-            }
-            if (checkEmail) {
-                typeError = JvSerializatorData.TypeErrorRegistration.Email;
-            }
-            if (checkLogin && checkEmail) {
-                typeError = JvSerializatorData.TypeErrorRegistration.LoginAndEmail;
-            }
+        boolean checkLogin =  JvDbCtrl.getInstance().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.Login,
+                (String) map.get(JvSerializatorData.TypeData.Login));
+        boolean checkEmail =  JvDbCtrl.getInstance().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.Email,
+                (String) map.get(JvSerializatorData.TypeData.Email));
+        if (checkLogin) {
+            typeError = JvSerializatorData.TypeErrorRegistration.Login;
+        }
+        if (checkEmail) {
+            typeError = JvSerializatorData.TypeErrorRegistration.Email;
+        }
+        if (checkLogin && checkEmail) {
+            typeError = JvSerializatorData.TypeErrorRegistration.LoginAndEmail;
+        }
+        if (typeError == JvSerializatorData.TypeErrorRegistration.NoError) {
+            JvEmailCtrl.getInstance().startVerifyRegEmail((String) map.get(JvSerializatorData.TypeData.Email));
+            requestDB = true;
         }
         sendMessage(JvSerializatorData.TypeMessage.RegistrationReply, requestDB, typeError);
     }
@@ -247,13 +278,53 @@ public class JvMessageCtrl {
         errorRegistrationFlag = (JvSerializatorData.TypeErrorRegistration) map.get(JvSerializatorData.TypeData.ErrorReg);
     }
 
+    private void workVerifyRegistrationEmailRequestMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
+        boolean checkCode = JvDbCtrl.getInstance().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.VerifyRegEmail,
+                (String) map.get(JvSerializatorData.TypeData.Email),
+                (String) map.get(JvSerializatorData.TypeData.VerifyCode));
+        if (checkCode) {
+            boolean requestDB = JvDbCtrl.getInstance().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.RegisterForm,
+                    (String) map.get(JvSerializatorData.TypeData.Login),
+                    (String) map.get(JvSerializatorData.TypeData.Email),
+                    (String) map.get(JvSerializatorData.TypeData.Password));
+            JvSerializatorData.TypeErrorRegistration typeError = JvSerializatorData.TypeErrorRegistration.NoError;
+            if (!requestDB) {
+                boolean checkLogin = JvDbCtrl.getInstance().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.Login,
+                        (String) map.get(JvSerializatorData.TypeData.Login));
+                boolean checkEmail = JvDbCtrl.getInstance().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.Email,
+                        (String) map.get(JvSerializatorData.TypeData.Email));
+                if (checkLogin) {
+                    typeError = JvSerializatorData.TypeErrorRegistration.Login;
+                }
+                if (checkEmail) {
+                    typeError = JvSerializatorData.TypeErrorRegistration.Email;
+                }
+                if (checkLogin && checkEmail) {
+                    typeError = JvSerializatorData.TypeErrorRegistration.LoginAndEmail;
+                }
+            }
+            sendMessage(JvSerializatorData.TypeMessage.VerifyRegistrationEmailReply, requestDB, typeError);
+        } else {
+            sendMessage(JvSerializatorData.TypeMessage.VerifyRegistrationEmailReply, false, JvSerializatorData.TypeErrorRegistration.NoError);
+        }
+    }
+
+    private void workVerifyRegistrationEmailReplyMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
+        if ((Boolean) map.get(JvSerializatorData.TypeData.BoolReply)) {
+            VerifyRegistrationEmailRequestFlag = TypeFlags.TRUE;
+        } else {
+            VerifyRegistrationEmailRequestFlag = TypeFlags.FALSE;
+        }
+        errorRegistrationFlag = (JvSerializatorData.TypeErrorRegistration) map.get(JvSerializatorData.TypeData.ErrorReg);
+    }
+
     private void workResetPasswordRequestMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
         String email = (String) map.get(JvSerializatorData.TypeData.Email);
         boolean checkEmail = JvDbCtrl.getInstance().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.Email,
                 email);
         boolean reply = false;
         if (checkEmail) {
-            JvEmailCtrl.getInstance().startVerifyEmail(email);
+            JvEmailCtrl.getInstance().startVerifyFamousEmail(email);
             reply = true;
         }
         sendMessage(JvSerializatorData.TypeMessage.ResetPasswordReply, reply);
@@ -319,5 +390,9 @@ public class JvMessageCtrl {
 
     public TypeFlags getChangePasswordRequest() {
         return ChangePasswordRequest;
+    }
+
+    public TypeFlags getVerifyRegistrationEmailRequestFlag() {
+        return VerifyRegistrationEmailRequestFlag;
     }
 }

@@ -16,14 +16,16 @@ public class JvDbCtrl
     public enum TypeExecutionInsert {
         RegisterForm,
         VerifyFamousEmail,
-        ChangePassword
+        ChangePassword,
+        VerifyRegEmail
     }
 
     public enum TypeExecutionCheck {
         UserPassword,
         Login,
         Email,
-        VerifyFamousEmailCode
+        VerifyFamousEmailCode,
+        VerifyRegEmail
     }
 
     public enum TypeExecutionGet {
@@ -83,13 +85,22 @@ public class JvDbCtrl
                 }
                 return false;
             }
+            case VerifyRegEmail -> {
+                if (parameters.length == 2) {
+                    String email = parameters[0];
+                    String code = parameters[1];
+                    db.makeExecution(JvDbDefines.insertRegEmailCode(email, code));
+                    return true;
+                }
+                return false;
+            }
         }
         return false;
     }
 
     public boolean checkQueryToDB(TypeExecutionCheck type, String ... parameters) {
         switch (type) {
-            case UserPassword:
+            case UserPassword -> {
                 if (parameters.length == 2) {
                     String login = parameters[0];
                     String password = parameters[1];
@@ -101,7 +112,8 @@ public class JvDbCtrl
                     }
                 }
                 return false;
-            case Login:
+            }
+            case Login -> {
                 if (parameters.length == 1) {
                     String login = parameters[0];
                     ResultSet rs = db.makeExecution(JvDbDefines.checkLogin(login));
@@ -112,7 +124,8 @@ public class JvDbCtrl
                     }
                 }
                 return false;
-            case Email:
+            }
+            case Email -> {
                 if (parameters.length == 1) {
                     String email = parameters[0];
                     ResultSet rs = db.makeExecution(JvDbDefines.checkEmail(email));
@@ -123,7 +136,8 @@ public class JvDbCtrl
                     }
                 }
                 return false;
-            case VerifyFamousEmailCode:
+            }
+            case VerifyFamousEmailCode -> {
                 if (parameters.length == 2) {
                     String email = parameters[0];
                     String code = parameters[1];
@@ -135,6 +149,20 @@ public class JvDbCtrl
                     }
                 }
                 return false;
+            }
+            case VerifyRegEmail -> {
+                if (parameters.length == 2) {
+                    String email = parameters[0];
+                    String code = parameters[1];
+                    ResultSet rs = db.makeExecution(JvDbDefines.checkRegEmailCode(email, code));
+                    try {
+                        return rs.next();
+                    } catch (SQLException exception) {
+                        System.out.println("Ошибка проверки запроса к БД");
+                    }
+                }
+                return false;
+            }
         }
         return false;
     }

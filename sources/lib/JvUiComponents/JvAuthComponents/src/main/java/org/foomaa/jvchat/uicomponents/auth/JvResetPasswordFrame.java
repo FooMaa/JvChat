@@ -141,6 +141,8 @@ public class JvResetPasswordFrame extends JFrame {
     }
 
     private void closeWindow() {
+        JvVerifyCodeFrame frm = new JvVerifyCodeFrame(JvVerifyCodeFrame.RegimeWork.ResetPassword);
+        frm.setParametersResetPassword(tEmail.getInputText());
         setVisible(false);
         dispose();
     }
@@ -157,7 +159,6 @@ public class JvResetPasswordFrame extends JFrame {
         }
         if (JvMessageCtrl.getInstance().getResetPasswordRequestFlag()
                 == JvMessageCtrl.TypeFlags.TRUE) {
-            new JvVerifyCodeFrame(tEmail.getInputText(), JvVerifyCodeFrame.RegimeWork.ResetPassword);
             closeWindow();
         } else if (JvMessageCtrl.getInstance().getResetPasswordRequestFlag()
                 == JvMessageCtrl.TypeFlags.FALSE) {

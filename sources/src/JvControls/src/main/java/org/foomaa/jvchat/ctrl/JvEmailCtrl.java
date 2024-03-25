@@ -20,20 +20,36 @@ public class JvEmailCtrl {
         return instance;
     }
 
-    public void startVerifyEmail(String email) {
+    public void startVerifyFamousEmail(String email) {
         int code = (int) ((Math.random() * (999999 - 100000) ) + 100000);
-        String message =  createVerifyEmailMessage(code, email);
+        String message =  createVerifyFamousEmailMessage(code, email);
         emailProc.sendEmail(email, message);
         JvDbCtrl.getInstance().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.VerifyFamousEmail,
                 email, String.valueOf(code));
     }
 
-    private String createVerifyEmailMessage(int code, String email){
+    private String createVerifyFamousEmailMessage(int code, String email){
         return String.format(
                 "Вы запросили восстановление пароля. Ваш код: %d. Ваш логин: %s. " +
                         "Никому не говорите и не отправляйте код. " +
                         "Если это были не вы, свяжитесь с поддержкой по почте avodichenkov@mail.ru.",
                 code,
                 JvDbCtrl.getInstance().getInfoFromDb(JvDbCtrl.TypeExecutionGet.LoginByEmail, email));
+    }
+
+    public void startVerifyRegEmail(String email) {
+        int code = (int) ((Math.random() * (999999 - 100000) ) + 100000);
+        String message =  createVerifyRegEmailMessage(code);
+        emailProc.sendEmail(email, message);
+        JvDbCtrl.getInstance().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.VerifyRegEmail,
+                email, String.valueOf(code));
+    }
+
+    private String createVerifyRegEmailMessage(int code){
+        return String.format(
+                "Вы регистрируетесь в программе, для подтверждения почты введите код. Ваш код: %d. " +
+                        "Никому не говорите и не отправляйте код. " +
+                        "Если это были не вы, свяжитесь с поддержкой по почте avodichenkov@mail.ru.",
+                code);
     }
 }

@@ -23,7 +23,7 @@ public class JvDbDefines {
                 password);
     }
 
-    public static String insertCodeCheckEmail(String email, String code) {
+    public static String insertRegEmailCode(String email, String code) {
         return String.format(
                 "SELECT * FROM chat_schema.check_registration_email_save( '%s','%s');",
                 email,
@@ -56,7 +56,7 @@ public class JvDbDefines {
                 code);
     }
 
-    public static String checkCheckEmailCode(String email, String code) {
+    public static String checkRegEmailCode(String email, String code) {
         return String.format(
                 "SELECT * FROM chat_schema.check_registration_email_check_email_code('%s', '%s');",
                 email,

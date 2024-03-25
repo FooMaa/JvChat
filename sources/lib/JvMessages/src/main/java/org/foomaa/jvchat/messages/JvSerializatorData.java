@@ -10,12 +10,14 @@ public class JvSerializatorData {
         EntryReply(1),
         RegistrationRequest(2),
         RegistrationReply(3),
-        ResetPasswordRequest(4),
-        ResetPasswordReply(5),
-        VerifyFamousEmailRequest(6),
-        VerifyFamousEmailReply(7),
-        ChangePasswordRequest(8),
-        ChangePasswordReply(9);
+        VerifyRegistrationEmailRequest(4),
+        VerifyRegistrationEmailReply(5),
+        ResetPasswordRequest(6),
+        ResetPasswordReply(7),
+        VerifyFamousEmailRequest(8),
+        VerifyFamousEmailReply(9),
+        ChangePasswordRequest(10),
+        ChangePasswordReply(11);
 
         private final int value;
 
@@ -94,6 +96,14 @@ public class JvSerializatorData {
                     return new byte[0];
                 }
             }
+            case EntryReply -> {
+                if (parameters.length == 1) {
+                    Object reply = parameters[0];
+                    return createEntryReplyMessage(type, (Boolean) reply);
+                } else {
+                    return new byte[0];
+                }
+            }
             case RegistrationRequest -> {
                 if (parameters.length == 3) {
                     Object login = parameters[0];
@@ -105,19 +115,32 @@ public class JvSerializatorData {
                     return new byte[0];
                 }
             }
-            case EntryReply -> {
-                if (parameters.length == 1) {
-                    Object reply = parameters[0];
-                    return createEntryReplyMessage(type, (Boolean) reply);
-                } else {
-                    return new byte[0];
-                }
-            }
             case RegistrationReply -> {
                 if (parameters.length == 2) {
                     Object reply = parameters[0];
                     Object error = parameters[1];
                     return createRegistrationReplyMessage(type, (Boolean) reply, (TypeErrorRegistration) error);
+                } else {
+                    return new byte[0];
+                }
+            }
+            case VerifyRegistrationEmailRequest -> {
+                if (parameters.length == 4) {
+                    Object login = parameters[0];
+                    Object email = parameters[1];
+                    Object password = parameters[2];
+                    Object code = parameters[3];
+                    return createVerifyRegistrationEmailRequestMessage(type,
+                            (String) login, (String) email, (String) password, (String) code);
+                } else {
+                    return new byte[0];
+                }
+            }
+            case VerifyRegistrationEmailReply -> {
+                if (parameters.length == 2) {
+                    Object reply = parameters[0];
+                    Object error = parameters[1];
+                    return createVerifyRegistrationEmailReplyMessage(type, (Boolean) reply, (TypeErrorRegistration) error);
                 } else {
                     return new byte[0];
                 }
@@ -179,9 +202,11 @@ public class JvSerializatorData {
     public static HashMap<TypeData, ?> deserializeData(TypeMessage type, byte[] data) {
         return switch (type) {
             case EntryRequest -> takeEntryRequestMessage(data);
-            case RegistrationRequest -> takeRegistrationRequestMessage(data);
             case EntryReply -> takeEntryReplyMessage(data);
+            case RegistrationRequest -> takeRegistrationRequestMessage(data);
             case RegistrationReply -> takeRegistrationReplyMessage(data);
+            case VerifyRegistrationEmailRequest -> takeVerifyRegistrationEmailRequestMessage(data);
+            case VerifyRegistrationEmailReply -> takeVerifyRegistrationEmailReplyMessage(data);
             case ResetPasswordRequest -> takeResetPasswordRequestMessage(data);
             case ResetPasswordReply -> takeResetPasswordReplyMessage(data);
             case VerifyFamousEmailRequest -> takeVerifyFamousEmailRequestMessage(data);
@@ -246,6 +271,32 @@ public class JvSerializatorData {
         ClientServerSerializeProtocol_pb.General resMsg = ClientServerSerializeProtocol_pb.General.newBuilder()
                 .setType(type.getValue())
                 .setRegistrationReply(msgRegReply)
+                .build();
+        return resMsg.toByteArray();
+    }
+
+    private static byte[] createVerifyRegistrationEmailRequestMessage(TypeMessage type, String login, String email, String password, String code) {
+        ClientServerSerializeProtocol_pb.VerifyRegistrationEmailRequest msgVerifyRegRequest = ClientServerSerializeProtocol_pb.VerifyRegistrationEmailRequest.newBuilder()
+                .setLogin(login)
+                .setEmail(email)
+                .setPassword(password)
+                .setCode(code)
+                .build();
+        ClientServerSerializeProtocol_pb.General resMsg = ClientServerSerializeProtocol_pb.General.newBuilder()
+                .setType(type.getValue())
+                .setVerifyRegistrationEmailRequest(msgVerifyRegRequest)
+                .build();
+        return resMsg.toByteArray();
+    }
+
+    private static byte[] createVerifyRegistrationEmailReplyMessage(TypeMessage type, boolean reply, TypeErrorRegistration error) {
+        ClientServerSerializeProtocol_pb.VerifyRegistrationEmailReply msgVerifyRegReply = ClientServerSerializeProtocol_pb.VerifyRegistrationEmailReply.newBuilder()
+                .setReply(reply)
+                .setError(ClientServerSerializeProtocol_pb.VerifyRegistrationEmailReply.Error.forNumber(error.getValue()))
+                .build();
+        ClientServerSerializeProtocol_pb.General resMsg = ClientServerSerializeProtocol_pb.General.newBuilder()
+                .setType(type.getValue())
+                .setVerifyRegistrationEmailReply(msgVerifyRegReply)
                 .build();
         return resMsg.toByteArray();
     }
@@ -365,6 +416,37 @@ public class JvSerializatorData {
             result.put(TypeData.ErrorReg, TypeErrorRegistration.getTypeError(
                     ClientServerSerializeProtocol_pb.General.parseFrom(data).
                             getRegistrationReply().getError().getNumber()));
+        } catch (InvalidProtocolBufferException exception) {
+            System.out.println("Error in protobuf deserialised data");
+        }
+        return result;
+    }
+
+    private static HashMap<TypeData, String> takeVerifyRegistrationEmailRequestMessage(byte[] data) {
+        HashMap<TypeData, String> result = new HashMap<>();
+        try {
+            result.put(TypeData.Login, ClientServerSerializeProtocol_pb.General.parseFrom(data).
+                    getVerifyRegistrationEmailRequest().getLogin());
+            result.put(TypeData.Email, ClientServerSerializeProtocol_pb.General.parseFrom(data).
+                    getVerifyRegistrationEmailRequest().getEmail());
+            result.put(TypeData.Password, ClientServerSerializeProtocol_pb.General.parseFrom(data).
+                    getVerifyRegistrationEmailRequest().getPassword());
+            result.put(TypeData.VerifyCode, ClientServerSerializeProtocol_pb.General.parseFrom(data).
+                    getVerifyRegistrationEmailRequest().getCode());
+        } catch (InvalidProtocolBufferException exception) {
+            System.out.println("Error in protobuf deserialised data");
+        }
+        return result;
+    }
+
+    private static HashMap<TypeData, Object> takeVerifyRegistrationEmailReplyMessage(byte[] data) {
+        HashMap<TypeData, Object> result = new HashMap<>();
+        try {
+            result.put(TypeData.BoolReply, ClientServerSerializeProtocol_pb.General.parseFrom(data)
+                    .getVerifyRegistrationEmailReply().getReply());
+            result.put(TypeData.ErrorReg, TypeErrorRegistration.getTypeError(
+                    ClientServerSerializeProtocol_pb.General.parseFrom(data).
+                            getVerifyRegistrationEmailReply().getError().getNumber()));
         } catch (InvalidProtocolBufferException exception) {
             System.out.println("Error in protobuf deserialised data");
         }
