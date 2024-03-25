@@ -6,7 +6,6 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.MimeMessage;
 import javax.mail.internet.*;
 import java.util.Date;
 import java.util.Properties;

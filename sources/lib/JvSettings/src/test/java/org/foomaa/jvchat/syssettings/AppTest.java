@@ -1,4 +1,4 @@
-package org.foomaa.jvchat.settings;
+package org.foomaa.jvchat.syssettings;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
