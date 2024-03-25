@@ -196,7 +196,6 @@ public class JvRegistrationFrame extends JFrame {
         frm.setParametersRegistration(tLogin.getInputText(), tEmail.getInputText(), tPassword.getInputText());
         setVisible(false);
         dispose();
-        //new JvEntryFrame();
     }
 
     private void waitRepeatServer() {

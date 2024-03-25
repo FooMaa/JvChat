@@ -89,7 +89,7 @@ public class JvDbCtrl
                 if (parameters.length == 2) {
                     String email = parameters[0];
                     String code = parameters[1];
-                    db.makeExecution(JvDbDefines.insertRegEmailCode(email, code));
+                    db.makeExecution(JvDbDefines.insertVerifyRegistrationEmail(email, code));
                     return true;
                 }
                 return false;
@@ -154,7 +154,7 @@ public class JvDbCtrl
                 if (parameters.length == 2) {
                     String email = parameters[0];
                     String code = parameters[1];
-                    ResultSet rs = db.makeExecution(JvDbDefines.checkRegEmailCode(email, code));
+                    ResultSet rs = db.makeExecution(JvDbDefines.checkVerifyRegistrationEmail(email, code));
                     try {
                         return rs.next();
                     } catch (SQLException exception) {

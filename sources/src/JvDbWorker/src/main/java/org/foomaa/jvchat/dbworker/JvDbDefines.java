@@ -23,9 +23,9 @@ public class JvDbDefines {
                 password);
     }
 
-    public static String insertRegEmailCode(String email, String code) {
+    public static String insertVerifyRegistrationEmail(String email, String code) {
         return String.format(
-                "SELECT * FROM chat_schema.check_registration_email_save( '%s','%s');",
+                "SELECT * FROM chat_schema.verify_registration_email_save( '%s','%s');",
                 email,
                 code);
     }
@@ -56,9 +56,9 @@ public class JvDbDefines {
                 code);
     }
 
-    public static String checkRegEmailCode(String email, String code) {
+    public static String checkVerifyRegistrationEmail(String email, String code) {
         return String.format(
-                "SELECT * FROM chat_schema.check_registration_email_check_email_code('%s', '%s');",
+                "SELECT * FROM chat_schema.verify_registration_email_check_email_code('%s', '%s');",
                 email,
                 code);
     }
