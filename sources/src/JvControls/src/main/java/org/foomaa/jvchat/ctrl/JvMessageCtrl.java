@@ -307,7 +307,7 @@ public class JvMessageCtrl {
             }
             sendMessage(JvSerializatorData.TypeMessage.VerifyRegistrationEmailReply, requestDB, typeError);
         } else {
-            sendMessage(JvSerializatorData.TypeMessage.VerifyRegistrationEmailReply, false, JvSerializatorData.TypeErrorRegistration.NoError);
+            sendMessage(JvSerializatorData.TypeMessage.VerifyRegistrationEmailReply, false, JvSerializatorData.TypeErrorRegistration.Code);
         }
     }
 

@@ -197,7 +197,7 @@ public class JvVerifyCodeFrame extends JFrame {
 
     private void waitRepeatServerRegistration() {
         setEnabled(false);
-        while (JvMessageCtrl.getInstance().getVerifyFamousEmailRequestFlag()
+        while (JvMessageCtrl.getInstance().getVerifyRegistrationEmailRequestFlag()
                 == JvMessageCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
@@ -205,10 +205,10 @@ public class JvVerifyCodeFrame extends JFrame {
                 System.out.println("Не удалось ждать");
             }
         }
-        if (JvMessageCtrl.getInstance().getVerifyFamousEmailRequestFlag()
+        if (JvMessageCtrl.getInstance().getVerifyRegistrationEmailRequestFlag()
                 == JvMessageCtrl.TypeFlags.TRUE) {
             closeWindow();
-        } else if (JvMessageCtrl.getInstance().getVerifyFamousEmailRequestFlag()
+        } else if (JvMessageCtrl.getInstance().getVerifyRegistrationEmailRequestFlag()
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             openErrorPane();
