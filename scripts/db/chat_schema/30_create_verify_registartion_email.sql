@@ -6,6 +6,7 @@ CREATE TABLE chat_schema.verify_registration_email (
     id          serial,
     email       character varying,
     code        character varying,
+    datetime        timestamp NOT NULL DEFAULT NOW(),
     PRIMARY KEY (id)
 );
 
@@ -13,3 +14,4 @@ COMMENT ON TABLE chat_schema.verify_registration_email IS 'Временная т
 COMMENT ON COLUMN chat_schema.verify_registration_email.id IS 'ID записи';
 COMMENT ON COLUMN chat_schema.verify_registration_email.email IS 'Почта пользователя';
 COMMENT ON COLUMN chat_schema.verify_registration_email.code IS 'Проверочный код пользователя';
+COMMENT ON COLUMN chat_schema.verify_registration_email.datetime IS 'Штамп времени';

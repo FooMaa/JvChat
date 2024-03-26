@@ -137,6 +137,22 @@ $BODY$ LANGUAGE plpgsql;
 -- chat_schema.verify_famous_email
 -- ----------------------------------------------------------------------------------------------
 
+CREATE FUNCTION chat_schema.verify_famous_email_delete_old_rows() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+  DELETE FROM chat_schema.verify_famous_email WHERE datetime < NOW() - INTERVAL '1 minute';
+  RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER chat_schema_schverify_famous_email_delete_old_rows_trigger_i
+    AFTER INSERT ON chat_schema.verify_famous_email 
+    EXECUTE PROCEDURE chat_schema.verify_famous_email_delete_old_rows();
+CREATE TRIGGER chat_schema_verify_famous_email_delete_old_rows_trigger_u
+    AFTER UPDATE ON chat_schema.verify_famous_email 
+    EXECUTE PROCEDURE chat_schema.verify_famous_email_delete_old_rows();
+
 CREATE OR REPLACE FUNCTION chat_schema.verify_famous_email_save (
     f_id_user       integer,
     f_code          character varying
@@ -149,10 +165,10 @@ BEGIN
     rv := -1;
     PERFORM * FROM chat_schema.verify_famous_email WHERE id_user=f_id_user;
     IF found THEN
-        UPDATE chat_schema.verify_famous_email SET code=f_code WHERE id_user=f_id_user;
+        UPDATE chat_schema.verify_famous_email SET code=f_code, datetime=NOW() WHERE id_user=f_id_user;
         rv := 1;
     ELSE
-        INSERT INTO chat_schema.verify_famous_email(id_user, code) VALUES (f_id_user, f_code);
+        INSERT INTO chat_schema.verify_famous_email(id_user, code, datetime) VALUES (f_id_user, f_code, NOW());
         rv := 2;
     END IF;
 
@@ -160,12 +176,12 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION chat_schema.verify_famous_email_remove(f_id_user  integer)
+CREATE OR REPLACE FUNCTION chat_schema.verify_famous_email_remove()
     RETURNS boolean AS
 $BODY$
 DECLARE
 BEGIN
-    DELETE FROM chat_schema.verify_famous_email WHERE id_user=f_id_user;
+    DELETE FROM chat_schema.verify_famous_email WHERE datetime < NOW() - INTERVAL '1 minute';
     RETURN true;
 END;
 $BODY$ LANGUAGE plpgsql;
@@ -178,7 +194,9 @@ CREATE OR REPLACE FUNCTION chat_schema.verify_famous_email_check_email_code(
 $BODY$
 DECLARE
     rv chat_schema.verify_famous_email%rowtype;
+    rs bool;
 BEGIN
+    SELECT * INTO rs FROM chat_schema.verify_famous_email_remove();
     SELECT * INTO rv FROM chat_schema.verify_famous_email, chat_schema.auth_users_info 
     WHERE chat_schema.auth_users_info.id=chat_schema.verify_famous_email.id_user 
     AND f_email=chat_schema.auth_users_info.email 
@@ -193,6 +211,22 @@ $BODY$ LANGUAGE plpgsql;
 -- chat_schema.verify_registration_email
 -- ----------------------------------------------------------------------------------------------
 
+CREATE FUNCTION chat_schema.verify_registration_email_delete_old_rows() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+  DELETE FROM chat_schema.verify_registration_email WHERE datetime < NOW() - INTERVAL '1 minute';
+  RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER verify_registration_email_delete_old_rows_trigger_i
+    AFTER INSERT ON chat_schema.verify_registration_email 
+    EXECUTE PROCEDURE chat_schema.verify_registration_email_delete_old_rows();
+CREATE TRIGGER verify_registration_email_delete_old_rows_trigger_u
+    AFTER UPDATE ON chat_schema.verify_registration_email 
+    EXECUTE PROCEDURE chat_schema.verify_registration_email_delete_old_rows();
+
 CREATE OR REPLACE FUNCTION chat_schema.verify_registration_email_save (
     f_email         character varying,
     f_code          character varying
@@ -205,10 +239,10 @@ BEGIN
     rv := -1;
     PERFORM * FROM chat_schema.verify_registration_email WHERE email=f_email;
     IF found THEN
-        UPDATE chat_schema.verify_registration_email SET code=f_code WHERE email=f_email;
+        UPDATE chat_schema.verify_registration_email SET code=f_code, datetime=NOW() WHERE email=f_email;
         rv := 1;
     ELSE
-        INSERT INTO chat_schema.verify_registration_email(email, code) VALUES (f_email, f_code);
+        INSERT INTO chat_schema.verify_registration_email(email, code, datetime) VALUES (f_email, f_code, NOW());
         rv := 2;
     END IF;
 
@@ -216,12 +250,12 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION chat_schema.verify_registration_email_remove(f_id  integer)
+CREATE OR REPLACE FUNCTION chat_schema.verify_registration_email_remove()
     RETURNS boolean AS
 $BODY$
 DECLARE
 BEGIN
-    DELETE FROM chat_schema.verify_registration_email WHERE id=f_id;
+    DELETE FROM chat_schema.verify_registration_email WHERE datetime < NOW() - INTERVAL '1 minute';
     RETURN true;
 END;
 $BODY$ LANGUAGE plpgsql;
@@ -234,7 +268,9 @@ CREATE OR REPLACE FUNCTION chat_schema.verify_registration_email_check_email_cod
 $BODY$
 DECLARE
     rv chat_schema.verify_registration_email%rowtype;
+    rs bool;
 BEGIN
+    SELECT * INTO rs FROM chat_schema.verify_registration_email_remove();
     SELECT * INTO rv FROM chat_schema.verify_registration_email  WHERE email = f_email AND code = f_code;
     IF found THEN
         RETURN NEXT rv;
