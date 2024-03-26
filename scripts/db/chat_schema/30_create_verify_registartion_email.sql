@@ -3,7 +3,7 @@ SET CLIENT_ENCODING TO 'UTF-8';
 DROP TABLE IF EXISTS chat_schema.verify_registration_email CASCADE;
 
 CREATE TABLE chat_schema.verify_registration_email (
-    id          serial,
+    id          serial, -- убрать если выяснится, что его мало
     email       character varying,
     code        character varying,
     datetime        timestamp NOT NULL DEFAULT NOW(),
