@@ -31,6 +31,7 @@ public class JvEmailCtrl {
     private String createVerifyFamousEmailMessage(int code, String email){
         return String.format(
                 "Вы запросили восстановление пароля. Ваш код: %d. Ваш логин: %s. " +
+                        "Код действителен в течение 60 секунд, по истечении времени следует заказать новый. " +
                         "Никому не говорите и не отправляйте код. " +
                         "Если это были не вы, свяжитесь с поддержкой по почте avodichenkov@mail.ru.",
                 code,
@@ -48,6 +49,7 @@ public class JvEmailCtrl {
     private String createVerifyRegEmailMessage(int code){
         return String.format(
                 "Вы регистрируетесь в программе, для подтверждения почты введите код. Ваш код: %d. " +
+                        "Код действителен в течение 60 секунд, по истечении времени следует заказать новый. " +
                         "Никому не говорите и не отправляйте код. " +
                         "Если это были не вы, свяжитесь с поддержкой по почте avodichenkov@mail.ru.",
                 code);

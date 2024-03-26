@@ -33,7 +33,7 @@ public class JvVerifyCodeFrame extends JFrame {
 
         regime = rw;
         panel = new JPanel();
-        tInfo = new JvAuthLabel("Введите код, отправленный на почту:");
+        tInfo = new JvAuthLabel("Введите код из почты (действует 60 с.):");
         tCode = new JvAuthTextField("Код");
         tErrorHelpInfo = new JvAuthLabel("");
         tErrorHelpInfo.settingToError();
@@ -191,7 +191,8 @@ public class JvVerifyCodeFrame extends JFrame {
         } else if (JvMessageCtrl.getInstance().getVerifyFamousEmailRequestFlag()
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            new JvAuthOptionPane("Код не верен. Введите код полученный по почте еще раз.", JvAuthOptionPane.TypeDlg.ERROR);
+            new JvAuthOptionPane("Код не верен. Введите код полученный по почте еще раз. " +
+                    "Мог истечь срок действия кода, введите почту и получите новый.", JvAuthOptionPane.TypeDlg.ERROR);
         }
     }
 
@@ -220,7 +221,8 @@ public class JvVerifyCodeFrame extends JFrame {
             case NoError -> new JvAuthOptionPane("Ошибка не выяснена.", JvAuthOptionPane.TypeDlg.ERROR);
             case Login -> new JvAuthOptionPane("Данный логин уже используется.", JvAuthOptionPane.TypeDlg.ERROR);
             case Email -> new JvAuthOptionPane("Данная почта уже используется.", JvAuthOptionPane.TypeDlg.ERROR);
-            case Code -> new JvAuthOptionPane("Введенный код не верен.", JvAuthOptionPane.TypeDlg.ERROR);
+            case Code -> new JvAuthOptionPane("Код не верен. Введите код полученный по почте еще раз. " +
+                    "Мог истечь срок действия кода, введите почту и получите новый.", JvAuthOptionPane.TypeDlg.ERROR);
             case LoginAndEmail ->
                     new JvAuthOptionPane("Данные почта и логин уже используются.", JvAuthOptionPane.TypeDlg.ERROR);
         }
