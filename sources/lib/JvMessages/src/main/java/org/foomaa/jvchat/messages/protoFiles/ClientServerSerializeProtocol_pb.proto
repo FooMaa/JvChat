@@ -1,0 +1,93 @@
+syntax = "proto3";
+
+option java_outer_classname = "ClientServerSerializeProtocol_pb";
+option java_package = "org.foomaa.jvchat.messages";
+
+message General {
+    uint32 type = 1;
+    oneof body {
+        EntryRequest entryRequest = 2;
+        EntryReply entryReply = 3;
+        RegistrationRequest registrationRequest = 4;
+        RegistrationReply registrationReply = 5;
+        VerifyRegistrationEmailRequest verifyRegistrationEmailRequest = 6;
+        VerifyRegistrationEmailReply verifyRegistrationEmailReply = 7;
+        ResetPasswordRequest resetPasswordRequest = 8;
+        ResetPasswordReply resetPasswordReply = 9;
+        VerifyFamousEmailRequest verifyFamousEmailRequest = 10;
+        VerifyFamousEmailReply verifyFamousEmailReply = 11;
+        ChangePasswordRequest changePasswordRequest = 12;
+        ChangePasswordReply changePasswordReply = 13;
+    }
+}
+
+message EntryRequest {
+    string login = 1;
+    string password = 2;
+}
+
+message EntryReply {
+    bool reply = 1;
+}
+
+message RegistrationRequest {
+    string login = 1;
+    string email = 2;
+    string password = 3;
+}
+
+message RegistrationReply {
+    enum Error {
+        Login = 0;
+        Email = 1;
+        LoginAndEmail = 2;
+        NoError = 9999;
+    }
+    bool reply = 1;
+    Error error = 2;
+}
+
+message VerifyRegistrationEmailRequest {
+    string login = 1;
+    string email = 2;
+    string password = 3;
+    string code = 4;
+}
+
+message VerifyRegistrationEmailReply {
+    enum Error {
+        Login = 0;
+        Email = 1;
+        LoginAndEmail = 2;
+        Code = 3;
+        NoError = 9999;
+    }
+    bool reply = 1;
+    Error error = 2;
+}
+
+message ResetPasswordRequest {
+    string email = 1;
+}
+
+message ResetPasswordReply {
+    bool reply = 1;
+}
+
+message VerifyFamousEmailRequest {
+    string email = 1;
+    string code = 2;
+}
+
+message VerifyFamousEmailReply {
+    bool reply = 1;
+}
+
+message ChangePasswordRequest {
+    string email = 1;
+    string password = 2;
+}
+
+message ChangePasswordReply {
+    bool reply = 1;
+}

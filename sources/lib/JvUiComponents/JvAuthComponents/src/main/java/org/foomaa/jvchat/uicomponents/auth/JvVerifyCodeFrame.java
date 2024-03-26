@@ -3,7 +3,6 @@ package org.foomaa.jvchat.uicomponents.auth;
 import org.foomaa.jvchat.ctrl.JvMessageCtrl;
 import org.foomaa.jvchat.messages.JvSerializatorData;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
-import org.foomaa.jvchat.tools.JvTools;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,32 +12,46 @@ import java.util.Objects;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
-public class JvRegistrationFrame extends JFrame {
+public class JvVerifyCodeFrame extends JFrame {
     private final JPanel panel;
     private final JvAuthLabel tInfo;
-    private final JvAuthTextField tLogin;
-    private final JvAuthTextField tEmail;
+    private final JvAuthTextField tCode;
     private final JvAuthLabel tErrorHelpInfo;
-    private final JvAuthPasswordField tPassword;
-    private final JvAuthPasswordField tPasswordConfirm;
-    private final JvAuthButton bRegister;
+    private final JvAuthButton bSet;
+    private String login;
+    private String email;
+    private String password;
+    private final RegimeWork regime;
 
-    public JvRegistrationFrame() {
-        super("RegistrationWindow");
+    public enum RegimeWork {
+        Registration,
+        ResetPassword
+    }
 
+    public JvVerifyCodeFrame(RegimeWork rw) {
+        super("VerifyCodeWindow");
+
+        regime = rw;
         panel = new JPanel();
-        tInfo = new JvAuthLabel("Введите данные для регистрации:");
-        tLogin = new JvAuthTextField("Логин");
-        tEmail = new JvAuthTextField("Почта");
+        tInfo = new JvAuthLabel("Введите код из почты (действует 60 с.):");
+        tCode = new JvAuthTextField("Код");
         tErrorHelpInfo = new JvAuthLabel("");
         tErrorHelpInfo.settingToError();
-        tPassword = new JvAuthPasswordField("Пароль");
-        tPasswordConfirm = new JvAuthPasswordField("Подтвердите пароль");
-        bRegister = new JvAuthButton("РЕГИСТРАЦИЯ");
+        bSet = new JvAuthButton("ОТПРАВИТЬ");
 
         makeFrameSetting();
         addListenerToElements();
         addGeneralSettingsToWidget();
+    }
+
+    public void setParametersRegistration(String pLogin, String pEmail, String pPassword) {
+        login = pLogin;
+        email = pEmail;
+        password = pPassword;
+    }
+
+    public void setParametersResetPassword(String pEmail) {
+        email = pEmail;
     }
 
     private void makeFrameSetting() {
@@ -63,28 +76,7 @@ public class JvRegistrationFrame extends JFrame {
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(0, insX, JvDisplaySettings.getResizePixel(0.004), insX);
         gbc.gridy = gridyNum;
-        panel.add(tLogin, gbc);
-        gridyNum++;
-
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX, JvDisplaySettings.getResizePixel(0.004), insX);
-        gbc.gridy = gridyNum;
-        panel.add(tEmail, gbc);
-        gridyNum++;
-
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX, JvDisplaySettings.getResizePixel(0.004), insX);
-        gbc.gridy = gridyNum;
-        panel.add(tPassword, gbc);
-        gridyNum++;
-
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX, 0, insX);
-        gbc.gridy = gridyNum;
-        panel.add(tPasswordConfirm, gbc);
+        panel.add(tCode, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -102,17 +94,23 @@ public class JvRegistrationFrame extends JFrame {
         gbc.ipady = JvDisplaySettings.getResizeFromDisplay(0.01,
                 JvDisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
-        panel.add(bRegister, gbc);
+        panel.add(bSet, gbc);
 
         getContentPane().add(panel);
     }
 
     private void addListenerToElements() {
-        bRegister.addActionListener(event -> {
-            if (checkFields()) {
-                JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.RegistrationRequest,
-                        tLogin.getInputText(), tEmail.getInputText(), tPassword.getInputText());
-                waitRepeatServer();
+        bSet.addActionListener(event -> {
+            if (regime == RegimeWork.ResetPassword) {
+                if (checkFields()) {
+                    JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.VerifyFamousEmailRequest,
+                            email, tCode.getInputText());
+                    waitRepeatServerResetPassword();
+                }
+            } else if (regime == RegimeWork.Registration) {
+                JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.VerifyRegistrationEmailRequest,
+                        login, email, password, tCode.getInputText());
+                waitRepeatServerRegistration();
             }
         });
 
@@ -125,39 +123,15 @@ public class JvRegistrationFrame extends JFrame {
     }
 
     private boolean checkFields() {
-        tLogin.setNormalBorder();
-        tEmail.setNormalBorder();
-        tPassword.setNormalBorder();
-        tPasswordConfirm.setNormalBorder();
+        tCode.setNormalBorder();
         tErrorHelpInfo.setText("");
 
         Vector<String> fields = new Vector<>();
 
-        if (Objects.equals(tLogin.getInputText(), "")) {
-            tLogin.setErrorBorder();
-            fields.add("\"Логин\"");
-        }
-        if (Objects.equals(tEmail.getInputText(), "") ||
-                !JvTools.validateInputEmail(tEmail.getInputText())) {
-            tEmail.setErrorBorder();
-            fields.add("\"Почта\"");
-        }
-        if (Objects.equals(tPassword.getInputText(), "")) {
-            tPassword.setErrorBorder();
-            fields.add("\"Пароль\"");
-        }
-        if (Objects.equals(tPasswordConfirm.getInputText(), "")) {
-            tPasswordConfirm.setErrorBorder();
-            fields.add("\"Подтвердите пароль\"");
-        }
-
-        if (!Objects.equals(tPassword.getInputText(), "") &&
-                !Objects.equals(tPasswordConfirm.getInputText(), "") &&
-                !Objects.equals(tPassword.getInputText(), tPasswordConfirm.getInputText())) {
-            tPassword.setErrorBorder();
-            tPasswordConfirm.setErrorBorder();
-            tErrorHelpInfo.setText("Введенные пароли должны совпадать");
-            return false;
+        if (Objects.equals(tCode.getInputText(), "") ||
+                (tCode.getInputText().length() != 6 )) {
+            tCode.setErrorBorder();
+            fields.add("\"Код\"");
         }
 
         StringBuilder concatFields = new StringBuilder();
@@ -167,9 +141,9 @@ public class JvRegistrationFrame extends JFrame {
             }
             concatFields = new StringBuilder(concatFields.substring(0, concatFields.length() - 2));
             if (fields.size() == 1) {
-                tErrorHelpInfo.setText(String.format("Поле %s должно быть заполнено или исправлено", concatFields));
+                tErrorHelpInfo.setText(String.format("Поле %s должно быть заполнено и содержать отправленный код", concatFields));
             } else {
-                tErrorHelpInfo.setText(String.format("Поля %s должны быть заполнены или исправлены", concatFields));
+                tErrorHelpInfo.setText(String.format("Поля %s должны быть заполнены и содержать отправленный код", concatFields));
             }
             return false;
         }
@@ -178,10 +152,10 @@ public class JvRegistrationFrame extends JFrame {
 
     private void addGeneralSettingsToWidget() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("РЕГИСТРАЦИЯ");
+        setTitle("ВОССТАНОВЛЕНИЕ ПАРОЛЯ");
         setSize(JvDisplaySettings.getResizeFromDisplay(0.3,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
-                JvDisplaySettings.getResizeFromDisplay(0.30,
+                JvDisplaySettings.getResizeFromDisplay(0.25,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
         setResizable(false);
         setLocationRelativeTo(null);
@@ -192,15 +166,18 @@ public class JvRegistrationFrame extends JFrame {
     }
 
     private void closeWindow() {
-        JvVerifyCodeFrame frm = new JvVerifyCodeFrame( JvVerifyCodeFrame.RegimeWork.Registration);
-        frm.setParametersRegistration(tLogin.getInputText(), tEmail.getInputText(), tPassword.getInputText());
         setVisible(false);
         dispose();
+        if (regime == RegimeWork.Registration) {
+            new JvEntryFrame();
+        } else if (regime == RegimeWork.ResetPassword) {
+            new JvNewPasswordFrame(email);
+        }
     }
 
-    private void waitRepeatServer() {
+    private void waitRepeatServerResetPassword() {
         setEnabled(false);
-        while (JvMessageCtrl.getInstance().getRegistrationRequestFlag()
+        while (JvMessageCtrl.getInstance().getVerifyFamousEmailRequestFlag()
                 == JvMessageCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
@@ -208,10 +185,31 @@ public class JvRegistrationFrame extends JFrame {
                 System.out.println("Не удалось ждать");
             }
         }
-        if (JvMessageCtrl.getInstance().getRegistrationRequestFlag()
+        if (JvMessageCtrl.getInstance().getVerifyFamousEmailRequestFlag()
                 == JvMessageCtrl.TypeFlags.TRUE) {
             closeWindow();
-        } else if (JvMessageCtrl.getInstance().getRegistrationRequestFlag()
+        } else if (JvMessageCtrl.getInstance().getVerifyFamousEmailRequestFlag()
+                == JvMessageCtrl.TypeFlags.FALSE) {
+            setEnabled(true);
+            new JvAuthOptionPane("Код не верен. Введите код полученный по почте еще раз. " +
+                    "Мог истечь срок действия кода, введите почту и получите новый.", JvAuthOptionPane.TypeDlg.ERROR);
+        }
+    }
+
+    private void waitRepeatServerRegistration() {
+        setEnabled(false);
+        while (JvMessageCtrl.getInstance().getVerifyRegistrationEmailRequestFlag()
+                == JvMessageCtrl.TypeFlags.DEFAULT) {
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException exception) {
+                System.out.println("Не удалось ждать");
+            }
+        }
+        if (JvMessageCtrl.getInstance().getVerifyRegistrationEmailRequestFlag()
+                == JvMessageCtrl.TypeFlags.TRUE) {
+            closeWindow();
+        } else if (JvMessageCtrl.getInstance().getVerifyRegistrationEmailRequestFlag()
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             openErrorPane();
@@ -219,10 +217,12 @@ public class JvRegistrationFrame extends JFrame {
     }
 
     private void openErrorPane() {
-        switch (JvMessageCtrl.getInstance().getErrorRegistrationFlag()) {
+        switch (JvMessageCtrl.getInstance().getErrorVerifyRegEmailFlag()) {
             case NoError -> new JvAuthOptionPane("Ошибка не выяснена.", JvAuthOptionPane.TypeDlg.ERROR);
             case Login -> new JvAuthOptionPane("Данный логин уже используется.", JvAuthOptionPane.TypeDlg.ERROR);
             case Email -> new JvAuthOptionPane("Данная почта уже используется.", JvAuthOptionPane.TypeDlg.ERROR);
+            case Code -> new JvAuthOptionPane("Код не верен. Введите код полученный по почте еще раз. " +
+                    "Мог истечь срок действия кода, введите почту и получите новый.", JvAuthOptionPane.TypeDlg.ERROR);
             case LoginAndEmail ->
                     new JvAuthOptionPane("Данные почта и логин уже используются.", JvAuthOptionPane.TypeDlg.ERROR);
         }

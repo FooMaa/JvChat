@@ -54,6 +54,3 @@ public class JvServersSocket {
         return socketServers;
     }
 }
-
-
-

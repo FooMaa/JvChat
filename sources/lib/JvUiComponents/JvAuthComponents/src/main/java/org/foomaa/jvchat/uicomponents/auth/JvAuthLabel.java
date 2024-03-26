@@ -22,4 +22,9 @@ public class JvAuthLabel extends JLabel {
         setPreferredSize(dim);
         setHorizontalAlignment(SwingConstants.CENTER);
     }
+
+    @Override
+    public void setText(String text){
+       super.setText("<html><center>" + text + "</center></html>");
+    }
 }

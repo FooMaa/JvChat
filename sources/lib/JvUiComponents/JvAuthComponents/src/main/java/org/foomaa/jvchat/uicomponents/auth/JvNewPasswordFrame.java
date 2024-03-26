@@ -3,7 +3,6 @@ package org.foomaa.jvchat.uicomponents.auth;
 import org.foomaa.jvchat.ctrl.JvMessageCtrl;
 import org.foomaa.jvchat.messages.JvSerializatorData;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
-import org.foomaa.jvchat.tools.JvTools;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,28 +12,26 @@ import java.util.Objects;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
-public class JvRegistrationFrame extends JFrame {
+public class JvNewPasswordFrame extends JFrame {
     private final JPanel panel;
     private final JvAuthLabel tInfo;
-    private final JvAuthTextField tLogin;
-    private final JvAuthTextField tEmail;
     private final JvAuthLabel tErrorHelpInfo;
     private final JvAuthPasswordField tPassword;
     private final JvAuthPasswordField tPasswordConfirm;
     private final JvAuthButton bRegister;
+    private final String email;
 
-    public JvRegistrationFrame() {
-        super("RegistrationWindow");
+    public JvNewPasswordFrame(String post) {
+        super("NewPasswordWindow");
 
+        email = post;
         panel = new JPanel();
-        tInfo = new JvAuthLabel("Введите данные для регистрации:");
-        tLogin = new JvAuthTextField("Логин");
-        tEmail = new JvAuthTextField("Почта");
+        tInfo = new JvAuthLabel("Введите новый пароль:");
         tErrorHelpInfo = new JvAuthLabel("");
         tErrorHelpInfo.settingToError();
         tPassword = new JvAuthPasswordField("Пароль");
         tPasswordConfirm = new JvAuthPasswordField("Подтвердите пароль");
-        bRegister = new JvAuthButton("РЕГИСТРАЦИЯ");
+        bRegister = new JvAuthButton("ПРИНЯТЬ");
 
         makeFrameSetting();
         addListenerToElements();
@@ -57,20 +54,6 @@ public class JvRegistrationFrame extends JFrame {
         gbc.insets = new Insets(JvDisplaySettings.getResizePixel(0.0125), 0, JvDisplaySettings.getResizePixel(0.0084), 0);
         gbc.gridy = gridyNum;
         panel.add(tInfo, gbc);
-        gridyNum++;
-
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX, JvDisplaySettings.getResizePixel(0.004), insX);
-        gbc.gridy = gridyNum;
-        panel.add(tLogin, gbc);
-        gridyNum++;
-
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX, JvDisplaySettings.getResizePixel(0.004), insX);
-        gbc.gridy = gridyNum;
-        panel.add(tEmail, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -110,8 +93,8 @@ public class JvRegistrationFrame extends JFrame {
     private void addListenerToElements() {
         bRegister.addActionListener(event -> {
             if (checkFields()) {
-                JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.RegistrationRequest,
-                        tLogin.getInputText(), tEmail.getInputText(), tPassword.getInputText());
+                JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.ChangePasswordRequest,
+                        email, tPassword.getInputText());
                 waitRepeatServer();
             }
         });
@@ -125,23 +108,12 @@ public class JvRegistrationFrame extends JFrame {
     }
 
     private boolean checkFields() {
-        tLogin.setNormalBorder();
-        tEmail.setNormalBorder();
         tPassword.setNormalBorder();
         tPasswordConfirm.setNormalBorder();
         tErrorHelpInfo.setText("");
 
         Vector<String> fields = new Vector<>();
 
-        if (Objects.equals(tLogin.getInputText(), "")) {
-            tLogin.setErrorBorder();
-            fields.add("\"Логин\"");
-        }
-        if (Objects.equals(tEmail.getInputText(), "") ||
-                !JvTools.validateInputEmail(tEmail.getInputText())) {
-            tEmail.setErrorBorder();
-            fields.add("\"Почта\"");
-        }
         if (Objects.equals(tPassword.getInputText(), "")) {
             tPassword.setErrorBorder();
             fields.add("\"Пароль\"");
@@ -178,10 +150,10 @@ public class JvRegistrationFrame extends JFrame {
 
     private void addGeneralSettingsToWidget() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("РЕГИСТРАЦИЯ");
+        setTitle("ВОССТАНОВЛЕНИЕ ПАРОЛЯ");
         setSize(JvDisplaySettings.getResizeFromDisplay(0.3,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
-                JvDisplaySettings.getResizeFromDisplay(0.30,
+                JvDisplaySettings.getResizeFromDisplay(0.275,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
         setResizable(false);
         setLocationRelativeTo(null);
@@ -192,15 +164,14 @@ public class JvRegistrationFrame extends JFrame {
     }
 
     private void closeWindow() {
-        JvVerifyCodeFrame frm = new JvVerifyCodeFrame( JvVerifyCodeFrame.RegimeWork.Registration);
-        frm.setParametersRegistration(tLogin.getInputText(), tEmail.getInputText(), tPassword.getInputText());
         setVisible(false);
         dispose();
+        new JvEntryFrame();
     }
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (JvMessageCtrl.getInstance().getRegistrationRequestFlag()
+        while (JvMessageCtrl.getInstance().getChangePasswordRequest()
                 == JvMessageCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
@@ -208,23 +179,13 @@ public class JvRegistrationFrame extends JFrame {
                 System.out.println("Не удалось ждать");
             }
         }
-        if (JvMessageCtrl.getInstance().getRegistrationRequestFlag()
+        if (JvMessageCtrl.getInstance().getChangePasswordRequest()
                 == JvMessageCtrl.TypeFlags.TRUE) {
             closeWindow();
-        } else if (JvMessageCtrl.getInstance().getRegistrationRequestFlag()
+        } else if (JvMessageCtrl.getInstance().getChangePasswordRequest()
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            openErrorPane();
-        }
-    }
-
-    private void openErrorPane() {
-        switch (JvMessageCtrl.getInstance().getErrorRegistrationFlag()) {
-            case NoError -> new JvAuthOptionPane("Ошибка не выяснена.", JvAuthOptionPane.TypeDlg.ERROR);
-            case Login -> new JvAuthOptionPane("Данный логин уже используется.", JvAuthOptionPane.TypeDlg.ERROR);
-            case Email -> new JvAuthOptionPane("Данная почта уже используется.", JvAuthOptionPane.TypeDlg.ERROR);
-            case LoginAndEmail ->
-                    new JvAuthOptionPane("Данные почта и логин уже используются.", JvAuthOptionPane.TypeDlg.ERROR);
+            new JvAuthOptionPane("Не удалось сменить пароль.", JvAuthOptionPane.TypeDlg.ERROR);
         }
     }
 }
