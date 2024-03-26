@@ -146,10 +146,10 @@ BEGIN
 END;
 $$;
 
-CREATE TRIGGER chat_schema_schverify_famous_email_delete_old_rows_trigger_i
+CREATE TRIGGER verify_famous_email_delete_old_rows_trigger_i
     AFTER INSERT ON chat_schema.verify_famous_email 
     EXECUTE PROCEDURE chat_schema.verify_famous_email_delete_old_rows();
-CREATE TRIGGER chat_schema_verify_famous_email_delete_old_rows_trigger_u
+CREATE TRIGGER verify_famous_email_delete_old_rows_trigger_u
     AFTER UPDATE ON chat_schema.verify_famous_email 
     EXECUTE PROCEDURE chat_schema.verify_famous_email_delete_old_rows();
 
@@ -161,13 +161,16 @@ CREATE OR REPLACE FUNCTION chat_schema.verify_famous_email_save (
 $BODY$
 DECLARE
     rv integer;
+    rs bool;
 BEGIN
     rv := -1;
     PERFORM * FROM chat_schema.verify_famous_email WHERE id_user=f_id_user;
     IF found THEN
+        SELECT * INTO rs FROM chat_schema.verify_famous_email_remove();
         UPDATE chat_schema.verify_famous_email SET code=f_code, datetime=NOW() WHERE id_user=f_id_user;
         rv := 1;
     ELSE
+        SELECT * INTO rs FROM chat_schema.verify_famous_email_remove();
         INSERT INTO chat_schema.verify_famous_email(id_user, code, datetime) VALUES (f_id_user, f_code, NOW());
         rv := 2;
     END IF;
@@ -220,10 +223,10 @@ BEGIN
 END;
 $$;
 
-CREATE TRIGGER chat_schema_verify_registration_email_delete_old_rows_trigger_i
+CREATE TRIGGER verify_registration_email_delete_old_rows_trigger_i
     AFTER INSERT ON chat_schema.verify_registration_email 
     EXECUTE PROCEDURE chat_schema.verify_registration_email_delete_old_rows();
-CREATE TRIGGER chat_schema_verify_registration_email_delete_old_rows_trigger_u
+CREATE TRIGGER verify_registration_email_delete_old_rows_trigger_u
     AFTER UPDATE ON chat_schema.verify_registration_email 
     EXECUTE PROCEDURE chat_schema.verify_registration_email_delete_old_rows();
 
@@ -235,13 +238,16 @@ CREATE OR REPLACE FUNCTION chat_schema.verify_registration_email_save (
 $BODY$
 DECLARE
     rv integer;
+    rs bool;
 BEGIN
     rv := -1;
     PERFORM * FROM chat_schema.verify_registration_email WHERE email=f_email;
     IF found THEN
+        SELECT * INTO rs FROM chat_schema.verify_registration_email_remove();
         UPDATE chat_schema.verify_registration_email SET code=f_code, datetime=NOW() WHERE email=f_email;
         rv := 1;
     ELSE
+        SELECT * INTO rs FROM chat_schema.verify_registration_email_remove();
         INSERT INTO chat_schema.verify_registration_email(email, code, datetime) VALUES (f_email, f_code, NOW());
         rv := 2;
     END IF;
