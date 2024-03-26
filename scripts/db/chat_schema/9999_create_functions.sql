@@ -166,11 +166,11 @@ BEGIN
     rv := -1;
     PERFORM * FROM chat_schema.verify_famous_email WHERE id_user=f_id_user;
     IF found THEN
-        SELECT * INTO rs FROM chat_schema.verify_famous_email_remove();
+        --SELECT * INTO rs FROM chat_schema.verify_famous_email_remove();
         UPDATE chat_schema.verify_famous_email SET code=f_code, datetime=NOW() WHERE id_user=f_id_user;
         rv := 1;
     ELSE
-        SELECT * INTO rs FROM chat_schema.verify_famous_email_remove();
+        --SELECT * INTO rs FROM chat_schema.verify_famous_email_remove();
         INSERT INTO chat_schema.verify_famous_email(id_user, code, datetime) VALUES (f_id_user, f_code, NOW());
         rv := 2;
     END IF;
@@ -243,11 +243,11 @@ BEGIN
     rv := -1;
     PERFORM * FROM chat_schema.verify_registration_email WHERE email=f_email;
     IF found THEN
-        SELECT * INTO rs FROM chat_schema.verify_registration_email_remove();
+        --SELECT * INTO rs FROM chat_schema.verify_registration_email_remove();
         UPDATE chat_schema.verify_registration_email SET code=f_code, datetime=NOW() WHERE email=f_email;
         rv := 1;
     ELSE
-        SELECT * INTO rs FROM chat_schema.verify_registration_email_remove();
+        --SELECT * INTO rs FROM chat_schema.verify_registration_email_remove();
         INSERT INTO chat_schema.verify_registration_email(email, code, datetime) VALUES (f_email, f_code, NOW());
         rv := 2;
     END IF;
