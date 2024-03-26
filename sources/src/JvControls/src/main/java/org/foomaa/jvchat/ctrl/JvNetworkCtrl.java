@@ -30,7 +30,7 @@ public class JvNetworkCtrl {
     }
 
     public static JvNetworkCtrl getInstance() throws IOException {
-        if(instance == null){
+        if (instance == null) {
             instance = new JvNetworkCtrl();
         }
         return instance;
