@@ -220,10 +220,10 @@ BEGIN
 END;
 $$;
 
-CREATE TRIGGER verify_registration_email_delete_old_rows_trigger_i
+CREATE TRIGGER chat_schema_verify_registration_email_delete_old_rows_trigger_i
     AFTER INSERT ON chat_schema.verify_registration_email 
     EXECUTE PROCEDURE chat_schema.verify_registration_email_delete_old_rows();
-CREATE TRIGGER verify_registration_email_delete_old_rows_trigger_u
+CREATE TRIGGER chat_schema_verify_registration_email_delete_old_rows_trigger_u
     AFTER UPDATE ON chat_schema.verify_registration_email 
     EXECUTE PROCEDURE chat_schema.verify_registration_email_delete_old_rows();
 
