@@ -40,7 +40,7 @@ public class JvEmailProcessor {
         return instance;
     }
 
-    public void sendEmail(String email, String msg) {
+    public boolean sendEmail(String email, String msg) {
         MimeMessage message = new MimeMessage(session);
         try {
             message.setSubject("JvChat message");
@@ -55,6 +55,8 @@ public class JvEmailProcessor {
             transport.close();
         } catch (MessagingException exception) {
             System.out.println("Ошибка при отправке письма");
+            return false;
         }
+        return true;
     }
 }

@@ -23,9 +23,10 @@ public class JvEmailCtrl {
     public void startVerifyFamousEmail(String email) {
         int code = (int) ((Math.random() * (999999 - 100000) ) + 100000);
         String message =  createVerifyFamousEmailMessage(code, email);
-        emailProc.sendEmail(email, message);
-        JvDbCtrl.getInstance().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.VerifyFamousEmail,
-                email, String.valueOf(code));
+        if (emailProc.sendEmail(email, message)) {
+            JvDbCtrl.getInstance().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.VerifyFamousEmail,
+                    email, String.valueOf(code));
+        }
     }
 
     private String createVerifyFamousEmailMessage(int code, String email){
@@ -41,9 +42,10 @@ public class JvEmailCtrl {
     public void startVerifyRegEmail(String email) {
         int code = (int) ((Math.random() * (999999 - 100000) ) + 100000);
         String message =  createVerifyRegEmailMessage(code);
-        emailProc.sendEmail(email, message);
-        JvDbCtrl.getInstance().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.VerifyRegistrationEmail,
-                email, String.valueOf(code));
+        if (emailProc.sendEmail(email, message)) {
+            JvDbCtrl.getInstance().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.VerifyRegistrationEmail,
+                    email, String.valueOf(code));
+        }
     }
 
     private String createVerifyRegEmailMessage(int code){
