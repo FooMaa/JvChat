@@ -57,6 +57,7 @@ public class JvSerializatorData {
         Login(ClientServerSerializeProtocol_pb.RegistrationReply.Error.Login_VALUE),
         Email(ClientServerSerializeProtocol_pb.RegistrationReply.Error.Email_VALUE),
         LoginAndEmail(ClientServerSerializeProtocol_pb.RegistrationReply.Error.LoginAndEmail_VALUE),
+        EmailSending(ClientServerSerializeProtocol_pb.RegistrationReply.Error.EmailSending_VALUE),
         Code(ClientServerSerializeProtocol_pb.VerifyRegistrationEmailReply.Error.Code_VALUE),
         NoError (ClientServerSerializeProtocol_pb.RegistrationReply.Error.NoError_VALUE);
 

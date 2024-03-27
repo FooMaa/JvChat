@@ -266,6 +266,7 @@ public class JvMessageCtrl {
         }
         if (typeError == JvSerializatorData.TypeErrorRegistration.NoError) {
             requestDB = JvEmailCtrl.getInstance().startVerifyRegEmail((String) map.get(JvSerializatorData.TypeData.Email));
+            typeError = JvSerializatorData.TypeErrorRegistration.EmailSending;
         }
         sendMessage(JvSerializatorData.TypeMessage.RegistrationReply, requestDB, typeError);
     }
