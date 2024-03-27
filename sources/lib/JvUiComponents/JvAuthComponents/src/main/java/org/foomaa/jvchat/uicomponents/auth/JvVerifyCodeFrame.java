@@ -152,7 +152,7 @@ public class JvVerifyCodeFrame extends JFrame {
 
     private void addGeneralSettingsToWidget() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("ВОССТАНОВЛЕНИЕ ПАРОЛЯ");
+        setTitle("ПОДТВЕРЖДЕНИЕ ПОЧТЫ");
         setSize(JvDisplaySettings.getResizeFromDisplay(0.3,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
                 JvDisplaySettings.getResizeFromDisplay(0.25,
