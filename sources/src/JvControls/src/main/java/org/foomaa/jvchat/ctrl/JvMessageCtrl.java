@@ -265,8 +265,7 @@ public class JvMessageCtrl {
             typeError = JvSerializatorData.TypeErrorRegistration.LoginAndEmail;
         }
         if (typeError == JvSerializatorData.TypeErrorRegistration.NoError) {
-            JvEmailCtrl.getInstance().startVerifyRegEmail((String) map.get(JvSerializatorData.TypeData.Email));
-            requestDB = true;
+            requestDB = JvEmailCtrl.getInstance().startVerifyRegEmail((String) map.get(JvSerializatorData.TypeData.Email));
         }
         sendMessage(JvSerializatorData.TypeMessage.RegistrationReply, requestDB, typeError);
     }
@@ -326,8 +325,7 @@ public class JvMessageCtrl {
                 email);
         boolean reply = false;
         if (checkEmail) {
-            JvEmailCtrl.getInstance().startVerifyFamousEmail(email);
-            reply = true;
+            reply = JvEmailCtrl.getInstance().startVerifyFamousEmail(email);
         }
         sendMessage(JvSerializatorData.TypeMessage.ResetPasswordReply, reply);
     }

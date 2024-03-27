@@ -218,7 +218,7 @@ public class JvVerifyCodeFrame extends JFrame {
 
     private void openErrorPane() {
         switch (JvMessageCtrl.getInstance().getErrorVerifyRegEmailFlag()) {
-            case NoError -> new JvAuthOptionPane("Ошибка не выяснена.", JvAuthOptionPane.TypeDlg.ERROR);
+            case NoError -> new JvAuthOptionPane("Ошибка не выяснена. Возможно почта недействительна.", JvAuthOptionPane.TypeDlg.ERROR);
             case Login -> new JvAuthOptionPane("Данный логин уже используется.", JvAuthOptionPane.TypeDlg.ERROR);
             case Email -> new JvAuthOptionPane("Данная почта уже используется.", JvAuthOptionPane.TypeDlg.ERROR);
             case Code -> new JvAuthOptionPane("Код не верен. Введите код полученный по почте еще раз. " +
