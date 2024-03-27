@@ -101,16 +101,16 @@ public class JvVerifyCodeFrame extends JFrame {
 
     private void addListenerToElements() {
         bSet.addActionListener(event -> {
-            if (regime == RegimeWork.ResetPassword) {
-                if (checkFields()) {
+            if (checkFields()) {
+                if (regime == RegimeWork.ResetPassword) {
                     JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.VerifyFamousEmailRequest,
                             email, tCode.getInputText());
                     waitRepeatServerResetPassword();
+                } else if (regime == RegimeWork.Registration) {
+                    JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.VerifyRegistrationEmailRequest,
+                            login, email, password, tCode.getInputText());
+                    waitRepeatServerRegistration();
                 }
-            } else if (regime == RegimeWork.Registration) {
-                JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.VerifyRegistrationEmailRequest,
-                        login, email, password, tCode.getInputText());
-                waitRepeatServerRegistration();
             }
         });
 
