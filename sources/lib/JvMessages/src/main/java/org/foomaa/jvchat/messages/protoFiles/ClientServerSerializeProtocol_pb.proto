@@ -41,6 +41,7 @@ message RegistrationReply {
         Login = 0;
         Email = 1;
         LoginAndEmail = 2;
+        EmailSending = 3;
         NoError = 9999;
     }
     bool reply = 1;
@@ -59,7 +60,8 @@ message VerifyRegistrationEmailReply {
         Login = 0;
         Email = 1;
         LoginAndEmail = 2;
-        Code = 3;
+        EmailSending = 3;
+        Code = 4;
         NoError = 9999;
     }
     bool reply = 1;
