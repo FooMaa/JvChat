@@ -47,6 +47,14 @@ public class JvDbWorker extends JvDbDefines {
         assert connection != null;
     }
 
+    public void closeResultSet(ResultSet rs) {
+        try {
+            rs.close();
+        } catch (SQLException exception) {
+            System.out.println("Ошибка закрытия ResultSet");
+        }
+    }
+
     public void endConnection() throws SQLException {
         connection.close();
     }
