@@ -9,7 +9,7 @@ public class JvInitControls {
     }
 
     public static void getInstance() throws IOException {
-        if(instance == null){
+        if (instance == null) {
             instance = new JvInitControls();
         }
     }
