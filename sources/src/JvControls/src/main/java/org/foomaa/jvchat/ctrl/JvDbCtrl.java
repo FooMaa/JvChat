@@ -4,7 +4,6 @@ import org.foomaa.jvchat.dbworker.JvDbDefines;
 import org.foomaa.jvchat.dbworker.JvDbWorker;
 import org.foomaa.jvchat.settings.JvMainSettings;
 
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -15,9 +14,7 @@ import java.util.List;
 
 @Component("jvDbCtrl")
 @Scope("singleton")
-public class JvDbCtrl
-{
-    private static JvDbCtrl instance;
+public class JvDbCtrl {
     private static JvDbWorker db;
 
     public enum TypeExecutionInsert {
@@ -44,13 +41,6 @@ public class JvDbCtrl
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             db = JvDbWorker.getInstance();
         }
-    }
-
-    public static JvDbCtrl getInstance() {
-        if(instance == null){
-            instance = new JvDbCtrl();
-        }
-        return instance;
     }
 
     public boolean insertQueryToDB(TypeExecutionInsert type, String ... parameters) {

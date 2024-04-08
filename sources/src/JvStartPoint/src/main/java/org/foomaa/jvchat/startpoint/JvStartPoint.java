@@ -1,10 +1,12 @@
 package org.foomaa.jvchat.startpoint;
 
 import org.foomaa.jvchat.auth.JvErrorStart;
-import org.foomaa.jvchat.ctrl.JvInitControls;
 import org.foomaa.jvchat.auth.JvStartAuthentication;
+import org.foomaa.jvchat.ctrl.JvControlsSpringConfig;
+import org.foomaa.jvchat.ctrl.JvInitControls;
 import org.foomaa.jvchat.tools.JvTools;
 import org.foomaa.jvchat.settings.JvMainSettings;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -30,12 +32,10 @@ public class JvStartPoint {
             }
         }
 
-        try {
-            JvInitControls.getInstance();
-        } catch (ConnectException | SocketTimeoutException | NoRouteToHostException exception) {
-            new JvErrorStart(
-                    "Не удалось подключиться к серверу.\nПроверьте наличие сети и попробуйте снова!");
-        }
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
+                JvControlsSpringConfig.class);
+        context.getBean("initControls", JvInitControls.class);
+
 
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
             new JvStartAuthentication();

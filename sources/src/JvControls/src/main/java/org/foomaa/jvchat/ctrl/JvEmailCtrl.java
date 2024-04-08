@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 @Component("jvEmailCtrl")
 @Scope("singleton")
 public class JvEmailCtrl {
-    private static JvEmailCtrl instance;
     private static JvEmailProcessor emailProc;
 
     private JvEmailCtrl() {
@@ -18,18 +17,11 @@ public class JvEmailCtrl {
         }
     }
 
-    public static JvEmailCtrl getInstance() {
-        if (instance == null) {
-            instance = new JvEmailCtrl();
-        }
-        return instance;
-    }
-
     public boolean startVerifyFamousEmail(String email) {
         int code = (int) ((Math.random() * (999999 - 100000) ) + 100000);
         String message =  createVerifyFamousEmailMessage(code, email);
         if (emailProc.sendEmail(email, message)) {
-            return JvDbCtrl.getInstance().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.VerifyFamousEmail,
+            return JvInitControls.getDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.VerifyFamousEmail,
                     email, String.valueOf(code));
         }
         return false;
@@ -42,14 +34,14 @@ public class JvEmailCtrl {
                         "Никому не говорите и не отправляйте код. " +
                         "Если это были не вы, свяжитесь с поддержкой по почте avodichenkov@mail.ru.",
                 code,
-                JvDbCtrl.getInstance().getInfoFromDb(JvDbCtrl.TypeExecutionGet.LoginByEmail, email));
+                JvInitControls.getDbCtrl().getInfoFromDb(JvDbCtrl.TypeExecutionGet.LoginByEmail, email));
     }
 
     public boolean startVerifyRegEmail(String email) {
         int code = (int) ((Math.random() * (999999 - 100000) ) + 100000);
         String message =  createVerifyRegEmailMessage(code);
         if (emailProc.sendEmail(email, message)) {
-            return JvDbCtrl.getInstance().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.VerifyRegistrationEmail,
+            return JvInitControls.getDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.VerifyRegistrationEmail,
                     email, String.valueOf(code));
         }
         return false;

@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
+import org.foomaa.jvchat.ctrl.JvInitControls;
 import org.foomaa.jvchat.ctrl.JvMessageCtrl;
 import org.foomaa.jvchat.messages.JvSerializatorData;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
@@ -110,7 +111,7 @@ public class JvRegistrationFrame extends JFrame {
     private void addListenerToElements() {
         bRegister.addActionListener(event -> {
             if (checkFields()) {
-                JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.RegistrationRequest,
+                JvInitControls.getMessageCtrl().sendMessage(JvSerializatorData.TypeMessage.RegistrationRequest,
                         tLogin.getInputText(), tEmail.getInputText(), tPassword.getInputText());
                 waitRepeatServer();
             }
@@ -200,7 +201,7 @@ public class JvRegistrationFrame extends JFrame {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (JvMessageCtrl.getInstance().getRegistrationRequestFlag()
+        while (JvInitControls.getMessageCtrl().getRegistrationRequestFlag()
                 == JvMessageCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
@@ -208,10 +209,10 @@ public class JvRegistrationFrame extends JFrame {
                 System.out.println("Не удалось ждать");
             }
         }
-        if (JvMessageCtrl.getInstance().getRegistrationRequestFlag()
+        if (JvInitControls.getMessageCtrl().getRegistrationRequestFlag()
                 == JvMessageCtrl.TypeFlags.TRUE) {
             closeWindow();
-        } else if (JvMessageCtrl.getInstance().getRegistrationRequestFlag()
+        } else if (JvInitControls.getMessageCtrl().getRegistrationRequestFlag()
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             openErrorPane();
@@ -219,7 +220,7 @@ public class JvRegistrationFrame extends JFrame {
     }
 
     private void openErrorPane() {
-        switch (JvMessageCtrl.getInstance().getErrorRegistrationFlag()) {
+        switch (JvInitControls.getMessageCtrl().getErrorRegistrationFlag()) {
             case NoError -> new JvAuthOptionPane("Ошибка не выяснена.", JvAuthOptionPane.TypeDlg.ERROR);
             case EmailSending -> new JvAuthOptionPane("Возможно почта недействительна.", JvAuthOptionPane.TypeDlg.ERROR);
             case Login -> new JvAuthOptionPane("Данный логин уже используется.", JvAuthOptionPane.TypeDlg.ERROR);

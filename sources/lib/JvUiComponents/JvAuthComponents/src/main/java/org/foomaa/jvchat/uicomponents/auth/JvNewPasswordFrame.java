@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
+import org.foomaa.jvchat.ctrl.JvInitControls;
 import org.foomaa.jvchat.ctrl.JvMessageCtrl;
 import org.foomaa.jvchat.messages.JvSerializatorData;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
@@ -93,7 +94,7 @@ public class JvNewPasswordFrame extends JFrame {
     private void addListenerToElements() {
         bRegister.addActionListener(event -> {
             if (checkFields()) {
-                JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.ChangePasswordRequest,
+                JvInitControls.getMessageCtrl().sendMessage(JvSerializatorData.TypeMessage.ChangePasswordRequest,
                         email, tPassword.getInputText());
                 waitRepeatServer();
             }
@@ -171,7 +172,7 @@ public class JvNewPasswordFrame extends JFrame {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (JvMessageCtrl.getInstance().getChangePasswordRequest()
+        while (JvInitControls.getMessageCtrl().getChangePasswordRequest()
                 == JvMessageCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
@@ -179,10 +180,10 @@ public class JvNewPasswordFrame extends JFrame {
                 System.out.println("Не удалось ждать");
             }
         }
-        if (JvMessageCtrl.getInstance().getChangePasswordRequest()
+        if (JvInitControls.getMessageCtrl().getChangePasswordRequest()
                 == JvMessageCtrl.TypeFlags.TRUE) {
             closeWindow();
-        } else if (JvMessageCtrl.getInstance().getChangePasswordRequest()
+        } else if (JvInitControls.getMessageCtrl().getChangePasswordRequest()
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             new JvAuthOptionPane("Не удалось сменить пароль.", JvAuthOptionPane.TypeDlg.ERROR);

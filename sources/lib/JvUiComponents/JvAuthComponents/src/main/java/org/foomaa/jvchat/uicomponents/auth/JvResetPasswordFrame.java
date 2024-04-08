@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
+import org.foomaa.jvchat.ctrl.JvInitControls;
 import org.foomaa.jvchat.ctrl.JvMessageCtrl;
 import org.foomaa.jvchat.messages.JvSerializatorData;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
@@ -83,7 +84,7 @@ public class JvResetPasswordFrame extends JFrame {
     private void addListenerToElements() {
         bSet.addActionListener(event -> {
             if (checkFields()) {
-                JvMessageCtrl.getInstance().sendMessage(JvSerializatorData.TypeMessage.ResetPasswordRequest,
+                JvInitControls.getMessageCtrl().sendMessage(JvSerializatorData.TypeMessage.ResetPasswordRequest,
                         tEmail.getInputText());
                 waitRepeatServer();
             }
@@ -149,7 +150,7 @@ public class JvResetPasswordFrame extends JFrame {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (JvMessageCtrl.getInstance().getResetPasswordRequestFlag()
+        while (JvInitControls.getMessageCtrl().getResetPasswordRequestFlag()
                 == JvMessageCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
@@ -157,10 +158,10 @@ public class JvResetPasswordFrame extends JFrame {
                 System.out.println("Не удалось ждать");
             }
         }
-        if (JvMessageCtrl.getInstance().getResetPasswordRequestFlag()
+        if (JvInitControls.getMessageCtrl().getResetPasswordRequestFlag()
                 == JvMessageCtrl.TypeFlags.TRUE) {
             closeWindow();
-        } else if (JvMessageCtrl.getInstance().getResetPasswordRequestFlag()
+        } else if (JvInitControls.getMessageCtrl().getResetPasswordRequestFlag()
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             new JvAuthOptionPane("Данная почта не зарегистрирована.", JvAuthOptionPane.TypeDlg.ERROR);

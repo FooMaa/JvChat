@@ -3,8 +3,6 @@ package org.foomaa.jvchat.ctrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import java.io.IOException;
-
 public class JvInitControls {
     private static JvInitControls instance;
 
@@ -24,12 +22,29 @@ public class JvInitControls {
     @Qualifier("jvEmailCtrl")
     private static JvEmailCtrl emailCtrl;
 
-    private JvInitControls() throws IOException {
+    private JvInitControls() {
     }
 
-    public static void getInstance() throws IOException {
+    public static JvInitControls getInstance() {
         if (instance == null) {
             instance = new JvInitControls();
         }
+        return instance;
+    }
+
+    public static JvNetworkCtrl getNetworkCtrl() {
+        return networkCtrl;
+    }
+
+    public static JvMessageCtrl getMessageCtrl() {
+        return messageCtrl;
+    }
+
+    public static JvDbCtrl getDbCtrl() {
+        return dbCtrl;
+    }
+
+    public static JvEmailCtrl getEmailCtrl() {
+        return emailCtrl;
     }
 }

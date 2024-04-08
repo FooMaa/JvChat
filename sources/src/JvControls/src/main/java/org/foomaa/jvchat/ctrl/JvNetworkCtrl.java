@@ -14,7 +14,6 @@ import java.util.LinkedList;
 @Component("jvNetworkCtrl")
 @Scope("singleton")
 public class JvNetworkCtrl {
-    private static JvNetworkCtrl instance;
     private static JvUsersSocketThreadCtrl usersThread;
     private static JvServersSocketThreadCtrl serversThread;
     public LinkedList<JvServersSocketThreadCtrl> connectionList = new LinkedList<>();
@@ -34,20 +33,13 @@ public class JvNetworkCtrl {
         }
     }
 
-    public static JvNetworkCtrl getInstance() throws IOException {
-        if (instance == null) {
-            instance = new JvNetworkCtrl();
-        }
-        return instance;
-    }
-
     public static void takeMessage(byte[] message, Thread thr) {
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             serversThread = (JvServersSocketThreadCtrl) thr;
         } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
             usersThread = (JvUsersSocketThreadCtrl) thr;
         }
-        JvMessageCtrl.getInstance().takeMessage(message);
+        JvInitControls.getMessageCtrl().takeMessage(message);
     }
 
     public static void sendMessage(byte[] message) {
