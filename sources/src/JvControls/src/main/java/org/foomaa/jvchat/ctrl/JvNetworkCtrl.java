@@ -4,11 +4,15 @@ import org.foomaa.jvchat.settings.JvMainSettings;
 import org.foomaa.jvchat.network.JvServersSocket;
 import org.foomaa.jvchat.network.JvUsersSocket;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.LinkedList;
 
+@Component("jvNetworkCtrl")
+@Scope("singleton")
 public class JvNetworkCtrl {
     private static JvNetworkCtrl instance;
     private static JvUsersSocketThreadCtrl usersThread;
@@ -16,6 +20,7 @@ public class JvNetworkCtrl {
     public LinkedList<JvServersSocketThreadCtrl> connectionList = new LinkedList<>();
 
     private JvNetworkCtrl() throws IOException {
+        System.out.println("Hello");
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             ServerSocket socketServers = JvServersSocket.getInstance().getSocketServers();
             while (true) {

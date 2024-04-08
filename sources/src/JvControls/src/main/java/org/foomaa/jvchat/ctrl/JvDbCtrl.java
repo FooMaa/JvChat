@@ -4,10 +4,17 @@ import org.foomaa.jvchat.dbworker.JvDbDefines;
 import org.foomaa.jvchat.dbworker.JvDbWorker;
 import org.foomaa.jvchat.settings.JvMainSettings;
 
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+
+@Component("jvDbCtrl")
+@Scope("singleton")
 public class JvDbCtrl
 {
     private static JvDbCtrl instance;

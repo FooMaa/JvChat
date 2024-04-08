@@ -2,8 +2,12 @@ package org.foomaa.jvchat.ctrl;
 
 import org.foomaa.jvchat.messages.JvSerializatorData;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import java.util.HashMap;
 
+@Component("jvMessageCtrl")
+@Scope("singleton")
 public class JvMessageCtrl {
     private static JvMessageCtrl instance;
 
