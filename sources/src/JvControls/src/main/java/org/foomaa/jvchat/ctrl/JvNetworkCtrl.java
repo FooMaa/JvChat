@@ -11,7 +11,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.LinkedList;
 
-@Component("jvNetworkCtrl")
+@Component("networkCtrl")
 @Scope("singleton")
 public class JvNetworkCtrl {
     private static JvUsersSocketThreadCtrl usersThread;
@@ -19,7 +19,6 @@ public class JvNetworkCtrl {
     public LinkedList<JvServersSocketThreadCtrl> connectionList = new LinkedList<>();
 
     private JvNetworkCtrl() throws IOException {
-        System.out.println("Hello");
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             ServerSocket socketServers = JvServersSocket.getInstance().getSocketServers();
             while (true) {

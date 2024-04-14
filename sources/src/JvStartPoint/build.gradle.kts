@@ -1,11 +1,13 @@
 plugins {
     id("java")
+    id("org.springframework.boot") version "3.2.4"
     application
 }
 
 group = "org.foomaa.jvchat.startpoint"
 version = "1.0-SNAPSHOT"
 buildDir = File("jvchat-gradle")
+extra["slf4j.version"] = "1.7.20"
 var PROFILE = ""
 
 repositories {
@@ -17,10 +19,12 @@ dependencies {
     implementation("org.springframework:spring-context:6.1.3")
     implementation("org.springframework:spring-beans:6.1.3")
     implementation("org.springframework:spring-core:6.0.16")
+    implementation("org.springframework.boot:spring-boot-gradle-plugin:3.2.4")
     implementation(project(":sources:src:JvControls"))
     implementation(project(":sources:src:JvAuthentication"))
     implementation(project(":sources:lib:JvTools"))
     implementation(project(":sources:lib:JvSettings"))
+    implementation("org.slf4j:slf4j-simple:2.0.9")
 }
 
 application {
@@ -60,6 +64,11 @@ tasks {
             project.file("$dirBuild/profile").mkdir()
             project.file("$dirBuild/profile/profile.txt").createNewFile()
             project.file("$dirBuild/profile/profile.txt").writeText("#Properties\ntarget=$PROFILE")
+
+            bootRun {
+                systemProperty("spring.profiles.active", PROFILE)
+            }
+
             ext{PROFILE}
         }
     }

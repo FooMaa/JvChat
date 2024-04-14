@@ -6,7 +6,7 @@ import org.foomaa.jvchat.settings.JvMainSettings;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-@Component("jvEmailCtrl")
+@Component("emailCtrl")
 @Scope("singleton")
 public class JvEmailCtrl {
     private static JvEmailProcessor emailProc;

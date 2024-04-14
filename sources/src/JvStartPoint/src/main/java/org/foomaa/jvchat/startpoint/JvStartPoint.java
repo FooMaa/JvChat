@@ -6,8 +6,8 @@ import org.foomaa.jvchat.ctrl.JvControlsSpringConfig;
 import org.foomaa.jvchat.ctrl.JvInitControls;
 import org.foomaa.jvchat.tools.JvTools;
 import org.foomaa.jvchat.settings.JvMainSettings;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.NoRouteToHostException;
@@ -15,6 +15,7 @@ import java.net.SocketTimeoutException;
 import java.net.URISyntaxException;
 
 public class JvStartPoint {
+
     public static void main(String[] args) throws URISyntaxException, IOException {
         JvTools.setProfileSetting(JvStartPoint.class);
 
@@ -25,6 +26,8 @@ public class JvStartPoint {
             if (args.length == 0) {
                 new JvErrorStart("Дайте в параметр IP-адрес сервера!");
             }
+            System.out.println(args[0]);
+            System.out.println(args[1]);
             if (JvTools.validateInputIp(args[0])) {
                 JvMainSettings.setIp(args[0]);
             } else {

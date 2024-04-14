@@ -2,24 +2,25 @@ package org.foomaa.jvchat.ctrl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Profile;
 
 public class JvInitControls {
     private static JvInitControls instance;
 
     @Autowired
-    @Qualifier("jvNetworkCtrl")
+    @Qualifier("networkCtrl")
     private static JvNetworkCtrl networkCtrl;
 
     @Autowired
-    @Qualifier("jvMessageCtrl")
+    @Qualifier("messageCtrl")
     private static JvMessageCtrl messageCtrl;
 
-    @Autowired
-    @Qualifier("jvDbCtrl")
+    @Autowired(required = false)
+    @Qualifier("dbCtrl")
     private static JvDbCtrl dbCtrl;
 
     @Autowired
-    @Qualifier("jvEmailCtrl")
+    @Qualifier("emailCtrl")
     private static JvEmailCtrl emailCtrl;
 
     private JvInitControls() {

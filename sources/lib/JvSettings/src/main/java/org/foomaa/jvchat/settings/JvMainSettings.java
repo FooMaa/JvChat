@@ -15,7 +15,7 @@ public class JvMainSettings {
             this.name = text;
         }
         @Override
-        public String toString() {
+        public final String toString() {
             return name;
         }
     }

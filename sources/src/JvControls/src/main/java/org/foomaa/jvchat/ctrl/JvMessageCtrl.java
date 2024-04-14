@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import java.util.HashMap;
 
-@Component("jvMessageCtrl")
+@Component("messageCtrl")
 @Scope("singleton")
 public class JvMessageCtrl {
     // FLAGS

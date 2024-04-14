@@ -1,14 +1,12 @@
 package org.foomaa.jvchat.ctrl;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.*;
 
 @Configuration
 @ComponentScan("org.foomaa.jvchat.ctrl")
 public class JvControlsSpringConfig {
-    @Bean
+
+    @Bean(name = "initControls")
     @Scope("singleton")
     public JvInitControls initControls() {
         return JvInitControls.getInstance();
