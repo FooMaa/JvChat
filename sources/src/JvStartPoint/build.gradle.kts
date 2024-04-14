@@ -27,10 +27,6 @@ dependencies {
     implementation("org.slf4j:slf4j-simple:2.0.9")
 }
 
-application {
-    mainClass.set("org.foomaa.jvchat.startpoint.JvStartPoint")
-}
-
 tasks {
     "run" {
         onlyIf {
@@ -66,6 +62,7 @@ tasks {
             project.file("$dirBuild/profile/profile.txt").writeText("#Properties\ntarget=$PROFILE")
 
             bootRun {
+                mainClass.set("org.foomaa.jvchat.startpoint.JvStartPoint")
                 systemProperty("spring.profiles.active", PROFILE)
             }
 

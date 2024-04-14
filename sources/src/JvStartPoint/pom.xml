@@ -77,26 +77,13 @@
                 <directory>${buildDir}</directory>
                 <plugins>
                     <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <version>${version.exec-maven-plugin}</version>
-                        <configuration>
-                            <mainClass>${mainClass}</mainClass>
-                            <skip>false</skip>
-                        </configuration>
-                    </plugin>
-
-                    <plugin>
                         <groupId>org.springframework.boot</groupId>
                         <artifactId>spring-boot-maven-plugin</artifactId>
                         <version>${version.spring-boot-maven-plugin}</version>
                         <configuration>
                             <profiles>${target}</profiles>
-<!--                            <arguments>-->
-<!--                                <argument>192.168.0.104</argument>-->
-<!--                            </arguments>-->
-                            <profiles>${target}</profiles>
                             <mainClass>${mainClass}</mainClass>
+                            <classifier>exec</classifier>
                             <skip>false</skip>
                         </configuration>
                     </plugin>

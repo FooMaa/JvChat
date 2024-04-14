@@ -34,16 +34,6 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>${version.exec-maven-plugin}</version>
-                <configuration>
-                    <mainClass>none</mainClass>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
-
-            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${version.spring-boot-maven-plugin}</version>
@@ -68,6 +58,16 @@
 
         <profile>
             <id>users</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <maven.test.skip>true</maven.test.skip>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>servers</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
