@@ -7,9 +7,12 @@ import org.foomaa.jvchat.ctrl.JvInitControls;
 import org.foomaa.jvchat.tools.JvTools;
 import org.foomaa.jvchat.settings.JvMainSettings;
 
-import org.springframework.boot.*;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.NoRouteToHostException;
@@ -17,28 +20,27 @@ import java.net.SocketTimeoutException;
 import java.net.URISyntaxException;
 import java.util.Objects;
 
-public class JvStartPoint {
+@SpringBootApplication
+public class JvStartPoint implements ApplicationRunner {
+    @Value("${ip}")
     private static String argsIp;
 
-    private void setArgsIp(String newArgsIp) {
-        if (!Objects.equals(argsIp, newArgsIp)) {
-            argsIp = newArgsIp;
-        }
+    public static void main(String[] args) {
+        SpringApplication.run( JvStartPoint.class, args );
     }
 
-    public static void main(String[] args) throws URISyntaxException, IOException {
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
         JvTools.setProfileSetting(JvStartPoint.class);
 
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             JvTools.initServersParameters();
         }
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
-            if (args.length == 0) {
+            if (argsIp == null || argsIp.isEmpty()) {
                 new JvErrorStart("Дайте в параметр IP-адрес сервера!");
             }
             System.out.println(argsIp);
-            System.out.println(args[0]);
-            System.out.println(args[1]);
             if (JvTools.validateInputIp(argsIp)) {
                 JvMainSettings.setIp(argsIp);
             } else {
