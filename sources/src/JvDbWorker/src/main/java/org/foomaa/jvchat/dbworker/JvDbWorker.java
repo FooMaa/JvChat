@@ -23,7 +23,6 @@ public class JvDbWorker extends JvDbDefines {
     private static JvDbWorker instance;
 
     private JvDbWorker() {
-        System.out.println("ALO");
         getConnection();
     }
 

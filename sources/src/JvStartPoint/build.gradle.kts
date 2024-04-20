@@ -16,15 +16,18 @@ repositories {
 
 dependencies {
     testImplementation("junit:junit:3.8.1")
+
     implementation("org.springframework:spring-context:6.1.3")
     implementation("org.springframework:spring-beans:6.1.3")
-    implementation("org.springframework:spring-core:6.0.16")
+    implementation("org.springframework:spring-core:6.1.6")
+    implementation("org.springframework.boot:spring-boot-starter:3.2.4")
+    implementation("org.springframework.plugin:spring-plugin-core:3.0.0")
     implementation("org.springframework.boot:spring-boot-gradle-plugin:3.2.4")
+
     implementation(project(":sources:src:JvControls"))
     implementation(project(":sources:src:JvAuthentication"))
     implementation(project(":sources:lib:JvTools"))
     implementation(project(":sources:lib:JvSettings"))
-    implementation("org.slf4j:slf4j-simple:2.0.9")
 }
 
 tasks {

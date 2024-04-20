@@ -2,10 +2,7 @@ package org.foomaa.jvchat.ctrl;
 
 import org.foomaa.jvchat.dbworker.JvDbDefines;
 import org.foomaa.jvchat.dbworker.JvDbWorker;
-import org.foomaa.jvchat.settings.JvMainSettings;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -14,8 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-@Profile("users")
+
 @Component("dbCtrl")
+@Profile("servers")
 @Scope("singleton")
 public class JvDbCtrl {
     private static JvDbWorker db;
@@ -41,9 +39,7 @@ public class JvDbCtrl {
     }
 
     private JvDbCtrl() {
-//        if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
-            db = JvDbWorker.getInstance();
-//        }
+        db = JvDbWorker.getInstance();
     }
 
     public boolean insertQueryToDB(TypeExecutionInsert type, String ... parameters) {

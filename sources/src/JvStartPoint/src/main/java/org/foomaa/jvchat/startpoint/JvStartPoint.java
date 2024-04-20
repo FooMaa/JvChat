@@ -7,7 +7,6 @@ import org.foomaa.jvchat.ctrl.JvInitControls;
 import org.foomaa.jvchat.tools.JvTools;
 import org.foomaa.jvchat.settings.JvMainSettings;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -22,8 +21,6 @@ import java.util.Objects;
 
 @SpringBootApplication
 public class JvStartPoint implements ApplicationRunner {
-    @Value("${ip}")
-    private static String argsIp;
 
     public static void main(String[] args) {
         SpringApplication.run( JvStartPoint.class, args );
@@ -31,16 +28,18 @@ public class JvStartPoint implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        System.setProperty("java.awt.headless", "false"); //Disables headless
         JvTools.setProfileSetting(JvStartPoint.class);
+        String argsIp = "";
 
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             JvTools.initServersParameters();
         }
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
-            if (argsIp == null || argsIp.isEmpty()) {
+            if (args.getOptionValues("ip") == null) {
                 new JvErrorStart("Дайте в параметр IP-адрес сервера!");
             }
-            System.out.println(argsIp);
+            argsIp = args.getOptionValues("ip").get(0);
             if (JvTools.validateInputIp(argsIp)) {
                 JvMainSettings.setIp(argsIp);
             } else {

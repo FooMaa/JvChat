@@ -3,10 +3,12 @@ package org.foomaa.jvchat.ctrl;
 import org.foomaa.jvchat.network.JvEmailProcessor;
 import org.foomaa.jvchat.settings.JvMainSettings;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component("emailCtrl")
+@Profile("servers")
 @Scope("singleton")
 public class JvEmailCtrl {
     private static JvEmailProcessor emailProc;

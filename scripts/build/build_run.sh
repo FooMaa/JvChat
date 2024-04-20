@@ -32,20 +32,20 @@ function run {
     if [[ $BUILDER == "maven" ]]; then 
     	if [[ $PROFILE == "tests" ]]; then
             export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
-            mvn clean install exec:java -P$PROFILE
+            mvn clean install spring-boot:run -P$PROFILE
         elif [[ $PROFILE == "users" ]]; then
-            mvn exec:java -Dexec.args=$ARG_IP -P$PROFILE >> $LOG_FILE 2>&1
+            mvn spring-boot:run -Dspring-boot.run.arguments=--ip=$ARG_IP -P$PROFILE >> $LOG_FILE 2>&1
         elif [[ $PROFILE == "servers" ]]; then
-            mvn exec:java -P$PROFILE >> $LOG_FILE 2>&1
+            mvn spring-boot:run -P$PROFILE >> $LOG_FILE 2>&1
         fi
     elif [[ $BUILDER == "gradle" ]]; then
     	if [[ $PROFILE == "tests" ]]; then
             export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
-            gradle clean build run -P$PROFILE
+            gradle clean build bootRun -P$PROFILE
         elif [[ $PROFILE == "users" ]]; then
-            gradle run --args='$ARG_IP' -P$PROFILE >> $LOG_FILE 2>&1
+            gradle bootRun --args='--ip=$ARG_IP' -P$PROFILE >> $LOG_FILE 2>&1
         elif [[ $PROFILE == "servers" ]]; then
-            gradle run -P$PROFILE >> $LOG_FILE 2>&1
+            gradle bootRun -P$PROFILE >> $LOG_FILE 2>&1
         fi
     fi
 
