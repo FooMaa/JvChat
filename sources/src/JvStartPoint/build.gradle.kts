@@ -21,7 +21,6 @@ dependencies {
     implementation("org.springframework:spring-beans:6.1.3")
     implementation("org.springframework:spring-core:6.1.6")
     implementation("org.springframework.boot:spring-boot-starter:3.2.4")
-    implementation("org.springframework.plugin:spring-plugin-core:3.0.0")
     implementation("org.springframework.boot:spring-boot-gradle-plugin:3.2.4")
 
     implementation(project(":sources:src:JvControls"))
