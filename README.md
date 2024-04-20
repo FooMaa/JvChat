@@ -17,6 +17,16 @@ scripts/build/build_run.sh -m -c -p users -i 192.168.23.1
 ``` bash
 scripts/db/db_creator.py
 ```
+## Конфигурации для запуска из среды разработки
+На место $ip вы вставляете свой IP-адрес сервера
+Gradle:
+```
+clean build bootRun --args='--ipServer=$ip' -Pusers
+```
+Maven:
+```
+clean install spring-boot:run -Pusers -Dspring-boot.run.arguments=--ipServer=$ip
+```
 ## Скрипты и их назначение
 | Путь к скрипту | Назначение |
 | --- | --- |

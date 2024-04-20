@@ -34,7 +34,7 @@ function run {
             export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
             mvn clean install spring-boot:run -P$PROFILE
         elif [[ $PROFILE == "users" ]]; then
-            mvn spring-boot:run -Dspring-boot.run.arguments=--ip=$ARG_IP -P$PROFILE >> $LOG_FILE 2>&1
+            mvn spring-boot:run -Dspring-boot.run.arguments=--ipServer=$ARG_IP -P$PROFILE >> $LOG_FILE 2>&1
         elif [[ $PROFILE == "servers" ]]; then
             mvn spring-boot:run -P$PROFILE >> $LOG_FILE 2>&1
         fi
@@ -43,7 +43,7 @@ function run {
             export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
             gradle clean build bootRun -P$PROFILE
         elif [[ $PROFILE == "users" ]]; then
-            gradle bootRun --args='--ip=$ARG_IP' -P$PROFILE >> $LOG_FILE 2>&1
+            gradle bootRun --args='--ipServer=$ARG_IP' -P$PROFILE >> $LOG_FILE 2>&1
         elif [[ $PROFILE == "servers" ]]; then
             gradle bootRun -P$PROFILE >> $LOG_FILE 2>&1
         fi

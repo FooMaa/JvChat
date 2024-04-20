@@ -36,10 +36,10 @@ public class JvStartPoint implements ApplicationRunner {
             JvTools.initServersParameters();
         }
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
-            if (args.getOptionValues("ip") == null) {
+            if (args.getOptionValues("ipServer") == null) {
                 new JvErrorStart("Дайте в параметр IP-адрес сервера!");
             }
-            argsIp = args.getOptionValues("ip").get(0);
+            argsIp = args.getOptionValues("ipServer").get(0);
             if (JvTools.validateInputIp(argsIp)) {
                 JvMainSettings.setIp(argsIp);
             } else {
