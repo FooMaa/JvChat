@@ -18,7 +18,7 @@ scripts/build/build_run.sh -m -c -p users -i 192.168.23.1
 scripts/db/db_creator.py
 ```
 ## Конфигурации для запуска из среды разработки
-На место $ip вы вставляете свой IP-адрес сервера
+На место $ip вы вставляете свой IP-адрес сервера  
 Gradle:
 ```
 clean build bootRun --args='--ipServer=$ip' -Pusers
