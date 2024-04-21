@@ -40,6 +40,7 @@ public class JvControlsSpringConfig {
     }
 
     @Bean(name = "messageCtrl")
+    @Scope("singleton")
     public JvMessageCtrl messageCtrl() {
         return JvMessageCtrl.getInstance();
     }

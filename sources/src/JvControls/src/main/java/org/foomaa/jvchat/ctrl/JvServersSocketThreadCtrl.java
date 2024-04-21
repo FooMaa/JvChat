@@ -1,8 +1,5 @@
 package org.foomaa.jvchat.ctrl;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
 import java.io.*;
 import java.net.Socket;
 

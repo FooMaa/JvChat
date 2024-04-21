@@ -23,7 +23,7 @@ public class JvNetworkCtrl {
                 Socket fromSocketUser = socketServers.accept();
                 AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
                         JvControlsSpringConfig.class);
-                JvServersSocketThreadCtrl thread = context.getBean(JvServersSocketThreadCtrl.class, fromSocketUser);
+                JvServersSocketThreadCtrl thread = new JvServersSocketThreadCtrl( fromSocketUser);
                 connectionList.add(thread);
             }
         } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
@@ -45,7 +45,9 @@ public class JvNetworkCtrl {
         } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
             usersThread = (JvUsersSocketThreadCtrl) thr;
         }
-        JvGetterControls.getMessageCtrl().takeMessage(message);
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
+                JvControlsSpringConfig.class);
+        context.getBean("messageCtrl", JvMessageCtrl.class).takeMessage(message);
     }
 
     public static void sendMessage(byte[] message) {
