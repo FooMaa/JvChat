@@ -32,7 +32,7 @@ public class JvDbCtrl {
     }
 
     private JvDbCtrl() {
-        System.out.println("JvDB");
+        db = JvDbWorker.getInstance();
     }
 
     public static JvDbCtrl getInstance() {
@@ -43,7 +43,7 @@ public class JvDbCtrl {
     }
 
     public static void start() {
-        db = JvDbWorker.getInstance();
+
     }
 
     public boolean insertQueryToDB(TypeExecutionInsert type, String ... parameters) {
