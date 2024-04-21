@@ -2,8 +2,8 @@ package org.foomaa.jvchat.ctrl;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-public class JvInitControls {
-    private static JvInitControls instance;
+public class JvGetterControls {
+    private static JvGetterControls instance;
     private static AnnotationConfigApplicationContext context;
 
     private static JvDbCtrl dbCtrl;
@@ -11,7 +11,7 @@ public class JvInitControls {
     private static JvNetworkCtrl networkCtrl;
     private static JvMessageCtrl messageCtrl;
 
-    private JvInitControls() {
+    private JvGetterControls() {
         context = new AnnotationConfigApplicationContext(
                 JvControlsSpringConfig.class);
 
@@ -27,9 +27,9 @@ public class JvInitControls {
         networkCtrl = context.getBean(JvControlsSpringConfig.NameBeans.NetworkCtrl.getValue(), JvNetworkCtrl.class);
     }
 
-    public static JvInitControls getInstance() {
+    public static JvGetterControls getInstance() {
         if (instance == null) {
-            instance = new JvInitControls();
+            instance = new JvGetterControls();
         }
         return instance;
     }

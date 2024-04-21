@@ -1,6 +1,6 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import org.foomaa.jvchat.ctrl.JvInitControls;
+import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.ctrl.JvMessageCtrl;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.messages.JvSerializatorData;
@@ -109,7 +109,7 @@ public class JvEntryFrame extends JFrame {
     private void addListenerToElements() {
         bEnter.addActionListener(event -> {
             if (checkFields()) {
-                JvInitControls.getMessageCtrl().sendMessage(JvSerializatorData.TypeMessage.EntryRequest,
+                JvGetterControls.getMessageCtrl().sendMessage(JvSerializatorData.TypeMessage.EntryRequest,
                         tLogin.getInputText(), tPassword.getInputText());
                 waitRepeatServer();
             }
@@ -187,7 +187,7 @@ public class JvEntryFrame extends JFrame {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (JvInitControls.getMessageCtrl().getEntryRequestFlag()
+        while (JvGetterControls.getMessageCtrl().getEntryRequestFlag()
                 == JvMessageCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
@@ -195,11 +195,11 @@ public class JvEntryFrame extends JFrame {
                 System.out.println("Не удалось ждать");
             }
         }
-        if (JvInitControls.getMessageCtrl().getEntryRequestFlag()
+        if (JvGetterControls.getMessageCtrl().getEntryRequestFlag()
                 == JvMessageCtrl.TypeFlags.TRUE) {
             closeWindow();
             System.out.println("Вход выполнен");
-        } else if (JvInitControls.getMessageCtrl().getEntryRequestFlag()
+        } else if (JvGetterControls.getMessageCtrl().getEntryRequestFlag()
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             new JvAuthOptionPane("Вход не выполнен, данные не верные.", JvAuthOptionPane.TypeDlg.ERROR);

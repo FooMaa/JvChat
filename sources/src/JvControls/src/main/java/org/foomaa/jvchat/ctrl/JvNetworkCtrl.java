@@ -42,7 +42,7 @@ public class JvNetworkCtrl {
         } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
             usersThread = (JvUsersSocketThreadCtrl) thr;
         }
-        JvInitControls.getMessageCtrl().takeMessage(message);
+        JvGetterControls.getMessageCtrl().takeMessage(message);
     }
 
     public static void sendMessage(byte[] message) {
