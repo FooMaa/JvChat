@@ -182,7 +182,7 @@ public class JvMessageCtrl {
     }
 
     private void sendReadyMessageNetwork(byte[] bodyMessage) {
-        JvNetworkCtrl.sendMessage(bodyMessage);
+        JvGetterControls.getNetworkCtrl().sendMessage(bodyMessage);
     }
 
     private byte[] createBodyEntryRequestMessage(JvSerializatorData.TypeMessage type, String login, String password) {
