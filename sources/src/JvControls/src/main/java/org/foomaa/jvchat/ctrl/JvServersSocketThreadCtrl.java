@@ -25,7 +25,6 @@ public class JvServersSocketThreadCtrl extends Thread
 
     @Override
     public void run() {
-        JvGetterControls.getInstance();
         try {
             while (true) {
                 int length = readFromUser.readInt();
