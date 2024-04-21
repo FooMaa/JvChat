@@ -1,29 +1,30 @@
 package org.foomaa.jvchat.ctrl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class JvInitControls {
     private static JvInitControls instance;
+    private static AnnotationConfigApplicationContext context;
 
-    @Autowired
-    @Qualifier("networkCtrl")
+    private static JvDbCtrl dbCtrl;
+    private static JvEmailCtrl emailCtrl;
     private static JvNetworkCtrl networkCtrl;
-
-    @Autowired
-    @Qualifier("messageCtrl")
     private static JvMessageCtrl messageCtrl;
 
-    @Autowired(required = false)
-    @Qualifier("dbCtrl")
-    private static JvDbCtrl dbCtrl;
-
-    @Autowired
-    @Qualifier("emailCtrl")
-    private static JvEmailCtrl emailCtrl;
-
     private JvInitControls() {
+        context = new AnnotationConfigApplicationContext(
+                JvControlsSpringConfig.class);
+
+        if (context.containsBeanDefinition(JvControlsSpringConfig.NameBeans.DbCtrl.getValue())) {
+            dbCtrl = context.getBean(
+                    (JvControlsSpringConfig.NameBeans.DbCtrl.getValue()), JvDbCtrl.class);
+        }
+        if (context.containsBeanDefinition(JvControlsSpringConfig.NameBeans.EmailCtrl.getValue())) {
+            emailCtrl = context.getBean(
+                    JvControlsSpringConfig.NameBeans.EmailCtrl.getValue(), JvEmailCtrl.class);
+        }
+        messageCtrl = context.getBean(JvControlsSpringConfig.NameBeans.MessageCtrl.getValue(), JvMessageCtrl.class);
+        networkCtrl = context.getBean(JvControlsSpringConfig.NameBeans.NetworkCtrl.getValue(), JvNetworkCtrl.class);
     }
 
     public static JvInitControls getInstance() {

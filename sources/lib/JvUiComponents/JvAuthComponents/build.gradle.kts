@@ -12,8 +12,13 @@ repositories {
 
 dependencies {
     testImplementation("junit:junit:3.8.1")
-    implementation(project(mapOf("path" to ":sources:src:JvControls")))
-    implementation(project(mapOf("path" to ":sources:lib:JvSettings")))
+
+    implementation("org.springframework:spring-context:6.1.3")
+    implementation("org.springframework:spring-beans:6.1.3")
+    implementation("org.springframework:spring-core:6.1.6")
+
+    implementation(project(":sources:src:JvControls"))
+    implementation(project(":sources:lib:JvSettings"))
     implementation(project(":sources:lib:JvMessages"))
     implementation(project(":sources:lib:JvTools"))
 }

@@ -11,11 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-
-@Component("dbCtrl")
-@Profile("servers")
-@Scope("singleton")
 public class JvDbCtrl {
+    private static JvDbCtrl instance;
     private static JvDbWorker db;
 
     public enum TypeExecutionInsert {
@@ -40,6 +37,13 @@ public class JvDbCtrl {
 
     private JvDbCtrl() {
         db = JvDbWorker.getInstance();
+    }
+
+    public static JvDbCtrl getInstance() {
+        if (instance == null) {
+            instance = new JvDbCtrl();
+        }
+        return instance;
     }
 
     public boolean insertQueryToDB(TypeExecutionInsert type, String ... parameters) {

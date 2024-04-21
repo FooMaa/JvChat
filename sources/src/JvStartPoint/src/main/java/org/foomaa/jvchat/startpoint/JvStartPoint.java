@@ -47,9 +47,7 @@ public class JvStartPoint implements ApplicationRunner {
             }
         }
 
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
-                JvControlsSpringConfig.class);
-        context.getBean("initControls", JvInitControls.class);
+        JvInitControls.getInstance();
 
 
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {

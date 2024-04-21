@@ -1,10 +1,12 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
+import org.foomaa.jvchat.ctrl.JvControlsSpringConfig;
 import org.foomaa.jvchat.ctrl.JvInitControls;
 import org.foomaa.jvchat.ctrl.JvMessageCtrl;
 import org.foomaa.jvchat.messages.JvSerializatorData;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.tools.JvTools;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.swing.*;
 import java.awt.*;
@@ -111,7 +113,10 @@ public class JvRegistrationFrame extends JFrame {
     private void addListenerToElements() {
         bRegister.addActionListener(event -> {
             if (checkFields()) {
-                JvInitControls.getMessageCtrl().sendMessage(JvSerializatorData.TypeMessage.RegistrationRequest,
+                AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
+                        JvControlsSpringConfig.class);
+                //context.getBean("initControls", JvInitControls.class);
+                context.getBean("messageCtrl", JvMessageCtrl.class).sendMessage(JvSerializatorData.TypeMessage.RegistrationRequest,
                         tLogin.getInputText(), tEmail.getInputText(), tPassword.getInputText());
                 waitRepeatServer();
             }

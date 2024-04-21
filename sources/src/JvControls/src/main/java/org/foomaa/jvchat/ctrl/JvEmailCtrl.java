@@ -7,16 +7,19 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-@Component("emailCtrl")
-@Profile("servers")
-@Scope("singleton")
 public class JvEmailCtrl {
+    private static JvEmailCtrl instance;
     private static JvEmailProcessor emailProc;
 
     private JvEmailCtrl() {
-        if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
-            emailProc = JvEmailProcessor.getInstance();
+        emailProc = JvEmailProcessor.getInstance();
+    }
+
+    public static JvEmailCtrl getInstance() {
+        if (instance == null) {
+            instance = new JvEmailCtrl();
         }
+        return instance;
     }
 
     public boolean startVerifyFamousEmail(String email) {

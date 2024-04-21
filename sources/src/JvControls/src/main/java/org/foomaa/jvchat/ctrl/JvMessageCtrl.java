@@ -6,9 +6,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import java.util.HashMap;
 
-@Component("messageCtrl")
-@Scope("singleton")
 public class JvMessageCtrl {
+    private static JvMessageCtrl instance;
+
     // FLAGS
     public enum TypeFlags {
         TRUE,
@@ -28,6 +28,13 @@ public class JvMessageCtrl {
     // FLAGS
 
     private JvMessageCtrl() {}
+
+    public static JvMessageCtrl getInstance() {
+        if (instance == null) {
+            instance = new JvMessageCtrl();
+        }
+        return instance;
+    }
 
     public final void sendMessage(JvSerializatorData.TypeMessage type, Object... parameters) {
         switch (type) {
