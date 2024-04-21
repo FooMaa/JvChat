@@ -21,7 +21,6 @@ public class JvNetworkCtrl {
 
     }
 
-    @PostConstruct
     public static void start() throws IOException {
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             ServerSocket socketServers = JvServersSocket.getInstance().getSocketServers();

@@ -43,7 +43,6 @@ public class JvDbCtrl {
         return instance;
     }
 
-    @PostConstruct
     public static void start() {
         db = JvDbWorker.getInstance();
     }
