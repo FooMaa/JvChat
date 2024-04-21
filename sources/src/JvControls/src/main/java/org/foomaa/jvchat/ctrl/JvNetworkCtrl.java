@@ -3,6 +3,7 @@ package org.foomaa.jvchat.ctrl;
 import org.foomaa.jvchat.settings.JvMainSettings;
 import org.foomaa.jvchat.network.JvServersSocket;
 import org.foomaa.jvchat.network.JvUsersSocket;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -20,7 +21,9 @@ public class JvNetworkCtrl {
             ServerSocket socketServers = JvServersSocket.getInstance().getSocketServers();
             while (true) {
                 Socket fromSocketUser = socketServers.accept();
-                JvServersSocketThreadCtrl thread = new JvServersSocketThreadCtrl(fromSocketUser);
+                AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
+                        JvControlsSpringConfig.class);
+                JvServersSocketThreadCtrl thread = context.getBean(JvServersSocketThreadCtrl.class);
                 connectionList.add(thread);
             }
         } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
