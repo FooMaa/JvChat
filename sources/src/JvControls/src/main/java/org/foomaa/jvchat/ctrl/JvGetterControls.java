@@ -2,6 +2,8 @@ package org.foomaa.jvchat.ctrl;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.io.IOException;
+
 public class JvGetterControls {
     private static JvGetterControls instance;
 
@@ -25,6 +27,11 @@ public class JvGetterControls {
         }
         messageCtrl = context.getBean(JvControlsSpringConfig.NameBeans.MessageCtrl.getValue(), JvMessageCtrl.class);
         networkCtrl = context.getBean(JvControlsSpringConfig.NameBeans.NetworkCtrl.getValue(), JvNetworkCtrl.class);
+        try {
+            networkCtrl.start();
+        } catch (IOException e) {
+            //
+        }
     }
 
     public static JvGetterControls getInstance() {

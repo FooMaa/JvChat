@@ -29,7 +29,7 @@ public class JvServersSocketThreadCtrl extends Thread
                     readFromUser.readFully(message, 0, message.length);
                     System.out.println(JvGetterControls.getMessageCtrl());
                     System.out.println(JvGetterControls.getNetworkCtrl());
-                    JvNetworkCtrl.takeMessage(message, currentThread());
+                    JvGetterControls.getNetworkCtrl().takeMessage(message, currentThread());
                 }
             }
         } catch (IOException exception) {

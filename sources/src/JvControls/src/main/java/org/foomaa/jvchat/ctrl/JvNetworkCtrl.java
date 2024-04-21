@@ -4,7 +4,6 @@ import org.foomaa.jvchat.settings.JvMainSettings;
 import org.foomaa.jvchat.network.JvServersSocket;
 import org.foomaa.jvchat.network.JvUsersSocket;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import jakarta.annotation.PostConstruct;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -13,11 +12,15 @@ import java.util.LinkedList;
 
 public class JvNetworkCtrl {
     private static JvNetworkCtrl instance;
-    private static JvUsersSocketThreadCtrl usersThread;
-    private static JvServersSocketThreadCtrl serversThread;
-    public static LinkedList<JvServersSocketThreadCtrl> connectionList = new LinkedList<>();
+    private JvUsersSocketThreadCtrl usersThread;
+    private JvServersSocketThreadCtrl serversThread;
+    public LinkedList<JvServersSocketThreadCtrl> connectionList = new LinkedList<>();
 
     private JvNetworkCtrl() throws IOException {
+
+    }
+
+    public void start() throws IOException {
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             ServerSocket socketServers = JvServersSocket.getInstance().getSocketServers();
             System.out.println("ALOLOLOL");
@@ -33,10 +36,6 @@ public class JvNetworkCtrl {
         }
     }
 
-    public static void start() throws IOException {
-
-    }
-
     public static JvNetworkCtrl getInstance() throws IOException {
         if (instance == null) {
             instance = new JvNetworkCtrl();
@@ -44,7 +43,7 @@ public class JvNetworkCtrl {
         return instance;
     }
 
-    public static void takeMessage(byte[] message, Thread thr) {
+    public void takeMessage(byte[] message, Thread thr) {
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             serversThread = (JvServersSocketThreadCtrl) thr;
         } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
@@ -55,7 +54,7 @@ public class JvNetworkCtrl {
         context.getBean("messageCtrl", JvMessageCtrl.class).takeMessage(message);
     }
 
-    public static void sendMessage(byte[] message) {
+    public void sendMessage(byte[] message) {
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             serversThread.send(message);
         } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
