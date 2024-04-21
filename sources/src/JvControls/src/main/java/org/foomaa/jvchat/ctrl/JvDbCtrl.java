@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.ctrl;
 
+import jakarta.annotation.PostConstruct;
 import org.foomaa.jvchat.dbworker.JvDbDefines;
 import org.foomaa.jvchat.dbworker.JvDbWorker;
 
@@ -32,7 +33,7 @@ public class JvDbCtrl {
     }
 
     private JvDbCtrl() {
-        db = JvDbWorker.getInstance();
+
     }
 
     public static JvDbCtrl getInstance() {
@@ -40,6 +41,11 @@ public class JvDbCtrl {
             instance = new JvDbCtrl();
         }
         return instance;
+    }
+
+    @PostConstruct
+    public static void start() {
+        db = JvDbWorker.getInstance();
     }
 
     public boolean insertQueryToDB(TypeExecutionInsert type, String ... parameters) {

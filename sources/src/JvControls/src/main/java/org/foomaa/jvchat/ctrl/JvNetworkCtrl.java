@@ -4,6 +4,7 @@ import org.foomaa.jvchat.settings.JvMainSettings;
 import org.foomaa.jvchat.network.JvServersSocket;
 import org.foomaa.jvchat.network.JvUsersSocket;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import jakarta.annotation.PostConstruct;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -20,6 +21,7 @@ public class JvNetworkCtrl {
 
     }
 
+    @PostConstruct
     public static void start() throws IOException {
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             ServerSocket socketServers = JvServersSocket.getInstance().getSocketServers();

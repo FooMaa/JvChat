@@ -15,6 +15,7 @@ dependencies {
     implementation("org.springframework:spring-context:6.1.3")
     implementation("org.springframework:spring-beans:6.1.3")
     implementation("org.springframework:spring-core:6.1.6")
+    implementation("jakarta.annotation:jakarta.annotation-api:3.0.0")
     implementation(project(":sources:lib:JvSettings"))
     implementation(project(":sources:lib:JvMessages"))
     implementation(project(":sources:src:JvNetwork"))
