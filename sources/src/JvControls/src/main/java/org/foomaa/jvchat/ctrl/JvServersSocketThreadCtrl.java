@@ -26,7 +26,9 @@ public class JvServersSocketThreadCtrl extends Thread
                 if (length > 0) {
                     byte[] message = new byte[length];
                     readFromUser.readFully(message, 0, message.length);
-                    JvGetterControls.getNetworkCtrl().takeMessage(message, currentThread());
+                    System.out.println(JvGetterControls.getMessageCtrl());
+                    System.out.println(JvGetterControls.getNetworkCtrl());
+                    JvNetworkCtrl.takeMessage(message, currentThread());
                 }
             }
         } catch (IOException exception) {
