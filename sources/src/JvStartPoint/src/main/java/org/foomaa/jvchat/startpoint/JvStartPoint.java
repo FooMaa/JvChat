@@ -42,7 +42,6 @@ public class JvStartPoint implements ApplicationRunner {
         }
 
         JvGetterControls.getInstance();
-        JvNetworkCtrl.start();
 
 
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
