@@ -14,16 +14,22 @@ public class JvNetworkCtrl {
     private static JvNetworkCtrl instance;
     private static JvUsersSocketThreadCtrl usersThread;
     private static JvServersSocketThreadCtrl serversThread;
-    public LinkedList<JvServersSocketThreadCtrl> connectionList = new LinkedList<>();
+    public static LinkedList<JvServersSocketThreadCtrl> connectionList = new LinkedList<>();
 
     private JvNetworkCtrl() throws IOException {
+
+    }
+
+    public static void start() throws IOException {
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             ServerSocket socketServers = JvServersSocket.getInstance().getSocketServers();
+            System.out.println("ALOLOLOL");
             while (true) {
+                System.out.println("GOOOOOOOOOOOO");
                 Socket fromSocketUser = socketServers.accept();
                 AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
                         JvControlsSpringConfig.class);
-                JvServersSocketThreadCtrl thread = new JvServersSocketThreadCtrl( fromSocketUser);
+                JvServersSocketThreadCtrl thread = new JvServersSocketThreadCtrl(fromSocketUser);
                 connectionList.add(thread);
             }
         } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {

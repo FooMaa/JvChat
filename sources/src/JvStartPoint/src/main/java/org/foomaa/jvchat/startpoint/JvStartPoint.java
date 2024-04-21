@@ -3,6 +3,7 @@ package org.foomaa.jvchat.startpoint;
 import org.foomaa.jvchat.auth.JvErrorStart;
 import org.foomaa.jvchat.auth.JvStartAuthentication;
 import org.foomaa.jvchat.ctrl.JvGetterControls;
+import org.foomaa.jvchat.ctrl.JvNetworkCtrl;
 import org.foomaa.jvchat.tools.JvTools;
 import org.foomaa.jvchat.settings.JvMainSettings;
 
@@ -13,6 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class JvStartPoint implements ApplicationRunner {
+
     public static void main(String[] args) {
         SpringApplication.run( JvStartPoint.class, args );
     }
@@ -39,6 +41,7 @@ public class JvStartPoint implements ApplicationRunner {
         }
 
         JvGetterControls.getInstance();
+        JvNetworkCtrl.start();
 
 
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {

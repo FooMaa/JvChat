@@ -56,4 +56,10 @@ public class JvControlsSpringConfig {
     public JvServersSocketThreadCtrl serversSocketThreadCtrl(Socket fromSocketUser) {
         return new JvServersSocketThreadCtrl(fromSocketUser);
     }
+
+//    @Bean(name = "usersSocketThreadCtrl")
+//    @Scope("singleton")
+//    public JvUsersSocketThreadCtrl usersSocketThreadCtrl(Socket socketUsers) {
+//        return new JvUsersSocketThreadCtrl(socketUsers);
+//    }
 }
