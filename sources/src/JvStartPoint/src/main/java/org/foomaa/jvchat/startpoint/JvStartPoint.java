@@ -42,7 +42,6 @@ public class JvStartPoint implements ApplicationRunner {
         }
 
         JvGetterControls.getInstance();
-        JvDbCtrl.start();
         JvNetworkCtrl.start();
 
 

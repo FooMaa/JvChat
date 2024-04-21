@@ -42,10 +42,6 @@ public class JvDbCtrl {
         return instance;
     }
 
-    public static void start() {
-
-    }
-
     public boolean insertQueryToDB(TypeExecutionInsert type, String ... parameters) {
         switch (type) {
             case RegisterForm -> {
