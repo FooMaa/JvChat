@@ -23,7 +23,7 @@ public class JvNetworkCtrl {
                 Socket fromSocketUser = socketServers.accept();
                 AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
                         JvControlsSpringConfig.class);
-                JvServersSocketThreadCtrl thread = context.getBean(JvServersSocketThreadCtrl.class);
+                JvServersSocketThreadCtrl thread = context.getBean(JvServersSocketThreadCtrl.class, fromSocketUser);
                 connectionList.add(thread);
             }
         } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
