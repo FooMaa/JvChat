@@ -1,6 +1,5 @@
 package org.foomaa.jvchat.ctrl;
 
-import jakarta.annotation.PostConstruct;
 import org.foomaa.jvchat.dbworker.JvDbDefines;
 import org.foomaa.jvchat.dbworker.JvDbWorker;
 
@@ -32,7 +31,9 @@ public class JvDbCtrl {
         IdByEmail
     }
 
-    private JvDbCtrl() {}
+    private JvDbCtrl() {
+        System.out.println("JvDB");
+    }
 
     public static JvDbCtrl getInstance() {
         if (instance == null) {
