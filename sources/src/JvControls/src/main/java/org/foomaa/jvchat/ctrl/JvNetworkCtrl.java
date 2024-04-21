@@ -17,9 +17,7 @@ public class JvNetworkCtrl {
     private static JvServersSocketThreadCtrl serversThread;
     public static LinkedList<JvServersSocketThreadCtrl> connectionList = new LinkedList<>();
 
-    private JvNetworkCtrl() throws IOException {
-
-    }
+    private JvNetworkCtrl() {}
 
     public static void start() throws IOException {
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
@@ -28,8 +26,6 @@ public class JvNetworkCtrl {
             while (true) {
                 System.out.println("GOOOOOOOOOOOO");
                 Socket fromSocketUser = socketServers.accept();
-                AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
-                        JvControlsSpringConfig.class);
                 JvServersSocketThreadCtrl thread = new JvServersSocketThreadCtrl(fromSocketUser);
                 connectionList.add(thread);
             }

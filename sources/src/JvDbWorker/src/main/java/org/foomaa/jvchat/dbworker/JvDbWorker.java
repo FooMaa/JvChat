@@ -15,9 +15,6 @@ import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component("dbWorker")
-@Profile("users")
-@Scope("singleton")
 public class JvDbWorker extends JvDbDefines {
     private static Connection connection;
     private static JvDbWorker instance;

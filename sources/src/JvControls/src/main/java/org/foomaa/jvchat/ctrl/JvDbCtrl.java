@@ -32,9 +32,7 @@ public class JvDbCtrl {
         IdByEmail
     }
 
-    private JvDbCtrl() {
-
-    }
+    private JvDbCtrl() {}
 
     public static JvDbCtrl getInstance() {
         if (instance == null) {
