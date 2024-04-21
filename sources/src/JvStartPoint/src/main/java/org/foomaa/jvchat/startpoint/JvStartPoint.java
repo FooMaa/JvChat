@@ -13,7 +13,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class JvStartPoint implements ApplicationRunner {
-
     public static void main(String[] args) {
         SpringApplication.run( JvStartPoint.class, args );
     }
