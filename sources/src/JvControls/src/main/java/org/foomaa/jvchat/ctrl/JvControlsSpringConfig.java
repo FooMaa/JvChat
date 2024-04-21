@@ -40,7 +40,6 @@ public class JvControlsSpringConfig {
     }
 
     @Bean(name = "messageCtrl")
-    @Scope("singleton")
     public JvMessageCtrl messageCtrl() {
         return JvMessageCtrl.getInstance();
     }
@@ -49,5 +48,11 @@ public class JvControlsSpringConfig {
     @Scope("singleton")
     public JvNetworkCtrl networkCtrl() throws IOException {
         return JvNetworkCtrl.getInstance();
+    }
+
+    @Bean(name = "serversSocketThreadCtrl")
+    @Scope("prototype")
+    public JvServersSocketThreadCtrl serversSocketThreadCtrl(Socket fromSocketUser) {
+        return new JvServersSocketThreadCtrl(fromSocketUser);
     }
 }
