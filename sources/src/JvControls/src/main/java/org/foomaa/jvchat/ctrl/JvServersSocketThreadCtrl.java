@@ -1,11 +1,8 @@
 package org.foomaa.jvchat.ctrl;
 
-import org.springframework.scheduling.annotation.EnableAsync;
-
 import java.io.*;
 import java.net.Socket;
 
-@EnableAsync
 public class JvServersSocketThreadCtrl extends Thread
 {
     private DataInputStream readFromUser;
