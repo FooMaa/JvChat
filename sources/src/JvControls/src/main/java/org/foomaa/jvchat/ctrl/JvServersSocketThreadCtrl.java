@@ -1,13 +1,8 @@
 package org.foomaa.jvchat.ctrl;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
 import java.io.*;
 import java.net.Socket;
 
-@Component
-@Scope("prototype")
 public class JvServersSocketThreadCtrl extends Thread
 {
     private DataInputStream readFromUser;

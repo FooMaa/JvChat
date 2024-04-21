@@ -4,7 +4,6 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 public class JvGetterControls {
     private static JvGetterControls instance;
-    private static AnnotationConfigApplicationContext context;
 
     private static JvDbCtrl dbCtrl;
     private static JvEmailCtrl emailCtrl;
@@ -12,7 +11,7 @@ public class JvGetterControls {
     private static JvMessageCtrl messageCtrl;
 
     private JvGetterControls() {
-        context = new AnnotationConfigApplicationContext(
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
                 JvControlsSpringConfig.class);
 
         if (context.containsBeanDefinition(JvControlsSpringConfig.NameBeans.DbCtrl.getValue())) {

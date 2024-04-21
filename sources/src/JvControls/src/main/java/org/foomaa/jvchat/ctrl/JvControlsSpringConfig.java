@@ -1,9 +1,9 @@
 package org.foomaa.jvchat.ctrl;
 
-import org.foomaa.jvchat.messages.JvSerializatorData;
 import org.springframework.context.annotation.*;
 
 import java.io.IOException;
+import java.net.Socket;
 
 @Configuration
 @ComponentScan("org.foomaa.jvchat.ctrl")
@@ -49,5 +49,11 @@ public class JvControlsSpringConfig {
     @Scope("singleton")
     public JvNetworkCtrl networkCtrl() throws IOException {
         return JvNetworkCtrl.getInstance();
+    }
+
+    @Bean(name = "serversSocketThreadCtrl")
+    @Scope("prototype")
+    public JvServersSocketThreadCtrl serversSocketThreadCtrl(Socket fromSocketUser) {
+        return new JvServersSocketThreadCtrl(fromSocketUser);
     }
 }
