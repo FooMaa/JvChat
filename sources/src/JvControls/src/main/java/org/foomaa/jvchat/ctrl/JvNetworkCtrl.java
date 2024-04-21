@@ -17,7 +17,7 @@ public class JvNetworkCtrl {
     private static JvServersSocketThreadCtrl serversThread;
     public static LinkedList<JvServersSocketThreadCtrl> connectionList = new LinkedList<>();
 
-    private JvNetworkCtrl() {
+    private JvNetworkCtrl() throws IOException {
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             ServerSocket socketServers = JvServersSocket.getInstance().getSocketServers();
             System.out.println("ALOLOLOL");
