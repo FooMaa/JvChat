@@ -24,6 +24,7 @@ public class JvStartPoint implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         System.setProperty("java.awt.headless", "false"); //Disables headless
         JvTools.setProfileSetting(JvStartPoint.class);
+        System.setProperty("spring.profiles.active", args.getOptionValues("spring.profiles.active").get(0));
         String argsIp = "";
 
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
@@ -42,7 +43,6 @@ public class JvStartPoint implements ApplicationRunner {
         }
 
         JvGetterControls.getInstance();
-
 
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
             new JvStartAuthentication();

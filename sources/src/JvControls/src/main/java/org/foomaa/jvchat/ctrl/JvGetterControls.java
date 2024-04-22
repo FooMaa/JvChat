@@ -3,6 +3,7 @@ package org.foomaa.jvchat.ctrl;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class JvGetterControls {
     private static JvGetterControls instance;
@@ -15,7 +16,7 @@ public class JvGetterControls {
     private JvGetterControls() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
                 JvControlsSpringConfig.class);
-
+        System.out.println(Arrays.toString(context.getEnvironment().getActiveProfiles()));
         if (context.containsBeanDefinition(JvControlsSpringConfig.NameBeans.DbCtrl.getValue())) {
             dbCtrl = context.getBean(
                     (JvControlsSpringConfig.NameBeans.DbCtrl.getValue()), JvDbCtrl.class);

@@ -32,6 +32,7 @@ public class JvDbCtrl {
     }
 
     private JvDbCtrl() {
+        System.out.println("DB BEAN INIT");
         db = JvDbWorker.getInstance();
     }
 
