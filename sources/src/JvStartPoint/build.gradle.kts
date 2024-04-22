@@ -65,6 +65,7 @@ tasks {
 
             bootRun {
                 mainClass.set("org.foomaa.jvchat.startpoint.JvStartPoint")
+                args("--spring.profiles.active=$PROFILE")
                 systemProperty("spring.profiles.active", PROFILE)
             }
 
