@@ -16,16 +16,12 @@ public class JvNetworkCtrl {
     private JvServersSocketThreadCtrl serversThread;
     public LinkedList<JvServersSocketThreadCtrl> connectionList = new LinkedList<>();
 
-    private JvNetworkCtrl() throws IOException {
+    private JvNetworkCtrl() {}
 
-    }
-
-    public void start() throws IOException {
+    public void startNetwork() throws IOException {
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             ServerSocket socketServers = JvServersSocket.getInstance().getSocketServers();
-            System.out.println("ALOLOLOL");
             while (true) {
-                System.out.println("GOOOOOOOOOOOO");
                 Socket fromSocketUser = socketServers.accept();
                 JvServersSocketThreadCtrl thread = new JvServersSocketThreadCtrl(fromSocketUser);
                 connectionList.add(thread);

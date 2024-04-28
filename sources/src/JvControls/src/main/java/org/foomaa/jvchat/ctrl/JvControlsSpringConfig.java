@@ -1,7 +1,6 @@
 package org.foomaa.jvchat.ctrl;
 
 import org.springframework.context.annotation.*;
-
 import java.io.IOException;
 
 @Configuration
@@ -49,5 +48,4 @@ public class JvControlsSpringConfig {
     public JvNetworkCtrl networkCtrl() throws IOException {
         return JvNetworkCtrl.getInstance();
     }
-
 }

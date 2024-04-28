@@ -11,6 +11,9 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 @SpringBootApplication
 public class JvStartPoint implements ApplicationRunner {
 
@@ -19,10 +22,18 @@ public class JvStartPoint implements ApplicationRunner {
     }
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
-        System.setProperty("java.awt.headless", "false"); //Disables headless
-        JvTools.setProfileSetting(JvStartPoint.class);
-        System.setProperty("spring.profiles.active", args.getOptionValues("spring.profiles.active").get(0));
+    public void run(ApplicationArguments args) {
+        workingArgs(args);
+        launchApplication();
+    }
+
+    private void workingArgs(ApplicationArguments args) {
+        try {
+            JvTools.setProfileSetting(JvStartPoint.class);
+        } catch (IOException | URISyntaxException exception) {
+            new JvErrorStart("Не удалось выставить верный профиль для приложения!");
+        }
+
         String argsIp = "";
 
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
@@ -39,8 +50,15 @@ public class JvStartPoint implements ApplicationRunner {
                 new JvErrorStart("В параметре запуска не верный IP!");
             }
         }
+    }
 
+    private void launchApplication() {
         JvGetterControls.getInstance();
+        try {
+            JvGetterControls.getNetworkCtrl().startNetwork();
+        } catch (IOException exception) {
+            new JvErrorStart("Не удалось подключиться к серверу.\nПроверьте наличие сети и попробуйте снова!");
+        }
 
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
             new JvStartAuthentication();

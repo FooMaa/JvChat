@@ -28,11 +28,6 @@ public class JvGetterControls {
         }
         messageCtrl = context.getBean(JvControlsSpringConfig.NameBeans.MessageCtrl.getValue(), JvMessageCtrl.class);
         networkCtrl = context.getBean(JvControlsSpringConfig.NameBeans.NetworkCtrl.getValue(), JvNetworkCtrl.class);
-        try {
-            networkCtrl.start();
-        } catch (IOException e) {
-            //
-        }
     }
 
     public static JvGetterControls getInstance() {

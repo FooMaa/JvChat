@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class JvDbCtrl {
-    private static JvDbCtrl instance;
+    private static JvDbCtrl instance = new JvDbCtrl();
     private static JvDbWorker db;
 
     public enum TypeExecutionInsert {

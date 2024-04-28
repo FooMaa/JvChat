@@ -39,7 +39,10 @@
                         <groupId>org.springframework.boot</groupId>
                         <artifactId>spring-boot-maven-plugin</artifactId>
                         <configuration>
-                            <profiles>${target}</profiles>
+                            <systemPropertyVariables>
+                                <java.awt.headless>false</java.awt.headless>
+                                <spring.profiles.active>${target}</spring.profiles.active>
+                            </systemPropertyVariables>
                             <mainClass>${mainClass}</mainClass>
                             <classifier>exec</classifier>
                             <skip>true</skip>
@@ -81,7 +84,10 @@
                         <groupId>org.springframework.boot</groupId>
                         <artifactId>spring-boot-maven-plugin</artifactId>
                         <configuration>
-                            <profiles>${target}</profiles>
+                            <systemPropertyVariables>
+                                <java.awt.headless>false</java.awt.headless>
+                                <spring.profiles.active>${target}</spring.profiles.active>
+                            </systemPropertyVariables>
                             <mainClass>${mainClass}</mainClass>
                             <classifier>exec</classifier>
                             <skip>false</skip>
@@ -123,7 +129,10 @@
                         <groupId>org.springframework.boot</groupId>
                         <artifactId>spring-boot-maven-plugin</artifactId>
                         <configuration>
-                            <profiles>${target}</profiles>
+                            <systemPropertyVariables>
+                                <java.awt.headless>false</java.awt.headless>
+                                <spring.profiles.active>${target}</spring.profiles.active>
+                            </systemPropertyVariables>
                             <mainClass>${mainClass}</mainClass>
                             <classifier>exec</classifier>
                             <skip>false</skip>
