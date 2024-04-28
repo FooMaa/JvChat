@@ -34,8 +34,6 @@ public class JvStartPoint implements ApplicationRunner {
             new JvErrorStart("Не удалось выставить верный профиль для приложения!");
         }
 
-        String argsIp = "";
-
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             JvTools.initServersParameters();
         }
@@ -43,7 +41,7 @@ public class JvStartPoint implements ApplicationRunner {
             if (args.getOptionValues("ipServer") == null) {
                 new JvErrorStart("Дайте в параметр IP-адрес сервера!");
             }
-            argsIp = args.getOptionValues("ipServer").get(0);
+            String argsIp = args.getOptionValues("ipServer").get(0);
             if (JvTools.validateInputIp(argsIp)) {
                 JvMainSettings.setIp(argsIp);
             } else {
@@ -54,6 +52,7 @@ public class JvStartPoint implements ApplicationRunner {
 
     private void launchApplication() {
         JvGetterControls.getInstance();
+
         try {
             JvGetterControls.getNetworkCtrl().startNetwork();
         } catch (IOException exception) {
