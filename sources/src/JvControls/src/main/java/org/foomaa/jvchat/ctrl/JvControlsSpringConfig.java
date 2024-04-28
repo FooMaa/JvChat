@@ -48,4 +48,11 @@ public class JvControlsSpringConfig {
     public JvNetworkCtrl networkCtrl() throws IOException {
         return JvNetworkCtrl.getInstance();
     }
+
+
+//    @Bean(name = "serversSocketThreadCtrl")
+//    @Scope("prototype")
+//    public JvServersSocketThreadCtrl serversSocketThreadCtrl() {
+//        return new JvServersSocketThreadCtrl();
+//    }
 }
