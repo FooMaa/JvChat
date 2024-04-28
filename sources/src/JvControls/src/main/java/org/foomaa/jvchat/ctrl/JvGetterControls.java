@@ -54,8 +54,13 @@ public class JvGetterControls {
         return emailCtrl;
     }
 
-    public static JvServersSocketThreadCtrl getServersSocketThreadCtrl(Socket fromSocketUser) {
+    public static JvServersSocketThreadCtrl getServersSocketThreadCtrl(Socket fromSocketServer) {
         return (JvServersSocketThreadCtrl) context.getBean(
-                JvControlsSpringConfig.NameBeans.ServersSocketThreadCtrl.getValue(), fromSocketUser);
+                JvControlsSpringConfig.NameBeans.ServersSocketThreadCtrl.getValue(), fromSocketServer);
+    }
+
+    public static JvUsersSocketThreadCtrl getUsersSocketThreadCtrl(Socket fromSocketUser) {
+        return (JvUsersSocketThreadCtrl) context.getBean(
+                JvControlsSpringConfig.NameBeans.UsersSocketThreadCtrl.getValue(), fromSocketUser);
     }
 }

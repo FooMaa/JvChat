@@ -11,7 +11,8 @@ public class JvControlsSpringConfig {
         EmailCtrl("emailCtrl"),
         MessageCtrl("messageCtrl"),
         NetworkCtrl("networkCtrl"),
-        ServersSocketThreadCtrl("serversSocketThreadCtrl");
+        ServersSocketThreadCtrl("serversSocketThreadCtrl"),
+        UsersSocketThreadCtrl("usersSocketThreadCtrl");
 
         private final String value;
 
@@ -52,7 +53,13 @@ public class JvControlsSpringConfig {
 
     @Bean(name = "serversSocketThreadCtrl")
     @Scope("prototype")
-    public JvServersSocketThreadCtrl serversSocketThreadCtrl(Socket fromSocketUser) {
-        return new JvServersSocketThreadCtrl(fromSocketUser);
+    public JvServersSocketThreadCtrl serversSocketThreadCtrl(Socket fromSocketServer) {
+        return new JvServersSocketThreadCtrl(fromSocketServer);
+    }
+
+    @Bean(name = "usersSocketThreadCtrl")
+    @Scope("prototype")
+    public JvUsersSocketThreadCtrl usersSocketThreadCtrl(Socket fromSocketUser) {
+        return new JvUsersSocketThreadCtrl(fromSocketUser);
     }
 }

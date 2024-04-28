@@ -22,13 +22,13 @@ public class JvNetworkCtrl {
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             ServerSocket socketServers = JvServersSocket.getInstance().getSocketServers();
             while (true) {
-                Socket fromSocketUser = socketServers.accept();
-                JvServersSocketThreadCtrl thread = JvGetterControls.getServersSocketThreadCtrl(fromSocketUser);
+                Socket fromSocketServer = socketServers.accept();
+                JvServersSocketThreadCtrl thread = JvGetterControls.getServersSocketThreadCtrl(fromSocketServer);
                 connectionList.add(thread);
             }
         } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
-            Socket socketUsers = JvUsersSocket.getInstance().getCurrentSocket();
-            usersThread = new JvUsersSocketThreadCtrl(socketUsers);
+            Socket fromSocketUsers = JvUsersSocket.getInstance().getCurrentSocket();
+            usersThread = JvGetterControls.getUsersSocketThreadCtrl(fromSocketUsers);
         }
     }
 

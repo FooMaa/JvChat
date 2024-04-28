@@ -10,10 +10,10 @@ public class JvServersSocketThreadCtrl extends Thread
     private DataInputStream readFromUser;
     private DataOutputStream sendToUser;
 
-    public JvServersSocketThreadCtrl(Socket fromSocketUser) {
+    public JvServersSocketThreadCtrl(Socket fromSocketServer) {
         try {
-            sendToUser = new DataOutputStream(fromSocketUser.getOutputStream());
-            readFromUser =  new DataInputStream(fromSocketUser.getInputStream());
+            sendToUser = new DataOutputStream(fromSocketServer.getOutputStream());
+            readFromUser =  new DataInputStream(fromSocketServer.getInputStream());
         } catch (IOException exception) {
             System.out.println("Ошибка в создании потоков отправки и принятия сообщений");
         }
