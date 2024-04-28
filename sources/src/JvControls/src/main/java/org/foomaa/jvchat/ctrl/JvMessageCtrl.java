@@ -27,7 +27,7 @@ public class JvMessageCtrl {
 
     private JvMessageCtrl() {}
 
-    public static JvMessageCtrl getInstance() {
+    static JvMessageCtrl getInstance() {
         if (instance == null) {
             instance = new JvMessageCtrl();
         }

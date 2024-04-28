@@ -10,7 +10,7 @@ public class JvEmailCtrl {
         emailProc = JvEmailProcessor.getInstance();
     }
 
-    public static JvEmailCtrl getInstance() {
+    static JvEmailCtrl getInstance() {
         if (instance == null) {
             instance = new JvEmailCtrl();
         }
