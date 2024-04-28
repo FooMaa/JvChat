@@ -23,7 +23,7 @@ public class JvNetworkCtrl {
             ServerSocket socketServers = JvServersSocket.getInstance().getSocketServers();
             while (true) {
                 Socket fromSocketUser = socketServers.accept();
-                JvServersSocketThreadCtrl thread = JvGetterControls.getServersSocketThreadCtrl();
+                JvServersSocketThreadCtrl thread = JvGetterControls.getServersSocketThreadCtrl(fromSocketUser);
                 connectionList.add(thread);
             }
         } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {

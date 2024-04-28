@@ -1,6 +1,8 @@
 package org.foomaa.jvchat.ctrl;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import java.net.Socket;
 import java.util.Arrays;
 
 public class JvGetterControls {
@@ -52,8 +54,8 @@ public class JvGetterControls {
         return emailCtrl;
     }
 
-    public static JvServersSocketThreadCtrl getServersSocketThreadCtrl() {
-        return context.getBean(
-                JvControlsSpringConfig.NameBeans.ServersSocketThreadCtrl.getValue(), JvServersSocketThreadCtrl.class);
+    public static JvServersSocketThreadCtrl getServersSocketThreadCtrl(Socket fromSocketUser) {
+        return (JvServersSocketThreadCtrl) context.getBean(
+                JvControlsSpringConfig.NameBeans.ServersSocketThreadCtrl.getValue(), fromSocketUser);
     }
 }
