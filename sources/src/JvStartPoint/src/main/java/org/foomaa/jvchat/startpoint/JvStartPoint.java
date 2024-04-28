@@ -2,9 +2,7 @@ package org.foomaa.jvchat.startpoint;
 
 import org.foomaa.jvchat.auth.JvErrorStart;
 import org.foomaa.jvchat.auth.JvStartAuthentication;
-import org.foomaa.jvchat.ctrl.JvDbCtrl;
 import org.foomaa.jvchat.ctrl.JvGetterControls;
-import org.foomaa.jvchat.ctrl.JvNetworkCtrl;
 import org.foomaa.jvchat.tools.JvTools;
 import org.foomaa.jvchat.settings.JvMainSettings;
 

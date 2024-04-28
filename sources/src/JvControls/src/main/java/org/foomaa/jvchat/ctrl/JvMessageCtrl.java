@@ -25,7 +25,9 @@ public class JvMessageCtrl {
             JvSerializatorData.TypeErrorRegistration.NoError;
     // FLAGS
 
-    private JvMessageCtrl() {}
+    private JvMessageCtrl() {
+        System.out.println("#########################################");
+    }
 
     public static JvMessageCtrl getInstance() {
         if (instance == null) {

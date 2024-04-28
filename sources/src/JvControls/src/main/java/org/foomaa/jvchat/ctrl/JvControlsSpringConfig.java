@@ -3,7 +3,6 @@ package org.foomaa.jvchat.ctrl;
 import org.springframework.context.annotation.*;
 
 import java.io.IOException;
-import java.net.Socket;
 
 @Configuration
 @ComponentScan("org.foomaa.jvchat.ctrl")
