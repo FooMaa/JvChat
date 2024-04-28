@@ -1,7 +1,7 @@
 package org.foomaa.jvchat.ctrl;
 
 import org.springframework.context.annotation.*;
-import java.io.IOException;
+import java.net.Socket;
 
 @Configuration
 @ComponentScan("org.foomaa.jvchat.ctrl")
@@ -10,7 +10,8 @@ public class JvControlsSpringConfig {
         DbCtrl("dbCtrl"),
         EmailCtrl("emailCtrl"),
         MessageCtrl("messageCtrl"),
-        NetworkCtrl("networkCtrl");
+        NetworkCtrl("networkCtrl"),
+        ServersSocketThreadCtrl("serversSocketThreadCtrl");
 
         private final String value;
 
@@ -45,14 +46,13 @@ public class JvControlsSpringConfig {
 
     @Bean(name = "networkCtrl")
     @Scope("singleton")
-    public JvNetworkCtrl networkCtrl() throws IOException {
+    public JvNetworkCtrl networkCtrl() {
         return JvNetworkCtrl.getInstance();
     }
 
-
-//    @Bean(name = "serversSocketThreadCtrl")
-//    @Scope("prototype")
-//    public JvServersSocketThreadCtrl serversSocketThreadCtrl() {
-//        return new JvServersSocketThreadCtrl();
-//    }
+    @Bean(name = "serversSocketThreadCtrl")
+    @Scope("prototype")
+    public JvServersSocketThreadCtrl serversSocketThreadCtrl(Socket fromSocketUser) {
+        return new JvServersSocketThreadCtrl(fromSocketUser);
+    }
 }

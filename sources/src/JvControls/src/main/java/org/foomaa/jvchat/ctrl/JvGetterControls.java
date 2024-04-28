@@ -1,8 +1,6 @@
 package org.foomaa.jvchat.ctrl;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-import java.io.IOException;
 import java.util.Arrays;
 
 public class JvGetterControls {
@@ -12,14 +10,15 @@ public class JvGetterControls {
     private static JvEmailCtrl emailCtrl;
     private static JvNetworkCtrl networkCtrl;
     private static JvMessageCtrl messageCtrl;
+    private static AnnotationConfigApplicationContext context;
 
     private JvGetterControls() {
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
+        context = new AnnotationConfigApplicationContext(
                 JvControlsSpringConfig.class);
         System.out.println(Arrays.toString(context.getEnvironment().getActiveProfiles()));
         if (context.containsBeanDefinition(JvControlsSpringConfig.NameBeans.DbCtrl.getValue())) {
             dbCtrl = context.getBean(
-                    (JvControlsSpringConfig.NameBeans.DbCtrl.getValue()), JvDbCtrl.class);
+                    JvControlsSpringConfig.NameBeans.DbCtrl.getValue(), JvDbCtrl.class);
             System.out.println(dbCtrl);
         }
         if (context.containsBeanDefinition(JvControlsSpringConfig.NameBeans.EmailCtrl.getValue())) {
@@ -51,5 +50,10 @@ public class JvGetterControls {
 
     public static JvEmailCtrl getEmailCtrl() {
         return emailCtrl;
+    }
+
+    public static JvServersSocketThreadCtrl getServersSocketThreadCtrl() {
+        return context.getBean(
+                JvControlsSpringConfig.NameBeans.ServersSocketThreadCtrl.getValue(), JvServersSocketThreadCtrl.class);
     }
 }
