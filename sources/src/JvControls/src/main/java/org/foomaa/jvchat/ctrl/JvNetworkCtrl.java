@@ -32,7 +32,7 @@ public class JvNetworkCtrl {
         }
     }
 
-    static JvNetworkCtrl getInstance() throws IOException {
+    static JvNetworkCtrl getInstance() {
         if (instance == null) {
             instance = new JvNetworkCtrl();
         }
