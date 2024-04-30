@@ -2,6 +2,10 @@ plugins {
     id("java")
 }
 
+group = "org.foomaa.jvchat"
+version = "1.0-SNAPSHOT"
+buildDir = File("jvchat-gradle")
+
 subprojects {
     apply(plugin = "java")
 
@@ -28,11 +32,19 @@ subprojects {
             events("passed", "failed", "skipped")
         }
     }
-}
 
-group = "org.foomaa.jvchat"
-version = "1.0-SNAPSHOT"
-buildDir = File("jvchat-gradle")
+    tasks {
+        javadoc {
+            options.encoding = "UTF-8"
+        }
+        compileJava {
+            options.encoding = "UTF-8"
+        }
+        compileTestJava {
+            options.encoding = "UTF-8"
+        }
+    }
+}
 
 // такая штука нужна, чтоб удалить принудительно папку сборки
 //gradle.buildFinished() {
