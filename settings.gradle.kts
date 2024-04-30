@@ -10,4 +10,4 @@ include("sources:lib:JvTools")
 include("sources:lib:JvMessages")
 include("sources:lib:JvUiComponents")
 include("sources:lib:JvUiComponents:JvAuthComponents")
-//findProject("sources:lib:JvUiComponents:JvAuthComponents")?.name = "JvAuthComponents"
+// findProject("sources:lib:JvUiComponents:JvAuthComponents")?.name = "JvAuthComponents"
