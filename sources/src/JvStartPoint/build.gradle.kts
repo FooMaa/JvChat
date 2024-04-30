@@ -9,10 +9,6 @@ buildDir = File("jvchat-gradle")
 extra["slf4j.version"] = "1.7.20"
 var PROFILE = ""
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     implementation("org.springframework:spring-context")
     implementation("org.springframework:spring-beans")
@@ -84,11 +80,4 @@ tasks {
 
 tasks.withType<JavaExec>() {
     standardInput = System.`in`
-}
-
-sourceSets.getByName("main") {
-    java.srcDir("src/main/java/")
-}
-sourceSets.getByName("test") {
-    java.srcDir("src/test/java/")
 }

@@ -10,6 +10,10 @@ subprojects {
         implementation("org.springframework.boot:spring-boot-starter:3.2.4")
     }
 
+    repositories {
+        mavenCentral()
+    }
+
     tasks.test {
         onlyIf {
             project.hasProperty("tests")
@@ -30,7 +34,7 @@ group = "org.foomaa.jvchat"
 version = "1.0-SNAPSHOT"
 buildDir = File("jvchat-gradle")
 
-// такая штука нужна, чтоб удалить принутительно папку сборки
+// такая штука нужна, чтоб удалить принудительно папку сборки
 //gradle.buildFinished() {
 //    delete(project.buildDir)
 //}

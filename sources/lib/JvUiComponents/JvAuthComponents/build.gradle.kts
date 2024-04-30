@@ -2,10 +2,6 @@ group = "org.foomaa.jvchat.uicomponents.auth"
 version = "1.0-SNAPSHOT"
 buildDir = File("jvchat-gradle")
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     implementation("org.springframework:spring-context:6.1.3")
     implementation("org.springframework:spring-beans:6.1.3")
@@ -15,21 +11,6 @@ dependencies {
     implementation(project(":sources:lib:JvSettings"))
     implementation(project(":sources:lib:JvMessages"))
     implementation(project(":sources:lib:JvTools"))
-}
-
-tasks.test {
-    onlyIf {
-        project.hasProperty("tests")
-    }
-
-    useJUnit()
-
-    maxHeapSize = "1G"
-    failFast = true
-
-    testLogging {
-        events("passed", "failed", "skipped")
-    }
 }
 
 tasks {
