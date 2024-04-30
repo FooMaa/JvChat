@@ -10,21 +10,6 @@ dependencies {
     implementation(project(":sources:lib:JvUiComponents:JvAuthComponents"))
 }
 
-tasks.test {
-    onlyIf {
-        project.hasProperty("tests")
-    }
-
-    useJUnit()
-
-    maxHeapSize = "1G"
-    failFast = true
-
-    testLogging {
-        events("passed", "failed", "skipped")
-    }
-}
-
 tasks {
     javadoc {
         options.encoding = "UTF-8"

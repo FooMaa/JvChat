@@ -17,21 +17,6 @@ dependencies {
     implementation(project(":sources:src:JvDbWorker"))
 }
 
-tasks.test {
-    onlyIf {
-        project.hasProperty("tests")
-    }
-
-    useJUnit()
-
-    maxHeapSize = "1G"
-    failFast = true
-
-    testLogging {
-        events("passed", "failed", "skipped")
-    }
-}
-
 sourceSets.getByName("main") {
     java.srcDir("src/main/java/")
 }

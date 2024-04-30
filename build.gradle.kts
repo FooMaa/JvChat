@@ -1,13 +1,28 @@
 plugins {
     id("java")
-    id("org.springframework.boot") version "3.2.4" apply false
 }
 
 subprojects {
     apply(plugin = "java")
+
     dependencies {
         testImplementation("junit:junit:3.8.1")
         implementation("org.springframework.boot:spring-boot-starter:3.2.4")
+    }
+
+    tasks.test {
+        onlyIf {
+            project.hasProperty("tests")
+        }
+
+        useJUnit()
+
+        maxHeapSize = "1G"
+        failFast = true
+
+        testLogging {
+            events("passed", "failed", "skipped")
+        }
     }
 }
 
