@@ -1,7 +1,3 @@
-plugins {
-    id("java")
-}
-
 group = "org.foomaa.jvchat.ctrl"
 version = "1.0-SNAPSHOT"
 buildDir = File("jvchat-gradle")
@@ -11,11 +7,9 @@ repositories {
 }
 
 dependencies {
-    testImplementation("junit:junit:3.8.1")
-
-    implementation("org.springframework:spring-context:6.1.3")
-    implementation("org.springframework:spring-beans:6.1.3")
-    implementation("org.springframework:spring-core:6.1.6")
+    implementation("org.springframework:spring-context")
+    implementation("org.springframework:spring-beans")
+    implementation("org.springframework:spring-core")
 
     implementation(project(":sources:lib:JvSettings"))
     implementation(project(":sources:lib:JvMessages"))

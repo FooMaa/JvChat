@@ -1,5 +1,4 @@
 plugins {
-    id("java")
     id("org.springframework.boot") version "3.2.4"
     application
 }
@@ -15,9 +14,6 @@ repositories {
 }
 
 dependencies {
-    testImplementation("junit:junit:3.8.1")
-
-    implementation("org.springframework.boot:spring-boot-starter:3.2.4")
     implementation("org.springframework:spring-context")
     implementation("org.springframework:spring-beans")
     implementation("org.springframework:spring-core")

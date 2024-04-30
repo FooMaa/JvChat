@@ -1,7 +1,3 @@
-plugins {
-    id("java")
-}
-
 group = "org.foomaa.jvchat.auth"
 version = "1.0-SNAPSHOT"
 buildDir = File("jvchat-gradle")
@@ -11,7 +7,6 @@ repositories {
 }
 
 dependencies {
-    testImplementation("junit:junit:3.8.1")
     implementation(project(":sources:lib:JvUiComponents:JvAuthComponents"))
 }
 

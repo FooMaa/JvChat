@@ -1,7 +1,3 @@
-plugins {
-    id("java")
-}
-
 group = "org.foomaa.jvchat.tools"
 version = "1.0-SNAPSHOT"
 buildDir = File("jvchat-gradle")
@@ -12,7 +8,6 @@ repositories {
 
 dependencies {
     implementation(project(":sources:lib:JvSettings"))
-    testImplementation("junit:junit:3.8.1")
 }
 
 tasks.test {
