@@ -7,8 +7,8 @@ dependencies {
     implementation("org.springframework:spring-beans")
     implementation("org.springframework:spring-core")
 
-    implementation(project(":sources:lib:JvSettings"))
-    implementation(project(":sources:lib:JvMessages"))
-    implementation(project(":sources:src:JvNetwork"))
-    implementation(project(":sources:src:JvDbWorker"))
+    implementation(project(":JvSettings"))
+    implementation(project(":JvMessages"))
+    implementation(project(":JvNetwork"))
+    implementation(project(":JvDbWorker"))
 }

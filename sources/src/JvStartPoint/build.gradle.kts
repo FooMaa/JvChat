@@ -14,10 +14,10 @@ dependencies {
     implementation("org.springframework:spring-beans")
     implementation("org.springframework:spring-core")
 
-    implementation(project(":sources:src:JvControls"))
-    implementation(project(":sources:src:JvAuthentication"))
-    implementation(project(":sources:lib:JvTools"))
-    implementation(project(":sources:lib:JvSettings"))
+    implementation(project(":JvControls"))
+    implementation(project(":JvAuthentication"))
+    implementation(project(":JvTools"))
+    implementation(project(":JvSettings"))
 }
 
 tasks {

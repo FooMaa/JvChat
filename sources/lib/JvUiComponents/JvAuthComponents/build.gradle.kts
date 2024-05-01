@@ -7,10 +7,10 @@ dependencies {
     implementation("org.springframework:spring-beans:6.1.3")
     implementation("org.springframework:spring-core:6.1.6")
 
-    implementation(project(":sources:src:JvControls"))
-    implementation(project(":sources:lib:JvSettings"))
-    implementation(project(":sources:lib:JvMessages"))
-    implementation(project(":sources:lib:JvTools"))
+    implementation(project(":JvControls"))
+    implementation(project(":JvSettings"))
+    implementation(project(":JvMessages"))
+    implementation(project(":JvTools"))
 }
 
 tasks.withType<ProcessResources> {

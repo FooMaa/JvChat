@@ -8,5 +8,5 @@ dependencies {
     implementation("org.springframework:spring-beans")
     implementation("org.springframework:spring-core")
     implementation("org.postgresql:postgresql:42.6.0")
-    implementation(project(":sources:lib:JvSettings"))
+    implementation(project(":JvSettings"))
 }
