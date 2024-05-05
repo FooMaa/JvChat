@@ -1,6 +1,5 @@
 group = "org.foomaa.jvchat.uicomponents.auth"
 version = "1.0-SNAPSHOT"
-buildDir = File("jvchat-gradle")
 
 dependencies {
     implementation("org.springframework:spring-context:6.1.3")
