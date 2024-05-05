@@ -21,7 +21,6 @@ public class JvGetterControls {
         if (context.containsBeanDefinition(JvControlsSpringConfig.NameBeans.DbCtrl.getValue())) {
             dbCtrl = context.getBean(
                     JvControlsSpringConfig.NameBeans.DbCtrl.getValue(), JvDbCtrl.class);
-            System.out.println(dbCtrl);
         }
         if (context.containsBeanDefinition(JvControlsSpringConfig.NameBeans.EmailCtrl.getValue())) {
             emailCtrl = context.getBean(

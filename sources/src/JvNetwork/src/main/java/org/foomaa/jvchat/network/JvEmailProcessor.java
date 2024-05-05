@@ -34,7 +34,7 @@ public class JvEmailProcessor {
     }
 
     public static JvEmailProcessor getInstance() {
-        if(instance == null){
+        if(instance == null) {
             instance = new JvEmailProcessor();
         }
         return instance;

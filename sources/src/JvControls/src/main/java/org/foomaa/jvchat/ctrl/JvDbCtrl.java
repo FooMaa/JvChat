@@ -2,6 +2,8 @@ package org.foomaa.jvchat.ctrl;
 
 import org.foomaa.jvchat.dbworker.JvDbDefines;
 import org.foomaa.jvchat.dbworker.JvDbWorker;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,7 +11,7 @@ import java.util.List;
 
 public class JvDbCtrl {
     private static JvDbCtrl instance;
-    private static JvDbWorker db;
+    private JvDbWorker db;
 
     public enum TypeExecutionInsert {
         RegisterForm,
@@ -31,15 +33,21 @@ public class JvDbCtrl {
         IdByEmail
     }
 
-    private JvDbCtrl() {
-        db = JvDbWorker.getInstance();
-    }
+    private JvDbCtrl() {}
 
     static JvDbCtrl getInstance() {
         if (instance == null) {
             instance = new JvDbCtrl();
         }
         return instance;
+    }
+
+    @Autowired
+    @Qualifier("dbWorker")
+    public void setDb(JvDbWorker newDb) {
+        if ( db !=  newDb ) {
+            db = newDb;
+        }
     }
 
     public boolean insertQueryToDB(TypeExecutionInsert type, String ... parameters) {

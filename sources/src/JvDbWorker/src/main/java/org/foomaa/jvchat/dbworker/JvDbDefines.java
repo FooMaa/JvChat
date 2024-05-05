@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.dbworker;
 
+
 public class JvDbDefines {
     public static String insertToRegForm(String login, String email, String password) {
         return String.format(

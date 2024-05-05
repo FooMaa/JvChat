@@ -2,7 +2,6 @@ package org.foomaa.jvchat.dbworker;
 
 import org.foomaa.jvchat.settings.JvMainSettings;
 
-import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -15,19 +14,14 @@ import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JvDbWorker extends JvDbDefines {
+@Component("dbWorker")
+@Scope("singleton")
+@Profile("servers")
+public class JvDbWorker {
     private static Connection connection;
-    private static JvDbWorker instance;
 
     private JvDbWorker() {
         getConnection();
-    }
-
-    public static JvDbWorker getInstance() {
-        if(instance == null){
-            instance = new JvDbWorker();
-        }
-        return instance;
     }
 
     public void getConnection() {

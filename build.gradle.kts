@@ -51,13 +51,6 @@ subprojects {
 //    delete(project.buildDir)
 //}
 
-tasks.jar {
-    enabled = false
-    manifest {
-        enabled = false
-    }
-}
-
 tasks.getByName<Jar>("jar") {
     enabled = false
 }

@@ -4,7 +4,7 @@ import org.springframework.context.annotation.*;
 import java.net.Socket;
 
 @Configuration
-@ComponentScan("org.foomaa.jvchat.ctrl")
+@ComponentScan("org.foomaa.jvchat.dbworker")
 public class JvControlsSpringConfig {
     public enum NameBeans {
         DbCtrl("dbCtrl"),
