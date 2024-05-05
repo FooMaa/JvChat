@@ -13,13 +13,10 @@
     <packaging>jar</packaging>
 
     <name>JvStartPoint</name>
-    <url>http://maven.apache.org</url>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mainClass>org.foomaa.jvchat.startpoint.JvStartPoint</mainClass>
         <exec.skip>false</exec.skip>
-        <buildDir>jvchat-maven</buildDir>
     </properties>
 
 
@@ -33,7 +30,6 @@
                 <activeByDefault>false</activeByDefault>
             </activation>
             <build>
-                <directory>${buildDir}</directory>
                 <plugins>
                     <plugin>
                         <groupId>org.springframework.boot</groupId>
@@ -78,7 +74,6 @@
                 <activeByDefault>false</activeByDefault>
             </activation>
             <build>
-                <directory>${buildDir}</directory>
                 <plugins>
                     <plugin>
                         <groupId>org.springframework.boot</groupId>
@@ -123,7 +118,6 @@
                 <activeByDefault>false</activeByDefault>
             </activation>
             <build>
-                <directory>${buildDir}</directory>
                 <plugins>
                     <plugin>
                         <groupId>org.springframework.boot</groupId>
@@ -161,7 +155,6 @@
     </profiles>
 
     <build>
-        <directory>${buildDir}</directory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

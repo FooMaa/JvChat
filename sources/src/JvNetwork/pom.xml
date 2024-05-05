@@ -13,16 +13,6 @@
     <packaging>jar</packaging>
 
     <name>JvNetwork</name>
-    <url>http://maven.apache.org</url>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <buildDir>jvchat-maven</buildDir>
-    </properties>
-
-    <build>
-        <directory>${buildDir}</directory>
-    </build>
 
     <dependencies>
         <dependency>

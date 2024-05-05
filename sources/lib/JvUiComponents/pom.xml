@@ -13,18 +13,8 @@
     <packaging>pom</packaging>
 
     <name>JvUiComponents</name>
-    <url>http://maven.apache.org</url>
 
     <modules>
         <module>JvAuthComponents</module>
     </modules>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <buildDir>jvchat-maven</buildDir>
-    </properties>
-
-    <build>
-        <directory>${buildDir}</directory>
-    </build>
 </project>
