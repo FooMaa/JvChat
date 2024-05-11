@@ -7,26 +7,24 @@ import org.springframework.context.annotation.Profile;
 
 public class JvEmailCtrl {
     private static JvEmailCtrl instance;
-
-    private static JvEmailProcessor emailProcessor;
+    private JvEmailProcessor emailProcessor;
 
     private JvEmailCtrl() {}
-
-
-    @Autowired(required = false)
-    @Qualifier("beanEmailProcessor")
-    @Profile("servers")
-    private static void setEmailProcessor(JvEmailProcessor newEmailProcessor) {
-        if (emailProcessor != newEmailProcessor) {
-            emailProcessor = newEmailProcessor;
-        }
-    }
 
     static JvEmailCtrl getInstance() {
         if (instance == null) {
             instance = new JvEmailCtrl();
         }
         return instance;
+    }
+
+    @Autowired(required = false)
+    @Qualifier("beanEmailProcessor")
+    @Profile("servers")
+    private void setEmailProcessor(JvEmailProcessor newEmailProcessor) {
+        if (emailProcessor != newEmailProcessor) {
+            emailProcessor = newEmailProcessor;
+        }
     }
 
     public boolean startVerifyFamousEmail(String email) {
