@@ -10,11 +10,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.util.ArrayList;
-import java.util.List;
 
-@Component("dbWorker")
+
+@Component("beanDbWorker")
 @Scope("singleton")
 @Profile("servers")
 public class JvDbWorker {
@@ -68,42 +66,5 @@ public class JvDbWorker {
             System.out.println("БД вернула ошибку, невозможно выполнить запрос");
         }
         return resultSet;
-    }
-
-    public List<String> getStrDataAtRow(ResultSet resultSet, int row) {
-        // в БД нумерация рядов и столбцов не с 0, а с 1
-        ResultSetMetaData metadata;
-        int columnCount = 0;
-        try {
-            metadata = resultSet.getMetaData();
-            columnCount = metadata.getColumnCount();
-        } catch (SQLException exception) {
-            System.out.println("Не возможно получить данные по столбцам и метаданные");
-        }
-
-        // List<String> columns = new ArrayList<>();
-        List<String> result = new ArrayList<>(columnCount);
-
-        try {
-            resultSet.absolute(row);
-
-            for (int i = 1; i <= columnCount; i++) {
-                result.add(resultSet.getString(i));
-            }
-        } catch (SQLException exception) {
-            System.out.println("Не вышло получить данные по ряду");
-        }
-
-        return result;
-    }
-
-    public boolean ifExistsLineInTable(ResultSet resultSet) {
-        boolean res = false;
-        try {
-            res = resultSet.next();
-        } catch (SQLException exception) {
-            System.out.println("БД при проверке вернула исключение, что-то не так");
-        }
-        return res;
     }
 }

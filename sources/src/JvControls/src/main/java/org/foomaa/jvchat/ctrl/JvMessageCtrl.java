@@ -5,7 +5,7 @@ import org.foomaa.jvchat.messages.JvSerializatorData;
 import java.util.HashMap;
 
 public class JvMessageCtrl {
-    private static JvMessageCtrl instance = new JvMessageCtrl();
+    private static JvMessageCtrl instance;
 
     // FLAGS
     public enum TypeFlags {

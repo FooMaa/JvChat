@@ -1,15 +1,19 @@
 package org.foomaa.jvchat.network;
 
 import org.foomaa.jvchat.settings.JvMainSettings;
+import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.InetAddress;
 
+@Component("beanServersSocket")
+@Scope("singleton")
+@Profile("servers")
 public class JvServersSocket {
-    private static JvServersSocket instance;
     private static ServerSocket socketServers;
-
 
     private JvServersSocket() {
         System.out.println("Server is started");
@@ -30,13 +34,6 @@ public class JvServersSocket {
         } catch (IOException exception) {
             System.out.println("Ошибка при создании сокета сервера");
         }
-    }
-
-    public static JvServersSocket getInstance() {
-        if(instance == null){
-            instance = new JvServersSocket();
-        }
-        return instance;
     }
 
     private void closeSocketWhenKill() {

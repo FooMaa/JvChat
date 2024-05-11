@@ -3,6 +3,7 @@ package org.foomaa.jvchat.ctrl;
 import java.io.*;
 import java.net.Socket;
 
+
 public class JvUsersSocketThreadCtrl extends Thread {
     private DataInputStream readFromServer;
     private DataOutputStream sendToServer;

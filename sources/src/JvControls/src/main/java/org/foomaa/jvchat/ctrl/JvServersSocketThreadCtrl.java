@@ -1,9 +1,8 @@
 package org.foomaa.jvchat.ctrl;
 
-import org.springframework.stereotype.Component;
-
 import java.io.*;
 import java.net.Socket;
+
 
 public class JvServersSocketThreadCtrl extends Thread
 {

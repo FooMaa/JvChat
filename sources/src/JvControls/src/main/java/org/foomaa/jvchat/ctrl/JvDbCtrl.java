@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+
 
 public class JvDbCtrl {
     private static JvDbCtrl instance;
@@ -43,11 +46,47 @@ public class JvDbCtrl {
     }
 
     @Autowired
-    @Qualifier("dbWorker")
-    public void setDb(JvDbWorker newDb) {
+    @Qualifier("beanDbWorker")
+    private void setDb(JvDbWorker newDb) {
         if ( db !=  newDb ) {
             db = newDb;
         }
+    }
+
+    public List<String> getStrDataAtRow(ResultSet resultSet, int row) {
+        // в БД нумерация рядов и столбцов не с 0, а с 1
+        ResultSetMetaData metadata;
+        int columnCount = 0;
+        try {
+            metadata = resultSet.getMetaData();
+            columnCount = metadata.getColumnCount();
+        } catch (SQLException exception) {
+            System.out.println("Не возможно получить данные по столбцам и метаданные");
+        }
+
+        List<String> result = new ArrayList<>(columnCount);
+
+        try {
+            resultSet.absolute(row);
+
+            for (int i = 1; i <= columnCount; i++) {
+                result.add(resultSet.getString(i));
+            }
+        } catch (SQLException exception) {
+            System.out.println("Не вышло получить данные по ряду");
+        }
+
+        return result;
+    }
+
+    public boolean ifExistsLineInTable(ResultSet resultSet) {
+        boolean res = false;
+        try {
+            res = resultSet.next();
+        } catch (SQLException exception) {
+            System.out.println("БД при проверке вернула исключение, что-то не так");
+        }
+        return res;
     }
 
     public boolean insertQueryToDB(TypeExecutionInsert type, String ... parameters) {
@@ -191,7 +230,7 @@ public class JvDbCtrl {
                 if (parameters.length == 1) {
                     String email = parameters[0];
                     ResultSet resultSet = db.makeExecution(JvDbDefines.getLogin(email));
-                    List<String> result = db.getStrDataAtRow(resultSet, 1);
+                    List<String> result = getStrDataAtRow(resultSet, 1);
                     db.closeResultSet(resultSet);
                     if (!result.isEmpty()) {
                         return result.stream().findFirst().get();
@@ -203,7 +242,7 @@ public class JvDbCtrl {
                 if (parameters.length == 1) {
                     String email = parameters[0];
                     ResultSet resultSet = db.makeExecution(JvDbDefines.getUserId(email));
-                    List<String> result = db.getStrDataAtRow(resultSet, 1);
+                    List<String> result = getStrDataAtRow(resultSet, 1);
                     db.closeResultSet(resultSet);
                     if (!result.isEmpty()) {
                         return result.stream().findFirst().get();

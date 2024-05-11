@@ -58,8 +58,8 @@ public class JvGetterControls {
                 JvControlsSpringConfig.NameBeans.ServersSocketThreadCtrl.getValue(), fromSocketServer);
     }
 
-    public static JvUsersSocketThreadCtrl getUsersSocketThreadCtrl(Socket fromSocketUser) {
+    public static JvUsersSocketThreadCtrl getUsersSocketThreadCtrl(Socket usersSocket) {
         return (JvUsersSocketThreadCtrl) context.getBean(
-                JvControlsSpringConfig.NameBeans.UsersSocketThreadCtrl.getValue(), fromSocketUser);
+                JvControlsSpringConfig.NameBeans.UsersSocketThreadCtrl.getValue(), usersSocket);
     }
 }

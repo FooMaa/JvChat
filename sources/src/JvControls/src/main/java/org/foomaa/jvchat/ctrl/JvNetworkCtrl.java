@@ -3,6 +3,9 @@ package org.foomaa.jvchat.ctrl;
 import org.foomaa.jvchat.settings.JvMainSettings;
 import org.foomaa.jvchat.network.JvServersSocket;
 import org.foomaa.jvchat.network.JvUsersSocket;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Profile;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -11,6 +14,10 @@ import java.util.LinkedList;
 
 public class JvNetworkCtrl {
     private static JvNetworkCtrl instance;
+
+    private JvUsersSocket usersSocket;
+    private JvServersSocket serversSocket;
+
     private JvUsersSocketThreadCtrl usersThread;
     private JvServersSocketThreadCtrl serversThread;
     public LinkedList<JvServersSocketThreadCtrl> connectionList = new LinkedList<>();
@@ -19,15 +26,36 @@ public class JvNetworkCtrl {
 
     public void startNetwork() throws IOException {
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
-            ServerSocket socketServers = JvServersSocket.getInstance().getSocketServers();
+            ServerSocket socketServer = serversSocket.getSocketServers();
             while (true) {
-                Socket fromSocketServer = socketServers.accept();
+                Socket fromSocketServer = socketServer.accept();
                 JvServersSocketThreadCtrl thread = JvGetterControls.getServersSocketThreadCtrl(fromSocketServer);
                 connectionList.add(thread);
             }
         } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
-            Socket fromSocketUsers = JvUsersSocket.getInstance().getCurrentSocket();
-            usersThread = JvGetterControls.getUsersSocketThreadCtrl(fromSocketUsers);
+            Socket fromSocketUser = usersSocket.getCurrentSocket();
+            if (!fromSocketUser.isConnected()) {
+                throw new IOException();
+            }
+            usersThread = JvGetterControls.getUsersSocketThreadCtrl(fromSocketUser);
+        }
+    }
+
+    @Autowired(required = false)
+    @Qualifier("beanServersSocket")
+    @Profile("servers")
+    private void setServersSocket(JvServersSocket newServersSocket) {
+        if ( serversSocket !=  newServersSocket ) {
+            serversSocket = newServersSocket;
+        }
+    }
+
+    @Autowired(required = false)
+    @Qualifier("beanUsersSocket")
+    @Profile("users")
+    private void setUsersSocket(JvUsersSocket newUsersSocket) {
+        if ( usersSocket !=  newUsersSocket ) {
+            usersSocket = newUsersSocket;
         }
     }
 

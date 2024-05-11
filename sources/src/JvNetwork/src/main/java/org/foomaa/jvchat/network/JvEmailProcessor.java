@@ -1,6 +1,9 @@
 package org.foomaa.jvchat.network;
 
 import org.foomaa.jvchat.settings.JvMainSettings;
+import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -10,8 +13,11 @@ import javax.mail.internet.*;
 import java.util.Date;
 import java.util.Properties;
 
+
+@Component("beanEmailProcessor")
+@Scope("singleton")
+@Profile("servers")
 public class JvEmailProcessor {
-    private static JvEmailProcessor instance;
     private static Session session;
     private final String host = "smtp.mail.ru";
     private final String userLogin = JvMainSettings.getEmailAddress();
@@ -31,13 +37,6 @@ public class JvEmailProcessor {
         props.put("mail.smtp.ssl.enable", "true");
 
         session = Session.getDefaultInstance(props);
-    }
-
-    public static JvEmailProcessor getInstance() {
-        if(instance == null) {
-            instance = new JvEmailProcessor();
-        }
-        return instance;
     }
 
     public boolean sendEmail(String email, String msg) {

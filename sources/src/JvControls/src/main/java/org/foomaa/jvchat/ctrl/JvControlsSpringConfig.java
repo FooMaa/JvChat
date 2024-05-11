@@ -3,16 +3,18 @@ package org.foomaa.jvchat.ctrl;
 import org.springframework.context.annotation.*;
 import java.net.Socket;
 
+
 @Configuration
 @ComponentScan("org.foomaa.jvchat.dbworker")
+@ComponentScan("org.foomaa.jvchat.network")
 public class JvControlsSpringConfig {
     public enum NameBeans {
-        DbCtrl("dbCtrl"),
-        EmailCtrl("emailCtrl"),
-        MessageCtrl("messageCtrl"),
-        NetworkCtrl("networkCtrl"),
-        ServersSocketThreadCtrl("serversSocketThreadCtrl"),
-        UsersSocketThreadCtrl("usersSocketThreadCtrl");
+        DbCtrl("beanDbCtrl"),
+        EmailCtrl("beanEmailCtrl"),
+        MessageCtrl("beanMessageCtrl"),
+        NetworkCtrl("beanNetworkCtrl"),
+        ServersSocketThreadCtrl("beanServersSocketThreadCtrl"),
+        UsersSocketThreadCtrl("beanUsersSocketThreadCtrl");
 
         private final String value;
 
@@ -25,39 +27,39 @@ public class JvControlsSpringConfig {
         }
     }
 
-    @Bean(name = "dbCtrl")
+    @Bean(name = "beanDbCtrl")
     @Profile("servers")
     @Scope("singleton")
     public JvDbCtrl dbCtrl() {
         return JvDbCtrl.getInstance();
     }
 
-    @Bean(name = "emailCtrl")
+    @Bean(name = "beanEmailCtrl")
     @Profile("servers")
     @Scope("singleton")
     public JvEmailCtrl emailCtrl() {
         return JvEmailCtrl.getInstance();
     }
 
-    @Bean(name = "messageCtrl")
+    @Bean(name = "beanMessageCtrl")
     @Scope("singleton")
     public JvMessageCtrl messageCtrl() {
         return JvMessageCtrl.getInstance();
     }
 
-    @Bean(name = "networkCtrl")
+    @Bean(name = "beanNetworkCtrl")
     @Scope("singleton")
     public JvNetworkCtrl networkCtrl() {
         return JvNetworkCtrl.getInstance();
     }
 
-    @Bean(name = "serversSocketThreadCtrl")
+    @Bean(name = "beanServersSocketThreadCtrl")
     @Scope("prototype")
     public JvServersSocketThreadCtrl serversSocketThreadCtrl(Socket fromSocketServer) {
         return new JvServersSocketThreadCtrl(fromSocketServer);
     }
 
-    @Bean(name = "usersSocketThreadCtrl")
+    @Bean(name = "beanUsersSocketThreadCtrl")
     @Scope("prototype")
     public JvUsersSocketThreadCtrl usersSocketThreadCtrl(Socket fromSocketUser) {
         return new JvUsersSocketThreadCtrl(fromSocketUser);

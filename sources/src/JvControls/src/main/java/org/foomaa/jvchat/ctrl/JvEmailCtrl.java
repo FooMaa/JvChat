@@ -1,13 +1,25 @@
 package org.foomaa.jvchat.ctrl;
 
 import org.foomaa.jvchat.network.JvEmailProcessor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Profile;
 
 public class JvEmailCtrl {
     private static JvEmailCtrl instance;
-    private static JvEmailProcessor emailProc;
 
-    private JvEmailCtrl() {
-        emailProc = JvEmailProcessor.getInstance();
+    private static JvEmailProcessor emailProcessor;
+
+    private JvEmailCtrl() {}
+
+
+    @Autowired(required = false)
+    @Qualifier("beanEmailProcessor")
+    @Profile("servers")
+    private static void setEmailProcessor(JvEmailProcessor newEmailProcessor) {
+        if (emailProcessor != newEmailProcessor) {
+            emailProcessor = newEmailProcessor;
+        }
     }
 
     static JvEmailCtrl getInstance() {
@@ -20,7 +32,7 @@ public class JvEmailCtrl {
     public boolean startVerifyFamousEmail(String email) {
         int code = (int) ((Math.random() * (999999 - 100000) ) + 100000);
         String message =  createVerifyFamousEmailMessage(code, email);
-        if (emailProc.sendEmail(email, message)) {
+        if (emailProcessor.sendEmail(email, message)) {
             return JvGetterControls.getDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.VerifyFamousEmail,
                     email, String.valueOf(code));
         }
@@ -40,7 +52,7 @@ public class JvEmailCtrl {
     public boolean startVerifyRegEmail(String email) {
         int code = (int) ((Math.random() * (999999 - 100000) ) + 100000);
         String message =  createVerifyRegEmailMessage(code);
-        if (emailProc.sendEmail(email, message)) {
+        if (emailProcessor.sendEmail(email, message)) {
             return JvGetterControls.getDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.VerifyRegistrationEmail,
                     email, String.valueOf(code));
         }
