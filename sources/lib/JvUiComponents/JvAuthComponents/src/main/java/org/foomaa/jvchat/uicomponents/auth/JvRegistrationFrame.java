@@ -113,10 +113,7 @@ public class JvRegistrationFrame extends JFrame {
     private void addListenerToElements() {
         bRegister.addActionListener(event -> {
             if (checkFields()) {
-                AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
-                        JvControlsSpringConfig.class);
-                //context.getBean("initControls", JvInitControls.class);
-                context.getBean("messageCtrl", JvMessageCtrl.class).sendMessage(JvSerializatorData.TypeMessage.RegistrationRequest,
+                JvGetterControls.getMessageCtrl().sendMessage(JvSerializatorData.TypeMessage.RegistrationRequest,
                         tLogin.getInputText(), tEmail.getInputText(), tPassword.getInputText());
                 waitRepeatServer();
             }
