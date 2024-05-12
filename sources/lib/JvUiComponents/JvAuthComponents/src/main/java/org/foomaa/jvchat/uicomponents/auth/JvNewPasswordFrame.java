@@ -94,7 +94,7 @@ public class JvNewPasswordFrame extends JFrame {
     private void addListenerToElements() {
         bRegister.addActionListener(event -> {
             if (checkFields()) {
-                JvGetterControls.getMessageCtrl().sendMessage(JvSerializatorData.TypeMessage.ChangePasswordRequest,
+                JvGetterControls.getInstance().getMessageCtrl().sendMessage(JvSerializatorData.TypeMessage.ChangePasswordRequest,
                         email, tPassword.getInputText());
                 waitRepeatServer();
             }
@@ -172,7 +172,7 @@ public class JvNewPasswordFrame extends JFrame {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (JvGetterControls.getMessageCtrl().getChangePasswordRequest()
+        while (JvGetterControls.getInstance().getMessageCtrl().getChangePasswordRequest()
                 == JvMessageCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
@@ -180,10 +180,10 @@ public class JvNewPasswordFrame extends JFrame {
                 System.out.println("Не удалось ждать");
             }
         }
-        if (JvGetterControls.getMessageCtrl().getChangePasswordRequest()
+        if (JvGetterControls.getInstance().getMessageCtrl().getChangePasswordRequest()
                 == JvMessageCtrl.TypeFlags.TRUE) {
             closeWindow();
-        } else if (JvGetterControls.getMessageCtrl().getChangePasswordRequest()
+        } else if (JvGetterControls.getInstance().getMessageCtrl().getChangePasswordRequest()
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             new JvAuthOptionPane("Не удалось сменить пароль.", JvAuthOptionPane.TypeDlg.ERROR);

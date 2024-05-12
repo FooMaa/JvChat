@@ -8,11 +8,11 @@ import java.util.Arrays;
 public class JvGetterControls {
     private static JvGetterControls instance;
 
-    private static JvDbCtrl dbCtrl;
-    private static JvEmailCtrl emailCtrl;
-    private static JvNetworkCtrl networkCtrl;
-    private static JvMessageCtrl messageCtrl;
-    private static AnnotationConfigApplicationContext context;
+    private JvDbCtrl dbCtrl;
+    private JvEmailCtrl emailCtrl;
+    private JvNetworkCtrl networkCtrl;
+    private JvMessageCtrl messageCtrl;
+    private AnnotationConfigApplicationContext context;
 
     private JvGetterControls() {
         context = new AnnotationConfigApplicationContext(
@@ -37,28 +37,28 @@ public class JvGetterControls {
         return instance;
     }
 
-    public static JvNetworkCtrl getNetworkCtrl() {
+    public JvNetworkCtrl getNetworkCtrl() {
         return networkCtrl;
     }
 
-    public static JvMessageCtrl getMessageCtrl() {
+    public JvMessageCtrl getMessageCtrl() {
         return messageCtrl;
     }
 
-    public static JvDbCtrl getDbCtrl() {
+    public JvDbCtrl getDbCtrl() {
         return dbCtrl;
     }
 
-    public static JvEmailCtrl getEmailCtrl() {
+    public JvEmailCtrl getEmailCtrl() {
         return emailCtrl;
     }
 
-    public static JvServersSocketThreadCtrl getServersSocketThreadCtrl(Socket fromSocketServer) {
+    public JvServersSocketThreadCtrl getServersSocketThreadCtrl(Socket fromSocketServer) {
         return (JvServersSocketThreadCtrl) context.getBean(
                 JvControlsSpringConfig.NameBeans.ServersSocketThreadCtrl.getValue(), fromSocketServer);
     }
 
-    public static JvUsersSocketThreadCtrl getUsersSocketThreadCtrl(Socket usersSocket) {
+    public JvUsersSocketThreadCtrl getUsersSocketThreadCtrl(Socket usersSocket) {
         return (JvUsersSocketThreadCtrl) context.getBean(
                 JvControlsSpringConfig.NameBeans.UsersSocketThreadCtrl.getValue(), usersSocket);
     }

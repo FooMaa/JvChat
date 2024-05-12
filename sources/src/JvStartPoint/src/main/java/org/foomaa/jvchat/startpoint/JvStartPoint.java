@@ -1,8 +1,6 @@
 package org.foomaa.jvchat.startpoint;
 
-import org.foomaa.jvchat.uilinks.JvErrorStart;
 import org.foomaa.jvchat.uilinks.JvGetterUiLinks;
-import org.foomaa.jvchat.uilinks.JvStartAuthentication;
 import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.tools.JvTools;
 import org.foomaa.jvchat.settings.JvMainSettings;
@@ -58,7 +56,7 @@ public class JvStartPoint implements ApplicationRunner {
         JvGetterControls.getInstance();
 
         try {
-            JvGetterControls.getNetworkCtrl().startNetwork();
+            JvGetterControls.getInstance().getNetworkCtrl().startNetwork();
         } catch (IOException exception) {
             JvGetterUiLinks.getInstance().getErrorStart(
                     "Не удалось подключиться к серверу.\nПроверьте наличие сети и попробуйте снова!");

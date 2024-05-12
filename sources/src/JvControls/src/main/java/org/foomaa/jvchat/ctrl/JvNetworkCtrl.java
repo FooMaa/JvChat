@@ -29,7 +29,8 @@ public class JvNetworkCtrl {
             ServerSocket socketServer = serversSocket.getSocketServers();
             while (true) {
                 Socket fromSocketServer = socketServer.accept();
-                JvServersSocketThreadCtrl thread = JvGetterControls.getServersSocketThreadCtrl(fromSocketServer);
+                JvServersSocketThreadCtrl thread = JvGetterControls.getInstance()
+                        .getServersSocketThreadCtrl(fromSocketServer);
                 connectionList.add(thread);
             }
         } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
@@ -37,7 +38,7 @@ public class JvNetworkCtrl {
             if (!fromSocketUser.isConnected()) {
                 throw new IOException();
             }
-            usersThread = JvGetterControls.getUsersSocketThreadCtrl(fromSocketUser);
+            usersThread = JvGetterControls.getInstance().getUsersSocketThreadCtrl(fromSocketUser);
         }
     }
 
@@ -72,7 +73,7 @@ public class JvNetworkCtrl {
         } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
             usersThread = (JvUsersSocketThreadCtrl) thr;
         }
-        JvGetterControls.getMessageCtrl().takeMessage(message);
+        JvGetterControls.getInstance().getMessageCtrl().takeMessage(message);
     }
 
     public void sendMessage(byte[] message) {

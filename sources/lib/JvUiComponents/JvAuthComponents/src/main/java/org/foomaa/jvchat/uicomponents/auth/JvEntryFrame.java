@@ -109,7 +109,7 @@ public class JvEntryFrame extends JFrame {
     private void addListenerToElements() {
         bEnter.addActionListener(event -> {
             if (checkFields()) {
-                JvGetterControls.getMessageCtrl().sendMessage(JvSerializatorData.TypeMessage.EntryRequest,
+                JvGetterControls.getInstance().getMessageCtrl().sendMessage(JvSerializatorData.TypeMessage.EntryRequest,
                         tLogin.getInputText(), tPassword.getInputText());
                 waitRepeatServer();
             }
@@ -187,7 +187,7 @@ public class JvEntryFrame extends JFrame {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (JvGetterControls.getMessageCtrl().getEntryRequestFlag()
+        while (JvGetterControls.getInstance().getMessageCtrl().getEntryRequestFlag()
                 == JvMessageCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
@@ -195,11 +195,11 @@ public class JvEntryFrame extends JFrame {
                 System.out.println("Не удалось ждать");
             }
         }
-        if (JvGetterControls.getMessageCtrl().getEntryRequestFlag()
+        if (JvGetterControls.getInstance().getMessageCtrl().getEntryRequestFlag()
                 == JvMessageCtrl.TypeFlags.TRUE) {
             closeWindow();
             System.out.println("Вход выполнен");
-        } else if (JvGetterControls.getMessageCtrl().getEntryRequestFlag()
+        } else if (JvGetterControls.getInstance().getMessageCtrl().getEntryRequestFlag()
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             new JvAuthOptionPane("Вход не выполнен, данные не верные.", JvAuthOptionPane.TypeDlg.ERROR);

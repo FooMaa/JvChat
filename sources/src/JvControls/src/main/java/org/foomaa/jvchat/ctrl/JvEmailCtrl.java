@@ -31,7 +31,8 @@ public class JvEmailCtrl {
         int code = (int) ((Math.random() * (999999 - 100000) ) + 100000);
         String message =  createVerifyFamousEmailMessage(code, email);
         if (emailProcessor.sendEmail(email, message)) {
-            return JvGetterControls.getDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.VerifyFamousEmail,
+            return JvGetterControls.getInstance()
+                    .getDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.VerifyFamousEmail,
                     email, String.valueOf(code));
         }
         return false;
@@ -44,14 +45,16 @@ public class JvEmailCtrl {
                         "Никому не говорите и не отправляйте код. " +
                         "Если это были не вы, свяжитесь с поддержкой по почте avodichenkov@mail.ru.",
                 code,
-                JvGetterControls.getDbCtrl().getInfoFromDb(JvDbCtrl.TypeExecutionGet.LoginByEmail, email));
+                JvGetterControls.getInstance().getDbCtrl().
+                        getInfoFromDb(JvDbCtrl.TypeExecutionGet.LoginByEmail, email));
     }
 
     public boolean startVerifyRegEmail(String email) {
         int code = (int) ((Math.random() * (999999 - 100000) ) + 100000);
         String message =  createVerifyRegEmailMessage(code);
         if (emailProcessor.sendEmail(email, message)) {
-            return JvGetterControls.getDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.VerifyRegistrationEmail,
+            return JvGetterControls.getInstance()
+                    .getDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.VerifyRegistrationEmail,
                     email, String.valueOf(code));
         }
         return false;

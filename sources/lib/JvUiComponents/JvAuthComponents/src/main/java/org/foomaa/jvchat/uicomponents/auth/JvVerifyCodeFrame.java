@@ -104,11 +104,11 @@ public class JvVerifyCodeFrame extends JFrame {
         bSet.addActionListener(event -> {
             if (checkFields()) {
                 if (regime == RegimeWork.ResetPassword) {
-                    JvGetterControls.getMessageCtrl().sendMessage(JvSerializatorData.TypeMessage.VerifyFamousEmailRequest,
+                    JvGetterControls.getInstance().getMessageCtrl().sendMessage(JvSerializatorData.TypeMessage.VerifyFamousEmailRequest,
                             email, tCode.getInputText());
                     waitRepeatServerResetPassword();
                 } else if (regime == RegimeWork.Registration) {
-                    JvGetterControls.getMessageCtrl().sendMessage(JvSerializatorData.TypeMessage.VerifyRegistrationEmailRequest,
+                    JvGetterControls.getInstance().getMessageCtrl().sendMessage(JvSerializatorData.TypeMessage.VerifyRegistrationEmailRequest,
                             login, email, password, tCode.getInputText());
                     waitRepeatServerRegistration();
                 }
@@ -178,7 +178,7 @@ public class JvVerifyCodeFrame extends JFrame {
 
     private void waitRepeatServerResetPassword() {
         setEnabled(false);
-        while (JvGetterControls.getMessageCtrl().getVerifyFamousEmailRequestFlag()
+        while (JvGetterControls.getInstance().getMessageCtrl().getVerifyFamousEmailRequestFlag()
                 == JvMessageCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
@@ -186,10 +186,10 @@ public class JvVerifyCodeFrame extends JFrame {
                 System.out.println("Не удалось ждать");
             }
         }
-        if (JvGetterControls.getMessageCtrl().getVerifyFamousEmailRequestFlag()
+        if (JvGetterControls.getInstance().getMessageCtrl().getVerifyFamousEmailRequestFlag()
                 == JvMessageCtrl.TypeFlags.TRUE) {
             closeWindow();
-        } else if (JvGetterControls.getMessageCtrl().getVerifyFamousEmailRequestFlag()
+        } else if (JvGetterControls.getInstance().getMessageCtrl().getVerifyFamousEmailRequestFlag()
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             new JvAuthOptionPane("Код не верен. Введите код полученный по почте еще раз. " +
@@ -199,7 +199,7 @@ public class JvVerifyCodeFrame extends JFrame {
 
     private void waitRepeatServerRegistration() {
         setEnabled(false);
-        while (JvGetterControls.getMessageCtrl().getVerifyRegistrationEmailRequestFlag()
+        while (JvGetterControls.getInstance().getMessageCtrl().getVerifyRegistrationEmailRequestFlag()
                 == JvMessageCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
@@ -207,10 +207,10 @@ public class JvVerifyCodeFrame extends JFrame {
                 System.out.println("Не удалось ждать");
             }
         }
-        if (JvGetterControls.getMessageCtrl().getVerifyRegistrationEmailRequestFlag()
+        if (JvGetterControls.getInstance().getMessageCtrl().getVerifyRegistrationEmailRequestFlag()
                 == JvMessageCtrl.TypeFlags.TRUE) {
             closeWindow();
-        } else if (JvGetterControls.getMessageCtrl().getVerifyRegistrationEmailRequestFlag()
+        } else if (JvGetterControls.getInstance().getMessageCtrl().getVerifyRegistrationEmailRequestFlag()
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             openErrorPane();
@@ -218,7 +218,7 @@ public class JvVerifyCodeFrame extends JFrame {
     }
 
     private void openErrorPane() {
-        switch (JvGetterControls.getMessageCtrl().getErrorVerifyRegEmailFlag()) {
+        switch (JvGetterControls.getInstance().getMessageCtrl().getErrorVerifyRegEmailFlag()) {
             case NoError -> new JvAuthOptionPane("Ошибка не выяснена.", JvAuthOptionPane.TypeDlg.ERROR);
             case EmailSending -> new JvAuthOptionPane("Возможно почта недействительна.", JvAuthOptionPane.TypeDlg.ERROR);
             case Login -> new JvAuthOptionPane("Данный логин уже используется.", JvAuthOptionPane.TypeDlg.ERROR);

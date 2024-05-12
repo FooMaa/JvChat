@@ -182,7 +182,8 @@ public class JvMessageCtrl {
     }
 
     private void sendReadyMessageNetwork(byte[] bodyMessage) {
-        JvGetterControls.getNetworkCtrl().sendMessage(bodyMessage);
+        JvGetterControls.getInstance()
+                .getNetworkCtrl().sendMessage(bodyMessage);
     }
 
     private byte[] createBodyEntryRequestMessage(JvSerializatorData.TypeMessage type, String login, String password) {
@@ -234,7 +235,8 @@ public class JvMessageCtrl {
     }
 
     private void workEntryRequestMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
-        boolean requestDB = JvGetterControls.getDbCtrl().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.UserPassword,
+        boolean requestDB = JvGetterControls.getInstance()
+                .getDbCtrl().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.UserPassword,
                 (String) map.get(JvSerializatorData.TypeData.Login),
                 (String) map.get(JvSerializatorData.TypeData.Password));
         sendMessage(JvSerializatorData.TypeMessage.EntryReply, requestDB);
@@ -251,9 +253,11 @@ public class JvMessageCtrl {
     private void workRegistrationRequestMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
         boolean requestDB = false;
         JvSerializatorData.TypeErrorRegistration typeError = JvSerializatorData.TypeErrorRegistration.NoError;
-        boolean checkLogin =  JvGetterControls.getDbCtrl().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.Login,
+        boolean checkLogin =  JvGetterControls.getInstance()
+                .getDbCtrl().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.Login,
                 (String) map.get(JvSerializatorData.TypeData.Login));
-        boolean checkEmail =  JvGetterControls.getDbCtrl().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.Email,
+        boolean checkEmail =  JvGetterControls.getInstance()
+                .getDbCtrl().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.Email,
                 (String) map.get(JvSerializatorData.TypeData.Email));
         if (checkLogin) {
             typeError = JvSerializatorData.TypeErrorRegistration.Login;
@@ -265,7 +269,8 @@ public class JvMessageCtrl {
             typeError = JvSerializatorData.TypeErrorRegistration.LoginAndEmail;
         }
         if (typeError == JvSerializatorData.TypeErrorRegistration.NoError) {
-            requestDB = JvGetterControls.getEmailCtrl().startVerifyRegEmail((String) map.get(JvSerializatorData.TypeData.Email));
+            requestDB = JvGetterControls.getInstance()
+                    .getEmailCtrl().startVerifyRegEmail((String) map.get(JvSerializatorData.TypeData.Email));
             typeError = JvSerializatorData.TypeErrorRegistration.EmailSending;
         }
         sendMessage(JvSerializatorData.TypeMessage.RegistrationReply, requestDB, typeError);
@@ -281,19 +286,23 @@ public class JvMessageCtrl {
     }
 
     private void workVerifyRegistrationEmailRequestMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
-        boolean checkCode = JvGetterControls.getDbCtrl().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.VerifyRegistrationEmail,
+        boolean checkCode = JvGetterControls.getInstance()
+                .getDbCtrl().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.VerifyRegistrationEmail,
                 (String) map.get(JvSerializatorData.TypeData.Email),
                 (String) map.get(JvSerializatorData.TypeData.VerifyCode));
         if (checkCode) {
-            boolean requestDB = JvGetterControls.getDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.RegisterForm,
+            boolean requestDB = JvGetterControls.getInstance()
+                    .getDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.RegisterForm,
                     (String) map.get(JvSerializatorData.TypeData.Login),
                     (String) map.get(JvSerializatorData.TypeData.Email),
                     (String) map.get(JvSerializatorData.TypeData.Password));
             JvSerializatorData.TypeErrorRegistration typeError = JvSerializatorData.TypeErrorRegistration.NoError;
             if (!requestDB) {
-                boolean checkLogin = JvGetterControls.getDbCtrl().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.Login,
+                boolean checkLogin = JvGetterControls.getInstance()
+                        .getDbCtrl().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.Login,
                         (String) map.get(JvSerializatorData.TypeData.Login));
-                boolean checkEmail = JvGetterControls.getDbCtrl().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.Email,
+                boolean checkEmail = JvGetterControls.getInstance()
+                        .getDbCtrl().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.Email,
                         (String) map.get(JvSerializatorData.TypeData.Email));
                 if (checkLogin) {
                     typeError = JvSerializatorData.TypeErrorRegistration.Login;
@@ -322,11 +331,13 @@ public class JvMessageCtrl {
 
     private void workResetPasswordRequestMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
         String email = (String) map.get(JvSerializatorData.TypeData.Email);
-        boolean checkEmail = JvGetterControls.getDbCtrl().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.Email,
+        boolean checkEmail = JvGetterControls.getInstance()
+                .getDbCtrl().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.Email,
                 email);
         boolean reply = false;
         if (checkEmail) {
-            reply = JvGetterControls.getEmailCtrl().startVerifyFamousEmail(email);
+            reply = JvGetterControls.getInstance()
+                    .getEmailCtrl().startVerifyFamousEmail(email);
         }
         sendMessage(JvSerializatorData.TypeMessage.ResetPasswordReply, reply);
     }
@@ -340,7 +351,8 @@ public class JvMessageCtrl {
     }
 
     private void workVerifyFamousEmailRequestMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
-        boolean requestDB = JvGetterControls.getDbCtrl().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.VerifyFamousEmailCode,
+        boolean requestDB = JvGetterControls.getInstance()
+                .getDbCtrl().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.VerifyFamousEmailCode,
                 (String) map.get(JvSerializatorData.TypeData.Email),
                 (String) map.get(JvSerializatorData.TypeData.VerifyCode));
         sendMessage(JvSerializatorData.TypeMessage.VerifyFamousEmailReply, requestDB);
@@ -355,7 +367,8 @@ public class JvMessageCtrl {
     }
 
     private void workChangePasswordRequestMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
-        boolean requestDB = JvGetterControls.getDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.ChangePassword,
+        boolean requestDB = JvGetterControls.getInstance()
+                .getDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.ChangePassword,
                 (String) map.get(JvSerializatorData.TypeData.Email),
                 (String) map.get(JvSerializatorData.TypeData.Password));
         sendMessage(JvSerializatorData.TypeMessage.ChangePasswordReply, requestDB);

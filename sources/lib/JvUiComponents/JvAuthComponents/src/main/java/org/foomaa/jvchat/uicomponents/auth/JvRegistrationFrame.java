@@ -113,7 +113,8 @@ public class JvRegistrationFrame extends JFrame {
     private void addListenerToElements() {
         bRegister.addActionListener(event -> {
             if (checkFields()) {
-                JvGetterControls.getMessageCtrl().sendMessage(JvSerializatorData.TypeMessage.RegistrationRequest,
+                JvGetterControls.getInstance()
+                        .getMessageCtrl().sendMessage(JvSerializatorData.TypeMessage.RegistrationRequest,
                         tLogin.getInputText(), tEmail.getInputText(), tPassword.getInputText());
                 waitRepeatServer();
             }
@@ -203,7 +204,7 @@ public class JvRegistrationFrame extends JFrame {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (JvGetterControls.getMessageCtrl().getRegistrationRequestFlag()
+        while (JvGetterControls.getInstance().getMessageCtrl().getRegistrationRequestFlag()
                 == JvMessageCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
@@ -211,10 +212,10 @@ public class JvRegistrationFrame extends JFrame {
                 System.out.println("Не удалось ждать");
             }
         }
-        if (JvGetterControls.getMessageCtrl().getRegistrationRequestFlag()
+        if (JvGetterControls.getInstance().getMessageCtrl().getRegistrationRequestFlag()
                 == JvMessageCtrl.TypeFlags.TRUE) {
             closeWindow();
-        } else if (JvGetterControls.getMessageCtrl().getRegistrationRequestFlag()
+        } else if (JvGetterControls.getInstance().getMessageCtrl().getRegistrationRequestFlag()
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             openErrorPane();
@@ -222,7 +223,7 @@ public class JvRegistrationFrame extends JFrame {
     }
 
     private void openErrorPane() {
-        switch (JvGetterControls.getMessageCtrl().getErrorRegistrationFlag()) {
+        switch (JvGetterControls.getInstance().getMessageCtrl().getErrorRegistrationFlag()) {
             case NoError -> new JvAuthOptionPane("Ошибка не выяснена.", JvAuthOptionPane.TypeDlg.ERROR);
             case EmailSending -> new JvAuthOptionPane("Возможно почта недействительна.", JvAuthOptionPane.TypeDlg.ERROR);
             case Login -> new JvAuthOptionPane("Данный логин уже используется.", JvAuthOptionPane.TypeDlg.ERROR);
