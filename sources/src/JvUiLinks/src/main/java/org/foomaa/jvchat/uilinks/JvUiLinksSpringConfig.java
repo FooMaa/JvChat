@@ -29,7 +29,7 @@ public class JvUiLinksSpringConfig {
         return new JvErrorStart(msg);
     }
 
-    @Bean(name = "beanErrorStart")
+    @Bean(name = "beanStartAuthentication")
     @Scope("singleton")
     @Profile("users")
     public JvStartAuthentication startAuthentication() {
