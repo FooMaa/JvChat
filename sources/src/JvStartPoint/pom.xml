@@ -206,8 +206,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.foomaa.jvchat.auth</groupId>
-            <artifactId>JvAuthentication</artifactId>
+            <groupId>org.foomaa.jvchat.uilinks</groupId>
+            <artifactId>JvUiLinks</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 

@@ -10,13 +10,8 @@ import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Objects;
-//import javax.imageio.ImageIO;
-//import java.awt.image.BufferedImage;
-//import java.io.IOException;
 
 public class JvAuthTextField extends JPanel {
-//    private BufferedImage visibleImage;
-//    private JButton button;
     private JTextField textField;
 
     private final String defaultText;
@@ -30,26 +25,6 @@ public class JvAuthTextField extends JPanel {
         settingTextAndButtonPanel();
         addListenerToElem();
     }
-
-//    private BufferedImage setIcon(String path) {
-//        try {
-//            return ImageIO.read(Objects.requireNonNull(getClass().getResource(path)));
-//        } catch (IOException ex) {
-//            System.out.println("Нет иконки глазка");
-//        }
-//        return null;
-//    }
-
-//    private void addButtonToPanel() {
-//        button = new JButton(new ImageIcon(visibleImage));
-//        button.setContentAreaFilled(false);
-//        button.setBorderPainted(false);
-//        button.setMargin(new Insets(0, 0, 0, gap));
-//        button.setEnabled(false);
-//        button.setFocusPainted(false);
-//        button.setPreferredSize(new Dimension(visibleImage.getWidth() + gap,
-//                visibleImage.getHeight()));
-//    }
 
     private void addListenerToElem() {
         textField.addMouseListener(new MouseAdapter() {

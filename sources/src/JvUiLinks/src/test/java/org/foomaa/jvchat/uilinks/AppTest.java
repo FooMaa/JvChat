@@ -1,4 +1,4 @@
-package org.foomaa.jvchat.auth;
+package org.foomaa.jvchat.uilinks;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

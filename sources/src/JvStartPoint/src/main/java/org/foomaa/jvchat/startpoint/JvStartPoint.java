@@ -1,7 +1,8 @@
 package org.foomaa.jvchat.startpoint;
 
-import org.foomaa.jvchat.auth.JvErrorStart;
-import org.foomaa.jvchat.auth.JvStartAuthentication;
+import org.foomaa.jvchat.uilinks.JvErrorStart;
+import org.foomaa.jvchat.uilinks.JvGetterUiLinks;
+import org.foomaa.jvchat.uilinks.JvStartAuthentication;
 import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.tools.JvTools;
 import org.foomaa.jvchat.settings.JvMainSettings;
@@ -31,7 +32,8 @@ public class JvStartPoint implements ApplicationRunner {
         try {
             JvTools.setProfileSetting(JvStartPoint.class);
         } catch (IOException | URISyntaxException exception) {
-            new JvErrorStart("Не удалось выставить верный профиль для приложения!");
+            JvGetterUiLinks.getInstance().getErrorStart(
+                    "Не удалось выставить верный профиль для приложения!");
         }
 
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
@@ -39,13 +41,15 @@ public class JvStartPoint implements ApplicationRunner {
         }
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
             if (args.getOptionValues("ipServer") == null) {
-                new JvErrorStart("Дайте в параметр IP-адрес сервера!");
+                JvGetterUiLinks.getInstance().getErrorStart(
+                        "Дайте в параметр IP-адрес сервера!");
             }
             String argsIp = args.getOptionValues("ipServer").get(0);
             if (JvTools.validateInputIp(argsIp)) {
                 JvMainSettings.setIp(argsIp);
             } else {
-                new JvErrorStart("В параметре запуска не верный IP!");
+                JvGetterUiLinks.getInstance().getErrorStart(
+                        "В параметре запуска не верный IP!");
             }
         }
     }
@@ -56,11 +60,12 @@ public class JvStartPoint implements ApplicationRunner {
         try {
             JvGetterControls.getNetworkCtrl().startNetwork();
         } catch (IOException exception) {
-            new JvErrorStart("Не удалось подключиться к серверу.\nПроверьте наличие сети и попробуйте снова!");
+            JvGetterUiLinks.getInstance().getErrorStart(
+                    "Не удалось подключиться к серверу.\nПроверьте наличие сети и попробуйте снова!");
         }
 
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
-            new JvStartAuthentication();
+            JvGetterUiLinks.getInstance().getStartAuthentication();
         }
     }
 }

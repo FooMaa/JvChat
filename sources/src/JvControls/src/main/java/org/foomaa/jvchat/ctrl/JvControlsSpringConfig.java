@@ -28,15 +28,15 @@ public class JvControlsSpringConfig {
     }
 
     @Bean(name = "beanDbCtrl")
-    @Profile("servers")
     @Scope("singleton")
+    @Profile("servers")
     public JvDbCtrl dbCtrl() {
         return JvDbCtrl.getInstance();
     }
 
     @Bean(name = "beanEmailCtrl")
-    @Profile("servers")
     @Scope("singleton")
+    @Profile("servers")
     public JvEmailCtrl emailCtrl() {
         return JvEmailCtrl.getInstance();
     }

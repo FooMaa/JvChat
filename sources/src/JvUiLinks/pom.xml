@@ -8,17 +8,32 @@
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.foomaa.jvchat.auth</groupId>
-    <artifactId>JvAuthentication</artifactId>
+    <groupId>org.foomaa.jvchat.uilinks</groupId>
+    <artifactId>JvUiLinks</artifactId>
     <packaging>jar</packaging>
 
-    <name>JvAuthentication</name>
+    <name>JvUiLinks</name>
 
     <dependencies>
         <dependency>
             <groupId>org.foomaa.jvchat.uicomponents.auth</groupId>
             <artifactId>JvAuthComponents</artifactId>
             <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
         </dependency>
     </dependencies>
 </project>

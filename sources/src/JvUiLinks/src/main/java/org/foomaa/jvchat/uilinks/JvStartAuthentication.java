@@ -1,9 +1,10 @@
-package org.foomaa.jvchat.auth;
+package org.foomaa.jvchat.uilinks;
 
 import org.foomaa.jvchat.uicomponents.auth.JvEntryFrame;
 
+
 public class JvStartAuthentication {
-    public JvStartAuthentication() {
+    JvStartAuthentication() {
         new JvEntryFrame();
     }
 }

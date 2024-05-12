@@ -14,7 +14,7 @@ dependencies {
     implementation("org.springframework:spring-core")
 
     implementation(project(":JvControls"))
-    implementation(project(":JvAuthentication"))
+    implementation(project(":JvUiLinks"))
     implementation(project(":JvTools"))
     implementation(project(":JvSettings"))
 }
