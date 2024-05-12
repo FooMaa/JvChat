@@ -1,9 +1,6 @@
 package org.foomaa.jvchat.uilinks;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.*;
 
 @Configuration
 public class JvUiLinksSpringConfig {
@@ -24,6 +21,7 @@ public class JvUiLinksSpringConfig {
 
     @Bean(name = "beanErrorStart")
     @Scope("prototype")
+    @Lazy
     @Profile("users")
     public JvErrorStart errorStart(String msg) {
         return new JvErrorStart(msg);
@@ -31,6 +29,7 @@ public class JvUiLinksSpringConfig {
 
     @Bean(name = "beanStartAuthentication")
     @Scope("singleton")
+    @Lazy
     @Profile("users")
     public JvStartAuthentication startAuthentication() {
         return new JvStartAuthentication();
