@@ -7,27 +7,12 @@ import java.util.Arrays;
 
 public class JvGetterControls {
     private static JvGetterControls instance;
-
-    private JvDbCtrl dbCtrl;
-    private JvEmailCtrl emailCtrl;
-    private JvNetworkCtrl networkCtrl;
-    private JvMessageCtrl messageCtrl;
     private AnnotationConfigApplicationContext context;
 
     private JvGetterControls() {
         context = new AnnotationConfigApplicationContext(
                 JvControlsSpringConfig.class);
         System.out.println(Arrays.toString(context.getEnvironment().getActiveProfiles()));
-        if (context.containsBeanDefinition(JvControlsSpringConfig.NameBeans.DbCtrl.getValue())) {
-            dbCtrl = context.getBean(
-                    JvControlsSpringConfig.NameBeans.DbCtrl.getValue(), JvDbCtrl.class);
-        }
-        if (context.containsBeanDefinition(JvControlsSpringConfig.NameBeans.EmailCtrl.getValue())) {
-            emailCtrl = context.getBean(
-                    JvControlsSpringConfig.NameBeans.EmailCtrl.getValue(), JvEmailCtrl.class);
-        }
-        messageCtrl = context.getBean(JvControlsSpringConfig.NameBeans.MessageCtrl.getValue(), JvMessageCtrl.class);
-        networkCtrl = context.getBean(JvControlsSpringConfig.NameBeans.NetworkCtrl.getValue(), JvNetworkCtrl.class);
     }
 
     public static JvGetterControls getInstance() {
@@ -38,28 +23,42 @@ public class JvGetterControls {
     }
 
     public JvNetworkCtrl getNetworkCtrl() {
-        return networkCtrl;
+        return context.getBean(JvControlsSpringConfig.NameBeans.NetworkCtrl.getValue(),
+                JvNetworkCtrl.class);
     }
 
     public JvMessageCtrl getMessageCtrl() {
-        return messageCtrl;
+        return context.getBean(JvControlsSpringConfig.NameBeans.MessageCtrl.getValue(),
+                JvMessageCtrl.class);
     }
 
     public JvDbCtrl getDbCtrl() {
-        return dbCtrl;
+        if (context.containsBeanDefinition(JvControlsSpringConfig.NameBeans.DbCtrl.getValue())) {
+            return context.getBean(
+                    JvControlsSpringConfig.NameBeans.DbCtrl.getValue(),
+                    JvDbCtrl.class);
+        }
+        return null;
     }
 
     public JvEmailCtrl getEmailCtrl() {
-        return emailCtrl;
+        if (context.containsBeanDefinition(JvControlsSpringConfig.NameBeans.EmailCtrl.getValue())) {
+            return context.getBean(
+                    JvControlsSpringConfig.NameBeans.EmailCtrl.getValue(),
+                    JvEmailCtrl.class);
+        }
+        return null;
     }
 
     public JvServersSocketThreadCtrl getServersSocketThreadCtrl(Socket fromSocketServer) {
         return (JvServersSocketThreadCtrl) context.getBean(
-                JvControlsSpringConfig.NameBeans.ServersSocketThreadCtrl.getValue(), fromSocketServer);
+                JvControlsSpringConfig.NameBeans.ServersSocketThreadCtrl.getValue(),
+                fromSocketServer);
     }
 
     public JvUsersSocketThreadCtrl getUsersSocketThreadCtrl(Socket usersSocket) {
         return (JvUsersSocketThreadCtrl) context.getBean(
-                JvControlsSpringConfig.NameBeans.UsersSocketThreadCtrl.getValue(), usersSocket);
+                JvControlsSpringConfig.NameBeans.UsersSocketThreadCtrl.getValue(),
+                usersSocket);
     }
 }
