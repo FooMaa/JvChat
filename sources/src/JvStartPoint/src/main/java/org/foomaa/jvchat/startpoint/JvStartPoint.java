@@ -1,12 +1,11 @@
 package org.foomaa.jvchat.startpoint;
 
+import org.foomaa.jvchat.tools.JvGetterTools;
 import org.foomaa.jvchat.uilinks.JvGetterUiLinks;
 import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.tools.JvMainTools;
 import org.foomaa.jvchat.settings.JvMainSettings;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScans;
 import org.springframework.context.annotation.ComponentScan;
@@ -21,7 +20,6 @@ import java.net.URISyntaxException;
     @ComponentScan(basePackageClasses = JvMainTools.class)
 })
 public class JvStartPoint implements ApplicationRunner {
-    private JvMainTools mainTools;
 
     public static void main(String[] args) {
         SpringApplication.run( JvStartPoint.class, args );
@@ -36,14 +34,14 @@ public class JvStartPoint implements ApplicationRunner {
 
     private void workingArgs(ApplicationArguments args) {
         try {
-            mainTools.setProfileSetting(JvStartPoint.class);
+            JvGetterTools.getInstance().getMainTools().setProfileSetting(JvStartPoint.class);
         } catch (IOException | URISyntaxException exception) {
             JvGetterUiLinks.getInstance().getErrorStart(
                     "Не удалось выставить верный профиль для приложения!");
         }
 
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
-            mainTools.initServersParameters();
+            JvGetterTools.getInstance().getMainTools().initServersParameters();
         }
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
             if (args.getOptionValues("ipServer") == null) {
@@ -51,7 +49,7 @@ public class JvStartPoint implements ApplicationRunner {
                         "Дайте в параметр IP-адрес сервера!");
             }
             String argsIp = args.getOptionValues("ipServer").get(0);
-            if (mainTools.validateInputIp(argsIp)) {
+            if (JvGetterTools.getInstance().getMainTools().validateInputIp(argsIp)) {
                 JvMainSettings.setIp(argsIp);
             } else {
                 JvGetterUiLinks.getInstance().getErrorStart(
@@ -72,14 +70,6 @@ public class JvStartPoint implements ApplicationRunner {
 
         if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
             JvGetterUiLinks.getInstance().getStartAuthentication();
-        }
-    }
-
-    @Autowired
-    @Qualifier("beanMainTools")
-    private void setMainTools(JvMainTools newMainTools) {
-        if (mainTools != newMainTools) {
-            mainTools = newMainTools;
         }
     }
 }

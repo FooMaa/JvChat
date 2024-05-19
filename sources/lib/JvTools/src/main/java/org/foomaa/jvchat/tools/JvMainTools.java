@@ -2,8 +2,6 @@ package org.foomaa.jvchat.tools;
 
 import org.foomaa.jvchat.settings.JvMainSettings;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -17,10 +15,8 @@ import java.util.Objects;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-@Component("beanMainTools")
-@Scope("singleton")
 public class JvMainTools {
-    private JvMainTools() {}
+    JvMainTools() {}
 
     private String getProfileFromBuildDir(Class<?> mainClass) throws IOException, URISyntaxException {
         Path buildPath = Paths.get(Objects.requireNonNull(
