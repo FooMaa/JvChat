@@ -16,7 +16,7 @@ public class JvDisplaySettings {
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             heightScreen = screenSize.height;
             widthScreen = screenSize.width;
-        } catch (HeadlessException exception) {
+        } catch (Throwable exception) {
             System.out.println("No X :0:0 find");
         }
     }
