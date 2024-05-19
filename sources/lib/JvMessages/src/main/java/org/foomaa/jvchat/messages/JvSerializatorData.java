@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 
 public class JvSerializatorData {
+    JvSerializatorData() {}
 
     public enum TypeMessage {
         EntryRequest(0),
@@ -87,7 +88,7 @@ public class JvSerializatorData {
         }
     }
 
-    public static byte[] serialiseData(TypeMessage type, Object... parameters) {
+    public byte[] serialiseData(TypeMessage type, Object... parameters) {
         switch (type) {
             case EntryRequest -> {
                 if (parameters.length == 2) {
@@ -202,7 +203,7 @@ public class JvSerializatorData {
         return new byte[0];
     }
 
-    public static HashMap<TypeData, ?> deserializeData(TypeMessage type, byte[] data) {
+    public HashMap<TypeData, ?> deserializeData(TypeMessage type, byte[] data) {
         return switch (type) {
             case EntryRequest -> takeEntryRequestMessage(data);
             case EntryReply -> takeEntryReplyMessage(data);
@@ -219,7 +220,7 @@ public class JvSerializatorData {
         };
     }
 
-    public static TypeMessage getTypeMessage(byte[] data) {
+    public TypeMessage getTypeMessage(byte[] data) {
         TypeMessage type = null;
         try {
             int numberType = ClientServerSerializeProtocol_pb.General.parseFrom(data).getType();
@@ -230,7 +231,7 @@ public class JvSerializatorData {
         return type;
     }
 
-    private static byte[] createEntryRequestMessage(TypeMessage type, String login, String password) {
+    private byte[] createEntryRequestMessage(TypeMessage type, String login, String password) {
         ClientServerSerializeProtocol_pb.EntryRequest msgEntryRequest =
                 ClientServerSerializeProtocol_pb.EntryRequest.newBuilder()
                 .setLogin(login)
@@ -244,7 +245,7 @@ public class JvSerializatorData {
         return resMsg.toByteArray();
     }
 
-    private static byte[] createEntryReplyMessage(TypeMessage type, boolean reply) {
+    private byte[] createEntryReplyMessage(TypeMessage type, boolean reply) {
         ClientServerSerializeProtocol_pb.EntryReply msgEntryReply =
                 ClientServerSerializeProtocol_pb.EntryReply.newBuilder()
                 .setReply(reply)
@@ -257,7 +258,7 @@ public class JvSerializatorData {
         return resMsg.toByteArray();
     }
 
-    private static byte[] createRegistrationRequestMessage(TypeMessage type, String login, String email, String password) {
+    private byte[] createRegistrationRequestMessage(TypeMessage type, String login, String email, String password) {
         ClientServerSerializeProtocol_pb.RegistrationRequest msgRegRequest =
                 ClientServerSerializeProtocol_pb.RegistrationRequest.newBuilder()
                 .setLogin(login)
@@ -272,7 +273,7 @@ public class JvSerializatorData {
         return resMsg.toByteArray();
     }
 
-    private static byte[] createRegistrationReplyMessage(TypeMessage type, boolean reply, TypeErrorRegistration error) {
+    private byte[] createRegistrationReplyMessage(TypeMessage type, boolean reply, TypeErrorRegistration error) {
         ClientServerSerializeProtocol_pb.RegistrationReply msgRegReply =
                 ClientServerSerializeProtocol_pb.RegistrationReply.newBuilder()
                 .setReply(reply)
@@ -286,7 +287,7 @@ public class JvSerializatorData {
         return resMsg.toByteArray();
     }
 
-    private static byte[] createVerifyRegistrationEmailRequestMessage(TypeMessage type, String login, String email, String password, String code) {
+    private byte[] createVerifyRegistrationEmailRequestMessage(TypeMessage type, String login, String email, String password, String code) {
         ClientServerSerializeProtocol_pb.VerifyRegistrationEmailRequest msgVerifyRegRequest =
                 ClientServerSerializeProtocol_pb.VerifyRegistrationEmailRequest.newBuilder()
                 .setLogin(login)
@@ -302,7 +303,7 @@ public class JvSerializatorData {
         return resMsg.toByteArray();
     }
 
-    private static byte[] createVerifyRegistrationEmailReplyMessage(TypeMessage type, boolean reply, TypeErrorRegistration error) {
+    private byte[] createVerifyRegistrationEmailReplyMessage(TypeMessage type, boolean reply, TypeErrorRegistration error) {
         ClientServerSerializeProtocol_pb.VerifyRegistrationEmailReply msgVerifyRegReply =
                 ClientServerSerializeProtocol_pb.VerifyRegistrationEmailReply.newBuilder()
                 .setReply(reply)
@@ -316,7 +317,7 @@ public class JvSerializatorData {
         return resMsg.toByteArray();
     }
 
-    private static byte[] createResetPasswordRequestMessage(TypeMessage type, String email) {
+    private byte[] createResetPasswordRequestMessage(TypeMessage type, String email) {
         ClientServerSerializeProtocol_pb.ResetPasswordRequest msgResetRequest =
                 ClientServerSerializeProtocol_pb.ResetPasswordRequest.newBuilder()
                 .setEmail(email)
@@ -329,7 +330,7 @@ public class JvSerializatorData {
         return resMsg.toByteArray();
     }
 
-    private static byte[] createResetPasswordReplyMessage(TypeMessage type, boolean reply) {
+    private byte[] createResetPasswordReplyMessage(TypeMessage type, boolean reply) {
         ClientServerSerializeProtocol_pb.ResetPasswordReply msgResetReply =
                 ClientServerSerializeProtocol_pb.ResetPasswordReply.newBuilder()
                 .setReply(reply)
@@ -342,7 +343,7 @@ public class JvSerializatorData {
         return resMsg.toByteArray();
     }
 
-    private static byte[] createVerifyFamousEmailRequestMessage(TypeMessage type, String email, String code) {
+    private byte[] createVerifyFamousEmailRequestMessage(TypeMessage type, String email, String code) {
         ClientServerSerializeProtocol_pb.VerifyFamousEmailRequest msgVerifyEmailRequest =
                 ClientServerSerializeProtocol_pb.VerifyFamousEmailRequest.newBuilder()
                 .setEmail(email)
@@ -356,7 +357,7 @@ public class JvSerializatorData {
         return resMsg.toByteArray();
     }
 
-    private static byte[] createVerifyFamousEmailReplyMessage(TypeMessage type, boolean reply) {
+    private byte[] createVerifyFamousEmailReplyMessage(TypeMessage type, boolean reply) {
         ClientServerSerializeProtocol_pb.VerifyFamousEmailReply msgVerifyEmailReply =
                 ClientServerSerializeProtocol_pb.VerifyFamousEmailReply.newBuilder()
                 .setReply(reply)
@@ -369,7 +370,7 @@ public class JvSerializatorData {
         return resMsg.toByteArray();
     }
 
-    private static byte[] createChangePasswordRequestMessage(TypeMessage type, String email, String password) {
+    private byte[] createChangePasswordRequestMessage(TypeMessage type, String email, String password) {
         ClientServerSerializeProtocol_pb.ChangePasswordRequest msgChangePasswordRequest =
                 ClientServerSerializeProtocol_pb.ChangePasswordRequest.newBuilder()
                 .setEmail(email)
@@ -383,7 +384,7 @@ public class JvSerializatorData {
         return resMsg.toByteArray();
     }
 
-    private static byte[] createChangePasswordReplyMessage(TypeMessage type, boolean reply) {
+    private byte[] createChangePasswordReplyMessage(TypeMessage type, boolean reply) {
         ClientServerSerializeProtocol_pb.ChangePasswordReply msgChangePasswordReply =
                 ClientServerSerializeProtocol_pb.ChangePasswordReply.newBuilder()
                 .setReply(reply)
@@ -396,7 +397,7 @@ public class JvSerializatorData {
         return resMsg.toByteArray();
     }
 
-    private static HashMap<TypeData, String> takeEntryRequestMessage(byte[] data) {
+    private HashMap<TypeData, String> takeEntryRequestMessage(byte[] data) {
         HashMap<TypeData, String> result = new HashMap<>();
         try {
             result.put(TypeData.Login, ClientServerSerializeProtocol_pb.General.parseFrom(data)
@@ -409,7 +410,7 @@ public class JvSerializatorData {
         return result;
     }
 
-    private static HashMap<TypeData, Boolean> takeEntryReplyMessage(byte[] data) {
+    private HashMap<TypeData, Boolean> takeEntryReplyMessage(byte[] data) {
         HashMap<TypeData, Boolean> result = new HashMap<>();
         try {
             result.put(TypeData.BoolReply, ClientServerSerializeProtocol_pb.General.parseFrom(data)
@@ -420,7 +421,7 @@ public class JvSerializatorData {
         return result;
     }
 
-    private static HashMap<TypeData, String> takeRegistrationRequestMessage(byte[] data) {
+    private HashMap<TypeData, String> takeRegistrationRequestMessage(byte[] data) {
         HashMap<TypeData, String> result = new HashMap<>();
         try {
             result.put(TypeData.Login, ClientServerSerializeProtocol_pb.General.parseFrom(data).
@@ -435,7 +436,7 @@ public class JvSerializatorData {
         return result;
     }
 
-    private static HashMap<TypeData, Object> takeRegistrationReplyMessage(byte[] data) {
+    private HashMap<TypeData, Object> takeRegistrationReplyMessage(byte[] data) {
         HashMap<TypeData, Object> result = new HashMap<>();
         try {
             result.put(TypeData.BoolReply, ClientServerSerializeProtocol_pb.General.parseFrom(data)
@@ -449,7 +450,7 @@ public class JvSerializatorData {
         return result;
     }
 
-    private static HashMap<TypeData, String> takeVerifyRegistrationEmailRequestMessage(byte[] data) {
+    private HashMap<TypeData, String> takeVerifyRegistrationEmailRequestMessage(byte[] data) {
         HashMap<TypeData, String> result = new HashMap<>();
         try {
             result.put(TypeData.Login, ClientServerSerializeProtocol_pb.General.parseFrom(data).
@@ -466,7 +467,7 @@ public class JvSerializatorData {
         return result;
     }
 
-    private static HashMap<TypeData, Object> takeVerifyRegistrationEmailReplyMessage(byte[] data) {
+    private HashMap<TypeData, Object> takeVerifyRegistrationEmailReplyMessage(byte[] data) {
         HashMap<TypeData, Object> result = new HashMap<>();
         try {
             result.put(TypeData.BoolReply, ClientServerSerializeProtocol_pb.General.parseFrom(data)
@@ -480,7 +481,7 @@ public class JvSerializatorData {
         return result;
     }
 
-    private static HashMap<TypeData, String> takeResetPasswordRequestMessage(byte[] data) {
+    private HashMap<TypeData, String> takeResetPasswordRequestMessage(byte[] data) {
         HashMap<TypeData, String> result = new HashMap<>();
         try {
             result.put(TypeData.Email, ClientServerSerializeProtocol_pb.General.parseFrom(data).
@@ -491,7 +492,7 @@ public class JvSerializatorData {
         return result;
     }
 
-    private static HashMap<TypeData, Boolean> takeResetPasswordReplyMessage(byte[] data) {
+    private HashMap<TypeData, Boolean> takeResetPasswordReplyMessage(byte[] data) {
         HashMap<TypeData, Boolean> result = new HashMap<>();
         try {
             result.put(TypeData.BoolReply, ClientServerSerializeProtocol_pb.General.parseFrom(data)
@@ -502,7 +503,7 @@ public class JvSerializatorData {
         return result;
     }
 
-    private static HashMap<TypeData, String> takeVerifyFamousEmailRequestMessage(byte[] data) {
+    private HashMap<TypeData, String> takeVerifyFamousEmailRequestMessage(byte[] data) {
         HashMap<TypeData, String> result = new HashMap<>();
         try {
             result.put(TypeData.Email, ClientServerSerializeProtocol_pb.General.parseFrom(data).
@@ -515,7 +516,7 @@ public class JvSerializatorData {
         return result;
     }
 
-    private static HashMap<TypeData, Boolean> takeVerifyFamousEmailReplyMessage(byte[] data) {
+    private HashMap<TypeData, Boolean> takeVerifyFamousEmailReplyMessage(byte[] data) {
         HashMap<TypeData, Boolean> result = new HashMap<>();
         try {
             result.put(TypeData.BoolReply, ClientServerSerializeProtocol_pb.General.parseFrom(data)
@@ -526,7 +527,7 @@ public class JvSerializatorData {
         return result;
     }
 
-    private static HashMap<TypeData, String> takeChangePasswordRequestMessage(byte[] data) {
+    private HashMap<TypeData, String> takeChangePasswordRequestMessage(byte[] data) {
         HashMap<TypeData, String> result = new HashMap<>();
         try {
             result.put(TypeData.Email, ClientServerSerializeProtocol_pb.General.parseFrom(data).
@@ -539,7 +540,7 @@ public class JvSerializatorData {
         return result;
     }
 
-    private static HashMap<TypeData, Boolean> takeChangePasswordReplyMessage(byte[] data) {
+    private HashMap<TypeData, Boolean> takeChangePasswordReplyMessage(byte[] data) {
         HashMap<TypeData, Boolean> result = new HashMap<>();
         try {
             result.put(TypeData.BoolReply, ClientServerSerializeProtocol_pb.General.parseFrom(data)

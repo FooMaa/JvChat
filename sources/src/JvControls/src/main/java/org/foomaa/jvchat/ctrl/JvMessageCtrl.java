@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.ctrl;
 
+import org.foomaa.jvchat.messages.JvGetterMessages;
 import org.foomaa.jvchat.messages.JvSerializatorData;
 
 import java.util.HashMap;
@@ -159,7 +160,7 @@ public class JvMessageCtrl {
     }
 
     public void takeMessage(byte[] data) {
-        JvSerializatorData.TypeMessage type = JvSerializatorData.getTypeMessage(data);
+        JvSerializatorData.TypeMessage type = JvGetterMessages.getInstance().getBeanMainSettings().getTypeMessage(data);
         switch (type) {
             case EntryRequest -> workEntryRequestMessage(getDeserializeMapData(type, data));
             case EntryReply -> workEntryReplyMessage(getDeserializeMapData(type, data));
@@ -178,7 +179,7 @@ public class JvMessageCtrl {
 
     private HashMap<JvSerializatorData.TypeData, ?>
     getDeserializeMapData(JvSerializatorData.TypeMessage type, byte[] data) {
-        return JvSerializatorData.deserializeData(type, data);
+        return JvGetterMessages.getInstance().getBeanMainSettings().deserializeData(type, data);
     }
 
     private void sendReadyMessageNetwork(byte[] bodyMessage) {
@@ -187,51 +188,51 @@ public class JvMessageCtrl {
     }
 
     private byte[] createBodyEntryRequestMessage(JvSerializatorData.TypeMessage type, String login, String password) {
-        return JvSerializatorData.serialiseData(type, login, password);
+        return JvGetterMessages.getInstance().getBeanMainSettings().serialiseData(type, login, password);
     }
 
     private byte[] createBodyEntryReplyMessage(JvSerializatorData.TypeMessage type, Boolean reply) {
-        return JvSerializatorData.serialiseData(type, reply);
+        return JvGetterMessages.getInstance().getBeanMainSettings().serialiseData(type, reply);
     }
 
     private byte[] createBodyRegistrationRequestMessage(JvSerializatorData.TypeMessage type, String login, String email, String password) {
-        return JvSerializatorData.serialiseData(type, login, email, password);
+        return JvGetterMessages.getInstance().getBeanMainSettings().serialiseData(type, login, email, password);
     }
 
     private byte[] createBodyRegistrationReplyMessage(JvSerializatorData.TypeMessage type, Boolean reply, JvSerializatorData.TypeErrorRegistration error) {
-        return JvSerializatorData.serialiseData(type, reply, error);
+        return JvGetterMessages.getInstance().getBeanMainSettings().serialiseData(type, reply, error);
     }
 
     private byte[] createBodyVerifyRegistrationEmailRequestMessage(JvSerializatorData.TypeMessage type, String login, String email, String password, String code) {
-        return JvSerializatorData.serialiseData(type, login, email, password, code);
+        return JvGetterMessages.getInstance().getBeanMainSettings().serialiseData(type, login, email, password, code);
     }
 
     private byte[] createBodyVerifyRegistrationEmailReplyMessage(JvSerializatorData.TypeMessage type, Boolean reply, JvSerializatorData.TypeErrorRegistration error) {
-        return JvSerializatorData.serialiseData(type, reply, error);
+        return JvGetterMessages.getInstance().getBeanMainSettings().serialiseData(type, reply, error);
     }
 
     private byte[] createBodyResetPasswordRequestMessage(JvSerializatorData.TypeMessage type, String email) {
-        return JvSerializatorData.serialiseData(type, email);
+        return JvGetterMessages.getInstance().getBeanMainSettings().serialiseData(type, email);
     }
 
     private byte[] createBodyResetPasswordReplyMessage(JvSerializatorData.TypeMessage type, Boolean reply) {
-        return JvSerializatorData.serialiseData(type, reply);
+        return JvGetterMessages.getInstance().getBeanMainSettings().serialiseData(type, reply);
     }
 
     private byte[] createBodyVerifyFamousEmailRequestMessage(JvSerializatorData.TypeMessage type, String email, String code) {
-        return JvSerializatorData.serialiseData(type, email, code);
+        return JvGetterMessages.getInstance().getBeanMainSettings().serialiseData(type, email, code);
     }
 
     private byte[] createBodyVerifyFamousEmailReplyMessage(JvSerializatorData.TypeMessage type, Boolean reply) {
-        return JvSerializatorData.serialiseData(type, reply);
+        return JvGetterMessages.getInstance().getBeanMainSettings().serialiseData(type, reply);
     }
 
     private byte[] createBodyChangePasswordRequestMessage(JvSerializatorData.TypeMessage type, String email, String password) {
-        return JvSerializatorData.serialiseData(type, email, password);
+        return JvGetterMessages.getInstance().getBeanMainSettings().serialiseData(type, email, password);
     }
 
     private byte[] createBodyChangePasswordReplyMessage(JvSerializatorData.TypeMessage type, Boolean reply) {
-        return JvSerializatorData.serialiseData(type, reply);
+        return JvGetterMessages.getInstance().getBeanMainSettings().serialiseData(type, reply);
     }
 
     private void workEntryRequestMessage(HashMap<JvSerializatorData.TypeData, ?> map) {
