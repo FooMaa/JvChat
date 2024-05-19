@@ -30,7 +30,6 @@ public class JvSettingsSpringConfig {
 
     @Bean(name = "beanDisplaySettings")
     @Scope("singleton")
-    @Profile("!tests")
     public JvDisplaySettings beanDisplaySettings() {
         return new JvDisplaySettings();
     }

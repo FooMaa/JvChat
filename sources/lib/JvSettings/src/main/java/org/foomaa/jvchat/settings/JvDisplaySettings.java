@@ -3,20 +3,23 @@ package org.foomaa.jvchat.settings;
 import java.awt.*;
 
 public class JvDisplaySettings {
-    JvDisplaySettings() {
-        screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        heightScreen = screenSize.height;
-        widthScreen = screenSize.width;
-    }
+    public int heightScreen;
+    public int widthScreen;
 
     public enum TypeOfDisplayBorder {
         HEIGHT,
         WIDTH
     }
 
-    private final Dimension screenSize;
-    public int heightScreen;
-    public int widthScreen;
+    JvDisplaySettings() {
+        try {
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            heightScreen = screenSize.height;
+            widthScreen = screenSize.width;
+        } catch (Throwable t) {
+            System.out.println("No X :0:0 find");
+        }
+    }
 
     public int getResizeFromDisplay(double scale, TypeOfDisplayBorder displayBorder) {
         return switch (displayBorder) {
