@@ -20,7 +20,6 @@ public class JvToolsSpringConfig {
 
     @Bean(name = "beanMainTools")
     @Scope("prototype")
-    @Profile("users")
     public JvMainTools mainTools() {
         return new JvMainTools();
     }

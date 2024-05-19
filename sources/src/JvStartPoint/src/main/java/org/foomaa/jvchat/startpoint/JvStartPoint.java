@@ -3,12 +3,9 @@ package org.foomaa.jvchat.startpoint;
 import org.foomaa.jvchat.tools.JvGetterTools;
 import org.foomaa.jvchat.uilinks.JvGetterUiLinks;
 import org.foomaa.jvchat.ctrl.JvGetterControls;
-import org.foomaa.jvchat.tools.JvMainTools;
 import org.foomaa.jvchat.settings.JvMainSettings;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScans;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,9 +13,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 @SpringBootApplication
-@ComponentScans ({
-    @ComponentScan(basePackageClasses = JvMainTools.class)
-})
 public class JvStartPoint implements ApplicationRunner {
 
     public static void main(String[] args) {

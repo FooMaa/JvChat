@@ -5,7 +5,6 @@ import org.foomaa.jvchat.ctrl.JvMessageCtrl;
 import org.foomaa.jvchat.messages.JvSerializatorData;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.tools.JvGetterTools;
-import org.foomaa.jvchat.tools.JvMainTools;
 
 import javax.swing.*;
 import java.awt.*;
