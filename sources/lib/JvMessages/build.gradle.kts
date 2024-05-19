@@ -3,7 +3,4 @@ version = "1.0-SNAPSHOT"
 
 dependencies {
     implementation ("com.google.protobuf:protobuf-java:3.16.3")
-    implementation("org.springframework:spring-context")
-    implementation("org.springframework:spring-beans")
-    implementation("org.springframework:spring-core")
 }

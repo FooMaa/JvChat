@@ -14,6 +14,9 @@ subprojects {
 
     dependencies {
         testImplementation("junit:junit:3.8.1")
+        implementation("org.springframework:spring-context")
+        implementation("org.springframework:spring-beans")
+        implementation("org.springframework:spring-core")
         implementation("org.springframework.boot:spring-boot-starter:3.2.4")
     }
 

@@ -1,12 +1,12 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import org.foomaa.jvchat.ctrl.JvControlsSpringConfig;
 import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.ctrl.JvMessageCtrl;
 import org.foomaa.jvchat.messages.JvSerializatorData;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
-import org.foomaa.jvchat.tools.JvTools;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.foomaa.jvchat.tools.JvMainTools;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,6 +25,7 @@ public class JvRegistrationFrame extends JFrame {
     private final JvAuthPasswordField tPassword;
     private final JvAuthPasswordField tPasswordConfirm;
     private final JvAuthButton bRegister;
+    private JvMainTools mainTools;
 
     public JvRegistrationFrame() {
         super("RegistrationWindow");
@@ -42,6 +43,14 @@ public class JvRegistrationFrame extends JFrame {
         makeFrameSetting();
         addListenerToElements();
         addGeneralSettingsToWidget();
+    }
+
+    @Autowired
+    @Qualifier("beanMainTools")
+    private void setMainTools(JvMainTools newMainTools) {
+        if (mainTools != newMainTools) {
+            mainTools = newMainTools;
+        }
     }
 
     private void makeFrameSetting() {
@@ -142,7 +151,7 @@ public class JvRegistrationFrame extends JFrame {
             fields.add("\"Логин\"");
         }
         if (Objects.equals(tEmail.getInputText(), "") ||
-                !JvTools.validateInputEmail(tEmail.getInputText())) {
+                !mainTools.validateInputEmail(tEmail.getInputText())) {
             tEmail.setErrorBorder();
             fields.add("\"Почта\"");
         }

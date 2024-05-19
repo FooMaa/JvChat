@@ -2,6 +2,8 @@ package org.foomaa.jvchat.tools;
 
 import org.foomaa.jvchat.settings.JvMainSettings;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -15,9 +17,12 @@ import java.util.Objects;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-public class JvTools
-{
-    private static String getProfileFromBuildDir(Class<?> mainClass) throws IOException, URISyntaxException {
+@Component("beanMainTools")
+@Scope("singleton")
+public class JvMainTools {
+    private JvMainTools() {}
+
+    private String getProfileFromBuildDir(Class<?> mainClass) throws IOException, URISyntaxException {
         Path buildPath = Paths.get(Objects.requireNonNull(
                 mainClass.getResource("/")).toURI());
 
@@ -40,7 +45,7 @@ public class JvTools
         return profile;
     }
 
-    public static void setProfileSetting(Class<?> mainClass) throws IOException, URISyntaxException {
+    public void setProfileSetting(Class<?> mainClass) throws IOException, URISyntaxException {
         final String profile = getProfileFromBuildDir(mainClass);
 
         if (Objects.equals(profile, JvMainSettings.TypeProfiles.TESTS.toString())) {
@@ -52,7 +57,7 @@ public class JvTools
         }
     }
 
-    public static void initServersParameters() {
+    public void initServersParameters() {
         Scanner in = new Scanner(System.in);
 
         System.out.println("Введи IP-адрес или нажми Enter для значения по умолчанию (по умолчанию auto): ");
@@ -93,7 +98,7 @@ public class JvTools
         }
     }
 
-    public static boolean validateInputIp(String param) {
+    public boolean validateInputIp(String param) {
         Pattern regex = Pattern.compile(
                 "^(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])$");
         if (param.isEmpty()) {
@@ -102,7 +107,7 @@ public class JvTools
         return regex.matcher(param).matches();
     }
 
-    public static boolean validateInputPort(String param) {
+    public boolean validateInputPort(String param) {
         Pattern regex = Pattern.compile(
                 "^([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$");
         if (param.isEmpty()) {
@@ -111,7 +116,7 @@ public class JvTools
         return regex.matcher(param).matches();
     }
 
-    public static boolean validateInputLimitConnections(String param) {
+    public boolean validateInputLimitConnections(String param) {
         Pattern regex = Pattern.compile(
                 "^\\d+$");
         if (param.isEmpty()) {
@@ -120,7 +125,7 @@ public class JvTools
         return regex.matcher(param).matches();
     }
 
-    private static void setIpToSettings(String ip) {
+    private void setIpToSettings(String ip) {
         if (!ip.isEmpty()) {
             JvMainSettings.setIp(ip);
         } else {
@@ -136,7 +141,7 @@ public class JvTools
         }
     }
 
-    public static boolean validateInputEmail(String param) {
+    public boolean validateInputEmail(String param) {
         Pattern regex = Pattern.compile(
                 "^(?=.{1,64}@)[A-Za-z0-9+_-]+(\\.[A-Za-z0-9+_-]+)*@"
                         + "[^-][A-Za-z0-9+-]+(\\.[A-Za-z0-9+-]+)*(\\.[A-Za-z]{2,})$");

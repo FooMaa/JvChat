@@ -5,8 +5,10 @@ import java.net.Socket;
 
 
 @Configuration
-@ComponentScan("org.foomaa.jvchat.dbworker")
-@ComponentScan("org.foomaa.jvchat.network")
+@ComponentScans ({
+    @ComponentScan("org.foomaa.jvchat.dbworker"),
+    @ComponentScan("org.foomaa.jvchat.network")
+})
 public class JvControlsSpringConfig {
     public enum NameBeans {
         DbCtrl("beanDbCtrl"),

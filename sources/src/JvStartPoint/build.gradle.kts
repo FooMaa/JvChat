@@ -9,10 +9,6 @@ extra["slf4j.version"] = "1.7.20"
 var PROFILE = ""
 
 dependencies {
-    implementation("org.springframework:spring-context")
-    implementation("org.springframework:spring-beans")
-    implementation("org.springframework:spring-core")
-
     implementation(project(":JvControls"))
     implementation(project(":JvUiLinks"))
     implementation(project(":JvTools"))
