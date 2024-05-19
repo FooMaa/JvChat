@@ -5,7 +5,7 @@ import org.springframework.context.annotation.*;
 @Configuration
 public class JvToolsSpringConfig {
     public enum NameBeans {
-        MainTools("beanMainTools");
+        BeanMainTools("beanMainTools");
 
         private final String value;
 
@@ -19,8 +19,8 @@ public class JvToolsSpringConfig {
     }
 
     @Bean(name = "beanMainTools")
-    @Scope("prototype")
-    public JvMainTools mainTools() {
+    @Scope("singleton")
+    public JvMainTools beanMainTools() {
         return new JvMainTools();
     }
 }

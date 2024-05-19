@@ -4,6 +4,7 @@ import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.ctrl.JvMessageCtrl;
 import org.foomaa.jvchat.messages.JvSerializatorData;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
+import org.foomaa.jvchat.settings.JvGetterSettings;
 
 import javax.swing.*;
 import java.awt.*;
@@ -59,7 +60,7 @@ public class JvVerifyCodeFrame extends JFrame {
         panel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        int insX = JvDisplaySettings.
+        int insX = JvGetterSettings.getInstance().getBeanDisplaySettings().
                 getResizeFromDisplay(0.025,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
         int gridyNum = 0;
@@ -68,31 +69,35 @@ public class JvVerifyCodeFrame extends JFrame {
         gbc.weighty = 0.5;
         gbc.fill = GridBagConstraints.PAGE_START;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(JvDisplaySettings.getResizePixel(0.0125), 0, JvDisplaySettings.getResizePixel(0.0084), 0);
+        gbc.insets = new Insets(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0125), 0,
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0084), 0);
         gbc.gridy = gridyNum;
         panel.add(tInfo, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX, JvDisplaySettings.getResizePixel(0.004), insX);
+        gbc.insets = new Insets(0, insX,
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.004), insX);
         gbc.gridy = gridyNum;
         panel.add(tCode, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX, JvDisplaySettings.getResizePixel(0.0084), insX);
+        gbc.insets = new Insets(0, insX,
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0084), insX);
         gbc.gridy = gridyNum;
         panel.add(tErrorHelpInfo, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.NORTH;
-        gbc.insets = new Insets(0, 0, JvDisplaySettings.getResizePixel(0.017), 0);
-        gbc.ipadx = JvDisplaySettings.getResizeFromDisplay(0.03,
+        gbc.insets = new Insets(0, 0,
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017), 0);
+        gbc.ipadx = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.03,
                 JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
-        gbc.ipady = JvDisplaySettings.getResizeFromDisplay(0.01,
+        gbc.ipady = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.01,
                 JvDisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
         panel.add(bSet, gbc);
@@ -104,11 +109,11 @@ public class JvVerifyCodeFrame extends JFrame {
         bSet.addActionListener(event -> {
             if (checkFields()) {
                 if (regime == RegimeWork.ResetPassword) {
-                    JvGetterControls.getInstance().getMessageCtrl().sendMessage(JvSerializatorData.TypeMessage.VerifyFamousEmailRequest,
+                    JvGetterControls.getInstance().getBeanMessageCtrl().sendMessage(JvSerializatorData.TypeMessage.VerifyFamousEmailRequest,
                             email, tCode.getInputText());
                     waitRepeatServerResetPassword();
                 } else if (regime == RegimeWork.Registration) {
-                    JvGetterControls.getInstance().getMessageCtrl().sendMessage(JvSerializatorData.TypeMessage.VerifyRegistrationEmailRequest,
+                    JvGetterControls.getInstance().getBeanMessageCtrl().sendMessage(JvSerializatorData.TypeMessage.VerifyRegistrationEmailRequest,
                             login, email, password, tCode.getInputText());
                     waitRepeatServerRegistration();
                 }
@@ -154,9 +159,9 @@ public class JvVerifyCodeFrame extends JFrame {
     private void addGeneralSettingsToWidget() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("ПОДТВЕРЖДЕНИЕ ПОЧТЫ");
-        setSize(JvDisplaySettings.getResizeFromDisplay(0.3,
+        setSize(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.3,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
-                JvDisplaySettings.getResizeFromDisplay(0.25,
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.25,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
         setResizable(false);
         setLocationRelativeTo(null);
@@ -178,7 +183,7 @@ public class JvVerifyCodeFrame extends JFrame {
 
     private void waitRepeatServerResetPassword() {
         setEnabled(false);
-        while (JvGetterControls.getInstance().getMessageCtrl().getVerifyFamousEmailRequestFlag()
+        while (JvGetterControls.getInstance().getBeanMessageCtrl().getVerifyFamousEmailRequestFlag()
                 == JvMessageCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
@@ -186,10 +191,10 @@ public class JvVerifyCodeFrame extends JFrame {
                 System.out.println("Не удалось ждать");
             }
         }
-        if (JvGetterControls.getInstance().getMessageCtrl().getVerifyFamousEmailRequestFlag()
+        if (JvGetterControls.getInstance().getBeanMessageCtrl().getVerifyFamousEmailRequestFlag()
                 == JvMessageCtrl.TypeFlags.TRUE) {
             closeWindow();
-        } else if (JvGetterControls.getInstance().getMessageCtrl().getVerifyFamousEmailRequestFlag()
+        } else if (JvGetterControls.getInstance().getBeanMessageCtrl().getVerifyFamousEmailRequestFlag()
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             new JvAuthOptionPane("Код не верен. Введите код полученный по почте еще раз. " +
@@ -199,7 +204,7 @@ public class JvVerifyCodeFrame extends JFrame {
 
     private void waitRepeatServerRegistration() {
         setEnabled(false);
-        while (JvGetterControls.getInstance().getMessageCtrl().getVerifyRegistrationEmailRequestFlag()
+        while (JvGetterControls.getInstance().getBeanMessageCtrl().getVerifyRegistrationEmailRequestFlag()
                 == JvMessageCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
@@ -207,10 +212,10 @@ public class JvVerifyCodeFrame extends JFrame {
                 System.out.println("Не удалось ждать");
             }
         }
-        if (JvGetterControls.getInstance().getMessageCtrl().getVerifyRegistrationEmailRequestFlag()
+        if (JvGetterControls.getInstance().getBeanMessageCtrl().getVerifyRegistrationEmailRequestFlag()
                 == JvMessageCtrl.TypeFlags.TRUE) {
             closeWindow();
-        } else if (JvGetterControls.getInstance().getMessageCtrl().getVerifyRegistrationEmailRequestFlag()
+        } else if (JvGetterControls.getInstance().getBeanMessageCtrl().getVerifyRegistrationEmailRequestFlag()
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             openErrorPane();
@@ -218,7 +223,7 @@ public class JvVerifyCodeFrame extends JFrame {
     }
 
     private void openErrorPane() {
-        switch (JvGetterControls.getInstance().getMessageCtrl().getErrorVerifyRegEmailFlag()) {
+        switch (JvGetterControls.getInstance().getBeanMessageCtrl().getErrorVerifyRegEmailFlag()) {
             case NoError -> new JvAuthOptionPane("Ошибка не выяснена.", JvAuthOptionPane.TypeDlg.ERROR);
             case EmailSending -> new JvAuthOptionPane("Возможно почта недействительна.", JvAuthOptionPane.TypeDlg.ERROR);
             case Login -> new JvAuthOptionPane("Данный логин уже используется.", JvAuthOptionPane.TypeDlg.ERROR);

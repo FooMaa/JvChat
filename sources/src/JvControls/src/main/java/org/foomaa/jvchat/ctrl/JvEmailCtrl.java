@@ -32,7 +32,7 @@ public class JvEmailCtrl {
         String message =  createVerifyFamousEmailMessage(code, email);
         if (emailProcessor.sendEmail(email, message)) {
             return JvGetterControls.getInstance()
-                    .getDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.VerifyFamousEmail,
+                    .getBeanDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.VerifyFamousEmail,
                     email, String.valueOf(code));
         }
         return false;
@@ -45,7 +45,7 @@ public class JvEmailCtrl {
                         "Никому не говорите и не отправляйте код. " +
                         "Если это были не вы, свяжитесь с поддержкой по почте avodichenkov@mail.ru.",
                 code,
-                JvGetterControls.getInstance().getDbCtrl().
+                JvGetterControls.getInstance().getBeanDbCtrl().
                         getInfoFromDb(JvDbCtrl.TypeExecutionGet.LoginByEmail, email));
     }
 
@@ -54,7 +54,7 @@ public class JvEmailCtrl {
         String message =  createVerifyRegEmailMessage(code);
         if (emailProcessor.sendEmail(email, message)) {
             return JvGetterControls.getInstance()
-                    .getDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.VerifyRegistrationEmail,
+                    .getBeanDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.VerifyRegistrationEmail,
                     email, String.valueOf(code));
         }
         return false;

@@ -4,6 +4,7 @@ import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.ctrl.JvMessageCtrl;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.messages.JvSerializatorData;
+import org.foomaa.jvchat.settings.JvGetterSettings;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,7 +45,7 @@ public class JvEntryFrame extends JFrame {
         panel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        int insX = JvDisplaySettings.
+        int insX = JvGetterSettings.getInstance().getBeanDisplaySettings().
                 getResizeFromDisplay(0.025,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
         int gridyNum = 0;
@@ -53,14 +54,16 @@ public class JvEntryFrame extends JFrame {
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.PAGE_START;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(JvDisplaySettings.getResizePixel(0.0125), 0, JvDisplaySettings.getResizePixel(0.0084), 0);
+        gbc.insets = new Insets(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0125), 0,
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0084), 0);
         gbc.gridy = gridyNum;
         panel.add(tInfo, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX, JvDisplaySettings.getResizePixel(0.004), insX);
+        gbc.insets = new Insets(0, insX,
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.004), insX);
         gbc.gridy = gridyNum;
         panel.add(tLogin, gbc);
         gridyNum++;
@@ -74,31 +77,35 @@ public class JvEntryFrame extends JFrame {
 
         gbc.fill = GridBagConstraints.CENTER;
         gbc.anchor = GridBagConstraints.NORTH;
-        gbc.insets = new Insets(0, 0, JvDisplaySettings.getResizePixel(0.004), 0);
+        gbc.insets = new Insets(0, 0,
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.004), 0);
         gbc.gridy = gridyNum;
         panel.add(activeMissLabel, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.CENTER;
         gbc.anchor = GridBagConstraints.NORTH;
-        gbc.insets = new Insets(0, 0, JvDisplaySettings.getResizePixel(0.0084), 0);
+        gbc.insets = new Insets(0, 0,
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0084), 0);
         gbc.gridy = gridyNum;
         panel.add(activeRegisterLabel, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.CENTER;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX, JvDisplaySettings.getResizePixel(0.0084), insX);
+        gbc.insets = new Insets(0, insX,
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0084), insX);
         gbc.gridy = gridyNum;
         panel.add(tErrorHelpInfo, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.SOUTH;
-        gbc.insets = new Insets(0, 0, JvDisplaySettings.getResizePixel(0.017), 0);
-        gbc.ipadx = JvDisplaySettings.getResizeFromDisplay(0.03,
+        gbc.insets = new Insets(0, 0,
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017), 0);
+        gbc.ipadx = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.03,
                 JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
-        gbc.ipady = JvDisplaySettings.getResizeFromDisplay(0.01,
+        gbc.ipady = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.01,
                 JvDisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
         panel.add(bEnter, gbc);
@@ -109,7 +116,7 @@ public class JvEntryFrame extends JFrame {
     private void addListenerToElements() {
         bEnter.addActionListener(event -> {
             if (checkFields()) {
-                JvGetterControls.getInstance().getMessageCtrl().sendMessage(JvSerializatorData.TypeMessage.EntryRequest,
+                JvGetterControls.getInstance().getBeanMessageCtrl().sendMessage(JvSerializatorData.TypeMessage.EntryRequest,
                         tLogin.getInputText(), tPassword.getInputText());
                 waitRepeatServer();
             }
@@ -174,9 +181,9 @@ public class JvEntryFrame extends JFrame {
     private void addGeneralSettingsToWidget() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("ВХОД");
-        setSize(JvDisplaySettings.getResizeFromDisplay(0.3,
+        setSize(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.3,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
-                JvDisplaySettings.getResizeFromDisplay(0.3,
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.3,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
         setResizable(false);
         setLocationRelativeTo(null);
@@ -187,7 +194,7 @@ public class JvEntryFrame extends JFrame {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (JvGetterControls.getInstance().getMessageCtrl().getEntryRequestFlag()
+        while (JvGetterControls.getInstance().getBeanMessageCtrl().getEntryRequestFlag()
                 == JvMessageCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
@@ -195,11 +202,11 @@ public class JvEntryFrame extends JFrame {
                 System.out.println("Не удалось ждать");
             }
         }
-        if (JvGetterControls.getInstance().getMessageCtrl().getEntryRequestFlag()
+        if (JvGetterControls.getInstance().getBeanMessageCtrl().getEntryRequestFlag()
                 == JvMessageCtrl.TypeFlags.TRUE) {
             closeWindow();
             System.out.println("Вход выполнен");
-        } else if (JvGetterControls.getInstance().getMessageCtrl().getEntryRequestFlag()
+        } else if (JvGetterControls.getInstance().getBeanMessageCtrl().getEntryRequestFlag()
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             new JvAuthOptionPane("Вход не выполнен, данные не верные.", JvAuthOptionPane.TypeDlg.ERROR);

@@ -1,6 +1,6 @@
 package org.foomaa.jvchat.network;
 
-import org.foomaa.jvchat.settings.JvMainSettings;
+import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -19,12 +19,16 @@ import java.util.Properties;
 @Profile("servers")
 public class JvEmailProcessor {
     private static Session session;
-    private final String host = "smtp.mail.ru";
-    private final String userLogin = JvMainSettings.getEmailAddress();
-    private final String userPassword = JvMainSettings.getMagicStringEmail();
+    private final String host;
+    private final String userLogin;
+    private final String userPassword;
     private final int port = 465;
 
     private JvEmailProcessor() {
+        host = "smtp.mail.ru";
+        userLogin = JvGetterSettings.getInstance().getBeanMainSettings().getEmailAddress();
+        userPassword = JvGetterSettings.getInstance().getBeanMainSettings().getMagicStringEmail();
+
         Properties props = new Properties();
 
         props.put("mail.smtp.auth", "true");

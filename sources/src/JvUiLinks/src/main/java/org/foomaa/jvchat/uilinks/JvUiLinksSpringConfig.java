@@ -5,8 +5,8 @@ import org.springframework.context.annotation.*;
 @Configuration
 public class JvUiLinksSpringConfig {
     public enum NameBeans {
-        ErrorStart("beanErrorStart"),
-        StartAuthentication("beanStartAuthentication");
+        BeanErrorStart("beanErrorStart"),
+        BeanStartAuthentication("beanStartAuthentication");
 
         private final String value;
 
@@ -23,7 +23,7 @@ public class JvUiLinksSpringConfig {
     @Scope("prototype")
     @Lazy
     @Profile("users")
-    public JvErrorStart errorStart(String msg) {
+    public JvErrorStart beanErrorStart(String msg) {
         return new JvErrorStart(msg);
     }
 
@@ -31,7 +31,7 @@ public class JvUiLinksSpringConfig {
     @Scope("singleton")
     @Lazy
     @Profile("users")
-    public JvStartAuthentication startAuthentication() {
+    public JvStartAuthentication beanStartAuthentication() {
         return new JvStartAuthentication();
     }
 }

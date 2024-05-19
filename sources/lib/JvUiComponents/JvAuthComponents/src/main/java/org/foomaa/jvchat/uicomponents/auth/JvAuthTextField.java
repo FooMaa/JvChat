@@ -1,6 +1,7 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
 import org.foomaa.jvchat.settings.JvDisplaySettings;
+import org.foomaa.jvchat.settings.JvGetterSettings;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -58,10 +59,10 @@ public class JvAuthTextField extends JPanel {
     }
 
     private void settingTextAndButtonPanel() {
-        Dimension dim = new Dimension(JvDisplaySettings.
+        Dimension dim = new Dimension(JvGetterSettings.getInstance().getBeanDisplaySettings().
                 getResizeFromDisplay(0.23,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
-                JvDisplaySettings.getResizeFromDisplay(0.03,
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.03,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
         settingTextField(dim);
         add(textField);
@@ -77,7 +78,8 @@ public class JvAuthTextField extends JPanel {
         textField.setPreferredSize(calcNewDim);
         textField.setBorder(null);
         textField.setText(defaultText);
-        textField.setFont(new Font("Times", Font.BOLD, JvDisplaySettings.getResizePixel(0.012)));
+        textField.setFont(new Font("Times", Font.BOLD,
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.012)));
         textField.setForeground(Color.lightGray);
         textField.setFocusable(false);
     }

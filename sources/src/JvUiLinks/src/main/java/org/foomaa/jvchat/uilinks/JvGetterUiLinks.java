@@ -19,13 +19,13 @@ public class JvGetterUiLinks {
         return instance;
     }
 
-    public void getErrorStart(String msg) {
-        context.getBean(JvUiLinksSpringConfig.NameBeans.ErrorStart.getValue(),
+    public void getBeanErrorStart(String msg) {
+        context.getBean(JvUiLinksSpringConfig.NameBeans.BeanErrorStart.getValue(),
                 msg);
     }
 
-    public void getStartAuthentication() {
-        context.getBean(JvUiLinksSpringConfig.NameBeans.StartAuthentication.getValue(),
+    public void getBeanStartAuthentication() {
+        context.getBean(JvUiLinksSpringConfig.NameBeans.BeanStartAuthentication.getValue(),
                 JvStartAuthentication.class);
     }
 }

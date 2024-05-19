@@ -18,7 +18,7 @@ public class JvGetterTools {
         return instance;
     }
 
-    public JvMainTools getMainTools() {
-        return context.getBean(JvToolsSpringConfig.NameBeans.MainTools.getValue(), JvMainTools.class);
+    public JvMainTools getBeanMainTools() {
+        return context.getBean(JvToolsSpringConfig.NameBeans.BeanMainTools.getValue(), JvMainTools.class);
     }
 }

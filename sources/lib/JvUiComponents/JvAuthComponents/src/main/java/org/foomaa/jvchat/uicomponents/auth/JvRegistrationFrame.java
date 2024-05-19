@@ -4,10 +4,8 @@ import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.ctrl.JvMessageCtrl;
 import org.foomaa.jvchat.messages.JvSerializatorData;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
+import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.tools.JvGetterTools;
-import org.foomaa.jvchat.tools.JvMainTools;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.swing.*;
 import java.awt.*;
@@ -49,7 +47,7 @@ public class JvRegistrationFrame extends JFrame {
         panel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        int insX = JvDisplaySettings.
+        int insX = JvGetterSettings.getInstance().getBeanDisplaySettings().
                 getResizeFromDisplay(0.025,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
         int gridyNum = 0;
@@ -58,28 +56,32 @@ public class JvRegistrationFrame extends JFrame {
         gbc.weighty = 0.5;
         gbc.fill = GridBagConstraints.PAGE_START;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(JvDisplaySettings.getResizePixel(0.0125), 0, JvDisplaySettings.getResizePixel(0.0084), 0);
+        gbc.insets = new Insets(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0125), 0,
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0084), 0);
         gbc.gridy = gridyNum;
         panel.add(tInfo, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX, JvDisplaySettings.getResizePixel(0.004), insX);
+        gbc.insets = new Insets(0, insX,
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.004), insX);
         gbc.gridy = gridyNum;
         panel.add(tLogin, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX, JvDisplaySettings.getResizePixel(0.004), insX);
+        gbc.insets = new Insets(0, insX,
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.004), insX);
         gbc.gridy = gridyNum;
         panel.add(tEmail, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX, JvDisplaySettings.getResizePixel(0.004), insX);
+        gbc.insets = new Insets(0, insX,
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.004), insX);
         gbc.gridy = gridyNum;
         panel.add(tPassword, gbc);
         gridyNum++;
@@ -93,17 +95,19 @@ public class JvRegistrationFrame extends JFrame {
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX, JvDisplaySettings.getResizePixel(0.0084), insX);
+        gbc.insets = new Insets(0, insX,
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0084), insX);
         gbc.gridy = gridyNum;
         panel.add(tErrorHelpInfo, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.NORTH;
-        gbc.insets = new Insets(0, 0, JvDisplaySettings.getResizePixel(0.017), 0);
-        gbc.ipadx = JvDisplaySettings.getResizeFromDisplay(0.03,
+        gbc.insets = new Insets(0, 0,
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017), 0);
+        gbc.ipadx = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.03,
                 JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
-        gbc.ipady = JvDisplaySettings.getResizeFromDisplay(0.01,
+        gbc.ipady = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.01,
                 JvDisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
         panel.add(bRegister, gbc);
@@ -115,7 +119,7 @@ public class JvRegistrationFrame extends JFrame {
         bRegister.addActionListener(event -> {
             if (checkFields()) {
                 JvGetterControls.getInstance()
-                        .getMessageCtrl().sendMessage(JvSerializatorData.TypeMessage.RegistrationRequest,
+                        .getBeanMessageCtrl().sendMessage(JvSerializatorData.TypeMessage.RegistrationRequest,
                         tLogin.getInputText(), tEmail.getInputText(), tPassword.getInputText());
                 waitRepeatServer();
             }
@@ -143,7 +147,7 @@ public class JvRegistrationFrame extends JFrame {
             fields.add("\"Логин\"");
         }
         if (Objects.equals(tEmail.getInputText(), "") ||
-                !JvGetterTools.getInstance().getMainTools().validateInputEmail(tEmail.getInputText())) {
+                !JvGetterTools.getInstance().getBeanMainTools().validateInputEmail(tEmail.getInputText())) {
             tEmail.setErrorBorder();
             fields.add("\"Почта\"");
         }
@@ -184,9 +188,9 @@ public class JvRegistrationFrame extends JFrame {
     private void addGeneralSettingsToWidget() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("РЕГИСТРАЦИЯ");
-        setSize(JvDisplaySettings.getResizeFromDisplay(0.3,
+        setSize(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.3,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
-                JvDisplaySettings.getResizeFromDisplay(0.30,
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.30,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
         setResizable(false);
         setLocationRelativeTo(null);
@@ -205,7 +209,7 @@ public class JvRegistrationFrame extends JFrame {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (JvGetterControls.getInstance().getMessageCtrl().getRegistrationRequestFlag()
+        while (JvGetterControls.getInstance().getBeanMessageCtrl().getRegistrationRequestFlag()
                 == JvMessageCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
@@ -213,10 +217,10 @@ public class JvRegistrationFrame extends JFrame {
                 System.out.println("Не удалось ждать");
             }
         }
-        if (JvGetterControls.getInstance().getMessageCtrl().getRegistrationRequestFlag()
+        if (JvGetterControls.getInstance().getBeanMessageCtrl().getRegistrationRequestFlag()
                 == JvMessageCtrl.TypeFlags.TRUE) {
             closeWindow();
-        } else if (JvGetterControls.getInstance().getMessageCtrl().getRegistrationRequestFlag()
+        } else if (JvGetterControls.getInstance().getBeanMessageCtrl().getRegistrationRequestFlag()
                 == JvMessageCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             openErrorPane();
@@ -224,7 +228,7 @@ public class JvRegistrationFrame extends JFrame {
     }
 
     private void openErrorPane() {
-        switch (JvGetterControls.getInstance().getMessageCtrl().getErrorRegistrationFlag()) {
+        switch (JvGetterControls.getInstance().getBeanMessageCtrl().getErrorRegistrationFlag()) {
             case NoError -> new JvAuthOptionPane("Ошибка не выяснена.", JvAuthOptionPane.TypeDlg.ERROR);
             case EmailSending -> new JvAuthOptionPane("Возможно почта недействительна.", JvAuthOptionPane.TypeDlg.ERROR);
             case Login -> new JvAuthOptionPane("Данный логин уже используется.", JvAuthOptionPane.TypeDlg.ERROR);

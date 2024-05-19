@@ -1,6 +1,6 @@
 package org.foomaa.jvchat.dbworker;
 
-import org.foomaa.jvchat.settings.JvMainSettings;
+import org.foomaa.jvchat.settings.JvGetterSettings;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
@@ -33,8 +33,9 @@ public class JvDbWorker {
         connection = null;
 
         try {
-            connection = DriverManager.getConnection(JvMainSettings.getDbUrl(),
-                    JvMainSettings.getDbUser(), JvMainSettings.getMagicStringDb());
+            connection = DriverManager.getConnection(JvGetterSettings.getInstance().getBeanMainSettings().getDbUrl(),
+                    JvGetterSettings.getInstance().getBeanMainSettings().getDbUser(),
+                    JvGetterSettings.getInstance().getBeanMainSettings().getMagicStringDb());
         } catch (SQLException e) {
             System.out.println("Error in connect to DB");
             return;

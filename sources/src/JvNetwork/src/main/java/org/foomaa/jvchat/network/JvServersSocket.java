@@ -1,6 +1,6 @@
 package org.foomaa.jvchat.network;
 
-import org.foomaa.jvchat.settings.JvMainSettings;
+import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -19,12 +19,12 @@ public class JvServersSocket {
         System.out.println("Server is started");
 
         try {
-            if (JvMainSettings.getIp().isEmpty()) {
-                socketServers = new ServerSocket(JvMainSettings.getPort());
+            if (JvGetterSettings.getInstance().getBeanMainSettings().getIp().isEmpty()) {
+                socketServers = new ServerSocket(JvGetterSettings.getInstance().getBeanMainSettings().getPort());
             } else {
-                socketServers = new ServerSocket(JvMainSettings.getPort(),
-                        JvMainSettings.getQuantityConnections(),
-                        InetAddress.getByName(JvMainSettings.getIp()));
+                socketServers = new ServerSocket(JvGetterSettings.getInstance().getBeanMainSettings().getPort(),
+                        JvGetterSettings.getInstance().getBeanMainSettings().getQuantityConnections(),
+                        InetAddress.getByName(JvGetterSettings.getInstance().getBeanMainSettings().getIp()));
             }
 
             System.out.println(socketServers.getInetAddress().toString());

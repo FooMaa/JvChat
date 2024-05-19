@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.ctrl;
 
+import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.settings.JvMainSettings;
 import org.foomaa.jvchat.network.JvServersSocket;
 import org.foomaa.jvchat.network.JvUsersSocket;
@@ -25,20 +26,20 @@ public class JvNetworkCtrl {
     private JvNetworkCtrl() {}
 
     public void startNetwork() throws IOException {
-        if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
+        if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             ServerSocket socketServer = serversSocket.getSocketServers();
             while (true) {
                 Socket fromSocketServer = socketServer.accept();
                 JvServersSocketThreadCtrl thread = JvGetterControls.getInstance()
-                        .getServersSocketThreadCtrl(fromSocketServer);
+                        .getBeanServersSocketThreadCtrl(fromSocketServer);
                 connectionList.add(thread);
             }
-        } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
+        } else if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.USERS) {
             Socket fromSocketUser = usersSocket.getCurrentSocket();
             if (!fromSocketUser.isConnected()) {
                 throw new IOException();
             }
-            usersThread = JvGetterControls.getInstance().getUsersSocketThreadCtrl(fromSocketUser);
+            usersThread = JvGetterControls.getInstance().getBeanUsersSocketThreadCtrl(fromSocketUser);
         }
     }
 
@@ -68,18 +69,18 @@ public class JvNetworkCtrl {
     }
 
     public void takeMessage(byte[] message, Thread thr) {
-        if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
+        if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             serversThread = (JvServersSocketThreadCtrl) thr;
-        } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
+        } else if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.USERS) {
             usersThread = (JvUsersSocketThreadCtrl) thr;
         }
-        JvGetterControls.getInstance().getMessageCtrl().takeMessage(message);
+        JvGetterControls.getInstance().getBeanMessageCtrl().takeMessage(message);
     }
 
     public void sendMessage(byte[] message) {
-        if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
+        if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             serversThread.send(message);
-        } else if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
+        } else if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.USERS) {
             usersThread.send(message);
         }
     }

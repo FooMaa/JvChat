@@ -1,7 +1,6 @@
 package org.foomaa.jvchat.ctrl;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
 import java.net.Socket;
 import java.util.Arrays;
 
@@ -22,43 +21,43 @@ public class JvGetterControls {
         return instance;
     }
 
-    public JvNetworkCtrl getNetworkCtrl() {
-        return context.getBean(JvControlsSpringConfig.NameBeans.NetworkCtrl.getValue(),
+    public JvNetworkCtrl getBeanNetworkCtrl() {
+        return context.getBean(JvControlsSpringConfig.NameBeans.BeanNetworkCtrl.getValue(),
                 JvNetworkCtrl.class);
     }
 
-    public JvMessageCtrl getMessageCtrl() {
-        return context.getBean(JvControlsSpringConfig.NameBeans.MessageCtrl.getValue(),
+    public JvMessageCtrl getBeanMessageCtrl() {
+        return context.getBean(JvControlsSpringConfig.NameBeans.BeanMessageCtrl.getValue(),
                 JvMessageCtrl.class);
     }
 
-    public JvDbCtrl getDbCtrl() {
-        if (context.containsBeanDefinition(JvControlsSpringConfig.NameBeans.DbCtrl.getValue())) {
+    public JvDbCtrl getBeanDbCtrl() {
+        if (context.containsBeanDefinition(JvControlsSpringConfig.NameBeans.BeanDbCtrl.getValue())) {
             return context.getBean(
-                    JvControlsSpringConfig.NameBeans.DbCtrl.getValue(),
+                    JvControlsSpringConfig.NameBeans.BeanDbCtrl.getValue(),
                     JvDbCtrl.class);
         }
         return null;
     }
 
-    public JvEmailCtrl getEmailCtrl() {
-        if (context.containsBeanDefinition(JvControlsSpringConfig.NameBeans.EmailCtrl.getValue())) {
+    public JvEmailCtrl getBeanEmailCtrl() {
+        if (context.containsBeanDefinition(JvControlsSpringConfig.NameBeans.BeanEmailCtrl.getValue())) {
             return context.getBean(
-                    JvControlsSpringConfig.NameBeans.EmailCtrl.getValue(),
+                    JvControlsSpringConfig.NameBeans.BeanEmailCtrl.getValue(),
                     JvEmailCtrl.class);
         }
         return null;
     }
 
-    public JvServersSocketThreadCtrl getServersSocketThreadCtrl(Socket fromSocketServer) {
+    public JvServersSocketThreadCtrl getBeanServersSocketThreadCtrl(Socket fromSocketServer) {
         return (JvServersSocketThreadCtrl) context.getBean(
-                JvControlsSpringConfig.NameBeans.ServersSocketThreadCtrl.getValue(),
+                JvControlsSpringConfig.NameBeans.BeanServersSocketThreadCtrl.getValue(),
                 fromSocketServer);
     }
 
-    public JvUsersSocketThreadCtrl getUsersSocketThreadCtrl(Socket usersSocket) {
+    public JvUsersSocketThreadCtrl getBeanUsersSocketThreadCtrl(Socket usersSocket) {
         return (JvUsersSocketThreadCtrl) context.getBean(
-                JvControlsSpringConfig.NameBeans.UsersSocketThreadCtrl.getValue(),
+                JvControlsSpringConfig.NameBeans.BeanUsersSocketThreadCtrl.getValue(),
                 usersSocket);
     }
 }

@@ -1,6 +1,7 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
 import org.foomaa.jvchat.settings.JvDisplaySettings;
+import org.foomaa.jvchat.settings.JvGetterSettings;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -121,9 +122,9 @@ public class JvAuthPasswordField extends JPanel {
     }
 
     private void settingPassAndButtonPanel() {
-        Dimension dim = new Dimension(JvDisplaySettings.getResizeFromDisplay(0.23,
+        Dimension dim = new Dimension(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.23,
                 JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
-                JvDisplaySettings.getResizeFromDisplay(0.03,
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.03,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
         settingButtonImage();
         settingPassField(dim);
@@ -142,7 +143,8 @@ public class JvAuthPasswordField extends JPanel {
         passwordField.setPreferredSize(calcNewDim);
         passwordField.setBorder(null);
         passwordField.setText(defaultText);
-        passwordField.setFont(new Font("Times", Font.BOLD, JvDisplaySettings.getResizePixel(0.012)));
+        passwordField.setFont(new Font("Times", Font.BOLD,
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.012)));
         passwordField.setForeground(Color.lightGray);
         passwordField.setFocusable(false);
         passwordField.setEchoChar((char) 0);

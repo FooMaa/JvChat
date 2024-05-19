@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.startpoint;
 
+import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.tools.JvGetterTools;
 import org.foomaa.jvchat.uilinks.JvGetterUiLinks;
 import org.foomaa.jvchat.ctrl.JvGetterControls;
@@ -28,25 +29,25 @@ public class JvStartPoint implements ApplicationRunner {
 
     private void workingArgs(ApplicationArguments args) {
         try {
-            JvGetterTools.getInstance().getMainTools().setProfileSetting(JvStartPoint.class);
+            JvGetterTools.getInstance().getBeanMainTools().setProfileSetting(JvStartPoint.class);
         } catch (IOException | URISyntaxException exception) {
-            JvGetterUiLinks.getInstance().getErrorStart(
+            JvGetterUiLinks.getInstance().getBeanErrorStart(
                     "Не удалось выставить верный профиль для приложения!");
         }
 
-        if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
-            JvGetterTools.getInstance().getMainTools().initServersParameters();
+        if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
+            JvGetterTools.getInstance().getBeanMainTools().initServersParameters();
         }
-        if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
+        if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.USERS) {
             if (args.getOptionValues("ipServer") == null) {
-                JvGetterUiLinks.getInstance().getErrorStart(
+                JvGetterUiLinks.getInstance().getBeanErrorStart(
                         "Дайте в параметр IP-адрес сервера!");
             }
             String argsIp = args.getOptionValues("ipServer").get(0);
-            if (JvGetterTools.getInstance().getMainTools().validateInputIp(argsIp)) {
-                JvMainSettings.setIp(argsIp);
+            if (JvGetterTools.getInstance().getBeanMainTools().validateInputIp(argsIp)) {
+                JvGetterSettings.getInstance().getBeanMainSettings().setIp(argsIp);
             } else {
-                JvGetterUiLinks.getInstance().getErrorStart(
+                JvGetterUiLinks.getInstance().getBeanErrorStart(
                         "В параметре запуска не верный IP!");
             }
         }
@@ -56,14 +57,14 @@ public class JvStartPoint implements ApplicationRunner {
         JvGetterControls.getInstance();
 
         try {
-            JvGetterControls.getInstance().getNetworkCtrl().startNetwork();
+            JvGetterControls.getInstance().getBeanNetworkCtrl().startNetwork();
         } catch (IOException exception) {
-            JvGetterUiLinks.getInstance().getErrorStart(
+            JvGetterUiLinks.getInstance().getBeanErrorStart(
                     "Не удалось подключиться к серверу.\nПроверьте наличие сети и попробуйте снова!");
         }
 
-        if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
-            JvGetterUiLinks.getInstance().getStartAuthentication();
+        if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.USERS) {
+            JvGetterUiLinks.getInstance().getBeanStartAuthentication();
         }
     }
 }

@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.tools;
 
+import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.settings.JvMainSettings;
 
 import java.io.IOException;
@@ -46,11 +47,11 @@ public class JvMainTools {
         final String profile = getProfileFromBuildDir(mainClass);
 
         if (Objects.equals(profile, JvMainSettings.TypeProfiles.TESTS.toString())) {
-            JvMainSettings.setProfile(JvMainSettings.TypeProfiles.TESTS);
+            JvGetterSettings.getInstance().getBeanMainSettings().setProfile(JvMainSettings.TypeProfiles.TESTS);
         } else if (Objects.equals(profile, JvMainSettings.TypeProfiles.USERS.toString())) {
-            JvMainSettings.setProfile(JvMainSettings.TypeProfiles.USERS);
+            JvGetterSettings.getInstance().getBeanMainSettings().setProfile(JvMainSettings.TypeProfiles.USERS);
         } else if (Objects.equals(profile, JvMainSettings.TypeProfiles.SERVERS.toString())) {
-            JvMainSettings.setProfile(JvMainSettings.TypeProfiles.SERVERS);
+            JvGetterSettings.getInstance().getBeanMainSettings().setProfile(JvMainSettings.TypeProfiles.SERVERS);
         }
     }
 
@@ -73,7 +74,7 @@ public class JvMainTools {
             String port = in.nextLine();
             if (validateInputPort(port)) {
                 if (!port.isEmpty()) {
-                    JvMainSettings.setPort(Integer.parseInt(port));
+                    JvGetterSettings.getInstance().getBeanMainSettings().setPort(Integer.parseInt(port));
                 }
                 break;
             } else {
@@ -86,7 +87,7 @@ public class JvMainTools {
             String limitConnection = in.nextLine();
             if (validateInputLimitConnections(limitConnection)) {
                 if (!limitConnection.isEmpty()) {
-                    JvMainSettings.setQuantityConnections(Integer.parseInt(limitConnection));
+                    JvGetterSettings.getInstance().getBeanMainSettings().setQuantityConnections(Integer.parseInt(limitConnection));
                 }
                 break;
             } else {
@@ -124,7 +125,7 @@ public class JvMainTools {
 
     private void setIpToSettings(String ip) {
         if (!ip.isEmpty()) {
-            JvMainSettings.setIp(ip);
+            JvGetterSettings.getInstance().getBeanMainSettings().setIp(ip);
         } else {
             System.out.println("Жди автоопределения IP-адреса ...");
             Socket socket = new Socket();
@@ -134,7 +135,7 @@ public class JvMainTools {
                 System.out.println("Не получилось выйти в сеть, проверь подключение и попытайся снова!");
                 System.exit(1);
             }
-            JvMainSettings.setIp(socket.getLocalAddress().getHostAddress());
+            JvGetterSettings.getInstance().getBeanMainSettings().setIp(socket.getLocalAddress().getHostAddress());
         }
     }
 
