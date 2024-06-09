@@ -3,6 +3,7 @@ package org.foomaa.jvchat.settings;
 import java.util.Base64;
 import java.util.Objects;
 
+
 public class JvMainSettings {
     JvMainSettings() {}
 

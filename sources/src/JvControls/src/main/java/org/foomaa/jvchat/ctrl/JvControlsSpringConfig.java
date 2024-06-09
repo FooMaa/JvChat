@@ -1,6 +1,5 @@
 package org.foomaa.jvchat.ctrl;
 
-import org.foomaa.jvchat.messages.JvMessagesDefines;
 import org.springframework.context.annotation.*;
 import java.net.Socket;
 

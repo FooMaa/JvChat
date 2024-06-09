@@ -2,6 +2,7 @@ package org.foomaa.jvchat.tools;
 
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.settings.JvMainSettings;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -45,6 +46,20 @@ public class JvMainTools {
 
     public void setProfileSetting(Class<?> mainClass) throws IOException, URISyntaxException {
         final String profile = getProfileFromBuildDir(mainClass);
+
+        if (Objects.equals(profile, JvMainSettings.TypeProfiles.TESTS.toString())) {
+            JvGetterSettings.getInstance().getBeanMainSettings().setProfile(JvMainSettings.TypeProfiles.TESTS);
+        } else if (Objects.equals(profile, JvMainSettings.TypeProfiles.USERS.toString())) {
+            JvGetterSettings.getInstance().getBeanMainSettings().setProfile(JvMainSettings.TypeProfiles.USERS);
+        } else if (Objects.equals(profile, JvMainSettings.TypeProfiles.SERVERS.toString())) {
+            JvGetterSettings.getInstance().getBeanMainSettings().setProfile(JvMainSettings.TypeProfiles.SERVERS);
+        }
+    }
+
+    public void setProfileSettingSpring() {
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
+                JvToolsSpringConfig.class);
+        final String profile = context.getEnvironment().getActiveProfiles()[0];
 
         if (Objects.equals(profile, JvMainSettings.TypeProfiles.TESTS.toString())) {
             JvGetterSettings.getInstance().getBeanMainSettings().setProfile(JvMainSettings.TypeProfiles.TESTS);

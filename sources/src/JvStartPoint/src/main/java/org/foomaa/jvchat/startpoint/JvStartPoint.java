@@ -30,6 +30,8 @@ public class JvStartPoint implements ApplicationRunner {
     private void workingArgs(ApplicationArguments args) {
         try {
             JvGetterTools.getInstance().getBeanMainTools().setProfileSetting(JvStartPoint.class);
+//            NOTE: Установить профиль по спрингу
+//            JvGetterTools.getInstance().getBeanMainTools().setProfileSettingSpring();
         } catch (IOException | URISyntaxException exception) {
             JvGetterUiLinks.getInstance().getBeanErrorStart(
                     "Не удалось выставить верный профиль для приложения!");
