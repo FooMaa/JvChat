@@ -1,9 +1,10 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
 import org.foomaa.jvchat.ctrl.JvGetterControls;
-import org.foomaa.jvchat.ctrl.JvMessageCtrl;
+import org.foomaa.jvchat.ctrl.JvMessagesDefinesCtrl;
+import org.foomaa.jvchat.ctrl.JvSendMessagesCtrl;
+import org.foomaa.jvchat.messages.JvMessagesDefines;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
-import org.foomaa.jvchat.messages.JvSerializatorData;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
 import javax.swing.*;
@@ -116,7 +117,7 @@ public class JvEntryFrame extends JFrame {
     private void addListenerToElements() {
         bEnter.addActionListener(event -> {
             if (checkFields()) {
-                JvGetterControls.getInstance().getBeanMessageCtrl().sendMessage(JvSerializatorData.TypeMessage.EntryRequest,
+                JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(JvMessagesDefines.TypeMessage.EntryRequest,
                         tLogin.getInputText(), tPassword.getInputText());
                 waitRepeatServer();
             }
@@ -194,20 +195,20 @@ public class JvEntryFrame extends JFrame {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (JvGetterControls.getInstance().getBeanMessageCtrl().getEntryRequestFlag()
-                == JvMessageCtrl.TypeFlags.DEFAULT) {
+        while (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getEntryRequestFlag() ==
+                JvMessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
                 System.out.println("Не удалось ждать");
             }
         }
-        if (JvGetterControls.getInstance().getBeanMessageCtrl().getEntryRequestFlag()
-                == JvMessageCtrl.TypeFlags.TRUE) {
+        if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getEntryRequestFlag() ==
+                JvMessagesDefinesCtrl.TypeFlags.TRUE) {
             closeWindow();
             System.out.println("Вход выполнен");
-        } else if (JvGetterControls.getInstance().getBeanMessageCtrl().getEntryRequestFlag()
-                == JvMessageCtrl.TypeFlags.FALSE) {
+        } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getEntryRequestFlag() ==
+                JvMessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             new JvAuthOptionPane("Вход не выполнен, данные не верные.", JvAuthOptionPane.TypeDlg.ERROR);
         }

@@ -5,7 +5,9 @@ import org.springframework.context.annotation.Scope;
 
 public class JvMessagesSpringConfig {
     public enum NameBeans {
-        BeanSerializatorData("beanSerializatorData");
+        BeanMessagesDefines("beanMessagesDefines"),
+        BeanMessagesSerializatorData("beanMessagesSerializatorData"),
+        BeanMessagesDeserializatorData("beanMessagesDeserializatorData");
 
         private final String value;
 
@@ -18,9 +20,21 @@ public class JvMessagesSpringConfig {
         }
     }
 
-    @Bean(name = "beanSerializatorData")
+    @Bean(name = "beanMessagesDefines")
     @Scope("singleton")
-    public JvSerializatorData beanMainSettings() {
-        return new JvSerializatorData();
+    public JvMessagesDefines beanMessagesDefines() {
+        return new JvMessagesDefines();
+    }
+
+    @Bean(name = "beanMessagesSerializatorData")
+    @Scope("singleton")
+    public JvMessagesSerializatorData beanMessagesSerializatorData() {
+        return new JvMessagesSerializatorData();
+    }
+
+    @Bean(name = "beanMessagesDeserializatorData")
+    @Scope("singleton")
+    public JvMessagesDeserializatorData beanMessagesDeserializatorData() {
+        return new JvMessagesDeserializatorData();
     }
 }

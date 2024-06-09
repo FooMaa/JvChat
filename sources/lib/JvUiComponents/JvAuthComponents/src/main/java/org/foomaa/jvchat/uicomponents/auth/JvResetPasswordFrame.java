@@ -1,8 +1,9 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
 import org.foomaa.jvchat.ctrl.JvGetterControls;
-import org.foomaa.jvchat.ctrl.JvMessageCtrl;
-import org.foomaa.jvchat.messages.JvSerializatorData;
+import org.foomaa.jvchat.ctrl.JvMessagesDefinesCtrl;
+import org.foomaa.jvchat.ctrl.JvSendMessagesCtrl;
+import org.foomaa.jvchat.messages.JvMessagesDefines;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.tools.JvGetterTools;
@@ -90,7 +91,7 @@ public class JvResetPasswordFrame extends JFrame {
         bSet.addActionListener(event -> {
             if (checkFields()) {
                 JvGetterControls.getInstance()
-                        .getBeanMessageCtrl().sendMessage(JvSerializatorData.TypeMessage.ResetPasswordRequest,
+                        .getBeanSendMessagesCtrl().sendMessage(JvMessagesDefines.TypeMessage.ResetPasswordRequest,
                         tEmail.getInputText());
                 waitRepeatServer();
             }
@@ -156,19 +157,19 @@ public class JvResetPasswordFrame extends JFrame {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (JvGetterControls.getInstance().getBeanMessageCtrl().getResetPasswordRequestFlag()
-                == JvMessageCtrl.TypeFlags.DEFAULT) {
+        while (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getResetPasswordRequestFlag() ==
+                JvMessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
                 System.out.println("Не удалось ждать");
             }
         }
-        if (JvGetterControls.getInstance().getBeanMessageCtrl().getResetPasswordRequestFlag()
-                == JvMessageCtrl.TypeFlags.TRUE) {
+        if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getResetPasswordRequestFlag() ==
+                JvMessagesDefinesCtrl.TypeFlags.TRUE) {
             closeWindow();
-        } else if (JvGetterControls.getInstance().getBeanMessageCtrl().getResetPasswordRequestFlag()
-                == JvMessageCtrl.TypeFlags.FALSE) {
+        } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getResetPasswordRequestFlag() ==
+                JvMessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             new JvAuthOptionPane("Данная почта не зарегистрирована.", JvAuthOptionPane.TypeDlg.ERROR);
         }

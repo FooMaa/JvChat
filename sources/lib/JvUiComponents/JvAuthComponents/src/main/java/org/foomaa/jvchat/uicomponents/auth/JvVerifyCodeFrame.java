@@ -1,8 +1,9 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
 import org.foomaa.jvchat.ctrl.JvGetterControls;
-import org.foomaa.jvchat.ctrl.JvMessageCtrl;
-import org.foomaa.jvchat.messages.JvSerializatorData;
+import org.foomaa.jvchat.ctrl.JvMessagesDefinesCtrl;
+import org.foomaa.jvchat.ctrl.JvSendMessagesCtrl;
+import org.foomaa.jvchat.messages.JvMessagesDefines;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
@@ -109,11 +110,11 @@ public class JvVerifyCodeFrame extends JFrame {
         bSet.addActionListener(event -> {
             if (checkFields()) {
                 if (regime == RegimeWork.ResetPassword) {
-                    JvGetterControls.getInstance().getBeanMessageCtrl().sendMessage(JvSerializatorData.TypeMessage.VerifyFamousEmailRequest,
+                    JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(JvMessagesDefines.TypeMessage.VerifyFamousEmailRequest,
                             email, tCode.getInputText());
                     waitRepeatServerResetPassword();
                 } else if (regime == RegimeWork.Registration) {
-                    JvGetterControls.getInstance().getBeanMessageCtrl().sendMessage(JvSerializatorData.TypeMessage.VerifyRegistrationEmailRequest,
+                    JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(JvMessagesDefines.TypeMessage.VerifyRegistrationEmailRequest,
                             login, email, password, tCode.getInputText());
                     waitRepeatServerRegistration();
                 }
@@ -183,19 +184,19 @@ public class JvVerifyCodeFrame extends JFrame {
 
     private void waitRepeatServerResetPassword() {
         setEnabled(false);
-        while (JvGetterControls.getInstance().getBeanMessageCtrl().getVerifyFamousEmailRequestFlag()
-                == JvMessageCtrl.TypeFlags.DEFAULT) {
+        while (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyFamousEmailRequestFlag() ==
+                JvMessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
                 System.out.println("Не удалось ждать");
             }
         }
-        if (JvGetterControls.getInstance().getBeanMessageCtrl().getVerifyFamousEmailRequestFlag()
-                == JvMessageCtrl.TypeFlags.TRUE) {
+        if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyFamousEmailRequestFlag() ==
+                JvMessagesDefinesCtrl.TypeFlags.TRUE) {
             closeWindow();
-        } else if (JvGetterControls.getInstance().getBeanMessageCtrl().getVerifyFamousEmailRequestFlag()
-                == JvMessageCtrl.TypeFlags.FALSE) {
+        } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyFamousEmailRequestFlag() ==
+                JvMessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             new JvAuthOptionPane("Код не верен. Введите код полученный по почте еще раз. " +
                     "Мог истечь срок действия кода, введите почту и получите новый.", JvAuthOptionPane.TypeDlg.ERROR);
@@ -204,26 +205,26 @@ public class JvVerifyCodeFrame extends JFrame {
 
     private void waitRepeatServerRegistration() {
         setEnabled(false);
-        while (JvGetterControls.getInstance().getBeanMessageCtrl().getVerifyRegistrationEmailRequestFlag()
-                == JvMessageCtrl.TypeFlags.DEFAULT) {
+        while (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyRegistrationEmailRequestFlag() ==
+                JvMessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
                 System.out.println("Не удалось ждать");
             }
         }
-        if (JvGetterControls.getInstance().getBeanMessageCtrl().getVerifyRegistrationEmailRequestFlag()
-                == JvMessageCtrl.TypeFlags.TRUE) {
+        if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyRegistrationEmailRequestFlag() ==
+                JvMessagesDefinesCtrl.TypeFlags.TRUE) {
             closeWindow();
-        } else if (JvGetterControls.getInstance().getBeanMessageCtrl().getVerifyRegistrationEmailRequestFlag()
-                == JvMessageCtrl.TypeFlags.FALSE) {
+        } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyRegistrationEmailRequestFlag() ==
+                JvMessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             openErrorPane();
         }
     }
 
     private void openErrorPane() {
-        switch (JvGetterControls.getInstance().getBeanMessageCtrl().getErrorVerifyRegEmailFlag()) {
+        switch (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getErrorVerifyRegEmailFlag()) {
             case NoError -> new JvAuthOptionPane("Ошибка не выяснена.", JvAuthOptionPane.TypeDlg.ERROR);
             case EmailSending -> new JvAuthOptionPane("Возможно почта недействительна.", JvAuthOptionPane.TypeDlg.ERROR);
             case Login -> new JvAuthOptionPane("Данный логин уже используется.", JvAuthOptionPane.TypeDlg.ERROR);

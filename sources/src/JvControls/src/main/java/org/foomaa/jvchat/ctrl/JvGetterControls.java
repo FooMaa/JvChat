@@ -26,9 +26,19 @@ public class JvGetterControls {
                 JvNetworkCtrl.class);
     }
 
-    public JvMessageCtrl getBeanMessageCtrl() {
-        return context.getBean(JvControlsSpringConfig.NameBeans.BeanMessageCtrl.getValue(),
-                JvMessageCtrl.class);
+    public JvMessagesDefinesCtrl getBeanMessagesDefinesCtrl() {
+        return context.getBean(JvControlsSpringConfig.NameBeans.BeanMessagesDefinesCtrl.getValue(),
+                JvMessagesDefinesCtrl.class);
+    }
+
+    public JvSendMessagesCtrl getBeanSendMessagesCtrl() {
+        return context.getBean(JvControlsSpringConfig.NameBeans.BeanSendMessagesCtrl.getValue(),
+                JvSendMessagesCtrl.class);
+    }
+
+    public JvTakeMessagesCtrl getBeanTakeMessagesCtrl() {
+        return context.getBean(JvControlsSpringConfig.NameBeans.BeanTakeMessagesCtrl.getValue(),
+                JvTakeMessagesCtrl.class);
     }
 
     public JvDbCtrl getBeanDbCtrl() {

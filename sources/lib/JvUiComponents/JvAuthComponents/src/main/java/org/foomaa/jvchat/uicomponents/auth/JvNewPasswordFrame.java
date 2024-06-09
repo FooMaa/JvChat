@@ -1,8 +1,9 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
 import org.foomaa.jvchat.ctrl.JvGetterControls;
-import org.foomaa.jvchat.ctrl.JvMessageCtrl;
-import org.foomaa.jvchat.messages.JvSerializatorData;
+import org.foomaa.jvchat.ctrl.JvMessagesDefinesCtrl;
+import org.foomaa.jvchat.ctrl.JvSendMessagesCtrl;
+import org.foomaa.jvchat.messages.JvMessagesDefines;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
@@ -99,7 +100,7 @@ public class JvNewPasswordFrame extends JFrame {
     private void addListenerToElements() {
         bRegister.addActionListener(event -> {
             if (checkFields()) {
-                JvGetterControls.getInstance().getBeanMessageCtrl().sendMessage(JvSerializatorData.TypeMessage.ChangePasswordRequest,
+                JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(JvMessagesDefines.TypeMessage.ChangePasswordRequest,
                         email, tPassword.getInputText());
                 waitRepeatServer();
             }
@@ -177,19 +178,19 @@ public class JvNewPasswordFrame extends JFrame {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (JvGetterControls.getInstance().getBeanMessageCtrl().getChangePasswordRequest()
-                == JvMessageCtrl.TypeFlags.DEFAULT) {
+        while (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getChangePasswordRequest() ==
+                JvMessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
                 System.out.println("Не удалось ждать");
             }
         }
-        if (JvGetterControls.getInstance().getBeanMessageCtrl().getChangePasswordRequest()
-                == JvMessageCtrl.TypeFlags.TRUE) {
+        if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getChangePasswordRequest() ==
+                JvMessagesDefinesCtrl.TypeFlags.TRUE) {
             closeWindow();
-        } else if (JvGetterControls.getInstance().getBeanMessageCtrl().getChangePasswordRequest()
-                == JvMessageCtrl.TypeFlags.FALSE) {
+        } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getChangePasswordRequest() ==
+                JvMessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             new JvAuthOptionPane("Не удалось сменить пароль.", JvAuthOptionPane.TypeDlg.ERROR);
         }

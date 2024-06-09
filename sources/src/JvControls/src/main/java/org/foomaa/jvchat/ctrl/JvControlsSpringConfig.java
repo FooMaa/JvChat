@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.ctrl;
 
+import org.foomaa.jvchat.messages.JvMessagesDefines;
 import org.springframework.context.annotation.*;
 import java.net.Socket;
 
@@ -13,7 +14,9 @@ public class JvControlsSpringConfig {
     public enum NameBeans {
         BeanDbCtrl("beanDbCtrl"),
         BeanEmailCtrl("beanEmailCtrl"),
-        BeanMessageCtrl("beanMessageCtrl"),
+        BeanMessagesDefinesCtrl("beanMessagesDefinesCtrl"),
+        BeanSendMessagesCtrl("beanSendMessagesCtrl"),
+        BeanTakeMessagesCtrl("beanTakeMessagesCtrl"),
         BeanNetworkCtrl("beanNetworkCtrl"),
         BeanServersSocketThreadCtrl("beanServersSocketThreadCtrl"),
         BeanUsersSocketThreadCtrl("beanUsersSocketThreadCtrl");
@@ -43,10 +46,22 @@ public class JvControlsSpringConfig {
         return JvEmailCtrl.getInstance();
     }
 
-    @Bean(name = "beanMessageCtrl")
+    @Bean(name = "beanMessagesDefinesCtrl")
     @Scope("singleton")
-    public JvMessageCtrl beanMessageCtrl() {
-        return JvMessageCtrl.getInstance();
+    public JvMessagesDefinesCtrl beanMessagesDefinesCtrl() {
+        return JvMessagesDefinesCtrl.getInstance();
+    }
+
+    @Bean(name = "beanSendMessagesCtrl")
+    @Scope("singleton")
+    public JvSendMessagesCtrl beanSendMessagesCtrl() {
+        return JvSendMessagesCtrl.getInstance();
+    }
+
+    @Bean(name = "beanTakeMessagesCtrl")
+    @Scope("singleton")
+    public JvTakeMessagesCtrl beanTakeMessagesCtrl() {
+        return JvTakeMessagesCtrl.getInstance();
     }
 
     @Bean(name = "beanNetworkCtrl")
