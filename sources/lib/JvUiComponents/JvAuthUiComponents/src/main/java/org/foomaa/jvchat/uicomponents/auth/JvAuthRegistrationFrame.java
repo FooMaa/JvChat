@@ -210,7 +210,8 @@ public class JvAuthRegistrationFrame extends JFrame {
 
     private void closeWindow() {
         JvAuthVerifyCodeFrame frm = JvGetterAuthUiComponents.getInstance()
-                .getBeanAuthVerifyCodeFrame( JvAuthVerifyCodeFrame.RegimeWork.Registration);
+                .getBeanAuthVerifyCodeFrame(JvAuthVerifyCodeFrame.RegimeWork.Registration);
+        frm.setRegime(JvAuthVerifyCodeFrame.RegimeWork.Registration);
         frm.setParametersRegistration(tLogin.getInputText(), tEmail.getInputText(), tPassword.getInputText());
         frm.openWindow();
         setVisible(false);

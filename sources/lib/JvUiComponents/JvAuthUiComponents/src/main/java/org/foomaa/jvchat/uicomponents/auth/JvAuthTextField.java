@@ -100,7 +100,7 @@ public class JvAuthTextField extends JPanel {
         setBorder(null);
     }
 
-    public void clearText() {
-        textField.setText("");
+    public void setText(String text) {
+        textField.setText(text);
     }
 }

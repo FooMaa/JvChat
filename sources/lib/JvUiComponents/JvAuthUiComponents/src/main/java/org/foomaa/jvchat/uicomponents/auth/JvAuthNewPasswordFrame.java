@@ -209,8 +209,8 @@ public class JvAuthNewPasswordFrame extends JFrame {
         if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getChangePasswordRequest() ==
                 JvMessagesDefinesCtrl.TypeFlags.TRUE) {
             closeWindow();
-            tPassword.clearText();
-            tPasswordConfirm.clearText();
+            tPassword.setText("");
+            tPasswordConfirm.setText("");
             setEnabled(true);
         } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getChangePasswordRequest() ==
                 JvMessagesDefinesCtrl.TypeFlags.FALSE) {

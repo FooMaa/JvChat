@@ -8,8 +8,10 @@ import org.foomaa.jvchat.settings.JvGetterSettings;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowAdapter;
+import java.awt.event.WindowListener;
 import java.util.Objects;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
@@ -56,10 +58,9 @@ public class JvAuthVerifyCodeFrame extends JFrame {
         return instance;
     }
 
-    private void setRegime(RegimeWork newRegime) {
+    public void setRegime(RegimeWork newRegime) {
         if (regime != newRegime) {
             regime = newRegime;
-            addListenerToElements();
         }
     }
 
@@ -215,13 +216,12 @@ public class JvAuthVerifyCodeFrame extends JFrame {
         if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyFamousEmailRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.TRUE) {
             closeWindow();
-            tCode.clearText();
+            tCode.setText("");
             setEnabled(true);
         } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyFamousEmailRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            new JvAuthOptionPane("Код не верен. Введите код полученный по почте еще раз. " +
-                    "Мог истечь срок действия кода, введите почту и получите новый.", JvAuthOptionPane.TypeDlg.ERROR);
+            openErrorPane();
         }
     }
 
@@ -238,7 +238,7 @@ public class JvAuthVerifyCodeFrame extends JFrame {
         if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyRegistrationEmailRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.TRUE) {
             closeWindow();
-            tCode.clearText();
+            tCode.setText("");
             setEnabled(true);
         } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyRegistrationEmailRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.FALSE) {

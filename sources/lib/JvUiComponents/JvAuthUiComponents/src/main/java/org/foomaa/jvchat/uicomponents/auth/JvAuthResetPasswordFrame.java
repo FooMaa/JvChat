@@ -158,6 +158,7 @@ public class JvAuthResetPasswordFrame extends JFrame {
     private void closeWindow() {
         JvAuthVerifyCodeFrame frm = JvGetterAuthUiComponents.getInstance()
                 .getBeanAuthVerifyCodeFrame(JvAuthVerifyCodeFrame.RegimeWork.ResetPassword);
+        frm.setRegime(JvAuthVerifyCodeFrame.RegimeWork.ResetPassword);
         frm.setParametersResetPassword(tEmail.getInputText());
         frm.openWindow();
         setVisible(false);
@@ -181,7 +182,7 @@ public class JvAuthResetPasswordFrame extends JFrame {
         if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getResetPasswordRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.TRUE) {
             closeWindow();
-            tEmail.clearText();
+            tEmail.setText("");
             setEnabled(true);
         } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getResetPasswordRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.FALSE) {

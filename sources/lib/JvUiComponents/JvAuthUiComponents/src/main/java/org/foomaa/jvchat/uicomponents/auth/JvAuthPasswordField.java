@@ -166,7 +166,7 @@ public class JvAuthPasswordField extends JPanel {
         setBorder(null);
     }
 
-    public void clearText() {
-        passwordField.setText("");
+    public void setText(String text) {
+        passwordField.setText(text);
     }
 }
