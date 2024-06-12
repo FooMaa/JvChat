@@ -126,6 +126,10 @@ public class JvAuthNewPasswordFrame extends JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 JvGetterAuthUiComponents.getInstance().getBeanAuthEntryFrame().openWindow();
+                tPassword.setText("");
+                tPassword.setUnfocusField();
+                tPasswordConfirm.setText("");
+                tPasswordConfirm.setUnfocusField();
             }
         });
     }
@@ -190,6 +194,10 @@ public class JvAuthNewPasswordFrame extends JFrame {
         setVisible(false);
         //dispose();
         JvGetterAuthUiComponents.getInstance().getBeanAuthEntryFrame().openWindow();
+        tPassword.setText("");
+        tPassword.setUnfocusField();
+        tPasswordConfirm.setText("");
+        tPasswordConfirm.setUnfocusField();
     }
 
     public void openWindow() {
@@ -209,8 +217,6 @@ public class JvAuthNewPasswordFrame extends JFrame {
         if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getChangePasswordRequest() ==
                 JvMessagesDefinesCtrl.TypeFlags.TRUE) {
             closeWindow();
-            tPassword.setText("");
-            tPasswordConfirm.setText("");
             setEnabled(true);
         } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getChangePasswordRequest() ==
                 JvMessagesDefinesCtrl.TypeFlags.FALSE) {

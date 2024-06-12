@@ -66,7 +66,7 @@ public class JvMessagesDefines {
         LoginAndEmail(ClientServerSerializeProtocol_pb.RegistrationReply.Error.LoginAndEmail_VALUE),
         EmailSending(ClientServerSerializeProtocol_pb.RegistrationReply.Error.EmailSending_VALUE),
         Code(ClientServerSerializeProtocol_pb.VerifyRegistrationEmailReply.Error.Code_VALUE),
-        NoError (ClientServerSerializeProtocol_pb.RegistrationReply.Error.NoError_VALUE);
+        NoError(ClientServerSerializeProtocol_pb.RegistrationReply.Error.NoError_VALUE);
 
         private final int value;
 

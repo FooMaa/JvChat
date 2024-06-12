@@ -6,10 +6,7 @@ import org.foomaa.jvchat.settings.JvGetterSettings;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.Objects;
 
 public class JvAuthTextField extends JPanel {
@@ -102,5 +99,17 @@ public class JvAuthTextField extends JPanel {
 
     public void setText(String text) {
         textField.setText(text);
+    }
+
+    public void setUnfocusField() {
+        textField.setFocusable(false);
+        textField.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                textField.setFocusable(true);
+                textField.requestFocusInWindow();
+                textField.removeMouseListener(this);
+            }
+        });
     }
 }

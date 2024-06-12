@@ -169,4 +169,16 @@ public class JvAuthPasswordField extends JPanel {
     public void setText(String text) {
         passwordField.setText(text);
     }
+
+    public void setUnfocusField() {
+        passwordField.setFocusable(false);
+        passwordField.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                passwordField.setFocusable(true);
+                passwordField.requestFocusInWindow();
+                passwordField.removeMouseListener(this);
+            }
+        });
+    }
 }
