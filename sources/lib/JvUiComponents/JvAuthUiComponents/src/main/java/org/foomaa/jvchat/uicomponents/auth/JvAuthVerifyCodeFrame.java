@@ -29,7 +29,6 @@ public class JvAuthVerifyCodeFrame extends JFrame {
     public enum RegimeWork {
         Registration,
         ResetPassword
-
     }
 
     private JvAuthVerifyCodeFrame(RegimeWork rw) {
@@ -216,6 +215,8 @@ public class JvAuthVerifyCodeFrame extends JFrame {
         if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyFamousEmailRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.TRUE) {
             closeWindow();
+            tCode.clearText();
+            setEnabled(true);
         } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyFamousEmailRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
@@ -237,6 +238,8 @@ public class JvAuthVerifyCodeFrame extends JFrame {
         if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyRegistrationEmailRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.TRUE) {
             closeWindow();
+            tCode.clearText();
+            setEnabled(true);
         } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyRegistrationEmailRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);

@@ -234,6 +234,7 @@ public class JvAuthRegistrationFrame extends JFrame {
         if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getRegistrationRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.TRUE) {
             closeWindow();
+            setEnabled(true);
         } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getRegistrationRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);

@@ -217,6 +217,7 @@ public class JvAuthEntryFrame extends JFrame {
         if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getEntryRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.TRUE) {
             closeWindow();
+            setEnabled(true);
             System.out.println("Вход выполнен");
         } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getEntryRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.FALSE) {

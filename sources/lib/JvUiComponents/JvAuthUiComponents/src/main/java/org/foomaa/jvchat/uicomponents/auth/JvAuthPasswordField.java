@@ -165,4 +165,8 @@ public class JvAuthPasswordField extends JPanel {
     public void setNormalBorder() {
         setBorder(null);
     }
+
+    public void clearText() {
+        passwordField.setText("");
+    }
 }

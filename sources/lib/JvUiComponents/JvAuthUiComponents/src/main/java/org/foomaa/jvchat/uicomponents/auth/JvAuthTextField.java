@@ -99,4 +99,8 @@ public class JvAuthTextField extends JPanel {
     public void setNormalBorder() {
         setBorder(null);
     }
+
+    public void clearText() {
+        textField.setText("");
+    }
 }
