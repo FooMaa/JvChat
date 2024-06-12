@@ -137,6 +137,10 @@ public class JvAuthRegistrationFrame extends JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 JvGetterAuthUiComponents.getInstance().getBeanAuthEntryFrame().openWindow();
+                tLogin.setUnfocusFieldOnClose(true);
+                tEmail.setUnfocusFieldOnClose(true);
+                tPassword.setUnfocusFieldOnClose(true);
+                tPasswordConfirm.setUnfocusFieldOnClose(true);
             }
         });
     }
@@ -216,6 +220,10 @@ public class JvAuthRegistrationFrame extends JFrame {
         frm.openWindow();
         setVisible(false);
         //dispose();
+        tLogin.setUnfocusFieldOnClose(true);
+        tEmail.setUnfocusFieldOnClose(true);
+        tPassword.setUnfocusFieldOnClose(true);
+        tPasswordConfirm.setUnfocusFieldOnClose(true);
     }
 
     public void openWindow() {

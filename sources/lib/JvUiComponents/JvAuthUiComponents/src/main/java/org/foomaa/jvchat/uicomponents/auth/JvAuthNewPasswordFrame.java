@@ -126,10 +126,8 @@ public class JvAuthNewPasswordFrame extends JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 JvGetterAuthUiComponents.getInstance().getBeanAuthEntryFrame().openWindow();
-                tPassword.setText("");
-                tPassword.setUnfocusField();
-                tPasswordConfirm.setText("");
-                tPasswordConfirm.setUnfocusField();
+                tPassword.setUnfocusFieldOnClose(false);
+                tPasswordConfirm.setUnfocusFieldOnClose(false);
             }
         });
     }
@@ -194,10 +192,8 @@ public class JvAuthNewPasswordFrame extends JFrame {
         setVisible(false);
         //dispose();
         JvGetterAuthUiComponents.getInstance().getBeanAuthEntryFrame().openWindow();
-        tPassword.setText("");
-        tPassword.setUnfocusField();
-        tPasswordConfirm.setText("");
-        tPasswordConfirm.setUnfocusField();
+        tPassword.setUnfocusFieldOnClose(false);
+        tPasswordConfirm.setUnfocusFieldOnClose(false);
     }
 
     public void openWindow() {

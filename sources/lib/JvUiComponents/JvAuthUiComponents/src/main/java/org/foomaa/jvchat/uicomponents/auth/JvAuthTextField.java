@@ -39,20 +39,28 @@ public class JvAuthTextField extends JPanel {
         textField.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
-                if (textField.getForeground() == Color.lightGray) {
-                    textField.setForeground(Color.BLACK);
-                    textField.setText("");
-                }
+                focusTrue();
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-                if (Objects.equals(textField.getText(), "")) {
-                    textField.setForeground(Color.lightGray);
-                    textField.setText(defaultText);
-                }
+                focusFalse();
             }
         });
+    }
+
+    private void focusTrue() {
+        if (textField.getForeground() == Color.lightGray) {
+            textField.setForeground(Color.BLACK);
+            textField.setText("");
+        }
+    }
+
+    private void focusFalse() {
+        if (Objects.equals(textField.getText(), "")) {
+            textField.setForeground(Color.lightGray);
+            textField.setText(defaultText);
+        }
     }
 
     private void settingTextAndButtonPanel() {
@@ -97,12 +105,13 @@ public class JvAuthTextField extends JPanel {
         setBorder(null);
     }
 
-    public void setText(String text) {
-        textField.setText(text);
-    }
-
-    public void setUnfocusField() {
+    public void setUnfocusFieldOnClose(boolean needSaveText) {
         textField.setFocusable(false);
+        if (!needSaveText) {
+            textField.setText("");
+        }
+        focusFalse();
+
         textField.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

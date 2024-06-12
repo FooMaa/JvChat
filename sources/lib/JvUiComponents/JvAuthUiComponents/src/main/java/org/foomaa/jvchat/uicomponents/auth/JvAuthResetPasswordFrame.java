@@ -108,8 +108,7 @@ public class JvAuthResetPasswordFrame extends JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 JvGetterAuthUiComponents.getInstance().getBeanAuthEntryFrame().openWindow();
-                tEmail.setText("");
-                tEmail.setUnfocusField();
+                tEmail.setUnfocusFieldOnClose(false);
             }
         });
     }
@@ -164,8 +163,7 @@ public class JvAuthResetPasswordFrame extends JFrame {
         frm.setParametersResetPassword(tEmail.getInputText());
         frm.openWindow();
         setVisible(false);
-        tEmail.setText("");
-        tEmail.setUnfocusField();
+        tEmail.setUnfocusFieldOnClose(false);
         //dispose();
     }
 

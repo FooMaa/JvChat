@@ -140,8 +140,7 @@ public class JvAuthVerifyCodeFrame extends JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 JvGetterAuthUiComponents.getInstance().getBeanAuthEntryFrame().openWindow();
-                tCode.setText("");
-                tCode.setUnfocusField();
+                tCode.setUnfocusFieldOnClose(false);
             }
         });
     }
@@ -197,8 +196,7 @@ public class JvAuthVerifyCodeFrame extends JFrame {
         } else if (regime == RegimeWork.ResetPassword) {
             JvGetterAuthUiComponents.getInstance().getBeanAuthNewPasswordFrame(email).openWindow();
         }
-        tCode.setText("");
-        tCode.setUnfocusField();
+        tCode.setUnfocusFieldOnClose(false);
     }
 
     public void openWindow() {

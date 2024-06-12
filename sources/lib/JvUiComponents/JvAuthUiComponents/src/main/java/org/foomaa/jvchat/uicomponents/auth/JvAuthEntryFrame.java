@@ -184,6 +184,8 @@ public class JvAuthEntryFrame extends JFrame {
         //dispose();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(false);
+        tLogin.setUnfocusFieldOnClose(true);
+        tPassword.setUnfocusFieldOnClose(true);
     }
 
     public void openWindow() {
