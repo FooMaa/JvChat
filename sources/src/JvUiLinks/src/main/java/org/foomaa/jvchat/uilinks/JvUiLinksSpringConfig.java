@@ -32,6 +32,6 @@ public class JvUiLinksSpringConfig {
     @Lazy
     @Profile("users")
     public JvStartAuthentication beanStartAuthentication() {
-        return new JvStartAuthentication();
+        return JvStartAuthentication.getInstance();
     }
 }

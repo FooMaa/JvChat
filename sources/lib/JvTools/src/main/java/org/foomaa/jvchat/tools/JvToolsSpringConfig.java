@@ -21,6 +21,6 @@ public class JvToolsSpringConfig {
     @Bean(name = "beanMainTools")
     @Scope("singleton")
     public JvMainTools beanMainTools() {
-        return new JvMainTools();
+        return JvMainTools.getInstance();
     }
 }

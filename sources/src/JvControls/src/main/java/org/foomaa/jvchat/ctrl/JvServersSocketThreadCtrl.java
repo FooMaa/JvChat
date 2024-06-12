@@ -9,7 +9,7 @@ public class JvServersSocketThreadCtrl extends Thread
     private DataInputStream readFromUser;
     private DataOutputStream sendToUser;
 
-    public JvServersSocketThreadCtrl(Socket fromSocketServer) {
+    JvServersSocketThreadCtrl(Socket fromSocketServer) {
         try {
             sendToUser = new DataOutputStream(fromSocketServer.getOutputStream());
             readFromUser =  new DataInputStream(fromSocketServer.getInputStream());

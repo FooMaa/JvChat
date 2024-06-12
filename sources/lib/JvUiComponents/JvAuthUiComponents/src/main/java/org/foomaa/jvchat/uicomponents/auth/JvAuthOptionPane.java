@@ -9,7 +9,7 @@ public class JvAuthOptionPane extends JOptionPane {
         WARNING
     }
 
-    public JvAuthOptionPane(String msg, TypeDlg type) {
+    JvAuthOptionPane(String msg, TypeDlg type) {
         switch (type) {
             case ERROR:
                 JFrame frame = new JFrame();

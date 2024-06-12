@@ -18,7 +18,7 @@ public class JvAuthTextField extends JPanel {
     private final String defaultText;
     private final int borderSize = 1;
 
-    public JvAuthTextField(String text) {
+    JvAuthTextField(String text) {
         int gap = 5;
         setLayout(new FlowLayout(FlowLayout.LEFT, gap, 0));
         defaultText = text;

@@ -20,6 +20,6 @@ include("JvMessages")
 project(":JvMessages").projectDir = File("sources/lib/JvMessages")
 include("JvUiComponents")
 project(":JvUiComponents").projectDir = File("sources/lib/JvUiComponents")
-include("JvAuthComponents")
-project(":JvAuthComponents").projectDir = File("sources/lib/JvUiComponents/JvAuthComponents")
-// findProject("sources:lib:JvUiComponents:JvAuthComponents")?.name = "JvAuthComponents"
+include("JvAuthUiComponents")
+project(":JvAuthUiComponents").projectDir = File("sources/lib/JvUiComponents/JvAuthUiComponents")
+// findProject("sources:lib:JvUiComponents:JvAuthUiComponents")?.name = "JvAuthUiComponents"

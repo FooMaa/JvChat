@@ -19,7 +19,16 @@ import java.util.regex.Pattern;
 
 
 public class JvMainTools {
-    JvMainTools() {}
+    private static JvMainTools instance;
+
+    private JvMainTools() {}
+
+    public static JvMainTools getInstance() {
+        if (instance == null) {
+            instance = new JvMainTools();
+        }
+        return instance;
+    }
 
     private String getProfileFromBuildDir(Class<?> mainClass) throws IOException, URISyntaxException {
         Path buildPath = Paths.get(Objects.requireNonNull(

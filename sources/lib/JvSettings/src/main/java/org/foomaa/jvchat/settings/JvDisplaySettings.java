@@ -3,15 +3,17 @@ package org.foomaa.jvchat.settings;
 import java.awt.*;
 
 public class JvDisplaySettings {
+    private static JvDisplaySettings instance;
     public int heightScreen;
     public int widthScreen;
 
     public enum TypeOfDisplayBorder {
         HEIGHT,
         WIDTH
+
     }
 
-    JvDisplaySettings() {
+    private JvDisplaySettings() {
         try {
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             heightScreen = screenSize.height;
@@ -19,6 +21,13 @@ public class JvDisplaySettings {
         } catch (Throwable exception) {
             System.out.println("No X :0:0 find");
         }
+    }
+
+    public static JvDisplaySettings getInstance() {
+        if (instance == null) {
+            instance = new JvDisplaySettings();
+        }
+        return instance;
     }
 
     public int getResizeFromDisplay(double scale, TypeOfDisplayBorder displayBorder) {

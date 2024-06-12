@@ -9,10 +9,10 @@
     </parent>
 
     <groupId>org.foomaa.jvchat.uicomponents.auth</groupId>
-    <artifactId>JvAuthComponents</artifactId>
+    <artifactId>JvAuthUiComponents</artifactId>
     <packaging>jar</packaging>
 
-    <name>JvAuthComponents</name>
+    <name>JvAuthUiComponents</name>
 
     <build>
         <resources>

@@ -25,7 +25,7 @@ public class JvAuthPasswordField extends JPanel {
     private final String defaultText;
     private final int borderSize = 1;
 
-    public JvAuthPasswordField(String text) {
+    JvAuthPasswordField(String text) {
         visibleImage = setIcon("/eye.png");
         invisibleImage = setIcon("/eye-close.png");
 

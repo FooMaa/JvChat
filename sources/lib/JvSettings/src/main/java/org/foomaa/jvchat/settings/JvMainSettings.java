@@ -5,7 +5,16 @@ import java.util.Objects;
 
 
 public class JvMainSettings {
-    JvMainSettings() {}
+    private static JvMainSettings instance;
+
+    private JvMainSettings() {}
+
+    public static JvMainSettings getInstance() {
+        if (instance == null) {
+            instance = new JvMainSettings();
+        }
+        return instance;
+    }
 
     // PROFILE
     public enum TypeProfiles {

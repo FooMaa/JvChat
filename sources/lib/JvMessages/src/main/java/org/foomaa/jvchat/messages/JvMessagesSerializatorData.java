@@ -2,7 +2,16 @@ package org.foomaa.jvchat.messages;
 
 
 public class JvMessagesSerializatorData {
-    JvMessagesSerializatorData() {}
+    private static JvMessagesSerializatorData instance;
+
+    private  JvMessagesSerializatorData() {}
+
+    public static JvMessagesSerializatorData getInstance() {
+        if (instance == null) {
+            instance = new JvMessagesSerializatorData();
+        }
+        return instance;
+    }
 
     public byte[] serialiseData(JvMessagesDefines.TypeMessage type, Object... parameters) {
         switch (type) {

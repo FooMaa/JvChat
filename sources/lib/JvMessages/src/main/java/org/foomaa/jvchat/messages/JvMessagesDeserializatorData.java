@@ -5,7 +5,16 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import java.util.HashMap;
 
 public class JvMessagesDeserializatorData {
-    JvMessagesDeserializatorData() {}
+    private static JvMessagesDeserializatorData instance;
+
+    private JvMessagesDeserializatorData() {}
+
+    public static JvMessagesDeserializatorData getInstance() {
+        if (instance == null) {
+            instance = new JvMessagesDeserializatorData();
+        }
+        return instance;
+    }
 
     public HashMap<JvMessagesDefines.TypeData, ?> deserializeData(JvMessagesDefines.TypeMessage type, byte[] data) {
         return switch (type) {

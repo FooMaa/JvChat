@@ -15,6 +15,6 @@
     <name>JvUiComponents</name>
 
     <modules>
-        <module>JvAuthComponents</module>
+        <module>JvAuthUiComponents</module>
     </modules>
 </project>

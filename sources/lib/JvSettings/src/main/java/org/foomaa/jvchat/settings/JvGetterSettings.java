@@ -4,7 +4,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 public class JvGetterSettings {
     private static JvGetterSettings instance;
-    private static AnnotationConfigApplicationContext context;
+    private final AnnotationConfigApplicationContext context;
 
     private JvGetterSettings() {
         context = new AnnotationConfigApplicationContext(

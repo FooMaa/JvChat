@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class JvGetterControls {
     private static JvGetterControls instance;
-    private AnnotationConfigApplicationContext context;
+    private final AnnotationConfigApplicationContext context;
 
     private JvGetterControls() {
         context = new AnnotationConfigApplicationContext(

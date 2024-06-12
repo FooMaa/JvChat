@@ -35,8 +35,7 @@ public class JvTakeMessagesCtrl {
         }
     }
 
-    private HashMap<JvMessagesDefines.TypeData, ?>
-    getDeserializeMapData(JvMessagesDefines.TypeMessage type, byte[] data) {
+    private HashMap<JvMessagesDefines.TypeData, ?> getDeserializeMapData(JvMessagesDefines.TypeMessage type, byte[] data) {
         return JvGetterMessages.getInstance().getBeanMessagesDeserializatorData().deserializeData(type, data);
     }
 

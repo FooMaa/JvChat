@@ -23,18 +23,18 @@ public class JvMessagesSpringConfig {
     @Bean(name = "beanMessagesDefines")
     @Scope("singleton")
     public JvMessagesDefines beanMessagesDefines() {
-        return new JvMessagesDefines();
+        return JvMessagesDefines.getInstance();
     }
 
     @Bean(name = "beanMessagesSerializatorData")
     @Scope("singleton")
     public JvMessagesSerializatorData beanMessagesSerializatorData() {
-        return new JvMessagesSerializatorData();
+        return JvMessagesSerializatorData.getInstance();
     }
 
     @Bean(name = "beanMessagesDeserializatorData")
     @Scope("singleton")
     public JvMessagesDeserializatorData beanMessagesDeserializatorData() {
-        return new JvMessagesDeserializatorData();
+        return JvMessagesDeserializatorData.getInstance();
     }
 }

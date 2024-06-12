@@ -4,7 +4,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 public class JvGetterTools {
     private static JvGetterTools instance;
-    private static AnnotationConfigApplicationContext context;
+    private final AnnotationConfigApplicationContext context;
 
     private JvGetterTools() {
         context = new AnnotationConfigApplicationContext(
