@@ -2,6 +2,7 @@ package org.foomaa.jvchat.ctrl;
 
 import org.foomaa.jvchat.dbworker.JvDbDefines;
 import org.foomaa.jvchat.dbworker.JvDbWorker;
+import org.foomaa.jvchat.logger.JvLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
@@ -73,7 +74,7 @@ public class JvDbCtrl {
             metadata = resultSet.getMetaData();
             columnCount = metadata.getColumnCount();
         } catch (SQLException exception) {
-            System.out.println("Не возможно получить данные по столбцам и метаданные");
+            JvLog.write(JvLog.TypeLog.Error, "Не возможно получить данные по столбцам и метаданные");
         }
 
         List<String> result = new ArrayList<>(columnCount);

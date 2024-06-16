@@ -1,8 +1,10 @@
 package org.foomaa.jvchat.messages;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
+@Configuration
 public class JvMessagesSpringConfig {
     public enum NameBeans {
         BeanMessagesDefines("beanMessagesDefines"),

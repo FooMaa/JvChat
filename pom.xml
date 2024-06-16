@@ -24,6 +24,8 @@
         <module>sources/lib/JvUiComponents</module>
         <module>sources/src/JvControls</module>
         <module>sources/lib/JvTools</module>
+        <module>sources/lib/JvLogger</module>
+        <module>sources/lib/JvGlobalDefines</module>
         <module>sources/lib/JvMessages</module>
         <module>sources/src/JvNetwork</module>
     </modules>
@@ -93,6 +95,11 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
 

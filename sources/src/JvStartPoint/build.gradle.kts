@@ -5,7 +5,6 @@ plugins {
 
 group = "org.foomaa.jvchat.startpoint"
 version = "1.0-SNAPSHOT"
-extra["slf4j.version"] = "1.7.20"
 var PROFILE = ""
 
 dependencies {

@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.ctrl;
 
+import org.foomaa.jvchat.logger.JvLog;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import java.net.Socket;
 import java.util.Arrays;
@@ -11,7 +12,7 @@ public class JvGetterControls {
     private JvGetterControls() {
         context = new AnnotationConfigApplicationContext(
                 JvControlsSpringConfig.class);
-        System.out.println(Arrays.toString(context.getEnvironment().getActiveProfiles()));
+        JvLog.write(JvLog.TypeLog.Info, Arrays.toString(context.getEnvironment().getActiveProfiles()));
     }
 
     public static JvGetterControls getInstance() {

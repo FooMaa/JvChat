@@ -6,4 +6,5 @@ dependencies {
     implementation(project(":JvMessages"))
     implementation(project(":JvNetwork"))
     implementation(project(":JvDbWorker"))
+    implementation(project(":JvLogger"))
 }
