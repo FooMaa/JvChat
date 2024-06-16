@@ -34,6 +34,7 @@ public class JvMainLogger {
     public void Error(String text) {
         logger.error(text);
     }
+
     public void Trace(String text) {
         logger.trace(text);
     }

@@ -27,7 +27,7 @@ public class JvDbWorker {
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
-            System.out.println("Error in connect to DB");
+            JvLog.write(JvLog.TypeLog.Error, "Error in connect to DB");
             return;
         }
 
@@ -38,7 +38,7 @@ public class JvDbWorker {
                     JvGetterSettings.getInstance().getBeanMainSettings().getDbUser(),
                     JvGetterSettings.getInstance().getBeanMainSettings().getMagicStringDb());
         } catch (SQLException e) {
-            System.out.println("Error in connect to DB");
+            JvLog.write(JvLog.TypeLog.Error, "Error in connect to DB");
             return;
         }
 

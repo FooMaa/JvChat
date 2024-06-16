@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
+import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
@@ -41,7 +42,7 @@ public class JvAuthPasswordField extends JPanel {
         try {
             return ImageIO.read(Objects.requireNonNull(getClass().getResource(path)));
         } catch (IOException ex) {
-            System.out.println("Нет иконки глазка");
+            JvLog.write(JvLog.TypeLog.Error, "Нет иконки глазка");
         }
         return null;
     }

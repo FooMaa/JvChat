@@ -84,7 +84,7 @@ public class JvLog {
         return  "Unknown file";
     }
 
-    public String findFileInDirByName(Path directory, String fileName) {
+    private String findFileInDirByName(Path directory, String fileName) {
         if (Files.isDirectory(directory)) {
             try (DirectoryStream<Path> stream = Files.newDirectoryStream(directory)) {
                 for (Path entry : stream) {
@@ -104,7 +104,7 @@ public class JvLog {
         return "";
     }
 
-    public Path getProjectDirectory() {
+    private Path getProjectDirectory() {
         String nameProject = JvGetterGlobalDefines.getInstance().getBeanMainDefines().NAME_PROJECT;
         String path = System.getProperty("user.dir");
 

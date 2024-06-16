@@ -1,6 +1,7 @@
 package org.foomaa.jvchat.messages;
 
 import com.google.protobuf.InvalidProtocolBufferException;
+import org.foomaa.jvchat.logger.JvLog;
 
 import java.util.HashMap;
 
@@ -39,7 +40,7 @@ public class JvMessagesDeserializatorData {
             int numberType = ClientServerSerializeProtocol_pb.General.parseFrom(data).getType();
             type = JvMessagesDefines.TypeMessage.getTypeMsg(numberType);
         } catch (InvalidProtocolBufferException exception) {
-            System.out.println("Error in protobuf deserialised type");
+            JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised type");
         }
         return type;
     }
@@ -52,7 +53,7 @@ public class JvMessagesDeserializatorData {
             result.put(JvMessagesDefines.TypeData.Password, ClientServerSerializeProtocol_pb.General.parseFrom(data)
                     .getEntryRequest().getPassword());
         } catch (InvalidProtocolBufferException exception) {
-            System.out.println("Error in protobuf deserialised data");
+            JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }
         return result;
     }
@@ -63,7 +64,7 @@ public class JvMessagesDeserializatorData {
             result.put(JvMessagesDefines.TypeData.BoolReply, ClientServerSerializeProtocol_pb.General.parseFrom(data)
                     .getEntryReply().getReply());
         } catch (InvalidProtocolBufferException exception) {
-            System.out.println("Error in protobuf deserialised data");
+            JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }
         return result;
     }
@@ -78,7 +79,7 @@ public class JvMessagesDeserializatorData {
             result.put(JvMessagesDefines.TypeData.Password, ClientServerSerializeProtocol_pb.General.parseFrom(data).
                     getRegistrationRequest().getPassword());
         } catch (InvalidProtocolBufferException exception) {
-            System.out.println("Error in protobuf deserialised data");
+            JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }
         return result;
     }
@@ -92,7 +93,7 @@ public class JvMessagesDeserializatorData {
                     ClientServerSerializeProtocol_pb.General.parseFrom(data).
                             getRegistrationReply().getError().getNumber()));
         } catch (InvalidProtocolBufferException exception) {
-            System.out.println("Error in protobuf deserialised data");
+            JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }
         return result;
     }
@@ -109,7 +110,7 @@ public class JvMessagesDeserializatorData {
             result.put(JvMessagesDefines.TypeData.VerifyCode, ClientServerSerializeProtocol_pb.General.parseFrom(data).
                     getVerifyRegistrationEmailRequest().getCode());
         } catch (InvalidProtocolBufferException exception) {
-            System.out.println("Error in protobuf deserialised data");
+            JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }
         return result;
     }
@@ -123,7 +124,7 @@ public class JvMessagesDeserializatorData {
                     ClientServerSerializeProtocol_pb.General.parseFrom(data).
                             getVerifyRegistrationEmailReply().getError().getNumber()));
         } catch (InvalidProtocolBufferException exception) {
-            System.out.println("Error in protobuf deserialised data");
+            JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }
         return result;
     }
@@ -134,7 +135,7 @@ public class JvMessagesDeserializatorData {
             result.put(JvMessagesDefines.TypeData.Email, ClientServerSerializeProtocol_pb.General.parseFrom(data).
                     getResetPasswordRequest().getEmail());
         } catch (InvalidProtocolBufferException exception) {
-            System.out.println("Error in protobuf deserialised data");
+            JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }
         return result;
     }
@@ -145,7 +146,7 @@ public class JvMessagesDeserializatorData {
             result.put(JvMessagesDefines.TypeData.BoolReply, ClientServerSerializeProtocol_pb.General.parseFrom(data)
                     .getResetPasswordReply().getReply());
         } catch (InvalidProtocolBufferException exception) {
-            System.out.println("Error in protobuf deserialised data");
+            JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }
         return result;
     }
@@ -158,7 +159,7 @@ public class JvMessagesDeserializatorData {
             result.put(JvMessagesDefines.TypeData.VerifyCode, ClientServerSerializeProtocol_pb.General.parseFrom(data).
                     getVerifyFamousEmailRequest().getCode());
         } catch (InvalidProtocolBufferException exception) {
-            System.out.println("Error in protobuf deserialised data");
+            JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }
         return result;
     }
@@ -169,7 +170,7 @@ public class JvMessagesDeserializatorData {
             result.put(JvMessagesDefines.TypeData.BoolReply, ClientServerSerializeProtocol_pb.General.parseFrom(data)
                     .getVerifyFamousEmailReply().getReply());
         } catch (InvalidProtocolBufferException exception) {
-            System.out.println("Error in protobuf deserialised data");
+            JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }
         return result;
     }
@@ -182,7 +183,7 @@ public class JvMessagesDeserializatorData {
             result.put(JvMessagesDefines.TypeData.Password, ClientServerSerializeProtocol_pb.General.parseFrom(data).
                     getChangePasswordRequest().getPassword());
         } catch (InvalidProtocolBufferException exception) {
-            System.out.println("Error in protobuf deserialised data");
+            JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }
         return result;
     }
@@ -193,7 +194,7 @@ public class JvMessagesDeserializatorData {
             result.put(JvMessagesDefines.TypeData.BoolReply, ClientServerSerializeProtocol_pb.General.parseFrom(data)
                     .getChangePasswordReply().getReply());
         } catch (InvalidProtocolBufferException exception) {
-            System.out.println("Error in protobuf deserialised data");
+            JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }
         return result;
     }

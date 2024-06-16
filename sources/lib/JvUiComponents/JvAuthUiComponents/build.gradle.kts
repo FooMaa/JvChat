@@ -6,6 +6,7 @@ dependencies {
     implementation(project(":JvSettings"))
     implementation(project(":JvMessages"))
     implementation(project(":JvTools"))
+    implementation(project(":JvLogger"))
 }
 
 tasks.withType<ProcessResources> {

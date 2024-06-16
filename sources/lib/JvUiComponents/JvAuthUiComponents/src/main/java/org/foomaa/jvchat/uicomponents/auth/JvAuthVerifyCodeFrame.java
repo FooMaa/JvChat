@@ -2,6 +2,7 @@ package org.foomaa.jvchat.uicomponents.auth;
 
 import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.ctrl.JvMessagesDefinesCtrl;
+import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvMessagesDefines;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.settings.JvGetterSettings;
@@ -210,7 +211,7 @@ public class JvAuthVerifyCodeFrame extends JFrame {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
-                System.out.println("Не удалось ждать");
+                JvLog.write(JvLog.TypeLog.Error, "Не удалось ждать");
             }
         }
         if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyFamousEmailRequestFlag() ==
@@ -233,7 +234,7 @@ public class JvAuthVerifyCodeFrame extends JFrame {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
-                System.out.println("Не удалось ждать");
+                JvLog.write(JvLog.TypeLog.Error, "Не удалось ждать");
             }
         }
         if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyRegistrationEmailRequestFlag() ==
