@@ -1,4 +1,4 @@
-package org.foomaa.jvchat.globaldefs;
+package org.foomaa.jvchat.globaldefines;
 
 public class JvColorsAnsi {
     private static JvColorsAnsi instance;

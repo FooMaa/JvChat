@@ -1,4 +1,4 @@
-package org.foomaa.jvchat.globaldefs;
+package org.foomaa.jvchat.globaldefines;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

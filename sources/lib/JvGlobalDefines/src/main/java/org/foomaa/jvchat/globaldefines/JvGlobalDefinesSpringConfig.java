@@ -1,6 +1,8 @@
-package org.foomaa.jvchat.globaldefs;
+package org.foomaa.jvchat.globaldefines;
 
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
 
 @Configuration
 public class JvGlobalDefinesSpringConfig {

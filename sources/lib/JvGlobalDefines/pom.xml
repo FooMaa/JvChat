@@ -8,7 +8,7 @@
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.foomaa.jvchat.globaldefs</groupId>
+    <groupId>org.foomaa.jvchat.globaldefines</groupId>
     <artifactId>JvGlobalDefines</artifactId>
     <packaging>jar</packaging>
 

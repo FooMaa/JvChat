@@ -1,4 +1,4 @@
-package org.foomaa.jvchat.globaldefs;
+package org.foomaa.jvchat.globaldefines;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
