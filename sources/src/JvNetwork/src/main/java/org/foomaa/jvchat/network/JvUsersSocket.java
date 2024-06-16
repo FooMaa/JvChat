@@ -31,7 +31,6 @@ public class JvUsersSocket {
     private void closeSocketWhenKill() {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             try {
-                JvLog.write(JvLog.TypeLog.Info, "Закрываем сокет");
                 socketUsers.close();
             } catch (IOException e) {
                 throw new RuntimeException(e);

@@ -40,7 +40,6 @@ public class JvServersSocket {
     private void closeSocketWhenKill() {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             try {
-                JvLog.write(JvLog.TypeLog.Info, "Закрываем серверный сокет");
                 socketServers.close();
             } catch (IOException exception) {
                 throw new RuntimeException(exception);
