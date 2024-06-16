@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.dbworker;
 
+import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
 import org.springframework.context.annotation.Profile;
@@ -48,7 +49,7 @@ public class JvDbWorker {
         try {
             rs.close();
         } catch (SQLException exception) {
-            System.out.println("Ошибка закрытия ResultSet");
+            JvLog.write(JvLog.TypeLog.Error, "Ошибка закрытия ResultSet");
         }
     }
 
@@ -64,7 +65,7 @@ public class JvDbWorker {
                     ResultSet.CONCUR_READ_ONLY);
             resultSet = stmt.executeQuery(execution);
         } catch (SQLException exception) {
-            System.out.println("БД вернула ошибку, невозможно выполнить запрос");
+            JvLog.write(JvLog.TypeLog.Error, "БД вернула ошибку, невозможно выполнить запрос");
         }
         return resultSet;
     }

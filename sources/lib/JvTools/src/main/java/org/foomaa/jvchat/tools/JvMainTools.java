@@ -175,38 +175,4 @@ public class JvMainTools {
         }
         return regex.matcher(param).matches();
     }
-
-    public String findFileInDirByName(Path directory, String fileName) {
-        if (Files.isDirectory(directory)) {
-            try (DirectoryStream<Path> stream = Files.newDirectoryStream(directory)) {
-                for (Path entry : stream) {
-                    if (Files.isDirectory(entry)) {
-                        String result = findFileInDirByName(entry, fileName);
-                        if (!Objects.equals(result, "")) {
-                            return result;
-                        }
-                    } else if (entry.getFileName().toString().equals(fileName)) {
-                        return entry.toString();
-                    }
-                }
-            } catch (IOException exception) {
-               return "";
-            }
-        }
-        return "";
-    }
-
-    public Path getProjectDirectory() {
-        String nameProject = JvGetterGlobalDefines.getInstance().getBeanMainDefines().NAME_PROJECT;
-        String path = System.getProperty("user.dir");
-
-        Pattern pattern = Pattern.compile("^(.*/" + nameProject + ")(?:/.*)?$");
-        Matcher matcher = pattern.matcher(path);
-
-        if (matcher.find()) {
-            return Paths.get(matcher.group(1));
-        }
-
-        return null;
-    }
 }

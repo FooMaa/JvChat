@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.network;
 
+import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
@@ -23,14 +24,14 @@ public class JvUsersSocket {
                     JvGetterSettings.getInstance().getBeanMainSettings().getPort()), 4000);
             closeSocketWhenKill();
         } catch (IOException exception) {
-            System.out.println("No connection");
+            JvLog.write(JvLog.TypeLog.Error, "No connection");
         }
     }
 
     private void closeSocketWhenKill() {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             try {
-                System.out.println("Закрываем сокет ...");
+                JvLog.write(JvLog.TypeLog.Info, "Закрываем сокет");
                 socketUsers.close();
             } catch (IOException e) {
                 throw new RuntimeException(e);

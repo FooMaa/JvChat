@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.network;
 
+import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
@@ -57,7 +58,7 @@ public class JvEmailProcessor {
             transport.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
             transport.close();
         } catch (MessagingException exception) {
-            System.out.println("Ошибка при отправке письма");
+            JvLog.write(JvLog.TypeLog.Error, "Ошибка при отправке письма");
             return false;
         }
         return true;

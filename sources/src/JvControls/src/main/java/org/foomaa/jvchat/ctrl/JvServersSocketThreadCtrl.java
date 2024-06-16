@@ -1,5 +1,7 @@
 package org.foomaa.jvchat.ctrl;
 
+import org.foomaa.jvchat.logger.JvLog;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -14,7 +16,7 @@ public class JvServersSocketThreadCtrl extends Thread
             sendToUser = new DataOutputStream(fromSocketServer.getOutputStream());
             readFromUser =  new DataInputStream(fromSocketServer.getInputStream());
         } catch (IOException exception) {
-            System.out.println("Ошибка в создании потоков отправки и принятия сообщений");
+            JvLog.write(JvLog.TypeLog.Error, "Ошибка в создании потоков отправки и принятия сообщений");
         }
         start();
     }
@@ -31,7 +33,7 @@ public class JvServersSocketThreadCtrl extends Thread
                 }
             }
         } catch (IOException exception) {
-            System.out.println("Error in network");
+            JvLog.write(JvLog.TypeLog.Error, "Error in network");
         }
     }
 
@@ -41,7 +43,7 @@ public class JvServersSocketThreadCtrl extends Thread
             sendToUser.write(message);
             sendToUser.flush();
         } catch (IOException exception) {
-            System.out.println("Error in network");
+            JvLog.write(JvLog.TypeLog.Error, "Error in network");
         }
     }
 }

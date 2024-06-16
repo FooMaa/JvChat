@@ -46,7 +46,7 @@ public class JvLoggerSpringConfig {
         // Создание Pattern Layout
         PatternLayoutEncoder encoder = new PatternLayoutEncoder();
         encoder.setContext(context);
-        encoder.setPattern("%property{colorCodeStart} %d{yyyy-MM-dd HH:mm:ss} %property{fullFileName} [ %-4level ] - %msg%n %property{colorCodeEnd}");
+        encoder.setPattern("%property{colorCodeStart}%d{yyyy-MM-dd HH:mm:ss} %property{fullFileName} [ %-4level ] - %msg%property{colorCodeEnd}%n");
         encoder.start();
 
         // Создание Console Appender

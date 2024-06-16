@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.network;
 
+import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
@@ -16,7 +17,7 @@ public class JvServersSocket {
     private static ServerSocket socketServers;
 
     private JvServersSocket() {
-        System.out.println("Server is started");
+        JvLog.write(JvLog.TypeLog.Info, "Server is started");
 
         try {
             if (JvGetterSettings.getInstance().getBeanMainSettings().getIp().isEmpty()) {
@@ -27,19 +28,19 @@ public class JvServersSocket {
                         InetAddress.getByName(JvGetterSettings.getInstance().getBeanMainSettings().getIp()));
             }
 
-            System.out.println(socketServers.getInetAddress().toString());
-            System.out.println(socketServers.getLocalPort());
+            JvLog.write(JvLog.TypeLog.Info, "IP: " + socketServers.getInetAddress().toString());
+            JvLog.write(JvLog.TypeLog.Info, "PORT: " + String.valueOf(socketServers.getLocalPort()));
 
             closeSocketWhenKill();
         } catch (IOException exception) {
-            System.out.println("Ошибка при создании сокета сервера");
+            JvLog.write(JvLog.TypeLog.Error, "Ошибка при создании сокета сервера");
         }
     }
 
     private void closeSocketWhenKill() {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             try {
-                System.out.println("Закрываем серверный сокет ...");
+                JvLog.write(JvLog.TypeLog.Info, "Закрываем серверный сокет");
                 socketServers.close();
             } catch (IOException exception) {
                 throw new RuntimeException(exception);

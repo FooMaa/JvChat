@@ -1,5 +1,7 @@
 package org.foomaa.jvchat.settings;
 
+import org.foomaa.jvchat.logger.JvLog;
+
 import java.awt.*;
 
 public class JvDisplaySettings {
@@ -19,7 +21,7 @@ public class JvDisplaySettings {
             heightScreen = screenSize.height;
             widthScreen = screenSize.width;
         } catch (Throwable exception) {
-            System.out.println("No X :0:0 find");
+            JvLog.write(JvLog.TypeLog.Error, "No X :0:0 find");
         }
     }
 

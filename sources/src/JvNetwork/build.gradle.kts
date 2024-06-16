@@ -7,4 +7,5 @@ dependencies {
     implementation("org.springframework:spring-beans")
     implementation("org.springframework:spring-core")
     implementation(project(":JvSettings"))
+    implementation(project(":JvLogger"))
 }
