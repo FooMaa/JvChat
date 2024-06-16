@@ -20,5 +20,11 @@
             <artifactId>JvSettings</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.foomaa.jvchat.tools</groupId>
+            <artifactId>JvTools</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 </project>

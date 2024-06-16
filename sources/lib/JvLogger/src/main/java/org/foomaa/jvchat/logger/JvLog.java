@@ -1,11 +1,16 @@
 package org.foomaa.jvchat.logger;
 
-import java.io.File;
+import org.foomaa.jvchat.tools.JvGetterTools;
+
+import java.nio.file.Path;
+import java.util.Objects;
+
 
 // точка доступа к логированию
 public class JvLog {
     private static JvLog instance;
     private static JvMainLogger mainLogger;
+    private static Object matcher;
 
     public enum TypeLog {
         Debug,
@@ -26,33 +31,23 @@ public class JvLog {
         return instance;
     }
 
-    public static JvLog write(TypeLog type, String text) {
-        if (instance == null) {
-            instance = new JvLog();
-        }
+    public static void write(TypeLog type, String text) {
+        getInstance();
 
         // chatGPT
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-        String fullFileName = "";
+        String resultFile = "";
         int fileLine = 0;
 
-        if (stackTrace.length >= 3) { // stackTrace[0] - getStackTrace, stackTrace[1] - getCallerClassPath, stackTrace[2] - caller method
-            String fileName = stackTrace[2].getFileName();
-            if (fileName != null) {
-                String fileLogging = new File(fileName).getAbsolutePath();
-                fileLine = stackTrace[2].getLineNumber();
-                fullFileName = String.format("%s:%d", fileLogging, fileLine);
-            } else {
-                fullFileName = "Unknown file";
-            }
+        if (stackTrace.length >= 3) {
+            resultFile = instance.buildStringFileLog(stackTrace);
         } else {
-            fullFileName = "Unknown file";
+            resultFile = "Unknown file";
         }
 
-        JvLoggerSpringConfig.setContextPropertyFileName(fullFileName);
+        JvLoggerSpringConfig.setContextPropertyFileName(resultFile);
         JvLoggerSpringConfig.setContextPropertyColor(type);
         writingText(type, text);
-        return instance;
     }
 
     private static void writingText(TypeLog type, String text) {
@@ -65,5 +60,22 @@ public class JvLog {
         }
     }
 
-
+    private String buildStringFileLog(StackTraceElement[] stackTrace) {
+        // stackTrace[0] - getStackTrace, stackTrace[1] - getCallerClassPath, stackTrace[2] - caller method
+        String fileName = stackTrace[2].getFileName();
+        if (fileName != null) {
+            Path projectDirectory = JvGetterTools.getInstance().getBeanMainTools().getProjectDirectory();
+            if (projectDirectory == null) {
+                return  "Unknown file";
+            }
+            String fullFileName = JvGetterTools.getInstance().
+                    getBeanMainTools().findFileInDirByName(projectDirectory, fileName);
+            if (!Objects.equals(fullFileName, "")) {
+                return String.format("%s:%d", fullFileName, stackTrace[2].getLineNumber());
+            } else {
+                return  "Unknown file";
+            }
+        }
+        return  "Unknown file";
+    }
 }

@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Scope;
 @Configuration
 public class JvGlobalDefinesSpringConfig {
     public enum NameBeans {
+        BeanMainDefines("beanMainDefines"),
         BeanColorsAnsi("beanColorAnsi");
 
         private final String value;
@@ -24,5 +25,11 @@ public class JvGlobalDefinesSpringConfig {
     @Scope("singleton")
     public JvColorsAnsi beanColorAnsi() {
         return JvColorsAnsi.getInstance();
+    }
+
+    @Bean(name = "beanMainDefines")
+    @Scope("singleton")
+    public JvMainDefines beanMainDefines() {
+        return JvMainDefines.getInstance();
     }
 }

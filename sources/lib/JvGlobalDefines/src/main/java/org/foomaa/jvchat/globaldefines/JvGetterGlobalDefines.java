@@ -21,4 +21,8 @@ public class JvGetterGlobalDefines {
     public JvColorsAnsi getBeanColorsAnsi() {
         return context.getBean(JvGlobalDefinesSpringConfig.NameBeans.BeanColorsAnsi.getValue(), JvColorsAnsi.class);
     }
+
+    public JvMainDefines getBeanMainDefines() {
+        return context.getBean(JvGlobalDefinesSpringConfig.NameBeans.BeanMainDefines.getValue(), JvMainDefines.class);
+    }
 }
