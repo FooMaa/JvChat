@@ -40,7 +40,7 @@ public class JvLoggerSpringConfig {
     // это генерировал ChatGPT
     @Bean(name = "beanConfigureLogback")
     @Scope("singleton")
-    public LoggerContext configureLogback() {
+    public LoggerContext beanConfigureLogback() {
         context = (LoggerContext) LoggerFactory.getILoggerFactory();
 
         // Создание Pattern Layout
