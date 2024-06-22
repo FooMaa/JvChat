@@ -2,6 +2,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.5</version>
+    </parent>
+
     <groupId>org.foomaa.jvchat</groupId>
     <artifactId>JvChat</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -12,12 +18,14 @@
 
     <modules>
         <module>sources/src/JvStartPoint</module>
-        <module>sources/src/JvAuthentication</module>
+        <module>sources/src/JvUiLinks</module>
         <module>sources/src/JvDbWorker</module>
         <module>sources/lib/JvSettings</module>
         <module>sources/lib/JvUiComponents</module>
         <module>sources/src/JvControls</module>
         <module>sources/lib/JvTools</module>
+        <module>sources/lib/JvLogger</module>
+        <module>sources/lib/JvGlobalDefines</module>
         <module>sources/lib/JvMessages</module>
         <module>sources/src/JvNetwork</module>
     </modules>
@@ -28,14 +36,15 @@
         <maven.compiler.target>17</maven.compiler.target>
         <version.exec-maven-plugin>3.1.0</version.exec-maven-plugin>
         <maven.test.skip>true</maven.test.skip>
+        <buildDir>jvchat-maven</buildDir>
     </properties>
 
     <build>
+        <directory>${buildDir}</directory>
         <plugins>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>${version.exec-maven-plugin}</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <mainClass>none</mainClass>
                     <skip>true</skip>
@@ -47,23 +56,51 @@
     <profiles>
         <profile>
             <id>tests</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
             <properties>
                 <maven.test.skip>false</maven.test.skip>
             </properties>
         </profile>
-
         <profile>
             <id>users</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
+            <properties>
+                <maven.test.skip>true</maven.test.skip>
+            </properties>
+        </profile>
+        <profile>
+            <id>servers</id>
             <properties>
                 <maven.test.skip>true</maven.test.skip>
             </properties>
         </profile>
     </profiles>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

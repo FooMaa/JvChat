@@ -1,5 +1,5 @@
 # JvChat
-Чат на java с maven
+Чат на java
 ## Запустить ПО после клонирования с git
 - Установить зависимости, если это вариант для пользователей
 ``` bash
@@ -16,6 +16,16 @@ scripts/build/build_run.sh -m -c -p users -i 192.168.23.1
 - Вернуть БД к начальному виду (перенакатить)
 ``` bash
 scripts/db/db_creator.py
+```
+## Конфигурации для запуска из среды разработки
+На место $ip вы вставляете свой IP-адрес сервера  
+Gradle:
+```
+clean build bootRun --args='--ipServer=$ip' -Pusers
+```
+Maven:
+```
+clean install spring-boot:run -Pusers -Dspring-boot.run.arguments=--ipServer=$ip
 ```
 ## Скрипты и их назначение
 | Путь к скрипту | Назначение |

@@ -13,23 +13,12 @@
     <packaging>jar</packaging>
 
     <name>JvSettings</name>
-    <url>http://maven.apache.org</url>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <buildDir>jvchat-maven</buildDir>
-    </properties>
-
-    <build>
-        <directory>${buildDir}</directory>
-    </build>
 
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
+            <groupId>org.foomaa.jvchat.logger</groupId>
+            <artifactId>JvLogger</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>

@@ -1,34 +1,48 @@
 package org.foomaa.jvchat.settings;
 
+import org.foomaa.jvchat.logger.JvLog;
+
 import java.awt.*;
 
 public class JvDisplaySettings {
+    private static JvDisplaySettings instance;
+    public int heightScreen;
+    public int widthScreen;
+
     public enum TypeOfDisplayBorder {
         HEIGHT,
         WIDTH
-    }
-    private static final Dimension screenSize;
-    public static int heightScreen;
 
-    public static int widthScreen;
-
-    static {
-        screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        heightScreen = screenSize.height;
-        widthScreen = screenSize.width;
     }
 
-    public static int getResizeFromDisplay(double scale, TypeOfDisplayBorder displayBorder) {
+    private JvDisplaySettings() {
+        try {
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            heightScreen = screenSize.height;
+            widthScreen = screenSize.width;
+        } catch (Throwable exception) {
+            JvLog.write(JvLog.TypeLog.Error, "No X :0:0 find");
+        }
+    }
+
+    public static JvDisplaySettings getInstance() {
+        if (instance == null) {
+            instance = new JvDisplaySettings();
+        }
+        return instance;
+    }
+
+    public int getResizeFromDisplay(double scale, TypeOfDisplayBorder displayBorder) {
         return switch (displayBorder) {
             case HEIGHT -> (int) Math.round(scale * heightScreen);
             case WIDTH -> (int) Math.round(scale * widthScreen);
         };
     }
 
-    public static int getResizePixel(double scale) {
+    public int getResizePixel(double scale) {
         return (int) Math.round(scale * heightScreen);
     }
-    public static int getResizeFont(double scale) {
+    public int getResizeFont(double scale) {
         return (int) Math.floor(scale * widthScreen);
     }
 }

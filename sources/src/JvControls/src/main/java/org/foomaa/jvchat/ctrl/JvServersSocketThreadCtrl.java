@@ -1,19 +1,22 @@
 package org.foomaa.jvchat.ctrl;
 
+import org.foomaa.jvchat.logger.JvLog;
+
 import java.io.*;
 import java.net.Socket;
+
 
 public class JvServersSocketThreadCtrl extends Thread
 {
     private DataInputStream readFromUser;
     private DataOutputStream sendToUser;
 
-    public JvServersSocketThreadCtrl(Socket fromSocketUser) {
+    JvServersSocketThreadCtrl(Socket fromSocketServer) {
         try {
-            sendToUser = new DataOutputStream(fromSocketUser.getOutputStream());
-            readFromUser =  new DataInputStream(fromSocketUser.getInputStream());
+            sendToUser = new DataOutputStream(fromSocketServer.getOutputStream());
+            readFromUser =  new DataInputStream(fromSocketServer.getInputStream());
         } catch (IOException exception) {
-            System.out.println("Ошибка в создании потоков отправки и принятия сообщений");
+            JvLog.write(JvLog.TypeLog.Error, "Ошибка в создании потоков отправки и принятия сообщений");
         }
         start();
     }
@@ -26,11 +29,11 @@ public class JvServersSocketThreadCtrl extends Thread
                 if (length > 0) {
                     byte[] message = new byte[length];
                     readFromUser.readFully(message, 0, message.length);
-                    JvNetworkCtrl.takeMessage(message, currentThread());
+                    JvGetterControls.getInstance().getBeanNetworkCtrl().takeMessage(message, currentThread());
                 }
             }
         } catch (IOException exception) {
-            System.out.println("Error in network");
+            JvLog.write(JvLog.TypeLog.Error, "Error in network");
         }
     }
 
@@ -40,7 +43,7 @@ public class JvServersSocketThreadCtrl extends Thread
             sendToUser.write(message);
             sendToUser.flush();
         } catch (IOException exception) {
-            System.out.println("Error in network");
+            JvLog.write(JvLog.TypeLog.Error, "Error in network");
         }
     }
 }

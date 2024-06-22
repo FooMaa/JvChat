@@ -1,30 +1,38 @@
 package org.foomaa.jvchat.ctrl;
 
 import org.foomaa.jvchat.network.JvEmailProcessor;
-import org.foomaa.jvchat.settings.JvMainSettings;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Profile;
 
 public class JvEmailCtrl {
     private static JvEmailCtrl instance;
-    private static JvEmailProcessor emailProc;
+    private JvEmailProcessor emailProcessor;
 
-    private JvEmailCtrl() {
-        if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
-            emailProc = JvEmailProcessor.getInstance();
-        }
-    }
+    private JvEmailCtrl() {}
 
-    public static JvEmailCtrl getInstance() {
+    static JvEmailCtrl getInstance() {
         if (instance == null) {
             instance = new JvEmailCtrl();
         }
         return instance;
     }
 
+    @Autowired(required = false)
+    @Qualifier("beanEmailProcessor")
+    @Profile("servers")
+    private void setEmailProcessor(JvEmailProcessor newEmailProcessor) {
+        if (emailProcessor != newEmailProcessor) {
+            emailProcessor = newEmailProcessor;
+        }
+    }
+
     public boolean startVerifyFamousEmail(String email) {
         int code = (int) ((Math.random() * (999999 - 100000) ) + 100000);
         String message =  createVerifyFamousEmailMessage(code, email);
-        if (emailProc.sendEmail(email, message)) {
-            return JvDbCtrl.getInstance().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.VerifyFamousEmail,
+        if (emailProcessor.sendEmail(email, message)) {
+            return JvGetterControls.getInstance()
+                    .getBeanDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.VerifyFamousEmail,
                     email, String.valueOf(code));
         }
         return false;
@@ -37,14 +45,16 @@ public class JvEmailCtrl {
                         "Никому не говорите и не отправляйте код. " +
                         "Если это были не вы, свяжитесь с поддержкой по почте avodichenkov@mail.ru.",
                 code,
-                JvDbCtrl.getInstance().getInfoFromDb(JvDbCtrl.TypeExecutionGet.LoginByEmail, email));
+                JvGetterControls.getInstance().getBeanDbCtrl().
+                        getInfoFromDb(JvDbCtrl.TypeExecutionGet.LoginByEmail, email));
     }
 
     public boolean startVerifyRegEmail(String email) {
         int code = (int) ((Math.random() * (999999 - 100000) ) + 100000);
         String message =  createVerifyRegEmailMessage(code);
-        if (emailProc.sendEmail(email, message)) {
-            return JvDbCtrl.getInstance().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.VerifyRegistrationEmail,
+        if (emailProcessor.sendEmail(email, message)) {
+            return JvGetterControls.getInstance()
+                    .getBeanDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.VerifyRegistrationEmail,
                     email, String.valueOf(code));
         }
         return false;

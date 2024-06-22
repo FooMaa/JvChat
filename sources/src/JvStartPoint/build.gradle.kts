@@ -1,27 +1,17 @@
 plugins {
-    id("java")
+    id("org.springframework.boot") version "3.2.4"
     application
 }
 
 group = "org.foomaa.jvchat.startpoint"
 version = "1.0-SNAPSHOT"
-buildDir = File("jvchat-gradle")
 var PROFILE = ""
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
-    testImplementation("junit:junit:3.8.1")
-    implementation(project(":sources:src:JvControls"))
-    implementation(project(":sources:src:JvAuthentication"))
-    implementation(project(":sources:lib:JvTools"))
-    implementation(project(":sources:lib:JvSettings"))
-}
-
-application {
-    mainClass.set("org.foomaa.jvchat.startpoint.JvStartPoint")
+    implementation(project(":JvControls"))
+    implementation(project(":JvUiLinks"))
+    implementation(project(":JvTools"))
+    implementation(project(":JvSettings"))
 }
 
 tasks {
@@ -57,45 +47,19 @@ tasks {
             project.file("$dirBuild/profile").mkdir()
             project.file("$dirBuild/profile/profile.txt").createNewFile()
             project.file("$dirBuild/profile/profile.txt").writeText("#Properties\ntarget=$PROFILE")
+
+            bootRun {
+                mainClass.set("org.foomaa.jvchat.startpoint.JvStartPoint")
+                args("--spring.profiles.active=$PROFILE")
+                systemProperty("spring.profiles.active", PROFILE)
+                systemProperty("java.awt.headless", "false")
+            }
+
             ext{PROFILE}
         }
     }
 }
 
-tasks.test {
-    onlyIf {
-        project.hasProperty("tests")
-    }
-
-    useJUnit()
-
-    maxHeapSize = "1G"
-    failFast = true
-
-    testLogging {
-        events("passed", "failed", "skipped")
-    }
-}
-
-tasks {
-    javadoc {
-        options.encoding = "UTF-8"
-    }
-    compileJava {
-        options.encoding = "UTF-8"
-    }
-    compileTestJava {
-        options.encoding = "UTF-8"
-    }
-}
-
 tasks.withType<JavaExec>() {
     standardInput = System.`in`
-}
-
-sourceSets.getByName("main") {
-    java.srcDir("src/main/java/")
-}
-sourceSets.getByName("test") {
-    java.srcDir("src/test/java/")
 }

@@ -2,16 +2,22 @@ package org.foomaa.jvchat.ctrl;
 
 import org.foomaa.jvchat.dbworker.JvDbDefines;
 import org.foomaa.jvchat.dbworker.JvDbWorker;
-import org.foomaa.jvchat.settings.JvMainSettings;
+import org.foomaa.jvchat.logger.JvLog;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Profile;
 
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
-public class JvDbCtrl
-{
+
+public class JvDbCtrl {
     private static JvDbCtrl instance;
-    private static JvDbWorker db;
+    private JvDbWorker db;
+    private JvDbDefines dbDefines;
 
     public enum TypeExecutionInsert {
         RegisterForm,
@@ -33,17 +39,67 @@ public class JvDbCtrl
         IdByEmail
     }
 
-    private JvDbCtrl() {
-        if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
-            db = JvDbWorker.getInstance();
-        }
-    }
+    private JvDbCtrl() {}
 
-    public static JvDbCtrl getInstance() {
-        if(instance == null){
+    static JvDbCtrl getInstance() {
+        if (instance == null) {
             instance = new JvDbCtrl();
         }
         return instance;
+    }
+
+    @Autowired(required = false)
+    @Qualifier("beanDbWorker")
+    @Profile("servers")
+    private void setDb(JvDbWorker newDb) {
+        if ( db !=  newDb ) {
+            db = newDb;
+        }
+    }
+
+    @Autowired(required = false)
+    @Qualifier("beanDbDefines")
+    @Profile("servers")
+    private void setDbDefines(JvDbDefines newDbDefines){
+        if (dbDefines != newDbDefines) {
+            dbDefines = newDbDefines;
+        }
+    }
+
+    public List<String> getStrDataAtRow(ResultSet resultSet, int row) {
+        // в БД нумерация рядов и столбцов не с 0, а с 1
+        ResultSetMetaData metadata;
+        int columnCount = 0;
+        try {
+            metadata = resultSet.getMetaData();
+            columnCount = metadata.getColumnCount();
+        } catch (SQLException exception) {
+            JvLog.write(JvLog.TypeLog.Error, "Не возможно получить данные по столбцам и метаданные");
+        }
+
+        List<String> result = new ArrayList<>(columnCount);
+
+        try {
+            resultSet.absolute(row);
+
+            for (int i = 1; i <= columnCount; i++) {
+                result.add(resultSet.getString(i));
+            }
+        } catch (SQLException exception) {
+            JvLog.write(JvLog.TypeLog.Error, "Не вышло получить данные по ряду");
+        }
+
+        return result;
+    }
+
+    public boolean ifExistsLineInTable(ResultSet resultSet) {
+        boolean res = false;
+        try {
+            res = resultSet.next();
+        } catch (SQLException exception) {
+            JvLog.write(JvLog.TypeLog.Error, "БД при проверке вернула исключение, что-то не так");
+        }
+        return res;
     }
 
     public boolean insertQueryToDB(TypeExecutionInsert type, String ... parameters) {
@@ -55,7 +111,7 @@ public class JvDbCtrl
                     String password = parameters[2];
                     if (!checkQueryToDB(TypeExecutionCheck.Login, login) &&
                             !checkQueryToDB(TypeExecutionCheck.Email, email)) {
-                        ResultSet rs = db.makeExecution(JvDbDefines.insertToRegForm(login, email, password));
+                        ResultSet rs = db.makeExecution(dbDefines.insertToRegForm(login, email, password));
                         db.closeResultSet(rs);
                         return true;
                     } else {
@@ -68,7 +124,7 @@ public class JvDbCtrl
                 if (parameters.length == 2) {
                     String email = parameters[0];
                     String password = parameters[1];
-                    ResultSet rs = db.makeExecution(JvDbDefines.insertChangePassword(email, password));
+                    ResultSet rs = db.makeExecution(dbDefines.insertChangePassword(email, password));
                     db.closeResultSet(rs);
                     return true;
                 }
@@ -81,7 +137,7 @@ public class JvDbCtrl
                     int userId;
                     if (checkQueryToDB(TypeExecutionCheck.Email, email)) {
                         userId = Integer.parseInt(getInfoFromDb(TypeExecutionGet.IdByEmail, email));
-                        ResultSet rs = db.makeExecution(JvDbDefines.insertCodeVerifyFamousEmail(userId, code));
+                        ResultSet rs = db.makeExecution(dbDefines.insertCodeVerifyFamousEmail(userId, code));
                         db.closeResultSet(rs);
                         return true;
                     }
@@ -92,7 +148,7 @@ public class JvDbCtrl
                 if (parameters.length == 2) {
                     String email = parameters[0];
                     String code = parameters[1];
-                    ResultSet rs = db.makeExecution(JvDbDefines.insertVerifyRegistrationEmail(email, code));
+                    ResultSet rs = db.makeExecution(dbDefines.insertVerifyRegistrationEmail(email, code));
                     db.closeResultSet(rs);
                     return true;
                 }
@@ -108,13 +164,13 @@ public class JvDbCtrl
                 if (parameters.length == 2) {
                     String login = parameters[0];
                     String password = parameters[1];
-                    ResultSet rs = db.makeExecution(JvDbDefines.checkUserPassword(login, password));
+                    ResultSet rs = db.makeExecution(dbDefines.checkUserPassword(login, password));
                     try {
                         boolean result = rs.next();
                         db.closeResultSet(rs);
                         return result;
                     } catch (SQLException exception) {
-                        System.out.println("Ошибка проверки запроса к БД");
+                        JvLog.write(JvLog.TypeLog.Error, "Ошибка проверки запроса к БД");
                     }
                 }
                 return false;
@@ -122,13 +178,13 @@ public class JvDbCtrl
             case Login -> {
                 if (parameters.length == 1) {
                     String login = parameters[0];
-                    ResultSet rs = db.makeExecution(JvDbDefines.checkLogin(login));
+                    ResultSet rs = db.makeExecution(dbDefines.checkLogin(login));
                     try {
                         boolean result = rs.next();
                         db.closeResultSet(rs);
                         return result;
                     } catch (SQLException exception) {
-                        System.out.println("Ошибка проверки запроса к БД");
+                        JvLog.write(JvLog.TypeLog.Error, "Ошибка проверки запроса к БД");
                     }
                 }
                 return false;
@@ -136,13 +192,13 @@ public class JvDbCtrl
             case Email -> {
                 if (parameters.length == 1) {
                     String email = parameters[0];
-                    ResultSet rs = db.makeExecution(JvDbDefines.checkEmail(email));
+                    ResultSet rs = db.makeExecution(dbDefines.checkEmail(email));
                     try {
                         boolean result = rs.next();
                         db.closeResultSet(rs);
                         return result;
                     } catch (SQLException exception) {
-                        System.out.println("Ошибка проверки запроса к БД");
+                        JvLog.write(JvLog.TypeLog.Error, "Ошибка проверки запроса к БД");
                     }
                 }
                 return false;
@@ -151,13 +207,13 @@ public class JvDbCtrl
                 if (parameters.length == 2) {
                     String email = parameters[0];
                     String code = parameters[1];
-                    ResultSet rs = db.makeExecution(JvDbDefines.checkVerifyFamousEmailCode(email, code));
+                    ResultSet rs = db.makeExecution(dbDefines.checkVerifyFamousEmailCode(email, code));
                     try {
                         boolean result = rs.next();
                         db.closeResultSet(rs);
                         return result;
                     } catch (SQLException exception) {
-                        System.out.println("Ошибка проверки запроса к БД");
+                        JvLog.write(JvLog.TypeLog.Error, "Ошибка проверки запроса к БД");
                     }
                 }
                 return false;
@@ -166,13 +222,13 @@ public class JvDbCtrl
                 if (parameters.length == 2) {
                     String email = parameters[0];
                     String code = parameters[1];
-                    ResultSet rs = db.makeExecution(JvDbDefines.checkVerifyRegistrationEmail(email, code));
+                    ResultSet rs = db.makeExecution(dbDefines.checkVerifyRegistrationEmail(email, code));
                     try {
                         boolean result = rs.next();
                         db.closeResultSet(rs);
                         return result;
                     } catch (SQLException exception) {
-                        System.out.println("Ошибка проверки запроса к БД");
+                        JvLog.write(JvLog.TypeLog.Error, "Ошибка проверки запроса к БД");
                     }
                 }
                 return false;
@@ -186,8 +242,8 @@ public class JvDbCtrl
             case LoginByEmail -> {
                 if (parameters.length == 1) {
                     String email = parameters[0];
-                    ResultSet resultSet = db.makeExecution(JvDbDefines.getLogin(email));
-                    List<String> result = db.getStrDataAtRow(resultSet, 1);
+                    ResultSet resultSet = db.makeExecution(dbDefines.getLogin(email));
+                    List<String> result = getStrDataAtRow(resultSet, 1);
                     db.closeResultSet(resultSet);
                     if (!result.isEmpty()) {
                         return result.stream().findFirst().get();
@@ -198,8 +254,8 @@ public class JvDbCtrl
             case IdByEmail -> {
                 if (parameters.length == 1) {
                     String email = parameters[0];
-                    ResultSet resultSet = db.makeExecution(JvDbDefines.getUserId(email));
-                    List<String> result = db.getStrDataAtRow(resultSet, 1);
+                    ResultSet resultSet = db.makeExecution(dbDefines.getUserId(email));
+                    List<String> result = getStrDataAtRow(resultSet, 1);
                     db.closeResultSet(resultSet);
                     if (!result.isEmpty()) {
                         return result.stream().findFirst().get();

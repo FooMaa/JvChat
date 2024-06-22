@@ -1,44 +1,72 @@
 package org.foomaa.jvchat.startpoint;
 
-import org.foomaa.jvchat.auth.JvErrorStart;
-import org.foomaa.jvchat.ctrl.JvInitControls;
-import org.foomaa.jvchat.auth.JvStartAuthentication;
-import org.foomaa.jvchat.tools.JvTools;
+import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.tools.JvGetterTools;
+import org.foomaa.jvchat.uilinks.JvGetterUiLinks;
+import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.settings.JvMainSettings;
 
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.SpringApplication;
 import java.io.IOException;
-import java.net.ConnectException;
-import java.net.NoRouteToHostException;
-import java.net.SocketTimeoutException;
 import java.net.URISyntaxException;
 
-public class JvStartPoint {
-    public static void main(String[] args) throws URISyntaxException, IOException {
-        JvTools.setProfileSetting(JvStartPoint.class);
+@SpringBootApplication
+public class JvStartPoint implements ApplicationRunner {
 
-        if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
-            JvTools.initServersParameters();
+    public static void main(String[] args) {
+        SpringApplication.run( JvStartPoint.class, args );
+    }
+
+    @Override
+    public void run(ApplicationArguments args) {
+        workingArgs(args);
+        launchApplication();
+    }
+
+
+    private void workingArgs(ApplicationArguments args) {
+        try {
+            JvGetterTools.getInstance().getBeanMainTools().setProfileSetting(JvStartPoint.class);
+//            NOTE: Установить профиль по спрингу
+//            JvGetterTools.getInstance().getBeanMainTools().setProfileSettingSpring();
+        } catch (IOException | URISyntaxException exception) {
+            JvGetterUiLinks.getInstance().getBeanErrorStart(
+                    "Не удалось выставить верный профиль для приложения!");
         }
-        if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
-            if (args.length == 0) {
-                new JvErrorStart("Дайте в параметр IP-адрес сервера!");
+
+        if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
+            JvGetterTools.getInstance().getBeanMainTools().initServersParameters();
+        }
+        if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.USERS) {
+            if (args.getOptionValues("ipServer") == null) {
+                JvGetterUiLinks.getInstance().getBeanErrorStart(
+                        "Дайте в параметр IP-адрес сервера!");
             }
-            if (JvTools.validateInputIp(args[0])) {
-                JvMainSettings.setIp(args[0]);
+            String argsIp = args.getOptionValues("ipServer").get(0);
+            if (JvGetterTools.getInstance().getBeanMainTools().validateInputIp(argsIp)) {
+                JvGetterSettings.getInstance().getBeanMainSettings().setIp(argsIp);
             } else {
-                new JvErrorStart("В параметре запуска не верный IP!");
+                JvGetterUiLinks.getInstance().getBeanErrorStart(
+                        "В параметре запуска не верный IP!");
             }
         }
+    }
+
+    private void launchApplication() {
+        JvGetterControls.getInstance();
 
         try {
-            JvInitControls.getInstance();
-        } catch (ConnectException | SocketTimeoutException | NoRouteToHostException exception) {
-            new JvErrorStart(
+            JvGetterControls.getInstance().getBeanNetworkCtrl().startNetwork();
+        } catch (IOException exception) {
+            JvGetterUiLinks.getInstance().getBeanErrorStart(
                     "Не удалось подключиться к серверу.\nПроверьте наличие сети и попробуйте снова!");
         }
 
-        if (JvMainSettings.getProfile() == JvMainSettings.TypeProfiles.USERS) {
-            new JvStartAuthentication();
+        if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.USERS) {
+            JvGetterUiLinks.getInstance().getBeanStartAuthentication();
         }
     }
 }

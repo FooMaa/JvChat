@@ -1,6 +1,10 @@
 package org.foomaa.jvchat.network;
 
-import org.foomaa.jvchat.settings.JvMainSettings;
+import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -10,15 +14,22 @@ import javax.mail.internet.*;
 import java.util.Date;
 import java.util.Properties;
 
+
+@Component("beanEmailProcessor")
+@Scope("singleton")
+@Profile("servers")
 public class JvEmailProcessor {
-    private static JvEmailProcessor instance;
     private static Session session;
-    private final String host = "smtp.mail.ru";
-    private final String userLogin = JvMainSettings.getEmailAddress();
-    private final String userPassword = JvMainSettings.getMagicStringEmail();
+    private final String host;
+    private final String userLogin;
+    private final String userPassword;
     private final int port = 465;
 
     private JvEmailProcessor() {
+        host = "smtp.mail.ru";
+        userLogin = JvGetterSettings.getInstance().getBeanMainSettings().getEmailAddress();
+        userPassword = JvGetterSettings.getInstance().getBeanMainSettings().getMagicStringEmail();
+
         Properties props = new Properties();
 
         props.put("mail.smtp.auth", "true");
@@ -31,13 +42,6 @@ public class JvEmailProcessor {
         props.put("mail.smtp.ssl.enable", "true");
 
         session = Session.getDefaultInstance(props);
-    }
-
-    public static JvEmailProcessor getInstance() {
-        if(instance == null){
-            instance = new JvEmailProcessor();
-        }
-        return instance;
     }
 
     public boolean sendEmail(String email, String msg) {
@@ -54,7 +58,7 @@ public class JvEmailProcessor {
             transport.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
             transport.close();
         } catch (MessagingException exception) {
-            System.out.println("Ошибка при отправке письма");
+            JvLog.write(JvLog.TypeLog.Error, "Ошибка при отправке письма");
             return false;
         }
         return true;
