@@ -16,5 +16,6 @@
 
     <modules>
         <module>JvAuthUiComponents</module>
+        <module>JvMainChatUiComponents</module>
     </modules>
 </project>

@@ -7,7 +7,6 @@ dependencies {
     implementation(project(":JvMessages"))
     implementation(project(":JvTools"))
     implementation(project(":JvLogger"))
-    implementation(project(":JvMainChatUiComponents"))
 }
 
 tasks.withType<ProcessResources> {

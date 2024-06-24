@@ -2,6 +2,7 @@ package org.foomaa.jvchat.startpoint;
 
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.tools.JvGetterTools;
+import org.foomaa.jvchat.uicomponents.mainchat.JvGetterMainChatUiComponents;
 import org.foomaa.jvchat.uilinks.JvGetterUiLinks;
 import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.settings.JvMainSettings;
@@ -22,6 +23,7 @@ public class JvStartPoint implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
+        JvGetterMainChatUiComponents.getInstance().getBeanMainChatMainFrame().openWindow();
         workingArgs(args);
         launchApplication();
     }

@@ -26,4 +26,7 @@ include("JvUiComponents")
 project(":JvUiComponents").projectDir = File("sources/lib/JvUiComponents")
 include("JvAuthUiComponents")
 project(":JvAuthUiComponents").projectDir = File("sources/lib/JvUiComponents/JvAuthUiComponents")
+include("JvMainChatUiComponents")
+project(":JvMainChatUiComponents").projectDir = File("sources/lib/JvUiComponents/JvMainChatUiComponents")
+
 // findProject("sources:lib:JvUiComponents:JvAuthUiComponents")?.name = "JvAuthUiComponents"

@@ -12,6 +12,8 @@ dependencies {
     implementation(project(":JvUiLinks"))
     implementation(project(":JvTools"))
     implementation(project(":JvSettings"))
+    // delete
+    implementation(project(":JvMainChatUiComponents"))
 }
 
 tasks {

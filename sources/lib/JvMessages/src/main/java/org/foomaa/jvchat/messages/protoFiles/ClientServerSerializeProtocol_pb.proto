@@ -6,6 +6,7 @@ option java_package = "org.foomaa.jvchat.messages";
 message General {
     uint32 type = 1;
     oneof body {
+        // Auth
         EntryRequest entryRequest = 2;
         EntryReply entryReply = 3;
         RegistrationRequest registrationRequest = 4;
@@ -18,6 +19,10 @@ message General {
         VerifyFamousEmailReply verifyFamousEmailReply = 11;
         ChangePasswordRequest changePasswordRequest = 12;
         ChangePasswordReply changePasswordReply = 13;
+
+        // Main Messages
+        MessageChangeStatusRequest  messageChangeStatusRequest = 14;
+        TextMessage textMessage = 15;
     }
 }
 
@@ -92,4 +97,22 @@ message ChangePasswordRequest {
 
 message ChangePasswordReply {
     bool reply = 1;
+}
+
+message MessageChangeStatusRequest {
+    enum Status {
+        Send = 0;
+        Deliver = 1;
+        Read = 2;
+    }
+    int indexMessage = 1;
+    Status status = 2;
+}
+
+message TextMessage {
+    int index = 1;
+    string timestamp = 2;
+    int sender = 3;
+    int receiver = 4;
+    string text = 5;
 }

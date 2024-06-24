@@ -6,6 +6,7 @@ import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvMessagesDefines;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.uicomponents.mainchat.JvGetterMainChatUiComponents;
 
 import javax.swing.*;
 import java.awt.*;
@@ -221,6 +222,7 @@ public class JvAuthEntryFrame extends JFrame {
                 JvMessagesDefinesCtrl.TypeFlags.TRUE) {
             closeWindow();
             setEnabled(true);
+            JvGetterMainChatUiComponents.getInstance().getBeanMainChatMainFrame().openWindow();
             JvLog.write(JvLog.TypeLog.Info, "Вход выполнен");
         } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getEntryRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.FALSE) {
