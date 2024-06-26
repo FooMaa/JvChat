@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Scope;
 public class JvMainChatUiComponentsSpringConfig {
     public enum NameBeans {
         BeanMainChatMainFrame("beanMainChatMainFrame"),
-        BeanMainChatScrollPaneChats("beanMainChatScrollPaneChats"),
-        BeanMainChatScrollPaneMessages("beanMainChatScrollPaneMessages"),
+        BeanMainChatScrollPanelChats("beanMainChatScrollPanelChats"),
+        BeanMainChatScrollPanelMessages("beanMainChatScrollPanelMessages"),
         BeanMainChatRectMessage("beanMainChatRectMessage"),
         BeanMainChatRectChat("beanMainChatRectChat");
 
@@ -33,18 +33,18 @@ public class JvMainChatUiComponentsSpringConfig {
         return JvMainChatMainFrame.getInstance();
     }
 
-    @Bean(name = "beanMainChatScrollPaneChats")
+    @Bean(name = "beanMainChatScrollPanelChats")
     @Lazy
     @Scope("singleton")
-    public JvMainChatScrollPaneChats beanMainChatScrollPaneChats() {
-        return JvMainChatScrollPaneChats.getInstance();
+    public JvMainChatScrollPanelChats beanMainChatScrollPanelChats() {
+        return JvMainChatScrollPanelChats.getInstance();
     }
 
-    @Bean(name = "beanMainChatScrollPaneMessages")
+    @Bean(name = "beanMainChatScrollPanelMessages")
     @Lazy
     @Scope("singleton")
-    public JvMainChatScrollPaneMessages beanMainChatScrollPaneMessages() {
-        return JvMainChatScrollPaneMessages.getInstance();
+    public JvMainChatScrollPanelMessages beanMainChatScrollPanelMessages() {
+        return JvMainChatScrollPanelMessages.getInstance();
     }
 
     @Bean(name = "beanMainChatRectMessage")

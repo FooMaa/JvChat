@@ -9,13 +9,11 @@ import java.awt.*;
 
 public class JvMainChatMainFrame extends JFrame {
     private static JvMainChatMainFrame instance;
-    private final JPanel panel;
-
+    private JvMainChatScrollPanelChats scrollPanelChats;
+    private JvMainChatScrollPanelMessages scrollPanelMessages;
 
     private JvMainChatMainFrame() {
         super("MainChatWindow");
-
-        panel = new JPanel();
 
         makeFrameSetting();
         addListenerToElements();
@@ -44,34 +42,34 @@ public class JvMainChatMainFrame extends JFrame {
     }
 
     private void makeFrameSetting() {
-
-        panel.setLayout(new GridBagLayout());
+        JPanel base = new JPanel();
+        base.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-//        int insX = JvGetterSettings.getInstance().getBeanDisplaySettings().
-//                getResizeFromDisplay(0.025,
-//                        JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
+
+        int insX = JvGetterSettings.getInstance().getBeanDisplaySettings().
+                getResizeFromDisplay(0.025,
+                        JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
         int gridxNum = 0;
 
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
-        gbc.fill = GridBagConstraints.PAGE_START;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-//        gbc.insets = new Insets(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0125), 0,
-//                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0084), 0);
+        //gbc.insets = new Insets(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0125), 0,
+              //  JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0084), 0);
         gbc.gridx = gridxNum;
-        panel.add(JvMainChatScrollPaneChats.getInstance(), gbc);
+        base.add(JvMainChatScrollPanelChats.getInstance(), gbc);
         gridxNum++;
 
-
-        gbc.fill = GridBagConstraints.PAGE_START;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-//        gbc.insets = new Insets(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0125), 0,
-//                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0084), 0);
+        // gbc.insets = new Insets(0, insX,
+        //        JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.004), insX);
         gbc.gridx = gridxNum;
-        panel.add(new JLabel("ALOOOOO"), gbc);
+        //base.add(null, gbc);
 
-        getContentPane().add(panel);
+        getContentPane().add(base);
     }
 
     public void openWindow() {

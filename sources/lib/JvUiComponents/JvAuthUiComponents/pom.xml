@@ -17,7 +17,7 @@
     <build>
         <resources>
             <resource>
-                <directory>../../../res/icons/</directory>
+                <directory>../../../res/JvAuthUiComponents/icons/</directory>
             </resource>
         </resources>
     </build>

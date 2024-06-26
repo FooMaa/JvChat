@@ -16,7 +16,7 @@ tasks.withType<ProcessResources> {
 
 sourceSets.getByName("main") {
     java.srcDir("src/main/java/")
-    resources.srcDir("../../../res/icons/")
+    resources.srcDir("../../../res/JvAuthUiComponents/icons/")
 }
 sourceSets.getByName("test") {
     java.srcDir("src/test/java/")

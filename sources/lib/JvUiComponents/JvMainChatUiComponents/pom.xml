@@ -14,13 +14,13 @@
 
     <name>JvMainChatUiComponents</name>
 
-    <build>
-        <resources>
-            <resource>
-                <directory>../../../res/icons/</directory>
-            </resource>
-        </resources>
-    </build>
+<!--    <build>-->
+<!--        <resources>-->
+<!--            <resource>-->
+<!--                <directory>../../../res/icons/</directory>-->
+<!--            </resource>-->
+<!--        </resources>-->
+<!--    </build>-->
 
     <dependencies>
         <dependency>

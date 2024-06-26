@@ -24,14 +24,14 @@ public class JvGetterMainChatUiComponents {
                 JvMainChatMainFrame.class);
     }
 
-    public JvMainChatScrollPaneChats getBeanMainChatScrollPaneChats() {
-        return context.getBean(JvMainChatUiComponentsSpringConfig.NameBeans.BeanMainChatScrollPaneChats.getValue(),
-                JvMainChatScrollPaneChats.class);
+    public JvMainChatScrollPanelChats getBeanMainChatScrollPanelChats() {
+        return context.getBean(JvMainChatUiComponentsSpringConfig.NameBeans.BeanMainChatScrollPanelChats.getValue(),
+                JvMainChatScrollPanelChats.class);
     }
 
-    public JvMainChatScrollPaneMessages getBeanMainChatScrollPaneMessages() {
-        return context.getBean(JvMainChatUiComponentsSpringConfig.NameBeans.BeanMainChatScrollPaneMessages.getValue(),
-                JvMainChatScrollPaneMessages.class);
+    public JvMainChatScrollPanelMessages getBeanMainChatScrollPanelMessages() {
+        return context.getBean(JvMainChatUiComponentsSpringConfig.NameBeans.BeanMainChatScrollPanelMessages.getValue(),
+                JvMainChatScrollPanelMessages.class);
     }
 
     public JvMainChatRectMessage getBeanMainChatRectMessage() {
