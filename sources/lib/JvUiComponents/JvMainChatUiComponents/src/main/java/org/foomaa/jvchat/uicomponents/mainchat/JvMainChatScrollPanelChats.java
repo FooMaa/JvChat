@@ -23,9 +23,9 @@ public class JvMainChatScrollPanelChats extends JPanel {
     private void makePanel() {
         Box box = Box.createVerticalBox();
 
+        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat());
         box.add(new JLabel("AAA"));
-        box.add(new JLabel("AAA"));
-        box.add(new JLabel("AAA"));
+
         JScrollPane scrollPane = new JScrollPane(box);
 
         setLayout(new BorderLayout());

@@ -9,15 +9,18 @@ import java.awt.*;
 
 public class JvMainChatMainFrame extends JFrame {
     private static JvMainChatMainFrame instance;
-    private JvMainChatScrollPanelChats scrollPanelChats;
-    private JvMainChatScrollPanelMessages scrollPanelMessages;
+    private final JvMainChatScrollPanelChats scrollPanelChats;
+    private final JvMainChatScrollPanelMessages scrollPanelMessages;
 
     private JvMainChatMainFrame() {
         super("MainChatWindow");
 
+        scrollPanelChats = JvGetterMainChatUiComponents.getInstance().getBeanMainChatScrollPanelChats();
+        scrollPanelMessages = JvGetterMainChatUiComponents.getInstance().getBeanMainChatScrollPanelMessages();
+
+        addGeneralSettingsToWidget();
         makeFrameSetting();
         addListenerToElements();
-        addGeneralSettingsToWidget();
     }
 
     public static JvMainChatMainFrame getInstance() {
@@ -29,7 +32,7 @@ public class JvMainChatMainFrame extends JFrame {
 
     private void addGeneralSettingsToWidget() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("JvChat");
+        setTitle("Главное окно");
         setSize(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.585,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.5625,
@@ -42,34 +45,26 @@ public class JvMainChatMainFrame extends JFrame {
     }
 
     private void makeFrameSetting() {
-        JPanel base = new JPanel();
-        base.setLayout(new GridBagLayout());
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-
-        int insX = JvGetterSettings.getInstance().getBeanDisplaySettings().
-                getResizeFromDisplay(0.025,
-                        JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
         int gridxNum = 0;
 
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.CENTER;
-        //gbc.insets = new Insets(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0125), 0,
-              //  JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0084), 0);
+        gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = gridxNum;
-        base.add(JvMainChatScrollPanelChats.getInstance(), gbc);
+        panel.add(scrollPanelChats, gbc);
         gridxNum++;
 
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.CENTER;
-        // gbc.insets = new Insets(0, insX,
-        //        JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.004), insX);
+        gbc.weightx = 2.0;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = gridxNum;
-        //base.add(null, gbc);
+        panel.add(scrollPanelMessages, gbc);
 
-        getContentPane().add(base);
+        getContentPane().add(panel);
     }
 
     public void openWindow() {
@@ -84,27 +79,4 @@ public class JvMainChatMainFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(false);
     }
-
-//    private void waitRepeatServer() {
-//        setEnabled(false);
-//        while (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getEntryRequestFlag() ==
-//                JvMessagesDefinesCtrl.TypeFlags.DEFAULT) {
-//            try {
-//                TimeUnit.SECONDS.sleep(1);
-//            } catch (InterruptedException exception) {
-//                JvLog.write(JvLog.TypeLog.Error, "Не удалось ждать");
-//            }
-//        }
-//        if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getEntryRequestFlag() ==
-//                JvMessagesDefinesCtrl.TypeFlags.TRUE) {
-//            closeWindow();
-//            setEnabled(true);
-//            JvLog.write(JvLog.TypeLog.Info, "Вход Авыполнен");
-//        } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getEntryRequestFlag() ==
-//                JvMessagesDefinesCtrl.TypeFlags.FALSE) {
-//            setEnabled(true);
-//            JvGetterAuthUiComponents.getInstance()
-//                    .getBeanAuthOptionPane("Вход не выполнен, данные не верные.", JvAuthOptionPane.TypeDlg.ERROR);
-//        }
-//    }
 }
