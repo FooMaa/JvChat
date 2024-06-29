@@ -3,9 +3,6 @@ package org.foomaa.jvchat.uicomponents.mainchat;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
 import java.awt.*;
 
 public class JvMainChatRectChat extends JPanel {
@@ -19,7 +16,7 @@ public class JvMainChatRectChat extends JPanel {
     private void makeChatBox() {
         Box box = Box.createVerticalBox();
 
-        JLabel contact = new JLabel("Name");
+        JLabel contact = new JLabel("Ник");
         contact.setFont(new Font("Times", Font.BOLD,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017)));
         JLabel shortText = new JLabel("Text");
@@ -28,9 +25,9 @@ public class JvMainChatRectChat extends JPanel {
 
         box.add(contact);
         box.add(shortText);
-        setForeground(Color.BLUE);
+        setBackground(new Color(83, 236 ,236));
 
-        add(box);
-        setBorder(new BevelBorder(BevelBorder.RAISED));
+        add(box, BorderLayout.CENTER);
+        setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
 }
