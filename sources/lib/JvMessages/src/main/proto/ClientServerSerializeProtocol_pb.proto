@@ -105,14 +105,14 @@ message MessageChangeStatusRequest {
         Deliver = 1;
         Read = 2;
     }
-    int indexMessage = 1;
+    uint32 indexMessage = 1;
     Status status = 2;
 }
 
 message TextMessage {
-    int index = 1;
+    uint32 index = 1;
     string timestamp = 2;
-    int sender = 3;
-    int receiver = 4;
+    uint32 sender = 3;
+    uint32 receiver = 4;
     string text = 5;
 }

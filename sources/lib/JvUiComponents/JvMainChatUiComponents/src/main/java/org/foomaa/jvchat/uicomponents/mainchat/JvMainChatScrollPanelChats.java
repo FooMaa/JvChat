@@ -56,7 +56,6 @@ public class JvMainChatScrollPanelChats extends JPanel {
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         gbc.anchor = GridBagConstraints.PAGE_START;
-        //gbc.fill = scrollPane.getVerticalScrollBar().isVisible() ? GridBagConstraints.BOTH : GridBagConstraints.HORIZONTAL;
         add(scrollPane, gbc);
     }
 
