@@ -1,28 +1,18 @@
 import com.google.protobuf.gradle.*
 
 plugins {
-    id("com.google.protobuf") version "0.8.18"
+    id("com.google.protobuf") version "0.9.4"
 }
 
 group = "org.foomaa.jvchat.messages"
 version = "1.0-SNAPSHOT"
+var protoPath = ""
 
 dependencies {
     implementation("com.google.protobuf:protobuf-java:3.16.3")
+    implementation("io.grpc:grpc-stub:1.15.1")
+    implementation("io.grpc:grpc-protobuf:1.15.1")
     implementation(project(":JvLogger"))
-}
-
-sourceSets {
-    main {
-        proto {
-            srcDir("src/main/proto")
-        }
-    }
-    test {
-        proto {
-            srcDir("src/test/proto")
-        }
-    }
 }
 
 protobuf {
@@ -30,29 +20,34 @@ protobuf {
         artifact = "com.google.protobuf:protoc:3.16.3"
     }
 
-    generatedFilesBaseDir = "${buildDir}/generated-sources/protobuf"
+    plugins {
+        id("grpc") {
+            artifact = "io.grpc:protoc-gen-grpc-java:1.15.1"
+        }
+    }
 
+    //generatedFilesBaseDir = "${buildDir}/generated-sources/protobuf"
+    protoPath = generatedFilesBaseDir
     generateProtoTasks {
-        generatedFilesBaseDir = "${buildDir}/generated-sources/protobuf"
-        all().forEach { task ->
-            task.builtins {
-                getByName("java")
+        ofSourceSet("main").forEach {
+            it.plugins {
+                id("grpc") {}
             }
         }
     }
 }
 
+
 tasks {
-    val deleteAllGeneratingFiles by creating(Delete::class) {
-        val fileGeneratingDir = file("${buildDir}/generated-sources")
-        delete(fileGeneratingDir.toString())
-    }
-
-    // может не надо
-    val deleteGeneratingMainPath by creating(Delete::class) {
-        val fileGeneratingMainDir = file("${buildDir}/generated")
-        delete(fileGeneratingMainDir.toString())
-
+    val deleteGeneratingPath by creating(Delete::class) {
+        val pattern = "generated/"
+        val index = protoPath.indexOf(pattern)
+        var subPath = ""
+        if (index != -1) {
+            subPath = protoPath.substring(0, index + pattern.length)
+            val fileGeneratingMainDir = file(subPath)
+            delete(fileGeneratingMainDir.toString())
+        }
     }
 
     val deleteOldFiles by creating(Delete::class) {
@@ -81,10 +76,10 @@ tasks {
     }
 
     val copyProtobuf by creating(Copy::class) {
-        from("${buildDir}/generated-sources/protobuf/main/java")
+        from("${protoPath}/main/java")
         into("src/main/java")
         dependsOn(deleteOldFiles, "generateProto")
-        finalizedBy(deleteAllGeneratingFiles, deleteGeneratingMainPath)
+        finalizedBy(deleteGeneratingPath)
     }
 
     compileJava {
