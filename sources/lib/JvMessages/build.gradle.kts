@@ -39,14 +39,14 @@ sourceSets {
 
 tasks {
     val deleteAllGeneratingFiles by creating(Delete::class) {
-        val fileGenDir = file("${buildDir}/generated-sources")
-        delete(fileGenDir.toString())
+        val fileGeneratingDir = file("${buildDir}/generated-sources")
+        delete(fileGeneratingDir.toString())
     }
 
     // может не надо
-    val deleteGenPath by creating(Delete::class) {
-        val fileGenDirMain = file("${buildDir}/generated")
-        delete(fileGenDirMain.toString())
+    val deleteGeneratingMainPath by creating(Delete::class) {
+        val fileGeneratingMainDir = file("${buildDir}/generated")
+        delete(fileGeneratingMainDir.toString())
 
     }
 
@@ -79,7 +79,7 @@ tasks {
         from("${buildDir}/generated-sources/protobuf/main/java")
         into("src/main/java")
         dependsOn(deleteOldFiles, "generateProto")
-        finalizedBy(deleteAllGeneratingFiles, deleteGenPath)
+        finalizedBy(deleteAllGeneratingFiles, deleteGeneratingMainPath)
     }
 
     compileJava {
