@@ -12,6 +12,19 @@ dependencies {
     implementation(project(":JvLogger"))
 }
 
+sourceSets {
+    main {
+        proto {
+            srcDir("src/main/proto")
+        }
+    }
+    test {
+        proto {
+            srcDir("src/test/proto")
+        }
+    }
+}
+
 protobuf {
     protoc {
         artifact = "com.google.protobuf:protoc:3.16.3"
@@ -25,14 +38,6 @@ protobuf {
             task.builtins {
                 getByName("java")
             }
-        }
-    }
-}
-
-sourceSets {
-    main {
-        proto {
-            srcDir("src/main/proto")
         }
     }
 }
