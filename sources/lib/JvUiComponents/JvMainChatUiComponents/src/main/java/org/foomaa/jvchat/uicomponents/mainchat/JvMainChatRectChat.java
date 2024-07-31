@@ -25,7 +25,7 @@ public class JvMainChatRectChat extends JPanel {
 
         box.add(contact);
         box.add(shortText);
-        setBackground(new Color(83, 236 ,236));
+        setBackground(new Color(185, 248, 231));
 
         add(box, BorderLayout.CENTER);
         setBorder(BorderFactory.createLineBorder(Color.BLACK));

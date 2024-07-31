@@ -23,23 +23,10 @@ public class JvMainChatScrollPanelChats extends JPanel {
     }
 
     private void makePanel() {
+        setBorder(BorderFactory.createMatteBorder(0,0,0,7, Color.GRAY));
+
         Box box = Box.createVerticalBox();
 
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat());
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat());
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat());
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat());
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat());
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat());
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat());
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat());
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat());
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat());
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat());
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat());
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat());
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat());
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat());
         box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat());
         box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat());
         box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat());
@@ -51,7 +38,7 @@ public class JvMainChatScrollPanelChats extends JPanel {
 
         GridBagConstraints gbc = new GridBagConstraints();
         setLayout(new GridBagLayout());
-        System.out.println(getSize());
+
         gbc.gridy = 0;
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
@@ -61,6 +48,8 @@ public class JvMainChatScrollPanelChats extends JPanel {
 
     private void changeScrollPane(JScrollPane scrollPane) {
         GridBagConstraints gbc = ((GridBagLayout) getLayout()).getConstraints(scrollPane);
+
+        remove(scrollPane);
 
         gbc.gridy = 0;
         gbc.weightx = 1.0;

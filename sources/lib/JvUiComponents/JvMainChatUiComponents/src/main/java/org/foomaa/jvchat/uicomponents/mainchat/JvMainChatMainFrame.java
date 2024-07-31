@@ -58,7 +58,7 @@ public class JvMainChatMainFrame extends JFrame {
         panel.add(scrollPanelChats, gbc);
         gridxNum++;
 
-        gbc.weightx = 2.0;
+        gbc.weightx = 1.25;
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = gridxNum;

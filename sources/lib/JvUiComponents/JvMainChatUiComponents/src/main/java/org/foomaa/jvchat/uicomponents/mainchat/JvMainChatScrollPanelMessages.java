@@ -2,11 +2,11 @@ package org.foomaa.jvchat.uicomponents.mainchat;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
-public class JvMainChatScrollPanelMessages extends JScrollBar {
+public class JvMainChatScrollPanelMessages extends JPanel {
     private static JvMainChatScrollPanelMessages instance;
-    private ArrayList<Integer> idMessages;
 
     JvMainChatScrollPanelMessages() {
         makePanel();
@@ -20,15 +20,51 @@ public class JvMainChatScrollPanelMessages extends JScrollBar {
     }
 
     private void makePanel() {
-        Box box = Box.createVerticalBox();
+        JScrollPane scrollPane = new JScrollPane(new JPanel());
+        scrollPane.setBorder(null);
 
-        box.add(new JLabel("AAA"));
-        box.add(new JLabel("AAA"));
-        box.add(new JLabel("AAA"));
+        addListenerScrollPane(scrollPane);
 
-        JScrollPane scrollPane = new JScrollPane(box);
+        GridBagConstraints gbc = new GridBagConstraints();
+        setLayout(new GridBagLayout());
 
-        setLayout(new BorderLayout());
-        add(scrollPane);
+        gbc.gridy = 0;
+        gbc.weightx = 0.5;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.anchor = GridBagConstraints.PAGE_END;
+        add(scrollPane, gbc);
+    }
+
+    private void changeScrollPane(JScrollPane scrollPane) {
+        JPanel scrollPanel = new JPanel();
+
+        scrollPanel.setLayout(new BoxLayout(scrollPanel, BoxLayout.Y_AXIS));
+
+        for (int i = 0; i < 50; i ++) {
+            JPanel rowPanel = new JPanel();
+            rowPanel.setLayout(new BorderLayout());
+
+            if (i % 2 == 0) {
+                rowPanel.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectMessage(), BorderLayout.WEST);
+            } else {
+                rowPanel.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectMessage(), BorderLayout.EAST);
+            }
+            scrollPanel.add(rowPanel);
+        }
+        
+        scrollPane.setViewportView(scrollPanel);
+
+        revalidate();
+        repaint();
+    }
+
+    private void addListenerScrollPane(JScrollPane scrollPane) {
+        scrollPane.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                changeScrollPane(scrollPane);
+            }
+        });
     }
 }
