@@ -52,8 +52,14 @@ public class JvMainChatScrollPanelMessages extends JPanel {
             }
             scrollPanel.add(rowPanel);
         }
-        
+
         scrollPane.setViewportView(scrollPanel);
+
+        JScrollBar verticalScrollBar = scrollPane.getVerticalScrollBar();
+
+        if (verticalScrollBar != null) {
+            verticalScrollBar.setValue(verticalScrollBar.getMaximum());
+        }
 
         revalidate();
         repaint();

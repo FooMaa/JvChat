@@ -70,16 +70,10 @@ public class JvMainChatMainFrame extends JFrame {
         panel.add(scrollPanelMessages, gbc);
 
         gbc.weightx = 1.25;
-        gbc.weighty = 0.5;
+        gbc.weighty = 0.25;
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = gridxNum;
-        panel.add(sendingTextAreaScroll, gbc);
-
-        gbc.weightx = 0.25;
-        gbc.weighty = 0.5;
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.gridx = gridxNum;
-        panel.add(sendButton, gbc);
+        panel.add(createPanelSending(), gbc);
 
         getContentPane().add(panel);
     }
@@ -95,5 +89,28 @@ public class JvMainChatMainFrame extends JFrame {
         //dispose();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(false);
+    }
+
+    private JPanel createPanelSending() {
+        JPanel rowPanelSending = new JPanel();
+        rowPanelSending.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        int gridxNum = 0;
+
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridx = gridxNum;
+        rowPanelSending.add(sendingTextAreaScroll, gbc);
+        gridxNum++;
+
+        gbc.weightx = 0.25;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridx = gridxNum;
+        rowPanelSending.add(sendButton, gbc);
+
+        return rowPanelSending;
     }
 }
