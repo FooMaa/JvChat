@@ -10,7 +10,9 @@ public class JvMainChatUiComponentsSpringConfig {
         BeanMainChatScrollPanelChats("beanMainChatScrollPanelChats"),
         BeanMainChatScrollPanelMessages("beanMainChatScrollPanelMessages"),
         BeanMainChatRectMessage("beanMainChatRectMessage"),
-        BeanMainChatRectChat("beanMainChatRectChat");
+        BeanMainChatRectChat("beanMainChatRectChat"),
+        BeanMainChatSendButton("beanMainChatSendButton"),
+        BeanMainChatSendingTextAreaScroll("beanMainChatSendingTextAreaScroll");
 
         private final String value;
 
@@ -56,5 +58,19 @@ public class JvMainChatUiComponentsSpringConfig {
     @Scope("prototype")
     public JvMainChatRectChat beanMainChatRectChat() {
         return new JvMainChatRectChat();
+    }
+
+    @Bean(name = "beanMainChatSendButton")
+    @Lazy
+    @Scope("prototype")
+    public JvMainChatSendButton beanMainChatSendButton(String text) {
+        return new JvMainChatSendButton(text);
+    }
+
+    @Bean(name = "beanMainChatSendingTextAreaScroll")
+    @Lazy
+    @Scope("prototype")
+    public JvMainChatSendingTextAreaScroll beanMainChatSendingTextAreaScroll() {
+        return new JvMainChatSendingTextAreaScroll();
     }
 }

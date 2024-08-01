@@ -43,4 +43,15 @@ public class JvGetterMainChatUiComponents {
         return context.getBean(JvMainChatUiComponentsSpringConfig.NameBeans.BeanMainChatRectChat.getValue(),
                 JvMainChatRectChat.class);
     }
+
+    public JvMainChatSendButton getBeanMainChatSendButton(String text) {
+        return (JvMainChatSendButton) context.getBean(
+                JvMainChatUiComponentsSpringConfig.NameBeans.BeanMainChatSendButton.getValue(),
+                text);
+    }
+
+    public JvMainChatSendingTextAreaScroll getBeanMainChatSendingTextAreaScroll() {
+        return context.getBean(JvMainChatUiComponentsSpringConfig.NameBeans.BeanMainChatSendingTextAreaScroll.getValue(),
+                JvMainChatSendingTextAreaScroll.class);
+    }
 }

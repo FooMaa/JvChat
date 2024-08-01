@@ -11,12 +11,17 @@ public class JvMainChatMainFrame extends JFrame {
     private static JvMainChatMainFrame instance;
     private final JvMainChatScrollPanelChats scrollPanelChats;
     private final JvMainChatScrollPanelMessages scrollPanelMessages;
+    private final JvMainChatSendingTextAreaScroll sendingTextAreaScroll;
+    private final JButton sendButton;
 
     private JvMainChatMainFrame() {
         super("MainChatWindow");
 
         scrollPanelChats = JvGetterMainChatUiComponents.getInstance().getBeanMainChatScrollPanelChats();
         scrollPanelMessages = JvGetterMainChatUiComponents.getInstance().getBeanMainChatScrollPanelMessages();
+
+        sendingTextAreaScroll = JvGetterMainChatUiComponents.getInstance().getBeanMainChatSendingTextAreaScroll();
+        sendButton = JvGetterMainChatUiComponents.getInstance().getBeanMainChatSendButton("Отправить");
 
         addGeneralSettingsToWidget();
         makeFrameSetting();
@@ -59,10 +64,22 @@ public class JvMainChatMainFrame extends JFrame {
         gridxNum++;
 
         gbc.weightx = 1.25;
-        gbc.weighty = 1.0;
+        gbc.weighty = 2.5;
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = gridxNum;
         panel.add(scrollPanelMessages, gbc);
+
+        gbc.weightx = 1.25;
+        gbc.weighty = 0.5;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridx = gridxNum;
+        panel.add(sendingTextAreaScroll, gbc);
+
+        gbc.weightx = 0.25;
+        gbc.weighty = 0.5;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridx = gridxNum;
+        panel.add(sendButton, gbc);
 
         getContentPane().add(panel);
     }
