@@ -83,4 +83,10 @@ public class JvDbDefines {
                 "SELECT * FROM chat_schema.auth_users_info_get_login_by_email('%s');",
                 email);
     }
+
+    public String getChats(String sender) {
+        return String.format(
+                "SELECT * FROM chat_schema.chats_messages_get_chats_by_sender('%s');",
+                sender);
+    }
 }

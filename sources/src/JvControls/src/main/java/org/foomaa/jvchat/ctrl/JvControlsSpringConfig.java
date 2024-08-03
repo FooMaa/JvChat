@@ -23,7 +23,8 @@ public class JvControlsSpringConfig {
         BeanTakeMessagesCtrl("beanTakeMessagesCtrl"),
         BeanNetworkCtrl("beanNetworkCtrl"),
         BeanServersSocketThreadCtrl("beanServersSocketThreadCtrl"),
-        BeanUsersSocketThreadCtrl("beanUsersSocketThreadCtrl");
+        BeanUsersSocketThreadCtrl("beanUsersSocketThreadCtrl"),
+        BeanChatsCtrl("beanChatsCtrl");
 
         private final String value;
 
@@ -84,5 +85,11 @@ public class JvControlsSpringConfig {
     @Scope("prototype")
     public JvUsersSocketThreadCtrl beanUsersSocketThreadCtrl(Socket fromSocketUser) {
         return new JvUsersSocketThreadCtrl(fromSocketUser);
+    }
+
+    @Bean(name = "beanChatsCtrl")
+    @Scope("singleton")
+    public JvChatsCtrl beanChatsCtrl() {
+        return JvChatsCtrl.getInstance();
     }
 }

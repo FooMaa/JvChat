@@ -36,7 +36,8 @@ public class JvDbCtrl {
 
     public enum TypeExecutionGet {
         LoginByEmail,
-        IdByEmail
+        IdByEmail,
+        Chats
     }
 
     private JvDbCtrl() {}
@@ -255,6 +256,18 @@ public class JvDbCtrl {
                 if (parameters.length == 1) {
                     String email = parameters[0];
                     ResultSet resultSet = db.makeExecution(dbDefines.getUserId(email));
+                    List<String> result = getStrDataAtRow(resultSet, 1);
+                    db.closeResultSet(resultSet);
+                    if (!result.isEmpty()) {
+                        return result.stream().findFirst().get();
+                    }
+                }
+                return null;
+            }
+            case Chats-> {
+                if (parameters.length == 1) {
+                    String sender = parameters[0];
+                    ResultSet resultSet = db.makeExecution(dbDefines.getChats(sender));
                     List<String> result = getStrDataAtRow(resultSet, 1);
                     db.closeResultSet(resultSet);
                     if (!result.isEmpty()) {

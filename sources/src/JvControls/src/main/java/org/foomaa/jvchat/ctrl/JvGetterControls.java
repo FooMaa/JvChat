@@ -71,4 +71,9 @@ public class JvGetterControls {
                 JvControlsSpringConfig.NameBeans.BeanUsersSocketThreadCtrl.getValue(),
                 usersSocket);
     }
+
+    public JvChatsCtrl getBeanChatsCtrl() {
+        return context.getBean(JvControlsSpringConfig.NameBeans.BeanChatsCtrl.getValue(),
+                JvChatsCtrl.class);
+    }
 }

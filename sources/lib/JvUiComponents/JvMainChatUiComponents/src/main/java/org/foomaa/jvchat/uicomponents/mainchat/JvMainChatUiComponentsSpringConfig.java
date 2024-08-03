@@ -56,8 +56,8 @@ public class JvMainChatUiComponentsSpringConfig {
     @Bean(name = "beanMainChatRectChat")
     @Lazy
     @Scope("prototype")
-    public JvMainChatRectChat beanMainChatRectChat() {
-        return new JvMainChatRectChat();
+    public JvMainChatRectChat beanMainChatRectChat(String nickName, String shortLastMessage) {
+        return new JvMainChatRectChat(nickName, shortLastMessage);
     }
 
     @Bean(name = "beanMainChatSendButton")

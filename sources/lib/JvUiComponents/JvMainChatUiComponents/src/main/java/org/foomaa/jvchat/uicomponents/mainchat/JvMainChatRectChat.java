@@ -6,20 +6,22 @@ import javax.swing.*;
 import java.awt.*;
 
 public class JvMainChatRectChat extends JPanel {
-    private int id;
-    private JLabel receiver;
+    private final String nickName;
+    private final String shortLastMessage;
 
-    JvMainChatRectChat() {
+    JvMainChatRectChat(String newNickName, String newShortLastMessage) {
+        nickName = newNickName;
+        shortLastMessage = newShortLastMessage;
         makeChatBox();
     }
 
     private void makeChatBox() {
         Box box = Box.createVerticalBox();
 
-        JLabel contact = new JLabel("Ник");
+        JLabel contact = new JLabel(nickName);
         contact.setFont(new Font("Times", Font.BOLD,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017)));
-        JLabel shortText = new JLabel("Text");
+        JLabel shortText = new JLabel(shortLastMessage);
         shortText.setFont(new Font("Times", Font.PLAIN,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017)));
 

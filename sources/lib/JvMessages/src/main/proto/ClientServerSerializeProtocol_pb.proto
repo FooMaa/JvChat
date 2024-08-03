@@ -20,9 +20,9 @@ message General {
         ChangePasswordRequest changePasswordRequest = 12;
         ChangePasswordReply changePasswordReply = 13;
 
-        // Main Messages
-        MessageChangeStatusRequest  messageChangeStatusRequest = 14;
-        TextMessage textMessage = 15;
+        // Main Chat
+        ChatsRequest chatsRequest = 14;
+        ChatsReply chatsReply = 15;
     }
 }
 
@@ -109,10 +109,10 @@ message MessageChangeStatusRequest {
     Status status = 2;
 }
 
-message TextMessage {
-    uint32 index = 1;
-    string timestamp = 2;
-    uint32 sender = 3;
-    uint32 receiver = 4;
-    string text = 5;
+message ChatsRequest {
+    string sender = 1;
+}
+
+message ChatsReply {
+    bytes receivers = 1;
 }

@@ -27,9 +27,9 @@ public class JvMainChatScrollPanelChats extends JPanel {
 
         Box box = Box.createVerticalBox();
 
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat());
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat());
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat());
+        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
+        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
+        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
 
         JScrollPane scrollPane = new JScrollPane(box);
         scrollPane.setBorder(null);

@@ -39,9 +39,9 @@ public class JvGetterMainChatUiComponents {
                 JvMainChatRectMessage.class);
     }
 
-    public JvMainChatRectChat getBeanMainChatRectChat() {
-        return context.getBean(JvMainChatUiComponentsSpringConfig.NameBeans.BeanMainChatRectChat.getValue(),
-                JvMainChatRectChat.class);
+    public JvMainChatRectChat getBeanMainChatRectChat(String nickName, String shortLastMessage) {
+        return (JvMainChatRectChat) context.getBean(JvMainChatUiComponentsSpringConfig.NameBeans.BeanMainChatRectChat.getValue(),
+                nickName, shortLastMessage);
     }
 
     public JvMainChatSendButton getBeanMainChatSendButton(String text) {

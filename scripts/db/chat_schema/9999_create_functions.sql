@@ -284,22 +284,22 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-
 -- ----------------------------------------------------------------------------------------------
 -- chat_schema.chats_messages
 -- ----------------------------------------------------------------------------------------------
 
-CREATE OR REPLACE FUNCTION chat_schema.chats_messages_get_message_by_sender(
-    f_email character varying
+CREATE OR REPLACE FUNCTION chat_schema.chats_messages_get_chats_by_sender(
+    f_sender character varying
 )
     RETURNS bytea AS
 $BODY$
 DECLARE
     rv integer;
 BEGIN
-    SELECT id INTO rv FROM chat_schema.auth_users_info WHERE email=f_email;
+    SELECT DISTINCT receiver INTO rv FROM chat_schema.chats_messages WHERE sender=f_sender;
     IF found THEN
         RETURN rv;
     END IF;
     RETURN NULL;
 END;
+$BODY$ LANGUAGE plpgsql;
