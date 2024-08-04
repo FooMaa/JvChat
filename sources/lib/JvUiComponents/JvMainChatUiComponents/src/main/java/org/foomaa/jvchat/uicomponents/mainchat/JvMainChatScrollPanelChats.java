@@ -30,6 +30,29 @@ public class JvMainChatScrollPanelChats extends JPanel {
         box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
         box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
         box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
+        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
+        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
+        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
+        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
+        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
+        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
+        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
+        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
+        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
+        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
+        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
+        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
+        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
+        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
+        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
+        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
+        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
+        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
+        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
+        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
+        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
+
+
 
         JScrollPane scrollPane = new JScrollPane(box);
         scrollPane.setBorder(null);
