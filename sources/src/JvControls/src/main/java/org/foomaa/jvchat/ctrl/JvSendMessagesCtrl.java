@@ -141,8 +141,15 @@ public class JvSendMessagesCtrl {
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
+            case ChatsLoadRequest -> {
+                if (parameters.length == 1) {
+                    Object sender = parameters[0];
+                    byte[] bodyMessage = createBodyChatsLoadRequestMessage(type,
+                            (String) sender);
+                    sendReadyMessageNetwork(bodyMessage);
+                }
+            }
         }
-
     }
 
     private void sendReadyMessageNetwork(byte[] bodyMessage) {
@@ -196,5 +203,9 @@ public class JvSendMessagesCtrl {
 
     private byte[] createBodyChangePasswordReplyMessage(JvMessagesDefines.TypeMessage type, Boolean reply) {
         return JvGetterMessages.getInstance().getBeanMessagesSerializatorData().serialiseData(type, reply);
+    }
+
+    private byte[] createBodyChatsLoadRequestMessage(JvMessagesDefines.TypeMessage type, String sender) {
+        return JvGetterMessages.getInstance().getBeanMessagesSerializatorData().serialiseData(type, sender);
     }
 }

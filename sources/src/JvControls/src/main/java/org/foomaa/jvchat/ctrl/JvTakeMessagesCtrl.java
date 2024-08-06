@@ -4,6 +4,7 @@ import org.foomaa.jvchat.messages.JvGetterMessages;
 import org.foomaa.jvchat.messages.JvMessagesDefines;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class JvTakeMessagesCtrl {
     private static JvTakeMessagesCtrl instance;
@@ -32,6 +33,7 @@ public class JvTakeMessagesCtrl {
             case VerifyFamousEmailReply -> workVerifyFamousEmailReplyMessage(getDeserializeMapData(type, data));
             case ChangePasswordRequest -> workChangePasswordRequestMessage(getDeserializeMapData(type, data));
             case ChangePasswordReply -> workChangePasswordReplyMessage(getDeserializeMapData(type, data));
+            case ChatsLoadReply -> workChatsLoadRequestMessage(getDeserializeMapData(type, data));
         }
     }
 
@@ -198,7 +200,7 @@ public class JvTakeMessagesCtrl {
                 sendMessage(JvMessagesDefines.TypeMessage.ChangePasswordReply, requestDB);
     }
 
-    private void workChangePasswordReplyMessage( HashMap<JvMessagesDefines.TypeData, ?> map) {
+    private void workChangePasswordReplyMessage(HashMap<JvMessagesDefines.TypeData, ?> map) {
         if ((Boolean) map.get(JvMessagesDefines.TypeData.BoolReply)) {
             JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().
                     setChangePasswordRequest(JvMessagesDefinesCtrl.TypeFlags.TRUE);
@@ -206,5 +208,13 @@ public class JvTakeMessagesCtrl {
             JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().
                     setChangePasswordRequest(JvMessagesDefinesCtrl.TypeFlags.FALSE);
         }
+    }
+
+    private void workChatsLoadRequestMessage(HashMap<JvMessagesDefines.TypeData, ?> map) {
+        List<String> requestDB = JvGetterControls.getInstance()
+                .getBeanDbCtrl().getMultipleInfoFromDb(JvDbCtrl.TypeExecutionGetMultiple.ChatsLoad,
+                        (String) map.get(JvMessagesDefines.TypeData.ChatsLoad));
+        JvGetterControls.getInstance().getBeanSendMessagesCtrl().
+                sendMessage(JvMessagesDefines.TypeMessage.ChatsLoadReply, requestDB);
     }
 }

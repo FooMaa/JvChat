@@ -31,7 +31,7 @@ public class JvMessagesDeserializatorData {
             case VerifyFamousEmailReply -> takeVerifyFamousEmailReplyMessage(data);
             case ChangePasswordRequest -> takeChangePasswordRequestMessage(data);
             case ChangePasswordReply -> takeChangePasswordReplyMessage(data);
-            case ChatsLoadRequest -> null;
+            case ChatsLoadRequest -> takeChatsLoadRequestMessage(data);
             case ChatsLoadReply -> null;
         };
     }
@@ -195,6 +195,17 @@ public class JvMessagesDeserializatorData {
         try {
             result.put(JvMessagesDefines.TypeData.BoolReply, ClientServerSerializeProtocol_pb.General.parseFrom(data)
                     .getChangePasswordReply().getReply());
+        } catch (InvalidProtocolBufferException exception) {
+            JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
+        }
+        return result;
+    }
+
+    private HashMap<JvMessagesDefines.TypeData, String> takeChatsLoadRequestMessage(byte[] data) {
+        HashMap<JvMessagesDefines.TypeData, String> result = new HashMap<>();
+        try {
+            result.put(JvMessagesDefines.TypeData.ChatsLoad, ClientServerSerializeProtocol_pb.General.parseFrom(data).
+                    getChatsLoadRequest().getSender());
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }

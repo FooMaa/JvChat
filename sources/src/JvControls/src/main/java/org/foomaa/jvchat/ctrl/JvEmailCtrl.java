@@ -46,7 +46,7 @@ public class JvEmailCtrl {
                         "Если это были не вы, свяжитесь с поддержкой по почте avodichenkov@mail.ru.",
                 code,
                 JvGetterControls.getInstance().getBeanDbCtrl().
-                        getInfoFromDb(JvDbCtrl.TypeExecutionGet.LoginByEmail, email));
+                        getSingleDataFromDb(JvDbCtrl.TypeExecutionGetSingle.LoginByEmail, email));
     }
 
     public boolean startVerifyRegEmail(String email) {

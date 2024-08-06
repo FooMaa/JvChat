@@ -60,7 +60,7 @@ public class JvMessagesDefines {
         ErrorReg,
         BoolReply,
         VerifyCode,
-        Chats
+        ChatsLoad
     }
 
     public enum TypeErrorRegistration {

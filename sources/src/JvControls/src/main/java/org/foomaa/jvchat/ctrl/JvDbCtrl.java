@@ -34,10 +34,13 @@ public class JvDbCtrl {
         VerifyRegistrationEmail
     }
 
-    public enum TypeExecutionGet {
+    public enum TypeExecutionGetSingle {
         LoginByEmail,
         IdByEmail,
-        Chats
+    }
+
+    public enum TypeExecutionGetMultiple {
+        ChatsLoad
     }
 
     private JvDbCtrl() {}
@@ -137,7 +140,7 @@ public class JvDbCtrl {
                     String code = parameters[1];
                     int userId;
                     if (checkQueryToDB(TypeExecutionCheck.Email, email)) {
-                        userId = Integer.parseInt(getInfoFromDb(TypeExecutionGet.IdByEmail, email));
+                        userId = Integer.parseInt(getSingleDataFromDb(TypeExecutionGetSingle.IdByEmail, email));
                         ResultSet rs = db.makeExecution(dbDefines.insertCodeVerifyFamousEmail(userId, code));
                         db.closeResultSet(rs);
                         return true;
@@ -238,7 +241,7 @@ public class JvDbCtrl {
         return false;
     }
 
-    public String getInfoFromDb(TypeExecutionGet type, String ... parameters) {
+    public String getSingleDataFromDb(TypeExecutionGetSingle type, String ... parameters) {
         switch (type) {
             case LoginByEmail -> {
                 if (parameters.length == 1) {
@@ -264,14 +267,20 @@ public class JvDbCtrl {
                 }
                 return null;
             }
-            case Chats-> {
+        }
+        return null;
+    }
+
+    public List<String> getMultipleInfoFromDb(TypeExecutionGetMultiple type, String ... parameters) {
+        switch (type) {
+            case ChatsLoad -> {
                 if (parameters.length == 1) {
                     String sender = parameters[0];
                     ResultSet resultSet = db.makeExecution(dbDefines.getChats(sender));
                     List<String> result = getStrDataAtRow(resultSet, 1);
                     db.closeResultSet(resultSet);
                     if (!result.isEmpty()) {
-                        return result.stream().findFirst().get();
+                        return result.stream().toList();
                     }
                 }
                 return null;
