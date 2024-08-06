@@ -24,7 +24,9 @@ public class JvMessagesDefines {
         VerifyFamousEmailRequest(8),
         VerifyFamousEmailReply(9),
         ChangePasswordRequest(10),
-        ChangePasswordReply(11);
+        ChangePasswordReply(11),
+        ChatsLoadRequest(12),
+        ChatsLoadReply(13);
 
         private final int value;
 
@@ -57,7 +59,8 @@ public class JvMessagesDefines {
         Password,
         ErrorReg,
         BoolReply,
-        VerifyCode
+        VerifyCode,
+        Chats
     }
 
     public enum TypeErrorRegistration {

@@ -21,8 +21,8 @@ message General {
         ChangePasswordReply changePasswordReply = 13;
 
         // Main Chat
-        ChatsRequest chatsRequest = 14;
-        ChatsReply chatsReply = 15;
+        ChatsLoadRequest chatsLoadRequest = 14;
+        ChatsLoadReply chatsLoadReply = 15;
     }
 }
 
@@ -109,10 +109,10 @@ message MessageChangeStatusRequest {
     Status status = 2;
 }
 
-message ChatsRequest {
+message ChatsLoadRequest {
     string sender = 1;
 }
 
-message ChatsReply {
+message ChatsLoadReply {
     bytes receivers = 1;
 }

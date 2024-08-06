@@ -126,6 +126,14 @@ public class JvMessagesSerializatorData {
                     return new byte[0];
                 }
             }
+            case ChatsLoadRequest -> {
+                if (parameters.length == 1) {
+                    Object sender = parameters[0];
+                    return createChatsLoadRequestMessage(type, (String) sender);
+                } else {
+                    return new byte[0];
+                }
+            }
         }
         return new byte[0];
     }
@@ -293,6 +301,19 @@ public class JvMessagesSerializatorData {
                 .setType(type.getValue())
                 .setChangePasswordReply(msgChangePasswordReply)
                 .build();
+        return resMsg.toByteArray();
+    }
+
+    private byte[] createChatsLoadRequestMessage(JvMessagesDefines.TypeMessage type, String sender) {
+        ClientServerSerializeProtocol_pb.ChatsLoadRequest msgChatsLoadRequest =
+                ClientServerSerializeProtocol_pb.ChatsLoadRequest.newBuilder()
+                        .setSender(sender)
+                        .build();
+        ClientServerSerializeProtocol_pb.General resMsg =
+                ClientServerSerializeProtocol_pb.General.newBuilder()
+                        .setType(type.getValue())
+                        .setChatsLoadRequest(msgChatsLoadRequest)
+                        .build();
         return resMsg.toByteArray();
     }
 }

@@ -31,6 +31,8 @@ public class JvMessagesDeserializatorData {
             case VerifyFamousEmailReply -> takeVerifyFamousEmailReplyMessage(data);
             case ChangePasswordRequest -> takeChangePasswordRequestMessage(data);
             case ChangePasswordReply -> takeChangePasswordReplyMessage(data);
+            case ChatsLoadRequest -> null;
+            case ChatsLoadReply -> null;
         };
     }
 

@@ -221,42 +221,42 @@ public final class ClientServerSerializeProtocol_pb {
      * Main Chat
      * </pre>
      *
-     * <code>.ChatsRequest chatsRequest = 14;</code>
-     * @return Whether the chatsRequest field is set.
+     * <code>.ChatsLoadRequest chatsLoadRequest = 14;</code>
+     * @return Whether the chatsLoadRequest field is set.
      */
-    boolean hasChatsRequest();
+    boolean hasChatsLoadRequest();
     /**
      * <pre>
      * Main Chat
      * </pre>
      *
-     * <code>.ChatsRequest chatsRequest = 14;</code>
-     * @return The chatsRequest.
+     * <code>.ChatsLoadRequest chatsLoadRequest = 14;</code>
+     * @return The chatsLoadRequest.
      */
-    org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest getChatsRequest();
+    org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest getChatsLoadRequest();
     /**
      * <pre>
      * Main Chat
      * </pre>
      *
-     * <code>.ChatsRequest chatsRequest = 14;</code>
+     * <code>.ChatsLoadRequest chatsLoadRequest = 14;</code>
      */
-    org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequestOrBuilder getChatsRequestOrBuilder();
+    org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequestOrBuilder getChatsLoadRequestOrBuilder();
 
     /**
-     * <code>.ChatsReply chatsReply = 15;</code>
-     * @return Whether the chatsReply field is set.
+     * <code>.ChatsLoadReply chatsLoadReply = 15;</code>
+     * @return Whether the chatsLoadReply field is set.
      */
-    boolean hasChatsReply();
+    boolean hasChatsLoadReply();
     /**
-     * <code>.ChatsReply chatsReply = 15;</code>
-     * @return The chatsReply.
+     * <code>.ChatsLoadReply chatsLoadReply = 15;</code>
+     * @return The chatsLoadReply.
      */
-    org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply getChatsReply();
+    org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply getChatsLoadReply();
     /**
-     * <code>.ChatsReply chatsReply = 15;</code>
+     * <code>.ChatsLoadReply chatsLoadReply = 15;</code>
      */
-    org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReplyOrBuilder getChatsReplyOrBuilder();
+    org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReplyOrBuilder getChatsLoadReplyOrBuilder();
 
     public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.General.BodyCase getBodyCase();
   }
@@ -317,8 +317,8 @@ public final class ClientServerSerializeProtocol_pb {
       VERIFYFAMOUSEMAILREPLY(11),
       CHANGEPASSWORDREQUEST(12),
       CHANGEPASSWORDREPLY(13),
-      CHATSREQUEST(14),
-      CHATSREPLY(15),
+      CHATSLOADREQUEST(14),
+      CHATSLOADREPLY(15),
       BODY_NOT_SET(0);
       private final int value;
       private BodyCase(int value) {
@@ -348,8 +348,8 @@ public final class ClientServerSerializeProtocol_pb {
           case 11: return VERIFYFAMOUSEMAILREPLY;
           case 12: return CHANGEPASSWORDREQUEST;
           case 13: return CHANGEPASSWORDREPLY;
-          case 14: return CHATSREQUEST;
-          case 15: return CHATSREPLY;
+          case 14: return CHATSLOADREQUEST;
+          case 15: return CHATSLOADREPLY;
           case 0: return BODY_NOT_SET;
           default: return null;
         }
@@ -760,17 +760,17 @@ public final class ClientServerSerializeProtocol_pb {
       return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChangePasswordReply.getDefaultInstance();
     }
 
-    public static final int CHATSREQUEST_FIELD_NUMBER = 14;
+    public static final int CHATSLOADREQUEST_FIELD_NUMBER = 14;
     /**
      * <pre>
      * Main Chat
      * </pre>
      *
-     * <code>.ChatsRequest chatsRequest = 14;</code>
-     * @return Whether the chatsRequest field is set.
+     * <code>.ChatsLoadRequest chatsLoadRequest = 14;</code>
+     * @return Whether the chatsLoadRequest field is set.
      */
     @java.lang.Override
-    public boolean hasChatsRequest() {
+    public boolean hasChatsLoadRequest() {
       return bodyCase_ == 14;
     }
     /**
@@ -778,60 +778,60 @@ public final class ClientServerSerializeProtocol_pb {
      * Main Chat
      * </pre>
      *
-     * <code>.ChatsRequest chatsRequest = 14;</code>
-     * @return The chatsRequest.
+     * <code>.ChatsLoadRequest chatsLoadRequest = 14;</code>
+     * @return The chatsLoadRequest.
      */
     @java.lang.Override
-    public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest getChatsRequest() {
+    public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest getChatsLoadRequest() {
       if (bodyCase_ == 14) {
-         return (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest) body_;
+         return (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest) body_;
       }
-      return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest.getDefaultInstance();
+      return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest.getDefaultInstance();
     }
     /**
      * <pre>
      * Main Chat
      * </pre>
      *
-     * <code>.ChatsRequest chatsRequest = 14;</code>
+     * <code>.ChatsLoadRequest chatsLoadRequest = 14;</code>
      */
     @java.lang.Override
-    public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequestOrBuilder getChatsRequestOrBuilder() {
+    public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequestOrBuilder getChatsLoadRequestOrBuilder() {
       if (bodyCase_ == 14) {
-         return (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest) body_;
+         return (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest) body_;
       }
-      return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest.getDefaultInstance();
+      return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest.getDefaultInstance();
     }
 
-    public static final int CHATSREPLY_FIELD_NUMBER = 15;
+    public static final int CHATSLOADREPLY_FIELD_NUMBER = 15;
     /**
-     * <code>.ChatsReply chatsReply = 15;</code>
-     * @return Whether the chatsReply field is set.
+     * <code>.ChatsLoadReply chatsLoadReply = 15;</code>
+     * @return Whether the chatsLoadReply field is set.
      */
     @java.lang.Override
-    public boolean hasChatsReply() {
+    public boolean hasChatsLoadReply() {
       return bodyCase_ == 15;
     }
     /**
-     * <code>.ChatsReply chatsReply = 15;</code>
-     * @return The chatsReply.
+     * <code>.ChatsLoadReply chatsLoadReply = 15;</code>
+     * @return The chatsLoadReply.
      */
     @java.lang.Override
-    public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply getChatsReply() {
+    public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply getChatsLoadReply() {
       if (bodyCase_ == 15) {
-         return (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply) body_;
+         return (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply) body_;
       }
-      return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply.getDefaultInstance();
+      return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply.getDefaultInstance();
     }
     /**
-     * <code>.ChatsReply chatsReply = 15;</code>
+     * <code>.ChatsLoadReply chatsLoadReply = 15;</code>
      */
     @java.lang.Override
-    public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReplyOrBuilder getChatsReplyOrBuilder() {
+    public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReplyOrBuilder getChatsLoadReplyOrBuilder() {
       if (bodyCase_ == 15) {
-         return (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply) body_;
+         return (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply) body_;
       }
-      return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply.getDefaultInstance();
+      return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply.getDefaultInstance();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -888,10 +888,10 @@ public final class ClientServerSerializeProtocol_pb {
         output.writeMessage(13, (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChangePasswordReply) body_);
       }
       if (bodyCase_ == 14) {
-        output.writeMessage(14, (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest) body_);
+        output.writeMessage(14, (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest) body_);
       }
       if (bodyCase_ == 15) {
-        output.writeMessage(15, (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply) body_);
+        output.writeMessage(15, (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply) body_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -956,11 +956,11 @@ public final class ClientServerSerializeProtocol_pb {
       }
       if (bodyCase_ == 14) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(14, (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest) body_);
+          .computeMessageSize(14, (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest) body_);
       }
       if (bodyCase_ == 15) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(15, (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply) body_);
+          .computeMessageSize(15, (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply) body_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -1030,12 +1030,12 @@ public final class ClientServerSerializeProtocol_pb {
               .equals(other.getChangePasswordReply())) return false;
           break;
         case 14:
-          if (!getChatsRequest()
-              .equals(other.getChatsRequest())) return false;
+          if (!getChatsLoadRequest()
+              .equals(other.getChatsLoadRequest())) return false;
           break;
         case 15:
-          if (!getChatsReply()
-              .equals(other.getChatsReply())) return false;
+          if (!getChatsLoadReply()
+              .equals(other.getChatsLoadReply())) return false;
           break;
         case 0:
         default:
@@ -1103,12 +1103,12 @@ public final class ClientServerSerializeProtocol_pb {
           hash = (53 * hash) + getChangePasswordReply().hashCode();
           break;
         case 14:
-          hash = (37 * hash) + CHATSREQUEST_FIELD_NUMBER;
-          hash = (53 * hash) + getChatsRequest().hashCode();
+          hash = (37 * hash) + CHATSLOADREQUEST_FIELD_NUMBER;
+          hash = (53 * hash) + getChatsLoadRequest().hashCode();
           break;
         case 15:
-          hash = (37 * hash) + CHATSREPLY_FIELD_NUMBER;
-          hash = (53 * hash) + getChatsReply().hashCode();
+          hash = (37 * hash) + CHATSLOADREPLY_FIELD_NUMBER;
+          hash = (53 * hash) + getChatsLoadReply().hashCode();
           break;
         case 0:
         default:
@@ -1279,11 +1279,11 @@ public final class ClientServerSerializeProtocol_pb {
         if (changePasswordReplyBuilder_ != null) {
           changePasswordReplyBuilder_.clear();
         }
-        if (chatsRequestBuilder_ != null) {
-          chatsRequestBuilder_.clear();
+        if (chatsLoadRequestBuilder_ != null) {
+          chatsLoadRequestBuilder_.clear();
         }
-        if (chatsReplyBuilder_ != null) {
-          chatsReplyBuilder_.clear();
+        if (chatsLoadReplyBuilder_ != null) {
+          chatsLoadReplyBuilder_.clear();
         }
         bodyCase_ = 0;
         body_ = null;
@@ -1399,17 +1399,17 @@ public final class ClientServerSerializeProtocol_pb {
           }
         }
         if (bodyCase_ == 14) {
-          if (chatsRequestBuilder_ == null) {
+          if (chatsLoadRequestBuilder_ == null) {
             result.body_ = body_;
           } else {
-            result.body_ = chatsRequestBuilder_.build();
+            result.body_ = chatsLoadRequestBuilder_.build();
           }
         }
         if (bodyCase_ == 15) {
-          if (chatsReplyBuilder_ == null) {
+          if (chatsLoadReplyBuilder_ == null) {
             result.body_ = body_;
           } else {
-            result.body_ = chatsReplyBuilder_.build();
+            result.body_ = chatsLoadReplyBuilder_.build();
           }
         }
         result.bodyCase_ = bodyCase_;
@@ -1513,12 +1513,12 @@ public final class ClientServerSerializeProtocol_pb {
             mergeChangePasswordReply(other.getChangePasswordReply());
             break;
           }
-          case CHATSREQUEST: {
-            mergeChatsRequest(other.getChatsRequest());
+          case CHATSLOADREQUEST: {
+            mergeChatsLoadRequest(other.getChatsLoadRequest());
             break;
           }
-          case CHATSREPLY: {
-            mergeChatsReply(other.getChatsReply());
+          case CHATSLOADREPLY: {
+            mergeChatsLoadReply(other.getChatsLoadReply());
             break;
           }
           case BODY_NOT_SET: {
@@ -1642,14 +1642,14 @@ public final class ClientServerSerializeProtocol_pb {
               } // case 106
               case 114: {
                 input.readMessage(
-                    getChatsRequestFieldBuilder().getBuilder(),
+                    getChatsLoadRequestFieldBuilder().getBuilder(),
                     extensionRegistry);
                 bodyCase_ = 14;
                 break;
               } // case 114
               case 122: {
                 input.readMessage(
-                    getChatsReplyFieldBuilder().getBuilder(),
+                    getChatsLoadReplyFieldBuilder().getBuilder(),
                     extensionRegistry);
                 bodyCase_ = 15;
                 break;
@@ -3445,17 +3445,17 @@ public final class ClientServerSerializeProtocol_pb {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest.Builder, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequestOrBuilder> chatsRequestBuilder_;
+          org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest.Builder, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequestOrBuilder> chatsLoadRequestBuilder_;
       /**
        * <pre>
        * Main Chat
        * </pre>
        *
-       * <code>.ChatsRequest chatsRequest = 14;</code>
-       * @return Whether the chatsRequest field is set.
+       * <code>.ChatsLoadRequest chatsLoadRequest = 14;</code>
+       * @return Whether the chatsLoadRequest field is set.
        */
       @java.lang.Override
-      public boolean hasChatsRequest() {
+      public boolean hasChatsLoadRequest() {
         return bodyCase_ == 14;
       }
       /**
@@ -3463,21 +3463,21 @@ public final class ClientServerSerializeProtocol_pb {
        * Main Chat
        * </pre>
        *
-       * <code>.ChatsRequest chatsRequest = 14;</code>
-       * @return The chatsRequest.
+       * <code>.ChatsLoadRequest chatsLoadRequest = 14;</code>
+       * @return The chatsLoadRequest.
        */
       @java.lang.Override
-      public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest getChatsRequest() {
-        if (chatsRequestBuilder_ == null) {
+      public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest getChatsLoadRequest() {
+        if (chatsLoadRequestBuilder_ == null) {
           if (bodyCase_ == 14) {
-            return (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest) body_;
+            return (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest) body_;
           }
-          return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest.getDefaultInstance();
+          return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest.getDefaultInstance();
         } else {
           if (bodyCase_ == 14) {
-            return chatsRequestBuilder_.getMessage();
+            return chatsLoadRequestBuilder_.getMessage();
           }
-          return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest.getDefaultInstance();
+          return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest.getDefaultInstance();
         }
       }
       /**
@@ -3485,17 +3485,17 @@ public final class ClientServerSerializeProtocol_pb {
        * Main Chat
        * </pre>
        *
-       * <code>.ChatsRequest chatsRequest = 14;</code>
+       * <code>.ChatsLoadRequest chatsLoadRequest = 14;</code>
        */
-      public Builder setChatsRequest(org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest value) {
-        if (chatsRequestBuilder_ == null) {
+      public Builder setChatsLoadRequest(org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest value) {
+        if (chatsLoadRequestBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
           body_ = value;
           onChanged();
         } else {
-          chatsRequestBuilder_.setMessage(value);
+          chatsLoadRequestBuilder_.setMessage(value);
         }
         bodyCase_ = 14;
         return this;
@@ -3505,15 +3505,15 @@ public final class ClientServerSerializeProtocol_pb {
        * Main Chat
        * </pre>
        *
-       * <code>.ChatsRequest chatsRequest = 14;</code>
+       * <code>.ChatsLoadRequest chatsLoadRequest = 14;</code>
        */
-      public Builder setChatsRequest(
-          org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest.Builder builderForValue) {
-        if (chatsRequestBuilder_ == null) {
+      public Builder setChatsLoadRequest(
+          org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest.Builder builderForValue) {
+        if (chatsLoadRequestBuilder_ == null) {
           body_ = builderForValue.build();
           onChanged();
         } else {
-          chatsRequestBuilder_.setMessage(builderForValue.build());
+          chatsLoadRequestBuilder_.setMessage(builderForValue.build());
         }
         bodyCase_ = 14;
         return this;
@@ -3523,13 +3523,13 @@ public final class ClientServerSerializeProtocol_pb {
        * Main Chat
        * </pre>
        *
-       * <code>.ChatsRequest chatsRequest = 14;</code>
+       * <code>.ChatsLoadRequest chatsLoadRequest = 14;</code>
        */
-      public Builder mergeChatsRequest(org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest value) {
-        if (chatsRequestBuilder_ == null) {
+      public Builder mergeChatsLoadRequest(org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest value) {
+        if (chatsLoadRequestBuilder_ == null) {
           if (bodyCase_ == 14 &&
-              body_ != org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest.getDefaultInstance()) {
-            body_ = org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest.newBuilder((org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest) body_)
+              body_ != org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest.getDefaultInstance()) {
+            body_ = org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest.newBuilder((org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest) body_)
                 .mergeFrom(value).buildPartial();
           } else {
             body_ = value;
@@ -3537,9 +3537,9 @@ public final class ClientServerSerializeProtocol_pb {
           onChanged();
         } else {
           if (bodyCase_ == 14) {
-            chatsRequestBuilder_.mergeFrom(value);
+            chatsLoadRequestBuilder_.mergeFrom(value);
           }
-          chatsRequestBuilder_.setMessage(value);
+          chatsLoadRequestBuilder_.setMessage(value);
         }
         bodyCase_ = 14;
         return this;
@@ -3549,10 +3549,10 @@ public final class ClientServerSerializeProtocol_pb {
        * Main Chat
        * </pre>
        *
-       * <code>.ChatsRequest chatsRequest = 14;</code>
+       * <code>.ChatsLoadRequest chatsLoadRequest = 14;</code>
        */
-      public Builder clearChatsRequest() {
-        if (chatsRequestBuilder_ == null) {
+      public Builder clearChatsLoadRequest() {
+        if (chatsLoadRequestBuilder_ == null) {
           if (bodyCase_ == 14) {
             bodyCase_ = 0;
             body_ = null;
@@ -3563,7 +3563,7 @@ public final class ClientServerSerializeProtocol_pb {
             bodyCase_ = 0;
             body_ = null;
           }
-          chatsRequestBuilder_.clear();
+          chatsLoadRequestBuilder_.clear();
         }
         return this;
       }
@@ -3572,27 +3572,27 @@ public final class ClientServerSerializeProtocol_pb {
        * Main Chat
        * </pre>
        *
-       * <code>.ChatsRequest chatsRequest = 14;</code>
+       * <code>.ChatsLoadRequest chatsLoadRequest = 14;</code>
        */
-      public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest.Builder getChatsRequestBuilder() {
-        return getChatsRequestFieldBuilder().getBuilder();
+      public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest.Builder getChatsLoadRequestBuilder() {
+        return getChatsLoadRequestFieldBuilder().getBuilder();
       }
       /**
        * <pre>
        * Main Chat
        * </pre>
        *
-       * <code>.ChatsRequest chatsRequest = 14;</code>
+       * <code>.ChatsLoadRequest chatsLoadRequest = 14;</code>
        */
       @java.lang.Override
-      public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequestOrBuilder getChatsRequestOrBuilder() {
-        if ((bodyCase_ == 14) && (chatsRequestBuilder_ != null)) {
-          return chatsRequestBuilder_.getMessageOrBuilder();
+      public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequestOrBuilder getChatsLoadRequestOrBuilder() {
+        if ((bodyCase_ == 14) && (chatsLoadRequestBuilder_ != null)) {
+          return chatsLoadRequestBuilder_.getMessageOrBuilder();
         } else {
           if (bodyCase_ == 14) {
-            return (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest) body_;
+            return (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest) body_;
           }
-          return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest.getDefaultInstance();
+          return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest.getDefaultInstance();
         }
       }
       /**
@@ -3600,93 +3600,93 @@ public final class ClientServerSerializeProtocol_pb {
        * Main Chat
        * </pre>
        *
-       * <code>.ChatsRequest chatsRequest = 14;</code>
+       * <code>.ChatsLoadRequest chatsLoadRequest = 14;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest.Builder, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequestOrBuilder> 
-          getChatsRequestFieldBuilder() {
-        if (chatsRequestBuilder_ == null) {
+          org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest.Builder, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequestOrBuilder> 
+          getChatsLoadRequestFieldBuilder() {
+        if (chatsLoadRequestBuilder_ == null) {
           if (!(bodyCase_ == 14)) {
-            body_ = org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest.getDefaultInstance();
+            body_ = org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest.getDefaultInstance();
           }
-          chatsRequestBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest.Builder, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequestOrBuilder>(
-                  (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest) body_,
+          chatsLoadRequestBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest.Builder, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequestOrBuilder>(
+                  (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest) body_,
                   getParentForChildren(),
                   isClean());
           body_ = null;
         }
         bodyCase_ = 14;
         onChanged();;
-        return chatsRequestBuilder_;
+        return chatsLoadRequestBuilder_;
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply.Builder, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReplyOrBuilder> chatsReplyBuilder_;
+          org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply.Builder, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReplyOrBuilder> chatsLoadReplyBuilder_;
       /**
-       * <code>.ChatsReply chatsReply = 15;</code>
-       * @return Whether the chatsReply field is set.
+       * <code>.ChatsLoadReply chatsLoadReply = 15;</code>
+       * @return Whether the chatsLoadReply field is set.
        */
       @java.lang.Override
-      public boolean hasChatsReply() {
+      public boolean hasChatsLoadReply() {
         return bodyCase_ == 15;
       }
       /**
-       * <code>.ChatsReply chatsReply = 15;</code>
-       * @return The chatsReply.
+       * <code>.ChatsLoadReply chatsLoadReply = 15;</code>
+       * @return The chatsLoadReply.
        */
       @java.lang.Override
-      public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply getChatsReply() {
-        if (chatsReplyBuilder_ == null) {
+      public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply getChatsLoadReply() {
+        if (chatsLoadReplyBuilder_ == null) {
           if (bodyCase_ == 15) {
-            return (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply) body_;
+            return (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply) body_;
           }
-          return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply.getDefaultInstance();
+          return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply.getDefaultInstance();
         } else {
           if (bodyCase_ == 15) {
-            return chatsReplyBuilder_.getMessage();
+            return chatsLoadReplyBuilder_.getMessage();
           }
-          return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply.getDefaultInstance();
+          return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply.getDefaultInstance();
         }
       }
       /**
-       * <code>.ChatsReply chatsReply = 15;</code>
+       * <code>.ChatsLoadReply chatsLoadReply = 15;</code>
        */
-      public Builder setChatsReply(org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply value) {
-        if (chatsReplyBuilder_ == null) {
+      public Builder setChatsLoadReply(org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply value) {
+        if (chatsLoadReplyBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
           }
           body_ = value;
           onChanged();
         } else {
-          chatsReplyBuilder_.setMessage(value);
+          chatsLoadReplyBuilder_.setMessage(value);
         }
         bodyCase_ = 15;
         return this;
       }
       /**
-       * <code>.ChatsReply chatsReply = 15;</code>
+       * <code>.ChatsLoadReply chatsLoadReply = 15;</code>
        */
-      public Builder setChatsReply(
-          org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply.Builder builderForValue) {
-        if (chatsReplyBuilder_ == null) {
+      public Builder setChatsLoadReply(
+          org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply.Builder builderForValue) {
+        if (chatsLoadReplyBuilder_ == null) {
           body_ = builderForValue.build();
           onChanged();
         } else {
-          chatsReplyBuilder_.setMessage(builderForValue.build());
+          chatsLoadReplyBuilder_.setMessage(builderForValue.build());
         }
         bodyCase_ = 15;
         return this;
       }
       /**
-       * <code>.ChatsReply chatsReply = 15;</code>
+       * <code>.ChatsLoadReply chatsLoadReply = 15;</code>
        */
-      public Builder mergeChatsReply(org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply value) {
-        if (chatsReplyBuilder_ == null) {
+      public Builder mergeChatsLoadReply(org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply value) {
+        if (chatsLoadReplyBuilder_ == null) {
           if (bodyCase_ == 15 &&
-              body_ != org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply.getDefaultInstance()) {
-            body_ = org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply.newBuilder((org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply) body_)
+              body_ != org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply.getDefaultInstance()) {
+            body_ = org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply.newBuilder((org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply) body_)
                 .mergeFrom(value).buildPartial();
           } else {
             body_ = value;
@@ -3694,18 +3694,18 @@ public final class ClientServerSerializeProtocol_pb {
           onChanged();
         } else {
           if (bodyCase_ == 15) {
-            chatsReplyBuilder_.mergeFrom(value);
+            chatsLoadReplyBuilder_.mergeFrom(value);
           }
-          chatsReplyBuilder_.setMessage(value);
+          chatsLoadReplyBuilder_.setMessage(value);
         }
         bodyCase_ = 15;
         return this;
       }
       /**
-       * <code>.ChatsReply chatsReply = 15;</code>
+       * <code>.ChatsLoadReply chatsLoadReply = 15;</code>
        */
-      public Builder clearChatsReply() {
-        if (chatsReplyBuilder_ == null) {
+      public Builder clearChatsLoadReply() {
+        if (chatsLoadReplyBuilder_ == null) {
           if (bodyCase_ == 15) {
             bodyCase_ = 0;
             body_ = null;
@@ -3716,50 +3716,50 @@ public final class ClientServerSerializeProtocol_pb {
             bodyCase_ = 0;
             body_ = null;
           }
-          chatsReplyBuilder_.clear();
+          chatsLoadReplyBuilder_.clear();
         }
         return this;
       }
       /**
-       * <code>.ChatsReply chatsReply = 15;</code>
+       * <code>.ChatsLoadReply chatsLoadReply = 15;</code>
        */
-      public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply.Builder getChatsReplyBuilder() {
-        return getChatsReplyFieldBuilder().getBuilder();
+      public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply.Builder getChatsLoadReplyBuilder() {
+        return getChatsLoadReplyFieldBuilder().getBuilder();
       }
       /**
-       * <code>.ChatsReply chatsReply = 15;</code>
+       * <code>.ChatsLoadReply chatsLoadReply = 15;</code>
        */
       @java.lang.Override
-      public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReplyOrBuilder getChatsReplyOrBuilder() {
-        if ((bodyCase_ == 15) && (chatsReplyBuilder_ != null)) {
-          return chatsReplyBuilder_.getMessageOrBuilder();
+      public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReplyOrBuilder getChatsLoadReplyOrBuilder() {
+        if ((bodyCase_ == 15) && (chatsLoadReplyBuilder_ != null)) {
+          return chatsLoadReplyBuilder_.getMessageOrBuilder();
         } else {
           if (bodyCase_ == 15) {
-            return (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply) body_;
+            return (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply) body_;
           }
-          return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply.getDefaultInstance();
+          return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply.getDefaultInstance();
         }
       }
       /**
-       * <code>.ChatsReply chatsReply = 15;</code>
+       * <code>.ChatsLoadReply chatsLoadReply = 15;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply.Builder, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReplyOrBuilder> 
-          getChatsReplyFieldBuilder() {
-        if (chatsReplyBuilder_ == null) {
+          org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply.Builder, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReplyOrBuilder> 
+          getChatsLoadReplyFieldBuilder() {
+        if (chatsLoadReplyBuilder_ == null) {
           if (!(bodyCase_ == 15)) {
-            body_ = org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply.getDefaultInstance();
+            body_ = org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply.getDefaultInstance();
           }
-          chatsReplyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply.Builder, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReplyOrBuilder>(
-                  (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply) body_,
+          chatsLoadReplyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply.Builder, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReplyOrBuilder>(
+                  (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply) body_,
                   getParentForChildren(),
                   isClean());
           body_ = null;
         }
         bodyCase_ = 15;
         onChanged();;
-        return chatsReplyBuilder_;
+        return chatsLoadReplyBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -12321,8 +12321,8 @@ public final class ClientServerSerializeProtocol_pb {
 
   }
 
-  public interface ChatsRequestOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:ChatsRequest)
+  public interface ChatsLoadRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ChatsLoadRequest)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -12338,18 +12338,18 @@ public final class ClientServerSerializeProtocol_pb {
         getSenderBytes();
   }
   /**
-   * Protobuf type {@code ChatsRequest}
+   * Protobuf type {@code ChatsLoadRequest}
    */
-  public static final class ChatsRequest extends
+  public static final class ChatsLoadRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:ChatsRequest)
-      ChatsRequestOrBuilder {
+      // @@protoc_insertion_point(message_implements:ChatsLoadRequest)
+      ChatsLoadRequestOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use ChatsRequest.newBuilder() to construct.
-    private ChatsRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use ChatsLoadRequest.newBuilder() to construct.
+    private ChatsLoadRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private ChatsRequest() {
+    private ChatsLoadRequest() {
       sender_ = "";
     }
 
@@ -12357,7 +12357,7 @@ public final class ClientServerSerializeProtocol_pb {
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new ChatsRequest();
+      return new ChatsLoadRequest();
     }
 
     @java.lang.Override
@@ -12367,15 +12367,15 @@ public final class ClientServerSerializeProtocol_pb {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.internal_static_ChatsRequest_descriptor;
+      return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.internal_static_ChatsLoadRequest_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.internal_static_ChatsRequest_fieldAccessorTable
+      return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.internal_static_ChatsLoadRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest.class, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest.Builder.class);
+              org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest.class, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest.Builder.class);
     }
 
     public static final int SENDER_FIELD_NUMBER = 1;
@@ -12455,10 +12455,10 @@ public final class ClientServerSerializeProtocol_pb {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest)) {
+      if (!(obj instanceof org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest)) {
         return super.equals(obj);
       }
-      org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest other = (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest) obj;
+      org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest other = (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest) obj;
 
       if (!getSender()
           .equals(other.getSender())) return false;
@@ -12480,69 +12480,69 @@ public final class ClientServerSerializeProtocol_pb {
       return hash;
     }
 
-    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest parseFrom(
+    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest parseFrom(
+    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest parseFrom(
+    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest parseFrom(
+    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest parseFrom(byte[] data)
+    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest parseFrom(
+    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest parseFrom(java.io.InputStream input)
+    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest parseFrom(
+    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest parseDelimitedFrom(java.io.InputStream input)
+    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest parseDelimitedFrom(
+    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest parseFrom(
+    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest parseFrom(
+    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -12555,7 +12555,7 @@ public final class ClientServerSerializeProtocol_pb {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest prototype) {
+    public static Builder newBuilder(org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -12571,26 +12571,26 @@ public final class ClientServerSerializeProtocol_pb {
       return builder;
     }
     /**
-     * Protobuf type {@code ChatsRequest}
+     * Protobuf type {@code ChatsLoadRequest}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:ChatsRequest)
-        org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequestOrBuilder {
+        // @@protoc_insertion_point(builder_implements:ChatsLoadRequest)
+        org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.internal_static_ChatsRequest_descriptor;
+        return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.internal_static_ChatsLoadRequest_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.internal_static_ChatsRequest_fieldAccessorTable
+        return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.internal_static_ChatsLoadRequest_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest.class, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest.Builder.class);
+                org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest.class, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest.Builder.class);
       }
 
-      // Construct using org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest.newBuilder()
+      // Construct using org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest.newBuilder()
       private Builder() {
 
       }
@@ -12611,17 +12611,17 @@ public final class ClientServerSerializeProtocol_pb {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.internal_static_ChatsRequest_descriptor;
+        return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.internal_static_ChatsLoadRequest_descriptor;
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest getDefaultInstanceForType() {
-        return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest.getDefaultInstance();
+      public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest getDefaultInstanceForType() {
+        return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest.getDefaultInstance();
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest build() {
-        org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest result = buildPartial();
+      public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest build() {
+        org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -12629,8 +12629,8 @@ public final class ClientServerSerializeProtocol_pb {
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest buildPartial() {
-        org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest result = new org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest(this);
+      public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest buildPartial() {
+        org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest result = new org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest(this);
         result.sender_ = sender_;
         onBuilt();
         return result;
@@ -12670,16 +12670,16 @@ public final class ClientServerSerializeProtocol_pb {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest) {
-          return mergeFrom((org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest)other);
+        if (other instanceof org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest) {
+          return mergeFrom((org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest other) {
-        if (other == org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest.getDefaultInstance()) return this;
+      public Builder mergeFrom(org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest other) {
+        if (other == org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest.getDefaultInstance()) return this;
         if (!other.getSender().isEmpty()) {
           sender_ = other.sender_;
           onChanged();
@@ -12819,23 +12819,23 @@ public final class ClientServerSerializeProtocol_pb {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:ChatsRequest)
+      // @@protoc_insertion_point(builder_scope:ChatsLoadRequest)
     }
 
-    // @@protoc_insertion_point(class_scope:ChatsRequest)
-    private static final org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:ChatsLoadRequest)
+    private static final org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest();
+      DEFAULT_INSTANCE = new org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest();
     }
 
-    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest getDefaultInstance() {
+    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<ChatsRequest>
-        PARSER = new com.google.protobuf.AbstractParser<ChatsRequest>() {
+    private static final com.google.protobuf.Parser<ChatsLoadRequest>
+        PARSER = new com.google.protobuf.AbstractParser<ChatsLoadRequest>() {
       @java.lang.Override
-      public ChatsRequest parsePartialFrom(
+      public ChatsLoadRequest parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
@@ -12854,24 +12854,24 @@ public final class ClientServerSerializeProtocol_pb {
       }
     };
 
-    public static com.google.protobuf.Parser<ChatsRequest> parser() {
+    public static com.google.protobuf.Parser<ChatsLoadRequest> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<ChatsRequest> getParserForType() {
+    public com.google.protobuf.Parser<ChatsLoadRequest> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsRequest getDefaultInstanceForType() {
+    public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadRequest getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface ChatsReplyOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:ChatsReply)
+  public interface ChatsLoadReplyOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:ChatsLoadReply)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -12881,18 +12881,18 @@ public final class ClientServerSerializeProtocol_pb {
     com.google.protobuf.ByteString getReceivers();
   }
   /**
-   * Protobuf type {@code ChatsReply}
+   * Protobuf type {@code ChatsLoadReply}
    */
-  public static final class ChatsReply extends
+  public static final class ChatsLoadReply extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:ChatsReply)
-      ChatsReplyOrBuilder {
+      // @@protoc_insertion_point(message_implements:ChatsLoadReply)
+      ChatsLoadReplyOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use ChatsReply.newBuilder() to construct.
-    private ChatsReply(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use ChatsLoadReply.newBuilder() to construct.
+    private ChatsLoadReply(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private ChatsReply() {
+    private ChatsLoadReply() {
       receivers_ = com.google.protobuf.ByteString.EMPTY;
     }
 
@@ -12900,7 +12900,7 @@ public final class ClientServerSerializeProtocol_pb {
     @SuppressWarnings({"unused"})
     protected java.lang.Object newInstance(
         UnusedPrivateParameter unused) {
-      return new ChatsReply();
+      return new ChatsLoadReply();
     }
 
     @java.lang.Override
@@ -12910,15 +12910,15 @@ public final class ClientServerSerializeProtocol_pb {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.internal_static_ChatsReply_descriptor;
+      return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.internal_static_ChatsLoadReply_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.internal_static_ChatsReply_fieldAccessorTable
+      return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.internal_static_ChatsLoadReply_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply.class, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply.Builder.class);
+              org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply.class, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply.Builder.class);
     }
 
     public static final int RECEIVERS_FIELD_NUMBER = 1;
@@ -12972,10 +12972,10 @@ public final class ClientServerSerializeProtocol_pb {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply)) {
+      if (!(obj instanceof org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply)) {
         return super.equals(obj);
       }
-      org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply other = (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply) obj;
+      org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply other = (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply) obj;
 
       if (!getReceivers()
           .equals(other.getReceivers())) return false;
@@ -12997,69 +12997,69 @@ public final class ClientServerSerializeProtocol_pb {
       return hash;
     }
 
-    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply parseFrom(
+    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply parseFrom(
+    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply parseFrom(
+    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply parseFrom(
+    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply parseFrom(byte[] data)
+    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply parseFrom(
+    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply parseFrom(java.io.InputStream input)
+    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply parseFrom(
+    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply parseDelimitedFrom(java.io.InputStream input)
+    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply parseDelimitedFrom(
+    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply parseFrom(
+    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply parseFrom(
+    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -13072,7 +13072,7 @@ public final class ClientServerSerializeProtocol_pb {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply prototype) {
+    public static Builder newBuilder(org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -13088,26 +13088,26 @@ public final class ClientServerSerializeProtocol_pb {
       return builder;
     }
     /**
-     * Protobuf type {@code ChatsReply}
+     * Protobuf type {@code ChatsLoadReply}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:ChatsReply)
-        org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReplyOrBuilder {
+        // @@protoc_insertion_point(builder_implements:ChatsLoadReply)
+        org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReplyOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.internal_static_ChatsReply_descriptor;
+        return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.internal_static_ChatsLoadReply_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.internal_static_ChatsReply_fieldAccessorTable
+        return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.internal_static_ChatsLoadReply_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply.class, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply.Builder.class);
+                org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply.class, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply.Builder.class);
       }
 
-      // Construct using org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply.newBuilder()
+      // Construct using org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply.newBuilder()
       private Builder() {
 
       }
@@ -13128,17 +13128,17 @@ public final class ClientServerSerializeProtocol_pb {
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.internal_static_ChatsReply_descriptor;
+        return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.internal_static_ChatsLoadReply_descriptor;
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply getDefaultInstanceForType() {
-        return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply.getDefaultInstance();
+      public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply getDefaultInstanceForType() {
+        return org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply.getDefaultInstance();
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply build() {
-        org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply result = buildPartial();
+      public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply build() {
+        org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -13146,8 +13146,8 @@ public final class ClientServerSerializeProtocol_pb {
       }
 
       @java.lang.Override
-      public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply buildPartial() {
-        org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply result = new org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply(this);
+      public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply buildPartial() {
+        org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply result = new org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply(this);
         result.receivers_ = receivers_;
         onBuilt();
         return result;
@@ -13187,16 +13187,16 @@ public final class ClientServerSerializeProtocol_pb {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply) {
-          return mergeFrom((org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply)other);
+        if (other instanceof org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply) {
+          return mergeFrom((org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply other) {
-        if (other == org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply.getDefaultInstance()) return this;
+      public Builder mergeFrom(org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply other) {
+        if (other == org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply.getDefaultInstance()) return this;
         if (other.getReceivers() != com.google.protobuf.ByteString.EMPTY) {
           setReceivers(other.getReceivers());
         }
@@ -13293,23 +13293,23 @@ public final class ClientServerSerializeProtocol_pb {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:ChatsReply)
+      // @@protoc_insertion_point(builder_scope:ChatsLoadReply)
     }
 
-    // @@protoc_insertion_point(class_scope:ChatsReply)
-    private static final org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:ChatsLoadReply)
+    private static final org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply();
+      DEFAULT_INSTANCE = new org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply();
     }
 
-    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply getDefaultInstance() {
+    public static org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<ChatsReply>
-        PARSER = new com.google.protobuf.AbstractParser<ChatsReply>() {
+    private static final com.google.protobuf.Parser<ChatsLoadReply>
+        PARSER = new com.google.protobuf.AbstractParser<ChatsLoadReply>() {
       @java.lang.Override
-      public ChatsReply parsePartialFrom(
+      public ChatsLoadReply parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
@@ -13328,17 +13328,17 @@ public final class ClientServerSerializeProtocol_pb {
       }
     };
 
-    public static com.google.protobuf.Parser<ChatsReply> parser() {
+    public static com.google.protobuf.Parser<ChatsLoadReply> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<ChatsReply> getParserForType() {
+    public com.google.protobuf.Parser<ChatsLoadReply> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsReply getDefaultInstanceForType() {
+    public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -13415,15 +13415,15 @@ public final class ClientServerSerializeProtocol_pb {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_MessageChangeStatusRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_ChatsRequest_descriptor;
+    internal_static_ChatsLoadRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_ChatsRequest_fieldAccessorTable;
+      internal_static_ChatsLoadRequest_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_ChatsReply_descriptor;
+    internal_static_ChatsLoadReply_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_ChatsReply_fieldAccessorTable;
+      internal_static_ChatsLoadReply_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -13434,7 +13434,7 @@ public final class ClientServerSerializeProtocol_pb {
   static {
     java.lang.String[] descriptorData = {
       "\n&ClientServerSerializeProtocol_pb.proto" +
-      "\"\375\005\n\007General\022\014\n\004type\030\001 \001(\r\022%\n\014entryReque" +
+      "\"\215\006\n\007General\022\014\n\004type\030\001 \001(\r\022%\n\014entryReque" +
       "st\030\002 \001(\0132\r.EntryRequestH\000\022!\n\nentryReply\030" +
       "\003 \001(\0132\013.EntryReplyH\000\0223\n\023registrationRequ" +
       "est\030\004 \001(\0132\024.RegistrationRequestH\000\022/\n\021reg" +
@@ -13451,37 +13451,38 @@ public final class ClientServerSerializeProtocol_pb {
       "mousEmailReplyH\000\0227\n\025changePasswordReques" +
       "t\030\014 \001(\0132\026.ChangePasswordRequestH\000\0223\n\023cha" +
       "ngePasswordReply\030\r \001(\0132\024.ChangePasswordR" +
-      "eplyH\000\022%\n\014chatsRequest\030\016 \001(\0132\r.ChatsRequ" +
-      "estH\000\022!\n\nchatsReply\030\017 \001(\0132\013.ChatsReplyH\000" +
-      "B\006\n\004body\"/\n\014EntryRequest\022\r\n\005login\030\001 \001(\t\022" +
-      "\020\n\010password\030\002 \001(\t\"\033\n\nEntryReply\022\r\n\005reply" +
-      "\030\001 \001(\010\"E\n\023RegistrationRequest\022\r\n\005login\030\001" +
-      " \001(\t\022\r\n\005email\030\002 \001(\t\022\020\n\010password\030\003 \001(\t\"\235\001" +
-      "\n\021RegistrationReply\022\r\n\005reply\030\001 \001(\010\022\'\n\005er" +
-      "ror\030\002 \001(\0162\030.RegistrationReply.Error\"P\n\005E" +
-      "rror\022\t\n\005Login\020\000\022\t\n\005Email\020\001\022\021\n\rLoginAndEm" +
-      "ail\020\002\022\020\n\014EmailSending\020\003\022\014\n\007NoError\020\217N\"^\n" +
-      "\036VerifyRegistrationEmailRequest\022\r\n\005login" +
-      "\030\001 \001(\t\022\r\n\005email\030\002 \001(\t\022\020\n\010password\030\003 \001(\t\022" +
-      "\014\n\004code\030\004 \001(\t\"\275\001\n\034VerifyRegistrationEmai" +
-      "lReply\022\r\n\005reply\030\001 \001(\010\0222\n\005error\030\002 \001(\0162#.V" +
-      "erifyRegistrationEmailReply.Error\"Z\n\005Err" +
-      "or\022\t\n\005Login\020\000\022\t\n\005Email\020\001\022\021\n\rLoginAndEmai" +
-      "l\020\002\022\020\n\014EmailSending\020\003\022\010\n\004Code\020\004\022\014\n\007NoErr" +
-      "or\020\217N\"%\n\024ResetPasswordRequest\022\r\n\005email\030\001" +
-      " \001(\t\"#\n\022ResetPasswordReply\022\r\n\005reply\030\001 \001(" +
-      "\010\"7\n\030VerifyFamousEmailRequest\022\r\n\005email\030\001" +
-      " \001(\t\022\014\n\004code\030\002 \001(\t\"\'\n\026VerifyFamousEmailR" +
-      "eply\022\r\n\005reply\030\001 \001(\010\"8\n\025ChangePasswordReq" +
-      "uest\022\r\n\005email\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\"$\n" +
-      "\023ChangePasswordReply\022\r\n\005reply\030\001 \001(\010\"\221\001\n\032" +
-      "MessageChangeStatusRequest\022\024\n\014indexMessa" +
-      "ge\030\001 \001(\r\0222\n\006status\030\002 \001(\0162\".MessageChange" +
-      "StatusRequest.Status\")\n\006Status\022\010\n\004Send\020\000" +
-      "\022\013\n\007Deliver\020\001\022\010\n\004Read\020\002\"\036\n\014ChatsRequest\022" +
-      "\016\n\006sender\030\001 \001(\t\"\037\n\nChatsReply\022\021\n\treceive" +
-      "rs\030\001 \001(\014B>\n\032org.foomaa.jvchat.messagesB " +
-      "ClientServerSerializeProtocol_pbb\006proto3"
+      "eplyH\000\022-\n\020chatsLoadRequest\030\016 \001(\0132\021.Chats" +
+      "LoadRequestH\000\022)\n\016chatsLoadReply\030\017 \001(\0132\017." +
+      "ChatsLoadReplyH\000B\006\n\004body\"/\n\014EntryRequest" +
+      "\022\r\n\005login\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\"\033\n\nEnt" +
+      "ryReply\022\r\n\005reply\030\001 \001(\010\"E\n\023RegistrationRe" +
+      "quest\022\r\n\005login\030\001 \001(\t\022\r\n\005email\030\002 \001(\t\022\020\n\010p" +
+      "assword\030\003 \001(\t\"\235\001\n\021RegistrationReply\022\r\n\005r" +
+      "eply\030\001 \001(\010\022\'\n\005error\030\002 \001(\0162\030.Registration" +
+      "Reply.Error\"P\n\005Error\022\t\n\005Login\020\000\022\t\n\005Email" +
+      "\020\001\022\021\n\rLoginAndEmail\020\002\022\020\n\014EmailSending\020\003\022" +
+      "\014\n\007NoError\020\217N\"^\n\036VerifyRegistrationEmail" +
+      "Request\022\r\n\005login\030\001 \001(\t\022\r\n\005email\030\002 \001(\t\022\020\n" +
+      "\010password\030\003 \001(\t\022\014\n\004code\030\004 \001(\t\"\275\001\n\034Verify" +
+      "RegistrationEmailReply\022\r\n\005reply\030\001 \001(\010\0222\n" +
+      "\005error\030\002 \001(\0162#.VerifyRegistrationEmailRe" +
+      "ply.Error\"Z\n\005Error\022\t\n\005Login\020\000\022\t\n\005Email\020\001" +
+      "\022\021\n\rLoginAndEmail\020\002\022\020\n\014EmailSending\020\003\022\010\n" +
+      "\004Code\020\004\022\014\n\007NoError\020\217N\"%\n\024ResetPasswordRe" +
+      "quest\022\r\n\005email\030\001 \001(\t\"#\n\022ResetPasswordRep" +
+      "ly\022\r\n\005reply\030\001 \001(\010\"7\n\030VerifyFamousEmailRe" +
+      "quest\022\r\n\005email\030\001 \001(\t\022\014\n\004code\030\002 \001(\t\"\'\n\026Ve" +
+      "rifyFamousEmailReply\022\r\n\005reply\030\001 \001(\010\"8\n\025C" +
+      "hangePasswordRequest\022\r\n\005email\030\001 \001(\t\022\020\n\010p" +
+      "assword\030\002 \001(\t\"$\n\023ChangePasswordReply\022\r\n\005" +
+      "reply\030\001 \001(\010\"\221\001\n\032MessageChangeStatusReque" +
+      "st\022\024\n\014indexMessage\030\001 \001(\r\0222\n\006status\030\002 \001(\016" +
+      "2\".MessageChangeStatusRequest.Status\")\n\006" +
+      "Status\022\010\n\004Send\020\000\022\013\n\007Deliver\020\001\022\010\n\004Read\020\002\"" +
+      "\"\n\020ChatsLoadRequest\022\016\n\006sender\030\001 \001(\t\"#\n\016C" +
+      "hatsLoadReply\022\021\n\treceivers\030\001 \001(\014B>\n\032org." +
+      "foomaa.jvchat.messagesB ClientServerSeri" +
+      "alizeProtocol_pbb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -13492,7 +13493,7 @@ public final class ClientServerSerializeProtocol_pb {
     internal_static_General_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_General_descriptor,
-        new java.lang.String[] { "Type", "EntryRequest", "EntryReply", "RegistrationRequest", "RegistrationReply", "VerifyRegistrationEmailRequest", "VerifyRegistrationEmailReply", "ResetPasswordRequest", "ResetPasswordReply", "VerifyFamousEmailRequest", "VerifyFamousEmailReply", "ChangePasswordRequest", "ChangePasswordReply", "ChatsRequest", "ChatsReply", "Body", });
+        new java.lang.String[] { "Type", "EntryRequest", "EntryReply", "RegistrationRequest", "RegistrationReply", "VerifyRegistrationEmailRequest", "VerifyRegistrationEmailReply", "ResetPasswordRequest", "ResetPasswordReply", "VerifyFamousEmailRequest", "VerifyFamousEmailReply", "ChangePasswordRequest", "ChangePasswordReply", "ChatsLoadRequest", "ChatsLoadReply", "Body", });
     internal_static_EntryRequest_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_EntryRequest_fieldAccessorTable = new
@@ -13571,17 +13572,17 @@ public final class ClientServerSerializeProtocol_pb {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_MessageChangeStatusRequest_descriptor,
         new java.lang.String[] { "IndexMessage", "Status", });
-    internal_static_ChatsRequest_descriptor =
+    internal_static_ChatsLoadRequest_descriptor =
       getDescriptor().getMessageTypes().get(14);
-    internal_static_ChatsRequest_fieldAccessorTable = new
+    internal_static_ChatsLoadRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_ChatsRequest_descriptor,
+        internal_static_ChatsLoadRequest_descriptor,
         new java.lang.String[] { "Sender", });
-    internal_static_ChatsReply_descriptor =
+    internal_static_ChatsLoadReply_descriptor =
       getDescriptor().getMessageTypes().get(15);
-    internal_static_ChatsReply_fieldAccessorTable = new
+    internal_static_ChatsLoadReply_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_ChatsReply_descriptor,
+        internal_static_ChatsLoadReply_descriptor,
         new java.lang.String[] { "Receivers", });
   }
 
