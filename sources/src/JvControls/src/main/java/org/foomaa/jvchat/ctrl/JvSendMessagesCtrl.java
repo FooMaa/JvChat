@@ -3,6 +3,9 @@ package org.foomaa.jvchat.ctrl;
 import org.foomaa.jvchat.messages.JvGetterMessages;
 import org.foomaa.jvchat.messages.JvMessagesDefines;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class JvSendMessagesCtrl {
     private static JvSendMessagesCtrl instance;
 
@@ -149,6 +152,22 @@ public class JvSendMessagesCtrl {
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
+            case ChatsLoadReply -> {
+                if (parameters.length == 1) {
+                    Object receiversObj = parameters[0];
+                    List<String> receivers = new ArrayList<>();
+
+                    if (receiversObj instanceof List<?> receiversList) {
+                        for (Object obj : receiversList) {
+                            receivers.add((String) obj);
+                        }
+                    }
+
+                    byte[] bodyMessage = createBodyChatsLoadReplyMessage(type,
+                            receivers);
+                    sendReadyMessageNetwork(bodyMessage);
+                }
+            }
         }
     }
 
@@ -207,5 +226,9 @@ public class JvSendMessagesCtrl {
 
     private byte[] createBodyChatsLoadRequestMessage(JvMessagesDefines.TypeMessage type, String sender) {
         return JvGetterMessages.getInstance().getBeanMessagesSerializatorData().serialiseData(type, sender);
+    }
+
+    private byte[] createBodyChatsLoadReplyMessage(JvMessagesDefines.TypeMessage type, List<String> reply) {
+        return JvGetterMessages.getInstance().getBeanMessagesSerializatorData().serialiseData(type, reply);
     }
 }
