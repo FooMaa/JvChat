@@ -288,18 +288,22 @@ $BODY$ LANGUAGE plpgsql;
 -- chat_schema.chats_messages
 -- ----------------------------------------------------------------------------------------------
 
-CREATE OR REPLACE FUNCTION chat_schema.chats_messages_get_chats_by_sender(
-    f_sender character varying
+CREATE OR REPLACE FUNCTION chat_schema.chats_messages_get_chats_by_login(
+    f_login character varying
 )
-    RETURNS bytea AS
+    RETURNS TABLE (rloginSender character varying, rloginReceiver character varying, rmessage bytea, rdatetime timestamp) AS
 $BODY$
 DECLARE
-    rv integer;
+    rv chat_schema.chats_messages%rowtype;
+    rLogin_ID int;
 BEGIN
-    SELECT DISTINCT receiver INTO rv FROM chat_schema.chats_messages WHERE sender=f_sender;
-    IF found THEN
-        RETURN rv;
-    END IF;
-    RETURN NULL;
+    RETURN QUERY 
+    SELECT DISTINCT ON (LEAST(chats.senderID, chats.receiverID), GREATEST(chats.senderID, chats.receiverID)) 
+    auth1.login AS login_sender, auth2.login AS login_receiver, chats.message, chats.datetime 
+    FROM chat_schema.chats_messages AS chats
+    LEFT JOIN chat_schema.auth_users_info AS auth1 ON chats.senderID = auth1.id 
+    LEFT JOIN chat_schema.auth_users_info AS auth2 ON chats.receiverID = auth2.id 
+    WHERE auth1.login = f_login OR auth2.login = f_login 
+    ORDER BY LEAST(chats.senderID, chats.receiverID), GREATEST(chats.senderID, chats.receiverID), datetime DESC;
 END;
 $BODY$ LANGUAGE plpgsql;

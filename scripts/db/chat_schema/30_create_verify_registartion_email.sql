@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS chat_schema.verify_registration_email CASCADE;
 CREATE TABLE chat_schema.verify_registration_email (
     email       character varying,
     code        character varying,
-    datetime        timestamp NOT NULL DEFAULT NOW(),
+    datetime    timestamp NOT NULL DEFAULT NOW(),
     PRIMARY KEY (email)
 );
 
