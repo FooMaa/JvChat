@@ -23,7 +23,6 @@ public class JvStartPoint implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        JvGetterMainChatUiComponents.getInstance().getBeanMainChatMainFrame().openWindow();
         workingArgs(args);
         launchApplication();
     }

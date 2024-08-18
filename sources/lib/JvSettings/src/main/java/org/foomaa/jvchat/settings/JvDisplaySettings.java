@@ -42,6 +42,7 @@ public class JvDisplaySettings {
     public int getResizePixel(double scale) {
         return (int) Math.round(scale * heightScreen);
     }
+
     public int getResizeFont(double scale) {
         return (int) Math.floor(scale * widthScreen);
     }

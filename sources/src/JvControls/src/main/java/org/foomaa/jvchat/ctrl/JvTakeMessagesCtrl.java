@@ -33,7 +33,8 @@ public class JvTakeMessagesCtrl {
             case VerifyFamousEmailReply -> workVerifyFamousEmailReplyMessage(getDeserializeMapData(type, data));
             case ChangePasswordRequest -> workChangePasswordRequestMessage(getDeserializeMapData(type, data));
             case ChangePasswordReply -> workChangePasswordReplyMessage(getDeserializeMapData(type, data));
-            case ChatsLoadReply -> workChatsLoadRequestMessage(getDeserializeMapData(type, data));
+            case ChatsLoadRequest -> workChatsLoadRequestMessage(getDeserializeMapData(type, data));
+            case ChatsLoadReply -> workChatsLoadReplyMessage(getDeserializeMapData(type, data));
         }
     }
 
@@ -216,5 +217,9 @@ public class JvTakeMessagesCtrl {
                         (String) map.get(JvMessagesDefines.TypeData.ChatsLoad));
         JvGetterControls.getInstance().getBeanSendMessagesCtrl().
                 sendMessage(JvMessagesDefines.TypeMessage.ChatsLoadReply, requestDB);
+    }
+
+    private void workChatsLoadReplyMessage(HashMap<JvMessagesDefines.TypeData, ?> map) {
+        System.out.println("Zaglushka");
     }
 }

@@ -2,13 +2,15 @@ package org.foomaa.jvchat.settings;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 
 @Configuration
 public class JvSettingsSpringConfig {
     public enum NameBeans {
         BeanMainSettings("beanMainSettings"),
-        BeanDisplaySettings("beanDisplaySettings");
+        BeanDisplaySettings("beanDisplaySettings"),
+        BeanUserInfoSettings("beanUserInfoSettings");
 
         private final String value;
 
@@ -31,5 +33,12 @@ public class JvSettingsSpringConfig {
     @Scope("singleton")
     public JvDisplaySettings beanDisplaySettings() {
         return JvDisplaySettings.getInstance();
+    }
+
+    @Bean(name = "beanUserInfoSettings")
+    @Profile("users")
+    @Scope("singleton")
+    public JvUserInfoSettings beanUserInfoSettings() {
+        return JvUserInfoSettings.getInstance();
     }
 }

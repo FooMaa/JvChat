@@ -277,8 +277,11 @@ public class JvDbCtrl {
                 if (parameters.length == 1) {
                     String sender = parameters[0];
                     ResultSet resultSet = db.makeExecution(dbDefines.getChats(sender));
+                    System.out.println(resultSet);
                     List<String> result = getStrDataAtRow(resultSet, 1);
                     db.closeResultSet(resultSet);
+                    System.out.println("#####################################");
+                    System.out.println(result.toString());
                     if (!result.isEmpty()) {
                         return result.stream().toList();
                     }

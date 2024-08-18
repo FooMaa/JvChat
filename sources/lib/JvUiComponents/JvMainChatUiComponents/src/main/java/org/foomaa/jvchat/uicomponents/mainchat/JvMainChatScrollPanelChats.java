@@ -1,11 +1,17 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
+import org.foomaa.jvchat.ctrl.JvDbCtrl;
+import org.foomaa.jvchat.ctrl.JvGetterControls;
+import org.foomaa.jvchat.messages.JvMessagesDefines;
+import org.foomaa.jvchat.settings.JvGetterSettings;
+
 import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class JvMainChatScrollPanelChats extends JPanel {
     private static JvMainChatScrollPanelChats instance;
@@ -26,6 +32,7 @@ public class JvMainChatScrollPanelChats extends JPanel {
         setBorder(BorderFactory.createMatteBorder(0,0,0,7, Color.GRAY));
 
         Box box = Box.createVerticalBox();
+        loadChatsInBox(box);
 
         box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
         box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
@@ -51,8 +58,6 @@ public class JvMainChatScrollPanelChats extends JPanel {
         box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
         box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
         box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
-
-
 
         JScrollPane scrollPane = new JScrollPane(box);
         scrollPane.setBorder(null);
@@ -92,5 +97,18 @@ public class JvMainChatScrollPanelChats extends JPanel {
                 changeScrollPane(scrollPane);
             }
         });
+    }
+
+    private void loadChatsInBox(Box box) {
+        getChatsInfoFromDb();
+        //JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text");
+
+    }
+
+    private void getChatsInfoFromDb() {
+        String login = JvGetterSettings.getInstance().getBeanUserInfoSettings().getLogin();
+
+        JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+                JvMessagesDefines.TypeMessage.ChatsLoadRequest, login);
     }
 }

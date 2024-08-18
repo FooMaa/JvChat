@@ -25,4 +25,8 @@ public class JvGetterSettings {
     public JvDisplaySettings getBeanDisplaySettings() {
         return context.getBean(JvSettingsSpringConfig.NameBeans.BeanDisplaySettings.getValue(), JvDisplaySettings.class);
     }
+
+    public JvUserInfoSettings getBeanUserInfoSettings() {
+        return context.getBean(JvSettingsSpringConfig.NameBeans.BeanUserInfoSettings.getValue(), JvUserInfoSettings.class);
+    }
 }

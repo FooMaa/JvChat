@@ -220,15 +220,23 @@ public class JvAuthEntryFrame extends JFrame {
         }
         if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getEntryRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.TRUE) {
-            closeWindow();
-            setEnabled(true);
-            JvGetterMainChatUiComponents.getInstance().getBeanMainChatMainFrame().openWindow();
-            JvLog.write(JvLog.TypeLog.Info, "Вход выполнен");
+            openMainPage();
         } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getEntryRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             JvGetterAuthUiComponents.getInstance()
                     .getBeanAuthOptionPane("Вход не выполнен, данные не верные.", JvAuthOptionPane.TypeDlg.ERROR);
         }
+    }
+
+    private void openMainPage() {
+        JvGetterSettings.getInstance().getBeanUserInfoSettings().setLogin(tLogin.getInputText());
+
+        closeWindow();
+        setEnabled(true);
+
+        JvGetterMainChatUiComponents.getInstance().getBeanMainChatMainFrame().openWindow();
+
+        JvLog.write(JvLog.TypeLog.Info, "Вход выполнен");
     }
 }
