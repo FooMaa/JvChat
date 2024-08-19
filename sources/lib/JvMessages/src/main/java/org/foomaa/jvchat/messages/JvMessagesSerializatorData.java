@@ -354,6 +354,7 @@ public class JvMessagesSerializatorData {
             Map<String, String> newMapStr = new HashMap<>();
 
             for (JvDbGlobalDefines.LineKeys key : map.keySet()) {
+                System.out.println(key);
                 newMapStr.put(key.getValue(), map.get(key));
             }
 
