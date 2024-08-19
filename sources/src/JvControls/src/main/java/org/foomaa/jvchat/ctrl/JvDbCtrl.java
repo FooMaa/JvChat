@@ -285,6 +285,7 @@ public class JvDbCtrl {
 
                     try {
                         while (resultSet.next()) {
+                            System.out.println("*******************************");
                             ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
                             int columnCount = resultSetMetaData.getColumnCount();
 
