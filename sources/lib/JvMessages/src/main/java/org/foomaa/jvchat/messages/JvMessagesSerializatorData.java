@@ -361,7 +361,7 @@ public class JvMessagesSerializatorData {
                     .newBuilder()
                     .putAllMapInfo(newMapStr)
                     .build();
-            builder.setChatsInfoMap(i, chatsInfoMap);
+            builder.addChatsInfoMap(chatsInfoMap);
         }
 
         ClientServerSerializeProtocol_pb.ChatsLoadReply msgChatsLoadReply = builder.build();
