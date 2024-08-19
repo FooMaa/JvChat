@@ -1,11 +1,13 @@
 package org.foomaa.jvchat.ctrl;
 
+import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
 import org.foomaa.jvchat.messages.JvGetterMessages;
 import org.foomaa.jvchat.messages.JvMessagesDefines;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class JvTakeMessagesCtrl {
@@ -214,7 +216,7 @@ public class JvTakeMessagesCtrl {
     }
 
     private void workChatsLoadRequestMessage(HashMap<JvMessagesDefines.TypeData, ?> map) {
-        List<String> requestDB = JvGetterControls.getInstance()
+        List<Map<JvDbGlobalDefines.LineKeys, String>> requestDB = JvGetterControls.getInstance()
                 .getBeanDbCtrl().getMultipleInfoFromDb(JvDbCtrl.TypeExecutionGetMultiple.ChatsLoad,
                         (String) map.get(JvMessagesDefines.TypeData.ChatsLoad));
         JvGetterControls.getInstance().getBeanSendMessagesCtrl().

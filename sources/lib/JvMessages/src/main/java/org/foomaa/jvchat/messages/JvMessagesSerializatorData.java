@@ -1,7 +1,11 @@
 package org.foomaa.jvchat.messages;
 
+import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class JvMessagesSerializatorData {
@@ -140,10 +144,16 @@ public class JvMessagesSerializatorData {
             case ChatsLoadReply -> {
                 if (parameters.length == 1) {
                     Object chatsInfoObj = parameters[0];
-                    List<String> chatsInfo = new ArrayList<>();
-                    if (chatsInfoObj instanceof List<?> receiversList) {
-                        for (Object obj : receiversList) {
-                            chatsInfo.add((String) obj);
+                    List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo = new ArrayList<>();
+                    if (chatsInfoObj instanceof List<?> chatsInfoList) {
+                        for (Object obj : chatsInfoList) {
+                            Map<JvDbGlobalDefines.LineKeys, String> newMap = new HashMap<>();
+                            if (obj instanceof Map<?,?> map) {
+                                for (Object key : map.keySet()) {
+                                    newMap.put((JvDbGlobalDefines.LineKeys) key, (String) map.get(key));
+                                }
+                            }
+                            chatsInfo.add(newMap);
                         }
                     }
                     return createChatsLoadReplyMessage(type, chatsInfo);
@@ -334,12 +344,24 @@ public class JvMessagesSerializatorData {
         return resMsg.toByteArray();
     }
 
-    private byte[] createChatsLoadReplyMessage(JvMessagesDefines.TypeMessage type, List<String> chatsInfo) {
+    private byte[] createChatsLoadReplyMessage(JvMessagesDefines.TypeMessage type,
+                                               List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo) {
         ClientServerSerializeProtocol_pb.ChatsLoadReply.Builder builder =
                 ClientServerSerializeProtocol_pb.ChatsLoadReply.newBuilder();
 
         for (int i = 0; i < chatsInfo.toArray().length; i++) {
-            builder.setChatsInfo(i, chatsInfo.get(i));
+            Map<JvDbGlobalDefines.LineKeys, String> map = chatsInfo.get(i);
+            Map<String, String> newMapStr = new HashMap<>();
+
+            for (JvDbGlobalDefines.LineKeys key : map.keySet()) {
+                newMapStr.put(key.getValue(), map.get(key));
+            }
+
+            ClientServerSerializeProtocol_pb.ChatsInfoMap chatsInfoMap = ClientServerSerializeProtocol_pb.ChatsInfoMap
+                    .newBuilder()
+                    .putAllMapInfo(newMapStr)
+                    .build();
+            builder.setChatsInfoMap(i, chatsInfoMap);
         }
 
         ClientServerSerializeProtocol_pb.ChatsLoadReply msgChatsLoadReply = builder.build();

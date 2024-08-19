@@ -114,5 +114,9 @@ message ChatsLoadRequest {
 }
 
 message ChatsLoadReply {
-    repeated string chatsInfo = 1;
+    repeated ChatsInfoMap chatsInfoMap = 1;
+}
+
+message ChatsInfoMap {
+    map<string, string> mapInfo = 1;
 }

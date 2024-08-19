@@ -1,7 +1,7 @@
 package org.foomaa.jvchat.globaldefines;
 
-public class JvColorsAnsi {
-    private static JvColorsAnsi instance;
+public class JvColorsAnsiGlobalDefines {
+    private static JvColorsAnsiGlobalDefines instance;
     // Reset
     public final String RESET = "\033[0m";  // Text Reset
     // Regular Colors
@@ -80,11 +80,11 @@ public class JvColorsAnsi {
     public final String ANSI_WHITE = "\u001B[37m";
 
 
-    private JvColorsAnsi() {}
+    private JvColorsAnsiGlobalDefines() {}
 
-    public static JvColorsAnsi getInstance() {
+    public static JvColorsAnsiGlobalDefines getInstance() {
         if (instance == null) {
-            instance = new JvColorsAnsi();
+            instance = new JvColorsAnsiGlobalDefines();
         }
         return instance;
     }

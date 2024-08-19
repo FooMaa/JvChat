@@ -4,11 +4,11 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-@Component("beanDbDefines")
+@Component("beanDbRequests")
 @Scope("singleton")
 @Profile("servers")
-public class JvDbDefines {
-    private JvDbDefines() {}
+public class JvDbRequests {
+    private JvDbRequests() {}
 
     public String insertToRegForm(String login, String email, String password) {
         return String.format(

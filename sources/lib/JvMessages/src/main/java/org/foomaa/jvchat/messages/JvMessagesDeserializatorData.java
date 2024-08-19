@@ -1,10 +1,13 @@
 package org.foomaa.jvchat.messages;
 
 import com.google.protobuf.InvalidProtocolBufferException;
+import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class JvMessagesDeserializatorData {
     private static JvMessagesDeserializatorData instance;
@@ -213,11 +216,25 @@ public class JvMessagesDeserializatorData {
         return result;
     }
 
-    private HashMap<JvMessagesDefines.TypeData, List<String>> takeChatsLoadReplyMessage(byte[] data) {
-        HashMap<JvMessagesDefines.TypeData, List<String>> result = new HashMap<>();
+    private HashMap<JvMessagesDefines.TypeData, List<Map<JvDbGlobalDefines.LineKeys, String>>> takeChatsLoadReplyMessage(byte[] data) {
+        HashMap<JvMessagesDefines.TypeData, List<Map<JvDbGlobalDefines.LineKeys, String>>> result = new HashMap<>();
         try {
-            result.put(JvMessagesDefines.TypeData.ChatsInfoList, ClientServerSerializeProtocol_pb.General.parseFrom(data).
-                    getChatsLoadReply().getChatsInfoList());
+            ClientServerSerializeProtocol_pb.ChatsLoadReply chatsLoadReplyMsg =
+                    ClientServerSerializeProtocol_pb.General.parseFrom(data).getChatsLoadReply();
+
+            List<Map<JvDbGlobalDefines.LineKeys, String>> listToResult = new ArrayList<>();
+            for (int i = 0; i < chatsLoadReplyMsg.getChatsInfoMapCount(); i++) {
+                Map<String, String> map = chatsLoadReplyMsg.getChatsInfoMap(i).getMapInfoMap();
+                Map<JvDbGlobalDefines.LineKeys, String> newMap = new HashMap<>();
+
+                for (String key : map.keySet()) {
+                    newMap.put(JvDbGlobalDefines.LineKeys.getTypeLineKey(key), map.get(key));
+                }
+
+                listToResult.add(newMap);
+            }
+
+            result.put(JvMessagesDefines.TypeData.ChatsInfoList, listToResult);
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }

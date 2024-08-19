@@ -7,8 +7,9 @@ import org.springframework.context.annotation.Scope;
 @Configuration
 public class JvGlobalDefinesSpringConfig {
     public enum NameBeans {
-        BeanMainDefines("beanMainDefines"),
-        BeanColorsAnsi("beanColorAnsi");
+        BeanMainGlobalDefines("beanMainGlobalDefines"),
+        BeanColorsAnsiGlobalDefines("beanColorAnsiGlobalDefines"),
+        BeanDbGlobalDefines("beanDbGlobalDefines");
 
         private final String value;
 
@@ -21,15 +22,21 @@ public class JvGlobalDefinesSpringConfig {
         }
     }
 
-    @Bean(name = "beanColorAnsi")
+    @Bean(name = "beanColorAnsiGlobalDefines")
     @Scope("singleton")
-    public JvColorsAnsi beanColorAnsi() {
-        return JvColorsAnsi.getInstance();
+    public JvColorsAnsiGlobalDefines beanColorAnsiGlobalDefines() {
+        return JvColorsAnsiGlobalDefines.getInstance();
     }
 
-    @Bean(name = "beanMainDefines")
+    @Bean(name = "beanMainGlobalDefines")
     @Scope("singleton")
-    public JvMainDefines beanMainDefines() {
-        return JvMainDefines.getInstance();
+    public JvMainGlobalDefines beanMainGlobalDefines() {
+        return JvMainGlobalDefines.getInstance();
+    }
+
+    @Bean(name = "beanDbGlobalDefines")
+    @Scope("singleton")
+    public JvDbGlobalDefines beanDbGlobalDefines() {
+        return JvDbGlobalDefines.getInstance();
     }
 }

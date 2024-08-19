@@ -13,6 +13,7 @@ dependencies {
     implementation("io.grpc:grpc-stub:1.15.1")
     implementation("io.grpc:grpc-protobuf:1.15.1")
     implementation(project(":JvLogger"))
+    implementation(project(":JvGlobalDefines"))
 }
 
 protobuf {

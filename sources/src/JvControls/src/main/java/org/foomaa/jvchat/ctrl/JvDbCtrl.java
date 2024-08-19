@@ -1,7 +1,8 @@
 package org.foomaa.jvchat.ctrl;
 
-import org.foomaa.jvchat.dbworker.JvDbDefines;
+import org.foomaa.jvchat.dbworker.JvDbRequests;
 import org.foomaa.jvchat.dbworker.JvDbWorker;
+import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,13 +12,15 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class JvDbCtrl {
     private static JvDbCtrl instance;
     private JvDbWorker db;
-    private JvDbDefines dbDefines;
+    private JvDbRequests dbRequests;
 
     public enum TypeExecutionInsert {
         RegisterForm,
@@ -62,11 +65,11 @@ public class JvDbCtrl {
     }
 
     @Autowired(required = false)
-    @Qualifier("beanDbDefines")
+    @Qualifier("beanDbRequests")
     @Profile("servers")
-    private void setDbDefines(JvDbDefines newDbDefines){
-        if (dbDefines != newDbDefines) {
-            dbDefines = newDbDefines;
+    private void setDbRequests(JvDbRequests newDbRequests){
+        if (dbRequests != newDbRequests) {
+            dbRequests = newDbRequests;
         }
     }
 
@@ -115,7 +118,7 @@ public class JvDbCtrl {
                     String password = parameters[2];
                     if (!checkQueryToDB(TypeExecutionCheck.Login, login) &&
                             !checkQueryToDB(TypeExecutionCheck.Email, email)) {
-                        ResultSet rs = db.makeExecution(dbDefines.insertToRegForm(login, email, password));
+                        ResultSet rs = db.makeExecution(dbRequests.insertToRegForm(login, email, password));
                         db.closeResultSet(rs);
                         return true;
                     } else {
@@ -128,7 +131,7 @@ public class JvDbCtrl {
                 if (parameters.length == 2) {
                     String email = parameters[0];
                     String password = parameters[1];
-                    ResultSet rs = db.makeExecution(dbDefines.insertChangePassword(email, password));
+                    ResultSet rs = db.makeExecution(dbRequests.insertChangePassword(email, password));
                     db.closeResultSet(rs);
                     return true;
                 }
@@ -141,7 +144,7 @@ public class JvDbCtrl {
                     int userId;
                     if (checkQueryToDB(TypeExecutionCheck.Email, email)) {
                         userId = Integer.parseInt(getSingleDataFromDb(TypeExecutionGetSingle.IdByEmail, email));
-                        ResultSet rs = db.makeExecution(dbDefines.insertCodeVerifyFamousEmail(userId, code));
+                        ResultSet rs = db.makeExecution(dbRequests.insertCodeVerifyFamousEmail(userId, code));
                         db.closeResultSet(rs);
                         return true;
                     }
@@ -152,7 +155,7 @@ public class JvDbCtrl {
                 if (parameters.length == 2) {
                     String email = parameters[0];
                     String code = parameters[1];
-                    ResultSet rs = db.makeExecution(dbDefines.insertVerifyRegistrationEmail(email, code));
+                    ResultSet rs = db.makeExecution(dbRequests.insertVerifyRegistrationEmail(email, code));
                     db.closeResultSet(rs);
                     return true;
                 }
@@ -168,7 +171,7 @@ public class JvDbCtrl {
                 if (parameters.length == 2) {
                     String login = parameters[0];
                     String password = parameters[1];
-                    ResultSet rs = db.makeExecution(dbDefines.checkUserPassword(login, password));
+                    ResultSet rs = db.makeExecution(dbRequests.checkUserPassword(login, password));
                     try {
                         boolean result = rs.next();
                         db.closeResultSet(rs);
@@ -182,7 +185,7 @@ public class JvDbCtrl {
             case Login -> {
                 if (parameters.length == 1) {
                     String login = parameters[0];
-                    ResultSet rs = db.makeExecution(dbDefines.checkLogin(login));
+                    ResultSet rs = db.makeExecution(dbRequests.checkLogin(login));
                     try {
                         boolean result = rs.next();
                         db.closeResultSet(rs);
@@ -196,7 +199,7 @@ public class JvDbCtrl {
             case Email -> {
                 if (parameters.length == 1) {
                     String email = parameters[0];
-                    ResultSet rs = db.makeExecution(dbDefines.checkEmail(email));
+                    ResultSet rs = db.makeExecution(dbRequests.checkEmail(email));
                     try {
                         boolean result = rs.next();
                         db.closeResultSet(rs);
@@ -211,7 +214,7 @@ public class JvDbCtrl {
                 if (parameters.length == 2) {
                     String email = parameters[0];
                     String code = parameters[1];
-                    ResultSet rs = db.makeExecution(dbDefines.checkVerifyFamousEmailCode(email, code));
+                    ResultSet rs = db.makeExecution(dbRequests.checkVerifyFamousEmailCode(email, code));
                     try {
                         boolean result = rs.next();
                         db.closeResultSet(rs);
@@ -226,7 +229,7 @@ public class JvDbCtrl {
                 if (parameters.length == 2) {
                     String email = parameters[0];
                     String code = parameters[1];
-                    ResultSet rs = db.makeExecution(dbDefines.checkVerifyRegistrationEmail(email, code));
+                    ResultSet rs = db.makeExecution(dbRequests.checkVerifyRegistrationEmail(email, code));
                     try {
                         boolean result = rs.next();
                         db.closeResultSet(rs);
@@ -246,7 +249,7 @@ public class JvDbCtrl {
             case LoginByEmail -> {
                 if (parameters.length == 1) {
                     String email = parameters[0];
-                    ResultSet resultSet = db.makeExecution(dbDefines.getLogin(email));
+                    ResultSet resultSet = db.makeExecution(dbRequests.getLogin(email));
                     List<String> result = getStrDataAtRow(resultSet, 1);
                     db.closeResultSet(resultSet);
                     if (!result.isEmpty()) {
@@ -258,7 +261,7 @@ public class JvDbCtrl {
             case IdByEmail -> {
                 if (parameters.length == 1) {
                     String email = parameters[0];
-                    ResultSet resultSet = db.makeExecution(dbDefines.getUserId(email));
+                    ResultSet resultSet = db.makeExecution(dbRequests.getUserId(email));
                     List<String> result = getStrDataAtRow(resultSet, 1);
                     db.closeResultSet(resultSet);
                     if (!result.isEmpty()) {
@@ -271,19 +274,36 @@ public class JvDbCtrl {
         return null;
     }
 
-    public List<String> getMultipleInfoFromDb(TypeExecutionGetMultiple type, String ... parameters) {
+    public List<Map<JvDbGlobalDefines.LineKeys, String>> getMultipleInfoFromDb(TypeExecutionGetMultiple type, String ... parameters) {
         switch (type) {
             case ChatsLoad -> {
                 if (parameters.length == 1) {
                     String sender = parameters[0];
-                    ResultSet resultSet = db.makeExecution(dbDefines.getChats(sender));
-                    System.out.println(resultSet);
-                    List<String> result = getStrDataAtRow(resultSet, 1);
+                    ResultSet resultSet = db.makeExecution(dbRequests.getChats(sender));
+
+                    List<Map<JvDbGlobalDefines.LineKeys, String>> result = new ArrayList<>();
+
+                    try {
+                        while (resultSet.next()) {
+                            Map<JvDbGlobalDefines.LineKeys, String> row = new HashMap<>();
+                            for (int i = 0; i <= resultSet.getMetaData().getColumnCount(); i++) {
+                                String columnName = resultSet.getMetaData().getColumnName(i);
+                                String value = (String) resultSet.getObject(i);
+                                row.put(JvDbGlobalDefines.LineKeys.getTypeLineKey(columnName), value);
+                            }
+                            result.add(row);
+                        }
+                    } catch (SQLException exception) {
+                        JvLog.write(JvLog.TypeLog.Error, "Ошибка при работе с ResultSet из БД");
+                    }
+
                     db.closeResultSet(resultSet);
+
                     System.out.println("#####################################");
-                    System.out.println(result.toString());
+                    System.out.println(result);
+
                     if (!result.isEmpty()) {
-                        return result.stream().toList();
+                        return result;
                     }
                 }
                 return null;
