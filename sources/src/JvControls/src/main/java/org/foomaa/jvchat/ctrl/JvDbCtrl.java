@@ -293,7 +293,7 @@ public class JvDbCtrl {
 
                             Map<JvDbGlobalDefines.LineKeys, String> row = new HashMap<>();
 
-                            for (int i = 0; i <= columnCount; i++) {
+                            for (int i = 1; i <= columnCount; i++) {
                                 System.out.println("===========================");
                                 String columnName = resultSetMetaData.getColumnName(i);
                                 System.out.println(columnName);
