@@ -286,19 +286,13 @@ public class JvDbCtrl {
                     try {
                         ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
                         int columnCount = resultSetMetaData.getColumnCount();
-                        System.out.println(columnCount);
 
                         while (resultSet.next()) {
-                            System.out.println("*******************************");
-
                             Map<JvDbGlobalDefines.LineKeys, String> row = new HashMap<>();
 
                             for (int i = 1; i <= columnCount; i++) {
-                                System.out.println("===========================");
                                 String columnName = resultSetMetaData.getColumnName(i);
-                                System.out.println(columnName);
                                 String value = resultSet.getObject(i).toString();
-                                System.out.println(value);
                                 row.put(JvDbGlobalDefines.LineKeys.getTypeLineKey(columnName), value);
                             }
 
