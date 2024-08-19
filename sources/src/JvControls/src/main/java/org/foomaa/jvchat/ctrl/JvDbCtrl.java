@@ -284,10 +284,11 @@ public class JvDbCtrl {
                     List<Map<JvDbGlobalDefines.LineKeys, String>> result = new ArrayList<>();
 
                     try {
+                        ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+                        int columnCount = resultSetMetaData.getColumnCount();
+
                         while (resultSet.next()) {
                             System.out.println("*******************************");
-                            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
-                            int columnCount = resultSetMetaData.getColumnCount();
 
                             Map<JvDbGlobalDefines.LineKeys, String> row = new HashMap<>();
 
