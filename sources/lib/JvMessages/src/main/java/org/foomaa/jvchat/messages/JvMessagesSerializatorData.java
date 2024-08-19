@@ -1,5 +1,8 @@
 package org.foomaa.jvchat.messages;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class JvMessagesSerializatorData {
     private static JvMessagesSerializatorData instance;
@@ -130,6 +133,20 @@ public class JvMessagesSerializatorData {
                 if (parameters.length == 1) {
                     Object sender = parameters[0];
                     return createChatsLoadRequestMessage(type, (String) sender);
+                } else {
+                    return new byte[0];
+                }
+            }
+            case ChatsLoadReply -> {
+                if (parameters.length == 1) {
+                    Object receiversObj = parameters[0];
+                    List<String> chatsInfo = new ArrayList<>();
+                    if (receiversObj instanceof List<?> receiversList) {
+                        for (Object obj : receiversList) {
+                            chatsInfo.add((String) obj);
+                        }
+                    }
+                    return createChatsLoadReplyMessage(type, chatsInfo);
                 } else {
                     return new byte[0];
                 }
@@ -314,6 +331,24 @@ public class JvMessagesSerializatorData {
                         .setType(type.getValue())
                         .setChatsLoadRequest(msgChatsLoadRequest)
                         .build();
+        return resMsg.toByteArray();
+    }
+
+    private byte[] createChatsLoadReplyMessage(JvMessagesDefines.TypeMessage type, List<String> chatsInfo) {
+        ClientServerSerializeProtocol_pb.ChatsLoadReply.Builder builder =
+                ClientServerSerializeProtocol_pb.ChatsLoadReply.newBuilder();
+
+        for (int i = 0; i < chatsInfo.toArray().length; i++) {
+            builder.setChatsInfo(i, chatsInfo.get(i));
+        }
+
+        ClientServerSerializeProtocol_pb.ChatsLoadReply msgChatsLoadReply = builder.build();
+        ClientServerSerializeProtocol_pb.General resMsg =
+                ClientServerSerializeProtocol_pb.General.newBuilder()
+                        .setType(type.getValue())
+                        .setChatsLoadReply(msgChatsLoadReply)
+                        .build();
+
         return resMsg.toByteArray();
     }
 }

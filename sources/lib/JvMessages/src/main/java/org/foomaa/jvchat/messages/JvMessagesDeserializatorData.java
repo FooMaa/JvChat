@@ -4,6 +4,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import org.foomaa.jvchat.logger.JvLog;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class JvMessagesDeserializatorData {
     private static JvMessagesDeserializatorData instance;
@@ -32,7 +33,7 @@ public class JvMessagesDeserializatorData {
             case ChangePasswordRequest -> takeChangePasswordRequestMessage(data);
             case ChangePasswordReply -> takeChangePasswordReplyMessage(data);
             case ChatsLoadRequest -> takeChatsLoadRequestMessage(data);
-            case ChatsLoadReply -> null;
+            case ChatsLoadReply -> takeChatsLoadReplyMessage(data);
         };
     }
 
@@ -206,6 +207,17 @@ public class JvMessagesDeserializatorData {
         try {
             result.put(JvMessagesDefines.TypeData.ChatsLoad, ClientServerSerializeProtocol_pb.General.parseFrom(data).
                     getChatsLoadRequest().getSender());
+        } catch (InvalidProtocolBufferException exception) {
+            JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
+        }
+        return result;
+    }
+
+    private HashMap<JvMessagesDefines.TypeData, List<String>> takeChatsLoadReplyMessage(byte[] data) {
+        HashMap<JvMessagesDefines.TypeData, List<String>> result = new HashMap<>();
+        try {
+            result.put(JvMessagesDefines.TypeData.ChatsInfoList, ClientServerSerializeProtocol_pb.General.parseFrom(data).
+                    getChatsLoadReply().getChatsInfoList());
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }

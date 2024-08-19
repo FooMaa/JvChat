@@ -156,13 +156,11 @@ public class JvSendMessagesCtrl {
                 if (parameters.length == 1) {
                     Object receiversObj = parameters[0];
                     List<String> receivers = new ArrayList<>();
-
                     if (receiversObj instanceof List<?> receiversList) {
                         for (Object obj : receiversList) {
                             receivers.add((String) obj);
                         }
                     }
-
                     byte[] bodyMessage = createBodyChatsLoadReplyMessage(type,
                             receivers);
                     sendReadyMessageNetwork(bodyMessage);

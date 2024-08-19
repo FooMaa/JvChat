@@ -12875,10 +12875,29 @@ public final class ClientServerSerializeProtocol_pb {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>bytes receivers = 1;</code>
-     * @return The receivers.
+     * <code>repeated string chatsInfo = 1;</code>
+     * @return A list containing the chatsInfo.
      */
-    com.google.protobuf.ByteString getReceivers();
+    java.util.List<java.lang.String>
+        getChatsInfoList();
+    /**
+     * <code>repeated string chatsInfo = 1;</code>
+     * @return The count of chatsInfo.
+     */
+    int getChatsInfoCount();
+    /**
+     * <code>repeated string chatsInfo = 1;</code>
+     * @param index The index of the element to return.
+     * @return The chatsInfo at the given index.
+     */
+    java.lang.String getChatsInfo(int index);
+    /**
+     * <code>repeated string chatsInfo = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the chatsInfo at the given index.
+     */
+    com.google.protobuf.ByteString
+        getChatsInfoBytes(int index);
   }
   /**
    * Protobuf type {@code ChatsLoadReply}
@@ -12893,7 +12912,7 @@ public final class ClientServerSerializeProtocol_pb {
       super(builder);
     }
     private ChatsLoadReply() {
-      receivers_ = com.google.protobuf.ByteString.EMPTY;
+      chatsInfo_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     }
 
     @java.lang.Override
@@ -12921,15 +12940,39 @@ public final class ClientServerSerializeProtocol_pb {
               org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply.class, org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply.Builder.class);
     }
 
-    public static final int RECEIVERS_FIELD_NUMBER = 1;
-    private com.google.protobuf.ByteString receivers_;
+    public static final int CHATSINFO_FIELD_NUMBER = 1;
+    private com.google.protobuf.LazyStringList chatsInfo_;
     /**
-     * <code>bytes receivers = 1;</code>
-     * @return The receivers.
+     * <code>repeated string chatsInfo = 1;</code>
+     * @return A list containing the chatsInfo.
      */
-    @java.lang.Override
-    public com.google.protobuf.ByteString getReceivers() {
-      return receivers_;
+    public com.google.protobuf.ProtocolStringList
+        getChatsInfoList() {
+      return chatsInfo_;
+    }
+    /**
+     * <code>repeated string chatsInfo = 1;</code>
+     * @return The count of chatsInfo.
+     */
+    public int getChatsInfoCount() {
+      return chatsInfo_.size();
+    }
+    /**
+     * <code>repeated string chatsInfo = 1;</code>
+     * @param index The index of the element to return.
+     * @return The chatsInfo at the given index.
+     */
+    public java.lang.String getChatsInfo(int index) {
+      return chatsInfo_.get(index);
+    }
+    /**
+     * <code>repeated string chatsInfo = 1;</code>
+     * @param index The index of the value to return.
+     * @return The bytes of the chatsInfo at the given index.
+     */
+    public com.google.protobuf.ByteString
+        getChatsInfoBytes(int index) {
+      return chatsInfo_.getByteString(index);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -12946,8 +12989,8 @@ public final class ClientServerSerializeProtocol_pb {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!receivers_.isEmpty()) {
-        output.writeBytes(1, receivers_);
+      for (int i = 0; i < chatsInfo_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, chatsInfo_.getRaw(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -12958,9 +13001,13 @@ public final class ClientServerSerializeProtocol_pb {
       if (size != -1) return size;
 
       size = 0;
-      if (!receivers_.isEmpty()) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, receivers_);
+      {
+        int dataSize = 0;
+        for (int i = 0; i < chatsInfo_.size(); i++) {
+          dataSize += computeStringSizeNoTag(chatsInfo_.getRaw(i));
+        }
+        size += dataSize;
+        size += 1 * getChatsInfoList().size();
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -12977,8 +13024,8 @@ public final class ClientServerSerializeProtocol_pb {
       }
       org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply other = (org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply) obj;
 
-      if (!getReceivers()
-          .equals(other.getReceivers())) return false;
+      if (!getChatsInfoList()
+          .equals(other.getChatsInfoList())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -12990,8 +13037,10 @@ public final class ClientServerSerializeProtocol_pb {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + RECEIVERS_FIELD_NUMBER;
-      hash = (53 * hash) + getReceivers().hashCode();
+      if (getChatsInfoCount() > 0) {
+        hash = (37 * hash) + CHATSINFO_FIELD_NUMBER;
+        hash = (53 * hash) + getChatsInfoList().hashCode();
+      }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -13120,8 +13169,8 @@ public final class ClientServerSerializeProtocol_pb {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        receivers_ = com.google.protobuf.ByteString.EMPTY;
-
+        chatsInfo_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
 
@@ -13148,7 +13197,12 @@ public final class ClientServerSerializeProtocol_pb {
       @java.lang.Override
       public org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply buildPartial() {
         org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply result = new org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply(this);
-        result.receivers_ = receivers_;
+        int from_bitField0_ = bitField0_;
+        if (((bitField0_ & 0x00000001) != 0)) {
+          chatsInfo_ = chatsInfo_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        }
+        result.chatsInfo_ = chatsInfo_;
         onBuilt();
         return result;
       }
@@ -13197,8 +13251,15 @@ public final class ClientServerSerializeProtocol_pb {
 
       public Builder mergeFrom(org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply other) {
         if (other == org.foomaa.jvchat.messages.ClientServerSerializeProtocol_pb.ChatsLoadReply.getDefaultInstance()) return this;
-        if (other.getReceivers() != com.google.protobuf.ByteString.EMPTY) {
-          setReceivers(other.getReceivers());
+        if (!other.chatsInfo_.isEmpty()) {
+          if (chatsInfo_.isEmpty()) {
+            chatsInfo_ = other.chatsInfo_;
+            bitField0_ = (bitField0_ & ~0x00000001);
+          } else {
+            ensureChatsInfoIsMutable();
+            chatsInfo_.addAll(other.chatsInfo_);
+          }
+          onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -13227,8 +13288,9 @@ public final class ClientServerSerializeProtocol_pb {
                 done = true;
                 break;
               case 10: {
-                receivers_ = input.readBytes();
-
+                java.lang.String s = input.readStringRequireUtf8();
+                ensureChatsInfoIsMutable();
+                chatsInfo_.add(s);
                 break;
               } // case 10
               default: {
@@ -13246,37 +13308,114 @@ public final class ClientServerSerializeProtocol_pb {
         } // finally
         return this;
       }
+      private int bitField0_;
 
-      private com.google.protobuf.ByteString receivers_ = com.google.protobuf.ByteString.EMPTY;
-      /**
-       * <code>bytes receivers = 1;</code>
-       * @return The receivers.
-       */
-      @java.lang.Override
-      public com.google.protobuf.ByteString getReceivers() {
-        return receivers_;
+      private com.google.protobuf.LazyStringList chatsInfo_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureChatsInfoIsMutable() {
+        if (!((bitField0_ & 0x00000001) != 0)) {
+          chatsInfo_ = new com.google.protobuf.LazyStringArrayList(chatsInfo_);
+          bitField0_ |= 0x00000001;
+         }
       }
       /**
-       * <code>bytes receivers = 1;</code>
-       * @param value The receivers to set.
+       * <code>repeated string chatsInfo = 1;</code>
+       * @return A list containing the chatsInfo.
+       */
+      public com.google.protobuf.ProtocolStringList
+          getChatsInfoList() {
+        return chatsInfo_.getUnmodifiableView();
+      }
+      /**
+       * <code>repeated string chatsInfo = 1;</code>
+       * @return The count of chatsInfo.
+       */
+      public int getChatsInfoCount() {
+        return chatsInfo_.size();
+      }
+      /**
+       * <code>repeated string chatsInfo = 1;</code>
+       * @param index The index of the element to return.
+       * @return The chatsInfo at the given index.
+       */
+      public java.lang.String getChatsInfo(int index) {
+        return chatsInfo_.get(index);
+      }
+      /**
+       * <code>repeated string chatsInfo = 1;</code>
+       * @param index The index of the value to return.
+       * @return The bytes of the chatsInfo at the given index.
+       */
+      public com.google.protobuf.ByteString
+          getChatsInfoBytes(int index) {
+        return chatsInfo_.getByteString(index);
+      }
+      /**
+       * <code>repeated string chatsInfo = 1;</code>
+       * @param index The index to set the value at.
+       * @param value The chatsInfo to set.
        * @return This builder for chaining.
        */
-      public Builder setReceivers(com.google.protobuf.ByteString value) {
+      public Builder setChatsInfo(
+          int index, java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  
-        receivers_ = value;
+  ensureChatsInfoIsMutable();
+        chatsInfo_.set(index, value);
         onChanged();
         return this;
       }
       /**
-       * <code>bytes receivers = 1;</code>
+       * <code>repeated string chatsInfo = 1;</code>
+       * @param value The chatsInfo to add.
        * @return This builder for chaining.
        */
-      public Builder clearReceivers() {
-        
-        receivers_ = getDefaultInstance().getReceivers();
+      public Builder addChatsInfo(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureChatsInfoIsMutable();
+        chatsInfo_.add(value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string chatsInfo = 1;</code>
+       * @param values The chatsInfo to add.
+       * @return This builder for chaining.
+       */
+      public Builder addAllChatsInfo(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureChatsInfoIsMutable();
+        com.google.protobuf.AbstractMessageLite.Builder.addAll(
+            values, chatsInfo_);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string chatsInfo = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearChatsInfo() {
+        chatsInfo_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string chatsInfo = 1;</code>
+       * @param value The bytes of the chatsInfo to add.
+       * @return This builder for chaining.
+       */
+      public Builder addChatsInfoBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        ensureChatsInfoIsMutable();
+        chatsInfo_.add(value);
         onChanged();
         return this;
       }
@@ -13480,7 +13619,7 @@ public final class ClientServerSerializeProtocol_pb {
       "2\".MessageChangeStatusRequest.Status\")\n\006" +
       "Status\022\010\n\004Send\020\000\022\013\n\007Deliver\020\001\022\010\n\004Read\020\002\"" +
       "\"\n\020ChatsLoadRequest\022\016\n\006sender\030\001 \001(\t\"#\n\016C" +
-      "hatsLoadReply\022\021\n\treceivers\030\001 \001(\014B>\n\032org." +
+      "hatsLoadReply\022\021\n\tchatsInfo\030\001 \003(\tB>\n\032org." +
       "foomaa.jvchat.messagesB ClientServerSeri" +
       "alizeProtocol_pbb\006proto3"
     };
@@ -13583,7 +13722,7 @@ public final class ClientServerSerializeProtocol_pb {
     internal_static_ChatsLoadReply_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ChatsLoadReply_descriptor,
-        new java.lang.String[] { "Receivers", });
+        new java.lang.String[] { "ChatsInfo", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -114,5 +114,5 @@ message ChatsLoadRequest {
 }
 
 message ChatsLoadReply {
-    bytes receivers = 1;
+    repeated string chatsInfo = 1;
 }
