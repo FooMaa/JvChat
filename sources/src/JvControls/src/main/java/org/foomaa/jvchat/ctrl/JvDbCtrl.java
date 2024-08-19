@@ -46,7 +46,8 @@ public class JvDbCtrl {
         ChatsLoad
     }
 
-    private JvDbCtrl() {}
+    private JvDbCtrl() {
+    }
 
     static JvDbCtrl getInstance() {
         if (instance == null) {
@@ -59,7 +60,7 @@ public class JvDbCtrl {
     @Qualifier("beanDbWorker")
     @Profile("servers")
     private void setDb(JvDbWorker newDb) {
-        if ( db !=  newDb ) {
+        if (db != newDb) {
             db = newDb;
         }
     }
@@ -67,7 +68,7 @@ public class JvDbCtrl {
     @Autowired(required = false)
     @Qualifier("beanDbRequests")
     @Profile("servers")
-    private void setDbRequests(JvDbRequests newDbRequests){
+    private void setDbRequests(JvDbRequests newDbRequests) {
         if (dbRequests != newDbRequests) {
             dbRequests = newDbRequests;
         }
@@ -109,7 +110,7 @@ public class JvDbCtrl {
         return res;
     }
 
-    public boolean insertQueryToDB(TypeExecutionInsert type, String ... parameters) {
+    public boolean insertQueryToDB(TypeExecutionInsert type, String... parameters) {
         switch (type) {
             case RegisterForm -> {
                 if (parameters.length == 3) {
@@ -165,7 +166,7 @@ public class JvDbCtrl {
         return false;
     }
 
-    public boolean checkQueryToDB(TypeExecutionCheck type, String ... parameters) {
+    public boolean checkQueryToDB(TypeExecutionCheck type, String... parameters) {
         switch (type) {
             case UserPassword -> {
                 if (parameters.length == 2) {
@@ -244,7 +245,7 @@ public class JvDbCtrl {
         return false;
     }
 
-    public String getSingleDataFromDb(TypeExecutionGetSingle type, String ... parameters) {
+    public String getSingleDataFromDb(TypeExecutionGetSingle type, String... parameters) {
         switch (type) {
             case LoginByEmail -> {
                 if (parameters.length == 1) {
@@ -274,7 +275,7 @@ public class JvDbCtrl {
         return null;
     }
 
-    public List<Map<JvDbGlobalDefines.LineKeys, String>> getMultipleInfoFromDb(TypeExecutionGetMultiple type, String ... parameters) {
+    public List<Map<JvDbGlobalDefines.LineKeys, String>> getMultipleInfoFromDb(TypeExecutionGetMultiple type, String... parameters) {
         switch (type) {
             case ChatsLoad -> {
                 if (parameters.length == 1) {
@@ -288,7 +289,9 @@ public class JvDbCtrl {
                             Map<JvDbGlobalDefines.LineKeys, String> row = new HashMap<>();
                             for (int i = 0; i <= resultSet.getMetaData().getColumnCount(); i++) {
                                 String columnName = resultSet.getMetaData().getColumnName(i);
+                                System.out.println(columnName);
                                 String value = (String) resultSet.getObject(i);
+                                System.out.println(value);
                                 row.put(JvDbGlobalDefines.LineKeys.getTypeLineKey(columnName), value);
                             }
                             result.add(row);
