@@ -3,8 +3,10 @@ package org.foomaa.jvchat.ctrl;
 import org.foomaa.jvchat.messages.JvGetterMessages;
 import org.foomaa.jvchat.messages.JvMessagesDefines;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 
 public class JvTakeMessagesCtrl {
     private static JvTakeMessagesCtrl instance;
@@ -220,6 +222,14 @@ public class JvTakeMessagesCtrl {
     }
 
     private void workChatsLoadReplyMessage(HashMap<JvMessagesDefines.TypeData, ?> map) {
-        System.out.println("Zaglushka");
+        List<String> chatsInfo = new ArrayList<>();
+
+        if (map.get(JvMessagesDefines.TypeData.ChatsInfoList) instanceof List<?> listObjects) {
+            for (Object obj : listObjects) {
+                chatsInfo.add((String) obj);
+            }
+        }
+        System.out.println("######################################");
+        System.out.println(chatsInfo);
     }
 }

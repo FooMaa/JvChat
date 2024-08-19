@@ -154,15 +154,15 @@ public class JvSendMessagesCtrl {
             }
             case ChatsLoadReply -> {
                 if (parameters.length == 1) {
-                    Object receiversObj = parameters[0];
-                    List<String> receivers = new ArrayList<>();
-                    if (receiversObj instanceof List<?> receiversList) {
-                        for (Object obj : receiversList) {
-                            receivers.add((String) obj);
+                    Object chatsInfoObj = parameters[0];
+                    List<String> chatsInfo = new ArrayList<>();
+                    if (chatsInfoObj instanceof List<?> listObjects) {
+                        for (Object obj : listObjects) {
+                            chatsInfo.add((String) obj);
                         }
                     }
                     byte[] bodyMessage = createBodyChatsLoadReplyMessage(type,
-                            receivers);
+                            chatsInfo);
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }

@@ -139,9 +139,9 @@ public class JvMessagesSerializatorData {
             }
             case ChatsLoadReply -> {
                 if (parameters.length == 1) {
-                    Object receiversObj = parameters[0];
+                    Object chatsInfoObj = parameters[0];
                     List<String> chatsInfo = new ArrayList<>();
-                    if (receiversObj instanceof List<?> receiversList) {
+                    if (chatsInfoObj instanceof List<?> receiversList) {
                         for (Object obj : receiversList) {
                             chatsInfo.add((String) obj);
                         }
