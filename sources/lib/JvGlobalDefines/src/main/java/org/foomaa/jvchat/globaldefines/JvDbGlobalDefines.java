@@ -6,10 +6,10 @@ public class JvDbGlobalDefines {
     private static JvDbGlobalDefines instance;
 
     public enum LineKeys {
-        Sender("Sender"),
-        Receiver("Receiver"),
-        Message("Message"),
-        Datetime("Datetime");
+        Sender("sender"),
+        Receiver("receiver"),
+        Message("message"),
+        Datetime("datetime");
 
         private final String value;
 
