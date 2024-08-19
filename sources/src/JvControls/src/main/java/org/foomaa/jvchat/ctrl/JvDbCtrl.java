@@ -294,11 +294,12 @@ public class JvDbCtrl {
                             Map<JvDbGlobalDefines.LineKeys, String> row = new HashMap<>();
 
                             for (int i = 0; i <= columnCount; i++) {
+                                System.out.println("===========================");
                                 String columnName = resultSetMetaData.getColumnName(i);
                                 System.out.println(columnName);
-                                Object value = resultSet.getObject(i).toString();
+                                String value = resultSet.getObject(i).toString();
                                 System.out.println(value);
-                                row.put(JvDbGlobalDefines.LineKeys.getTypeLineKey(columnName), "value");
+                                row.put(JvDbGlobalDefines.LineKeys.getTypeLineKey(columnName), value);
                             }
 
                             result.add(row);
