@@ -281,19 +281,23 @@ public class JvDbCtrl {
                 if (parameters.length == 1) {
                     String sender = parameters[0];
                     ResultSet resultSet = db.makeExecution(dbRequests.getChats(sender));
-
                     List<Map<JvDbGlobalDefines.LineKeys, String>> result = new ArrayList<>();
 
                     try {
                         while (resultSet.next()) {
+                            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+                            int columnCount = resultSetMetaData.getColumnCount();
+
                             Map<JvDbGlobalDefines.LineKeys, String> row = new HashMap<>();
-                            for (int i = 0; i <= resultSet.getMetaData().getColumnCount(); i++) {
-                                String columnName = resultSet.getMetaData().getColumnName(i);
+
+                            for (int i = 0; i <= columnCount; i++) {
+                                String columnName = resultSetMetaData.getColumnName(i);
                                 System.out.println(columnName);
                                 String value = (String) resultSet.getObject(i);
                                 System.out.println(value);
                                 row.put(JvDbGlobalDefines.LineKeys.getTypeLineKey(columnName), value);
                             }
+
                             result.add(row);
                         }
                     } catch (SQLException exception) {
