@@ -224,11 +224,16 @@ public class JvTakeMessagesCtrl {
     }
 
     private void workChatsLoadReplyMessage(HashMap<JvMessagesDefines.TypeData, ?> map) {
-        List<String> chatsInfo = new ArrayList<>();
-
-        if (map.get(JvMessagesDefines.TypeData.ChatsInfoList) instanceof List<?> listObjects) {
-            for (Object obj : listObjects) {
-                chatsInfo.add((String) obj);
+        List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo = new ArrayList<>();
+        if (map.get(JvMessagesDefines.TypeData.ChatsInfoList) instanceof List<?> chatsInfoList) {
+            for (Object obj : chatsInfoList) {
+                Map<JvDbGlobalDefines.LineKeys, String> newMap = new HashMap<>();
+                if (obj instanceof Map<?,?> tmpMap) {
+                    for (Object key : tmpMap.keySet()) {
+                        newMap.put((JvDbGlobalDefines.LineKeys) key, (String) tmpMap.get(key));
+                    }
+                }
+                chatsInfo.add(newMap);
             }
         }
         System.out.println("######################################");
