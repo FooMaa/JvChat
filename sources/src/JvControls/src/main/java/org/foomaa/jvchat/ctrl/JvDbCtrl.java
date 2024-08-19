@@ -296,9 +296,9 @@ public class JvDbCtrl {
                             for (int i = 0; i <= columnCount; i++) {
                                 String columnName = resultSetMetaData.getColumnName(i);
                                 System.out.println(columnName);
-                                String value = resultSet.getObject(i).toString();
+                                Object value = resultSet.getObject(i).toString();
                                 System.out.println(value);
-                                row.put(JvDbGlobalDefines.LineKeys.getTypeLineKey(columnName), value);
+                                row.put(JvDbGlobalDefines.LineKeys.getTypeLineKey(columnName), "value");
                             }
 
                             result.add(row);
