@@ -2,6 +2,7 @@ package org.foomaa.jvchat.tools;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+
 public class JvGetterTools {
     private static JvGetterTools instance;
     private final AnnotationConfigApplicationContext context;
@@ -20,5 +21,9 @@ public class JvGetterTools {
 
     public JvMainTools getBeanMainTools() {
         return context.getBean(JvToolsSpringConfig.NameBeans.BeanMainTools.getValue(), JvMainTools.class);
+    }
+
+    public JvStructTools getBeanStructTools() {
+        return context.getBean(JvToolsSpringConfig.NameBeans.BeanStructTools.getValue(), JvStructTools.class);
     }
 }

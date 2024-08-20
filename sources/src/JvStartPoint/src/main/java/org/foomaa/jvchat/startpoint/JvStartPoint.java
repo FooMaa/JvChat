@@ -2,7 +2,6 @@ package org.foomaa.jvchat.startpoint;
 
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.tools.JvGetterTools;
-import org.foomaa.jvchat.uicomponents.mainchat.JvGetterMainChatUiComponents;
 import org.foomaa.jvchat.uilinks.JvGetterUiLinks;
 import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.settings.JvMainSettings;
@@ -13,6 +12,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import java.io.IOException;
 import java.net.URISyntaxException;
+
 
 @SpringBootApplication
 public class JvStartPoint implements ApplicationRunner {
@@ -31,7 +31,7 @@ public class JvStartPoint implements ApplicationRunner {
     private void workingArgs(ApplicationArguments args) {
         try {
             JvGetterTools.getInstance().getBeanMainTools().setProfileSetting(JvStartPoint.class);
-//            NOTE: Установить профиль по спрингу
+//            NOTE(VAD): Установить профиль по спрингу
 //            JvGetterTools.getInstance().getBeanMainTools().setProfileSettingSpring();
         } catch (IOException | URISyntaxException exception) {
             JvGetterUiLinks.getInstance().getBeanErrorStart(

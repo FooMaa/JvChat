@@ -1,6 +1,7 @@
 package org.foomaa.jvchat.messages;
 
 import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
+import org.foomaa.jvchat.tools.JvGetterTools;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -144,18 +145,9 @@ public class JvMessagesSerializatorData {
             case ChatsLoadReply -> {
                 if (parameters.length == 1) {
                     Object chatsInfoObj = parameters[0];
-                    List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo = new ArrayList<>();
-                    if (chatsInfoObj instanceof List<?> chatsInfoList) {
-                        for (Object obj : chatsInfoList) {
-                            Map<JvDbGlobalDefines.LineKeys, String> newMap = new HashMap<>();
-                            if (obj instanceof Map<?,?> map) {
-                                for (Object key : map.keySet()) {
-                                    newMap.put((JvDbGlobalDefines.LineKeys) key, (String) map.get(key));
-                                }
-                            }
-                            chatsInfo.add(newMap);
-                        }
-                    }
+                    List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo =
+                            JvGetterTools.getInstance().getBeanStructTools()
+                                    .objectInListMaps(chatsInfoObj, JvDbGlobalDefines.LineKeys.class, String.class);
                     return createChatsLoadReplyMessage(type, chatsInfo);
                 } else {
                     return new byte[0];

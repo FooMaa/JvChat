@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.messages;
 
+
 public class JvMessagesDefines {
     private static JvMessagesDefines instance;
 

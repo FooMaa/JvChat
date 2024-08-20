@@ -5,6 +5,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import java.net.Socket;
 import java.util.Arrays;
 
+
 public class JvGetterControls {
     private static JvGetterControls instance;
     private final AnnotationConfigApplicationContext context;

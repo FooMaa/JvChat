@@ -2,6 +2,7 @@ package org.foomaa.jvchat.settings;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+
 public class JvGetterSettings {
     private static JvGetterSettings instance;
     private final AnnotationConfigApplicationContext context;

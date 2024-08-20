@@ -16,6 +16,7 @@ import java.util.Objects;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
+
 public class JvAuthResetPasswordFrame extends JFrame {
     private static JvAuthResetPasswordFrame instance;
     private final JPanel panel;

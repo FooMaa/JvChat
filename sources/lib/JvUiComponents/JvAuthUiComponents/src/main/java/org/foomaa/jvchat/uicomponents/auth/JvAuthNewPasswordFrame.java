@@ -15,6 +15,7 @@ import java.util.Objects;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
+
 public class JvAuthNewPasswordFrame extends JFrame {
     private static JvAuthNewPasswordFrame instance;
     private final JPanel panel;

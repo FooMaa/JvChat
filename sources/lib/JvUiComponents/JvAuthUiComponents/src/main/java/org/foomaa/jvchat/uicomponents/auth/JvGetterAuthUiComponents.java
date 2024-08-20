@@ -2,6 +2,7 @@ package org.foomaa.jvchat.uicomponents.auth;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+
 public class JvGetterAuthUiComponents {
     private static JvGetterAuthUiComponents instance;
     private final AnnotationConfigApplicationContext context;

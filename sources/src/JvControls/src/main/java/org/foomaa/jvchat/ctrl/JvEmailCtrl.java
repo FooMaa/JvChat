@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
 
+
 public class JvEmailCtrl {
     private static JvEmailCtrl instance;
     private JvEmailProcessor emailProcessor;

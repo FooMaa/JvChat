@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.Profile;
 
+
 @Configuration
 public class JvUiLinksSpringConfig {
     public enum NameBeans {

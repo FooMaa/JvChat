@@ -105,7 +105,7 @@ public class JvLog {
     }
 
     private Path getProjectDirectory() {
-        String nameProject = JvGetterGlobalDefines.getInstance().getBeanMainDefines().NAME_PROJECT;
+        String nameProject = JvGetterGlobalDefines.getInstance().getBeanMainGlobalDefines().NAME_PROJECT;
         String path = System.getProperty("user.dir");
 
         Pattern pattern = Pattern.compile("^(.*/" + nameProject + ")(?:/.*)?$");

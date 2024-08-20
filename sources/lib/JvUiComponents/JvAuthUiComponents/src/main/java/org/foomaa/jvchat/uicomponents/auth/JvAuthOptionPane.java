@@ -2,6 +2,7 @@ package org.foomaa.jvchat.uicomponents.auth;
 
 import javax.swing.*;
 
+
 public class JvAuthOptionPane extends JOptionPane {
 
     public enum TypeDlg {

@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.globaldefines;
 
+
 public class JvMainGlobalDefines {
     private static JvMainGlobalDefines instance;
 

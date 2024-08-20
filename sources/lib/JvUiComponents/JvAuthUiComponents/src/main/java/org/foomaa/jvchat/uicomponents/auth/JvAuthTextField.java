@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Objects;
 
+
 public class JvAuthTextField extends JPanel {
     private JTextField textField;
 

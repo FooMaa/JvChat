@@ -2,6 +2,7 @@ package org.foomaa.jvchat.globaldefines;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+
 public class JvGetterGlobalDefines {
     private static JvGetterGlobalDefines instance;
     private final AnnotationConfigApplicationContext context;
@@ -18,15 +19,15 @@ public class JvGetterGlobalDefines {
         return instance;
     }
 
-    public JvColorsAnsiGlobalDefines getBeanColorsAnsiDefines() {
+    public JvColorsAnsiGlobalDefines getBeanColorsAnsiGlobalDefines() {
         return context.getBean(JvGlobalDefinesSpringConfig.NameBeans.BeanColorsAnsiGlobalDefines.getValue(), JvColorsAnsiGlobalDefines.class);
     }
 
-    public JvMainGlobalDefines getBeanMainDefines() {
+    public JvMainGlobalDefines getBeanMainGlobalDefines() {
         return context.getBean(JvGlobalDefinesSpringConfig.NameBeans.BeanMainGlobalDefines.getValue(), JvMainGlobalDefines.class);
     }
 
-    public JvDbGlobalDefines getBeanDbDefines() {
+    public JvDbGlobalDefines getBeanDbGlobalDefines() {
         return context.getBean(JvGlobalDefinesSpringConfig.NameBeans.BeanDbGlobalDefines.getValue(), JvDbGlobalDefines.class);
     }
 }

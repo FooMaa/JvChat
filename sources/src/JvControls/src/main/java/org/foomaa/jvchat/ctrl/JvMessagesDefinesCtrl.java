@@ -2,6 +2,7 @@ package org.foomaa.jvchat.ctrl;
 
 import org.foomaa.jvchat.messages.JvMessagesDefines;
 
+
 public class JvMessagesDefinesCtrl {
     private static JvMessagesDefinesCtrl instance;
 

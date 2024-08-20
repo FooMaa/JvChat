@@ -15,6 +15,7 @@ import java.util.Objects;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
+
 public class JvAuthVerifyCodeFrame extends JFrame {
     private static JvAuthVerifyCodeFrame instance;
     private final JPanel panel;

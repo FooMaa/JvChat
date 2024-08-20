@@ -83,17 +83,17 @@ public class JvLoggerSpringConfig {
 
         switch (type) {
             case Debug -> context.putProperty(namePropertyColorStart,
-                    JvGetterGlobalDefines.getInstance().getBeanColorsAnsiDefines().BLUE);
+                    JvGetterGlobalDefines.getInstance().getBeanColorsAnsiGlobalDefines().BLUE);
             case Info, Trace -> context.putProperty(namePropertyColorStart,
-                    JvGetterGlobalDefines.getInstance().getBeanColorsAnsiDefines().GREEN);
+                    JvGetterGlobalDefines.getInstance().getBeanColorsAnsiGlobalDefines().GREEN);
             case Warn -> context.putProperty(namePropertyColorStart,
-                    JvGetterGlobalDefines.getInstance().getBeanColorsAnsiDefines().YELLOW);
+                    JvGetterGlobalDefines.getInstance().getBeanColorsAnsiGlobalDefines().YELLOW);
             case Error -> context.putProperty(namePropertyColorStart,
-                    JvGetterGlobalDefines.getInstance().getBeanColorsAnsiDefines().RED);
+                    JvGetterGlobalDefines.getInstance().getBeanColorsAnsiGlobalDefines().RED);
         }
 
         context.putProperty(namePropertyColorEnd,
-                JvGetterGlobalDefines.getInstance().getBeanColorsAnsiDefines().RESET);
+                JvGetterGlobalDefines.getInstance().getBeanColorsAnsiGlobalDefines().RESET);
     }
 
     @Bean(name = "beanMainLogger")

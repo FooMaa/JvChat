@@ -16,6 +16,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Objects;
 
+
 public class JvAuthPasswordField extends JPanel {
     private final BufferedImage visibleImage;
     private final BufferedImage invisibleImage;

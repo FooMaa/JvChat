@@ -2,6 +2,7 @@ package org.foomaa.jvchat.messages;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+
 public class JvGetterMessages {
     private static JvGetterMessages instance;
     private final AnnotationConfigApplicationContext context;

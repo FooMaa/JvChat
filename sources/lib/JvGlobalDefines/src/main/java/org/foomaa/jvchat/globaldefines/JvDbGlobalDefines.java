@@ -2,6 +2,7 @@ package org.foomaa.jvchat.globaldefines;
 
 import java.util.Objects;
 
+
 public class JvDbGlobalDefines {
     private static JvDbGlobalDefines instance;
 

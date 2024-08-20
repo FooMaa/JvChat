@@ -2,6 +2,7 @@ package org.foomaa.jvchat.settings;
 
 import java.util.Objects;
 
+
 public class JvUserInfoSettings {
     private static JvUserInfoSettings instance;
 

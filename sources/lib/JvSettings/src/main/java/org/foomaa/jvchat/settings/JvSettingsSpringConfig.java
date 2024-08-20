@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 
+
 @Configuration
 public class JvSettingsSpringConfig {
     public enum NameBeans {

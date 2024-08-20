@@ -1,8 +1,9 @@
 package org.foomaa.jvchat.settings;
 
+import java.awt.*;
+
 import org.foomaa.jvchat.logger.JvLog;
 
-import java.awt.*;
 
 public class JvDisplaySettings {
     private static JvDisplaySettings instance;
