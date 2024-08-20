@@ -228,7 +228,6 @@ public class JvTakeMessagesCtrl {
         List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo =
                 JvGetterTools.getInstance().getBeanStructTools()
                     .objectInListMaps(objectFromMap, JvDbGlobalDefines.LineKeys.class, String.class);
-        System.out.println("######################################");
-        System.out.println(chatsInfo);
+        JvGetterControls.getInstance().getBeanChatsCtrl().setChatsInfo(chatsInfo);
     }
 }
