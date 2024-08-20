@@ -3,6 +3,7 @@ package org.foomaa.jvchat.ctrl;
 import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
 import org.foomaa.jvchat.messages.JvGetterMessages;
 import org.foomaa.jvchat.messages.JvMessagesDefines;
+import org.foomaa.jvchat.tools.JvGetterTools;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -159,20 +160,9 @@ public class JvSendMessagesCtrl {
             case ChatsLoadReply -> {
                 if (parameters.length == 1) {
                     Object chatsInfoObj = parameters[0];
-
-                    List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo = new ArrayList<>();
-                    if (chatsInfoObj instanceof List<?> chatsInfoList) {
-                        for (Object obj : chatsInfoList) {
-                            Map<JvDbGlobalDefines.LineKeys, String> newMap = new HashMap<>();
-                            if (obj instanceof Map<?,?> map) {
-                                for (Object key : map.keySet()) {
-                                    newMap.put((JvDbGlobalDefines.LineKeys) key, (String) map.get(key));
-                                }
-                            }
-                            chatsInfo.add(newMap);
-                        }
-                    }
-
+                    List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo =
+                            JvGetterTools.getInstance().getBeanStructTools()
+                            .objectInListMaps(chatsInfoObj, JvDbGlobalDefines.LineKeys.class, String.class);
                     byte[] bodyMessage = createBodyChatsLoadReplyMessage(type,
                             chatsInfo);
                     sendReadyMessageNetwork(bodyMessage);

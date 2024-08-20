@@ -8,4 +8,5 @@ dependencies {
     implementation(project(":JvDbWorker"))
     implementation(project(":JvLogger"))
     implementation(project(":JvGlobalDefines"))
+    implementation(project(":JvTools"))
 }

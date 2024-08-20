@@ -3,6 +3,7 @@ package org.foomaa.jvchat.ctrl;
 import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
 import org.foomaa.jvchat.messages.JvGetterMessages;
 import org.foomaa.jvchat.messages.JvMessagesDefines;
+import org.foomaa.jvchat.tools.JvGetterTools;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -224,18 +225,10 @@ public class JvTakeMessagesCtrl {
     }
 
     private void workChatsLoadReplyMessage(HashMap<JvMessagesDefines.TypeData, ?> map) {
-        List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo = new ArrayList<>();
-        if (map.get(JvMessagesDefines.TypeData.ChatsInfoList) instanceof List<?> chatsInfoList) {
-            for (Object obj : chatsInfoList) {
-                Map<JvDbGlobalDefines.LineKeys, String> newMap = new HashMap<>();
-                if (obj instanceof Map<?,?> tmpMap) {
-                    for (Object key : tmpMap.keySet()) {
-                        newMap.put((JvDbGlobalDefines.LineKeys) key, (String) tmpMap.get(key));
-                    }
-                }
-                chatsInfo.add(newMap);
-            }
-        }
+        Object objectFromMap = map.get(JvMessagesDefines.TypeData.ChatsInfoList);
+        List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo =
+                JvGetterTools.getInstance().getBeanStructTools()
+                    .objectInListMaps(objectFromMap, JvDbGlobalDefines.LineKeys.class, String.class);
         System.out.println("######################################");
         System.out.println(chatsInfo);
     }
