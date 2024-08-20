@@ -31,6 +31,7 @@ public class JvMainSettings {
             return name;
         }
     }
+
     private TypeProfiles PROFILE;
 
     public void setProfile(TypeProfiles profile) {

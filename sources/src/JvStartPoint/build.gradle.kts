@@ -51,7 +51,7 @@ tasks {
             project.file("$dirBuild/profile/profile.txt").writeText("#Properties\ntarget=$PROFILE")
 
             bootRun {
-                mainClass.set("org.foomaa.jvchat.startpoint.JvStartPoint")
+                mainClass.set("org.foomaa.jvchat.startpoint.JvMainStartPoint")
                 args("--spring.profiles.active=$PROFILE")
                 systemProperty("spring.profiles.active", PROFILE)
                 systemProperty("java.awt.headless", "false")

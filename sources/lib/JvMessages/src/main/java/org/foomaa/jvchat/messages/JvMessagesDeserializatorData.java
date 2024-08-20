@@ -223,7 +223,7 @@ public class JvMessagesDeserializatorData {
             ClientServerSerializeProtocol_pb.ChatsLoadReply chatsLoadReplyMsg =
                     ClientServerSerializeProtocol_pb.General.parseFrom(data).getChatsLoadReply();
 
-            List<Map<JvDbGlobalDefines.LineKeys, String>> listToResult = new ArrayList<>();
+            List<Map<JvDbGlobalDefines.LineKeys, String>> listMainData = new ArrayList<>();
             for (int i = 0; i < chatsLoadReplyMsg.getChatsInfoMapCount(); i++) {
                 Map<String, String> map = chatsLoadReplyMsg.getChatsInfoMap(i).getMapInfoMap();
                 Map<JvDbGlobalDefines.LineKeys, String> newMap = new HashMap<>();
@@ -232,10 +232,10 @@ public class JvMessagesDeserializatorData {
                     newMap.put(JvDbGlobalDefines.LineKeys.getTypeLineKey(key), map.get(key));
                 }
 
-                listToResult.add(newMap);
+                listMainData.add(newMap);
             }
 
-            result.put(JvMessagesDefines.TypeData.ChatsInfoList, listToResult);
+            result.put(JvMessagesDefines.TypeData.ChatsInfoList, listMainData);
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }

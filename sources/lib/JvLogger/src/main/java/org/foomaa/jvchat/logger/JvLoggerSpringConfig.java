@@ -20,7 +20,6 @@ import org.springframework.context.annotation.Lazy;
 public class JvLoggerSpringConfig {
     private static LoggerContext context;
 
-
     public enum NameBeans {
         BeanConfigureLogback("beanConfigureLogback"),
         BeanLog("beanLog"),
@@ -74,7 +73,7 @@ public class JvLoggerSpringConfig {
     // нужно, чтоб динамически изменять имя файла
     public static void setContextPropertyFileName(String fullFileName) {
         String namePropertyFileName = "fullFileName";
-        context.putProperty("fullFileName", fullFileName);
+        context.putProperty(namePropertyFileName, fullFileName);
     }
 
     public static void setContextPropertyColor(JvLog.TypeLog type) {

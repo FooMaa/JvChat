@@ -3,16 +3,16 @@ package org.foomaa.jvchat.uilinks;
 import org.foomaa.jvchat.uicomponents.auth.JvGetterAuthUiComponents;
 
 
-public class JvStartAuthentication {
-    private static JvStartAuthentication instance;
+public class JvStartAuthenticationUiLinks {
+    private static JvStartAuthenticationUiLinks instance;
 
-    private JvStartAuthentication() {
+    private JvStartAuthenticationUiLinks() {
         JvGetterAuthUiComponents.getInstance().getBeanAuthEntryFrame().openWindow();
     }
 
-    public static JvStartAuthentication getInstance() {
+    public static JvStartAuthenticationUiLinks getInstance() {
         if (instance == null) {
-            instance = new JvStartAuthentication();
+            instance = new JvStartAuthenticationUiLinks();
         }
         return instance;
     }

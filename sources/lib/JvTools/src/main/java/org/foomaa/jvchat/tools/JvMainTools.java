@@ -153,14 +153,13 @@ public class JvMainTools {
             JvGetterSettings.getInstance().getBeanMainSettings().setIp(ip);
         } else {
             JvLog.write(JvLog.TypeLog.Info, "Жди автоопределения IP-адреса ...");
-            Socket socket = new Socket();
-            try {
+            try (Socket socket = new Socket()) {
                 socket.connect(new InetSocketAddress("google.com", 80));
+                JvGetterSettings.getInstance().getBeanMainSettings().setIp(socket.getLocalAddress().getHostAddress());
             } catch (IOException exception) {
                 JvLog.write(JvLog.TypeLog.Error, "Не получилось выйти в сеть, проверь подключение и попытайся снова!");
                 System.exit(1);
             }
-            JvGetterSettings.getInstance().getBeanMainSettings().setIp(socket.getLocalAddress().getHostAddress());
         }
     }
 

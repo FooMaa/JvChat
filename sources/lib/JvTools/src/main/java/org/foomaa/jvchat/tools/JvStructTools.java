@@ -36,7 +36,7 @@ public class JvStructTools {
                 resultList.add(newMap);
             }
         }
-        
+
         return resultList;
     }
 }

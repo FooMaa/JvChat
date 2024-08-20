@@ -16,7 +16,6 @@ import java.util.regex.Pattern;
 public class JvLog {
     private static JvLog instance;
     private static JvMainLogger mainLogger;
-    private static Object matcher;
 
     public enum TypeLog {
         Debug,
@@ -42,8 +41,7 @@ public class JvLog {
 
         // chatGPT
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-        String resultFile = "";
-        int fileLine = 0;
+        String resultFile;
 
         if (stackTrace.length >= 3) {
             resultFile = instance.buildStringFileLog(stackTrace);

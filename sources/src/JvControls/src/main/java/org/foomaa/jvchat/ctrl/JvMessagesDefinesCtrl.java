@@ -80,7 +80,7 @@ public class JvMessagesDefinesCtrl {
         if (errorVerifyRegEmailFlag != newFlag) {
             errorVerifyRegEmailFlag = newFlag;
         }
-    };
+    }
 
     public TypeFlags getEntryRequestFlag() {
         return EntryRequestFlag;
