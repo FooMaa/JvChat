@@ -19,6 +19,20 @@ EOF
 
 function check_and_install_packages {
     echo -n "[...] check packages for $PROFILE"
+
+    mapfile -t REQUIREMENTS < <(cat $PROJECT_DIR"data/dependencies_$PROFILE")
+    for req in "${!REQUIREMENTS[@]}"
+    do
+        (dpkg -s ${REQUIREMENTS[$req]} | grep "install ok installed") >> $LOG_FILE 2>&1
+        EXIT_CODE=$?
+        if [[ $EXIT_CODE -ne 0 ]]; then
+            echo -e "\\r[ $CROSS_MARK ] check repo packages. Installing..."
+            check_sudo ${REQUIREMENTS[$req]}
+            $PROJECT_DIR"scripts/dependencies/install_dependencies.sh" -r -p $PROFILE
+            echo -n "[...] check packages for $PROFILE"
+        fi
+    done
+
     mvn -v >> $LOG_FILE 2>&1
     EXIT_CODE=$?
     if [[ $EXIT_CODE -ne 0 ]]; then
@@ -37,18 +51,6 @@ function check_and_install_packages {
         echo -n "[...] check packages for $PROFILE"
     fi
 
-    mapfile -t REQUIREMENTS < <(cat $PROJECT_DIR"data/dependencies_$PROFILE")
-    for req in "${!REQUIREMENTS[@]}"
-    do
-        (dpkg -s ${REQUIREMENTS[$req]} | grep "install ok installed") >> $LOG_FILE 2>&1
-        EXIT_CODE=$?
-        if [[ $EXIT_CODE -ne 0 ]]; then
-            echo -e "\\r[ $CROSS_MARK ] check repo packages. Installing..."
-            check_sudo ${REQUIREMENTS[$req]}
-            $PROJECT_DIR"scripts/dependencies/install_dependencies.sh" -r -p $PROFILE
-            echo -n "[...] check packages for $PROFILE"
-        fi
-    done
     echo -e "\\r[ $CHECK_MARK ] check packages for $PROFILE"
 }
 
