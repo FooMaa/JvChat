@@ -26,12 +26,14 @@ public class JvSettingsSpringConfig {
 
     @Bean(name = "beanMainSettings")
     @Scope("singleton")
+    @SuppressWarnings("unused")
     public JvMainSettings beanMainSettings() {
         return JvMainSettings.getInstance();
     }
 
     @Bean(name = "beanDisplaySettings")
     @Scope("singleton")
+    @SuppressWarnings("unused")
     public JvDisplaySettings beanDisplaySettings() {
         return JvDisplaySettings.getInstance();
     }
@@ -39,6 +41,7 @@ public class JvSettingsSpringConfig {
     @Bean(name = "beanUserInfoSettings")
     @Profile("users")
     @Scope("singleton")
+    @SuppressWarnings("unused")
     public JvUserInfoSettings beanUserInfoSettings() {
         return JvUserInfoSettings.getInstance();
     }

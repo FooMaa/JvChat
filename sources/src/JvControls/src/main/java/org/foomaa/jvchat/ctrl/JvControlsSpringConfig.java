@@ -40,6 +40,7 @@ public class JvControlsSpringConfig {
     @Bean(name = "beanDbCtrl")
     @Scope("singleton")
     @Profile("servers")
+    @SuppressWarnings("unused")
     public JvDbCtrl beanDbCtrl() {
         return JvDbCtrl.getInstance();
     }
@@ -47,48 +48,56 @@ public class JvControlsSpringConfig {
     @Bean(name = "beanEmailCtrl")
     @Scope("singleton")
     @Profile("servers")
+    @SuppressWarnings("unused")
     public JvEmailCtrl beanEmailCtrl() {
         return JvEmailCtrl.getInstance();
     }
 
     @Bean(name = "beanMessagesDefinesCtrl")
     @Scope("singleton")
+    @SuppressWarnings("unused")
     public JvMessagesDefinesCtrl beanMessagesDefinesCtrl() {
         return JvMessagesDefinesCtrl.getInstance();
     }
 
     @Bean(name = "beanSendMessagesCtrl")
     @Scope("singleton")
+    @SuppressWarnings("unused")
     public JvSendMessagesCtrl beanSendMessagesCtrl() {
         return JvSendMessagesCtrl.getInstance();
     }
 
     @Bean(name = "beanTakeMessagesCtrl")
     @Scope("singleton")
+    @SuppressWarnings("unused")
     public JvTakeMessagesCtrl beanTakeMessagesCtrl() {
         return JvTakeMessagesCtrl.getInstance();
     }
 
     @Bean(name = "beanNetworkCtrl")
     @Scope("singleton")
+    @SuppressWarnings("unused")
     public JvNetworkCtrl beanNetworkCtrl() {
         return JvNetworkCtrl.getInstance();
     }
 
     @Bean(name = "beanServersSocketThreadCtrl")
     @Scope("prototype")
+    @SuppressWarnings("unused")
     public JvServersSocketThreadCtrl beanServersSocketThreadCtrl(Socket fromSocketServer) {
         return new JvServersSocketThreadCtrl(fromSocketServer);
     }
 
     @Bean(name = "beanUsersSocketThreadCtrl")
     @Scope("prototype")
+    @SuppressWarnings("unused")
     public JvUsersSocketThreadCtrl beanUsersSocketThreadCtrl(Socket fromSocketUser) {
         return new JvUsersSocketThreadCtrl(fromSocketUser);
     }
 
     @Bean(name = "beanChatsCtrl")
     @Scope("singleton")
+    @SuppressWarnings("unused")
     public JvChatsCtrl beanChatsCtrl() {
         return JvChatsCtrl.getInstance();
     }

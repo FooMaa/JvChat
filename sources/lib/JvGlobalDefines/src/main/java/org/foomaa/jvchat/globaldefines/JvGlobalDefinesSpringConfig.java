@@ -25,18 +25,21 @@ public class JvGlobalDefinesSpringConfig {
 
     @Bean(name = "beanColorAnsiGlobalDefines")
     @Scope("singleton")
+    @SuppressWarnings("unused")
     public JvColorsAnsiGlobalDefines beanColorAnsiGlobalDefines() {
         return JvColorsAnsiGlobalDefines.getInstance();
     }
 
     @Bean(name = "beanMainGlobalDefines")
     @Scope("singleton")
+    @SuppressWarnings("unused")
     public JvMainGlobalDefines beanMainGlobalDefines() {
         return JvMainGlobalDefines.getInstance();
     }
 
     @Bean(name = "beanDbGlobalDefines")
     @Scope("singleton")
+    @SuppressWarnings("unused")
     public JvDbGlobalDefines beanDbGlobalDefines() {
         return JvDbGlobalDefines.getInstance();
     }

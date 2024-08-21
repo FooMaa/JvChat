@@ -28,6 +28,7 @@ public class JvUiLinksSpringConfig {
     @Scope("prototype")
     @Lazy
     @Profile("users")
+    @SuppressWarnings("unused")
     public JvErrorStartUiLinks beanErrorStartUiLinks(String msg) {
         return new JvErrorStartUiLinks(msg);
     }
@@ -36,6 +37,7 @@ public class JvUiLinksSpringConfig {
     @Scope("singleton")
     @Lazy
     @Profile("users")
+    @SuppressWarnings("unused")
     public JvStartAuthenticationUiLinks beanStartAuthenticationUiLinks() {
         return JvStartAuthenticationUiLinks.getInstance();
     }

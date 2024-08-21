@@ -24,12 +24,14 @@ public class JvToolsSpringConfig {
 
     @Bean(name = "beanMainTools")
     @Scope("singleton")
+    @SuppressWarnings("unused")
     public JvMainTools beanMainTools() {
         return JvMainTools.getInstance();
     }
 
     @Bean(name = "beanStructTools")
     @Scope("singleton")
+    @SuppressWarnings("unused")
     public JvStructTools beanStructTools() {
         return JvStructTools.getInstance();
     }

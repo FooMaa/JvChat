@@ -34,36 +34,42 @@ public class JvAuthUiComponentsSpringConfig {
 
     @Bean(name = "beanAuthActiveLabel")
     @Scope("prototype")
+    @SuppressWarnings("unused")
     public JvAuthActiveLabel beanAuthActiveLabel(String text) {
         return new JvAuthActiveLabel(text);
     }
 
     @Bean(name = "beanAuthButton")
     @Scope("prototype")
+    @SuppressWarnings("unused")
     public JvAuthButton beanAuthButton(String text) {
         return new JvAuthButton(text);
     }
 
     @Bean(name = "beanAuthLabel")
     @Scope("prototype")
+    @SuppressWarnings("unused")
     public JvAuthLabel beanAuthLabel(String text) {
         return new JvAuthLabel(text);
     }
 
     @Bean(name = "beanAuthOptionPane")
     @Scope("prototype")
+    @SuppressWarnings("unused")
     public JvAuthOptionPane beanAuthOptionPane(String msg, JvAuthOptionPane.TypeDlg type) {
         return new JvAuthOptionPane(msg, type);
     }
 
     @Bean(name = "beanAuthPasswordField")
     @Scope("prototype")
+    @SuppressWarnings("unused")
     public JvAuthPasswordField beanAuthPasswordField(String text) {
         return new JvAuthPasswordField(text);
     }
 
     @Bean(name = "beanAuthTextField")
     @Scope("prototype")
+    @SuppressWarnings("unused")
     public JvAuthTextField beanAuthTextField(String text) {
         return new JvAuthTextField(text);
     }
@@ -71,6 +77,7 @@ public class JvAuthUiComponentsSpringConfig {
     @Bean(name = "beanAuthEntryFrame")
     @Lazy
     @Scope("singleton")
+    @SuppressWarnings("unused")
     public JvAuthEntryFrame beanAuthEntryFrame() {
         return JvAuthEntryFrame.getInstance();
     }
@@ -78,6 +85,7 @@ public class JvAuthUiComponentsSpringConfig {
     @Bean(name = "beanAuthNewPasswordFrame")
     @Lazy
     @Scope("singleton")
+    @SuppressWarnings("unused")
     public JvAuthNewPasswordFrame beanAuthNewPasswordFrame(String post) {
         return JvAuthNewPasswordFrame.getInstance(post);
     }
@@ -85,6 +93,7 @@ public class JvAuthUiComponentsSpringConfig {
     @Bean(name = "beanAuthRegistrationFrame")
     @Lazy
     @Scope("singleton")
+    @SuppressWarnings("unused")
     public JvAuthRegistrationFrame beanAuthRegistrationFrame() {
         return JvAuthRegistrationFrame.getInstance();
     }
@@ -92,6 +101,7 @@ public class JvAuthUiComponentsSpringConfig {
     @Bean(name = "beanAuthResetPasswordFrame")
     @Lazy
     @Scope("singleton")
+    @SuppressWarnings("unused")
     public JvAuthResetPasswordFrame beanAuthResetPasswordFrame() {
         return JvAuthResetPasswordFrame.getInstance();
     }
@@ -99,6 +109,7 @@ public class JvAuthUiComponentsSpringConfig {
     @Bean(name = "beanAuthVerifyCodeFrame")
     @Lazy
     @Scope("singleton")
+    @SuppressWarnings("unused")
     public JvAuthVerifyCodeFrame beanAuthVerifyCodeFrame(JvAuthVerifyCodeFrame.RegimeWork rw) {
         return JvAuthVerifyCodeFrame.getInstance(rw);
     }
