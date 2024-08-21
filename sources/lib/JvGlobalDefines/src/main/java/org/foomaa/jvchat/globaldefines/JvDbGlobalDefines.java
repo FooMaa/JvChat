@@ -23,8 +23,7 @@ public class JvDbGlobalDefines {
             return value;
         }
 
-        public static LineKeys getTypeLineKey(String value)
-        {
+        public static LineKeys getTypeLineKey(String value) {
             LineKeys[] lineKeys = LineKeys.values();
             for (LineKeys lineKey : lineKeys) {
                 if (Objects.equals(lineKey.getValue(), value)) {

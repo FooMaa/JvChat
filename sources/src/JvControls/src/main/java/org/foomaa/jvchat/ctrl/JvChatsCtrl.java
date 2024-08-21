@@ -28,6 +28,16 @@ public class JvChatsCtrl {
         public int getValue() {
             return value;
         }
+
+        public static TypeStatusMessage getTypeStatusMessage(int value) {
+            TypeStatusMessage[] statusKeys = TypeStatusMessage.values();
+            for (TypeStatusMessage statusKey : statusKeys) {
+                if (statusKey.getValue() == value) {
+                    return statusKey;
+                }
+            }
+            return null;
+        }
     }
 
     private JvChatsCtrl() {}
@@ -73,9 +83,9 @@ public class JvChatsCtrl {
         return listLogins;
     }
 
-    public String getLastMessageLoginChats(String login) {
+    public String getLastMessageByLogin(String login) {
         if (chatsInfo.isEmpty()) {
-            JvLog.write(JvLog.TypeLog.Warn, "chatsInfo пуст здесь");
+            JvLog.write(JvLog.TypeLog.Error, "chatsInfo пуст здесь");
             return null;
         }
 
@@ -93,4 +103,35 @@ public class JvChatsCtrl {
         }
         return lastMessage;
     }
+
+    public TypeStatusMessage getStatusLastMessage(String login) {
+        if (chatsInfo.isEmpty()) {
+            JvLog.write(JvLog.TypeLog.Error, "chatsInfo пуст здесь");
+            return null;
+        }
+
+        String statusMessageString = "";
+        int statusMessageInteger = -1;
+
+        for (Map<JvDbGlobalDefines.LineKeys, String> map : chatsInfo) {
+            String sender = map.get(JvDbGlobalDefines.LineKeys.Sender);
+            String receiver = map.get(JvDbGlobalDefines.LineKeys.Receiver);
+
+            if (!Objects.equals(sender, login) && !Objects.equals(receiver, login)) {
+                continue;
+            }
+
+            statusMessageString = map.get(JvDbGlobalDefines.LineKeys.Status);
+        }
+
+        try {
+            statusMessageInteger = Integer.parseInt(statusMessageString);
+        } catch (NumberFormatException exception) {
+            JvLog.write(JvLog.TypeLog.Error, "Статус сообщения невозможно определить, из-за невозможности приведения его к типу int");
+        }
+
+        return TypeStatusMessage.getTypeStatusMessage(statusMessageInteger);
+    }
+
+    
 }
