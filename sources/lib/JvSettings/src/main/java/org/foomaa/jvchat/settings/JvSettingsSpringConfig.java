@@ -15,8 +15,8 @@ public class JvSettingsSpringConfig {
 
         private final String value;
 
-        NameBeans(String value) {
-            this.value = value;
+        NameBeans(String newValue) {
+            value = newValue;
         }
 
         public String getValue() {

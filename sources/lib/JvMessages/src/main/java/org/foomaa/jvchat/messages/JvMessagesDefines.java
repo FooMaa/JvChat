@@ -31,8 +31,8 @@ public class JvMessagesDefines {
 
         private final int value;
 
-        TypeMessage(int value) {
-            this.value = value;
+        TypeMessage(int newValue) {
+            value = newValue;
         }
 
         public int getValue() {
@@ -75,8 +75,8 @@ public class JvMessagesDefines {
 
         private final int value;
 
-        TypeErrorRegistration(int value) {
-            this.value = value;
+        TypeErrorRegistration(int newValue) {
+            value = newValue;
         }
 
         public int getValue() {

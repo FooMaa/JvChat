@@ -10,12 +10,13 @@ public class JvDbGlobalDefines {
         Sender("sender"),
         Receiver("receiver"),
         Message("message"),
-        Datetime("datetime");
+        Datetime("datetime"),
+        Status("status");
 
         private final String value;
 
-        LineKeys(String value) {
-            this.value = value;
+        LineKeys(String newValue) {
+            value = newValue;
         }
 
         public String getValue() {

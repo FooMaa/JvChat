@@ -5,6 +5,7 @@ import org.foomaa.jvchat.settings.JvGetterSettings;
 import javax.swing.*;
 import java.awt.*;
 
+
 public class JvMainChatRectChat extends JPanel {
     private final String nickName;
     private final String shortLastMessage;

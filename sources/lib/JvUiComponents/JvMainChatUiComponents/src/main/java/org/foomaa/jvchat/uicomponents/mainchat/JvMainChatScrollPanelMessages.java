@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
+
 public class JvMainChatScrollPanelMessages extends JPanel {
     private static JvMainChatScrollPanelMessages instance;
 

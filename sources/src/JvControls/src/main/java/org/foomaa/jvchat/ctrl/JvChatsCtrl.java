@@ -11,8 +11,24 @@ import java.util.Objects;
 
 public class JvChatsCtrl {
     private static JvChatsCtrl instance;
-
     private List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo;
+
+    public enum TypeStatusMessage {
+        Error(-1),
+        Sent(0),
+        Delivered(1),
+        Read(2);
+
+        private final int value;
+
+        TypeStatusMessage(int newValue) {
+            value = newValue;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
 
     private JvChatsCtrl() {}
 
@@ -57,14 +73,13 @@ public class JvChatsCtrl {
         return listLogins;
     }
 
-    public List<String> getLastMessageLoginChats(String login) {
+    public String getLastMessageLoginChats(String login) {
         if (chatsInfo.isEmpty()) {
             JvLog.write(JvLog.TypeLog.Warn, "chatsInfo пуст здесь");
             return null;
         }
 
-        String currentUserLogin = JvGetterSettings.getInstance().getBeanUserInfoSettings().getLogin();
-        List<String> listLogins = new ArrayList<>();
+        String lastMessage = "";
 
         for (Map<JvDbGlobalDefines.LineKeys, String> map : chatsInfo) {
             String sender = map.get(JvDbGlobalDefines.LineKeys.Sender);
@@ -74,12 +89,8 @@ public class JvChatsCtrl {
                 continue;
             }
 
-            if (Objects.equals(sender, currentUserLogin)) {
-                listLogins.add(receiver);
-            } else if (Objects.equals(receiver, currentUserLogin)) {
-                listLogins.add(sender);
-            }
+            lastMessage = map.get(JvDbGlobalDefines.LineKeys.Message);
         }
-        return listLogins;
+        return lastMessage;
     }
 }

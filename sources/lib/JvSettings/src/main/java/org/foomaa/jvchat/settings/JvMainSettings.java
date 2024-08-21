@@ -21,11 +21,13 @@ public class JvMainSettings {
         TESTS("tests"),
         USERS("users"),
         SERVERS("servers");
+
         private final String name;
 
-        TypeProfiles(final String text) {
-            this.name = text;
+        TypeProfiles(String newName) {
+            name = newName;
         }
+
         @Override
         public final String toString() {
             return name;

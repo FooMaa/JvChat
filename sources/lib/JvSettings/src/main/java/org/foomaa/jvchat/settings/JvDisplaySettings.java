@@ -13,7 +13,6 @@ public class JvDisplaySettings {
     public enum TypeOfDisplayBorder {
         HEIGHT,
         WIDTH
-
     }
 
     private JvDisplaySettings() {

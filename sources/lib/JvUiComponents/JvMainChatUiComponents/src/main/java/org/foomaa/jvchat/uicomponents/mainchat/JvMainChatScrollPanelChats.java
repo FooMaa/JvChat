@@ -1,6 +1,5 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import org.foomaa.jvchat.ctrl.JvDbCtrl;
 import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.messages.JvMessagesDefines;
 import org.foomaa.jvchat.settings.JvGetterSettings;
@@ -11,7 +10,7 @@ import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
-import java.util.Map;
+
 
 public class JvMainChatScrollPanelChats extends JPanel {
     private static JvMainChatScrollPanelChats instance;

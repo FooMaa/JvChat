@@ -291,7 +291,7 @@ $BODY$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION chat_schema.chats_messages_get_chats_by_login(
     f_login character varying
 )
-    RETURNS TABLE (sender character varying, receiver character varying, message bytea, datetime timestamp) AS
+    RETURNS TABLE (sender character varying, receiver character varying, message bytea, datetime timestamp, status int) AS
 $BODY$
 DECLARE
     rv chat_schema.chats_messages%rowtype;
@@ -299,7 +299,7 @@ DECLARE
 BEGIN
     RETURN QUERY 
     SELECT DISTINCT ON (LEAST(chats.senderID, chats.receiverID), GREATEST(chats.senderID, chats.receiverID)) 
-    auth1.login AS login_sender, auth2.login AS login_receiver, chats.message, chats.datetime 
+    auth1.login AS login_sender, auth2.login AS login_receiver, chats.message, chats.datetime, chats.status 
     FROM chat_schema.chats_messages AS chats
     LEFT JOIN chat_schema.auth_users_info AS auth1 ON chats.senderID = auth1.id 
     LEFT JOIN chat_schema.auth_users_info AS auth2 ON chats.receiverID = auth2.id 
