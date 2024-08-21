@@ -10,7 +10,7 @@ public class JvDbGlobalDefines {
         Sender("sender"),
         Receiver("receiver"),
         Message("message"),
-        Datetime("datetime"),
+        DateTime("datetime"),
         Status("status");
 
         private final String value;

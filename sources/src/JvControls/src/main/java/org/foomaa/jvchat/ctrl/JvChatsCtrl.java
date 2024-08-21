@@ -4,6 +4,8 @@ import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -55,6 +57,7 @@ public class JvChatsCtrl {
         }
         System.out.println("######################################");
         System.out.println(chatsInfo);
+        System.out.println(getTimestampLastMessage("sgubr"));
     }
 
     public List<Map<JvDbGlobalDefines.LineKeys, String>> getChatsInfo() {
@@ -80,10 +83,11 @@ public class JvChatsCtrl {
                 listLogins.add(sender);
             }
         }
+
         return listLogins;
     }
 
-    public String getLastMessageByLogin(String login) {
+    public String getLastMessage(String login) {
         if (chatsInfo.isEmpty()) {
             JvLog.write(JvLog.TypeLog.Error, "chatsInfo пуст здесь");
             return null;
@@ -101,6 +105,7 @@ public class JvChatsCtrl {
 
             lastMessage = map.get(JvDbGlobalDefines.LineKeys.Message);
         }
+
         return lastMessage;
     }
 
@@ -133,5 +138,81 @@ public class JvChatsCtrl {
         return TypeStatusMessage.getTypeStatusMessage(statusMessageInteger);
     }
 
-    
+    public String getLastMessageSender(String login) {
+        if (chatsInfo.isEmpty()) {
+            JvLog.write(JvLog.TypeLog.Error, "chatsInfo пуст здесь");
+            return null;
+        }
+
+        String lastMessageSender = "";
+
+        for (Map<JvDbGlobalDefines.LineKeys, String> map : chatsInfo) {
+            String sender = map.get(JvDbGlobalDefines.LineKeys.Sender);
+            String receiver = map.get(JvDbGlobalDefines.LineKeys.Receiver);
+
+            if (!Objects.equals(sender, login) && !Objects.equals(receiver, login)) {
+                continue;
+            }
+
+            lastMessageSender = map.get(JvDbGlobalDefines.LineKeys.Sender);
+        }
+
+        return lastMessageSender;
+    }
+
+    public LocalDateTime getTimestampLastMessage(String login) {
+        if (chatsInfo.isEmpty()) {
+            JvLog.write(JvLog.TypeLog.Error, "chatsInfo пуст здесь");
+            return null;
+        }
+
+        LocalDateTime timestamp = null;
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+
+        for (Map<JvDbGlobalDefines.LineKeys, String> map : chatsInfo) {
+            String sender = map.get(JvDbGlobalDefines.LineKeys.Sender);
+            String receiver = map.get(JvDbGlobalDefines.LineKeys.Receiver);
+
+            if (!Objects.equals(sender, login) && !Objects.equals(receiver, login)) {
+                continue;
+            }
+
+            String timestampFromMap = map.get(JvDbGlobalDefines.LineKeys.DateTime);
+            int normalizeCount = 3;
+            String timestampString = normalizeMillisecond(timestampFromMap, normalizeCount);
+
+            if (timestampString == null) {
+                JvLog.write(JvLog.TypeLog.Error, "Не получилось нормально преобразовать дату и время к нужному формату");
+                return null;
+            }
+
+            timestamp = LocalDateTime.parse(timestampString, formatter);
+        }
+
+        return timestamp;
+    }
+
+    private String normalizeMillisecond(String timestamp, int normalizeCount) {
+        String resultTimestamp;
+        String[] parts = timestamp.split("\\.");
+
+        if (parts.length == 2) {
+            StringBuilder milliseconds = new StringBuilder(new StringBuilder(parts[1]));
+
+            if (milliseconds.length() < normalizeCount) {
+                while (milliseconds.length() < normalizeCount) {
+                    milliseconds.append("0");
+                }
+            } else if (milliseconds.length() > normalizeCount) {
+                milliseconds = new StringBuilder(milliseconds.substring(0, normalizeCount));
+            }
+
+            resultTimestamp = parts[0] + "." + milliseconds;
+        } else {
+            JvLog.write(JvLog.TypeLog.Error, "Не получилось нормально преобразовать дату и время к нужному формату");
+            return null;
+        }
+
+        return resultTimestamp;
+    }
 }
