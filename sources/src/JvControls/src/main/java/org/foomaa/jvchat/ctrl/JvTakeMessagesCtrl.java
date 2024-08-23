@@ -51,17 +51,17 @@ public class JvTakeMessagesCtrl {
                 .getBeanDbCtrl().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.UserPassword,
                         (String) map.get(JvMessagesDefines.TypeData.Login),
                         (String) map.get(JvMessagesDefines.TypeData.Password));
-        JvGetterControls.getInstance().getBeanSendMessagesCtrl().
-                sendMessage(JvMessagesDefines.TypeMessage.EntryReply, requestDB);
+        JvGetterControls.getInstance().getBeanSendMessagesCtrl()
+                .sendMessage(JvMessagesDefines.TypeMessage.EntryReply, requestDB);
     }
 
     private void workEntryReplyMessage(HashMap<JvMessagesDefines.TypeData, ?> map) {
         if ((Boolean) map.get(JvMessagesDefines.TypeData.BoolReply)) {
-            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().
-                    setEntryRequestFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
+            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                    .setEntryRequestFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
         } else {
-            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().
-                    setEntryRequestFlag(JvMessagesDefinesCtrl.TypeFlags.FALSE);
+            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                    .setEntryRequestFlag(JvMessagesDefinesCtrl.TypeFlags.FALSE);
         }
     }
 
@@ -88,20 +88,20 @@ public class JvTakeMessagesCtrl {
                     .getBeanEmailCtrl().startVerifyRegEmail((String) map.get(JvMessagesDefines.TypeData.Email));
             typeError = JvMessagesDefines.TypeErrorRegistration.EmailSending;
         }
-        JvGetterControls.getInstance().getBeanSendMessagesCtrl().
-                sendMessage(JvMessagesDefines.TypeMessage.RegistrationReply, requestDB, typeError);
+        JvGetterControls.getInstance().getBeanSendMessagesCtrl()
+                .sendMessage(JvMessagesDefines.TypeMessage.RegistrationReply, requestDB, typeError);
     }
 
     private void workRegistrationReplyMessage(HashMap<JvMessagesDefines.TypeData, ?> map) {
         if ((Boolean) map.get(JvMessagesDefines.TypeData.BoolReply)) {
-            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().
-                    setRegistrationRequestFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
+            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                    .setRegistrationRequestFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
         } else {
-            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().
-                    setRegistrationRequestFlag(JvMessagesDefinesCtrl.TypeFlags.FALSE);
+            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                    .setRegistrationRequestFlag(JvMessagesDefinesCtrl.TypeFlags.FALSE);
         }
-        JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().
-                setErrorRegistrationFlag((JvMessagesDefines.TypeErrorRegistration) map.get(JvMessagesDefines.TypeData.ErrorReg));
+        JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                .setErrorRegistrationFlag((JvMessagesDefines.TypeErrorRegistration) map.get(JvMessagesDefines.TypeData.ErrorReg));
     }
 
     private void workVerifyRegistrationEmailRequestMessage(HashMap<JvMessagesDefines.TypeData, ?> map) {
@@ -133,11 +133,11 @@ public class JvTakeMessagesCtrl {
                     typeError = JvMessagesDefines.TypeErrorRegistration.LoginAndEmail;
                 }
             }
-            JvGetterControls.getInstance().getBeanSendMessagesCtrl().
-                    sendMessage(JvMessagesDefines.TypeMessage.VerifyRegistrationEmailReply, requestDB, typeError);
+            JvGetterControls.getInstance().getBeanSendMessagesCtrl()
+                    .sendMessage(JvMessagesDefines.TypeMessage.VerifyRegistrationEmailReply, requestDB, typeError);
         } else {
-            JvGetterControls.getInstance().getBeanSendMessagesCtrl().
-                    sendMessage(JvMessagesDefines.TypeMessage.VerifyRegistrationEmailReply, false, JvMessagesDefines.TypeErrorRegistration.Code);
+            JvGetterControls.getInstance().getBeanSendMessagesCtrl()
+                    .sendMessage(JvMessagesDefines.TypeMessage.VerifyRegistrationEmailReply, false, JvMessagesDefines.TypeErrorRegistration.Code);
         }
     }
 
@@ -149,8 +149,8 @@ public class JvTakeMessagesCtrl {
             JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().
                     setVerifyRegistrationEmailRequestFlag(JvMessagesDefinesCtrl.TypeFlags.FALSE);
         }
-        JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().
-                setErrorVerifyRegEmailFlag((JvMessagesDefines.TypeErrorRegistration) map.get(JvMessagesDefines.TypeData.ErrorReg));
+        JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                .setErrorVerifyRegEmailFlag((JvMessagesDefines.TypeErrorRegistration) map.get(JvMessagesDefines.TypeData.ErrorReg));
     }
 
     private void workResetPasswordRequestMessage(HashMap<JvMessagesDefines.TypeData, ?> map) {
@@ -163,8 +163,8 @@ public class JvTakeMessagesCtrl {
             reply = JvGetterControls.getInstance()
                     .getBeanEmailCtrl().startVerifyFamousEmail(email);
         }
-        JvGetterControls.getInstance().getBeanSendMessagesCtrl().
-                sendMessage(JvMessagesDefines.TypeMessage.ResetPasswordReply, reply);
+        JvGetterControls.getInstance().getBeanSendMessagesCtrl()
+                .sendMessage(JvMessagesDefines.TypeMessage.ResetPasswordReply, reply);
     }
 
     private void workResetPasswordReplyMessage( HashMap<JvMessagesDefines.TypeData, ?> map) {
@@ -172,8 +172,8 @@ public class JvTakeMessagesCtrl {
             JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().
                     setResetPasswordRequestFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
         } else {
-            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().
-                    setResetPasswordRequestFlag(JvMessagesDefinesCtrl.TypeFlags.FALSE);
+            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                    .setResetPasswordRequestFlag(JvMessagesDefinesCtrl.TypeFlags.FALSE);
         }
     }
 
@@ -182,8 +182,8 @@ public class JvTakeMessagesCtrl {
                 .getBeanDbCtrl().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.VerifyFamousEmailCode,
                         (String) map.get(JvMessagesDefines.TypeData.Email),
                         (String) map.get(JvMessagesDefines.TypeData.VerifyCode));
-        JvGetterControls.getInstance().getBeanSendMessagesCtrl().
-                sendMessage(JvMessagesDefines.TypeMessage.VerifyFamousEmailReply, requestDB);
+        JvGetterControls.getInstance().getBeanSendMessagesCtrl()
+                .sendMessage(JvMessagesDefines.TypeMessage.VerifyFamousEmailReply, requestDB);
     }
 
     private void workVerifyFamousEmailReplyMessage(HashMap<JvMessagesDefines.TypeData, ?> map) {
@@ -201,8 +201,8 @@ public class JvTakeMessagesCtrl {
                 .getBeanDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.ChangePassword,
                         (String) map.get(JvMessagesDefines.TypeData.Email),
                         (String) map.get(JvMessagesDefines.TypeData.Password));
-        JvGetterControls.getInstance().getBeanSendMessagesCtrl().
-                sendMessage(JvMessagesDefines.TypeMessage.ChangePasswordReply, requestDB);
+        JvGetterControls.getInstance().getBeanSendMessagesCtrl()
+                .sendMessage(JvMessagesDefines.TypeMessage.ChangePasswordReply, requestDB);
     }
 
     private void workChangePasswordReplyMessage(HashMap<JvMessagesDefines.TypeData, ?> map) {
@@ -210,8 +210,8 @@ public class JvTakeMessagesCtrl {
             JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().
                     setChangePasswordRequest(JvMessagesDefinesCtrl.TypeFlags.TRUE);
         } else {
-            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().
-                    setChangePasswordRequest(JvMessagesDefinesCtrl.TypeFlags.FALSE);
+            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                    .setChangePasswordRequest(JvMessagesDefinesCtrl.TypeFlags.FALSE);
         }
     }
 
@@ -229,5 +229,7 @@ public class JvTakeMessagesCtrl {
                 JvGetterTools.getInstance().getBeanStructTools()
                     .objectInListMaps(objectFromMap, JvDbGlobalDefines.LineKeys.class, String.class);
         JvGetterControls.getInstance().getBeanChatsCtrl().setChatsInfo(chatsInfo);
+        JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                .setChatsLoadReplyFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
     }
 }

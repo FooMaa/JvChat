@@ -1,6 +1,9 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
+import org.foomaa.jvchat.ctrl.JvChatsCtrl;
 import org.foomaa.jvchat.ctrl.JvGetterControls;
+import org.foomaa.jvchat.ctrl.JvMessagesDefinesCtrl;
+import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvMessagesDefines;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
@@ -10,6 +13,8 @@ import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 public class JvMainChatScrollPanelChats extends JPanel {
@@ -32,31 +37,6 @@ public class JvMainChatScrollPanelChats extends JPanel {
 
         Box box = Box.createVerticalBox();
         loadChatsInBox(box);
-
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
-        box.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text"));
 
         JScrollPane scrollPane = new JScrollPane(box);
         scrollPane.setBorder(null);
@@ -99,12 +79,30 @@ public class JvMainChatScrollPanelChats extends JPanel {
     }
 
     private void loadChatsInBox(Box box) {
-        getChatsInfoFromDb();
-        //JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectChat("ник", "text");
+        setRequestChatsToServer();
 
+        while (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getChatsLoadReplyFlag() ==
+                JvMessagesDefinesCtrl.TypeFlags.DEFAULT) {
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException exception) {
+                JvLog.write(JvLog.TypeLog.Error, "Не удалось ждать");
+            }
+
+            if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getChatsLoadReplyFlag() ==
+                    JvMessagesDefinesCtrl.TypeFlags.TRUE) {
+                JvChatsCtrl chatsCtrl = JvGetterControls.getInstance().getBeanChatsCtrl();
+                List<String> loginsList = chatsCtrl.getLoginsChats();
+
+                for (String login : loginsList) {
+//                    box.add(JvGetterMainChatUiComponents.getInstance()
+//                            .getBeanMainChatRectChat(login, chatsCtrl.getLastMessage(login)));
+                }
+            }
+        }
     }
 
-    private void getChatsInfoFromDb() {
+    private void setRequestChatsToServer() {
         String login = JvGetterSettings.getInstance().getBeanUserInfoSettings().getLogin();
 
         JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(

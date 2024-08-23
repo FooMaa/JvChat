@@ -61,8 +61,12 @@ public class JvMainChatUiComponentsSpringConfig {
     @Lazy
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvMainChatRectChat beanMainChatRectChat(String nickName, String shortLastMessage) {
-        return new JvMainChatRectChat(nickName, shortLastMessage);
+    public JvMainChatRectChat beanMainChatRectChat(String nickName,
+                                                   String shortLastMessage,
+                                                   String lastMessageSender,
+                                                   String status,
+                                                   String time) {
+        return new JvMainChatRectChat(nickName, shortLastMessage, lastMessageSender, status, time);
     }
 
     @Bean(name = "beanMainChatSendButton")

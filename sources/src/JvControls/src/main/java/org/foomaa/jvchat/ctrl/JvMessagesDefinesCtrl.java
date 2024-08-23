@@ -32,6 +32,7 @@ public class JvMessagesDefinesCtrl {
     private TypeFlags VerifyRegistrationEmailRequestFlag = TypeFlags.DEFAULT;
     private JvMessagesDefines.TypeErrorRegistration errorVerifyRegEmailFlag =
     JvMessagesDefines.TypeErrorRegistration.NoError;
+    private TypeFlags chatsLoadReplyFlag = TypeFlags.DEFAULT;
     // FLAGS
 
     public void setEntryRequestFlag(TypeFlags newFlag) {
@@ -82,6 +83,12 @@ public class JvMessagesDefinesCtrl {
         }
     }
 
+    public void setChatsLoadReplyFlag(TypeFlags newFlag) {
+        if (chatsLoadReplyFlag != newFlag) {
+            chatsLoadReplyFlag = newFlag;
+        }
+    }
+
     public TypeFlags getEntryRequestFlag() {
         return EntryRequestFlag;
     }
@@ -112,5 +119,9 @@ public class JvMessagesDefinesCtrl {
 
     public JvMessagesDefines.TypeErrorRegistration getErrorVerifyRegEmailFlag() {
         return errorVerifyRegEmailFlag;
+    }
+
+    public TypeFlags getChatsLoadReplyFlag() {
+        return chatsLoadReplyFlag;
     }
 }
