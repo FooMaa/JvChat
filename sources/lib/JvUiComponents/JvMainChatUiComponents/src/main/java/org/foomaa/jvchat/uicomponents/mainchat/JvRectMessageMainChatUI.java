@@ -6,10 +6,10 @@ import javax.swing.*;
 import java.awt.*;
 
 
-public class JvMainChatRectMessage extends JLabel {
+public class JvRectMessageMainChatUI extends JLabel {
     private int id;
 
-    JvMainChatRectMessage() {
+    JvRectMessageMainChatUI() {
         settingLabel();
     }
 

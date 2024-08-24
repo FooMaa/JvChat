@@ -7,30 +7,30 @@ import javax.swing.*;
 import java.awt.*;
 
 
-public class JvMainChatMainFrame extends JFrame {
-    private static JvMainChatMainFrame instance;
-    private final JvMainChatScrollPanelChats scrollPanelChats;
-    private final JvMainChatScrollPanelMessages scrollPanelMessages;
-    private final JvMainChatSendingTextAreaScroll sendingTextAreaScroll;
+public class JvMainFrameMainChatUI extends JFrame {
+    private static JvMainFrameMainChatUI instance;
+    private final JvScrollPanelChatsMainChatUI scrollPanelChats;
+    private final JvScrollPanelMessagesMainChatUI scrollPanelMessages;
+    private final JvSendingTextAreaScrollMainChatUI sendingTextAreaScroll;
     private final JButton sendButton;
 
-    private JvMainChatMainFrame() {
+    private JvMainFrameMainChatUI() {
         super("MainChatWindow");
 
-        scrollPanelChats = JvGetterMainChatUiComponents.getInstance().getBeanMainChatScrollPanelChats();
-        scrollPanelMessages = JvGetterMainChatUiComponents.getInstance().getBeanMainChatScrollPanelMessages();
+        scrollPanelChats = JvGetterMainChatUIComponents.getInstance().getBeanScrollPanelChatsMainChatUI();
+        scrollPanelMessages = JvGetterMainChatUIComponents.getInstance().getBeanScrollPanelMessagesMainChatUI();
 
-        sendingTextAreaScroll = JvGetterMainChatUiComponents.getInstance().getBeanMainChatSendingTextAreaScroll();
-        sendButton = JvGetterMainChatUiComponents.getInstance().getBeanMainChatSendButton("Отправить");
+        sendingTextAreaScroll = JvGetterMainChatUIComponents.getInstance().getBeanSendingTextAreaScrollMainChatUI();
+        sendButton = JvGetterMainChatUIComponents.getInstance().getBeanSendButtonMainChatUI("Отправить");
 
         addGeneralSettingsToWidget();
         makeFrameSetting();
         addListenerToElements();
     }
 
-    public static JvMainChatMainFrame getInstance() {
+    public static JvMainFrameMainChatUI getInstance() {
         if (instance == null) {
-            instance = new JvMainChatMainFrame();
+            instance = new JvMainFrameMainChatUI();
         }
         return instance;
     }

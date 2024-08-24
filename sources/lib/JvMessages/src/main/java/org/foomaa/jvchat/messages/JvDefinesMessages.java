@@ -1,14 +1,14 @@
 package org.foomaa.jvchat.messages;
 
 
-public class JvMessagesDefines {
-    private static JvMessagesDefines instance;
+public class JvDefinesMessages {
+    private static JvDefinesMessages instance;
 
-    private JvMessagesDefines() {}
+    private JvDefinesMessages() {}
 
-    public static JvMessagesDefines getInstance() {
+    public static JvDefinesMessages getInstance() {
         if (instance == null) {
-            instance = new JvMessagesDefines();
+            instance = new JvDefinesMessages();
         }
         return instance;
     }

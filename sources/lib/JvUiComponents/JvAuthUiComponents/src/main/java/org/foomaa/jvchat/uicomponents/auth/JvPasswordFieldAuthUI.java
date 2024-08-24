@@ -17,7 +17,7 @@ import java.awt.event.MouseEvent;
 import java.util.Objects;
 
 
-public class JvAuthPasswordField extends JPanel {
+public class JvPasswordFieldAuthUI extends JPanel {
     private final BufferedImage visibleImage;
     private final BufferedImage invisibleImage;
     private boolean flagEye = false;
@@ -27,7 +27,7 @@ public class JvAuthPasswordField extends JPanel {
     private final String defaultText;
     private final int borderSize = 1;
 
-    JvAuthPasswordField(String text) {
+    JvPasswordFieldAuthUI(String text) {
         visibleImage = setIcon("/eye.png");
         invisibleImage = setIcon("/eye-close.png");
 

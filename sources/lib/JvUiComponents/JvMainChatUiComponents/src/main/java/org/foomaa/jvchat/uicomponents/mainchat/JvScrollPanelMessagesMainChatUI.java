@@ -6,16 +6,16 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
 
-public class JvMainChatScrollPanelMessages extends JPanel {
-    private static JvMainChatScrollPanelMessages instance;
+public class JvScrollPanelMessagesMainChatUI extends JPanel {
+    private static JvScrollPanelMessagesMainChatUI instance;
 
-    JvMainChatScrollPanelMessages() {
+    JvScrollPanelMessagesMainChatUI() {
         makePanel();
     }
 
-    public static JvMainChatScrollPanelMessages getInstance() {
+    public static JvScrollPanelMessagesMainChatUI getInstance() {
         if (instance == null) {
-            instance = new JvMainChatScrollPanelMessages();
+            instance = new JvScrollPanelMessagesMainChatUI();
         }
         return instance;
     }
@@ -47,9 +47,9 @@ public class JvMainChatScrollPanelMessages extends JPanel {
             rowPanel.setLayout(new BorderLayout());
 
             if (i % 2 == 0) {
-                rowPanel.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectMessage(), BorderLayout.WEST);
+                rowPanel.add(JvGetterMainChatUIComponents.getInstance().getBeanRectMessageMainChatUI(), BorderLayout.WEST);
             } else {
-                rowPanel.add(JvGetterMainChatUiComponents.getInstance().getBeanMainChatRectMessage(), BorderLayout.EAST);
+                rowPanel.add(JvGetterMainChatUIComponents.getInstance().getBeanRectMessageMainChatUI(), BorderLayout.EAST);
             }
             scrollPanel.add(rowPanel);
         }

@@ -7,8 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 
 
-public class JvAuthLabel extends JLabel {
-    JvAuthLabel(String text) {
+public class JvLabelAuthUI extends JLabel {
+    JvLabelAuthUI(String text) {
         setText(text);
         setFont(new Font("Times", Font.PLAIN,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017)));

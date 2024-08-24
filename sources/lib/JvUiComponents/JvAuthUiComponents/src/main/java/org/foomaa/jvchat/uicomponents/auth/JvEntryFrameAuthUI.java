@@ -3,10 +3,10 @@ package org.foomaa.jvchat.uicomponents.auth;
 import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.ctrl.JvMessagesDefinesCtrl;
 import org.foomaa.jvchat.logger.JvLog;
-import org.foomaa.jvchat.messages.JvMessagesDefines;
+import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.settings.JvGetterSettings;
-import org.foomaa.jvchat.uicomponents.mainchat.JvGetterMainChatUiComponents;
+import org.foomaa.jvchat.uicomponents.mainchat.JvGetterMainChatUIComponents;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,38 +16,38 @@ import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
 
-public class JvAuthEntryFrame extends JFrame {
-    private static JvAuthEntryFrame instance;
+public class JvEntryFrameAuthUI extends JFrame {
+    private static JvEntryFrameAuthUI instance;
     private final JPanel panel;
-    private final JvAuthLabel tInfo;
-    private final JvAuthTextField tLogin;
-    private final JvAuthLabel tErrorHelpInfo;
-    private final JvAuthPasswordField tPassword;
-    private final JvAuthButton bEnter;
-    private final JvAuthActiveLabel activeRegisterLabel;
-    private final JvAuthActiveLabel activeMissLabel;
+    private final JvLabelAuthUI tInfo;
+    private final JvTextFieldAuthUI tLogin;
+    private final JvLabelAuthUI tErrorHelpInfo;
+    private final JvPasswordFieldAuthUI tPassword;
+    private final JvButtonAuthUI bEnter;
+    private final JvActiveLabelAuthUI activeRegisterLabel;
+    private final JvActiveLabelAuthUI activeMissLabel;
 
-    private JvAuthEntryFrame() {
+    private JvEntryFrameAuthUI() {
         super("EntryWindow");
 
         panel = new JPanel();
-        tInfo = JvGetterAuthUiComponents.getInstance().getBeanAuthLabel("Введите данные для входа:");
-        tLogin = JvGetterAuthUiComponents.getInstance().getBeanAuthTextField("Логин");
-        tErrorHelpInfo = JvGetterAuthUiComponents.getInstance().getBeanAuthLabel("");
+        tInfo = JvGetterAuthUIComponents.getInstance().getBeanLabelAuthUI("Введите данные для входа:");
+        tLogin = JvGetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Логин");
+        tErrorHelpInfo = JvGetterAuthUIComponents.getInstance().getBeanLabelAuthUI("");
         tErrorHelpInfo.settingToError();
-        tPassword = JvGetterAuthUiComponents.getInstance().getBeanAuthPasswordField("Пароль");
-        bEnter = JvGetterAuthUiComponents.getInstance().getBeanAuthButton("ВОЙТИ");
-        activeMissLabel = JvGetterAuthUiComponents.getInstance().getBeanAuthActiveLabel("Не помню пароль");
-        activeRegisterLabel = JvGetterAuthUiComponents.getInstance().getBeanAuthActiveLabel("Регистрация");
+        tPassword = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Пароль");
+        bEnter = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("ВОЙТИ");
+        activeMissLabel = JvGetterAuthUIComponents.getInstance().getBeanActiveLabelAuthUI("Не помню пароль");
+        activeRegisterLabel = JvGetterAuthUIComponents.getInstance().getBeanActiveLabelAuthUI("Регистрация");
 
         makeFrameSetting();
         addListenerToElements();
         addGeneralSettingsToWidget();
     }
 
-    public static JvAuthEntryFrame getInstance() {
+    public static JvEntryFrameAuthUI getInstance() {
         if (instance == null) {
-            instance = new JvAuthEntryFrame();
+            instance = new JvEntryFrameAuthUI();
         }
         return instance;
     }
@@ -127,7 +127,7 @@ public class JvAuthEntryFrame extends JFrame {
     private void addListenerToElements() {
         bEnter.addActionListener(event -> {
             if (checkFields()) {
-                JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(JvMessagesDefines.TypeMessage.EntryRequest,
+                JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(JvDefinesMessages.TypeMessage.EntryRequest,
                         tLogin.getInputText(), tPassword.getInputText());
                 waitRepeatServer();
             }
@@ -136,7 +136,7 @@ public class JvAuthEntryFrame extends JFrame {
         activeMissLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JvGetterAuthUiComponents.getInstance().getBeanAuthResetPasswordFrame().openWindow();
+                JvGetterAuthUIComponents.getInstance().getBeanResetPasswordFrameAuthUI().openWindow();
                 closeWindow();
             }
         });
@@ -144,7 +144,7 @@ public class JvAuthEntryFrame extends JFrame {
         activeRegisterLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JvGetterAuthUiComponents.getInstance().getBeanAuthRegistrationFrame().openWindow();
+                JvGetterAuthUIComponents.getInstance().getBeanRegistrationFrameAuthUI().openWindow();
                 closeWindow();
             }
         });
@@ -225,8 +225,8 @@ public class JvAuthEntryFrame extends JFrame {
         } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getEntryRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            JvGetterAuthUiComponents.getInstance()
-                    .getBeanAuthOptionPane("Вход не выполнен, данные не верные.", JvAuthOptionPane.TypeDlg.ERROR);
+            JvGetterAuthUIComponents.getInstance()
+                    .getBeanOptionPaneAuthUI("Вход не выполнен, данные не верные.", JvOptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 
@@ -236,7 +236,7 @@ public class JvAuthEntryFrame extends JFrame {
         closeWindow();
         setEnabled(true);
 
-        JvGetterMainChatUiComponents.getInstance().getBeanMainChatMainFrame().openWindow();
+        JvGetterMainChatUIComponents.getInstance().getBeanMainFrameMainChatUI().openWindow();
 
         JvLog.write(JvLog.TypeLog.Info, "Вход выполнен");
     }

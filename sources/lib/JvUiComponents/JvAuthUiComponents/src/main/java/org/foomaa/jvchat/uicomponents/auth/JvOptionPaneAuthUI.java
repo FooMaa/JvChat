@@ -3,14 +3,14 @@ package org.foomaa.jvchat.uicomponents.auth;
 import javax.swing.*;
 
 
-public class JvAuthOptionPane extends JOptionPane {
+public class JvOptionPaneAuthUI extends JOptionPane {
 
     public enum TypeDlg {
         ERROR,
         WARNING
     }
 
-    JvAuthOptionPane(String msg, TypeDlg type) {
+    JvOptionPaneAuthUI(String msg, TypeDlg type) {
         switch (type) {
             case ERROR:
                 JFrame frame = new JFrame();

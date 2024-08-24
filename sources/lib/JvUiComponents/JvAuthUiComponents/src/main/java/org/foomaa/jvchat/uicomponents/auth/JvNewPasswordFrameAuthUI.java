@@ -3,7 +3,7 @@ package org.foomaa.jvchat.uicomponents.auth;
 import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.ctrl.JvMessagesDefinesCtrl;
 import org.foomaa.jvchat.logger.JvLog;
-import org.foomaa.jvchat.messages.JvMessagesDefines;
+import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
@@ -16,37 +16,37 @@ import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
 
-public class JvAuthNewPasswordFrame extends JFrame {
-    private static JvAuthNewPasswordFrame instance;
+public class JvNewPasswordFrameAuthUI extends JFrame {
+    private static JvNewPasswordFrameAuthUI instance;
     private final JPanel panel;
-    private final JvAuthLabel tInfo;
-    private final JvAuthLabel tErrorHelpInfo;
-    private final JvAuthPasswordField tPassword;
-    private final JvAuthPasswordField tPasswordConfirm;
-    private final JvAuthButton bRegister;
+    private final JvLabelAuthUI tInfo;
+    private final JvLabelAuthUI tErrorHelpInfo;
+    private final JvPasswordFieldAuthUI tPassword;
+    private final JvPasswordFieldAuthUI tPasswordConfirm;
+    private final JvButtonAuthUI bRegister;
     private String email;
 
 
-    private JvAuthNewPasswordFrame(String post) {
+    private JvNewPasswordFrameAuthUI(String post) {
         super("NewPasswordWindow");
 
         email = post;
         panel = new JPanel();
-        tInfo = JvGetterAuthUiComponents.getInstance().getBeanAuthLabel("Введите новый пароль:");
-        tErrorHelpInfo = JvGetterAuthUiComponents.getInstance().getBeanAuthLabel("");
+        tInfo = JvGetterAuthUIComponents.getInstance().getBeanLabelAuthUI("Введите новый пароль:");
+        tErrorHelpInfo = JvGetterAuthUIComponents.getInstance().getBeanLabelAuthUI("");
         tErrorHelpInfo.settingToError();
-        tPassword = JvGetterAuthUiComponents.getInstance().getBeanAuthPasswordField("Пароль");
-        tPasswordConfirm = JvGetterAuthUiComponents.getInstance().getBeanAuthPasswordField("Подтвердите пароль");
-        bRegister = JvGetterAuthUiComponents.getInstance().getBeanAuthButton("ПРИНЯТЬ");
+        tPassword = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Пароль");
+        tPasswordConfirm = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Подтвердите пароль");
+        bRegister = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("ПРИНЯТЬ");
 
         makeFrameSetting();
         addListenerToElements();
         addGeneralSettingsToWidget();
     }
 
-    public static JvAuthNewPasswordFrame getInstance(String post) {
+    public static JvNewPasswordFrameAuthUI getInstance(String post) {
         if (instance == null) {
-            instance = new JvAuthNewPasswordFrame(post);
+            instance = new JvNewPasswordFrameAuthUI(post);
         } else {
             instance.setEmail(post);
         }
@@ -118,7 +118,7 @@ public class JvAuthNewPasswordFrame extends JFrame {
     private void addListenerToElements() {
         bRegister.addActionListener(event -> {
             if (checkFields()) {
-                JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(JvMessagesDefines.TypeMessage.ChangePasswordRequest,
+                JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(JvDefinesMessages.TypeMessage.ChangePasswordRequest,
                         email, tPassword.getInputText());
                 waitRepeatServer();
             }
@@ -127,7 +127,7 @@ public class JvAuthNewPasswordFrame extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                JvGetterAuthUiComponents.getInstance().getBeanAuthEntryFrame().openWindow();
+                JvGetterAuthUIComponents.getInstance().getBeanEntryFrameAuthUI().openWindow();
                 tPassword.setUnfocusFieldOnClose(false);
                 tPasswordConfirm.setUnfocusFieldOnClose(false);
             }
@@ -193,7 +193,7 @@ public class JvAuthNewPasswordFrame extends JFrame {
     private void closeWindow() {
         setVisible(false);
         //dispose();
-        JvGetterAuthUiComponents.getInstance().getBeanAuthEntryFrame().openWindow();
+        JvGetterAuthUIComponents.getInstance().getBeanEntryFrameAuthUI().openWindow();
         tPassword.setUnfocusFieldOnClose(false);
         tPasswordConfirm.setUnfocusFieldOnClose(false);
     }
@@ -219,8 +219,8 @@ public class JvAuthNewPasswordFrame extends JFrame {
         } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getChangePasswordRequest() ==
                 JvMessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            JvGetterAuthUiComponents.getInstance().getBeanAuthOptionPane("Не удалось сменить пароль.",
-                    JvAuthOptionPane.TypeDlg.ERROR);
+            JvGetterAuthUIComponents.getInstance().getBeanOptionPaneAuthUI("Не удалось сменить пароль.",
+                    JvOptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 }

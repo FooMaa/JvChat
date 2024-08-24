@@ -2,7 +2,7 @@ package org.foomaa.jvchat.ctrl;
 
 import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
 import org.foomaa.jvchat.messages.JvGetterMessages;
-import org.foomaa.jvchat.messages.JvMessagesDefines;
+import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.tools.JvGetterTools;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class JvSendMessagesCtrl {
         return instance;
     }
 
-    public final void sendMessage(JvMessagesDefines.TypeMessage type, Object... parameters) {
+    public final void sendMessage(JvDefinesMessages.TypeMessage type, Object... parameters) {
         switch (type) {
             case EntryRequest -> {
                 if (parameters.length == 2) {
@@ -62,7 +62,7 @@ public class JvSendMessagesCtrl {
                     Object reply = parameters[0];
                     Object error = parameters[1];
                     byte[] bodyMessage = createBodyRegistrationReplyMessage(type,
-                            (Boolean) reply, (JvMessagesDefines.TypeErrorRegistration) error);
+                            (Boolean) reply, (JvDefinesMessages.TypeErrorRegistration) error);
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
@@ -87,7 +87,7 @@ public class JvSendMessagesCtrl {
                     Object reply = parameters[0];
                     Object error = parameters[1];
                     byte[] bodyMessage = createBodyVerifyRegistrationEmailReplyMessage(type,
-                            (Boolean) reply, (JvMessagesDefines.TypeErrorRegistration) error);
+                            (Boolean) reply, (JvDefinesMessages.TypeErrorRegistration) error);
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
@@ -176,59 +176,59 @@ public class JvSendMessagesCtrl {
                 .getBeanNetworkCtrl().sendMessage(bodyMessage);
     }
 
-    private byte[] createBodyEntryRequestMessage(JvMessagesDefines.TypeMessage type, String login, String password) {
-        return JvGetterMessages.getInstance().getBeanMessagesSerializatorData().serialiseData(type, login, password);
+    private byte[] createBodyEntryRequestMessage(JvDefinesMessages.TypeMessage type, String login, String password) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, login, password);
     }
 
-    private byte[] createBodyEntryReplyMessage(JvMessagesDefines.TypeMessage type, Boolean reply) {
-        return JvGetterMessages.getInstance().getBeanMessagesSerializatorData().serialiseData(type, reply);
+    private byte[] createBodyEntryReplyMessage(JvDefinesMessages.TypeMessage type, Boolean reply) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
     }
 
-    private byte[] createBodyRegistrationRequestMessage(JvMessagesDefines.TypeMessage type, String login, String email, String password) {
-        return JvGetterMessages.getInstance().getBeanMessagesSerializatorData().serialiseData(type, login, email, password);
+    private byte[] createBodyRegistrationRequestMessage(JvDefinesMessages.TypeMessage type, String login, String email, String password) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, login, email, password);
     }
 
-    private byte[] createBodyRegistrationReplyMessage(JvMessagesDefines.TypeMessage type, Boolean reply, JvMessagesDefines.TypeErrorRegistration error) {
-        return JvGetterMessages.getInstance().getBeanMessagesSerializatorData().serialiseData(type, reply, error);
+    private byte[] createBodyRegistrationReplyMessage(JvDefinesMessages.TypeMessage type, Boolean reply, JvDefinesMessages.TypeErrorRegistration error) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply, error);
     }
 
-    private byte[] createBodyVerifyRegistrationEmailRequestMessage(JvMessagesDefines.TypeMessage type, String login, String email, String password, String code) {
-        return JvGetterMessages.getInstance().getBeanMessagesSerializatorData().serialiseData(type, login, email, password, code);
+    private byte[] createBodyVerifyRegistrationEmailRequestMessage(JvDefinesMessages.TypeMessage type, String login, String email, String password, String code) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, login, email, password, code);
     }
 
-    private byte[] createBodyVerifyRegistrationEmailReplyMessage(JvMessagesDefines.TypeMessage type, Boolean reply, JvMessagesDefines.TypeErrorRegistration error) {
-        return JvGetterMessages.getInstance().getBeanMessagesSerializatorData().serialiseData(type, reply, error);
+    private byte[] createBodyVerifyRegistrationEmailReplyMessage(JvDefinesMessages.TypeMessage type, Boolean reply, JvDefinesMessages.TypeErrorRegistration error) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply, error);
     }
 
-    private byte[] createBodyResetPasswordRequestMessage(JvMessagesDefines.TypeMessage type, String email) {
-        return JvGetterMessages.getInstance().getBeanMessagesSerializatorData().serialiseData(type, email);
+    private byte[] createBodyResetPasswordRequestMessage(JvDefinesMessages.TypeMessage type, String email) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, email);
     }
 
-    private byte[] createBodyResetPasswordReplyMessage(JvMessagesDefines.TypeMessage type, Boolean reply) {
-        return JvGetterMessages.getInstance().getBeanMessagesSerializatorData().serialiseData(type, reply);
+    private byte[] createBodyResetPasswordReplyMessage(JvDefinesMessages.TypeMessage type, Boolean reply) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
     }
 
-    private byte[] createBodyVerifyFamousEmailRequestMessage(JvMessagesDefines.TypeMessage type, String email, String code) {
-        return JvGetterMessages.getInstance().getBeanMessagesSerializatorData().serialiseData(type, email, code);
+    private byte[] createBodyVerifyFamousEmailRequestMessage(JvDefinesMessages.TypeMessage type, String email, String code) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, email, code);
     }
 
-    private byte[] createBodyVerifyFamousEmailReplyMessage(JvMessagesDefines.TypeMessage type, Boolean reply) {
-        return JvGetterMessages.getInstance().getBeanMessagesSerializatorData().serialiseData(type, reply);
+    private byte[] createBodyVerifyFamousEmailReplyMessage(JvDefinesMessages.TypeMessage type, Boolean reply) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
     }
 
-    private byte[] createBodyChangePasswordRequestMessage(JvMessagesDefines.TypeMessage type, String email, String password) {
-        return JvGetterMessages.getInstance().getBeanMessagesSerializatorData().serialiseData(type, email, password);
+    private byte[] createBodyChangePasswordRequestMessage(JvDefinesMessages.TypeMessage type, String email, String password) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, email, password);
     }
 
-    private byte[] createBodyChangePasswordReplyMessage(JvMessagesDefines.TypeMessage type, Boolean reply) {
-        return JvGetterMessages.getInstance().getBeanMessagesSerializatorData().serialiseData(type, reply);
+    private byte[] createBodyChangePasswordReplyMessage(JvDefinesMessages.TypeMessage type, Boolean reply) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
     }
 
-    private byte[] createBodyChatsLoadRequestMessage(JvMessagesDefines.TypeMessage type, String sender) {
-        return JvGetterMessages.getInstance().getBeanMessagesSerializatorData().serialiseData(type, sender);
+    private byte[] createBodyChatsLoadRequestMessage(JvDefinesMessages.TypeMessage type, String sender) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, sender);
     }
 
-    private byte[] createBodyChatsLoadReplyMessage(JvMessagesDefines.TypeMessage type, List<Map<JvDbGlobalDefines.LineKeys, String>> reply) {
-        return JvGetterMessages.getInstance().getBeanMessagesSerializatorData().serialiseData(type, reply);
+    private byte[] createBodyChatsLoadReplyMessage(JvDefinesMessages.TypeMessage type, List<Map<JvDbGlobalDefines.LineKeys, String>> reply) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
     }
 }

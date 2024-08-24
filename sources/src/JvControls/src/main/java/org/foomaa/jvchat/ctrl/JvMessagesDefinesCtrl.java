@@ -1,6 +1,6 @@
 package org.foomaa.jvchat.ctrl;
 
-import org.foomaa.jvchat.messages.JvMessagesDefines;
+import org.foomaa.jvchat.messages.JvDefinesMessages;
 
 
 public class JvMessagesDefinesCtrl {
@@ -26,12 +26,12 @@ public class JvMessagesDefinesCtrl {
     private TypeFlags RegistrationRequestFlag = TypeFlags.DEFAULT;
     private TypeFlags ResetPasswordRequestFlag = TypeFlags.DEFAULT;
     private TypeFlags VerifyFamousEmailRequestFlag = TypeFlags.DEFAULT;
-    private JvMessagesDefines.TypeErrorRegistration errorRegistrationFlag =
-    JvMessagesDefines.TypeErrorRegistration.NoError;
+    private JvDefinesMessages.TypeErrorRegistration errorRegistrationFlag =
+    JvDefinesMessages.TypeErrorRegistration.NoError;
     private TypeFlags ChangePasswordRequest = TypeFlags.DEFAULT;
     private TypeFlags VerifyRegistrationEmailRequestFlag = TypeFlags.DEFAULT;
-    private JvMessagesDefines.TypeErrorRegistration errorVerifyRegEmailFlag =
-    JvMessagesDefines.TypeErrorRegistration.NoError;
+    private JvDefinesMessages.TypeErrorRegistration errorVerifyRegEmailFlag =
+    JvDefinesMessages.TypeErrorRegistration.NoError;
     private TypeFlags chatsLoadReplyFlag = TypeFlags.DEFAULT;
     // FLAGS
 
@@ -59,7 +59,7 @@ public class JvMessagesDefinesCtrl {
         }
     }
 
-    public void setErrorRegistrationFlag(JvMessagesDefines.TypeErrorRegistration newFlag) {
+    public void setErrorRegistrationFlag(JvDefinesMessages.TypeErrorRegistration newFlag) {
         if (errorRegistrationFlag != newFlag) {
             errorRegistrationFlag = newFlag;
         }
@@ -77,7 +77,7 @@ public class JvMessagesDefinesCtrl {
         }
     }
 
-    public void setErrorVerifyRegEmailFlag(JvMessagesDefines.TypeErrorRegistration newFlag) {
+    public void setErrorVerifyRegEmailFlag(JvDefinesMessages.TypeErrorRegistration newFlag) {
         if (errorVerifyRegEmailFlag != newFlag) {
             errorVerifyRegEmailFlag = newFlag;
         }
@@ -97,7 +97,7 @@ public class JvMessagesDefinesCtrl {
         return RegistrationRequestFlag;
     }
 
-    public JvMessagesDefines.TypeErrorRegistration getErrorRegistrationFlag() {
+    public JvDefinesMessages.TypeErrorRegistration getErrorRegistrationFlag() {
         return errorRegistrationFlag;
     }
 
@@ -117,7 +117,7 @@ public class JvMessagesDefinesCtrl {
         return VerifyRegistrationEmailRequestFlag;
     }
 
-    public JvMessagesDefines.TypeErrorRegistration getErrorVerifyRegEmailFlag() {
+    public JvDefinesMessages.TypeErrorRegistration getErrorVerifyRegEmailFlag() {
         return errorVerifyRegEmailFlag;
     }
 

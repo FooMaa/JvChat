@@ -4,7 +4,7 @@ import org.foomaa.jvchat.ctrl.JvChatsCtrl;
 import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.ctrl.JvMessagesDefinesCtrl;
 import org.foomaa.jvchat.logger.JvLog;
-import org.foomaa.jvchat.messages.JvMessagesDefines;
+import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
 import javax.swing.*;
@@ -17,17 +17,17 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
-public class JvMainChatScrollPanelChats extends JPanel {
-    private static JvMainChatScrollPanelChats instance;
+public class JvScrollPanelChatsMainChatUI extends JPanel {
+    private static JvScrollPanelChatsMainChatUI instance;
     private ArrayList<Integer> idChats;
 
-    private JvMainChatScrollPanelChats() {
+    private JvScrollPanelChatsMainChatUI() {
         makePanel();
     }
 
-    public static JvMainChatScrollPanelChats getInstance() {
+    public static JvScrollPanelChatsMainChatUI getInstance() {
         if (instance == null) {
-            instance = new JvMainChatScrollPanelChats();
+            instance = new JvScrollPanelChatsMainChatUI();
         }
         return instance;
     }
@@ -85,8 +85,8 @@ public class JvMainChatScrollPanelChats extends JPanel {
         List<String> loginsList = getLoginsList();
 
         for (String login : loginsList) {
-          box.add(JvGetterMainChatUiComponents.getInstance()
-                  .getBeanMainChatRectChat(
+          box.add(JvGetterMainChatUIComponents.getInstance()
+                  .getBeanRectChatMainChatUI(
                           login,
                           chatsCtrl.getLastMessage(login),
                           chatsCtrl.getLastMessageSender(login),
@@ -99,7 +99,7 @@ public class JvMainChatScrollPanelChats extends JPanel {
         String login = JvGetterSettings.getInstance().getBeanUserInfoSettings().getLogin();
 
         JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
-                JvMessagesDefines.TypeMessage.ChatsLoadRequest, login);
+                JvDefinesMessages.TypeMessage.ChatsLoadRequest, login);
     }
 
     private List<String> getLoginsList() {

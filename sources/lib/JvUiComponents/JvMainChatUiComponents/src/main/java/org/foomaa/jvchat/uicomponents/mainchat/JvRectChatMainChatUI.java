@@ -8,18 +8,18 @@ import java.awt.*;
 import java.util.Objects;
 
 
-public class JvMainChatRectChat extends JPanel {
+public class JvRectChatMainChatUI extends JPanel {
     private final String nickName;
     private final String shortLastMessage;
     private final String lastMessageSender;
     private final String time;
     private final JvChatsCtrl.TypeStatusMessage status;
 
-    JvMainChatRectChat(String newNickName,
-                       String newShortLastMessage,
-                       String newLastMessageSender,
-                       String newTime,
-                       JvChatsCtrl.TypeStatusMessage newStatus) {
+    JvRectChatMainChatUI(String newNickName,
+                         String newShortLastMessage,
+                         String newLastMessageSender,
+                         String newTime,
+                         JvChatsCtrl.TypeStatusMessage newStatus) {
         nickName = newNickName;
         shortLastMessage = newShortLastMessage;
         lastMessageSender = newLastMessageSender;

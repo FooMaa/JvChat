@@ -3,7 +3,7 @@ package org.foomaa.jvchat.uicomponents.auth;
 import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.ctrl.JvMessagesDefinesCtrl;
 import org.foomaa.jvchat.logger.JvLog;
-import org.foomaa.jvchat.messages.JvMessagesDefines;
+import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
@@ -16,13 +16,13 @@ import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
 
-public class JvAuthVerifyCodeFrame extends JFrame {
-    private static JvAuthVerifyCodeFrame instance;
+public class JvVerifyCodeFrameAuthUI extends JFrame {
+    private static JvVerifyCodeFrameAuthUI instance;
     private final JPanel panel;
-    private final JvAuthLabel tInfo;
-    private final JvAuthTextField tCode;
-    private final JvAuthLabel tErrorHelpInfo;
-    private final JvAuthButton bSet;
+    private final JvLabelAuthUI tInfo;
+    private final JvTextFieldAuthUI tCode;
+    private final JvLabelAuthUI tErrorHelpInfo;
+    private final JvButtonAuthUI bSet;
     private String login;
     private String email;
     private String password;
@@ -33,25 +33,25 @@ public class JvAuthVerifyCodeFrame extends JFrame {
         ResetPassword
     }
 
-    private JvAuthVerifyCodeFrame(RegimeWork rw) {
+    private JvVerifyCodeFrameAuthUI(RegimeWork rw) {
         super("VerifyCodeWindow");
 
         regime = rw;
         panel = new JPanel();
-        tInfo = JvGetterAuthUiComponents.getInstance().getBeanAuthLabel("Введите код из почты (действует 60 с.):");
-        tCode = JvGetterAuthUiComponents.getInstance().getBeanAuthTextField("Код");
-        tErrorHelpInfo = JvGetterAuthUiComponents.getInstance().getBeanAuthLabel("");
+        tInfo = JvGetterAuthUIComponents.getInstance().getBeanLabelAuthUI("Введите код из почты (действует 60 с.):");
+        tCode = JvGetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Код");
+        tErrorHelpInfo = JvGetterAuthUIComponents.getInstance().getBeanLabelAuthUI("");
         tErrorHelpInfo.settingToError();
-        bSet = JvGetterAuthUiComponents.getInstance().getBeanAuthButton("ОТПРАВИТЬ");
+        bSet = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("ОТПРАВИТЬ");
 
         makeFrameSetting();
         addListenerToElements();
         addGeneralSettingsToWidget();
     }
 
-    public static JvAuthVerifyCodeFrame getInstance(RegimeWork rw) {
+    public static JvVerifyCodeFrameAuthUI getInstance(RegimeWork rw) {
         if (instance == null) {
-            instance = new JvAuthVerifyCodeFrame(rw);
+            instance = new JvVerifyCodeFrameAuthUI(rw);
         } else {
             instance.setRegime(rw);
         }
@@ -127,11 +127,11 @@ public class JvAuthVerifyCodeFrame extends JFrame {
         bSet.addActionListener(event -> {
             if (checkFields()) {
                 if (regime == RegimeWork.ResetPassword) {
-                    JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(JvMessagesDefines.TypeMessage.VerifyFamousEmailRequest,
+                    JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(JvDefinesMessages.TypeMessage.VerifyFamousEmailRequest,
                             email, tCode.getInputText());
                     waitRepeatServerResetPassword();
                 } else if (regime == RegimeWork.Registration) {
-                    JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(JvMessagesDefines.TypeMessage.VerifyRegistrationEmailRequest,
+                    JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(JvDefinesMessages.TypeMessage.VerifyRegistrationEmailRequest,
                             login, email, password, tCode.getInputText());
                     waitRepeatServerRegistration();
                 }
@@ -141,7 +141,7 @@ public class JvAuthVerifyCodeFrame extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                JvGetterAuthUiComponents.getInstance().getBeanAuthEntryFrame().openWindow();
+                JvGetterAuthUIComponents.getInstance().getBeanEntryFrameAuthUI().openWindow();
                 tCode.setUnfocusFieldOnClose(false);
             }
         });
@@ -194,9 +194,9 @@ public class JvAuthVerifyCodeFrame extends JFrame {
         setVisible(false);
         //dispose();
         if (regime == RegimeWork.Registration) {
-            JvGetterAuthUiComponents.getInstance().getBeanAuthEntryFrame().openWindow();
+            JvGetterAuthUIComponents.getInstance().getBeanEntryFrameAuthUI().openWindow();
         } else if (regime == RegimeWork.ResetPassword) {
-            JvGetterAuthUiComponents.getInstance().getBeanAuthNewPasswordFrame(email).openWindow();
+            JvGetterAuthUIComponents.getInstance().getBeanNewPasswordFrameAuthUI(email).openWindow();
         }
         tCode.setUnfocusFieldOnClose(false);
     }
@@ -222,9 +222,9 @@ public class JvAuthVerifyCodeFrame extends JFrame {
         } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyFamousEmailRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            JvGetterAuthUiComponents.getInstance()
-                    .getBeanAuthOptionPane("Код не верен. Введите код полученный по почте еще раз. " +
-                            "Мог истечь срок действия кода, введите почту и получите новый.", JvAuthOptionPane.TypeDlg.ERROR);
+            JvGetterAuthUIComponents.getInstance()
+                    .getBeanOptionPaneAuthUI("Код не верен. Введите код полученный по почте еще раз. " +
+                            "Мог истечь срок действия кода, введите почту и получите новый.", JvOptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 
@@ -251,20 +251,20 @@ public class JvAuthVerifyCodeFrame extends JFrame {
 
     private void openErrorPane() {
         switch (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getErrorVerifyRegEmailFlag()) {
-            case NoError -> JvGetterAuthUiComponents.getInstance()
-                    .getBeanAuthOptionPane("Ошибка не выяснена.", JvAuthOptionPane.TypeDlg.ERROR);
-            case EmailSending -> JvGetterAuthUiComponents.getInstance()
-                    .getBeanAuthOptionPane("Возможно почта недействительна.", JvAuthOptionPane.TypeDlg.ERROR);
-            case Login -> JvGetterAuthUiComponents.getInstance()
-                    .getBeanAuthOptionPane("Данный логин уже используется.", JvAuthOptionPane.TypeDlg.ERROR);
-            case Email -> JvGetterAuthUiComponents.getInstance()
-                    .getBeanAuthOptionPane("Данная почта уже используется.", JvAuthOptionPane.TypeDlg.ERROR);
-            case Code -> JvGetterAuthUiComponents.getInstance()
-                    .getBeanAuthOptionPane("Код не верен. Введите код полученный по почте еще раз. " +
-                    "Мог истечь срок действия кода, введите почту и получите новый.", JvAuthOptionPane.TypeDlg.ERROR);
+            case NoError -> JvGetterAuthUIComponents.getInstance()
+                    .getBeanOptionPaneAuthUI("Ошибка не выяснена.", JvOptionPaneAuthUI.TypeDlg.ERROR);
+            case EmailSending -> JvGetterAuthUIComponents.getInstance()
+                    .getBeanOptionPaneAuthUI("Возможно почта недействительна.", JvOptionPaneAuthUI.TypeDlg.ERROR);
+            case Login -> JvGetterAuthUIComponents.getInstance()
+                    .getBeanOptionPaneAuthUI("Данный логин уже используется.", JvOptionPaneAuthUI.TypeDlg.ERROR);
+            case Email -> JvGetterAuthUIComponents.getInstance()
+                    .getBeanOptionPaneAuthUI("Данная почта уже используется.", JvOptionPaneAuthUI.TypeDlg.ERROR);
+            case Code -> JvGetterAuthUIComponents.getInstance()
+                    .getBeanOptionPaneAuthUI("Код не верен. Введите код полученный по почте еще раз. " +
+                    "Мог истечь срок действия кода, введите почту и получите новый.", JvOptionPaneAuthUI.TypeDlg.ERROR);
             case LoginAndEmail ->
-                    JvGetterAuthUiComponents.getInstance()
-                            .getBeanAuthOptionPane("Данные почта и логин уже используются.", JvAuthOptionPane.TypeDlg.ERROR);
+                    JvGetterAuthUIComponents.getInstance()
+                            .getBeanOptionPaneAuthUI("Данные почта и логин уже используются.", JvOptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 }

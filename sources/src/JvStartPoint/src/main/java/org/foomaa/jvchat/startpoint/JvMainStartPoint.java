@@ -34,7 +34,7 @@ public class JvMainStartPoint implements ApplicationRunner {
 //            NOTE(VAD): Установить профиль по спрингу
 //            JvGetterTools.getInstance().getBeanMainTools().setProfileSettingSpring();
         } catch (IOException | URISyntaxException exception) {
-            JvGetterUiLinks.getInstance().getBeanErrorStartUiLinks(
+            JvGetterUiLinks.getInstance().getBeanErrorStartUiLink(
                     "Не удалось выставить верный профиль для приложения!");
         }
 
@@ -43,14 +43,14 @@ public class JvMainStartPoint implements ApplicationRunner {
         }
         if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.USERS) {
             if (args.getOptionValues("ipServer") == null) {
-                JvGetterUiLinks.getInstance().getBeanErrorStartUiLinks(
+                JvGetterUiLinks.getInstance().getBeanErrorStartUiLink(
                         "Дайте в параметр IP-адрес сервера!");
             }
             String argsIp = args.getOptionValues("ipServer").get(0);
             if (JvGetterTools.getInstance().getBeanMainTools().validateInputIp(argsIp)) {
                 JvGetterSettings.getInstance().getBeanMainSettings().setIp(argsIp);
             } else {
-                JvGetterUiLinks.getInstance().getBeanErrorStartUiLinks(
+                JvGetterUiLinks.getInstance().getBeanErrorStartUiLink(
                         "В параметре запуска не верный IP!");
             }
         }
@@ -62,12 +62,12 @@ public class JvMainStartPoint implements ApplicationRunner {
         try {
             JvGetterControls.getInstance().getBeanNetworkCtrl().startNetwork();
         } catch (IOException exception) {
-            JvGetterUiLinks.getInstance().getBeanErrorStartUiLinks(
+            JvGetterUiLinks.getInstance().getBeanErrorStartUiLink(
                     "Не удалось подключиться к серверу.\nПроверьте наличие сети и попробуйте снова!");
         }
 
         if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.USERS) {
-            JvGetterUiLinks.getInstance().getBeanStartAuthenticationUiLinks();
+            JvGetterUiLinks.getInstance().getBeanStartAuthenticationUiLink();
         }
     }
 }

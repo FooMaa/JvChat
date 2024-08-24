@@ -19,21 +19,21 @@ public class JvGetterMessages {
         return instance;
     }
 
-    public JvMessagesDefines getBeanMessagesDefines() {
+    public JvDefinesMessages getBeanDefinesMessages() {
         return context.getBean(
-                JvMessagesSpringConfig.NameBeans.BeanMessagesDefines.getValue(),
-                JvMessagesDefines.class);
+                JvMessagesSpringConfig.NameBeans.BeanDefinesMessages.getValue(),
+                JvDefinesMessages.class);
     }
 
-    public JvMessagesSerializatorData getBeanMessagesSerializatorData() {
+    public JvSerializatorDataMessages getBeanSerializatorDataMessages() {
         return context.getBean(
-                JvMessagesSpringConfig.NameBeans.BeanMessagesSerializatorData.getValue(),
-                JvMessagesSerializatorData.class);
+                JvMessagesSpringConfig.NameBeans.BeanSerializatorDataMessages.getValue(),
+                JvSerializatorDataMessages.class);
     }
 
-    public JvMessagesDeserializatorData getBeanMessagesDeserializatorData() {
+    public JvDeserializatorDataMessages getBeanDeserializatorDataMessages() {
         return context.getBean(
-                JvMessagesSpringConfig.NameBeans.BeanMessagesDeserializatorData.getValue(),
-                JvMessagesDeserializatorData.class);
+                JvMessagesSpringConfig.NameBeans.BeanDeserializatorDataMessages.getValue(),
+                JvDeserializatorDataMessages.class);
     }
 }

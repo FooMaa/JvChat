@@ -3,7 +3,7 @@ package org.foomaa.jvchat.uicomponents.auth;
 import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.ctrl.JvMessagesDefinesCtrl;
 import org.foomaa.jvchat.logger.JvLog;
-import org.foomaa.jvchat.messages.JvMessagesDefines;
+import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.tools.JvGetterTools;
@@ -17,32 +17,32 @@ import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
 
-public class JvAuthResetPasswordFrame extends JFrame {
-    private static JvAuthResetPasswordFrame instance;
+public class JvResetPasswordFrameAuthUI extends JFrame {
+    private static JvResetPasswordFrameAuthUI instance;
     private final JPanel panel;
-    private final JvAuthLabel tInfo;
-    private final JvAuthTextField tEmail;
-    private final JvAuthLabel tErrorHelpInfo;
-    private final JvAuthButton bSet;
+    private final JvLabelAuthUI tInfo;
+    private final JvTextFieldAuthUI tEmail;
+    private final JvLabelAuthUI tErrorHelpInfo;
+    private final JvButtonAuthUI bSet;
 
-    private JvAuthResetPasswordFrame() {
+    private JvResetPasswordFrameAuthUI() {
         super("ResetPasswordWindow");
 
         panel = new JPanel();
-        tInfo = JvGetterAuthUiComponents.getInstance().getBeanAuthLabel("Введите адрес почты:");
-        tEmail = JvGetterAuthUiComponents.getInstance().getBeanAuthTextField("Почта");
-        tErrorHelpInfo = JvGetterAuthUiComponents.getInstance().getBeanAuthLabel("");
+        tInfo = JvGetterAuthUIComponents.getInstance().getBeanLabelAuthUI("Введите адрес почты:");
+        tEmail = JvGetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Почта");
+        tErrorHelpInfo = JvGetterAuthUIComponents.getInstance().getBeanLabelAuthUI("");
         tErrorHelpInfo.settingToError();
-        bSet = JvGetterAuthUiComponents.getInstance().getBeanAuthButton("ОТПРАВИТЬ");
+        bSet = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("ОТПРАВИТЬ");
 
         makeFrameSetting();
         addListenerToElements();
         addGeneralSettingsToWidget();
     }
 
-    public static JvAuthResetPasswordFrame getInstance() {
+    public static JvResetPasswordFrameAuthUI getInstance() {
         if (instance == null) {
-            instance = new JvAuthResetPasswordFrame();
+            instance = new JvResetPasswordFrameAuthUI();
         }
         return instance;
     }
@@ -100,7 +100,7 @@ public class JvAuthResetPasswordFrame extends JFrame {
         bSet.addActionListener(event -> {
             if (checkFields()) {
                 JvGetterControls.getInstance()
-                        .getBeanSendMessagesCtrl().sendMessage(JvMessagesDefines.TypeMessage.ResetPasswordRequest,
+                        .getBeanSendMessagesCtrl().sendMessage(JvDefinesMessages.TypeMessage.ResetPasswordRequest,
                         tEmail.getInputText());
                 waitRepeatServer();
             }
@@ -109,7 +109,7 @@ public class JvAuthResetPasswordFrame extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                JvGetterAuthUiComponents.getInstance().getBeanAuthEntryFrame().openWindow();
+                JvGetterAuthUIComponents.getInstance().getBeanEntryFrameAuthUI().openWindow();
                 tEmail.setUnfocusFieldOnClose(false);
             }
         });
@@ -159,9 +159,9 @@ public class JvAuthResetPasswordFrame extends JFrame {
     }
 
     private void closeWindow() {
-        JvAuthVerifyCodeFrame frm = JvGetterAuthUiComponents.getInstance()
-                .getBeanAuthVerifyCodeFrame(JvAuthVerifyCodeFrame.RegimeWork.ResetPassword);
-        frm.setRegime(JvAuthVerifyCodeFrame.RegimeWork.ResetPassword);
+        JvVerifyCodeFrameAuthUI frm = JvGetterAuthUIComponents.getInstance()
+                .getBeanVerifyCodeFrameAuthUI(JvVerifyCodeFrameAuthUI.RegimeWork.ResetPassword);
+        frm.setRegime(JvVerifyCodeFrameAuthUI.RegimeWork.ResetPassword);
         frm.setParametersResetPassword(tEmail.getInputText());
         frm.openWindow();
         setVisible(false);
@@ -190,8 +190,8 @@ public class JvAuthResetPasswordFrame extends JFrame {
         } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getResetPasswordRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            JvGetterAuthUiComponents.getInstance()
-                    .getBeanAuthOptionPane("Данная почта не зарегистрирована.", JvAuthOptionPane.TypeDlg.ERROR);
+            JvGetterAuthUIComponents.getInstance()
+                    .getBeanOptionPaneAuthUI("Данная почта не зарегистрирована.", JvOptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 }

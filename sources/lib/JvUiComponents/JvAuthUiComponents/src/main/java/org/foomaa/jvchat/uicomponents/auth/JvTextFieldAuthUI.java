@@ -10,13 +10,13 @@ import java.awt.event.*;
 import java.util.Objects;
 
 
-public class JvAuthTextField extends JPanel {
+public class JvTextFieldAuthUI extends JPanel {
     private JTextField textField;
 
     private final String defaultText;
     private final int borderSize = 1;
 
-    JvAuthTextField(String text) {
+    JvTextFieldAuthUI(String text) {
         int gap = 5;
         setLayout(new FlowLayout(FlowLayout.LEFT, gap, 0));
         defaultText = text;

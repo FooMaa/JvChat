@@ -3,8 +3,8 @@ package org.foomaa.jvchat.uicomponents.mainchat;
 import javax.swing.*;
 
 
-public class JvMainChatSendButton extends JButton {
-    JvMainChatSendButton(String text) {
+public class JvSendButtonMainChatUI extends JButton {
+    JvSendButtonMainChatUI(String text) {
         setText(text);
         setFocusable(false);
         addListenerToElements();

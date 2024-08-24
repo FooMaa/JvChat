@@ -11,8 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class JvAuthActiveLabel extends JLabel {
-    JvAuthActiveLabel(String text) {
+public class JvActiveLabelAuthUI extends JLabel {
+    JvActiveLabelAuthUI(String text) {
         setText(text);
         Font defaultfont = new Font("Times", Font.PLAIN,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.009));

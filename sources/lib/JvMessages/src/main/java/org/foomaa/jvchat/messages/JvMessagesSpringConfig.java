@@ -8,9 +8,9 @@ import org.springframework.context.annotation.Scope;
 @Configuration
 public class JvMessagesSpringConfig {
     public enum NameBeans {
-        BeanMessagesDefines("beanMessagesDefines"),
-        BeanMessagesSerializatorData("beanMessagesSerializatorData"),
-        BeanMessagesDeserializatorData("beanMessagesDeserializatorData");
+        BeanDefinesMessages("beanDefinesMessages"),
+        BeanSerializatorDataMessages("beanSerializatorDataMessages"),
+        BeanDeserializatorDataMessages("beanDeserializatorDataMessages");
 
         private final String value;
 
@@ -23,24 +23,24 @@ public class JvMessagesSpringConfig {
         }
     }
 
-    @Bean(name = "beanMessagesDefines")
+    @Bean(name = "beanDefinesMessages")
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvMessagesDefines beanMessagesDefines() {
-        return JvMessagesDefines.getInstance();
+    public JvDefinesMessages beanDefinesMessages() {
+        return JvDefinesMessages.getInstance();
     }
 
-    @Bean(name = "beanMessagesSerializatorData")
+    @Bean(name = "beanSerializatorDataMessages")
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvMessagesSerializatorData beanMessagesSerializatorData() {
-        return JvMessagesSerializatorData.getInstance();
+    public JvSerializatorDataMessages beanSerializatorDataMessages() {
+        return JvSerializatorDataMessages.getInstance();
     }
 
-    @Bean(name = "beanMessagesDeserializatorData")
+    @Bean(name = "beanDeserializatorDataMessages")
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvMessagesDeserializatorData beanMessagesDeserializatorData() {
-        return JvMessagesDeserializatorData.getInstance();
+    public JvDeserializatorDataMessages beanDeserializatorDataMessages() {
+        return JvDeserializatorDataMessages.getInstance();
     }
 }

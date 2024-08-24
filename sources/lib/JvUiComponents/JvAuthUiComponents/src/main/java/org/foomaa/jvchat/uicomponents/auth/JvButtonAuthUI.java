@@ -3,8 +3,8 @@ package org.foomaa.jvchat.uicomponents.auth;
 import javax.swing.*;
 
 
-public class JvAuthButton extends JButton {
-    JvAuthButton(String text) {
+public class JvButtonAuthUI extends JButton {
+    JvButtonAuthUI(String text) {
         setText(text);
         setFocusable(false);
         addListenerToElements();
