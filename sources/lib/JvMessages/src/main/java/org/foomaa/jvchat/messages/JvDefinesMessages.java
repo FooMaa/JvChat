@@ -66,12 +66,12 @@ public class JvDefinesMessages {
     }
 
     public enum TypeErrorRegistration {
-        Login(ClientServerSerializeProtocol_pb.RegistrationReply.Error.Login_VALUE),
-        Email(ClientServerSerializeProtocol_pb.RegistrationReply.Error.Email_VALUE),
-        LoginAndEmail(ClientServerSerializeProtocol_pb.RegistrationReply.Error.LoginAndEmail_VALUE),
-        EmailSending(ClientServerSerializeProtocol_pb.RegistrationReply.Error.EmailSending_VALUE),
-        Code(ClientServerSerializeProtocol_pb.VerifyRegistrationEmailReply.Error.Code_VALUE),
-        NoError(ClientServerSerializeProtocol_pb.RegistrationReply.Error.NoError_VALUE);
+        Login(JvClientServerSerializeProtocolMessage_pb.RegistrationReply.Error.Login_VALUE),
+        Email(JvClientServerSerializeProtocolMessage_pb.RegistrationReply.Error.Email_VALUE),
+        LoginAndEmail(JvClientServerSerializeProtocolMessage_pb.RegistrationReply.Error.LoginAndEmail_VALUE),
+        EmailSending(JvClientServerSerializeProtocolMessage_pb.RegistrationReply.Error.EmailSending_VALUE),
+        Code(JvClientServerSerializeProtocolMessage_pb.VerifyRegistrationEmailReply.Error.Code_VALUE),
+        NoError(JvClientServerSerializeProtocolMessage_pb.RegistrationReply.Error.NoError_VALUE);
 
         private final int value;
 

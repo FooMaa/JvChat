@@ -157,13 +157,13 @@ public class JvSerializatorDataMessages {
     }
 
     private byte[] createEntryRequestMessage(JvDefinesMessages.TypeMessage type, String login, String password) {
-        ClientServerSerializeProtocol_pb.EntryRequest msgEntryRequest =
-                ClientServerSerializeProtocol_pb.EntryRequest.newBuilder()
+        JvClientServerSerializeProtocolMessage_pb.EntryRequest msgEntryRequest =
+                JvClientServerSerializeProtocolMessage_pb.EntryRequest.newBuilder()
                 .setLogin(login)
                 .setPassword(password)
                 .build();
-        ClientServerSerializeProtocol_pb.General resMsg =
-                ClientServerSerializeProtocol_pb.General.newBuilder()
+        JvClientServerSerializeProtocolMessage_pb.General resMsg =
+                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
                 .setType(type.getValue())
                 .setEntryRequest(msgEntryRequest)
                 .build();
@@ -171,12 +171,12 @@ public class JvSerializatorDataMessages {
     }
 
     private byte[] createEntryReplyMessage(JvDefinesMessages.TypeMessage type, boolean reply) {
-        ClientServerSerializeProtocol_pb.EntryReply msgEntryReply =
-                ClientServerSerializeProtocol_pb.EntryReply.newBuilder()
+        JvClientServerSerializeProtocolMessage_pb.EntryReply msgEntryReply =
+                JvClientServerSerializeProtocolMessage_pb.EntryReply.newBuilder()
                 .setReply(reply)
                 .build();
-        ClientServerSerializeProtocol_pb.General resMsg =
-                ClientServerSerializeProtocol_pb.General.newBuilder()
+        JvClientServerSerializeProtocolMessage_pb.General resMsg =
+                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
                 .setType(type.getValue())
                 .setEntryReply(msgEntryReply)
                 .build();
@@ -184,14 +184,14 @@ public class JvSerializatorDataMessages {
     }
 
     private byte[] createRegistrationRequestMessage(JvDefinesMessages.TypeMessage type, String login, String email, String password) {
-        ClientServerSerializeProtocol_pb.RegistrationRequest msgRegRequest =
-                ClientServerSerializeProtocol_pb.RegistrationRequest.newBuilder()
+        JvClientServerSerializeProtocolMessage_pb.RegistrationRequest msgRegRequest =
+                JvClientServerSerializeProtocolMessage_pb.RegistrationRequest.newBuilder()
                 .setLogin(login)
                 .setEmail(email)
                 .setPassword(password)
                 .build();
-        ClientServerSerializeProtocol_pb.General resMsg =
-                ClientServerSerializeProtocol_pb.General.newBuilder()
+        JvClientServerSerializeProtocolMessage_pb.General resMsg =
+                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
                 .setType(type.getValue())
                 .setRegistrationRequest(msgRegRequest)
                 .build();
@@ -199,13 +199,13 @@ public class JvSerializatorDataMessages {
     }
 
     private byte[] createRegistrationReplyMessage(JvDefinesMessages.TypeMessage type, boolean reply, JvDefinesMessages.TypeErrorRegistration error) {
-        ClientServerSerializeProtocol_pb.RegistrationReply msgRegReply =
-                ClientServerSerializeProtocol_pb.RegistrationReply.newBuilder()
+        JvClientServerSerializeProtocolMessage_pb.RegistrationReply msgRegReply =
+                JvClientServerSerializeProtocolMessage_pb.RegistrationReply.newBuilder()
                 .setReply(reply)
-                .setError(ClientServerSerializeProtocol_pb.RegistrationReply.Error.forNumber(error.getValue()))
+                .setError(JvClientServerSerializeProtocolMessage_pb.RegistrationReply.Error.forNumber(error.getValue()))
                 .build();
-        ClientServerSerializeProtocol_pb.General resMsg =
-                ClientServerSerializeProtocol_pb.General.newBuilder()
+        JvClientServerSerializeProtocolMessage_pb.General resMsg =
+                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
                 .setType(type.getValue())
                 .setRegistrationReply(msgRegReply)
                 .build();
@@ -213,15 +213,15 @@ public class JvSerializatorDataMessages {
     }
 
     private byte[] createVerifyRegistrationEmailRequestMessage(JvDefinesMessages.TypeMessage type, String login, String email, String password, String code) {
-        ClientServerSerializeProtocol_pb.VerifyRegistrationEmailRequest msgVerifyRegRequest =
-                ClientServerSerializeProtocol_pb.VerifyRegistrationEmailRequest.newBuilder()
+        JvClientServerSerializeProtocolMessage_pb.VerifyRegistrationEmailRequest msgVerifyRegRequest =
+                JvClientServerSerializeProtocolMessage_pb.VerifyRegistrationEmailRequest.newBuilder()
                 .setLogin(login)
                 .setEmail(email)
                 .setPassword(password)
                 .setCode(code)
                 .build();
-        ClientServerSerializeProtocol_pb.General resMsg =
-                ClientServerSerializeProtocol_pb.General.newBuilder()
+        JvClientServerSerializeProtocolMessage_pb.General resMsg =
+                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
                 .setType(type.getValue())
                 .setVerifyRegistrationEmailRequest(msgVerifyRegRequest)
                 .build();
@@ -229,13 +229,13 @@ public class JvSerializatorDataMessages {
     }
 
     private byte[] createVerifyRegistrationEmailReplyMessage(JvDefinesMessages.TypeMessage type, boolean reply, JvDefinesMessages.TypeErrorRegistration error) {
-        ClientServerSerializeProtocol_pb.VerifyRegistrationEmailReply msgVerifyRegReply =
-                ClientServerSerializeProtocol_pb.VerifyRegistrationEmailReply.newBuilder()
+        JvClientServerSerializeProtocolMessage_pb.VerifyRegistrationEmailReply msgVerifyRegReply =
+                JvClientServerSerializeProtocolMessage_pb.VerifyRegistrationEmailReply.newBuilder()
                 .setReply(reply)
-                .setError(ClientServerSerializeProtocol_pb.VerifyRegistrationEmailReply.Error.forNumber(error.getValue()))
+                .setError(JvClientServerSerializeProtocolMessage_pb.VerifyRegistrationEmailReply.Error.forNumber(error.getValue()))
                 .build();
-        ClientServerSerializeProtocol_pb.General resMsg =
-                ClientServerSerializeProtocol_pb.General.newBuilder()
+        JvClientServerSerializeProtocolMessage_pb.General resMsg =
+                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
                 .setType(type.getValue())
                 .setVerifyRegistrationEmailReply(msgVerifyRegReply)
                 .build();
@@ -243,12 +243,12 @@ public class JvSerializatorDataMessages {
     }
 
     private byte[] createResetPasswordRequestMessage(JvDefinesMessages.TypeMessage type, String email) {
-        ClientServerSerializeProtocol_pb.ResetPasswordRequest msgResetRequest =
-                ClientServerSerializeProtocol_pb.ResetPasswordRequest.newBuilder()
+        JvClientServerSerializeProtocolMessage_pb.ResetPasswordRequest msgResetRequest =
+                JvClientServerSerializeProtocolMessage_pb.ResetPasswordRequest.newBuilder()
                 .setEmail(email)
                 .build();
-        ClientServerSerializeProtocol_pb.General resMsg =
-                ClientServerSerializeProtocol_pb.General.newBuilder()
+        JvClientServerSerializeProtocolMessage_pb.General resMsg =
+                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
                 .setType(type.getValue())
                 .setResetPasswordRequest(msgResetRequest)
                 .build();
@@ -256,12 +256,12 @@ public class JvSerializatorDataMessages {
     }
 
     private byte[] createResetPasswordReplyMessage(JvDefinesMessages.TypeMessage type, boolean reply) {
-        ClientServerSerializeProtocol_pb.ResetPasswordReply msgResetReply =
-                ClientServerSerializeProtocol_pb.ResetPasswordReply.newBuilder()
+        JvClientServerSerializeProtocolMessage_pb.ResetPasswordReply msgResetReply =
+                JvClientServerSerializeProtocolMessage_pb.ResetPasswordReply.newBuilder()
                 .setReply(reply)
                 .build();
-        ClientServerSerializeProtocol_pb.General resMsg =
-                ClientServerSerializeProtocol_pb.General.newBuilder()
+        JvClientServerSerializeProtocolMessage_pb.General resMsg =
+                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
                 .setType(type.getValue())
                 .setResetPasswordReply(msgResetReply)
                 .build();
@@ -269,13 +269,13 @@ public class JvSerializatorDataMessages {
     }
 
     private byte[] createVerifyFamousEmailRequestMessage(JvDefinesMessages.TypeMessage type, String email, String code) {
-        ClientServerSerializeProtocol_pb.VerifyFamousEmailRequest msgVerifyEmailRequest =
-                ClientServerSerializeProtocol_pb.VerifyFamousEmailRequest.newBuilder()
+        JvClientServerSerializeProtocolMessage_pb.VerifyFamousEmailRequest msgVerifyEmailRequest =
+                JvClientServerSerializeProtocolMessage_pb.VerifyFamousEmailRequest.newBuilder()
                 .setEmail(email)
                 .setCode(code)
                 .build();
-        ClientServerSerializeProtocol_pb.General resMsg =
-                ClientServerSerializeProtocol_pb.General.newBuilder()
+        JvClientServerSerializeProtocolMessage_pb.General resMsg =
+                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
                 .setType(type.getValue())
                 .setVerifyFamousEmailRequest(msgVerifyEmailRequest)
                 .build();
@@ -283,12 +283,12 @@ public class JvSerializatorDataMessages {
     }
 
     private byte[] createVerifyFamousEmailReplyMessage(JvDefinesMessages.TypeMessage type, boolean reply) {
-        ClientServerSerializeProtocol_pb.VerifyFamousEmailReply msgVerifyEmailReply =
-                ClientServerSerializeProtocol_pb.VerifyFamousEmailReply.newBuilder()
+        JvClientServerSerializeProtocolMessage_pb.VerifyFamousEmailReply msgVerifyEmailReply =
+                JvClientServerSerializeProtocolMessage_pb.VerifyFamousEmailReply.newBuilder()
                 .setReply(reply)
                 .build();
-        ClientServerSerializeProtocol_pb.General resMsg =
-                ClientServerSerializeProtocol_pb.General.newBuilder()
+        JvClientServerSerializeProtocolMessage_pb.General resMsg =
+                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
                 .setType(type.getValue())
                 .setVerifyFamousEmailReply(msgVerifyEmailReply)
                 .build();
@@ -296,13 +296,13 @@ public class JvSerializatorDataMessages {
     }
 
     private byte[] createChangePasswordRequestMessage(JvDefinesMessages.TypeMessage type, String email, String password) {
-        ClientServerSerializeProtocol_pb.ChangePasswordRequest msgChangePasswordRequest =
-                ClientServerSerializeProtocol_pb.ChangePasswordRequest.newBuilder()
+        JvClientServerSerializeProtocolMessage_pb.ChangePasswordRequest msgChangePasswordRequest =
+                JvClientServerSerializeProtocolMessage_pb.ChangePasswordRequest.newBuilder()
                 .setEmail(email)
                 .setPassword(password)
                 .build();
-        ClientServerSerializeProtocol_pb.General resMsg =
-                ClientServerSerializeProtocol_pb.General.newBuilder()
+        JvClientServerSerializeProtocolMessage_pb.General resMsg =
+                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
                 .setType(type.getValue())
                 .setChangePasswordRequest(msgChangePasswordRequest)
                 .build();
@@ -310,12 +310,12 @@ public class JvSerializatorDataMessages {
     }
 
     private byte[] createChangePasswordReplyMessage(JvDefinesMessages.TypeMessage type, boolean reply) {
-        ClientServerSerializeProtocol_pb.ChangePasswordReply msgChangePasswordReply =
-                ClientServerSerializeProtocol_pb.ChangePasswordReply.newBuilder()
+        JvClientServerSerializeProtocolMessage_pb.ChangePasswordReply msgChangePasswordReply =
+                JvClientServerSerializeProtocolMessage_pb.ChangePasswordReply.newBuilder()
                 .setReply(reply)
                 .build();
-        ClientServerSerializeProtocol_pb.General resMsg =
-                ClientServerSerializeProtocol_pb.General.newBuilder()
+        JvClientServerSerializeProtocolMessage_pb.General resMsg =
+                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
                 .setType(type.getValue())
                 .setChangePasswordReply(msgChangePasswordReply)
                 .build();
@@ -323,12 +323,12 @@ public class JvSerializatorDataMessages {
     }
 
     private byte[] createChatsLoadRequestMessage(JvDefinesMessages.TypeMessage type, String sender) {
-        ClientServerSerializeProtocol_pb.ChatsLoadRequest msgChatsLoadRequest =
-                ClientServerSerializeProtocol_pb.ChatsLoadRequest.newBuilder()
+        JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest msgChatsLoadRequest =
+                JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest.newBuilder()
                         .setSender(sender)
                         .build();
-        ClientServerSerializeProtocol_pb.General resMsg =
-                ClientServerSerializeProtocol_pb.General.newBuilder()
+        JvClientServerSerializeProtocolMessage_pb.General resMsg =
+                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
                         .setType(type.getValue())
                         .setChatsLoadRequest(msgChatsLoadRequest)
                         .build();
@@ -337,8 +337,8 @@ public class JvSerializatorDataMessages {
 
     private byte[] createChatsLoadReplyMessage(JvDefinesMessages.TypeMessage type,
                                                List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo) {
-        ClientServerSerializeProtocol_pb.ChatsLoadReply.Builder builder =
-                ClientServerSerializeProtocol_pb.ChatsLoadReply.newBuilder();
+        JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply.Builder builder =
+                JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply.newBuilder();
 
         for (int i = 0; i < chatsInfo.toArray().length; i++) {
             Map<JvDbGlobalDefines.LineKeys, String> map = chatsInfo.get(i);
@@ -348,16 +348,16 @@ public class JvSerializatorDataMessages {
                 newMapStr.put(key.getValue(), map.get(key));
             }
 
-            ClientServerSerializeProtocol_pb.ChatsInfoMap chatsInfoMap = ClientServerSerializeProtocol_pb.ChatsInfoMap
+            JvClientServerSerializeProtocolMessage_pb.ChatsInfoMap chatsInfoMap = JvClientServerSerializeProtocolMessage_pb.ChatsInfoMap
                     .newBuilder()
                     .putAllMapInfo(newMapStr)
                     .build();
             builder.addChatsInfoMap(chatsInfoMap);
         }
 
-        ClientServerSerializeProtocol_pb.ChatsLoadReply msgChatsLoadReply = builder.build();
-        ClientServerSerializeProtocol_pb.General resMsg =
-                ClientServerSerializeProtocol_pb.General.newBuilder()
+        JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply msgChatsLoadReply = builder.build();
+        JvClientServerSerializeProtocolMessage_pb.General resMsg =
+                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
                         .setType(type.getValue())
                         .setChatsLoadReply(msgChatsLoadReply)
                         .build();

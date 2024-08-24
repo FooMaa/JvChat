@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option java_outer_classname = "ClientServerSerializeProtocol_pb";
+option java_outer_classname = "JvClientServerSerializeProtocolMessage_pb";
 option java_package = "org.foomaa.jvchat.messages";
 
 message General {

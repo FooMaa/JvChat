@@ -44,7 +44,7 @@ public class JvDeserializatorDataMessages {
     public JvDefinesMessages.TypeMessage getTypeMessage(byte[] data) {
         JvDefinesMessages.TypeMessage type = null;
         try {
-            int numberType = ClientServerSerializeProtocol_pb.General.parseFrom(data).getType();
+            int numberType = JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).getType();
             type = JvDefinesMessages.TypeMessage.getTypeMsg(numberType);
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised type");
@@ -55,9 +55,9 @@ public class JvDeserializatorDataMessages {
     private HashMap<JvDefinesMessages.TypeData, String> takeEntryRequestMessage(byte[] data) {
         HashMap<JvDefinesMessages.TypeData, String> result = new HashMap<>();
         try {
-            result.put(JvDefinesMessages.TypeData.Login, ClientServerSerializeProtocol_pb.General.parseFrom(data)
+            result.put(JvDefinesMessages.TypeData.Login, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
                     .getEntryRequest().getLogin());
-            result.put(JvDefinesMessages.TypeData.Password, ClientServerSerializeProtocol_pb.General.parseFrom(data)
+            result.put(JvDefinesMessages.TypeData.Password, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
                     .getEntryRequest().getPassword());
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
@@ -68,7 +68,7 @@ public class JvDeserializatorDataMessages {
     private HashMap<JvDefinesMessages.TypeData, Boolean> takeEntryReplyMessage(byte[] data) {
         HashMap<JvDefinesMessages.TypeData, Boolean> result = new HashMap<>();
         try {
-            result.put(JvDefinesMessages.TypeData.BoolReply, ClientServerSerializeProtocol_pb.General.parseFrom(data)
+            result.put(JvDefinesMessages.TypeData.BoolReply, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
                     .getEntryReply().getReply());
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
@@ -79,11 +79,11 @@ public class JvDeserializatorDataMessages {
     private HashMap<JvDefinesMessages.TypeData, String> takeRegistrationRequestMessage(byte[] data) {
         HashMap<JvDefinesMessages.TypeData, String> result = new HashMap<>();
         try {
-            result.put(JvDefinesMessages.TypeData.Login, ClientServerSerializeProtocol_pb.General.parseFrom(data).
+            result.put(JvDefinesMessages.TypeData.Login, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
                     getRegistrationRequest().getLogin());
-            result.put(JvDefinesMessages.TypeData.Email, ClientServerSerializeProtocol_pb.General.parseFrom(data).
+            result.put(JvDefinesMessages.TypeData.Email, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
                     getRegistrationRequest().getEmail());
-            result.put(JvDefinesMessages.TypeData.Password, ClientServerSerializeProtocol_pb.General.parseFrom(data).
+            result.put(JvDefinesMessages.TypeData.Password, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
                     getRegistrationRequest().getPassword());
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
@@ -94,10 +94,10 @@ public class JvDeserializatorDataMessages {
     private HashMap<JvDefinesMessages.TypeData, Object> takeRegistrationReplyMessage(byte[] data) {
         HashMap<JvDefinesMessages.TypeData, Object> result = new HashMap<>();
         try {
-            result.put(JvDefinesMessages.TypeData.BoolReply, ClientServerSerializeProtocol_pb.General.parseFrom(data)
+            result.put(JvDefinesMessages.TypeData.BoolReply, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
                     .getRegistrationReply().getReply());
             result.put(JvDefinesMessages.TypeData.ErrorReg, JvDefinesMessages.TypeErrorRegistration.getTypeError(
-                    ClientServerSerializeProtocol_pb.General.parseFrom(data).
+                    JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
                             getRegistrationReply().getError().getNumber()));
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
@@ -108,13 +108,13 @@ public class JvDeserializatorDataMessages {
     private HashMap<JvDefinesMessages.TypeData, String> takeVerifyRegistrationEmailRequestMessage(byte[] data) {
         HashMap<JvDefinesMessages.TypeData, String> result = new HashMap<>();
         try {
-            result.put(JvDefinesMessages.TypeData.Login, ClientServerSerializeProtocol_pb.General.parseFrom(data).
+            result.put(JvDefinesMessages.TypeData.Login, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
                     getVerifyRegistrationEmailRequest().getLogin());
-            result.put(JvDefinesMessages.TypeData.Email, ClientServerSerializeProtocol_pb.General.parseFrom(data).
+            result.put(JvDefinesMessages.TypeData.Email, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
                     getVerifyRegistrationEmailRequest().getEmail());
-            result.put(JvDefinesMessages.TypeData.Password, ClientServerSerializeProtocol_pb.General.parseFrom(data).
+            result.put(JvDefinesMessages.TypeData.Password, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
                     getVerifyRegistrationEmailRequest().getPassword());
-            result.put(JvDefinesMessages.TypeData.VerifyCode, ClientServerSerializeProtocol_pb.General.parseFrom(data).
+            result.put(JvDefinesMessages.TypeData.VerifyCode, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
                     getVerifyRegistrationEmailRequest().getCode());
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
@@ -125,10 +125,10 @@ public class JvDeserializatorDataMessages {
     private HashMap<JvDefinesMessages.TypeData, Object> takeVerifyRegistrationEmailReplyMessage(byte[] data) {
         HashMap<JvDefinesMessages.TypeData, Object> result = new HashMap<>();
         try {
-            result.put(JvDefinesMessages.TypeData.BoolReply, ClientServerSerializeProtocol_pb.General.parseFrom(data)
+            result.put(JvDefinesMessages.TypeData.BoolReply, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
                     .getVerifyRegistrationEmailReply().getReply());
             result.put(JvDefinesMessages.TypeData.ErrorReg, JvDefinesMessages.TypeErrorRegistration.getTypeError(
-                    ClientServerSerializeProtocol_pb.General.parseFrom(data).
+                    JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
                             getVerifyRegistrationEmailReply().getError().getNumber()));
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
@@ -139,7 +139,7 @@ public class JvDeserializatorDataMessages {
     private HashMap<JvDefinesMessages.TypeData, String> takeResetPasswordRequestMessage(byte[] data) {
         HashMap<JvDefinesMessages.TypeData, String> result = new HashMap<>();
         try {
-            result.put(JvDefinesMessages.TypeData.Email, ClientServerSerializeProtocol_pb.General.parseFrom(data).
+            result.put(JvDefinesMessages.TypeData.Email, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
                     getResetPasswordRequest().getEmail());
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
@@ -150,7 +150,7 @@ public class JvDeserializatorDataMessages {
     private HashMap<JvDefinesMessages.TypeData, Boolean> takeResetPasswordReplyMessage(byte[] data) {
         HashMap<JvDefinesMessages.TypeData, Boolean> result = new HashMap<>();
         try {
-            result.put(JvDefinesMessages.TypeData.BoolReply, ClientServerSerializeProtocol_pb.General.parseFrom(data)
+            result.put(JvDefinesMessages.TypeData.BoolReply, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
                     .getResetPasswordReply().getReply());
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
@@ -161,9 +161,9 @@ public class JvDeserializatorDataMessages {
     private HashMap<JvDefinesMessages.TypeData, String> takeVerifyFamousEmailRequestMessage(byte[] data) {
         HashMap<JvDefinesMessages.TypeData, String> result = new HashMap<>();
         try {
-            result.put(JvDefinesMessages.TypeData.Email, ClientServerSerializeProtocol_pb.General.parseFrom(data).
+            result.put(JvDefinesMessages.TypeData.Email, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
                     getVerifyFamousEmailRequest().getEmail());
-            result.put(JvDefinesMessages.TypeData.VerifyCode, ClientServerSerializeProtocol_pb.General.parseFrom(data).
+            result.put(JvDefinesMessages.TypeData.VerifyCode, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
                     getVerifyFamousEmailRequest().getCode());
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
@@ -174,7 +174,7 @@ public class JvDeserializatorDataMessages {
     private HashMap<JvDefinesMessages.TypeData, Boolean> takeVerifyFamousEmailReplyMessage(byte[] data) {
         HashMap<JvDefinesMessages.TypeData, Boolean> result = new HashMap<>();
         try {
-            result.put(JvDefinesMessages.TypeData.BoolReply, ClientServerSerializeProtocol_pb.General.parseFrom(data)
+            result.put(JvDefinesMessages.TypeData.BoolReply, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
                     .getVerifyFamousEmailReply().getReply());
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
@@ -185,9 +185,9 @@ public class JvDeserializatorDataMessages {
     private HashMap<JvDefinesMessages.TypeData, String> takeChangePasswordRequestMessage(byte[] data) {
         HashMap<JvDefinesMessages.TypeData, String> result = new HashMap<>();
         try {
-            result.put(JvDefinesMessages.TypeData.Email, ClientServerSerializeProtocol_pb.General.parseFrom(data).
+            result.put(JvDefinesMessages.TypeData.Email, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
                     getChangePasswordRequest().getEmail());
-            result.put(JvDefinesMessages.TypeData.Password, ClientServerSerializeProtocol_pb.General.parseFrom(data).
+            result.put(JvDefinesMessages.TypeData.Password, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
                     getChangePasswordRequest().getPassword());
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
@@ -198,7 +198,7 @@ public class JvDeserializatorDataMessages {
     private HashMap<JvDefinesMessages.TypeData, Boolean> takeChangePasswordReplyMessage(byte[] data) {
         HashMap<JvDefinesMessages.TypeData, Boolean> result = new HashMap<>();
         try {
-            result.put(JvDefinesMessages.TypeData.BoolReply, ClientServerSerializeProtocol_pb.General.parseFrom(data)
+            result.put(JvDefinesMessages.TypeData.BoolReply, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
                     .getChangePasswordReply().getReply());
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
@@ -209,7 +209,7 @@ public class JvDeserializatorDataMessages {
     private HashMap<JvDefinesMessages.TypeData, String> takeChatsLoadRequestMessage(byte[] data) {
         HashMap<JvDefinesMessages.TypeData, String> result = new HashMap<>();
         try {
-            result.put(JvDefinesMessages.TypeData.ChatsLoad, ClientServerSerializeProtocol_pb.General.parseFrom(data).
+            result.put(JvDefinesMessages.TypeData.ChatsLoad, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
                     getChatsLoadRequest().getSender());
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
@@ -220,8 +220,8 @@ public class JvDeserializatorDataMessages {
     private HashMap<JvDefinesMessages.TypeData, List<Map<JvDbGlobalDefines.LineKeys, String>>> takeChatsLoadReplyMessage(byte[] data) {
         HashMap<JvDefinesMessages.TypeData, List<Map<JvDbGlobalDefines.LineKeys, String>>> result = new HashMap<>();
         try {
-            ClientServerSerializeProtocol_pb.ChatsLoadReply chatsLoadReplyMsg =
-                    ClientServerSerializeProtocol_pb.General.parseFrom(data).getChatsLoadReply();
+            JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply chatsLoadReplyMsg =
+                    JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).getChatsLoadReply();
 
             List<Map<JvDbGlobalDefines.LineKeys, String>> listMainData = new ArrayList<>();
             for (int i = 0; i < chatsLoadReplyMsg.getChatsInfoMapCount(); i++) {
