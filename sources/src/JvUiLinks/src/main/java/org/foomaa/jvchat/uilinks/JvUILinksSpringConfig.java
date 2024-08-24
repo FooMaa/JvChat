@@ -8,10 +8,10 @@ import org.springframework.context.annotation.Profile;
 
 
 @Configuration
-public class JvUiLinksSpringConfig {
+public class JvUILinksSpringConfig {
     public enum NameBeans {
-        BeanErrorStartUiLink("beanErrorStartUiLink"),
-        BeanStartAuthenticationUiLink("beanStartAuthenticationUiLink");
+        BeanErrorStartUILink("beanErrorStartUILink"),
+        BeanStartAuthenticationUILink("beanStartAuthenticationUILink");
 
         private final String value;
 
@@ -24,21 +24,21 @@ public class JvUiLinksSpringConfig {
         }
     }
 
-    @Bean(name = "beanErrorStartUiLink")
+    @Bean(name = "beanErrorStartUILink")
     @Scope("prototype")
     @Lazy
     @Profile("users")
     @SuppressWarnings("unused")
-    public JvErrorStartUiLink beanErrorStartUiLinks(String msg) {
-        return new JvErrorStartUiLink(msg);
+    public JvErrorStartUILink beanErrorStartUILinks(String msg) {
+        return new JvErrorStartUILink(msg);
     }
 
-    @Bean(name = "beanStartAuthenticationUiLink")
+    @Bean(name = "beanStartAuthenticationUILink")
     @Scope("singleton")
     @Lazy
     @Profile("users")
     @SuppressWarnings("unused")
-    public JvStartAuthenticationUiLink beanStartAuthenticationUiLinks() {
-        return JvStartAuthenticationUiLink.getInstance();
+    public JvStartAuthenticationUILink beanStartAuthenticationUILinks() {
+        return JvStartAuthenticationUILink.getInstance();
     }
 }

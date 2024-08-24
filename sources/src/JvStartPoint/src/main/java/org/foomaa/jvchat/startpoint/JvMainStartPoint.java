@@ -2,7 +2,7 @@ package org.foomaa.jvchat.startpoint;
 
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.tools.JvGetterTools;
-import org.foomaa.jvchat.uilinks.JvGetterUiLinks;
+import org.foomaa.jvchat.uilinks.JvGetterUILinks;
 import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.settings.JvMainSettings;
 
@@ -34,7 +34,7 @@ public class JvMainStartPoint implements ApplicationRunner {
 //            NOTE(VAD): Установить профиль по спрингу
 //            JvGetterTools.getInstance().getBeanMainTools().setProfileSettingSpring();
         } catch (IOException | URISyntaxException exception) {
-            JvGetterUiLinks.getInstance().getBeanErrorStartUiLink(
+            JvGetterUILinks.getInstance().getBeanErrorStartUILink(
                     "Не удалось выставить верный профиль для приложения!");
         }
 
@@ -43,14 +43,14 @@ public class JvMainStartPoint implements ApplicationRunner {
         }
         if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.USERS) {
             if (args.getOptionValues("ipServer") == null) {
-                JvGetterUiLinks.getInstance().getBeanErrorStartUiLink(
+                JvGetterUILinks.getInstance().getBeanErrorStartUILink(
                         "Дайте в параметр IP-адрес сервера!");
             }
             String argsIp = args.getOptionValues("ipServer").get(0);
             if (JvGetterTools.getInstance().getBeanMainTools().validateInputIp(argsIp)) {
                 JvGetterSettings.getInstance().getBeanMainSettings().setIp(argsIp);
             } else {
-                JvGetterUiLinks.getInstance().getBeanErrorStartUiLink(
+                JvGetterUILinks.getInstance().getBeanErrorStartUILink(
                         "В параметре запуска не верный IP!");
             }
         }
@@ -62,12 +62,12 @@ public class JvMainStartPoint implements ApplicationRunner {
         try {
             JvGetterControls.getInstance().getBeanNetworkCtrl().startNetwork();
         } catch (IOException exception) {
-            JvGetterUiLinks.getInstance().getBeanErrorStartUiLink(
+            JvGetterUILinks.getInstance().getBeanErrorStartUILink(
                     "Не удалось подключиться к серверу.\nПроверьте наличие сети и попробуйте снова!");
         }
 
         if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.USERS) {
-            JvGetterUiLinks.getInstance().getBeanStartAuthenticationUiLink();
+            JvGetterUILinks.getInstance().getBeanStartAuthenticationUILink();
         }
     }
 }
