@@ -99,11 +99,10 @@ public class JvChatsCtrl {
             String sender = map.get(JvDbGlobalDefines.LineKeys.Sender);
             String receiver = map.get(JvDbGlobalDefines.LineKeys.Receiver);
 
-            if (!Objects.equals(sender, login) && !Objects.equals(receiver, login)) {
-                continue;
+            if (Objects.equals(sender, login) || Objects.equals(receiver, login)) {
+                lastMessage = map.get(JvDbGlobalDefines.LineKeys.Message);
+                break;
             }
-
-            lastMessage = map.get(JvDbGlobalDefines.LineKeys.Message);
         }
 
         return lastMessage;
@@ -122,11 +121,10 @@ public class JvChatsCtrl {
             String sender = map.get(JvDbGlobalDefines.LineKeys.Sender);
             String receiver = map.get(JvDbGlobalDefines.LineKeys.Receiver);
 
-            if (!Objects.equals(sender, login) && !Objects.equals(receiver, login)) {
-                continue;
+            if (Objects.equals(sender, login) || Objects.equals(receiver, login)) {
+                statusMessageString = map.get(JvDbGlobalDefines.LineKeys.Status);
+                break;
             }
-
-            statusMessageString = map.get(JvDbGlobalDefines.LineKeys.Status);
         }
 
         try {
@@ -150,11 +148,10 @@ public class JvChatsCtrl {
             String sender = map.get(JvDbGlobalDefines.LineKeys.Sender);
             String receiver = map.get(JvDbGlobalDefines.LineKeys.Receiver);
 
-            if (!Objects.equals(sender, login) && !Objects.equals(receiver, login)) {
-                continue;
+            if (Objects.equals(sender, login) || Objects.equals(receiver, login)) {
+                lastMessageSender = map.get(JvDbGlobalDefines.LineKeys.Sender);
+                break;
             }
-
-            lastMessageSender = map.get(JvDbGlobalDefines.LineKeys.Sender);
         }
 
         return lastMessageSender;
@@ -173,20 +170,19 @@ public class JvChatsCtrl {
             String sender = map.get(JvDbGlobalDefines.LineKeys.Sender);
             String receiver = map.get(JvDbGlobalDefines.LineKeys.Receiver);
 
-            if (!Objects.equals(sender, login) && !Objects.equals(receiver, login)) {
-                continue;
+            if (Objects.equals(sender, login) || Objects.equals(receiver, login)) {
+                String timestampFromMap = map.get(JvDbGlobalDefines.LineKeys.DateTime);
+                int normalizeCount = 3;
+                String timestampString = normalizeMillisecond(timestampFromMap, normalizeCount);
+
+                if (timestampString == null) {
+                    JvLog.write(JvLog.TypeLog.Error, "Не получилось нормально преобразовать дату и время к нужному формату");
+                    return null;
+                }
+
+                timestamp = LocalDateTime.parse(timestampString, formatter);
+                break;
             }
-
-            String timestampFromMap = map.get(JvDbGlobalDefines.LineKeys.DateTime);
-            int normalizeCount = 3;
-            String timestampString = normalizeMillisecond(timestampFromMap, normalizeCount);
-
-            if (timestampString == null) {
-                JvLog.write(JvLog.TypeLog.Error, "Не получилось нормально преобразовать дату и время к нужному формату");
-                return null;
-            }
-
-            timestamp = LocalDateTime.parse(timestampString, formatter);
         }
 
         return timestamp;
@@ -214,5 +210,17 @@ public class JvChatsCtrl {
         }
 
         return resultTimestamp;
+    }
+
+    public String getTimeHMLastMessage(String login) {
+        LocalDateTime timestamp = getTimestampLastMessage(login);
+
+        int hour = timestamp.getHour();
+        int min = timestamp.getMinute();
+        int day = timestamp.getDayOfMonth();
+        int month = timestamp.getMonthValue();
+        int year = timestamp.getYear();
+
+        return String.format("%d:%d %d.%d.%d", hour, min, day, month, year);
     }
 }

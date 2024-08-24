@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
+import org.foomaa.jvchat.ctrl.JvChatsCtrl;
 import org.springframework.context.annotation.*;
 
 
@@ -64,9 +65,9 @@ public class JvMainChatUiComponentsSpringConfig {
     public JvMainChatRectChat beanMainChatRectChat(String nickName,
                                                    String shortLastMessage,
                                                    String lastMessageSender,
-                                                   String status,
-                                                   String time) {
-        return new JvMainChatRectChat(nickName, shortLastMessage, lastMessageSender, status, time);
+                                                   String time,
+                                                   JvChatsCtrl.TypeStatusMessage status) {
+        return new JvMainChatRectChat(nickName, shortLastMessage, lastMessageSender, time, status);
     }
 
     @Bean(name = "beanMainChatSendButton")

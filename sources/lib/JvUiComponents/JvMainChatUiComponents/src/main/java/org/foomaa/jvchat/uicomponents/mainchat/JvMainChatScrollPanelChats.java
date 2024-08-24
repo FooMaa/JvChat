@@ -81,6 +81,29 @@ public class JvMainChatScrollPanelChats extends JPanel {
     private void loadChatsInBox(Box box) {
         setRequestChatsToServer();
 
+        JvChatsCtrl chatsCtrl = JvGetterControls.getInstance().getBeanChatsCtrl();
+        List<String> loginsList = getLoginsList();
+
+        for (String login : loginsList) {
+          box.add(JvGetterMainChatUiComponents.getInstance()
+                  .getBeanMainChatRectChat(
+                          login,
+                          chatsCtrl.getLastMessage(login),
+                          chatsCtrl.getLastMessageSender(login),
+                          chatsCtrl.getTimeHMLastMessage(login),
+                          chatsCtrl.getStatusLastMessage(login)));
+        }
+    }
+
+    private void setRequestChatsToServer() {
+        String login = JvGetterSettings.getInstance().getBeanUserInfoSettings().getLogin();
+
+        JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+                JvMessagesDefines.TypeMessage.ChatsLoadRequest, login);
+    }
+
+    private List<String> getLoginsList() {
+        List<String> loginsList = new ArrayList<>();
         while (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getChatsLoadReplyFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
@@ -92,20 +115,10 @@ public class JvMainChatScrollPanelChats extends JPanel {
             if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getChatsLoadReplyFlag() ==
                     JvMessagesDefinesCtrl.TypeFlags.TRUE) {
                 JvChatsCtrl chatsCtrl = JvGetterControls.getInstance().getBeanChatsCtrl();
-                List<String> loginsList = chatsCtrl.getLoginsChats();
-
-                for (String login : loginsList) {
-//                    box.add(JvGetterMainChatUiComponents.getInstance()
-//                            .getBeanMainChatRectChat(login, chatsCtrl.getLastMessage(login)));
-                }
+                loginsList = chatsCtrl.getLoginsChats();
             }
         }
-    }
 
-    private void setRequestChatsToServer() {
-        String login = JvGetterSettings.getInstance().getBeanUserInfoSettings().getLogin();
-
-        JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
-                JvMessagesDefines.TypeMessage.ChatsLoadRequest, login);
+        return loginsList;
     }
 }
