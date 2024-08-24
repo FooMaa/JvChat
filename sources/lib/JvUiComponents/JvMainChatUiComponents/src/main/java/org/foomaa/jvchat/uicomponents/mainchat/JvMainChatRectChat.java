@@ -43,7 +43,7 @@ public class JvMainChatRectChat extends JPanel {
         gbc.weighty = 1.0;
         gbc.gridy = gridyNum;
         gbc.insets = new Insets(1, 5, 1, 5);
-        gbc.fill = GridBagConstraints.BOTH;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.WEST;
         add(loginLabel, gbc);
 
@@ -53,9 +53,10 @@ public class JvMainChatRectChat extends JPanel {
 
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
+        gbc.gridx = GridBagConstraints.RELATIVE;
         gbc.gridy = gridyNum;
         gbc.insets = new Insets(1, 5, 1, 5);
-        gbc.fill = GridBagConstraints.BOTH;
+        gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.EAST;
         add(timeLabel, gbc);
         gridyNum++;
@@ -78,10 +79,10 @@ public class JvMainChatRectChat extends JPanel {
 
     private void setStatusFront() {
         switch (status) {
-            case Sent -> setBackground(new Color(150, 150, 30));
-            case Delivered -> setBackground(new Color(50, 150, 180));
-            case Read -> setBackground(new Color(50, 180, 50));
-            case Error -> setBackground(new Color(180, 50, 50));
+            case Sent -> setBackground(new Color(254,252,190));
+            case Delivered -> setBackground(new Color(181,252,250));
+            case Read -> setBackground(new Color(191,254,188));
+            case Error -> setBackground(new Color(254,196,200));
         }
     }
 
