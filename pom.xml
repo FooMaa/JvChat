@@ -21,7 +21,7 @@
         <module>sources/src/JvUILinks</module>
         <module>sources/src/JvDbWorker</module>
         <module>sources/lib/JvSettings</module>
-        <module>sources/lib/JvUiComponents</module>
+        <module>sources/lib/JvUIComponents</module>
         <module>sources/src/JvControls</module>
         <module>sources/lib/JvTools</module>
         <module>sources/lib/JvLogger</module>

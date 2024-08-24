@@ -7,7 +7,7 @@ dependencies {
     implementation(project(":JvMessages"))
     implementation(project(":JvTools"))
     implementation(project(":JvLogger"))
-    implementation(project(":JvMainChatUiComponents"))
+    implementation(project(":JvMainChatUIComponents"))
 }
 
 tasks.withType<ProcessResources> {
@@ -16,7 +16,7 @@ tasks.withType<ProcessResources> {
 
 sourceSets.getByName("main") {
     java.srcDir("src/main/java/")
-    resources.srcDir("../../../res/JvAuthUiComponents/icons/")
+    resources.srcDir("../../../res/JvAuthUIComponents/icons/")
 }
 sourceSets.getByName("test") {
     java.srcDir("src/test/java/")

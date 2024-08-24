@@ -22,11 +22,11 @@ include("JvGlobalDefines")
 project(":JvGlobalDefines").projectDir = File("sources/lib/JvGlobalDefines")
 include("JvMessages")
 project(":JvMessages").projectDir = File("sources/lib/JvMessages")
-include("JvUiComponents")
-project(":JvUiComponents").projectDir = File("sources/lib/JvUiComponents")
-include("JvAuthUiComponents")
-project(":JvAuthUiComponents").projectDir = File("sources/lib/JvUiComponents/JvAuthUiComponents")
-include("JvMainChatUiComponents")
-project(":JvMainChatUiComponents").projectDir = File("sources/lib/JvUiComponents/JvMainChatUiComponents")
+include("JvUIComponents")
+project(":JvUIComponents").projectDir = File("sources/lib/JvUIComponents")
+include("JvAuthUIComponents")
+project(":JvAuthUIComponents").projectDir = File("sources/lib/JvUIComponents/JvAuthUIComponents")
+include("JvMainChatUIComponents")
+project(":JvMainChatUIComponents").projectDir = File("sources/lib/JvUIComponents/JvMainChatUIComponents")
 
-// findProject("sources:lib:JvUiComponents:JvAuthUiComponents")?.name = "JvAuthUiComponents"
+// findProject("sources:lib:JvUIComponents:JvAuthUIComponents")?.name = "JvAuthUIComponents"
