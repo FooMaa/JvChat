@@ -9,10 +9,10 @@
     </parent>
 
     <groupId>org.foomaa.jvchat.uilinks</groupId>
-    <artifactId>JvUiLinks</artifactId>
+    <artifactId>JvUILinks</artifactId>
     <packaging>jar</packaging>
 
-    <name>JvUiLinks</name>
+    <name>JvUILinks</name>
 
     <dependencies>
         <dependency>

@@ -207,7 +207,7 @@
     <dependencies>
         <dependency>
             <groupId>org.foomaa.jvchat.uilinks</groupId>
-            <artifactId>JvUiLinks</artifactId>
+            <artifactId>JvUILinks</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 

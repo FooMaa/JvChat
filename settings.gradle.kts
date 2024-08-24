@@ -4,8 +4,8 @@ rootProject.name = "JvChat"
 
 include("JvStartPoint")
 project(":JvStartPoint").projectDir = File("sources/src/JvStartPoint")
-include("JvUiLinks")
-project(":JvUiLinks").projectDir = File("sources/src/JvUiLinks")
+include("JvUILinks")
+project(":JvUILinks").projectDir = File("sources/src/JvUILinks")
 include("JvDbWorker")
 project(":JvDbWorker").projectDir = File("sources/src/JvDbWorker")
 include("JvControls")
