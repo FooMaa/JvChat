@@ -215,12 +215,18 @@ public class JvChatsCtrl {
     public String getTimeHMLastMessage(String login) {
         LocalDateTime timestamp = getTimestampLastMessage(login);
 
-        int hour = timestamp.getHour();
-        int min = timestamp.getMinute();
-        int day = timestamp.getDayOfMonth();
-        int month = timestamp.getMonthValue();
-        int year = timestamp.getYear();
+        int hourInt = timestamp.getHour();
+        int minInt = timestamp.getMinute();
+        int dayInt = timestamp.getDayOfMonth();
+        int monthInt = timestamp.getMonthValue();
+        int yearInt = timestamp.getYear();
 
-        return String.format("%d:%d %d.%d.%d", hour, min, day, month, year);
+        String hour = hourInt < 10 ? "0" + hourInt : String.valueOf(hourInt);
+        String min = minInt < 10 ? "0" + minInt : String.valueOf(minInt);
+        String day = dayInt < 10 ? "0" + dayInt : String.valueOf(dayInt);
+        String month = monthInt < 10 ? "0" + monthInt : String.valueOf(monthInt);
+        String year = String.valueOf(yearInt);
+
+        return String.format("%s:%s %s.%s.%s", hour, min, day, month, year);
     }
 }
