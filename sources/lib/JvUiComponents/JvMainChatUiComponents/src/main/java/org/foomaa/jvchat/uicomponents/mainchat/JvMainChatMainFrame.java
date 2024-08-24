@@ -38,10 +38,17 @@ public class JvMainChatMainFrame extends JFrame {
     private void addGeneralSettingsToWidget() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("Главное окно");
+
         setSize(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.585,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.5625,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
+
+        Dimension minSiseDimension = new Dimension(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.4,
+                JvDisplaySettings.TypeOfDisplayBorder.WIDTH), JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.28,
+                JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
+        setMinimumSize(minSiseDimension);
+
         setResizable(true);
         setLocationRelativeTo(null);
         toFront();

@@ -30,30 +30,49 @@ public class JvMainChatRectChat extends JPanel {
     }
 
     private void makeChatBox() {
-        Box box = Box.createVerticalBox();
+        GridBagConstraints gbc = new GridBagConstraints();
+        setLayout(new GridBagLayout());
 
-        JLabel upperLabel = new JLabel(nickName);
-        upperLabel.setFont(new Font("Times", Font.BOLD,
+        JLabel loginLabel = new JLabel(nickName);
+        loginLabel.setFont(new Font("Times", Font.BOLD,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017)));
 
-        JLabel lowerLabel = new JLabel();
-        String currentLogin = JvGetterSettings.getInstance().getBeanUserInfoSettings().getLogin();
+        int gridyNum = 0;
 
-        if (Objects.equals(lastMessageSender, currentLogin)) {
-            lowerLabel.setText("Вы: " + shortLastMessage);
-        } else {
-            lowerLabel.setText(shortLastMessage);
-        }
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.gridy = gridyNum;
+        gbc.insets = new Insets(1, 5, 1, 5);
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.anchor = GridBagConstraints.WEST;
+        add(loginLabel, gbc);
 
-        lowerLabel.setFont(new Font("Times", Font.PLAIN,
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017)));
+        JLabel timeLabel = new JLabel(time);
+        timeLabel.setFont(new Font("Times", Font.PLAIN,
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
 
-        box.add(upperLabel);
-        box.add(lowerLabel);
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.gridy = gridyNum;
+        gbc.insets = new Insets(1, 5, 1, 5);
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.anchor = GridBagConstraints.EAST;
+        add(timeLabel, gbc);
+        gridyNum++;
+
+        JLabel lastMessageLabel = new JLabel(voidCreateLastMessageString());
+        lastMessageLabel.setFont(new Font("Times", Font.PLAIN,
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
+
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.gridy = gridyNum;
+        gbc.insets = new Insets(1, 5, 1, 5);
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.anchor = GridBagConstraints.WEST;
+        add(lastMessageLabel, gbc);
 
         setStatusFront();
-
-        add(box, BorderLayout.CENTER);
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
 
@@ -64,5 +83,15 @@ public class JvMainChatRectChat extends JPanel {
             case Read -> setBackground(new Color(50, 180, 50));
             case Error -> setBackground(new Color(180, 50, 50));
         }
+    }
+
+    private String voidCreateLastMessageString() {
+        String currentLogin = JvGetterSettings.getInstance().getBeanUserInfoSettings().getLogin();
+
+        if (Objects.equals(lastMessageSender, currentLogin)) {
+            return "Вы:" + shortLastMessage;
+        }
+
+        return shortLastMessage;
     }
 }
