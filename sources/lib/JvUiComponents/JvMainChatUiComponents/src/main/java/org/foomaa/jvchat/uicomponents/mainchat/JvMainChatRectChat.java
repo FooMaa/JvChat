@@ -5,6 +5,7 @@ import org.foomaa.jvchat.settings.JvGetterSettings;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 
 public class JvMainChatRectChat extends JPanel {
@@ -31,15 +32,24 @@ public class JvMainChatRectChat extends JPanel {
     private void makeChatBox() {
         Box box = Box.createVerticalBox();
 
-        JLabel contact = new JLabel(nickName);
-        contact.setFont(new Font("Times", Font.BOLD,
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017)));
-        JLabel shortMessage = new JLabel(shortLastMessage);
-        shortMessage.setFont(new Font("Times", Font.PLAIN,
+        JLabel upperLabel = new JLabel(nickName);
+        upperLabel.setFont(new Font("Times", Font.BOLD,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017)));
 
-        box.add(contact);
-        box.add(shortMessage);
+        JLabel lowerLabel = new JLabel();
+        String currentLogin = JvGetterSettings.getInstance().getBeanUserInfoSettings().getLogin();
+
+        if (Objects.equals(lastMessageSender, currentLogin)) {
+            lowerLabel.setText("Вы: " + shortLastMessage);
+        } else {
+            lowerLabel.setText(shortLastMessage);
+        }
+
+        lowerLabel.setFont(new Font("Times", Font.PLAIN,
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017)));
+
+        box.add(upperLabel);
+        box.add(lowerLabel);
 
         setStatusFront();
 
