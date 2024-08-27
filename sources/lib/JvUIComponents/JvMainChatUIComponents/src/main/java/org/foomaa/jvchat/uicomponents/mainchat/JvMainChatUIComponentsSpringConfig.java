@@ -13,7 +13,8 @@ public class JvMainChatUIComponentsSpringConfig {
         BeanRectMessageMainChatUI("beanRectMessageMainChatUI"),
         BeanRectChatMainChatUI("beanRectChatMainChatUI"),
         BeanSendButtonMainChatUI("beanSendButtonMainChatUI"),
-        BeanSendingTextAreaScrollMainChatUI("beanSendingTextAreaScrollMainChatUI");
+        BeanSendingTextAreaScrollMainChatUI("beanSendingTextAreaScrollMainChatUI"),
+        BeanPanelSendingMessageMainChatUI("beanPanelSendingMessageMainChatUI");
 
         private final String value;
 
@@ -75,7 +76,7 @@ public class JvMainChatUIComponentsSpringConfig {
     @Scope("prototype")
     @SuppressWarnings("unused")
     public JvSendButtonMainChatUI beanSendButtonMainChatUI(String text) {
-        return new JvSendButtonMainChatUI(text);
+        return JvSendButtonMainChatUI.getInstance(text);
     }
 
     @Bean(name = "beanSendingTextAreaScrollMainChatUI")
@@ -83,6 +84,14 @@ public class JvMainChatUIComponentsSpringConfig {
     @Scope("prototype")
     @SuppressWarnings("unused")
     public JvSendingTextAreaScrollMainChatUI beanSendingTextAreaScrollMainChatUI() {
-        return new JvSendingTextAreaScrollMainChatUI();
+        return JvSendingTextAreaScrollMainChatUI.getInstance();
+    }
+
+    @Bean(name = "beanPanelSendingMessageMainChatUI")
+    @Lazy
+    @Scope("prototype")
+    @SuppressWarnings("unused")
+    public JvPanelSendingMessageMainChatUI beanPanelSendingMessageMainChatUI() {
+        return JvPanelSendingMessageMainChatUI.getInstance();
     }
 }

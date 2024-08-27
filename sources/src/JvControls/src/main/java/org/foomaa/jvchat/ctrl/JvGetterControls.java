@@ -77,4 +77,9 @@ public class JvGetterControls {
         return context.getBean(JvControlsSpringConfig.NameBeans.BeanChatsCtrl.getValue(),
                 JvChatsCtrl.class);
     }
+
+    public JvMessagesDialogCtrl getBeanMessagesDialogCtrl() {
+        return context.getBean(JvControlsSpringConfig.NameBeans.BeanMessagesDialogCtrl.getValue(),
+                JvMessagesDialogCtrl.class);
+    }
 }

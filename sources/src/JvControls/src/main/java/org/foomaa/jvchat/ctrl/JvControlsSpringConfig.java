@@ -24,7 +24,8 @@ public class JvControlsSpringConfig {
         BeanNetworkCtrl("beanNetworkCtrl"),
         BeanServersSocketThreadCtrl("beanServersSocketThreadCtrl"),
         BeanUsersSocketThreadCtrl("beanUsersSocketThreadCtrl"),
-        BeanChatsCtrl("beanChatsCtrl");
+        BeanChatsCtrl("beanChatsCtrl"),
+        BeanMessagesDialogCtrl("beanMessagesDialogCtrl");
 
         private final String value;
 
@@ -100,5 +101,12 @@ public class JvControlsSpringConfig {
     @SuppressWarnings("unused")
     public JvChatsCtrl beanChatsCtrl() {
         return JvChatsCtrl.getInstance();
+    }
+
+    @Bean(name = "beanMessagesDialogCtrl")
+    @Scope("singleton")
+    @SuppressWarnings("unused")
+    public JvMessagesDialogCtrl beanMessagesDialogCtrl() {
+        return JvMessagesDialogCtrl.getInstance();
     }
 }

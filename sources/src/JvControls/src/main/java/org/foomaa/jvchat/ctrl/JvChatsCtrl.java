@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+
 public class JvChatsCtrl {
     private static JvChatsCtrl instance;
     private List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo;
@@ -55,9 +56,6 @@ public class JvChatsCtrl {
         if (chatsInfo != newChatsInfo) {
             chatsInfo = newChatsInfo;
         }
-        System.out.println("######################################");
-        System.out.println(chatsInfo);
-        System.out.println(getTimestampLastMessage("sgubr"));
     }
 
     public List<Map<JvDbGlobalDefines.LineKeys, String>> getChatsInfo() {

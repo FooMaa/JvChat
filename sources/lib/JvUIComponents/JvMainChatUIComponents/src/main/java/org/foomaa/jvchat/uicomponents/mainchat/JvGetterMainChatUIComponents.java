@@ -59,4 +59,9 @@ public class JvGetterMainChatUIComponents {
         return context.getBean(JvMainChatUIComponentsSpringConfig.NameBeans.BeanSendingTextAreaScrollMainChatUI.getValue(),
                 JvSendingTextAreaScrollMainChatUI.class);
     }
+
+    public JvPanelSendingMessageMainChatUI getBeanPanelSendingMessageMainChatUI() {
+        return context.getBean(JvMainChatUIComponentsSpringConfig.NameBeans.BeanPanelSendingMessageMainChatUI.getValue(),
+                JvPanelSendingMessageMainChatUI.class);
+    }
 }

@@ -11,17 +11,14 @@ public class JvMainFrameMainChatUI extends JFrame {
     private static JvMainFrameMainChatUI instance;
     private final JvScrollPanelChatsMainChatUI scrollPanelChats;
     private final JvScrollPanelMessagesMainChatUI scrollPanelMessages;
-    private final JvSendingTextAreaScrollMainChatUI sendingTextAreaScroll;
-    private final JButton sendButton;
+    private final JvPanelSendingMessageMainChatUI panelSendingMessage;
 
     private JvMainFrameMainChatUI() {
         super("MainChatWindow");
 
         scrollPanelChats = JvGetterMainChatUIComponents.getInstance().getBeanScrollPanelChatsMainChatUI();
         scrollPanelMessages = JvGetterMainChatUIComponents.getInstance().getBeanScrollPanelMessagesMainChatUI();
-
-        sendingTextAreaScroll = JvGetterMainChatUIComponents.getInstance().getBeanSendingTextAreaScrollMainChatUI();
-        sendButton = JvGetterMainChatUIComponents.getInstance().getBeanSendButtonMainChatUI("Отправить");
+        panelSendingMessage = JvGetterMainChatUIComponents.getInstance().getBeanPanelSendingMessageMainChatUI();
 
         addGeneralSettingsToWidget();
         makeFrameSetting();
@@ -83,7 +80,7 @@ public class JvMainFrameMainChatUI extends JFrame {
         gbc.gridheight = 1;
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = gridxNum;
-        panel.add(createPanelSending(), gbc);
+        panel.add(panelSendingMessage, gbc);
 
         getContentPane().add(panel);
     }
@@ -99,28 +96,5 @@ public class JvMainFrameMainChatUI extends JFrame {
         //dispose();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(false);
-    }
-
-    private JPanel createPanelSending() {
-        JPanel rowPanelSending = new JPanel();
-        rowPanelSending.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-
-        int gridxNum = 0;
-
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.gridx = gridxNum;
-        rowPanelSending.add(sendingTextAreaScroll, gbc);
-        gridxNum++;
-
-        gbc.weightx = 0.25;
-        gbc.weighty = 1.0;
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.gridx = gridxNum;
-        rowPanelSending.add(sendButton, gbc);
-
-        return rowPanelSending;
     }
 }
