@@ -1,31 +1,75 @@
-package org.foomaa.jvchat.uicomponents.auth;
+package org.foomaa.jvchat.uicomponents.mainchat;
 
+import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Objects;
 
 
-public class JvTextFieldAuthUI extends JPanel {
+public class JvFindTextFieldMainChatUI extends JPanel {
+    private static JvFindTextFieldMainChatUI instance;
+    private final BufferedImage image;
     private JTextField textField;
-
+    private JButton button;
     private final String defaultText;
     private final int borderSize = 1;
 
-    JvTextFieldAuthUI(String text) {
+    JvFindTextFieldMainChatUI(String text) {
+        image = setIcon("/magnifier.png");
+
         int gap = 5;
-        setLayout(new FlowLayout(FlowLayout.LEFT, gap, 0));
+        setLayout(new FlowLayout(FlowLayout.LEADING, gap, 0));
         defaultText = text;
 
-        settingTextPanel();
+        settingTextAndButtonPanel();
         addListenerToElem();
     }
 
+    public static JvFindTextFieldMainChatUI getInstance(String text) {
+        if (instance == null) {
+            instance = new JvFindTextFieldMainChatUI(text);
+        }
+        return instance;
+    }
+
+    private BufferedImage setIcon(String path) {
+        try {
+            return ImageIO.read(Objects.requireNonNull(getClass().getResource(path)));
+        } catch (IOException ex) {
+            JvLog.write(JvLog.TypeLog.Error, "Нет иконки глазка");
+        }
+        return null;
+    }
+
+    private void settingButtonImage() {
+        button = new JButton(new ImageIcon(image));
+        button.setContentAreaFilled(false);
+        button.setBorder(null);
+        button.setEnabled(false);
+        button.setFocusPainted(false);
+        button.setPreferredSize(new Dimension(image.getWidth(),
+                image.getHeight()));
+    }
+
     private void addListenerToElem() {
+        button.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("Find");
+            }
+        });
+
         textField.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -34,6 +78,7 @@ public class JvTextFieldAuthUI extends JPanel {
                 textField.setText("");
                 textField.requestFocusInWindow();
                 textField.removeMouseListener(this);
+                button.setEnabled(true);
             }
         });
 
@@ -48,6 +93,7 @@ public class JvTextFieldAuthUI extends JPanel {
                 focusFalse();
             }
         });
+
     }
 
     private void focusTrue() {
@@ -64,14 +110,15 @@ public class JvTextFieldAuthUI extends JPanel {
         }
     }
 
-    private void settingTextPanel() {
-        Dimension dim = new Dimension(JvGetterSettings.getInstance().getBeanDisplaySettings().
-                getResizeFromDisplay(0.23,
-                        JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
+    private void settingTextAndButtonPanel() {
+        Dimension dim = new Dimension(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.23,
+                JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.03,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
+        settingButtonImage();
         settingTextField(dim);
         add(textField);
+        add(button);
         setBackground(textField.getBackground());
         setBorder(null);
         setPreferredSize(dim);
@@ -79,7 +126,8 @@ public class JvTextFieldAuthUI extends JPanel {
 
     private void settingTextField(Dimension dim) {
         textField = new JTextField();
-        Dimension calcNewDim = new Dimension((int) dim.getWidth(),
+        Dimension calcNewDim = new Dimension((int) dim.getWidth() -
+                button.getPreferredSize().width,
                 (int) dim.getHeight() - borderSize * 2);
         textField.setPreferredSize(calcNewDim);
         textField.setBorder(null);

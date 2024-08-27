@@ -12,6 +12,7 @@ public class JvMainFrameMainChatUI extends JFrame {
     private final JvScrollPanelChatsMainChatUI scrollPanelChats;
     private final JvScrollPanelMessagesMainChatUI scrollPanelMessages;
     private final JvPanelSendingMessageMainChatUI panelSendingMessage;
+    private final JvFindTextFieldMainChatUI findTextField;
 
     private JvMainFrameMainChatUI() {
         super("MainChatWindow");
@@ -19,6 +20,7 @@ public class JvMainFrameMainChatUI extends JFrame {
         scrollPanelChats = JvGetterMainChatUIComponents.getInstance().getBeanScrollPanelChatsMainChatUI();
         scrollPanelMessages = JvGetterMainChatUIComponents.getInstance().getBeanScrollPanelMessagesMainChatUI();
         panelSendingMessage = JvGetterMainChatUIComponents.getInstance().getBeanPanelSendingMessageMainChatUI();
+        findTextField = JvGetterMainChatUIComponents.getInstance().getBeanFindTextFieldMainChatUI("Поиск по логину");
 
         addGeneralSettingsToWidget();
         makeFrameSetting();
@@ -61,8 +63,15 @@ public class JvMainFrameMainChatUI extends JFrame {
         int gridxNum = 0;
 
         gbc.weightx = 1.0;
+        gbc.weighty = 0;
+        gbc.gridheight = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = gridxNum;
+        panel.add(findTextField, gbc);
+
+        gbc.weightx = 1.0;
         gbc.weighty = 1.0;
-        gbc.gridheight = 2;
+        gbc.gridheight = 1;
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = gridxNum;
         panel.add(scrollPanelChats, gbc);

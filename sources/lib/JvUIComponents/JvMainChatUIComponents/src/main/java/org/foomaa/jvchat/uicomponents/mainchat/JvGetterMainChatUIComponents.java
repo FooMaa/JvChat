@@ -64,4 +64,10 @@ public class JvGetterMainChatUIComponents {
         return context.getBean(JvMainChatUIComponentsSpringConfig.NameBeans.BeanPanelSendingMessageMainChatUI.getValue(),
                 JvPanelSendingMessageMainChatUI.class);
     }
+
+    public JvFindTextFieldMainChatUI getBeanFindTextFieldMainChatUI(String text) {
+        return (JvFindTextFieldMainChatUI) context.getBean(
+                JvMainChatUIComponentsSpringConfig.NameBeans.BeanFindTextFieldMainChatUI.getValue(),
+                text);
+    }
 }
