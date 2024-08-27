@@ -1,4 +1,4 @@
-package org.foomaa.jvchat.tools;
+package org.foomaa.jvchat.cryptography;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

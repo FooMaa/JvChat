@@ -59,7 +59,7 @@
 
         <dependency>
             <groupId>org.foomaa.jvchat.cryptography</groupId>
-            <artifactId>JvCryprography</artifactId>
+            <artifactId>JvCryptography</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
