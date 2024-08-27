@@ -146,14 +146,19 @@ public class JvResetPasswordFrameAuthUI extends JFrame {
     private void addGeneralSettingsToWidget() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("ВОССТАНОВЛЕНИЕ ПАРОЛЯ");
+
         setSize(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.3,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.25,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
+
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         toFront();
+
+        getRootPane().setDefaultButton(bSet);
+
         setVisible(true);
         requestFocus();
     }

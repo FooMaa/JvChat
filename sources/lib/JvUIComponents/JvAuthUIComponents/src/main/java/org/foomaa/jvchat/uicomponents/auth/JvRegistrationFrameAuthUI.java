@@ -202,14 +202,19 @@ public class JvRegistrationFrameAuthUI extends JFrame {
     private void addGeneralSettingsToWidget() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("РЕГИСТРАЦИЯ");
+
         setSize(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.3,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.30,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
+
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         toFront();
+
+        getRootPane().setDefaultButton(bRegister);
+
         setVisible(true);
         requestFocus();
     }

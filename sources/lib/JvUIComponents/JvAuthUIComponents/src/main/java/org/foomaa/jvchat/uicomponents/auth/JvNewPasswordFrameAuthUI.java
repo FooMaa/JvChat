@@ -23,7 +23,7 @@ public class JvNewPasswordFrameAuthUI extends JFrame {
     private final JvLabelAuthUI tErrorHelpInfo;
     private final JvPasswordFieldAuthUI tPassword;
     private final JvPasswordFieldAuthUI tPasswordConfirm;
-    private final JvButtonAuthUI bRegister;
+    private final JvButtonAuthUI bAccept;
     private String email;
 
 
@@ -37,7 +37,7 @@ public class JvNewPasswordFrameAuthUI extends JFrame {
         tErrorHelpInfo.settingToError();
         tPassword = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Пароль");
         tPasswordConfirm = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Подтвердите пароль");
-        bRegister = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("ПРИНЯТЬ");
+        bAccept = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("ПРИНЯТЬ");
 
         makeFrameSetting();
         addListenerToElements();
@@ -110,13 +110,13 @@ public class JvNewPasswordFrameAuthUI extends JFrame {
         gbc.ipady = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.01,
                 JvDisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
-        panel.add(bRegister, gbc);
+        panel.add(bAccept, gbc);
 
         getContentPane().add(panel);
     }
 
     private void addListenerToElements() {
-        bRegister.addActionListener(event -> {
+        bAccept.addActionListener(event -> {
             if (checkFields()) {
                 JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(JvDefinesMessages.TypeMessage.ChangePasswordRequest,
                         email, tPassword.getInputText());
@@ -178,14 +178,19 @@ public class JvNewPasswordFrameAuthUI extends JFrame {
     private void addGeneralSettingsToWidget() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("ВОССТАНОВЛЕНИЕ ПАРОЛЯ");
+
         setSize(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.3,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.275,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
+
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         toFront();
+
+        getRootPane().setDefaultButton(bAccept);
+
         setVisible(true);
         requestFocus();
     }
