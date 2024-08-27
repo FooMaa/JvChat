@@ -198,13 +198,18 @@ public class JvEntryFrameAuthUI extends JFrame {
     private void addGeneralSettingsToWidget() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("ВХОД");
+
         setSize(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.3,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.3,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
+
         setResizable(false);
         setLocationRelativeTo(null);
         toFront();
+
+        getRootPane().setDefaultButton(bEnter);
+
         setVisible(true);
         requestFocus();
     }
