@@ -3,6 +3,7 @@ package org.foomaa.jvchat.uicomponents.mainchat;
 import javax.swing.*;
 import java.awt.*;
 
+
 public class JvPanelSendingMessageMainChatUI extends JPanel {
     private static JvPanelSendingMessageMainChatUI instance;
     private final JvSendingTextAreaScrollMainChatUI sendingTextAreaScroll;
