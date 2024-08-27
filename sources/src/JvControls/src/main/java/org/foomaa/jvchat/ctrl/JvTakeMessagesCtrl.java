@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.ctrl;
 
+import org.foomaa.jvchat.cryptography.JvGetterCryptography;
 import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
 import org.foomaa.jvchat.messages.JvGetterMessages;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
@@ -47,10 +48,16 @@ public class JvTakeMessagesCtrl {
     }
 
     private void workEntryRequestMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
+        String login = (String) map.get(JvDefinesMessages.TypeData.Login);
+        String password = (String) map.get(JvDefinesMessages.TypeData.Password);
+
+        String hashPassword = JvGetterCryptography.getInstance()
+                .getBeanHashCryptography().getHash(password);
+
         boolean requestDB = JvGetterControls.getInstance()
                 .getBeanDbCtrl().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.UserPassword,
-                        (String) map.get(JvDefinesMessages.TypeData.Login),
-                        (String) map.get(JvDefinesMessages.TypeData.Password));
+                        login,
+                        hashPassword);
         JvGetterControls.getInstance().getBeanSendMessagesCtrl()
                 .sendMessage(JvDefinesMessages.TypeMessage.EntryReply, requestDB);
     }
@@ -110,11 +117,18 @@ public class JvTakeMessagesCtrl {
                         (String) map.get(JvDefinesMessages.TypeData.Email),
                         (String) map.get(JvDefinesMessages.TypeData.VerifyCode));
         if (checkCode) {
+            String login = (String) map.get(JvDefinesMessages.TypeData.Login);
+            String email = (String) map.get(JvDefinesMessages.TypeData.Email);
+            String password = (String) map.get(JvDefinesMessages.TypeData.Password);
+
+            String hashPassword = JvGetterCryptography.getInstance()
+                    .getBeanHashCryptography().getHash(password);
+
             boolean requestDB = JvGetterControls.getInstance()
                     .getBeanDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.RegisterForm,
-                            (String) map.get(JvDefinesMessages.TypeData.Login),
-                            (String) map.get(JvDefinesMessages.TypeData.Email),
-                            (String) map.get(JvDefinesMessages.TypeData.Password));
+                            login,
+                            email,
+                            hashPassword);
             JvDefinesMessages.TypeErrorRegistration typeError = JvDefinesMessages.TypeErrorRegistration.NoError;
             if (!requestDB) {
                 boolean checkLogin = JvGetterControls.getInstance()
@@ -197,10 +211,16 @@ public class JvTakeMessagesCtrl {
     }
 
     private void workChangePasswordRequestMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
+        String email = (String) map.get(JvDefinesMessages.TypeData.Email);
+        String password = (String) map.get(JvDefinesMessages.TypeData.Password);
+
+        String hashPassword = JvGetterCryptography.getInstance()
+                .getBeanHashCryptography().getHash(password);
+
         boolean requestDB = JvGetterControls.getInstance()
                 .getBeanDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.ChangePassword,
-                        (String) map.get(JvDefinesMessages.TypeData.Email),
-                        (String) map.get(JvDefinesMessages.TypeData.Password));
+                        email,
+                        hashPassword);
         JvGetterControls.getInstance().getBeanSendMessagesCtrl()
                 .sendMessage(JvDefinesMessages.TypeMessage.ChangePasswordReply, requestDB);
     }

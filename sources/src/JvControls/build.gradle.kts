@@ -9,4 +9,5 @@ dependencies {
     implementation(project(":JvLogger"))
     implementation(project(":JvGlobalDefines"))
     implementation(project(":JvTools"))
+    implementation(project(":JvCryptography"))
 }

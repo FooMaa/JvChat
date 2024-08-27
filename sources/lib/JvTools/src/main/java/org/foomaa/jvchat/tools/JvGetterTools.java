@@ -20,10 +20,12 @@ public class JvGetterTools {
     }
 
     public JvMainTools getBeanMainTools() {
-        return context.getBean(JvToolsSpringConfig.NameBeans.BeanMainTools.getValue(), JvMainTools.class);
+        return context.getBean(JvToolsSpringConfig.NameBeans.BeanMainTools.getValue(),
+                JvMainTools.class);
     }
 
     public JvStructTools getBeanStructTools() {
-        return context.getBean(JvToolsSpringConfig.NameBeans.BeanStructTools.getValue(), JvStructTools.class);
+        return context.getBean(JvToolsSpringConfig.NameBeans.BeanStructTools.getValue(),
+                JvStructTools.class);
     }
 }

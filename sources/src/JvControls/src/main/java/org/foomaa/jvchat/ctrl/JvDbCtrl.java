@@ -116,10 +116,10 @@ public class JvDbCtrl {
                 if (parameters.length == 3) {
                     String login = parameters[0];
                     String email = parameters[1];
-                    String password = parameters[2];
+                    String hashPassword = parameters[2];
                     if (!checkQueryToDB(TypeExecutionCheck.Login, login) &&
                             !checkQueryToDB(TypeExecutionCheck.Email, email)) {
-                        ResultSet rs = db.makeExecution(dbRequests.insertToRegForm(login, email, password));
+                        ResultSet rs = db.makeExecution(dbRequests.insertToRegForm(login, email, hashPassword));
                         db.closeResultSet(rs);
                         return true;
                     } else {
@@ -131,8 +131,8 @@ public class JvDbCtrl {
             case ChangePassword -> {
                 if (parameters.length == 2) {
                     String email = parameters[0];
-                    String password = parameters[1];
-                    ResultSet rs = db.makeExecution(dbRequests.insertChangePassword(email, password));
+                    String hashPassword = parameters[1];
+                    ResultSet rs = db.makeExecution(dbRequests.insertChangePassword(email, hashPassword));
                     db.closeResultSet(rs);
                     return true;
                 }
@@ -171,8 +171,8 @@ public class JvDbCtrl {
             case UserPassword -> {
                 if (parameters.length == 2) {
                     String login = parameters[0];
-                    String password = parameters[1];
-                    ResultSet rs = db.makeExecution(dbRequests.checkUserPassword(login, password));
+                    String hashPassword = parameters[1];
+                    ResultSet rs = db.makeExecution(dbRequests.checkUserPassword(login, hashPassword));
                     try {
                         boolean result = rs.next();
                         db.closeResultSet(rs);
