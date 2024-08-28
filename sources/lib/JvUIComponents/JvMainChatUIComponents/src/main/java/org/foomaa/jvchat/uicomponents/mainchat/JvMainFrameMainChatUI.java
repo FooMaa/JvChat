@@ -64,14 +64,14 @@ public class JvMainFrameMainChatUI extends JFrame {
 
         gbc.weightx = 1.0;
         gbc.weighty = 0;
-        gbc.gridheight = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.NORTH;
         gbc.gridx = gridxNum;
         panel.add(findTextField, gbc);
 
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
-        gbc.gridheight = 1;
+        gbc.gridheight = 5;
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = gridxNum;
         panel.add(scrollPanelChats, gbc);
@@ -79,14 +79,14 @@ public class JvMainFrameMainChatUI extends JFrame {
 
         gbc.weightx = 1.25;
         gbc.weighty = 2.5;
-        gbc.gridheight = 1;
+        gbc.gridheight = 4;
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = gridxNum;
         panel.add(scrollPanelMessages, gbc);
 
         gbc.weightx = 1.25;
         gbc.weighty = 0.25;
-        gbc.gridheight = 1;
+        gbc.gridheight = 2;
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = gridxNum;
         panel.add(panelSendingMessage, gbc);
