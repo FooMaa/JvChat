@@ -17,8 +17,6 @@ public class JvTextFieldAuthUI extends JPanel {
     private final int borderSize = 1;
 
     JvTextFieldAuthUI(String text) {
-        int gap = 5;
-        setLayout(new FlowLayout(FlowLayout.LEFT, gap, 0));
         defaultText = text;
 
         settingTextPanel();
@@ -71,10 +69,24 @@ public class JvTextFieldAuthUI extends JPanel {
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.03,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
         settingTextField(dim);
-        add(textField);
+        addElements();
         setBackground(textField.getBackground());
-        setBorder(null);
+        setNormalBorder();
         setPreferredSize(dim);
+    }
+
+    private void addElements() {
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        int gridxNum = 0;
+
+        gbc.weightx = 1.0;
+        gbc.weighty = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(0, 5, 0, 5);
+        gbc.gridx = gridxNum;
+        add(textField, gbc);
     }
 
     private void settingTextField(Dimension dim) {

@@ -8,12 +8,9 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.Objects;
 
 
@@ -27,9 +24,6 @@ public class JvFindTextFieldMainChatUI extends JPanel {
 
     JvFindTextFieldMainChatUI(String text) {
         image = setIcon("/magnifier.png");
-
-        int gap = 5;
-        setLayout(new FlowLayout(FlowLayout.LEADING, gap, 0));
         defaultText = text;
 
         settingTextAndButtonPanel();
@@ -94,6 +88,12 @@ public class JvFindTextFieldMainChatUI extends JPanel {
             }
         });
 
+        textField.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                System.out.println("Size");
+            }
+        });
     }
 
     private void focusTrue() {
@@ -117,11 +117,30 @@ public class JvFindTextFieldMainChatUI extends JPanel {
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
         settingButtonImage();
         settingTextField(dim);
-        add(textField);
-        add(button);
+        addElements();
+        setNormalBorder();
         setBackground(textField.getBackground());
-        setBorder(null);
         setPreferredSize(dim);
+    }
+
+    private void addElements() {
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        int gridxNum = 0;
+
+        gbc.weightx = 1.0;
+        gbc.weighty = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = gridxNum;
+        add(textField, gbc);
+        gridxNum++;
+
+        gbc.weightx = 0;
+        gbc.weighty = 0;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridx = gridxNum;
+        add(button, gbc);
     }
 
     private void settingTextField(Dimension dim) {
@@ -150,7 +169,7 @@ public class JvFindTextFieldMainChatUI extends JPanel {
     }
 
     public void setNormalBorder() {
-        setBorder(null);
+        setBorder(BorderFactory.createMatteBorder(borderSize,borderSize,borderSize,7, Color.GRAY));
     }
 
     public void setUnfocusFieldOnClose(boolean needSaveText) {

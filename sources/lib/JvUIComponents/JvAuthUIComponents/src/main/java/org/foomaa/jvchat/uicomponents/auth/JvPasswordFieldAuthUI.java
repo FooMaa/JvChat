@@ -30,9 +30,6 @@ public class JvPasswordFieldAuthUI extends JPanel {
     JvPasswordFieldAuthUI(String text) {
         visibleImage = setIcon("/eye.png");
         invisibleImage = setIcon("/eye-close.png");
-
-        int gap = 5;
-        setLayout(new FlowLayout(FlowLayout.LEADING, gap, 0));
         defaultText = text;
 
         settingPassAndButtonPanel();
@@ -138,11 +135,32 @@ public class JvPasswordFieldAuthUI extends JPanel {
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
         settingButtonImage();
         settingPassField(dim);
-        add(passwordField);
-        add(button);
+        addElements();
         setBackground(passwordField.getBackground());
-        setBorder(null);
+        setNormalBorder();
         setPreferredSize(dim);
+    }
+
+    private void addElements() {
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        int gridxNum = 0;
+
+        gbc.weightx = 1.0;
+        gbc.weighty = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(0, 5, 0, 0);
+        gbc.gridx = gridxNum;
+        add(passwordField, gbc);
+        gridxNum++;
+
+        gbc.weightx = 0;
+        gbc.weighty = 0;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.insets = new Insets(0, 0, 0, 5);
+        gbc.gridx = gridxNum;
+        add(button, gbc);
     }
 
     private void settingPassField(Dimension dim) {

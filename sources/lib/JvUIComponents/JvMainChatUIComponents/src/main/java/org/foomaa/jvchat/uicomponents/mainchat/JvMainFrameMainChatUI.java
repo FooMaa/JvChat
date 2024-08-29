@@ -43,7 +43,7 @@ public class JvMainFrameMainChatUI extends JFrame {
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.5625,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
 
-        Dimension minSiseDimension = new Dimension(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.4,
+        Dimension minSiseDimension = new Dimension(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.43,
                 JvDisplaySettings.TypeOfDisplayBorder.WIDTH), JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.28,
                 JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
         setMinimumSize(minSiseDimension);

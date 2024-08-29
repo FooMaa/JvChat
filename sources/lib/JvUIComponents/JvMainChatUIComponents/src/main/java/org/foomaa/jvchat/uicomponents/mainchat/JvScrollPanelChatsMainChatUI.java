@@ -12,6 +12,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -19,7 +21,6 @@ import java.util.concurrent.TimeUnit;
 
 public class JvScrollPanelChatsMainChatUI extends JPanel {
     private static JvScrollPanelChatsMainChatUI instance;
-    private ArrayList<Integer> idChats;
 
     private JvScrollPanelChatsMainChatUI() {
         makePanel();
@@ -85,13 +86,15 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
         List<String> loginsList = getLoginsList();
 
         for (String login : loginsList) {
-          box.add(JvGetterMainChatUIComponents.getInstance()
-                  .getBeanRectChatMainChatUI(
-                          login,
-                          chatsCtrl.getLastMessage(login),
-                          chatsCtrl.getLastMessageSender(login),
-                          chatsCtrl.getTimeHMLastMessage(login),
-                          chatsCtrl.getStatusLastMessage(login)));
+            JvRectChatMainChatUI component = JvGetterMainChatUIComponents.getInstance()
+                    .getBeanRectChatMainChatUI(
+                            login,
+                            chatsCtrl.getLastMessage(login),
+                            chatsCtrl.getLastMessageSender(login),
+                            chatsCtrl.getTimeHMLastMessage(login),
+                            chatsCtrl.getStatusLastMessage(login));
+            box.add(component);
+            addListenerToElements(component);
         }
     }
 
@@ -120,5 +123,14 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
         }
 
         return loginsList;
+    }
+
+    public void addListenerToElements(Component component) {
+        component.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("###");
+            }
+        });;
     }
 }

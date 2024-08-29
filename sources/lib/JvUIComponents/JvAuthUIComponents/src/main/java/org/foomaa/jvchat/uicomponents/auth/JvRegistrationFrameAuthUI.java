@@ -205,7 +205,7 @@ public class JvRegistrationFrameAuthUI extends JFrame {
 
         setSize(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.3,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.30,
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.31,
                         JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
 
         setResizable(false);
