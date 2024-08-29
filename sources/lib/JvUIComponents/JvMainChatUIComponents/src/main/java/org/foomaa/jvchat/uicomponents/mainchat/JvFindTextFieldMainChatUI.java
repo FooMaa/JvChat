@@ -6,7 +6,6 @@ import org.foomaa.jvchat.settings.JvGetterSettings;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
