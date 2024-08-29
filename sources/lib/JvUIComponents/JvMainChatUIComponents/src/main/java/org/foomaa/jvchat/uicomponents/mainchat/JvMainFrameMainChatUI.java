@@ -105,5 +105,6 @@ public class JvMainFrameMainChatUI extends JFrame {
         //dispose();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(false);
+        findTextField.setUnfocusFieldOnClose(false);
     }
 }

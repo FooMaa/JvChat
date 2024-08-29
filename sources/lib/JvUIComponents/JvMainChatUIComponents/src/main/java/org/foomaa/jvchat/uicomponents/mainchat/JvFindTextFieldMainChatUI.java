@@ -164,10 +164,6 @@ public class JvFindTextFieldMainChatUI extends JPanel {
         return "";
     }
 
-    public void setErrorBorder() {
-        setBorder(new LineBorder(Color.red, borderSize));
-    }
-
     public void setNormalBorder() {
         setBorder(BorderFactory.createMatteBorder(borderSize,borderSize,borderSize,7, Color.GRAY));
     }
