@@ -5,8 +5,10 @@ import org.foomaa.jvchat.messages.JvGetterMessages;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.tools.JvGetterTools;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class JvSendMessagesCtrl {
@@ -147,6 +149,27 @@ public class JvSendMessagesCtrl {
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
+            case NecessityServerRequest -> {
+                if (parameters.length == 1) {
+                    Object typeNecessityObj = parameters[0];
+                    int valueTypeNecessity = Integer.parseInt((String) typeNecessityObj);
+                    JvDefinesMessages.TypeNecessityServer typeNecessity =
+                            Objects.requireNonNull(JvDefinesMessages.TypeNecessityServer.getTypeNecessityServer(valueTypeNecessity));
+                    byte[] bodyMessage = createBodyNecessityServerRequestMessage(type, typeNecessity);
+                    sendReadyMessageNetwork(bodyMessage);
+                }
+            }
+            case NecessityServerReply -> {
+                if (parameters.length == 2) {
+                    Object typeNecessityObj = parameters[0];
+                    int valueTypeNecessity = Integer.parseInt((String) typeNecessityObj);
+                    JvDefinesMessages.TypeNecessityServer typeNecessity =
+                            Objects.requireNonNull(JvDefinesMessages.TypeNecessityServer.getTypeNecessityServer(valueTypeNecessity));
+                    Object parameter = parameters[1];
+                    byte[] bodyMessage = createBodyNecessityServerReplyMessage(type, typeNecessity, parameter);
+                    sendReadyMessageNetwork(bodyMessage);
+                }
+            }
             case ChatsLoadRequest -> {
                 if (parameters.length == 1) {
                     Object sender = parameters[0];
@@ -222,6 +245,14 @@ public class JvSendMessagesCtrl {
 
     private byte[] createBodyChangePasswordReplyMessage(JvDefinesMessages.TypeMessage type, Boolean reply) {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
+    }
+
+    private byte[] createBodyNecessityServerRequestMessage(JvDefinesMessages.TypeMessage type, JvDefinesMessages.TypeNecessityServer typeNecessity) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, typeNecessity);
+    }
+
+    private byte[] createBodyNecessityServerReplyMessage(JvDefinesMessages.TypeMessage type, JvDefinesMessages.TypeNecessityServer typeNecessity, Object parameter) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, typeNecessity, parameter);
     }
 
     private byte[] createBodyChatsLoadRequestMessage(JvDefinesMessages.TypeMessage type, String sender) {

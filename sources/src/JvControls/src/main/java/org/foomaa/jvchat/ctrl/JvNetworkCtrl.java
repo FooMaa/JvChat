@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.ctrl;
 
+import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.settings.JvMainSettings;
 import org.foomaa.jvchat.network.JvServersSocket;
@@ -90,7 +91,8 @@ public class JvNetworkCtrl {
     }
 
     private void requestConnectionUserLogin() {
-
+        JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(JvDefinesMessages.TypeMessage.NecessityServerRequest,
+                JvDefinesMessages.TypeNecessityServer.LoginUser);
     }
 
     public List<String> getOnlineUsers() {

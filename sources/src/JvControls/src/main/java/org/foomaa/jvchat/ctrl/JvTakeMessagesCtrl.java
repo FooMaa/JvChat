@@ -4,6 +4,7 @@ import org.foomaa.jvchat.cryptography.JvGetterCryptography;
 import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
 import org.foomaa.jvchat.messages.JvGetterMessages;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
+import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.tools.JvGetterTools;
 
 import java.util.HashMap;
@@ -38,6 +39,8 @@ public class JvTakeMessagesCtrl {
             case VerifyFamousEmailReply -> workVerifyFamousEmailReplyMessage(getDeserializeMapData(type, data));
             case ChangePasswordRequest -> workChangePasswordRequestMessage(getDeserializeMapData(type, data));
             case ChangePasswordReply -> workChangePasswordReplyMessage(getDeserializeMapData(type, data));
+            case NecessityServerRequest -> workNecessityServerRequestMessage(getDeserializeMapData(type, data));
+            case NecessityServerReply -> workNecessityServerReplyMessage(getDeserializeMapData(type, data));
             case ChatsLoadRequest -> workChatsLoadRequestMessage(getDeserializeMapData(type, data));
             case ChatsLoadReply -> workChatsLoadReplyMessage(getDeserializeMapData(type, data));
         }
@@ -232,6 +235,27 @@ public class JvTakeMessagesCtrl {
         } else {
             JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
                     .setChangePasswordRequest(JvMessagesDefinesCtrl.TypeFlags.FALSE);
+        }
+    }
+
+    private void workNecessityServerRequestMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
+        JvDefinesMessages.TypeNecessityServer typeNecessity = (JvDefinesMessages.TypeNecessityServer) map.get(JvDefinesMessages.TypeData.TypeNecessity);
+        switch (typeNecessity) {
+            case LoginUser -> {
+                String login = JvGetterSettings.getInstance().getBeanUserInfoSettings().getLogin();
+                JvGetterControls.getInstance().getBeanSendMessagesCtrl()
+                        .sendMessage(JvDefinesMessages.TypeMessage.ChangePasswordReply, typeNecessity, login);
+            }
+        }
+    }
+
+    private void workNecessityServerReplyMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
+        JvDefinesMessages.TypeNecessityServer typeNecessity = (JvDefinesMessages.TypeNecessityServer) map.get(JvDefinesMessages.TypeData.TypeNecessity);
+        switch (typeNecessity) {
+            case LoginUser -> {
+                String login = (String) map.get(JvDefinesMessages.TypeData.Login);
+                JvGetterControls.getInstance().getBeanNetworkCtrl().addOnlineUser(login);
+            }
         }
     }
 
