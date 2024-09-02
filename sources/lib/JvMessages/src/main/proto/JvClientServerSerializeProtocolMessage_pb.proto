@@ -19,10 +19,13 @@ message General {
         VerifyFamousEmailReply verifyFamousEmailReply = 11;
         ChangePasswordRequest changePasswordRequest = 12;
         ChangePasswordReply changePasswordReply = 13;
+        NecessityServerRequest necessityServerRequest = 14;
+        NecessityServerReply necessityServerReply = 15;
+
 
         // Main Chat
-        ChatsLoadRequest chatsLoadRequest = 14;
-        ChatsLoadReply chatsLoadReply = 15;
+        ChatsLoadRequest chatsLoadRequest = 16;
+        ChatsLoadReply chatsLoadReply = 17;
     }
 }
 
@@ -119,4 +122,21 @@ message ChatsLoadReply {
 
 message ChatsInfoMap {
     map<string, string> mapInfo = 1;
+}
+
+message NecessityServerRequest {
+    enum TypeNecessityServer {
+        LoginUser = 0;
+    }
+    TypeNecessityServer typeNecessityServer = 1;
+}
+
+message NecessityServerReply {
+    enum TypeNecessityServer {
+            LoginUser = 0;
+    }
+    TypeNecessityServer typeNecessityServer = 1;
+    oneof reply {
+        string login = 2;
+    }
 }

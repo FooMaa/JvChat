@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.LinkedList;
+import java.util.List;
 
 
 public class JvNetworkCtrl {
@@ -22,7 +23,8 @@ public class JvNetworkCtrl {
 
     private JvUsersSocketThreadCtrl usersThread;
     private JvServersSocketThreadCtrl serversThread;
-    public LinkedList<JvServersSocketThreadCtrl> connectionList = new LinkedList<>();
+    private LinkedList<JvServersSocketThreadCtrl> connectionList = new LinkedList<>();
+    private List<String> onlineUsers;
 
     private JvNetworkCtrl() {}
 
@@ -34,6 +36,7 @@ public class JvNetworkCtrl {
                 JvServersSocketThreadCtrl thread = JvGetterControls.getInstance()
                         .getBeanServersSocketThreadCtrl(fromSocketServer);
                 connectionList.add(thread);
+                requestConnectionUserLogin();
             }
         } else if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.USERS) {
             Socket fromSocketUser = usersSocket.getCurrentSocket();
@@ -83,6 +86,20 @@ public class JvNetworkCtrl {
             serversThread.send(message);
         } else if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.USERS) {
             usersThread.send(message);
+        }
+    }
+
+    private void requestConnectionUserLogin() {
+
+    }
+
+    public List<String> getOnlineUsers() {
+        return onlineUsers;
+    }
+
+    public void addOnlineUser(String userLogin) {
+        if (!onlineUsers.contains(userLogin)) {
+           onlineUsers.add(userLogin);
         }
     }
 }

@@ -6,6 +6,7 @@ import org.foomaa.jvchat.tools.JvGetterTools;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class JvSerializatorDataMessages {
@@ -129,6 +130,29 @@ public class JvSerializatorDataMessages {
                 if (parameters.length == 1) {
                     Object reply = parameters[0];
                     return createChangePasswordReplyMessage(type, (Boolean) reply);
+                } else {
+                    return new byte[0];
+                }
+            }
+            case NecessityServerRequest -> {
+                if (parameters.length == 1) {
+                    Object typeNecessityObj = parameters[0];
+                    int valueTypeNecessity = Integer.parseInt((String) typeNecessityObj);
+                    JvDefinesMessages.TypeNecessityServer typeNecessity =
+                            Objects.requireNonNull(JvDefinesMessages.TypeNecessityServer.getTypeNecessityServer(valueTypeNecessity));
+                    return createNecessityServerRequestMessage(type, typeNecessity);
+                } else {
+                    return new byte[0];
+                }
+            }
+            case NecessityServerReply -> {
+                if (parameters.length == 2) {
+                    Object typeNecessityObj = parameters[0];
+                    int valueTypeNecessity = Integer.parseInt((String) typeNecessityObj);
+                    JvDefinesMessages.TypeNecessityServer typeNecessity =
+                            Objects.requireNonNull(JvDefinesMessages.TypeNecessityServer.getTypeNecessityServer(valueTypeNecessity));
+                    Object parameter = parameters[1];
+                    return createNecessityServerReplyMessage(type, typeNecessity, parameter);
                 } else {
                     return new byte[0];
                 }
@@ -319,6 +343,43 @@ public class JvSerializatorDataMessages {
                 .setType(type.getValue())
                 .setChangePasswordReply(msgChangePasswordReply)
                 .build();
+        return resMsg.toByteArray();
+    }
+
+    private byte[] createNecessityServerRequestMessage(JvDefinesMessages.TypeMessage type, JvDefinesMessages.TypeNecessityServer typeNecessity) {
+        JvClientServerSerializeProtocolMessage_pb.NecessityServerRequest msgChatsLoadNecessityServerRequest =
+                JvClientServerSerializeProtocolMessage_pb.NecessityServerRequest.newBuilder()
+                        .setTypeNecessityServer(JvClientServerSerializeProtocolMessage_pb.NecessityServerRequest.TypeNecessityServer.forNumber(typeNecessity.getValue()))
+                        .build();
+        JvClientServerSerializeProtocolMessage_pb.General resMsg =
+                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
+                        .setType(type.getValue())
+                        .setNecessityServerRequest(msgChatsLoadNecessityServerRequest)
+                        .build();
+        return resMsg.toByteArray();
+    }
+
+    private byte[] createNecessityServerReplyMessage(JvDefinesMessages.TypeMessage type, JvDefinesMessages.TypeNecessityServer typeNecessity, Object... parameters) {
+        JvClientServerSerializeProtocolMessage_pb.NecessityServerReply.Builder necessityServerReplyBuilder =
+                JvClientServerSerializeProtocolMessage_pb.NecessityServerReply.newBuilder();
+        necessityServerReplyBuilder.setTypeNecessityServer(
+                JvClientServerSerializeProtocolMessage_pb.NecessityServerReply.TypeNecessityServer.forNumber(typeNecessity.getValue()));
+        switch (typeNecessity) {
+            case LoginUser -> {
+                if (parameters.length == 1) {
+                    Object login = parameters[0];
+                    necessityServerReplyBuilder.setLogin((String) login);
+                }
+            }
+        }
+
+        JvClientServerSerializeProtocolMessage_pb.NecessityServerReply msgChatsLoadNecessityServerReply =
+                necessityServerReplyBuilder.build();
+        JvClientServerSerializeProtocolMessage_pb.General resMsg =
+                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
+                        .setType(type.getValue())
+                        .setNecessityServerReply(msgChatsLoadNecessityServerReply)
+                        .build();
         return resMsg.toByteArray();
     }
 

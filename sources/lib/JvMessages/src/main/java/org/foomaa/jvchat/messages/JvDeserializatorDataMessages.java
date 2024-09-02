@@ -4,10 +4,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class JvDeserializatorDataMessages {
@@ -36,6 +33,8 @@ public class JvDeserializatorDataMessages {
             case VerifyFamousEmailReply -> takeVerifyFamousEmailReplyMessage(data);
             case ChangePasswordRequest -> takeChangePasswordRequestMessage(data);
             case ChangePasswordReply -> takeChangePasswordReplyMessage(data);
+            case NecessityServerRequest -> takeNecessityServerRequestMessage(data);
+            case NecessityServerReply -> takeNecessityServerReplyMessage(data);
             case ChatsLoadRequest -> takeChatsLoadRequestMessage(data);
             case ChatsLoadReply -> takeChatsLoadReplyMessage(data);
         };
@@ -200,6 +199,40 @@ public class JvDeserializatorDataMessages {
         try {
             result.put(JvDefinesMessages.TypeData.BoolReply, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
                     .getChangePasswordReply().getReply());
+        } catch (InvalidProtocolBufferException exception) {
+            JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
+        }
+        return result;
+    }
+
+    private HashMap<JvDefinesMessages.TypeData, JvDefinesMessages.TypeNecessityServer> takeNecessityServerRequestMessage(byte[] data) {
+        HashMap<JvDefinesMessages.TypeData, JvDefinesMessages.TypeNecessityServer> result = new HashMap<>();
+        try {
+            result.put(JvDefinesMessages.TypeData.TypeNecessity, JvDefinesMessages.TypeNecessityServer.getTypeNecessityServer(
+                    JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
+                            getNecessityServerRequest().getTypeNecessityServer().getNumber()));
+        } catch (InvalidProtocolBufferException exception) {
+            JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
+        }
+        return result;
+    }
+
+    private HashMap<JvDefinesMessages.TypeData, Object> takeNecessityServerReplyMessage(byte[] data) {
+        HashMap<JvDefinesMessages.TypeData, Object> result = new HashMap<>();
+        try {
+            JvDefinesMessages.TypeNecessityServer typeNecessity = JvDefinesMessages.TypeNecessityServer.getTypeNecessityServer(
+                    JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
+                            getNecessityServerReply().getTypeNecessityServer().getNumber());
+
+            result.put(JvDefinesMessages.TypeData.TypeNecessity, Objects.requireNonNull(typeNecessity));
+
+            switch (Objects.requireNonNull(typeNecessity)) {
+                case LoginUser -> {
+                    String login = JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
+                            getNecessityServerReply().getLogin();
+                    result.put(JvDefinesMessages.TypeData.Login, login);
+                }
+            }
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }
