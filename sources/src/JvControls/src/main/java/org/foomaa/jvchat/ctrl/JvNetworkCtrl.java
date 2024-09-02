@@ -24,7 +24,7 @@ public class JvNetworkCtrl {
 
     private JvUsersSocketThreadCtrl usersThread;
     private JvServersSocketThreadCtrl serversThread;
-    private LinkedList<JvServersSocketThreadCtrl> connectionList = new LinkedList<>();
+    public LinkedList<JvServersSocketThreadCtrl> connectionList = new LinkedList<>();
     private List<String> onlineUsers;
 
     private JvNetworkCtrl() {}
@@ -103,5 +103,6 @@ public class JvNetworkCtrl {
         if (!onlineUsers.contains(userLogin)) {
            onlineUsers.add(userLogin);
         }
+        System.out.println(onlineUsers);
     }
 }

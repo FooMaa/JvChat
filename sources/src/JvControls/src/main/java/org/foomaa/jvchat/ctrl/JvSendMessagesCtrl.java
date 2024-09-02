@@ -162,7 +162,7 @@ public class JvSendMessagesCtrl {
             case NecessityServerReply -> {
                 if (parameters.length == 2) {
                     Object typeNecessityObj = parameters[0];
-                    int valueTypeNecessity = Integer.parseInt((String) typeNecessityObj);
+                    int valueTypeNecessity = (Integer) typeNecessityObj;
                     JvDefinesMessages.TypeNecessityServer typeNecessity =
                             Objects.requireNonNull(JvDefinesMessages.TypeNecessityServer.getTypeNecessityServer(valueTypeNecessity));
                     Object parameter = parameters[1];
