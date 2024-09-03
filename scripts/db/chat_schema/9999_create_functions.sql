@@ -311,3 +311,43 @@ $BODY$ LANGUAGE plpgsql;
 -- ----------------------------------------------------------------------------------------------
 -- chat_schema.online_users_info
 -- ----------------------------------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION chat_schema.online_users_info_get_status_by_user_login(
+    f_login character varying
+)
+    RETURNS integer AS
+$BODY$
+DECLARE
+    rv integer;
+BEGIN
+    SELECT status INTO rv 
+    FROM chat_schema.online_users_info 
+    LEFT JOIN chat_schema.auth_users_info ON chat_schema.online_users_info.id_user = chat_schema.auth_users_info.id
+    WHERE login=f_login;
+
+    IF found THEN
+        RETURN rv;
+    END IF;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION chat_schema.online_users_info_get_last_online_by_user_login(
+    f_login character varying
+)
+    RETURNS timestamp AS
+$BODY$
+DECLARE
+    rv timestamp;
+BEGIN
+    SELECT last_online INTO rv 
+    FROM chat_schema.online_users_info 
+    LEFT JOIN chat_schema.auth_users_info ON chat_schema.online_users_info.id_user = chat_schema.auth_users_info.id
+    WHERE login=f_login;
+
+    IF found THEN
+        RETURN rv;
+    END IF;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
