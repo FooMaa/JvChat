@@ -137,7 +137,7 @@ public class JvSerializatorDataMessages {
             case NecessityServerRequest -> {
                 if (parameters.length == 1) {
                     Object typeNecessityObj = parameters[0];
-                    int valueTypeNecessity = (Integer) typeNecessityObj;
+                    int valueTypeNecessity = (int) typeNecessityObj;
                     JvDefinesMessages.TypeNecessityServer typeNecessity =
                             Objects.requireNonNull(JvDefinesMessages.TypeNecessityServer.getTypeNecessityServer(valueTypeNecessity));
                     return createNecessityServerRequestMessage(type, typeNecessity);
@@ -148,7 +148,7 @@ public class JvSerializatorDataMessages {
             case NecessityServerReply -> {
                 if (parameters.length == 2) {
                     Object typeNecessityObj = parameters[0];
-                    int valueTypeNecessity = (Integer) typeNecessityObj;
+                    int valueTypeNecessity = (int) typeNecessityObj;
                     JvDefinesMessages.TypeNecessityServer typeNecessity =
                             Objects.requireNonNull(JvDefinesMessages.TypeNecessityServer.getTypeNecessityServer(valueTypeNecessity));
                     Object parameter = parameters[1];
