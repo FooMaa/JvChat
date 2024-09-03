@@ -149,24 +149,17 @@ public class JvSendMessagesCtrl {
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
-            case NecessityServerRequest -> {
+            case CheckOnlineUserRequest -> {
                 if (parameters.length == 1) {
-                    Object typeNecessityObj = parameters[0];
-                    int valueTypeNecessity = (int) typeNecessityObj;
-                    JvDefinesMessages.TypeNecessityServer typeNecessity =
-                            Objects.requireNonNull(JvDefinesMessages.TypeNecessityServer.getTypeNecessityServer(valueTypeNecessity));
-                    byte[] bodyMessage = createBodyNecessityServerRequestMessage(type, typeNecessity);
+                    Object ip = parameters[0];
+                    byte[] bodyMessage = createBodyCheckOnlineRequestMessage(type, (String) ip);
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
-            case NecessityServerReply -> {
-                if (parameters.length == 2) {
-                    Object typeNecessityObj = parameters[0];
-                    int valueTypeNecessity = (int) typeNecessityObj;
-                    JvDefinesMessages.TypeNecessityServer typeNecessity =
-                            Objects.requireNonNull(JvDefinesMessages.TypeNecessityServer.getTypeNecessityServer(valueTypeNecessity));
-                    Object parameter = parameters[1];
-                    byte[] bodyMessage = createBodyNecessityServerReplyMessage(type, typeNecessity, parameter);
+            case CheckOnlineUserReply -> {
+                if (parameters.length == 1) {
+                    Object login = parameters[0];
+                    byte[] bodyMessage = createBodyCheckOnlineReplyMessage(type, (String) login);
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
@@ -247,12 +240,12 @@ public class JvSendMessagesCtrl {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
     }
 
-    private byte[] createBodyNecessityServerRequestMessage(JvDefinesMessages.TypeMessage type, JvDefinesMessages.TypeNecessityServer typeNecessity) {
-        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, typeNecessity);
+    private byte[] createBodyCheckOnlineRequestMessage(JvDefinesMessages.TypeMessage type, String ip) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, ip);
     }
 
-    private byte[] createBodyNecessityServerReplyMessage(JvDefinesMessages.TypeMessage type, JvDefinesMessages.TypeNecessityServer typeNecessity, Object parameter) {
-        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, typeNecessity, parameter);
+    private byte[] createBodyCheckOnlineReplyMessage(JvDefinesMessages.TypeMessage type, String login) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, login);
     }
 
     private byte[] createBodyChatsLoadRequestMessage(JvDefinesMessages.TypeMessage type, String sender) {

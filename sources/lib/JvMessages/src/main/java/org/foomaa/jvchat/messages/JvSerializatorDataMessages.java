@@ -6,7 +6,6 @@ import org.foomaa.jvchat.tools.JvGetterTools;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 
 public class JvSerializatorDataMessages {
@@ -134,25 +133,18 @@ public class JvSerializatorDataMessages {
                     return new byte[0];
                 }
             }
-            case NecessityServerRequest -> {
+            case CheckOnlineUserRequest -> {
                 if (parameters.length == 1) {
-                    Object typeNecessityObj = parameters[0];
-                    int valueTypeNecessity = (int) typeNecessityObj;
-                    JvDefinesMessages.TypeNecessityServer typeNecessity =
-                            Objects.requireNonNull(JvDefinesMessages.TypeNecessityServer.getTypeNecessityServer(valueTypeNecessity));
-                    return createNecessityServerRequestMessage(type, typeNecessity);
+                    Object ip = parameters[0];
+                    return createCheckOnlineRequestMessage(type, (String) ip);
                 } else {
                     return new byte[0];
                 }
             }
-            case NecessityServerReply -> {
-                if (parameters.length == 2) {
-                    Object typeNecessityObj = parameters[0];
-                    int valueTypeNecessity = (int) typeNecessityObj;
-                    JvDefinesMessages.TypeNecessityServer typeNecessity =
-                            Objects.requireNonNull(JvDefinesMessages.TypeNecessityServer.getTypeNecessityServer(valueTypeNecessity));
-                    Object parameter = parameters[1];
-                    return createNecessityServerReplyMessage(type, typeNecessity, parameter);
+            case CheckOnlineUserReply -> {
+                if (parameters.length == 1) {
+                    Object login = parameters[0];
+                    return createCheckOnlineReplyMessage(type, (String) login);
                 } else {
                     return new byte[0];
                 }
@@ -346,47 +338,36 @@ public class JvSerializatorDataMessages {
         return resMsg.toByteArray();
     }
 
-    private byte[] createNecessityServerRequestMessage(JvDefinesMessages.TypeMessage type, JvDefinesMessages.TypeNecessityServer typeNecessity) {
-        JvClientServerSerializeProtocolMessage_pb.NecessityServerRequest msgChatsLoadNecessityServerRequest =
-                JvClientServerSerializeProtocolMessage_pb.NecessityServerRequest.newBuilder()
-                        .setTypeNecessityServer(JvClientServerSerializeProtocolMessage_pb.NecessityServerRequest.TypeNecessityServer.forNumber(typeNecessity.getValue()))
+    private byte[] createCheckOnlineRequestMessage(JvDefinesMessages.TypeMessage type, String ip) {
+        JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest msgCheckOnlineRequest =
+                JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest.newBuilder()
+                        .setIp(ip)
                         .build();
         JvClientServerSerializeProtocolMessage_pb.General resMsg =
                 JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
                         .setType(type.getValue())
-                        .setNecessityServerRequest(msgChatsLoadNecessityServerRequest)
+                        .setCheckOnlineRequest(msgCheckOnlineRequest)
                         .build();
         return resMsg.toByteArray();
     }
 
-    private byte[] createNecessityServerReplyMessage(JvDefinesMessages.TypeMessage type, JvDefinesMessages.TypeNecessityServer typeNecessity, Object... parameters) {
-        JvClientServerSerializeProtocolMessage_pb.NecessityServerReply.Builder necessityServerReplyBuilder =
-                JvClientServerSerializeProtocolMessage_pb.NecessityServerReply.newBuilder();
-        necessityServerReplyBuilder.setTypeNecessityServer(
-                JvClientServerSerializeProtocolMessage_pb.NecessityServerReply.TypeNecessityServer.forNumber(typeNecessity.getValue()));
-        switch (typeNecessity) {
-            case LoginUser -> {
-                if (parameters.length == 1) {
-                    Object login = parameters[0];
-                    necessityServerReplyBuilder.setLogin((String) login);
-                }
-            }
-        }
-
-        JvClientServerSerializeProtocolMessage_pb.NecessityServerReply msgChatsLoadNecessityServerReply =
-                necessityServerReplyBuilder.build();
+    private byte[] createCheckOnlineReplyMessage(JvDefinesMessages.TypeMessage type, String login) {
+        JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply msgCheckOnlineReplyBuilder =
+                JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply.newBuilder()
+                        .setLogin(login)
+                        .build();
         JvClientServerSerializeProtocolMessage_pb.General resMsg =
                 JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
                         .setType(type.getValue())
-                        .setNecessityServerReply(msgChatsLoadNecessityServerReply)
+                        .setCheckOnlineReply(msgCheckOnlineReplyBuilder)
                         .build();
         return resMsg.toByteArray();
     }
 
-    private byte[] createChatsLoadRequestMessage(JvDefinesMessages.TypeMessage type, String sender) {
+    private byte[] createChatsLoadRequestMessage(JvDefinesMessages.TypeMessage type, String login) {
         JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest msgChatsLoadRequest =
                 JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest.newBuilder()
-                        .setSender(sender)
+                        .setSender(login)
                         .build();
         JvClientServerSerializeProtocolMessage_pb.General resMsg =
                 JvClientServerSerializeProtocolMessage_pb.General.newBuilder()

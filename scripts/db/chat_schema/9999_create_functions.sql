@@ -307,3 +307,7 @@ BEGIN
     ORDER BY LEAST(chats.senderID, chats.receiverID), GREATEST(chats.senderID, chats.receiverID), datetime DESC;
 END;
 $BODY$ LANGUAGE plpgsql;
+
+-- ----------------------------------------------------------------------------------------------
+-- chat_schema.online_users_info
+-- ----------------------------------------------------------------------------------------------

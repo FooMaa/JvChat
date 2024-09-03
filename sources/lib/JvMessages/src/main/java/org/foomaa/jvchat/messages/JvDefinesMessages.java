@@ -26,8 +26,8 @@ public class JvDefinesMessages {
         VerifyFamousEmailReply(9),
         ChangePasswordRequest(10),
         ChangePasswordReply(11),
-        NecessityServerRequest(12),
-        NecessityServerReply(13),
+        CheckOnlineUserRequest(12),
+        CheckOnlineUserReply(13),
         ChatsLoadRequest(14),
         ChatsLoadReply(15);
 
@@ -65,35 +65,7 @@ public class JvDefinesMessages {
         VerifyCode,
         ChatsLoad,
         ChatsInfoList,
-        TypeNecessity
-    }
-
-    public enum TypeNecessityServer {
-        LoginUser(0);
-
-        private final int value;
-
-        TypeNecessityServer(int newValue) {
-            value = newValue;
-        }
-
-        public int getValue() {
-            return value;
-        }
-
-        public boolean compare(int i) {
-            return value == i;
-        }
-
-        public static TypeNecessityServer getTypeNecessityServer(int value)
-        {
-            TypeNecessityServer[] errors = TypeNecessityServer.values();
-            for (TypeNecessityServer error : errors) {
-                if (error.compare(value))
-                    return error;
-            }
-            return null;
-        }
+        IP
     }
 
     public enum TypeErrorRegistration {
