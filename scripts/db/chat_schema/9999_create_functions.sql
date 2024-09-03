@@ -12,9 +12,9 @@ DECLARE
     rv integer;
 BEGIN
     rv := -1;
-    PERFORM * FROM chat_schema.auth_users_info WHERE login=f_login;
+    PERFORM * FROM chat_schema.auth_users_info WHERE login = f_login;
     IF found THEN
-        UPDATE chat_schema.auth_users_info SET password=f_password, email=f_email WHERE login=f_login;
+        UPDATE chat_schema.auth_users_info SET password = f_password, email = f_email WHERE login = f_login;
         rv := 1;
     ELSE
         INSERT INTO chat_schema.auth_users_info(login, email, password) VALUES (f_login, f_email, f_password);
@@ -349,5 +349,49 @@ BEGIN
         RETURN rv;
     END IF;
     RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION chat_schema.online_users_info_save (
+    f_id_user   integer,
+    f_status    integer
+)
+    RETURNS integer AS
+$BODY$
+DECLARE
+    rv integer;
+BEGIN
+    rv := -1;
+    PERFORM * FROM chat_schema.online_users_info WHERE id_user = f_id_user;
+    IF found THEN
+        UPDATE chat_schema.online_users_info SET id_user = f_id_user, status = f_status WHERE id_user = f_id_user;
+        rv := 1;
+    ELSE
+        INSERT INTO chat_schema.online_users_info(id_user, status) VALUES (f_id_user, f_status);
+        rv := 2;
+    END IF;
+
+    RETURN rv;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION chat_schema.online_users_info_update_time (
+    f_id_user   integer
+)
+    RETURNS integer AS
+$BODY$
+DECLARE
+    rv integer;
+BEGIN
+    rv := -1;
+    PERFORM * FROM chat_schema.online_users_info WHERE id_user = f_id_user;
+    IF found THEN
+        UPDATE chat_schema.online_users_info SET id_user = f_id_user, status = f_status WHERE id_user = f_id_user;
+        rv := 1;
+    ELSE
+        rv := 2;
+    END IF;
+
+    RETURN rv;
 END;
 $BODY$ LANGUAGE plpgsql;
