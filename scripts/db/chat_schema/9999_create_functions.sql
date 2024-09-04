@@ -386,7 +386,7 @@ BEGIN
     rv := -1;
     PERFORM * FROM chat_schema.online_users_info WHERE id_user = f_id_user;
     IF found THEN
-        UPDATE chat_schema.online_users_info SET id_user = f_id_user, status = f_status WHERE id_user = f_id_user;
+        UPDATE chat_schema.online_users_info SET last_online_time = NOW() WHERE id_user = f_id_user;
         rv := 1;
     ELSE
         rv := 2;
@@ -395,3 +395,17 @@ BEGIN
     RETURN rv;
 END;
 $BODY$ LANGUAGE plpgsql;
+
+CREATE FUNCTION chat_schema.online_users_info_create_line() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+BEGIN
+  INSERT INTO chat_schema.online_users_info (id_user, status) VALUES (NEW.id, 1);
+  RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER online_users_info_create_line_trigger_i
+    AFTER INSERT ON chat_schema.auth_users_info 
+    FOR EACH ROW
+    EXECUTE PROCEDURE chat_schema.online_users_info_create_line();
