@@ -384,7 +384,7 @@ CREATE FUNCTION chat_schema.online_users_info_create_line() RETURNS trigger
     LANGUAGE plpgsql
     AS $$
 BEGIN
-  INSERT INTO chat_schema.online_users_info (id_user, status) VALUES (NEW.id, 1);
+  INSERT INTO chat_schema.online_users_info (id_user, status) VALUES (NEW.id, 0);
   RETURN NEW;
 END;
 $$;

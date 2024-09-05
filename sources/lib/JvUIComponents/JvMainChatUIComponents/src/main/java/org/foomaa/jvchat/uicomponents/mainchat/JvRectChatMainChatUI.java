@@ -39,7 +39,7 @@ public class JvRectChatMainChatUI extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         setLayout(new GridBagLayout());
 
-        JLabel loginLabel = new JLabel(nickName + createStringStatusOnline());
+        JLabel loginLabel = new JLabel(nickName + " " + createStringStatusOnline());
         loginLabel.setFont(new Font("Times", Font.BOLD,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017)));
 
