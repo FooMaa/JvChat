@@ -13,7 +13,7 @@ public class JvSerializatorDataMessages {
 
     private JvSerializatorDataMessages() {}
 
-    public static JvSerializatorDataMessages getInstance() {
+    static JvSerializatorDataMessages getInstance() {
         if (instance == null) {
             instance = new JvSerializatorDataMessages();
         }

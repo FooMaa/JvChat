@@ -8,7 +8,7 @@ public class JvUserInfoSettings {
 
     private JvUserInfoSettings() {}
 
-    public static JvUserInfoSettings getInstance() {
+    static JvUserInfoSettings getInstance() {
         if (instance == null) {
             instance = new JvUserInfoSettings();
         }

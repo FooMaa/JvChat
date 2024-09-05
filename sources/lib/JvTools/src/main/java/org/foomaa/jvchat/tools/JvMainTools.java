@@ -24,7 +24,7 @@ public class JvMainTools {
 
     private JvMainTools() {}
 
-    public static JvMainTools getInstance() {
+    static JvMainTools getInstance() {
         if (instance == null) {
             instance = new JvMainTools();
         }

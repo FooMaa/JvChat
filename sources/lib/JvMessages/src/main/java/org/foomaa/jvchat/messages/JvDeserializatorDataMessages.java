@@ -12,7 +12,7 @@ public class JvDeserializatorDataMessages {
 
     private JvDeserializatorDataMessages() {}
 
-    public static JvDeserializatorDataMessages getInstance() {
+    static JvDeserializatorDataMessages getInstance() {
         if (instance == null) {
             instance = new JvDeserializatorDataMessages();
         }

@@ -11,7 +11,7 @@ public class JvStructTools {
 
     private JvStructTools() {}
 
-    public static JvStructTools getInstance() {
+    static JvStructTools getInstance() {
         if (instance == null) {
             instance = new JvStructTools();
         }

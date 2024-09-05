@@ -46,7 +46,7 @@ public class JvRegistrationFrameAuthUI extends JFrame {
         addGeneralSettingsToWidget();
     }
 
-    public static JvRegistrationFrameAuthUI getInstance() {
+    static JvRegistrationFrameAuthUI getInstance() {
         if (instance == null) {
             instance = new JvRegistrationFrameAuthUI();
         }

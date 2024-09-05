@@ -49,7 +49,7 @@ public class JvVerifyCodeFrameAuthUI extends JFrame {
         addGeneralSettingsToWidget();
     }
 
-    public static JvVerifyCodeFrameAuthUI getInstance(RegimeWork rw) {
+    static JvVerifyCodeFrameAuthUI getInstance(RegimeWork rw) {
         if (instance == null) {
             instance = new JvVerifyCodeFrameAuthUI(rw);
         } else {

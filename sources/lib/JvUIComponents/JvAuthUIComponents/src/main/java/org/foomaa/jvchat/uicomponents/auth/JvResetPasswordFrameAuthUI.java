@@ -40,7 +40,7 @@ public class JvResetPasswordFrameAuthUI extends JFrame {
         addGeneralSettingsToWidget();
     }
 
-    public static JvResetPasswordFrameAuthUI getInstance() {
+    static JvResetPasswordFrameAuthUI getInstance() {
         if (instance == null) {
             instance = new JvResetPasswordFrameAuthUI();
         }

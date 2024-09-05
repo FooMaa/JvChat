@@ -82,4 +82,9 @@ public class JvGetterControls {
         return context.getBean(JvControlsSpringConfig.NameBeans.BeanMessagesDialogCtrl.getValue(),
                 JvMessagesDialogCtrl.class);
     }
+
+    public JvOnlineServersCtrl getBeanOnlineServersCtrl() {
+        return context.getBean(JvControlsSpringConfig.NameBeans.BeanOnlineServersCtrl.getValue(),
+                JvOnlineServersCtrl.class);
+    }
 }

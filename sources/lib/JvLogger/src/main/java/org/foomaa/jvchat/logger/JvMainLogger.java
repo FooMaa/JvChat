@@ -13,7 +13,7 @@ public class JvMainLogger {
         logger = LoggerFactory.getLogger(JvMainLogger.class);
     }
 
-    public static JvMainLogger getInstance() {
+    static JvMainLogger getInstance() {
         if (instance == null) {
             instance = new JvMainLogger();
         }

@@ -5,10 +5,8 @@ import org.foomaa.jvchat.messages.JvGetterMessages;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.tools.JvGetterTools;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 
 public class JvSendMessagesCtrl {

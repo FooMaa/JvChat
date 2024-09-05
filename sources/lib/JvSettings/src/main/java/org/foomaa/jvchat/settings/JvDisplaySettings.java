@@ -25,7 +25,7 @@ public class JvDisplaySettings {
         }
     }
 
-    public static JvDisplaySettings getInstance() {
+    static JvDisplaySettings getInstance() {
         if (instance == null) {
             instance = new JvDisplaySettings();
         }

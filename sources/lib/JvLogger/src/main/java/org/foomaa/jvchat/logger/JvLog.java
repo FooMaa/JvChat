@@ -29,7 +29,7 @@ public class JvLog {
         mainLogger = JvGetterLogger.getInstance().getBeanLogger();
     }
 
-    public static JvLog getInstance() {
+    static JvLog getInstance() {
         if (instance == null) {
             instance = new JvLog();
         }

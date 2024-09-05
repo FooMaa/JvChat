@@ -9,7 +9,7 @@ public class JvMainSettings {
 
     private JvMainSettings() {}
 
-    public static JvMainSettings getInstance() {
+    static JvMainSettings getInstance() {
         if (instance == null) {
             instance = new JvMainSettings();
         }

@@ -6,7 +6,7 @@ public class JvDefinesMessages {
 
     private JvDefinesMessages() {}
 
-    public static JvDefinesMessages getInstance() {
+    static JvDefinesMessages getInstance() {
         if (instance == null) {
             instance = new JvDefinesMessages();
         }

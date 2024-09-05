@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.ctrl;
 
+
 public class JvMessagesDialogCtrl {
     private static JvMessagesDialogCtrl instance;
 
