@@ -14,23 +14,17 @@ public class JvRectChatMainChatUI extends JPanel {
     private final String lastMessageSender;
     private final String timeLastMessage;
     private final JvChatsCtrl.TypeStatusMessage statusMessage;
-    private final JvChatsCtrl.TypeStatusOnline statusOnline;
-    private final String timeLastOnline;
 
     JvRectChatMainChatUI(String newNickName,
                          String newShortLastMessage,
                          String newLastMessageSender,
                          String newTimeLastMessage,
-                         String newTimeLastOnline,
-                         JvChatsCtrl.TypeStatusMessage newStatusMessage,
-                         JvChatsCtrl.TypeStatusOnline newStatusOnline) {
+                         JvChatsCtrl.TypeStatusMessage newStatusMessage) {
         nickName = newNickName;
         shortLastMessage = newShortLastMessage;
         lastMessageSender = newLastMessageSender;
         timeLastMessage = newTimeLastMessage;
-        timeLastOnline = newTimeLastOnline;
         statusMessage = newStatusMessage;
-        statusOnline = newStatusOnline;
 
         makeChatBox();
     }
@@ -39,7 +33,7 @@ public class JvRectChatMainChatUI extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         setLayout(new GridBagLayout());
 
-        JLabel loginLabel = new JLabel(nickName + " " + createStringStatusOnline());
+        JLabel loginLabel = new JLabel(nickName);
         loginLabel.setFont(new Font("Times", Font.BOLD,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017)));
 
@@ -100,22 +94,5 @@ public class JvRectChatMainChatUI extends JPanel {
         }
 
         return shortLastMessage;
-    }
-
-    private String createStringStatusOnline() {
-        switch (statusOnline) {
-            case Error -> {
-                return "Ошибка состояния";
-            }
-            case Offline -> {
-                return String.format(
-                        "Не в сети. Последний в %s",
-                        timeLastOnline);
-            }
-            case Online -> {
-                return "В сети";
-            }
-        }
-        return "";
     }
 }

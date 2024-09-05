@@ -68,16 +68,12 @@ public class JvMainChatUIComponentsSpringConfig {
                                                        String shortLastMessage,
                                                        String lastMessageSender,
                                                        String timeLastMessage,
-                                                       String timeLastOnline,
-                                                       JvChatsCtrl.TypeStatusMessage statusMessage,
-                                                       JvChatsCtrl.TypeStatusOnline statusOnline) {
+                                                       JvChatsCtrl.TypeStatusMessage statusMessage) {
         return new JvRectChatMainChatUI(nickName,
                 shortLastMessage,
                 lastMessageSender,
                 timeLastMessage,
-                timeLastOnline,
-                statusMessage,
-                statusOnline);
+                statusMessage);
     }
 
     @Bean(name = "beanSendButtonMainChatUI")
