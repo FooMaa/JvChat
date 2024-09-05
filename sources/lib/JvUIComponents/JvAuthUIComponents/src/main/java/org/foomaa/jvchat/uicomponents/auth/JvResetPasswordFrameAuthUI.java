@@ -122,7 +122,7 @@ public class JvResetPasswordFrameAuthUI extends JFrame {
         Vector<String> fields = new Vector<>();
 
         if (Objects.equals(tEmail.getInputText(), "") ||
-                !JvGetterTools.getInstance().getBeanMainTools().validateInputEmail(tEmail.getInputText())) {
+                !JvGetterTools.getInstance().getBeanUsersTools().validateInputEmail(tEmail.getInputText())) {
             tEmail.setErrorBorder();
             fields.add("\"Почта\"");
         }

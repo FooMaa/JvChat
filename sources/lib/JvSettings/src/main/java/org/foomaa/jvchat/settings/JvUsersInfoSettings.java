@@ -3,14 +3,14 @@ package org.foomaa.jvchat.settings;
 import java.util.Objects;
 
 
-public class JvUserInfoSettings {
-    private static JvUserInfoSettings instance;
+public class JvUsersInfoSettings {
+    private static JvUsersInfoSettings instance;
 
-    private JvUserInfoSettings() {}
+    private JvUsersInfoSettings() {}
 
-    static JvUserInfoSettings getInstance() {
+    static JvUsersInfoSettings getInstance() {
         if (instance == null) {
-            instance = new JvUserInfoSettings();
+            instance = new JvUsersInfoSettings();
         }
         return instance;
     }

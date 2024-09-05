@@ -27,11 +27,11 @@ public class JvGetterSettings {
         return context.getBean(JvSettingsSpringConfig.NameBeans.BeanDisplaySettings.getValue(), JvDisplaySettings.class);
     }
 
-    public JvUserInfoSettings getBeanUserInfoSettings() {
-        return context.getBean(JvSettingsSpringConfig.NameBeans.BeanUserInfoSettings.getValue(), JvUserInfoSettings.class);
+    public JvUsersInfoSettings getBeanUsersInfoSettings() {
+        return context.getBean(JvSettingsSpringConfig.NameBeans.BeanUsersInfoSettings.getValue(), JvUsersInfoSettings.class);
     }
 
-    public JvServerInfoSettings getBeanServerInfoSettings() {
-        return context.getBean(JvSettingsSpringConfig.NameBeans.BeanServerInfoSettings.getValue(), JvServerInfoSettings.class);
+    public JvServersInfoSettings getBeanServersInfoSettings() {
+        return context.getBean(JvSettingsSpringConfig.NameBeans.BeanServersInfoSettings.getValue(), JvServersInfoSettings.class);
     }
 }

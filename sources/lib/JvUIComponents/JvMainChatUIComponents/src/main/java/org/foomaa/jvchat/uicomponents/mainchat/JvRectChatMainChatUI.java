@@ -87,7 +87,7 @@ public class JvRectChatMainChatUI extends JPanel {
     }
 
     private String createLastMessageString() {
-        String currentLogin = JvGetterSettings.getInstance().getBeanUserInfoSettings().getLogin();
+        String currentLogin = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
 
         if (Objects.equals(lastMessageSender, currentLogin)) {
             return "Вы:" + shortLastMessage;

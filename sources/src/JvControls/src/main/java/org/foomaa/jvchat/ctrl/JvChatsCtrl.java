@@ -95,7 +95,7 @@ public class JvChatsCtrl {
             return null;
         }
 
-        String currentUserLogin = JvGetterSettings.getInstance().getBeanUserInfoSettings().getLogin();
+        String currentUserLogin = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
         List<String> listLogins = new ArrayList<>();
 
         for (Map<JvDbGlobalDefines.LineKeys, String> map : chatsInfo) {

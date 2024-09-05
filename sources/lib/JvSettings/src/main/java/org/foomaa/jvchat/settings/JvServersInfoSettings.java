@@ -4,14 +4,14 @@ import java.util.Base64;
 import java.util.Objects;
 
 
-public class JvServerInfoSettings {
-    private static JvServerInfoSettings instance;
+public class JvServersInfoSettings {
+    private static JvServersInfoSettings instance;
 
-    private JvServerInfoSettings() {}
+    private JvServersInfoSettings() {}
 
-    static JvServerInfoSettings getInstance() {
+    static JvServersInfoSettings getInstance() {
         if (instance == null) {
-            instance = new JvServerInfoSettings();
+            instance = new JvServersInfoSettings();
         }
         return instance;
     }

@@ -11,8 +11,8 @@ public class JvSettingsSpringConfig {
     public enum NameBeans {
         BeanMainSettings("beanMainSettings"),
         BeanDisplaySettings("beanDisplaySettings"),
-        BeanUserInfoSettings("beanUserInfoSettings"),
-        BeanServerInfoSettings("beanServerInfoSettings");
+        BeanUsersInfoSettings("beanUsersInfoSettings"),
+        BeanServersInfoSettings("beanServersInfoSettings");
 
         private final String value;
 
@@ -39,19 +39,19 @@ public class JvSettingsSpringConfig {
         return JvDisplaySettings.getInstance();
     }
 
-    @Bean(name = "beanUserInfoSettings")
+    @Bean(name = "beanUsersInfoSettings")
     @Profile("users")
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvUserInfoSettings beanUserInfoSettings() {
-        return JvUserInfoSettings.getInstance();
+    public JvUsersInfoSettings beanUsersInfoSettings() {
+        return JvUsersInfoSettings.getInstance();
     }
 
-    @Bean(name = "beanServerInfoSettings")
+    @Bean(name = "beanServersInfoSettings")
     @Profile("servers")
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvServerInfoSettings beanServerInfoSettings() {
-        return JvServerInfoSettings.getInstance();
+    public JvServersInfoSettings beanServersInfoSettings() {
+        return JvServersInfoSettings.getInstance();
     }
 }

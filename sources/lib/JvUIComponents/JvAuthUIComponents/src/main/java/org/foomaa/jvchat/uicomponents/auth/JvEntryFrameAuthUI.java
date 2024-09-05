@@ -236,7 +236,7 @@ public class JvEntryFrameAuthUI extends JFrame {
     }
 
     private void openMainPage() {
-        JvGetterSettings.getInstance().getBeanUserInfoSettings().setLogin(tLogin.getInputText());
+        JvGetterSettings.getInstance().getBeanUsersInfoSettings().setLogin(tLogin.getInputText());
 
         closeWindow();
         setEnabled(true);

@@ -34,9 +34,9 @@ public class JvDbWorker {
         connection = null;
 
         try {
-            connection = DriverManager.getConnection(JvGetterSettings.getInstance().getBeanServerInfoSettings().getDbUrl(),
-                    JvGetterSettings.getInstance().getBeanServerInfoSettings().getDbUser(),
-                    JvGetterSettings.getInstance().getBeanServerInfoSettings().getMagicStringDb());
+            connection = DriverManager.getConnection(JvGetterSettings.getInstance().getBeanServersInfoSettings().getDbUrl(),
+                    JvGetterSettings.getInstance().getBeanServersInfoSettings().getDbUser(),
+                    JvGetterSettings.getInstance().getBeanServersInfoSettings().getMagicStringDb());
         } catch (SQLException e) {
             JvLog.write(JvLog.TypeLog.Error, "Error in connect to DB");
             return;

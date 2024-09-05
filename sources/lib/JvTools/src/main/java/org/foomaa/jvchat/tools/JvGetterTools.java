@@ -28,4 +28,14 @@ public class JvGetterTools {
         return context.getBean(JvToolsSpringConfig.NameBeans.BeanStructTools.getValue(),
                 JvStructTools.class);
     }
+
+    public JvServersTools getBeanServersTools() {
+        return context.getBean(JvToolsSpringConfig.NameBeans.BeanServersTools.getValue(),
+                JvServersTools.class);
+    }
+
+    public JvUsersTools getBeanUsersTools() {
+        return context.getBean(JvToolsSpringConfig.NameBeans.BeanUsersTools.getValue(),
+                JvUsersTools.class);
+    }
 }

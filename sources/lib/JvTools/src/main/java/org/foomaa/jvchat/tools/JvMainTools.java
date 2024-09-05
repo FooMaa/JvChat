@@ -80,47 +80,6 @@ public class JvMainTools {
         }
     }
 
-    public void initServersParameters() {
-        Scanner in = new Scanner(System.in);
-
-        JvLog.write(JvLog.TypeLog.Info, "Введи IP-адрес или нажми Enter для значения по умолчанию (по умолчанию auto): ");
-        while (true) {
-            String ip = in.nextLine();
-            if (validateInputIp(ip)) {
-                setIpToSettings(ip);
-                break;
-            } else {
-                JvLog.write(JvLog.TypeLog.Error, "Это не похоже на IP-адрес. Введи снова IP-адрес или нажми Enter для значения по умолчанию: ");
-            }
-        }
-
-        JvLog.write(JvLog.TypeLog.Info, "Введи порт или нажми Enter для значения по умолчанию (по умолчанию = 4004): ");
-        while (true) {
-            String port = in.nextLine();
-            if (validateInputPort(port)) {
-                if (!port.isEmpty()) {
-                    JvGetterSettings.getInstance().getBeanServerInfoSettings().setPort(Integer.parseInt(port));
-                }
-                break;
-            } else {
-                JvLog.write(JvLog.TypeLog.Error, "Введи заново порт или нажми Enter для значения по умолчанию (по умолчанию = 4004): ");
-            }
-        }
-
-        JvLog.write(JvLog.TypeLog.Info, "Введи лимит подключений или нажми Enter для значения по умолчанию (по умолчанию = 1000): ");
-        while (true) {
-            String limitConnection = in.nextLine();
-            if (validateInputLimitConnections(limitConnection)) {
-                if (!limitConnection.isEmpty()) {
-                    JvGetterSettings.getInstance().getBeanServerInfoSettings().setQuantityConnections(Integer.parseInt(limitConnection));
-                }
-                break;
-            } else {
-                JvLog.write(JvLog.TypeLog.Error, "Введи заново лимит подключений или нажми Enter для значения по умолчанию (по умолчанию = 1000): ");
-            }
-        }
-    }
-
     public boolean validateInputIp(String param) {
         Pattern regex = Pattern.compile(
                 "^(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])$");
@@ -133,40 +92,6 @@ public class JvMainTools {
     public boolean validateInputPort(String param) {
         Pattern regex = Pattern.compile(
                 "^([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$");
-        if (param.isEmpty()) {
-            return true;
-        }
-        return regex.matcher(param).matches();
-    }
-
-    public boolean validateInputLimitConnections(String param) {
-        Pattern regex = Pattern.compile(
-                "^\\d+$");
-        if (param.isEmpty()) {
-            return true;
-        }
-        return regex.matcher(param).matches();
-    }
-
-    private void setIpToSettings(String ip) {
-        if (!ip.isEmpty()) {
-            JvGetterSettings.getInstance().getBeanServerInfoSettings().setIp(ip);
-        } else {
-            JvLog.write(JvLog.TypeLog.Info, "Жди автоопределения IP-адреса ...");
-            try (Socket socket = new Socket()) {
-                socket.connect(new InetSocketAddress("google.com", 80));
-                JvGetterSettings.getInstance().getBeanServerInfoSettings().setIp(socket.getLocalAddress().getHostAddress());
-            } catch (IOException exception) {
-                JvLog.write(JvLog.TypeLog.Error, "Не получилось выйти в сеть, проверь подключение и попытайся снова!");
-                System.exit(1);
-            }
-        }
-    }
-
-    public boolean validateInputEmail(String param) {
-        Pattern regex = Pattern.compile(
-                "^(?=.{1,64}@)[A-Za-z0-9+_-]+(\\.[A-Za-z0-9+_-]+)*@"
-                        + "[^-][A-Za-z0-9+-]+(\\.[A-Za-z0-9+-]+)*(\\.[A-Za-z]{2,})$");
         if (param.isEmpty()) {
             return true;
         }

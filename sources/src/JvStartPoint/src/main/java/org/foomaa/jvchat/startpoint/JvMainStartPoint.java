@@ -39,19 +39,35 @@ public class JvMainStartPoint implements ApplicationRunner {
         }
 
         if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
-            JvGetterTools.getInstance().getBeanMainTools().initServersParameters();
+            JvGetterTools.getInstance().getBeanServersTools().initServersParameters();
+            return;
         }
         if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.USERS) {
             if (args.getOptionValues("ipServer") == null) {
                 JvGetterUILinks.getInstance().getBeanErrorStartUILink(
                         "Дайте в параметр IP-адрес сервера!");
             }
+
             String argsIp = args.getOptionValues("ipServer").get(0);
             if (JvGetterTools.getInstance().getBeanMainTools().validateInputIp(argsIp)) {
-                JvGetterSettings.getInstance().getBeanUserInfoSettings().setIpRemoteServer(argsIp);
+                JvGetterSettings.getInstance().getBeanUsersInfoSettings().setIpRemoteServer(argsIp);
             } else {
                 JvGetterUILinks.getInstance().getBeanErrorStartUILink(
                         "В параметре запуска не верный IP!");
+            }
+
+            String argsPort;
+            try {
+                argsPort = args.getOptionValues("portServer").get(0);
+            } catch (NullPointerException exception) {
+                return;
+            }
+
+            if (JvGetterTools.getInstance().getBeanMainTools().validateInputPort(argsPort)) {
+                JvGetterSettings.getInstance().getBeanUsersInfoSettings().setPortRemoteServer(Integer.parseInt(argsPort));
+            } else {
+                JvGetterUILinks.getInstance().getBeanErrorStartUILink(
+                        "В параметре запуска не верный PORT!");
             }
         }
     }

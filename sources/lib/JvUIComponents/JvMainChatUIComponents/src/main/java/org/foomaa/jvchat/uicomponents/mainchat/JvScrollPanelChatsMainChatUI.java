@@ -99,7 +99,7 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
     }
 
     private void setRequestChatsToServer() {
-        String login = JvGetterSettings.getInstance().getBeanUserInfoSettings().getLogin();
+        String login = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
 
         JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 JvDefinesMessages.TypeMessage.ChatsLoadRequest, login);
