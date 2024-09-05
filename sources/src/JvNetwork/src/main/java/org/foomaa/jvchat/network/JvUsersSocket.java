@@ -20,8 +20,8 @@ public class JvUsersSocket {
     private JvUsersSocket() {
         try {
             socketUsers = new Socket();
-            socketUsers.connect(new InetSocketAddress(JvGetterSettings.getInstance().getBeanMainSettings().getIp(),
-                    JvGetterSettings.getInstance().getBeanMainSettings().getPort()), 4000);
+            socketUsers.connect(new InetSocketAddress(JvGetterSettings.getInstance().getBeanUserInfoSettings().getIpRemoteServer(),
+                    JvGetterSettings.getInstance().getBeanUserInfoSettings().getPortRemoteServer()), 4000);
             closeSocketWhenKill();
         } catch (IOException exception) {
             JvLog.write(JvLog.TypeLog.Error, "No connection");

@@ -30,4 +30,8 @@ public class JvGetterSettings {
     public JvUserInfoSettings getBeanUserInfoSettings() {
         return context.getBean(JvSettingsSpringConfig.NameBeans.BeanUserInfoSettings.getValue(), JvUserInfoSettings.class);
     }
+
+    public JvServerInfoSettings getBeanServerInfoSettings() {
+        return context.getBean(JvSettingsSpringConfig.NameBeans.BeanServerInfoSettings.getValue(), JvServerInfoSettings.class);
+    }
 }

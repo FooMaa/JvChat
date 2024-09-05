@@ -27,8 +27,8 @@ public class JvEmailProcessor {
 
     private JvEmailProcessor() {
         host = "smtp.mail.ru";
-        userLogin = JvGetterSettings.getInstance().getBeanMainSettings().getEmailAddress();
-        userPassword = JvGetterSettings.getInstance().getBeanMainSettings().getMagicStringEmail();
+        userLogin = JvGetterSettings.getInstance().getBeanServerInfoSettings().getEmailAddress();
+        userPassword = JvGetterSettings.getInstance().getBeanServerInfoSettings().getMagicStringEmail();
 
         Properties props = new Properties();
 

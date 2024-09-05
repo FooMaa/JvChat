@@ -147,20 +147,6 @@ public class JvSendMessagesCtrl {
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
-            case CheckOnlineUserRequest -> {
-                if (parameters.length == 1) {
-                    Object ip = parameters[0];
-                    byte[] bodyMessage = createBodyCheckOnlineRequestMessage(type, (String) ip);
-                    sendReadyMessageNetwork(bodyMessage);
-                }
-            }
-            case CheckOnlineUserReply -> {
-                if (parameters.length == 1) {
-                    Object login = parameters[0];
-                    byte[] bodyMessage = createBodyCheckOnlineReplyMessage(type, (String) login);
-                    sendReadyMessageNetwork(bodyMessage);
-                }
-            }
             case ChatsLoadRequest -> {
                 if (parameters.length == 1) {
                     Object sender = parameters[0];
@@ -179,6 +165,20 @@ public class JvSendMessagesCtrl {
                             .objectInListMaps(chatsInfoObj, JvDbGlobalDefines.LineKeys.class, String.class);
                     byte[] bodyMessage = createBodyChatsLoadReplyMessage(type,
                             chatsInfo);
+                    sendReadyMessageNetwork(bodyMessage);
+                }
+            }
+            case CheckOnlineUserRequest -> {
+                if (parameters.length == 1) {
+                    Object ip = parameters[0];
+                    byte[] bodyMessage = createBodyCheckOnlineRequestMessage(type, (String) ip);
+                    sendReadyMessageNetwork(bodyMessage);
+                }
+            }
+            case CheckOnlineUserReply -> {
+                if (parameters.length == 1) {
+                    Object login = parameters[0];
+                    byte[] bodyMessage = createBodyCheckOnlineReplyMessage(type, (String) login);
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
@@ -238,19 +238,19 @@ public class JvSendMessagesCtrl {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
     }
 
-    private byte[] createBodyCheckOnlineRequestMessage(JvDefinesMessages.TypeMessage type, String ip) {
-        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, ip);
-    }
-
-    private byte[] createBodyCheckOnlineReplyMessage(JvDefinesMessages.TypeMessage type, String login) {
-        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, login);
-    }
-
     private byte[] createBodyChatsLoadRequestMessage(JvDefinesMessages.TypeMessage type, String sender) {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, sender);
     }
 
     private byte[] createBodyChatsLoadReplyMessage(JvDefinesMessages.TypeMessage type, List<Map<JvDbGlobalDefines.LineKeys, String>> reply) {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
+    }
+
+    private byte[] createBodyCheckOnlineRequestMessage(JvDefinesMessages.TypeMessage type, String ip) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, ip);
+    }
+
+    private byte[] createBodyCheckOnlineReplyMessage(JvDefinesMessages.TypeMessage type, String login) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, login);
     }
 }

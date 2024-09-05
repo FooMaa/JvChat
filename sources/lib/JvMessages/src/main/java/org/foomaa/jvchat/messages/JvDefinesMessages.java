@@ -26,10 +26,10 @@ public class JvDefinesMessages {
         VerifyFamousEmailReply(9),
         ChangePasswordRequest(10),
         ChangePasswordReply(11),
-        CheckOnlineUserRequest(12),
-        CheckOnlineUserReply(13),
-        ChatsLoadRequest(14),
-        ChatsLoadReply(15);
+        ChatsLoadRequest(12),
+        ChatsLoadReply(13),
+        CheckOnlineUserRequest(14),
+        CheckOnlineUserReply(15);
 
         private final int value;
 

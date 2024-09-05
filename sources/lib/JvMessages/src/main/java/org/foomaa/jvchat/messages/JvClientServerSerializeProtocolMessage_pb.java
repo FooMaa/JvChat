@@ -221,72 +221,72 @@ public final class JvClientServerSerializeProtocolMessage_pb {
      * Main Chat
      * </pre>
      *
-     * <code>.CheckOnlineUserRequest checkOnlineRequest = 14;</code>
-     * @return Whether the checkOnlineRequest field is set.
-     */
-    boolean hasCheckOnlineRequest();
-    /**
-     * <pre>
-     * Main Chat
-     * </pre>
-     *
-     * <code>.CheckOnlineUserRequest checkOnlineRequest = 14;</code>
-     * @return The checkOnlineRequest.
-     */
-    org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest getCheckOnlineRequest();
-    /**
-     * <pre>
-     * Main Chat
-     * </pre>
-     *
-     * <code>.CheckOnlineUserRequest checkOnlineRequest = 14;</code>
-     */
-    org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequestOrBuilder getCheckOnlineRequestOrBuilder();
-
-    /**
-     * <code>.CheckOnlineUserReply checkOnlineReply = 15;</code>
-     * @return Whether the checkOnlineReply field is set.
-     */
-    boolean hasCheckOnlineReply();
-    /**
-     * <code>.CheckOnlineUserReply checkOnlineReply = 15;</code>
-     * @return The checkOnlineReply.
-     */
-    org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply getCheckOnlineReply();
-    /**
-     * <code>.CheckOnlineUserReply checkOnlineReply = 15;</code>
-     */
-    org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReplyOrBuilder getCheckOnlineReplyOrBuilder();
-
-    /**
-     * <code>.ChatsLoadRequest chatsLoadRequest = 16;</code>
+     * <code>.ChatsLoadRequest chatsLoadRequest = 14;</code>
      * @return Whether the chatsLoadRequest field is set.
      */
     boolean hasChatsLoadRequest();
     /**
-     * <code>.ChatsLoadRequest chatsLoadRequest = 16;</code>
+     * <pre>
+     * Main Chat
+     * </pre>
+     *
+     * <code>.ChatsLoadRequest chatsLoadRequest = 14;</code>
      * @return The chatsLoadRequest.
      */
     org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest getChatsLoadRequest();
     /**
-     * <code>.ChatsLoadRequest chatsLoadRequest = 16;</code>
+     * <pre>
+     * Main Chat
+     * </pre>
+     *
+     * <code>.ChatsLoadRequest chatsLoadRequest = 14;</code>
      */
     org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequestOrBuilder getChatsLoadRequestOrBuilder();
 
     /**
-     * <code>.ChatsLoadReply chatsLoadReply = 17;</code>
+     * <code>.ChatsLoadReply chatsLoadReply = 15;</code>
      * @return Whether the chatsLoadReply field is set.
      */
     boolean hasChatsLoadReply();
     /**
-     * <code>.ChatsLoadReply chatsLoadReply = 17;</code>
+     * <code>.ChatsLoadReply chatsLoadReply = 15;</code>
      * @return The chatsLoadReply.
      */
     org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply getChatsLoadReply();
     /**
-     * <code>.ChatsLoadReply chatsLoadReply = 17;</code>
+     * <code>.ChatsLoadReply chatsLoadReply = 15;</code>
      */
     org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReplyOrBuilder getChatsLoadReplyOrBuilder();
+
+    /**
+     * <code>.CheckOnlineUserRequest checkOnlineRequest = 16;</code>
+     * @return Whether the checkOnlineRequest field is set.
+     */
+    boolean hasCheckOnlineRequest();
+    /**
+     * <code>.CheckOnlineUserRequest checkOnlineRequest = 16;</code>
+     * @return The checkOnlineRequest.
+     */
+    org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest getCheckOnlineRequest();
+    /**
+     * <code>.CheckOnlineUserRequest checkOnlineRequest = 16;</code>
+     */
+    org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequestOrBuilder getCheckOnlineRequestOrBuilder();
+
+    /**
+     * <code>.CheckOnlineUserReply checkOnlineReply = 17;</code>
+     * @return Whether the checkOnlineReply field is set.
+     */
+    boolean hasCheckOnlineReply();
+    /**
+     * <code>.CheckOnlineUserReply checkOnlineReply = 17;</code>
+     * @return The checkOnlineReply.
+     */
+    org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply getCheckOnlineReply();
+    /**
+     * <code>.CheckOnlineUserReply checkOnlineReply = 17;</code>
+     */
+    org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReplyOrBuilder getCheckOnlineReplyOrBuilder();
 
     public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.General.BodyCase getBodyCase();
   }
@@ -347,10 +347,10 @@ public final class JvClientServerSerializeProtocolMessage_pb {
       VERIFYFAMOUSEMAILREPLY(11),
       CHANGEPASSWORDREQUEST(12),
       CHANGEPASSWORDREPLY(13),
-      CHECKONLINEREQUEST(14),
-      CHECKONLINEREPLY(15),
-      CHATSLOADREQUEST(16),
-      CHATSLOADREPLY(17),
+      CHATSLOADREQUEST(14),
+      CHATSLOADREPLY(15),
+      CHECKONLINEREQUEST(16),
+      CHECKONLINEREPLY(17),
       BODY_NOT_SET(0);
       private final int value;
       private BodyCase(int value) {
@@ -380,10 +380,10 @@ public final class JvClientServerSerializeProtocolMessage_pb {
           case 11: return VERIFYFAMOUSEMAILREPLY;
           case 12: return CHANGEPASSWORDREQUEST;
           case 13: return CHANGEPASSWORDREPLY;
-          case 14: return CHECKONLINEREQUEST;
-          case 15: return CHECKONLINEREPLY;
-          case 16: return CHATSLOADREQUEST;
-          case 17: return CHATSLOADREPLY;
+          case 14: return CHATSLOADREQUEST;
+          case 15: return CHATSLOADREPLY;
+          case 16: return CHECKONLINEREQUEST;
+          case 17: return CHECKONLINEREPLY;
           case 0: return BODY_NOT_SET;
           default: return null;
         }
@@ -794,17 +794,17 @@ public final class JvClientServerSerializeProtocolMessage_pb {
       return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChangePasswordReply.getDefaultInstance();
     }
 
-    public static final int CHECKONLINEREQUEST_FIELD_NUMBER = 14;
+    public static final int CHATSLOADREQUEST_FIELD_NUMBER = 14;
     /**
      * <pre>
      * Main Chat
      * </pre>
      *
-     * <code>.CheckOnlineUserRequest checkOnlineRequest = 14;</code>
-     * @return Whether the checkOnlineRequest field is set.
+     * <code>.ChatsLoadRequest chatsLoadRequest = 14;</code>
+     * @return Whether the chatsLoadRequest field is set.
      */
     @java.lang.Override
-    public boolean hasCheckOnlineRequest() {
+    public boolean hasChatsLoadRequest() {
       return bodyCase_ == 14;
     }
     /**
@@ -812,122 +812,122 @@ public final class JvClientServerSerializeProtocolMessage_pb {
      * Main Chat
      * </pre>
      *
-     * <code>.CheckOnlineUserRequest checkOnlineRequest = 14;</code>
-     * @return The checkOnlineRequest.
+     * <code>.ChatsLoadRequest chatsLoadRequest = 14;</code>
+     * @return The chatsLoadRequest.
      */
     @java.lang.Override
-    public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest getCheckOnlineRequest() {
+    public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest getChatsLoadRequest() {
       if (bodyCase_ == 14) {
-         return (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest) body_;
+         return (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest) body_;
       }
-      return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest.getDefaultInstance();
+      return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest.getDefaultInstance();
     }
     /**
      * <pre>
      * Main Chat
      * </pre>
      *
-     * <code>.CheckOnlineUserRequest checkOnlineRequest = 14;</code>
+     * <code>.ChatsLoadRequest chatsLoadRequest = 14;</code>
+     */
+    @java.lang.Override
+    public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequestOrBuilder getChatsLoadRequestOrBuilder() {
+      if (bodyCase_ == 14) {
+         return (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest) body_;
+      }
+      return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest.getDefaultInstance();
+    }
+
+    public static final int CHATSLOADREPLY_FIELD_NUMBER = 15;
+    /**
+     * <code>.ChatsLoadReply chatsLoadReply = 15;</code>
+     * @return Whether the chatsLoadReply field is set.
+     */
+    @java.lang.Override
+    public boolean hasChatsLoadReply() {
+      return bodyCase_ == 15;
+    }
+    /**
+     * <code>.ChatsLoadReply chatsLoadReply = 15;</code>
+     * @return The chatsLoadReply.
+     */
+    @java.lang.Override
+    public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply getChatsLoadReply() {
+      if (bodyCase_ == 15) {
+         return (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply) body_;
+      }
+      return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply.getDefaultInstance();
+    }
+    /**
+     * <code>.ChatsLoadReply chatsLoadReply = 15;</code>
+     */
+    @java.lang.Override
+    public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReplyOrBuilder getChatsLoadReplyOrBuilder() {
+      if (bodyCase_ == 15) {
+         return (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply) body_;
+      }
+      return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply.getDefaultInstance();
+    }
+
+    public static final int CHECKONLINEREQUEST_FIELD_NUMBER = 16;
+    /**
+     * <code>.CheckOnlineUserRequest checkOnlineRequest = 16;</code>
+     * @return Whether the checkOnlineRequest field is set.
+     */
+    @java.lang.Override
+    public boolean hasCheckOnlineRequest() {
+      return bodyCase_ == 16;
+    }
+    /**
+     * <code>.CheckOnlineUserRequest checkOnlineRequest = 16;</code>
+     * @return The checkOnlineRequest.
+     */
+    @java.lang.Override
+    public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest getCheckOnlineRequest() {
+      if (bodyCase_ == 16) {
+         return (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest) body_;
+      }
+      return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest.getDefaultInstance();
+    }
+    /**
+     * <code>.CheckOnlineUserRequest checkOnlineRequest = 16;</code>
      */
     @java.lang.Override
     public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequestOrBuilder getCheckOnlineRequestOrBuilder() {
-      if (bodyCase_ == 14) {
+      if (bodyCase_ == 16) {
          return (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest) body_;
       }
       return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest.getDefaultInstance();
     }
 
-    public static final int CHECKONLINEREPLY_FIELD_NUMBER = 15;
+    public static final int CHECKONLINEREPLY_FIELD_NUMBER = 17;
     /**
-     * <code>.CheckOnlineUserReply checkOnlineReply = 15;</code>
+     * <code>.CheckOnlineUserReply checkOnlineReply = 17;</code>
      * @return Whether the checkOnlineReply field is set.
      */
     @java.lang.Override
     public boolean hasCheckOnlineReply() {
-      return bodyCase_ == 15;
+      return bodyCase_ == 17;
     }
     /**
-     * <code>.CheckOnlineUserReply checkOnlineReply = 15;</code>
+     * <code>.CheckOnlineUserReply checkOnlineReply = 17;</code>
      * @return The checkOnlineReply.
      */
     @java.lang.Override
     public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply getCheckOnlineReply() {
-      if (bodyCase_ == 15) {
+      if (bodyCase_ == 17) {
          return (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply) body_;
       }
       return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply.getDefaultInstance();
     }
     /**
-     * <code>.CheckOnlineUserReply checkOnlineReply = 15;</code>
+     * <code>.CheckOnlineUserReply checkOnlineReply = 17;</code>
      */
     @java.lang.Override
     public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReplyOrBuilder getCheckOnlineReplyOrBuilder() {
-      if (bodyCase_ == 15) {
+      if (bodyCase_ == 17) {
          return (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply) body_;
       }
       return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply.getDefaultInstance();
-    }
-
-    public static final int CHATSLOADREQUEST_FIELD_NUMBER = 16;
-    /**
-     * <code>.ChatsLoadRequest chatsLoadRequest = 16;</code>
-     * @return Whether the chatsLoadRequest field is set.
-     */
-    @java.lang.Override
-    public boolean hasChatsLoadRequest() {
-      return bodyCase_ == 16;
-    }
-    /**
-     * <code>.ChatsLoadRequest chatsLoadRequest = 16;</code>
-     * @return The chatsLoadRequest.
-     */
-    @java.lang.Override
-    public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest getChatsLoadRequest() {
-      if (bodyCase_ == 16) {
-         return (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest) body_;
-      }
-      return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest.getDefaultInstance();
-    }
-    /**
-     * <code>.ChatsLoadRequest chatsLoadRequest = 16;</code>
-     */
-    @java.lang.Override
-    public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequestOrBuilder getChatsLoadRequestOrBuilder() {
-      if (bodyCase_ == 16) {
-         return (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest) body_;
-      }
-      return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest.getDefaultInstance();
-    }
-
-    public static final int CHATSLOADREPLY_FIELD_NUMBER = 17;
-    /**
-     * <code>.ChatsLoadReply chatsLoadReply = 17;</code>
-     * @return Whether the chatsLoadReply field is set.
-     */
-    @java.lang.Override
-    public boolean hasChatsLoadReply() {
-      return bodyCase_ == 17;
-    }
-    /**
-     * <code>.ChatsLoadReply chatsLoadReply = 17;</code>
-     * @return The chatsLoadReply.
-     */
-    @java.lang.Override
-    public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply getChatsLoadReply() {
-      if (bodyCase_ == 17) {
-         return (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply) body_;
-      }
-      return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply.getDefaultInstance();
-    }
-    /**
-     * <code>.ChatsLoadReply chatsLoadReply = 17;</code>
-     */
-    @java.lang.Override
-    public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReplyOrBuilder getChatsLoadReplyOrBuilder() {
-      if (bodyCase_ == 17) {
-         return (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply) body_;
-      }
-      return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply.getDefaultInstance();
     }
 
     private byte memoizedIsInitialized = -1;
@@ -984,16 +984,16 @@ public final class JvClientServerSerializeProtocolMessage_pb {
         output.writeMessage(13, (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChangePasswordReply) body_);
       }
       if (bodyCase_ == 14) {
-        output.writeMessage(14, (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest) body_);
+        output.writeMessage(14, (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest) body_);
       }
       if (bodyCase_ == 15) {
-        output.writeMessage(15, (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply) body_);
+        output.writeMessage(15, (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply) body_);
       }
       if (bodyCase_ == 16) {
-        output.writeMessage(16, (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest) body_);
+        output.writeMessage(16, (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest) body_);
       }
       if (bodyCase_ == 17) {
-        output.writeMessage(17, (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply) body_);
+        output.writeMessage(17, (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply) body_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -1058,19 +1058,19 @@ public final class JvClientServerSerializeProtocolMessage_pb {
       }
       if (bodyCase_ == 14) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(14, (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest) body_);
+          .computeMessageSize(14, (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest) body_);
       }
       if (bodyCase_ == 15) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(15, (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply) body_);
+          .computeMessageSize(15, (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply) body_);
       }
       if (bodyCase_ == 16) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(16, (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest) body_);
+          .computeMessageSize(16, (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest) body_);
       }
       if (bodyCase_ == 17) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(17, (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply) body_);
+          .computeMessageSize(17, (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply) body_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -1140,20 +1140,20 @@ public final class JvClientServerSerializeProtocolMessage_pb {
               .equals(other.getChangePasswordReply())) return false;
           break;
         case 14:
-          if (!getCheckOnlineRequest()
-              .equals(other.getCheckOnlineRequest())) return false;
-          break;
-        case 15:
-          if (!getCheckOnlineReply()
-              .equals(other.getCheckOnlineReply())) return false;
-          break;
-        case 16:
           if (!getChatsLoadRequest()
               .equals(other.getChatsLoadRequest())) return false;
           break;
-        case 17:
+        case 15:
           if (!getChatsLoadReply()
               .equals(other.getChatsLoadReply())) return false;
+          break;
+        case 16:
+          if (!getCheckOnlineRequest()
+              .equals(other.getCheckOnlineRequest())) return false;
+          break;
+        case 17:
+          if (!getCheckOnlineReply()
+              .equals(other.getCheckOnlineReply())) return false;
           break;
         case 0:
         default:
@@ -1221,20 +1221,20 @@ public final class JvClientServerSerializeProtocolMessage_pb {
           hash = (53 * hash) + getChangePasswordReply().hashCode();
           break;
         case 14:
-          hash = (37 * hash) + CHECKONLINEREQUEST_FIELD_NUMBER;
-          hash = (53 * hash) + getCheckOnlineRequest().hashCode();
-          break;
-        case 15:
-          hash = (37 * hash) + CHECKONLINEREPLY_FIELD_NUMBER;
-          hash = (53 * hash) + getCheckOnlineReply().hashCode();
-          break;
-        case 16:
           hash = (37 * hash) + CHATSLOADREQUEST_FIELD_NUMBER;
           hash = (53 * hash) + getChatsLoadRequest().hashCode();
           break;
-        case 17:
+        case 15:
           hash = (37 * hash) + CHATSLOADREPLY_FIELD_NUMBER;
           hash = (53 * hash) + getChatsLoadReply().hashCode();
+          break;
+        case 16:
+          hash = (37 * hash) + CHECKONLINEREQUEST_FIELD_NUMBER;
+          hash = (53 * hash) + getCheckOnlineRequest().hashCode();
+          break;
+        case 17:
+          hash = (37 * hash) + CHECKONLINEREPLY_FIELD_NUMBER;
+          hash = (53 * hash) + getCheckOnlineReply().hashCode();
           break;
         case 0:
         default:
@@ -1405,17 +1405,17 @@ public final class JvClientServerSerializeProtocolMessage_pb {
         if (changePasswordReplyBuilder_ != null) {
           changePasswordReplyBuilder_.clear();
         }
-        if (checkOnlineRequestBuilder_ != null) {
-          checkOnlineRequestBuilder_.clear();
-        }
-        if (checkOnlineReplyBuilder_ != null) {
-          checkOnlineReplyBuilder_.clear();
-        }
         if (chatsLoadRequestBuilder_ != null) {
           chatsLoadRequestBuilder_.clear();
         }
         if (chatsLoadReplyBuilder_ != null) {
           chatsLoadReplyBuilder_.clear();
+        }
+        if (checkOnlineRequestBuilder_ != null) {
+          checkOnlineRequestBuilder_.clear();
+        }
+        if (checkOnlineReplyBuilder_ != null) {
+          checkOnlineReplyBuilder_.clear();
         }
         bodyCase_ = 0;
         body_ = null;
@@ -1531,31 +1531,31 @@ public final class JvClientServerSerializeProtocolMessage_pb {
           }
         }
         if (bodyCase_ == 14) {
-          if (checkOnlineRequestBuilder_ == null) {
-            result.body_ = body_;
-          } else {
-            result.body_ = checkOnlineRequestBuilder_.build();
-          }
-        }
-        if (bodyCase_ == 15) {
-          if (checkOnlineReplyBuilder_ == null) {
-            result.body_ = body_;
-          } else {
-            result.body_ = checkOnlineReplyBuilder_.build();
-          }
-        }
-        if (bodyCase_ == 16) {
           if (chatsLoadRequestBuilder_ == null) {
             result.body_ = body_;
           } else {
             result.body_ = chatsLoadRequestBuilder_.build();
           }
         }
-        if (bodyCase_ == 17) {
+        if (bodyCase_ == 15) {
           if (chatsLoadReplyBuilder_ == null) {
             result.body_ = body_;
           } else {
             result.body_ = chatsLoadReplyBuilder_.build();
+          }
+        }
+        if (bodyCase_ == 16) {
+          if (checkOnlineRequestBuilder_ == null) {
+            result.body_ = body_;
+          } else {
+            result.body_ = checkOnlineRequestBuilder_.build();
+          }
+        }
+        if (bodyCase_ == 17) {
+          if (checkOnlineReplyBuilder_ == null) {
+            result.body_ = body_;
+          } else {
+            result.body_ = checkOnlineReplyBuilder_.build();
           }
         }
         result.bodyCase_ = bodyCase_;
@@ -1659,20 +1659,20 @@ public final class JvClientServerSerializeProtocolMessage_pb {
             mergeChangePasswordReply(other.getChangePasswordReply());
             break;
           }
-          case CHECKONLINEREQUEST: {
-            mergeCheckOnlineRequest(other.getCheckOnlineRequest());
-            break;
-          }
-          case CHECKONLINEREPLY: {
-            mergeCheckOnlineReply(other.getCheckOnlineReply());
-            break;
-          }
           case CHATSLOADREQUEST: {
             mergeChatsLoadRequest(other.getChatsLoadRequest());
             break;
           }
           case CHATSLOADREPLY: {
             mergeChatsLoadReply(other.getChatsLoadReply());
+            break;
+          }
+          case CHECKONLINEREQUEST: {
+            mergeCheckOnlineRequest(other.getCheckOnlineRequest());
+            break;
+          }
+          case CHECKONLINEREPLY: {
+            mergeCheckOnlineReply(other.getCheckOnlineReply());
             break;
           }
           case BODY_NOT_SET: {
@@ -1796,28 +1796,28 @@ public final class JvClientServerSerializeProtocolMessage_pb {
               } // case 106
               case 114: {
                 input.readMessage(
-                    getCheckOnlineRequestFieldBuilder().getBuilder(),
+                    getChatsLoadRequestFieldBuilder().getBuilder(),
                     extensionRegistry);
                 bodyCase_ = 14;
                 break;
               } // case 114
               case 122: {
                 input.readMessage(
-                    getCheckOnlineReplyFieldBuilder().getBuilder(),
+                    getChatsLoadReplyFieldBuilder().getBuilder(),
                     extensionRegistry);
                 bodyCase_ = 15;
                 break;
               } // case 122
               case 130: {
                 input.readMessage(
-                    getChatsLoadRequestFieldBuilder().getBuilder(),
+                    getCheckOnlineRequestFieldBuilder().getBuilder(),
                     extensionRegistry);
                 bodyCase_ = 16;
                 break;
               } // case 130
               case 138: {
                 input.readMessage(
-                    getChatsLoadReplyFieldBuilder().getBuilder(),
+                    getCheckOnlineReplyFieldBuilder().getBuilder(),
                     extensionRegistry);
                 bodyCase_ = 17;
                 break;
@@ -3613,17 +3613,17 @@ public final class JvClientServerSerializeProtocolMessage_pb {
       }
 
       private com.google.protobuf.SingleFieldBuilderV3<
-          org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest.Builder, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequestOrBuilder> checkOnlineRequestBuilder_;
+          org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest.Builder, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequestOrBuilder> chatsLoadRequestBuilder_;
       /**
        * <pre>
        * Main Chat
        * </pre>
        *
-       * <code>.CheckOnlineUserRequest checkOnlineRequest = 14;</code>
-       * @return Whether the checkOnlineRequest field is set.
+       * <code>.ChatsLoadRequest chatsLoadRequest = 14;</code>
+       * @return Whether the chatsLoadRequest field is set.
        */
       @java.lang.Override
-      public boolean hasCheckOnlineRequest() {
+      public boolean hasChatsLoadRequest() {
         return bodyCase_ == 14;
       }
       /**
@@ -3631,335 +3631,29 @@ public final class JvClientServerSerializeProtocolMessage_pb {
        * Main Chat
        * </pre>
        *
-       * <code>.CheckOnlineUserRequest checkOnlineRequest = 14;</code>
-       * @return The checkOnlineRequest.
-       */
-      @java.lang.Override
-      public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest getCheckOnlineRequest() {
-        if (checkOnlineRequestBuilder_ == null) {
-          if (bodyCase_ == 14) {
-            return (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest) body_;
-          }
-          return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest.getDefaultInstance();
-        } else {
-          if (bodyCase_ == 14) {
-            return checkOnlineRequestBuilder_.getMessage();
-          }
-          return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest.getDefaultInstance();
-        }
-      }
-      /**
-       * <pre>
-       * Main Chat
-       * </pre>
-       *
-       * <code>.CheckOnlineUserRequest checkOnlineRequest = 14;</code>
-       */
-      public Builder setCheckOnlineRequest(org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest value) {
-        if (checkOnlineRequestBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          body_ = value;
-          onChanged();
-        } else {
-          checkOnlineRequestBuilder_.setMessage(value);
-        }
-        bodyCase_ = 14;
-        return this;
-      }
-      /**
-       * <pre>
-       * Main Chat
-       * </pre>
-       *
-       * <code>.CheckOnlineUserRequest checkOnlineRequest = 14;</code>
-       */
-      public Builder setCheckOnlineRequest(
-          org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest.Builder builderForValue) {
-        if (checkOnlineRequestBuilder_ == null) {
-          body_ = builderForValue.build();
-          onChanged();
-        } else {
-          checkOnlineRequestBuilder_.setMessage(builderForValue.build());
-        }
-        bodyCase_ = 14;
-        return this;
-      }
-      /**
-       * <pre>
-       * Main Chat
-       * </pre>
-       *
-       * <code>.CheckOnlineUserRequest checkOnlineRequest = 14;</code>
-       */
-      public Builder mergeCheckOnlineRequest(org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest value) {
-        if (checkOnlineRequestBuilder_ == null) {
-          if (bodyCase_ == 14 &&
-              body_ != org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest.getDefaultInstance()) {
-            body_ = org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest.newBuilder((org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest) body_)
-                .mergeFrom(value).buildPartial();
-          } else {
-            body_ = value;
-          }
-          onChanged();
-        } else {
-          if (bodyCase_ == 14) {
-            checkOnlineRequestBuilder_.mergeFrom(value);
-          }
-          checkOnlineRequestBuilder_.setMessage(value);
-        }
-        bodyCase_ = 14;
-        return this;
-      }
-      /**
-       * <pre>
-       * Main Chat
-       * </pre>
-       *
-       * <code>.CheckOnlineUserRequest checkOnlineRequest = 14;</code>
-       */
-      public Builder clearCheckOnlineRequest() {
-        if (checkOnlineRequestBuilder_ == null) {
-          if (bodyCase_ == 14) {
-            bodyCase_ = 0;
-            body_ = null;
-            onChanged();
-          }
-        } else {
-          if (bodyCase_ == 14) {
-            bodyCase_ = 0;
-            body_ = null;
-          }
-          checkOnlineRequestBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <pre>
-       * Main Chat
-       * </pre>
-       *
-       * <code>.CheckOnlineUserRequest checkOnlineRequest = 14;</code>
-       */
-      public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest.Builder getCheckOnlineRequestBuilder() {
-        return getCheckOnlineRequestFieldBuilder().getBuilder();
-      }
-      /**
-       * <pre>
-       * Main Chat
-       * </pre>
-       *
-       * <code>.CheckOnlineUserRequest checkOnlineRequest = 14;</code>
-       */
-      @java.lang.Override
-      public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequestOrBuilder getCheckOnlineRequestOrBuilder() {
-        if ((bodyCase_ == 14) && (checkOnlineRequestBuilder_ != null)) {
-          return checkOnlineRequestBuilder_.getMessageOrBuilder();
-        } else {
-          if (bodyCase_ == 14) {
-            return (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest) body_;
-          }
-          return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest.getDefaultInstance();
-        }
-      }
-      /**
-       * <pre>
-       * Main Chat
-       * </pre>
-       *
-       * <code>.CheckOnlineUserRequest checkOnlineRequest = 14;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest.Builder, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequestOrBuilder> 
-          getCheckOnlineRequestFieldBuilder() {
-        if (checkOnlineRequestBuilder_ == null) {
-          if (!(bodyCase_ == 14)) {
-            body_ = org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest.getDefaultInstance();
-          }
-          checkOnlineRequestBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest.Builder, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequestOrBuilder>(
-                  (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest) body_,
-                  getParentForChildren(),
-                  isClean());
-          body_ = null;
-        }
-        bodyCase_ = 14;
-        onChanged();;
-        return checkOnlineRequestBuilder_;
-      }
-
-      private com.google.protobuf.SingleFieldBuilderV3<
-          org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply.Builder, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReplyOrBuilder> checkOnlineReplyBuilder_;
-      /**
-       * <code>.CheckOnlineUserReply checkOnlineReply = 15;</code>
-       * @return Whether the checkOnlineReply field is set.
-       */
-      @java.lang.Override
-      public boolean hasCheckOnlineReply() {
-        return bodyCase_ == 15;
-      }
-      /**
-       * <code>.CheckOnlineUserReply checkOnlineReply = 15;</code>
-       * @return The checkOnlineReply.
-       */
-      @java.lang.Override
-      public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply getCheckOnlineReply() {
-        if (checkOnlineReplyBuilder_ == null) {
-          if (bodyCase_ == 15) {
-            return (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply) body_;
-          }
-          return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply.getDefaultInstance();
-        } else {
-          if (bodyCase_ == 15) {
-            return checkOnlineReplyBuilder_.getMessage();
-          }
-          return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply.getDefaultInstance();
-        }
-      }
-      /**
-       * <code>.CheckOnlineUserReply checkOnlineReply = 15;</code>
-       */
-      public Builder setCheckOnlineReply(org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply value) {
-        if (checkOnlineReplyBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          body_ = value;
-          onChanged();
-        } else {
-          checkOnlineReplyBuilder_.setMessage(value);
-        }
-        bodyCase_ = 15;
-        return this;
-      }
-      /**
-       * <code>.CheckOnlineUserReply checkOnlineReply = 15;</code>
-       */
-      public Builder setCheckOnlineReply(
-          org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply.Builder builderForValue) {
-        if (checkOnlineReplyBuilder_ == null) {
-          body_ = builderForValue.build();
-          onChanged();
-        } else {
-          checkOnlineReplyBuilder_.setMessage(builderForValue.build());
-        }
-        bodyCase_ = 15;
-        return this;
-      }
-      /**
-       * <code>.CheckOnlineUserReply checkOnlineReply = 15;</code>
-       */
-      public Builder mergeCheckOnlineReply(org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply value) {
-        if (checkOnlineReplyBuilder_ == null) {
-          if (bodyCase_ == 15 &&
-              body_ != org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply.getDefaultInstance()) {
-            body_ = org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply.newBuilder((org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply) body_)
-                .mergeFrom(value).buildPartial();
-          } else {
-            body_ = value;
-          }
-          onChanged();
-        } else {
-          if (bodyCase_ == 15) {
-            checkOnlineReplyBuilder_.mergeFrom(value);
-          }
-          checkOnlineReplyBuilder_.setMessage(value);
-        }
-        bodyCase_ = 15;
-        return this;
-      }
-      /**
-       * <code>.CheckOnlineUserReply checkOnlineReply = 15;</code>
-       */
-      public Builder clearCheckOnlineReply() {
-        if (checkOnlineReplyBuilder_ == null) {
-          if (bodyCase_ == 15) {
-            bodyCase_ = 0;
-            body_ = null;
-            onChanged();
-          }
-        } else {
-          if (bodyCase_ == 15) {
-            bodyCase_ = 0;
-            body_ = null;
-          }
-          checkOnlineReplyBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>.CheckOnlineUserReply checkOnlineReply = 15;</code>
-       */
-      public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply.Builder getCheckOnlineReplyBuilder() {
-        return getCheckOnlineReplyFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>.CheckOnlineUserReply checkOnlineReply = 15;</code>
-       */
-      @java.lang.Override
-      public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReplyOrBuilder getCheckOnlineReplyOrBuilder() {
-        if ((bodyCase_ == 15) && (checkOnlineReplyBuilder_ != null)) {
-          return checkOnlineReplyBuilder_.getMessageOrBuilder();
-        } else {
-          if (bodyCase_ == 15) {
-            return (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply) body_;
-          }
-          return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply.getDefaultInstance();
-        }
-      }
-      /**
-       * <code>.CheckOnlineUserReply checkOnlineReply = 15;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply.Builder, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReplyOrBuilder> 
-          getCheckOnlineReplyFieldBuilder() {
-        if (checkOnlineReplyBuilder_ == null) {
-          if (!(bodyCase_ == 15)) {
-            body_ = org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply.getDefaultInstance();
-          }
-          checkOnlineReplyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply.Builder, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReplyOrBuilder>(
-                  (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply) body_,
-                  getParentForChildren(),
-                  isClean());
-          body_ = null;
-        }
-        bodyCase_ = 15;
-        onChanged();;
-        return checkOnlineReplyBuilder_;
-      }
-
-      private com.google.protobuf.SingleFieldBuilderV3<
-          org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest.Builder, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequestOrBuilder> chatsLoadRequestBuilder_;
-      /**
-       * <code>.ChatsLoadRequest chatsLoadRequest = 16;</code>
-       * @return Whether the chatsLoadRequest field is set.
-       */
-      @java.lang.Override
-      public boolean hasChatsLoadRequest() {
-        return bodyCase_ == 16;
-      }
-      /**
-       * <code>.ChatsLoadRequest chatsLoadRequest = 16;</code>
+       * <code>.ChatsLoadRequest chatsLoadRequest = 14;</code>
        * @return The chatsLoadRequest.
        */
       @java.lang.Override
       public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest getChatsLoadRequest() {
         if (chatsLoadRequestBuilder_ == null) {
-          if (bodyCase_ == 16) {
+          if (bodyCase_ == 14) {
             return (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest) body_;
           }
           return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest.getDefaultInstance();
         } else {
-          if (bodyCase_ == 16) {
+          if (bodyCase_ == 14) {
             return chatsLoadRequestBuilder_.getMessage();
           }
           return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest.getDefaultInstance();
         }
       }
       /**
-       * <code>.ChatsLoadRequest chatsLoadRequest = 16;</code>
+       * <pre>
+       * Main Chat
+       * </pre>
+       *
+       * <code>.ChatsLoadRequest chatsLoadRequest = 14;</code>
        */
       public Builder setChatsLoadRequest(org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest value) {
         if (chatsLoadRequestBuilder_ == null) {
@@ -3971,11 +3665,15 @@ public final class JvClientServerSerializeProtocolMessage_pb {
         } else {
           chatsLoadRequestBuilder_.setMessage(value);
         }
-        bodyCase_ = 16;
+        bodyCase_ = 14;
         return this;
       }
       /**
-       * <code>.ChatsLoadRequest chatsLoadRequest = 16;</code>
+       * <pre>
+       * Main Chat
+       * </pre>
+       *
+       * <code>.ChatsLoadRequest chatsLoadRequest = 14;</code>
        */
       public Builder setChatsLoadRequest(
           org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest.Builder builderForValue) {
@@ -3985,15 +3683,19 @@ public final class JvClientServerSerializeProtocolMessage_pb {
         } else {
           chatsLoadRequestBuilder_.setMessage(builderForValue.build());
         }
-        bodyCase_ = 16;
+        bodyCase_ = 14;
         return this;
       }
       /**
-       * <code>.ChatsLoadRequest chatsLoadRequest = 16;</code>
+       * <pre>
+       * Main Chat
+       * </pre>
+       *
+       * <code>.ChatsLoadRequest chatsLoadRequest = 14;</code>
        */
       public Builder mergeChatsLoadRequest(org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest value) {
         if (chatsLoadRequestBuilder_ == null) {
-          if (bodyCase_ == 16 &&
+          if (bodyCase_ == 14 &&
               body_ != org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest.getDefaultInstance()) {
             body_ = org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest.newBuilder((org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest) body_)
                 .mergeFrom(value).buildPartial();
@@ -4002,26 +3704,30 @@ public final class JvClientServerSerializeProtocolMessage_pb {
           }
           onChanged();
         } else {
-          if (bodyCase_ == 16) {
+          if (bodyCase_ == 14) {
             chatsLoadRequestBuilder_.mergeFrom(value);
           }
           chatsLoadRequestBuilder_.setMessage(value);
         }
-        bodyCase_ = 16;
+        bodyCase_ = 14;
         return this;
       }
       /**
-       * <code>.ChatsLoadRequest chatsLoadRequest = 16;</code>
+       * <pre>
+       * Main Chat
+       * </pre>
+       *
+       * <code>.ChatsLoadRequest chatsLoadRequest = 14;</code>
        */
       public Builder clearChatsLoadRequest() {
         if (chatsLoadRequestBuilder_ == null) {
-          if (bodyCase_ == 16) {
+          if (bodyCase_ == 14) {
             bodyCase_ = 0;
             body_ = null;
             onChanged();
           }
         } else {
-          if (bodyCase_ == 16) {
+          if (bodyCase_ == 14) {
             bodyCase_ = 0;
             body_ = null;
           }
@@ -4030,33 +3736,45 @@ public final class JvClientServerSerializeProtocolMessage_pb {
         return this;
       }
       /**
-       * <code>.ChatsLoadRequest chatsLoadRequest = 16;</code>
+       * <pre>
+       * Main Chat
+       * </pre>
+       *
+       * <code>.ChatsLoadRequest chatsLoadRequest = 14;</code>
        */
       public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest.Builder getChatsLoadRequestBuilder() {
         return getChatsLoadRequestFieldBuilder().getBuilder();
       }
       /**
-       * <code>.ChatsLoadRequest chatsLoadRequest = 16;</code>
+       * <pre>
+       * Main Chat
+       * </pre>
+       *
+       * <code>.ChatsLoadRequest chatsLoadRequest = 14;</code>
        */
       @java.lang.Override
       public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequestOrBuilder getChatsLoadRequestOrBuilder() {
-        if ((bodyCase_ == 16) && (chatsLoadRequestBuilder_ != null)) {
+        if ((bodyCase_ == 14) && (chatsLoadRequestBuilder_ != null)) {
           return chatsLoadRequestBuilder_.getMessageOrBuilder();
         } else {
-          if (bodyCase_ == 16) {
+          if (bodyCase_ == 14) {
             return (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest) body_;
           }
           return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest.getDefaultInstance();
         }
       }
       /**
-       * <code>.ChatsLoadRequest chatsLoadRequest = 16;</code>
+       * <pre>
+       * Main Chat
+       * </pre>
+       *
+       * <code>.ChatsLoadRequest chatsLoadRequest = 14;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest.Builder, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequestOrBuilder> 
           getChatsLoadRequestFieldBuilder() {
         if (chatsLoadRequestBuilder_ == null) {
-          if (!(bodyCase_ == 16)) {
+          if (!(bodyCase_ == 14)) {
             body_ = org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest.getDefaultInstance();
           }
           chatsLoadRequestBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
@@ -4066,7 +3784,7 @@ public final class JvClientServerSerializeProtocolMessage_pb {
                   isClean());
           body_ = null;
         }
-        bodyCase_ = 16;
+        bodyCase_ = 14;
         onChanged();;
         return chatsLoadRequestBuilder_;
       }
@@ -4074,33 +3792,33 @@ public final class JvClientServerSerializeProtocolMessage_pb {
       private com.google.protobuf.SingleFieldBuilderV3<
           org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply.Builder, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReplyOrBuilder> chatsLoadReplyBuilder_;
       /**
-       * <code>.ChatsLoadReply chatsLoadReply = 17;</code>
+       * <code>.ChatsLoadReply chatsLoadReply = 15;</code>
        * @return Whether the chatsLoadReply field is set.
        */
       @java.lang.Override
       public boolean hasChatsLoadReply() {
-        return bodyCase_ == 17;
+        return bodyCase_ == 15;
       }
       /**
-       * <code>.ChatsLoadReply chatsLoadReply = 17;</code>
+       * <code>.ChatsLoadReply chatsLoadReply = 15;</code>
        * @return The chatsLoadReply.
        */
       @java.lang.Override
       public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply getChatsLoadReply() {
         if (chatsLoadReplyBuilder_ == null) {
-          if (bodyCase_ == 17) {
+          if (bodyCase_ == 15) {
             return (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply) body_;
           }
           return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply.getDefaultInstance();
         } else {
-          if (bodyCase_ == 17) {
+          if (bodyCase_ == 15) {
             return chatsLoadReplyBuilder_.getMessage();
           }
           return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply.getDefaultInstance();
         }
       }
       /**
-       * <code>.ChatsLoadReply chatsLoadReply = 17;</code>
+       * <code>.ChatsLoadReply chatsLoadReply = 15;</code>
        */
       public Builder setChatsLoadReply(org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply value) {
         if (chatsLoadReplyBuilder_ == null) {
@@ -4112,11 +3830,11 @@ public final class JvClientServerSerializeProtocolMessage_pb {
         } else {
           chatsLoadReplyBuilder_.setMessage(value);
         }
-        bodyCase_ = 17;
+        bodyCase_ = 15;
         return this;
       }
       /**
-       * <code>.ChatsLoadReply chatsLoadReply = 17;</code>
+       * <code>.ChatsLoadReply chatsLoadReply = 15;</code>
        */
       public Builder setChatsLoadReply(
           org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply.Builder builderForValue) {
@@ -4126,15 +3844,15 @@ public final class JvClientServerSerializeProtocolMessage_pb {
         } else {
           chatsLoadReplyBuilder_.setMessage(builderForValue.build());
         }
-        bodyCase_ = 17;
+        bodyCase_ = 15;
         return this;
       }
       /**
-       * <code>.ChatsLoadReply chatsLoadReply = 17;</code>
+       * <code>.ChatsLoadReply chatsLoadReply = 15;</code>
        */
       public Builder mergeChatsLoadReply(org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply value) {
         if (chatsLoadReplyBuilder_ == null) {
-          if (bodyCase_ == 17 &&
+          if (bodyCase_ == 15 &&
               body_ != org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply.getDefaultInstance()) {
             body_ = org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply.newBuilder((org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply) body_)
                 .mergeFrom(value).buildPartial();
@@ -4143,19 +3861,301 @@ public final class JvClientServerSerializeProtocolMessage_pb {
           }
           onChanged();
         } else {
-          if (bodyCase_ == 17) {
+          if (bodyCase_ == 15) {
             chatsLoadReplyBuilder_.mergeFrom(value);
           }
           chatsLoadReplyBuilder_.setMessage(value);
+        }
+        bodyCase_ = 15;
+        return this;
+      }
+      /**
+       * <code>.ChatsLoadReply chatsLoadReply = 15;</code>
+       */
+      public Builder clearChatsLoadReply() {
+        if (chatsLoadReplyBuilder_ == null) {
+          if (bodyCase_ == 15) {
+            bodyCase_ = 0;
+            body_ = null;
+            onChanged();
+          }
+        } else {
+          if (bodyCase_ == 15) {
+            bodyCase_ = 0;
+            body_ = null;
+          }
+          chatsLoadReplyBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>.ChatsLoadReply chatsLoadReply = 15;</code>
+       */
+      public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply.Builder getChatsLoadReplyBuilder() {
+        return getChatsLoadReplyFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.ChatsLoadReply chatsLoadReply = 15;</code>
+       */
+      @java.lang.Override
+      public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReplyOrBuilder getChatsLoadReplyOrBuilder() {
+        if ((bodyCase_ == 15) && (chatsLoadReplyBuilder_ != null)) {
+          return chatsLoadReplyBuilder_.getMessageOrBuilder();
+        } else {
+          if (bodyCase_ == 15) {
+            return (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply) body_;
+          }
+          return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.ChatsLoadReply chatsLoadReply = 15;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply.Builder, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReplyOrBuilder> 
+          getChatsLoadReplyFieldBuilder() {
+        if (chatsLoadReplyBuilder_ == null) {
+          if (!(bodyCase_ == 15)) {
+            body_ = org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply.getDefaultInstance();
+          }
+          chatsLoadReplyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply.Builder, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReplyOrBuilder>(
+                  (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply) body_,
+                  getParentForChildren(),
+                  isClean());
+          body_ = null;
+        }
+        bodyCase_ = 15;
+        onChanged();;
+        return chatsLoadReplyBuilder_;
+      }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest.Builder, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequestOrBuilder> checkOnlineRequestBuilder_;
+      /**
+       * <code>.CheckOnlineUserRequest checkOnlineRequest = 16;</code>
+       * @return Whether the checkOnlineRequest field is set.
+       */
+      @java.lang.Override
+      public boolean hasCheckOnlineRequest() {
+        return bodyCase_ == 16;
+      }
+      /**
+       * <code>.CheckOnlineUserRequest checkOnlineRequest = 16;</code>
+       * @return The checkOnlineRequest.
+       */
+      @java.lang.Override
+      public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest getCheckOnlineRequest() {
+        if (checkOnlineRequestBuilder_ == null) {
+          if (bodyCase_ == 16) {
+            return (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest) body_;
+          }
+          return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest.getDefaultInstance();
+        } else {
+          if (bodyCase_ == 16) {
+            return checkOnlineRequestBuilder_.getMessage();
+          }
+          return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.CheckOnlineUserRequest checkOnlineRequest = 16;</code>
+       */
+      public Builder setCheckOnlineRequest(org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest value) {
+        if (checkOnlineRequestBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          body_ = value;
+          onChanged();
+        } else {
+          checkOnlineRequestBuilder_.setMessage(value);
+        }
+        bodyCase_ = 16;
+        return this;
+      }
+      /**
+       * <code>.CheckOnlineUserRequest checkOnlineRequest = 16;</code>
+       */
+      public Builder setCheckOnlineRequest(
+          org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest.Builder builderForValue) {
+        if (checkOnlineRequestBuilder_ == null) {
+          body_ = builderForValue.build();
+          onChanged();
+        } else {
+          checkOnlineRequestBuilder_.setMessage(builderForValue.build());
+        }
+        bodyCase_ = 16;
+        return this;
+      }
+      /**
+       * <code>.CheckOnlineUserRequest checkOnlineRequest = 16;</code>
+       */
+      public Builder mergeCheckOnlineRequest(org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest value) {
+        if (checkOnlineRequestBuilder_ == null) {
+          if (bodyCase_ == 16 &&
+              body_ != org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest.getDefaultInstance()) {
+            body_ = org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest.newBuilder((org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest) body_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            body_ = value;
+          }
+          onChanged();
+        } else {
+          if (bodyCase_ == 16) {
+            checkOnlineRequestBuilder_.mergeFrom(value);
+          }
+          checkOnlineRequestBuilder_.setMessage(value);
+        }
+        bodyCase_ = 16;
+        return this;
+      }
+      /**
+       * <code>.CheckOnlineUserRequest checkOnlineRequest = 16;</code>
+       */
+      public Builder clearCheckOnlineRequest() {
+        if (checkOnlineRequestBuilder_ == null) {
+          if (bodyCase_ == 16) {
+            bodyCase_ = 0;
+            body_ = null;
+            onChanged();
+          }
+        } else {
+          if (bodyCase_ == 16) {
+            bodyCase_ = 0;
+            body_ = null;
+          }
+          checkOnlineRequestBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>.CheckOnlineUserRequest checkOnlineRequest = 16;</code>
+       */
+      public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest.Builder getCheckOnlineRequestBuilder() {
+        return getCheckOnlineRequestFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.CheckOnlineUserRequest checkOnlineRequest = 16;</code>
+       */
+      @java.lang.Override
+      public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequestOrBuilder getCheckOnlineRequestOrBuilder() {
+        if ((bodyCase_ == 16) && (checkOnlineRequestBuilder_ != null)) {
+          return checkOnlineRequestBuilder_.getMessageOrBuilder();
+        } else {
+          if (bodyCase_ == 16) {
+            return (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest) body_;
+          }
+          return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.CheckOnlineUserRequest checkOnlineRequest = 16;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest.Builder, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequestOrBuilder> 
+          getCheckOnlineRequestFieldBuilder() {
+        if (checkOnlineRequestBuilder_ == null) {
+          if (!(bodyCase_ == 16)) {
+            body_ = org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest.getDefaultInstance();
+          }
+          checkOnlineRequestBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest.Builder, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequestOrBuilder>(
+                  (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest) body_,
+                  getParentForChildren(),
+                  isClean());
+          body_ = null;
+        }
+        bodyCase_ = 16;
+        onChanged();;
+        return checkOnlineRequestBuilder_;
+      }
+
+      private com.google.protobuf.SingleFieldBuilderV3<
+          org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply.Builder, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReplyOrBuilder> checkOnlineReplyBuilder_;
+      /**
+       * <code>.CheckOnlineUserReply checkOnlineReply = 17;</code>
+       * @return Whether the checkOnlineReply field is set.
+       */
+      @java.lang.Override
+      public boolean hasCheckOnlineReply() {
+        return bodyCase_ == 17;
+      }
+      /**
+       * <code>.CheckOnlineUserReply checkOnlineReply = 17;</code>
+       * @return The checkOnlineReply.
+       */
+      @java.lang.Override
+      public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply getCheckOnlineReply() {
+        if (checkOnlineReplyBuilder_ == null) {
+          if (bodyCase_ == 17) {
+            return (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply) body_;
+          }
+          return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply.getDefaultInstance();
+        } else {
+          if (bodyCase_ == 17) {
+            return checkOnlineReplyBuilder_.getMessage();
+          }
+          return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.CheckOnlineUserReply checkOnlineReply = 17;</code>
+       */
+      public Builder setCheckOnlineReply(org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply value) {
+        if (checkOnlineReplyBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          body_ = value;
+          onChanged();
+        } else {
+          checkOnlineReplyBuilder_.setMessage(value);
         }
         bodyCase_ = 17;
         return this;
       }
       /**
-       * <code>.ChatsLoadReply chatsLoadReply = 17;</code>
+       * <code>.CheckOnlineUserReply checkOnlineReply = 17;</code>
        */
-      public Builder clearChatsLoadReply() {
-        if (chatsLoadReplyBuilder_ == null) {
+      public Builder setCheckOnlineReply(
+          org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply.Builder builderForValue) {
+        if (checkOnlineReplyBuilder_ == null) {
+          body_ = builderForValue.build();
+          onChanged();
+        } else {
+          checkOnlineReplyBuilder_.setMessage(builderForValue.build());
+        }
+        bodyCase_ = 17;
+        return this;
+      }
+      /**
+       * <code>.CheckOnlineUserReply checkOnlineReply = 17;</code>
+       */
+      public Builder mergeCheckOnlineReply(org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply value) {
+        if (checkOnlineReplyBuilder_ == null) {
+          if (bodyCase_ == 17 &&
+              body_ != org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply.getDefaultInstance()) {
+            body_ = org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply.newBuilder((org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply) body_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            body_ = value;
+          }
+          onChanged();
+        } else {
+          if (bodyCase_ == 17) {
+            checkOnlineReplyBuilder_.mergeFrom(value);
+          }
+          checkOnlineReplyBuilder_.setMessage(value);
+        }
+        bodyCase_ = 17;
+        return this;
+      }
+      /**
+       * <code>.CheckOnlineUserReply checkOnlineReply = 17;</code>
+       */
+      public Builder clearCheckOnlineReply() {
+        if (checkOnlineReplyBuilder_ == null) {
           if (bodyCase_ == 17) {
             bodyCase_ = 0;
             body_ = null;
@@ -4166,50 +4166,50 @@ public final class JvClientServerSerializeProtocolMessage_pb {
             bodyCase_ = 0;
             body_ = null;
           }
-          chatsLoadReplyBuilder_.clear();
+          checkOnlineReplyBuilder_.clear();
         }
         return this;
       }
       /**
-       * <code>.ChatsLoadReply chatsLoadReply = 17;</code>
+       * <code>.CheckOnlineUserReply checkOnlineReply = 17;</code>
        */
-      public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply.Builder getChatsLoadReplyBuilder() {
-        return getChatsLoadReplyFieldBuilder().getBuilder();
+      public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply.Builder getCheckOnlineReplyBuilder() {
+        return getCheckOnlineReplyFieldBuilder().getBuilder();
       }
       /**
-       * <code>.ChatsLoadReply chatsLoadReply = 17;</code>
+       * <code>.CheckOnlineUserReply checkOnlineReply = 17;</code>
        */
       @java.lang.Override
-      public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReplyOrBuilder getChatsLoadReplyOrBuilder() {
-        if ((bodyCase_ == 17) && (chatsLoadReplyBuilder_ != null)) {
-          return chatsLoadReplyBuilder_.getMessageOrBuilder();
+      public org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReplyOrBuilder getCheckOnlineReplyOrBuilder() {
+        if ((bodyCase_ == 17) && (checkOnlineReplyBuilder_ != null)) {
+          return checkOnlineReplyBuilder_.getMessageOrBuilder();
         } else {
           if (bodyCase_ == 17) {
-            return (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply) body_;
+            return (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply) body_;
           }
-          return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply.getDefaultInstance();
+          return org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply.getDefaultInstance();
         }
       }
       /**
-       * <code>.ChatsLoadReply chatsLoadReply = 17;</code>
+       * <code>.CheckOnlineUserReply checkOnlineReply = 17;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply.Builder, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReplyOrBuilder> 
-          getChatsLoadReplyFieldBuilder() {
-        if (chatsLoadReplyBuilder_ == null) {
+          org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply.Builder, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReplyOrBuilder> 
+          getCheckOnlineReplyFieldBuilder() {
+        if (checkOnlineReplyBuilder_ == null) {
           if (!(bodyCase_ == 17)) {
-            body_ = org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply.getDefaultInstance();
+            body_ = org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply.getDefaultInstance();
           }
-          chatsLoadReplyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply.Builder, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReplyOrBuilder>(
-                  (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply) body_,
+          checkOnlineReplyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply.Builder, org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReplyOrBuilder>(
+                  (org.foomaa.jvchat.messages.JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply) body_,
                   getParentForChildren(),
                   isClean());
           body_ = null;
         }
         bodyCase_ = 17;
         onChanged();;
-        return chatsLoadReplyBuilder_;
+        return checkOnlineReplyBuilder_;
       }
       @java.lang.Override
       public final Builder setUnknownFields(
@@ -16034,12 +16034,12 @@ public final class JvClientServerSerializeProtocolMessage_pb {
       ".VerifyFamousEmailReplyH\000\0227\n\025changePassw" +
       "ordRequest\030\014 \001(\0132\026.ChangePasswordRequest" +
       "H\000\0223\n\023changePasswordReply\030\r \001(\0132\024.Change" +
-      "PasswordReplyH\000\0225\n\022checkOnlineRequest\030\016 " +
-      "\001(\0132\027.CheckOnlineUserRequestH\000\0221\n\020checkO" +
-      "nlineReply\030\017 \001(\0132\025.CheckOnlineUserReplyH" +
-      "\000\022-\n\020chatsLoadRequest\030\020 \001(\0132\021.ChatsLoadR" +
-      "equestH\000\022)\n\016chatsLoadReply\030\021 \001(\0132\017.Chats" +
-      "LoadReplyH\000B\006\n\004body\"/\n\014EntryRequest\022\r\n\005l" +
+      "PasswordReplyH\000\022-\n\020chatsLoadRequest\030\016 \001(" +
+      "\0132\021.ChatsLoadRequestH\000\022)\n\016chatsLoadReply" +
+      "\030\017 \001(\0132\017.ChatsLoadReplyH\000\0225\n\022checkOnline" +
+      "Request\030\020 \001(\0132\027.CheckOnlineUserRequestH\000" +
+      "\0221\n\020checkOnlineReply\030\021 \001(\0132\025.CheckOnline" +
+      "UserReplyH\000B\006\n\004body\"/\n\014EntryRequest\022\r\n\005l" +
       "ogin\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\"\033\n\nEntryRep" +
       "ly\022\r\n\005reply\030\001 \001(\010\"E\n\023RegistrationRequest" +
       "\022\r\n\005login\030\001 \001(\t\022\r\n\005email\030\002 \001(\t\022\020\n\010passwo" +
@@ -16084,7 +16084,7 @@ public final class JvClientServerSerializeProtocolMessage_pb {
     internal_static_General_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_General_descriptor,
-        new java.lang.String[] { "Type", "EntryRequest", "EntryReply", "RegistrationRequest", "RegistrationReply", "VerifyRegistrationEmailRequest", "VerifyRegistrationEmailReply", "ResetPasswordRequest", "ResetPasswordReply", "VerifyFamousEmailRequest", "VerifyFamousEmailReply", "ChangePasswordRequest", "ChangePasswordReply", "CheckOnlineRequest", "CheckOnlineReply", "ChatsLoadRequest", "ChatsLoadReply", "Body", });
+        new java.lang.String[] { "Type", "EntryRequest", "EntryReply", "RegistrationRequest", "RegistrationReply", "VerifyRegistrationEmailRequest", "VerifyRegistrationEmailReply", "ResetPasswordRequest", "ResetPasswordReply", "VerifyFamousEmailRequest", "VerifyFamousEmailReply", "ChangePasswordRequest", "ChangePasswordReply", "ChatsLoadRequest", "ChatsLoadReply", "CheckOnlineRequest", "CheckOnlineReply", "Body", });
     internal_static_EntryRequest_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_EntryRequest_fieldAccessorTable = new

@@ -133,22 +133,6 @@ public class JvSerializatorDataMessages {
                     return new byte[0];
                 }
             }
-            case CheckOnlineUserRequest -> {
-                if (parameters.length == 1) {
-                    Object ip = parameters[0];
-                    return createCheckOnlineRequestMessage(type, (String) ip);
-                } else {
-                    return new byte[0];
-                }
-            }
-            case CheckOnlineUserReply -> {
-                if (parameters.length == 1) {
-                    Object login = parameters[0];
-                    return createCheckOnlineReplyMessage(type, (String) login);
-                } else {
-                    return new byte[0];
-                }
-            }
             case ChatsLoadRequest -> {
                 if (parameters.length == 1) {
                     Object sender = parameters[0];
@@ -164,6 +148,22 @@ public class JvSerializatorDataMessages {
                             JvGetterTools.getInstance().getBeanStructTools()
                                     .objectInListMaps(chatsInfoObj, JvDbGlobalDefines.LineKeys.class, String.class);
                     return createChatsLoadReplyMessage(type, chatsInfo);
+                } else {
+                    return new byte[0];
+                }
+            }
+            case CheckOnlineUserRequest -> {
+                if (parameters.length == 1) {
+                    Object ip = parameters[0];
+                    return createCheckOnlineRequestMessage(type, (String) ip);
+                } else {
+                    return new byte[0];
+                }
+            }
+            case CheckOnlineUserReply -> {
+                if (parameters.length == 1) {
+                    Object login = parameters[0];
+                    return createCheckOnlineReplyMessage(type, (String) login);
                 } else {
                     return new byte[0];
                 }
@@ -338,32 +338,6 @@ public class JvSerializatorDataMessages {
         return resMsg.toByteArray();
     }
 
-    private byte[] createCheckOnlineRequestMessage(JvDefinesMessages.TypeMessage type, String ip) {
-        JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest msgCheckOnlineRequest =
-                JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest.newBuilder()
-                        .setIp(ip)
-                        .build();
-        JvClientServerSerializeProtocolMessage_pb.General resMsg =
-                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
-                        .setType(type.getValue())
-                        .setCheckOnlineRequest(msgCheckOnlineRequest)
-                        .build();
-        return resMsg.toByteArray();
-    }
-
-    private byte[] createCheckOnlineReplyMessage(JvDefinesMessages.TypeMessage type, String login) {
-        JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply msgCheckOnlineReplyBuilder =
-                JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply.newBuilder()
-                        .setLogin(login)
-                        .build();
-        JvClientServerSerializeProtocolMessage_pb.General resMsg =
-                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
-                        .setType(type.getValue())
-                        .setCheckOnlineReply(msgCheckOnlineReplyBuilder)
-                        .build();
-        return resMsg.toByteArray();
-    }
-
     private byte[] createChatsLoadRequestMessage(JvDefinesMessages.TypeMessage type, String login) {
         JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest msgChatsLoadRequest =
                 JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest.newBuilder()
@@ -404,6 +378,32 @@ public class JvSerializatorDataMessages {
                         .setChatsLoadReply(msgChatsLoadReply)
                         .build();
 
+        return resMsg.toByteArray();
+    }
+
+    private byte[] createCheckOnlineRequestMessage(JvDefinesMessages.TypeMessage type, String ip) {
+        JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest msgCheckOnlineRequest =
+                JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest.newBuilder()
+                        .setIp(ip)
+                        .build();
+        JvClientServerSerializeProtocolMessage_pb.General resMsg =
+                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
+                        .setType(type.getValue())
+                        .setCheckOnlineRequest(msgCheckOnlineRequest)
+                        .build();
+        return resMsg.toByteArray();
+    }
+
+    private byte[] createCheckOnlineReplyMessage(JvDefinesMessages.TypeMessage type, String login) {
+        JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply msgCheckOnlineReplyBuilder =
+                JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply.newBuilder()
+                        .setLogin(login)
+                        .build();
+        JvClientServerSerializeProtocolMessage_pb.General resMsg =
+                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
+                        .setType(type.getValue())
+                        .setCheckOnlineReply(msgCheckOnlineReplyBuilder)
+                        .build();
         return resMsg.toByteArray();
     }
 }

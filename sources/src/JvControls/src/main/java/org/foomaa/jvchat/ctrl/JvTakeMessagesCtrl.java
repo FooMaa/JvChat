@@ -238,18 +238,6 @@ public class JvTakeMessagesCtrl {
         }
     }
 
-    private void workCheckOnlineRequestMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
-        String ip = (String) map.get(JvDefinesMessages.TypeData.IP);
-        String login = JvGetterSettings.getInstance().getBeanUserInfoSettings().getLogin();
-        JvGetterControls.getInstance().getBeanSendMessagesCtrl()
-                .sendMessage(JvDefinesMessages.TypeMessage.ChangePasswordReply, login);
-    }
-
-    private void workCheckOnlineReplyMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
-        String login = (String) map.get(JvDefinesMessages.TypeData.Login);
-        /////////////////////////////////////////////////
-    }
-
     private void workChatsLoadRequestMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         List<Map<JvDbGlobalDefines.LineKeys, String>> requestDB = JvGetterControls.getInstance()
                 .getBeanDbCtrl().getMultipleInfoFromDb(JvDbCtrl.TypeExecutionGetMultiple.ChatsLoad,
@@ -266,5 +254,17 @@ public class JvTakeMessagesCtrl {
         JvGetterControls.getInstance().getBeanChatsCtrl().setChatsInfo(chatsInfo);
         JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
                 .setChatsLoadReplyFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
+    }
+
+    private void workCheckOnlineRequestMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
+        String ip = (String) map.get(JvDefinesMessages.TypeData.IP);
+        String login = JvGetterSettings.getInstance().getBeanUserInfoSettings().getLogin();
+        JvGetterControls.getInstance().getBeanSendMessagesCtrl()
+                .sendMessage(JvDefinesMessages.TypeMessage.ChangePasswordReply, login);
+    }
+
+    private void workCheckOnlineReplyMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
+        String login = (String) map.get(JvDefinesMessages.TypeData.Login);
+        /////////////////////////////////////////////////
     }
 }

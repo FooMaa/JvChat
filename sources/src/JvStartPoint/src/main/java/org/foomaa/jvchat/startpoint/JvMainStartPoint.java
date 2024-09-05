@@ -48,7 +48,7 @@ public class JvMainStartPoint implements ApplicationRunner {
             }
             String argsIp = args.getOptionValues("ipServer").get(0);
             if (JvGetterTools.getInstance().getBeanMainTools().validateInputIp(argsIp)) {
-                JvGetterSettings.getInstance().getBeanMainSettings().setIp(argsIp);
+                JvGetterSettings.getInstance().getBeanUserInfoSettings().setIpRemoteServer(argsIp);
             } else {
                 JvGetterUILinks.getInstance().getBeanErrorStartUILink(
                         "В параметре запуска не верный IP!");

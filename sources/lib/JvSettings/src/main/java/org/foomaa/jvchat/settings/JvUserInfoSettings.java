@@ -26,4 +26,30 @@ public class JvUserInfoSettings {
     public String getLogin() {
         return login;
     }
+
+
+    private String ipRemoteServer;
+
+    private int portRemoteServer = 4004;
+
+    public String getIpRemoteServer() {
+        return ipRemoteServer;
+    }
+
+    public void setIpRemoteServer(String newIPRemoteServer) {
+        if (!Objects.equals(ipRemoteServer, newIPRemoteServer)) {
+            ipRemoteServer = newIPRemoteServer;
+        }
+    }
+
+    public int getPortRemoteServer() {
+        return portRemoteServer;
+    }
+
+    public void setPortRemoteServer(int newPortRemoteServer) {
+        if (!Objects.equals(portRemoteServer, newPortRemoteServer)) {
+            portRemoteServer = newPortRemoteServer;
+        }
+    }
+
 }

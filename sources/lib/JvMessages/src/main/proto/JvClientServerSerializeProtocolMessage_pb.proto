@@ -21,10 +21,10 @@ message General {
         ChangePasswordReply changePasswordReply = 13;
 
         // Main Chat
-        CheckOnlineUserRequest checkOnlineRequest = 14;
-        CheckOnlineUserReply checkOnlineReply = 15;
-        ChatsLoadRequest chatsLoadRequest = 16;
-        ChatsLoadReply chatsLoadReply = 17;
+        ChatsLoadRequest chatsLoadRequest = 14;
+        ChatsLoadReply chatsLoadReply = 15;
+        CheckOnlineUserRequest checkOnlineRequest = 16;
+        CheckOnlineUserReply checkOnlineReply = 17;
     }
 }
 

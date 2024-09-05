@@ -99,7 +99,7 @@ public class JvMainTools {
             String port = in.nextLine();
             if (validateInputPort(port)) {
                 if (!port.isEmpty()) {
-                    JvGetterSettings.getInstance().getBeanMainSettings().setPort(Integer.parseInt(port));
+                    JvGetterSettings.getInstance().getBeanServerInfoSettings().setPort(Integer.parseInt(port));
                 }
                 break;
             } else {
@@ -112,7 +112,7 @@ public class JvMainTools {
             String limitConnection = in.nextLine();
             if (validateInputLimitConnections(limitConnection)) {
                 if (!limitConnection.isEmpty()) {
-                    JvGetterSettings.getInstance().getBeanMainSettings().setQuantityConnections(Integer.parseInt(limitConnection));
+                    JvGetterSettings.getInstance().getBeanServerInfoSettings().setQuantityConnections(Integer.parseInt(limitConnection));
                 }
                 break;
             } else {
@@ -150,12 +150,12 @@ public class JvMainTools {
 
     private void setIpToSettings(String ip) {
         if (!ip.isEmpty()) {
-            JvGetterSettings.getInstance().getBeanMainSettings().setIp(ip);
+            JvGetterSettings.getInstance().getBeanServerInfoSettings().setIp(ip);
         } else {
             JvLog.write(JvLog.TypeLog.Info, "Жди автоопределения IP-адреса ...");
             try (Socket socket = new Socket()) {
                 socket.connect(new InetSocketAddress("google.com", 80));
-                JvGetterSettings.getInstance().getBeanMainSettings().setIp(socket.getLocalAddress().getHostAddress());
+                JvGetterSettings.getInstance().getBeanServerInfoSettings().setIp(socket.getLocalAddress().getHostAddress());
             } catch (IOException exception) {
                 JvLog.write(JvLog.TypeLog.Error, "Не получилось выйти в сеть, проверь подключение и попытайся снова!");
                 System.exit(1);

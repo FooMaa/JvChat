@@ -21,12 +21,12 @@ public class JvServersSocket {
         JvLog.write(JvLog.TypeLog.Info, "Server is started");
 
         try {
-            if (JvGetterSettings.getInstance().getBeanMainSettings().getIp().isEmpty()) {
-                socketServers = new ServerSocket(JvGetterSettings.getInstance().getBeanMainSettings().getPort());
+            if (JvGetterSettings.getInstance().getBeanServerInfoSettings().getIp().isEmpty()) {
+                socketServers = new ServerSocket(JvGetterSettings.getInstance().getBeanServerInfoSettings().getPort());
             } else {
-                socketServers = new ServerSocket(JvGetterSettings.getInstance().getBeanMainSettings().getPort(),
-                        JvGetterSettings.getInstance().getBeanMainSettings().getQuantityConnections(),
-                        InetAddress.getByName(JvGetterSettings.getInstance().getBeanMainSettings().getIp()));
+                socketServers = new ServerSocket(JvGetterSettings.getInstance().getBeanServerInfoSettings().getPort(),
+                        JvGetterSettings.getInstance().getBeanServerInfoSettings().getQuantityConnections(),
+                        InetAddress.getByName(JvGetterSettings.getInstance().getBeanServerInfoSettings().getIp()));
             }
 
             JvLog.write(JvLog.TypeLog.Info, "IP: " + socketServers.getInetAddress().toString());
