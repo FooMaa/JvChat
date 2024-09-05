@@ -92,7 +92,9 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
                             chatsCtrl.getLastMessage(login),
                             chatsCtrl.getLastMessageSender(login),
                             chatsCtrl.getTimeHMLastMessage(login),
-                            chatsCtrl.getStatusLastMessage(login));
+                            chatsCtrl.getTimeHMLastOnline(login),
+                            chatsCtrl.getStatusLastMessage(login),
+                            chatsCtrl.getStatusOnline(login));
             box.add(component);
             addListenerToElements(component);
         }

@@ -82,6 +82,7 @@ public class JvChatsCtrl {
         if (chatsInfo != newChatsInfo) {
             chatsInfo = newChatsInfo;
         }
+        System.out.println(chatsInfo);
     }
 
     public List<Map<JvDbGlobalDefines.LineKeys, String>> getChatsInfo() {
@@ -311,5 +312,23 @@ public class JvChatsCtrl {
         }
 
         return timestamp;
+    }
+
+    public String getTimeHMLastOnline(String login) {
+        LocalDateTime timestamp = getTimestampLastOnline(login);
+
+        int hourInt = timestamp.getHour();
+        int minInt = timestamp.getMinute();
+        int dayInt = timestamp.getDayOfMonth();
+        int monthInt = timestamp.getMonthValue();
+        int yearInt = timestamp.getYear();
+
+        String hour = hourInt < 10 ? "0" + hourInt : String.valueOf(hourInt);
+        String min = minInt < 10 ? "0" + minInt : String.valueOf(minInt);
+        String day = dayInt < 10 ? "0" + dayInt : String.valueOf(dayInt);
+        String month = monthInt < 10 ? "0" + monthInt : String.valueOf(monthInt);
+        String year = String.valueOf(yearInt);
+
+        return String.format("%s:%s %s.%s.%s", hour, min, day, month, year);
     }
 }

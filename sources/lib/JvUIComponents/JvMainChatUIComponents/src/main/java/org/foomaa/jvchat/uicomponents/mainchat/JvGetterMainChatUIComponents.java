@@ -43,10 +43,18 @@ public class JvGetterMainChatUIComponents {
     public JvRectChatMainChatUI getBeanRectChatMainChatUI(String nickName,
                                                           String shortLastMessage,
                                                           String lastMessageSender,
-                                                          String time,
-                                                          JvChatsCtrl.TypeStatusMessage status) {
+                                                          String timeMessage,
+                                                          String lastTimeOnline,
+                                                          JvChatsCtrl.TypeStatusMessage statusMessage,
+                                                          JvChatsCtrl.TypeStatusOnline statusOnline) {
         return (JvRectChatMainChatUI) context.getBean(JvMainChatUIComponentsSpringConfig.NameBeans.BeanRectChatMainChatUI.getValue(),
-                nickName, shortLastMessage, lastMessageSender, time, status);
+                nickName,
+                shortLastMessage,
+                lastMessageSender,
+                timeMessage,
+                lastTimeOnline,
+                statusMessage,
+                statusOnline);
     }
 
     public JvSendButtonMainChatUI getBeanSendButtonMainChatUI(String text) {

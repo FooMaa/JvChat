@@ -12,19 +12,25 @@ public class JvRectChatMainChatUI extends JPanel {
     private final String nickName;
     private final String shortLastMessage;
     private final String lastMessageSender;
-    private final String time;
-    private final JvChatsCtrl.TypeStatusMessage status;
+    private final String timeMessage;
+    private final JvChatsCtrl.TypeStatusMessage statusMessage;
+    private final JvChatsCtrl.TypeStatusOnline statusOnline;
+    private final String lastTimeOnline;
 
     JvRectChatMainChatUI(String newNickName,
                          String newShortLastMessage,
                          String newLastMessageSender,
-                         String newTime,
-                         JvChatsCtrl.TypeStatusMessage newStatus) {
+                         String newTimeMessage,
+                         String newLastTimeOnline,
+                         JvChatsCtrl.TypeStatusMessage newStatusMessage,
+                         JvChatsCtrl.TypeStatusOnline newStatusOnline) {
         nickName = newNickName;
         shortLastMessage = newShortLastMessage;
         lastMessageSender = newLastMessageSender;
-        status = newStatus;
-        time = newTime;
+        timeMessage = newTimeMessage;
+        lastTimeOnline = newLastTimeOnline;
+        statusMessage = newStatusMessage;
+        statusOnline = newStatusOnline;
 
         makeChatBox();
     }
@@ -47,7 +53,7 @@ public class JvRectChatMainChatUI extends JPanel {
         gbc.anchor = GridBagConstraints.WEST;
         add(loginLabel, gbc);
 
-        JLabel timeLabel = new JLabel(time);
+        JLabel timeLabel = new JLabel(timeMessage);
         timeLabel.setFont(new Font("Times", Font.PLAIN,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
 
@@ -78,7 +84,7 @@ public class JvRectChatMainChatUI extends JPanel {
     }
 
     private void setStatusFront() {
-        switch (status) {
+        switch (statusMessage) {
             case Sent -> setBackground(new Color(254,252,190));
             case Delivered -> setBackground(new Color(181,252,250));
             case Read -> setBackground(new Color(191,254,188));
