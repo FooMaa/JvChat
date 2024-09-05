@@ -27,6 +27,15 @@ Maven:
 ```
 clean install spring-boot:run -Pusers -Dspring-boot.run.arguments=--ipServer=$ip
 ```
+Если нужно указать порт при запуске. На место ```$ip``` вы вставляете свой IP-адрес сервера, На место ```$port``` вы вставляете свой порт сервера.  
+Gradle:
+```
+clean build bootRun --args='--ipServer=$ip --portServer=$port' -Pusers
+```
+Maven:
+```
+clean install spring-boot:run -Pusers -Dspring-boot.run.arguments="--ipServer=$ip --portServer=$port"
+```
 ## Скрипты и их назначение
 | Путь к скрипту | Назначение |
 | --- | --- |
