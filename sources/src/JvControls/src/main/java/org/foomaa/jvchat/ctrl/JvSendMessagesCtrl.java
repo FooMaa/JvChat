@@ -167,11 +167,8 @@ public class JvSendMessagesCtrl {
                     byte[] bodyMessageChatsLoadReply = createBodyChatsLoadReplyMessage(type,
                             chatsInfo);
                     sendReadyMessageNetwork(bodyMessageChatsLoadReply);
-
-                    byte[] bodyMessageCheckOnlineRequest = createBodyCheckOnlineRequestMessage(
-                            JvDefinesMessages.TypeMessage.CheckOnlineUserRequest,
+                    sendMessage(JvDefinesMessages.TypeMessage.CheckOnlineUserRequest,
                             JvGetterSettings.getInstance().getBeanServersInfoSettings().getIp());
-                    sendReadyMessageNetwork(bodyMessageCheckOnlineRequest);
                 }
             }
             case CheckOnlineUserRequest -> {
