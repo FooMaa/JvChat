@@ -15,4 +15,11 @@ public class JvOnlineServersCtrl {
         }
         return instance;
     }
+
+    public void addUsersOnline(String userLogin) {
+        if (!usersOnline.contains(userLogin)) {
+            usersOnline.add(userLogin);
+        }
+        System.out.println(usersOnline);
+    }
 }

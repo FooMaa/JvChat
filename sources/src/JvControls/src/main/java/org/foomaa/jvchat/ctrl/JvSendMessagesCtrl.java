@@ -3,6 +3,7 @@ package org.foomaa.jvchat.ctrl;
 import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
 import org.foomaa.jvchat.messages.JvGetterMessages;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
+import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.tools.JvGetterTools;
 
 import java.util.List;
@@ -163,9 +164,14 @@ public class JvSendMessagesCtrl {
                     List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo =
                             JvGetterTools.getInstance().getBeanStructTools()
                             .objectInListMaps(chatsInfoObj, JvDbGlobalDefines.LineKeys.class, String.class);
-                    byte[] bodyMessage = createBodyChatsLoadReplyMessage(type,
+                    byte[] bodyMessageChatsLoadReply = createBodyChatsLoadReplyMessage(type,
                             chatsInfo);
-                    sendReadyMessageNetwork(bodyMessage);
+                    sendReadyMessageNetwork(bodyMessageChatsLoadReply);
+
+                    byte[] bodyMessageCheckOnlineRequest = createBodyCheckOnlineRequestMessage(
+                            JvDefinesMessages.TypeMessage.CheckOnlineUserRequest,
+                            JvGetterSettings.getInstance().getBeanServersInfoSettings().getIp());
+                    sendReadyMessageNetwork(bodyMessageCheckOnlineRequest);
                 }
             }
             case CheckOnlineUserRequest -> {
