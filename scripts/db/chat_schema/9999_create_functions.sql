@@ -291,7 +291,7 @@ $BODY$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION chat_schema.chats_messages_get_chats_by_login(
     f_login character varying
 )
-    RETURNS TABLE (sender character varying, receiver character varying, message bytea, datetime timestamp, status int) AS
+    RETURNS TABLE (sender character varying, receiver character varying, last_message bytea, datetime_message timestamp, status_message int, status_online int, datetime_last_online timestamp) AS
 $BODY$
 DECLARE
     rv chat_schema.chats_messages%rowtype;
@@ -299,10 +299,17 @@ DECLARE
 BEGIN
     RETURN QUERY 
     SELECT DISTINCT ON (LEAST(chats.senderID, chats.receiverID), GREATEST(chats.senderID, chats.receiverID)) 
-    auth1.login AS login_sender, auth2.login AS login_receiver, chats.message, chats.datetime, chats.status 
+    auth1.login AS sender,
+    auth2.login AS receiver,
+    chats.message AS last_message, 
+    chats.datetime AS datetime_message,
+    chats.status AS status_message,
+    online_info.status AS status_online,
+    online_info.last_online_time AS datetime_last_online
     FROM chat_schema.chats_messages AS chats
     LEFT JOIN chat_schema.auth_users_info AS auth1 ON chats.senderID = auth1.id 
-    LEFT JOIN chat_schema.auth_users_info AS auth2 ON chats.receiverID = auth2.id 
+    LEFT JOIN chat_schema.auth_users_info AS auth2 ON chats.receiverID = auth2.id
+    LEFT JOIN chat_schema.online_users_info AS online_info ON chats.receiverID = online_info.id_user  
     WHERE auth1.login = f_login OR auth2.login = f_login 
     ORDER BY LEAST(chats.senderID, chats.receiverID), GREATEST(chats.senderID, chats.receiverID), datetime DESC;
 END;
@@ -349,29 +356,6 @@ BEGIN
         RETURN rv;
     END IF;
     RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE OR REPLACE FUNCTION chat_schema.online_users_info_save (
-    f_id_user   integer,
-    f_status    integer
-)
-    RETURNS integer AS
-$BODY$
-DECLARE
-    rv integer;
-BEGIN
-    rv := -1;
-    PERFORM * FROM chat_schema.online_users_info WHERE id_user = f_id_user;
-    IF found THEN
-        UPDATE chat_schema.online_users_info SET id_user = f_id_user, status = f_status WHERE id_user = f_id_user;
-        rv := 1;
-    ELSE
-        INSERT INTO chat_schema.online_users_info(id_user, status) VALUES (f_id_user, f_status);
-        rv := 2;
-    END IF;
-
-    RETURN rv;
 END;
 $BODY$ LANGUAGE plpgsql;
 

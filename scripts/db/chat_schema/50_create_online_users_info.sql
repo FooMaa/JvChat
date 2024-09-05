@@ -12,5 +12,5 @@ CREATE TABLE chat_schema.online_users_info (
 
 COMMENT ON TABLE chat_schema.online_users_info IS 'Таблица для отслеживания онлайна пользователей';
 COMMENT ON COLUMN chat_schema.online_users_info.id_user IS 'ID пользователя';
-COMMENT ON COLUMN chat_schema.online_users_info.status IS 'Состояние пользователя 0 - ошибка, 1 - не в сети, 2 - в сети';
+COMMENT ON COLUMN chat_schema.online_users_info.status IS 'Состояние пользователя -1 - ошибка, 0 - не в сети, 1 - в сети';
 COMMENT ON COLUMN chat_schema.online_users_info.last_online_time IS 'Штамп времени последнего появления в сети';

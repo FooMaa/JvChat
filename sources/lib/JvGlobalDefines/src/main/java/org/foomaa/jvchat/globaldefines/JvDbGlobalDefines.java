@@ -9,9 +9,11 @@ public class JvDbGlobalDefines {
     public enum LineKeys {
         Sender("sender"),
         Receiver("receiver"),
-        Message("message"),
-        DateTime("datetime"),
-        Status("status");
+        LastMessage("last_message"),
+        DateTimeMessage("datetime_message"),
+        StatusMessage("status_message"),
+        StatusOnline("status_online"),
+        DateTimeLastOnline("datetime_last_online");
 
         private final String value;
 

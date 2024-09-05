@@ -43,6 +43,32 @@ public class JvChatsCtrl {
         }
     }
 
+    public enum TypeStatusOnline {
+        Error(-1),
+        Offline(0),
+        Online(1);
+
+        private final int value;
+
+        TypeStatusOnline(int newValue) {
+            value = newValue;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+        public static TypeStatusOnline getTypeStatusOnline(int value) {
+            TypeStatusOnline[] statusKeys = TypeStatusOnline.values();
+            for (TypeStatusOnline statusKey : statusKeys) {
+                if (statusKey.getValue() == value) {
+                    return statusKey;
+                }
+            }
+            return null;
+        }
+    }
+
     private JvChatsCtrl() {}
 
     static JvChatsCtrl getInstance() {
@@ -98,7 +124,7 @@ public class JvChatsCtrl {
             String receiver = map.get(JvDbGlobalDefines.LineKeys.Receiver);
 
             if (Objects.equals(sender, login) || Objects.equals(receiver, login)) {
-                lastMessage = map.get(JvDbGlobalDefines.LineKeys.Message);
+                lastMessage = map.get(JvDbGlobalDefines.LineKeys.LastMessage);
                 break;
             }
         }
@@ -120,7 +146,7 @@ public class JvChatsCtrl {
             String receiver = map.get(JvDbGlobalDefines.LineKeys.Receiver);
 
             if (Objects.equals(sender, login) || Objects.equals(receiver, login)) {
-                statusMessageString = map.get(JvDbGlobalDefines.LineKeys.Status);
+                statusMessageString = map.get(JvDbGlobalDefines.LineKeys.StatusMessage);
                 break;
             }
         }
@@ -169,7 +195,7 @@ public class JvChatsCtrl {
             String receiver = map.get(JvDbGlobalDefines.LineKeys.Receiver);
 
             if (Objects.equals(sender, login) || Objects.equals(receiver, login)) {
-                String timestampFromMap = map.get(JvDbGlobalDefines.LineKeys.DateTime);
+                String timestampFromMap = map.get(JvDbGlobalDefines.LineKeys.DateTimeMessage);
                 int normalizeCount = 3;
                 String timestampString = normalizeMillisecond(timestampFromMap, normalizeCount);
 
@@ -226,5 +252,64 @@ public class JvChatsCtrl {
         String year = String.valueOf(yearInt);
 
         return String.format("%s:%s %s.%s.%s", hour, min, day, month, year);
+    }
+
+    public TypeStatusOnline getStatusOnline(String login) {
+        if (chatsInfo.isEmpty()) {
+            JvLog.write(JvLog.TypeLog.Error, "chatsInfo пуст здесь");
+            return null;
+        }
+
+        String statusOnlineString = "";
+        int statusOnlineInteger = -1;
+
+        for (Map<JvDbGlobalDefines.LineKeys, String> map : chatsInfo) {
+            String sender = map.get(JvDbGlobalDefines.LineKeys.Sender);
+            String receiver = map.get(JvDbGlobalDefines.LineKeys.Receiver);
+
+            if (Objects.equals(sender, login) || Objects.equals(receiver, login)) {
+                statusOnlineString = map.get(JvDbGlobalDefines.LineKeys.StatusOnline);
+                break;
+            }
+        }
+
+        try {
+            statusOnlineInteger = Integer.parseInt(statusOnlineString);
+        } catch (NumberFormatException exception) {
+            JvLog.write(JvLog.TypeLog.Error, "Статус сообщения невозможно определить, из-за невозможности приведения его к типу int");
+        }
+
+        return TypeStatusOnline.getTypeStatusOnline(statusOnlineInteger);
+    }
+
+    public LocalDateTime getTimestampLastOnline(String login) {
+        if (chatsInfo.isEmpty()) {
+            JvLog.write(JvLog.TypeLog.Error, "chatsInfo пуст здесь");
+            return null;
+        }
+
+        LocalDateTime timestamp = null;
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+
+        for (Map<JvDbGlobalDefines.LineKeys, String> map : chatsInfo) {
+            String sender = map.get(JvDbGlobalDefines.LineKeys.Sender);
+            String receiver = map.get(JvDbGlobalDefines.LineKeys.Receiver);
+
+            if (Objects.equals(sender, login) || Objects.equals(receiver, login)) {
+                String timestampFromMap = map.get(JvDbGlobalDefines.LineKeys.DateTimeLastOnline);
+                int normalizeCount = 3;
+                String timestampString = normalizeMillisecond(timestampFromMap, normalizeCount);
+
+                if (timestampString == null) {
+                    JvLog.write(JvLog.TypeLog.Error, "Не получилось нормально преобразовать дату и время к нужному формату");
+                    return null;
+                }
+
+                timestamp = LocalDateTime.parse(timestampString, formatter);
+                break;
+            }
+        }
+
+        return timestamp;
     }
 }
