@@ -12,23 +12,23 @@ public class JvRectChatMainChatUI extends JPanel {
     private final String nickName;
     private final String shortLastMessage;
     private final String lastMessageSender;
-    private final String timeMessage;
+    private final String timeLastMessage;
     private final JvChatsCtrl.TypeStatusMessage statusMessage;
     private final JvChatsCtrl.TypeStatusOnline statusOnline;
-    private final String lastTimeOnline;
+    private final String timeLastOnline;
 
     JvRectChatMainChatUI(String newNickName,
                          String newShortLastMessage,
                          String newLastMessageSender,
-                         String newTimeMessage,
-                         String newLastTimeOnline,
+                         String newTimeLastMessage,
+                         String newTimeLastOnline,
                          JvChatsCtrl.TypeStatusMessage newStatusMessage,
                          JvChatsCtrl.TypeStatusOnline newStatusOnline) {
         nickName = newNickName;
         shortLastMessage = newShortLastMessage;
         lastMessageSender = newLastMessageSender;
-        timeMessage = newTimeMessage;
-        lastTimeOnline = newLastTimeOnline;
+        timeLastMessage = newTimeLastMessage;
+        timeLastOnline = newTimeLastOnline;
         statusMessage = newStatusMessage;
         statusOnline = newStatusOnline;
 
@@ -39,7 +39,7 @@ public class JvRectChatMainChatUI extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         setLayout(new GridBagLayout());
 
-        JLabel loginLabel = new JLabel(nickName);
+        JLabel loginLabel = new JLabel(nickName + createStringStatusOnline());
         loginLabel.setFont(new Font("Times", Font.BOLD,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017)));
 
@@ -53,7 +53,7 @@ public class JvRectChatMainChatUI extends JPanel {
         gbc.anchor = GridBagConstraints.WEST;
         add(loginLabel, gbc);
 
-        JLabel timeLabel = new JLabel(timeMessage);
+        JLabel timeLabel = new JLabel(timeLastMessage);
         timeLabel.setFont(new Font("Times", Font.PLAIN,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
 
@@ -67,7 +67,7 @@ public class JvRectChatMainChatUI extends JPanel {
         add(timeLabel, gbc);
         gridyNum++;
 
-        JLabel lastMessageLabel = new JLabel(voidCreateLastMessageString());
+        JLabel lastMessageLabel = new JLabel(createLastMessageString());
         lastMessageLabel.setFont(new Font("Times", Font.PLAIN,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
 
@@ -92,7 +92,7 @@ public class JvRectChatMainChatUI extends JPanel {
         }
     }
 
-    private String voidCreateLastMessageString() {
+    private String createLastMessageString() {
         String currentLogin = JvGetterSettings.getInstance().getBeanUserInfoSettings().getLogin();
 
         if (Objects.equals(lastMessageSender, currentLogin)) {
@@ -100,5 +100,22 @@ public class JvRectChatMainChatUI extends JPanel {
         }
 
         return shortLastMessage;
+    }
+
+    private String createStringStatusOnline() {
+        switch (statusOnline) {
+            case Error -> {
+                return "Ошибка состояния";
+            }
+            case Offline -> {
+                return String.format(
+                        "Не в сети. Последний в %s",
+                        timeLastOnline);
+            }
+            case Online -> {
+                return "В сети";
+            }
+        }
+        return "";
     }
 }

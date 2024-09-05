@@ -10,7 +10,7 @@ public class JvDbGlobalDefines {
         Sender("sender"),
         Receiver("receiver"),
         LastMessage("last_message"),
-        DateTimeMessage("datetime_message"),
+        DateTimeMessage("datetime_last_message"),
         StatusMessage("status_message"),
         StatusOnline("status_online"),
         DateTimeLastOnline("datetime_last_online");

@@ -67,15 +67,15 @@ public class JvMainChatUIComponentsSpringConfig {
     public JvRectChatMainChatUI beanRectChatMainChatUI(String nickName,
                                                        String shortLastMessage,
                                                        String lastMessageSender,
-                                                       String timeMessage,
-                                                       String lastTimeOnline,
+                                                       String timeLastMessage,
+                                                       String timeLastOnline,
                                                        JvChatsCtrl.TypeStatusMessage statusMessage,
                                                        JvChatsCtrl.TypeStatusOnline statusOnline) {
         return new JvRectChatMainChatUI(nickName,
                 shortLastMessage,
                 lastMessageSender,
-                timeMessage,
-                lastTimeOnline,
+                timeLastMessage,
+                timeLastOnline,
                 statusMessage,
                 statusOnline);
     }

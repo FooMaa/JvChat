@@ -86,13 +86,6 @@ public class JvFindTextFieldMainChatUI extends JPanel {
                 focusFalse();
             }
         });
-
-        textField.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                System.out.println("Size");
-            }
-        });
     }
 
     private void focusTrue() {
