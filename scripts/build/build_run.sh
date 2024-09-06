@@ -4,6 +4,8 @@ LOG_FILE="/tmp/run-jvchat.log"
 PROFILE=""
 BUILDER=""
 ARG_IP=""
+ARG_PORT=""
+ARGS_ALL=""
 NEED_CHECK=false
 CHECK_MARK="\033[0;32m\xE2\x9c\x94\033[0m"
 CROSS_MARK="\033[0;31m\xE2\x9c\x97\033[0m"
@@ -34,7 +36,7 @@ function run {
             export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
             mvn clean install spring-boot:run -P$PROFILE
         elif [[ $PROFILE == "users" ]]; then
-            mvn spring-boot:run -Dspring-boot.run.arguments=--ipServer=$ARG_IP -P$PROFILE >> $LOG_FILE 2>&1
+            mvn spring-boot:run -Dspring-boot.run.arguments="$ARGS_ALL" -P$PROFILE >> $LOG_FILE 2>&1
         elif [[ $PROFILE == "servers" ]]; then
             mvn spring-boot:run -P$PROFILE >> $LOG_FILE 2>&1
         fi
@@ -43,9 +45,9 @@ function run {
             export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
             gradle clean build bootRun -P$PROFILE
         elif [[ $PROFILE == "users" ]]; then
-            gradle bootRun --args='--ipServer=$ARG_IP' -P$PROFILE >> $LOG_FILE 2>&1
+            gradle clean build bootRun --args="$ARGS_ALL" -P$PROFILE >> $LOG_FILE 2>&1
         elif [[ $PROFILE == "servers" ]]; then
-            gradle bootRun -P$PROFILE >> $LOG_FILE 2>&1
+            gradle clean build bootRun -P$PROFILE >> $LOG_FILE 2>&1
         fi
     fi
 
@@ -63,7 +65,7 @@ function build {
     echo -n "[...] building $PROFILE ($BUILDER)"
     if [[ $BUILDER == "maven" && $PROFILE != "tests" ]]; then
     	bash $PROJECT_DIR"scripts/build/build.sh" -m -p $PROFILE >> $LOG_FILE 2>&1
-    elif [[ $BUILDER == "gradle" && $PROFILE != "tests" ]]; then 
+    elif [[ $BUILDER == "gradle" && $PROFILE != "tests" && $PROFILE != "users" && $PROFILE != "servers" ]]; then 
     	bash $PROJECT_DIR"scripts/build/build.sh" -g -p $PROFILE >> $LOG_FILE 2>&1
     fi
     
@@ -88,7 +90,8 @@ function usage {
     -p      run profile             run servers profile (REQUIRED) Example $0 -p users
     -g	    use gradle              build with gradle 	(REQUIRED) Example $0 -g
     -m      use maven               build use maven 	(REQUIRED) Example $0 -m
-    -i      set ip                  set ip for args[] in main (REQUIRED) Example $0 -i 192.168.23.1
+    -is     set ip                  set ip server for args[] in main (REQUIRED) Example $0 -is 192.168.23.1
+    -ps     set port                set port server for args[] in main (REQUIRED) Example $0 -ps 4000
 EOF
 }
 
@@ -125,12 +128,23 @@ function check_set_param {
         exit 1
     fi
 
-    if  [[ $PROFILE == "users" && ! "$ARG_IP" =~ ^(([1-9]?[0-9]|1[0-9][0-9]|2([0-4][0-9]|5[0-5]))\.){3}([1-9]?[0-9]|1[0-9][0-9]|2([0-4][0-9]|5[0-5]))$ ]]; then
+    if [[ $PROFILE == "users" && ! "$ARG_IP" =~ ^(([1-9]?[0-9]|1[0-9][0-9]|2([0-4][0-9]|5[0-5]))\.){3}([1-9]?[0-9]|1[0-9][0-9]|2([0-4][0-9]|5[0-5]))$ ]]; then
         echo -e "IP not correct."
         usage
         exit 1
     fi
-        
+
+    if [[ $ARG_PORT != "" && ! "$ARG_PORT" =~ ^([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$ ]]; then
+        echo -e "Port not correct."
+        usage
+        exit 1
+    fi
+
+    if [[ $ARG_PORT != "" ]]; then
+        ARGS_ALL="--ipServer=$ARG_IP --portServer=$ARG_PORT"
+    else
+        ARGS_ALL="--ipServer=$ARG_IP"
+    fi
 }
 
 check_user
@@ -142,7 +156,8 @@ while [ -n "$1" ]; do
         -m ) if [[ $BUILDER != "" ]]; then echo -e "\\rGive 1 builder"; usage; exit 1; else BUILDER="maven"; fi ;;
         -g ) if [[ $BUILDER != "" ]]; then echo -e "\\rGive 1 builder"; usage; exit 1; else BUILDER="gradle"; fi ;;
         -p ) if [[ $PROFILE != "" ]]; then echo -e "\\rGive 1 profile"; usage; exit 1; else  PROFILE=$2 ; fi; shift ;;
-        -i ) if [[ $ARG_IP != "" ]]; then echo -e "\\rGive 1 ip"; usage; exit 1; else  ARG_IP=$2 ; fi; shift ;;
+        -is ) if [[ $ARG_IP != "" ]]; then echo -e "\\rGive 1 ip"; usage; exit 1; else  ARG_IP=$2 ; fi; shift ;;
+        -ps ) if [[ $ARG_PORT != "" ]]; then echo -e "\\rGive 1 port"; usage; exit 1; else  ARG_PORT=$2 ; fi; shift ;;
         -h ) usage; exit 1;;
         -- ) usage; exit 1;;
         * ) usage; exit 1 ;;

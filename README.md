@@ -30,7 +30,7 @@ clean install spring-boot:run -Pusers -Dspring-boot.run.arguments=--ipServer=$ip
 Если нужно указать порт при запуске, то на место ```$ip``` вы вставляете свой IP-адрес сервера, на место ```$port``` вы вставляете свой порт сервера.  
 Gradle:
 ```
-clean build bootRun --args='--ipServer=$ip --portServer=$port' -Pusers
+clean build bootRun --args="--ipServer=$ip --portServer=$port" -Pusers
 ```
 Maven:
 ```
