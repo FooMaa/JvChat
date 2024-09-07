@@ -42,21 +42,37 @@ tasks {
             if (count > 1) {
                 throw GradleException("Wrong profile!")
             }
-            var dirBuild = project.buildDir.toString()
+            val dirBuild = project.buildDir.toString()
             delete("$dirBuild/profile")
             project.file("$dirBuild/profile").mkdir()
             project.file("$dirBuild/profile/profile.txt").createNewFile()
             project.file("$dirBuild/profile/profile.txt").writeText("#Properties\ntarget=$PROFILE")
 
-            bootRun {
-                mainClass.set("org.foomaa.jvchat.startpoint.JvMainStartPoint")
-                args("--spring.profiles.active=$PROFILE")
-                systemProperty("spring.profiles.active", PROFILE)
-                systemProperty("java.awt.headless", "false")
-            }
-
             ext{PROFILE}
         }
+    }
+
+    bootRun {
+        mainClass.set("org.foomaa.jvchat.startpoint.JvMainStartPoint")
+    }
+}
+
+tasks.named<org.springframework.boot.gradle.tasks.run.BootRun>("bootRun") {
+    doFirst {
+        val dirBuild = project.buildDir.toString()
+        val properties = project.file("$dirBuild/profile/profile.txt").readLines()
+                .filter {
+                    it.contains("=")
+                }
+                .associate { line ->
+                    val (key, value) = line.split("=", limit = 2)
+                    key to value
+                }
+        PROFILE = properties["target"] ?: "null"
+
+        args("--spring.profiles.active=$PROFILE")
+        systemProperty("spring.profiles.active", PROFILE)
+        systemProperty("java.awt.headless", "false")
     }
 }
 
