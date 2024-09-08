@@ -115,7 +115,7 @@ public class JvControlsSpringConfig {
     @Scope("singleton")
     @Profile("servers")
     @SuppressWarnings("unused")
-    public JvMessagesDialogCtrl beanOnlineServersCtrl() {
-        return JvMessagesDialogCtrl.getInstance();
+    public JvOnlineServersCtrl beanOnlineServersCtrl() {
+        return JvOnlineServersCtrl.getInstance();
     }
 }

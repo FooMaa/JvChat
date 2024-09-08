@@ -260,7 +260,7 @@ public class JvTakeMessagesCtrl {
         String ip = (String) map.get(JvDefinesMessages.TypeData.IP);
         String login = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
         JvGetterControls.getInstance().getBeanSendMessagesCtrl()
-                .sendMessage(JvDefinesMessages.TypeMessage.ChangePasswordReply, login);
+                .sendMessage(JvDefinesMessages.TypeMessage.CheckOnlineUserReply, login);
     }
 
     private void workCheckOnlineReplyMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
