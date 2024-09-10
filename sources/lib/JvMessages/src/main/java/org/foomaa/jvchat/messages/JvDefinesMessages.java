@@ -70,6 +70,7 @@ public class JvDefinesMessages {
         IP,
         UsersOnlineInfoList,
         LoginsList,
+        TimeStamp,
     }
 
     public enum TypeErrorRegistration {
