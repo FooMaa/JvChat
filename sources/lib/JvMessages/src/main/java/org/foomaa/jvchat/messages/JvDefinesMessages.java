@@ -69,6 +69,7 @@ public class JvDefinesMessages {
         ChatsInfoList,
         IP,
         UsersOnlineInfoList,
+        LoginsList,
     }
 
     public enum TypeErrorRegistration {
