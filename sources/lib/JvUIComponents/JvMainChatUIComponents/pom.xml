@@ -52,5 +52,11 @@
             <artifactId>JvLogger</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.foomaa.jvchat.globaldefines</groupId>
+            <artifactId>JvGlobalDefines</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 </project>

@@ -1,6 +1,7 @@
 package org.foomaa.jvchat.ctrl;
 
 import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
+import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
@@ -15,59 +16,6 @@ import java.util.Objects;
 public class JvChatsCtrl {
     private static JvChatsCtrl instance;
     private List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo;
-
-    public enum TypeStatusMessage {
-        Error(-1),
-        Sent(0),
-        Delivered(1),
-        Read(2);
-
-        private final int value;
-
-        TypeStatusMessage(int newValue) {
-            value = newValue;
-        }
-
-        public int getValue() {
-            return value;
-        }
-
-        public static TypeStatusMessage getTypeStatusMessage(int value) {
-            TypeStatusMessage[] statusKeys = TypeStatusMessage.values();
-            for (TypeStatusMessage statusKey : statusKeys) {
-                if (statusKey.getValue() == value) {
-                    return statusKey;
-                }
-            }
-            return null;
-        }
-    }
-
-    public enum TypeStatusOnline {
-        Error(-1),
-        Offline(0),
-        Online(1);
-
-        private final int value;
-
-        TypeStatusOnline(int newValue) {
-            value = newValue;
-        }
-
-        public int getValue() {
-            return value;
-        }
-
-        public static TypeStatusOnline getTypeStatusOnline(int value) {
-            TypeStatusOnline[] statusKeys = TypeStatusOnline.values();
-            for (TypeStatusOnline statusKey : statusKeys) {
-                if (statusKey.getValue() == value) {
-                    return statusKey;
-                }
-            }
-            return null;
-        }
-    }
 
     private JvChatsCtrl() {}
 
@@ -133,7 +81,7 @@ public class JvChatsCtrl {
         return lastMessage;
     }
 
-    public TypeStatusMessage getStatusLastMessage(String login) {
+    public JvMainChatsGlobalDefines.TypeStatusMessage getStatusLastMessage(String login) {
         if (chatsInfo.isEmpty()) {
             JvLog.write(JvLog.TypeLog.Error, "chatsInfo пуст здесь");
             return null;
@@ -158,7 +106,7 @@ public class JvChatsCtrl {
             JvLog.write(JvLog.TypeLog.Error, "Статус сообщения невозможно определить, из-за невозможности приведения его к типу int");
         }
 
-        return TypeStatusMessage.getTypeStatusMessage(statusMessageInteger);
+        return JvMainChatsGlobalDefines.TypeStatusMessage.getTypeStatusMessage(statusMessageInteger);
     }
 
     public String getLastMessageSender(String login) {

@@ -30,4 +30,8 @@ public class JvGetterGlobalDefines {
     public JvDbGlobalDefines getBeanDbGlobalDefines() {
         return context.getBean(JvGlobalDefinesSpringConfig.NameBeans.BeanDbGlobalDefines.getValue(), JvDbGlobalDefines.class);
     }
+
+    public JvMainChatsGlobalDefines getBeanMainChatsGlobalDefines() {
+        return context.getBean(JvGlobalDefinesSpringConfig.NameBeans.BeanMainChatsGlobalDefines.getValue(), JvMainChatsGlobalDefines.class);
+    }
 }

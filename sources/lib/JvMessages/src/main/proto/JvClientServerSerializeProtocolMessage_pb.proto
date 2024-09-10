@@ -25,6 +25,8 @@ message General {
         ChatsLoadReply chatsLoadReply = 15;
         CheckOnlineUserRequest checkOnlineRequest = 16;
         CheckOnlineUserReply checkOnlineReply = 17;
+        LoadUsersOnlineStatusRequest loadUsersOnlineStatusRequest = 18;
+        LoadUsersOnlineStatusReply loadUsersOnlineStatusReply = 19;
     }
 }
 
@@ -128,5 +130,18 @@ message CheckOnlineUserRequest {
 }
 
 message CheckOnlineUserReply {
-    string login = 2;
+    string login = 1;
+}
+
+message LoadUsersOnlineStatusRequest {
+    repeated string logins = 1;
+}
+
+message LoadUsersOnlineStatusReply {
+    enum StatusOnline {
+        Error = 0;
+        Offline = 1;
+        Online = 2;
+    }
+    map<string, StatusOnline> mapLoginsStatuses = 1;
 }

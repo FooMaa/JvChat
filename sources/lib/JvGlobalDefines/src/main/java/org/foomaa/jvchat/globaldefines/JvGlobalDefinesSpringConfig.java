@@ -10,7 +10,8 @@ public class JvGlobalDefinesSpringConfig {
     public enum NameBeans {
         BeanMainGlobalDefines("beanMainGlobalDefines"),
         BeanColorsAnsiGlobalDefines("beanColorAnsiGlobalDefines"),
-        BeanDbGlobalDefines("beanDbGlobalDefines");
+        BeanDbGlobalDefines("beanDbGlobalDefines"),
+        BeanMainChatsGlobalDefines("beanMainChatsGlobalDefines");
 
         private final String value;
 
@@ -42,5 +43,12 @@ public class JvGlobalDefinesSpringConfig {
     @SuppressWarnings("unused")
     public JvDbGlobalDefines beanDbGlobalDefines() {
         return JvDbGlobalDefines.getInstance();
+    }
+
+    @Bean(name = "beanMainChatsGlobalDefines")
+    @Scope("singleton")
+    @SuppressWarnings("unused")
+    public JvMainChatsGlobalDefines beanMainChatsGlobalDefines() {
+        return JvMainChatsGlobalDefines.getInstance();
     }
 }

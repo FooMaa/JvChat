@@ -1,6 +1,7 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
 import org.foomaa.jvchat.ctrl.JvChatsCtrl;
+import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
 import javax.swing.*;
@@ -13,13 +14,13 @@ public class JvRectChatMainChatUI extends JPanel {
     private final String shortLastMessage;
     private final String lastMessageSender;
     private final String timeLastMessage;
-    private final JvChatsCtrl.TypeStatusMessage statusMessage;
+    private final JvMainChatsGlobalDefines.TypeStatusMessage statusMessage;
 
     JvRectChatMainChatUI(String newNickName,
                          String newShortLastMessage,
                          String newLastMessageSender,
                          String newTimeLastMessage,
-                         JvChatsCtrl.TypeStatusMessage newStatusMessage) {
+                         JvMainChatsGlobalDefines.TypeStatusMessage newStatusMessage) {
         nickName = newNickName;
         shortLastMessage = newShortLastMessage;
         lastMessageSender = newLastMessageSender;

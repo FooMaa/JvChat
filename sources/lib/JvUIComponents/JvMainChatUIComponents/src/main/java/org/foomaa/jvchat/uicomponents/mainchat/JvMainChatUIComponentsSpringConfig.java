@@ -1,6 +1,7 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
 import org.foomaa.jvchat.ctrl.JvChatsCtrl;
+import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.springframework.context.annotation.*;
 
 
@@ -68,7 +69,7 @@ public class JvMainChatUIComponentsSpringConfig {
                                                        String shortLastMessage,
                                                        String lastMessageSender,
                                                        String timeLastMessage,
-                                                       JvChatsCtrl.TypeStatusMessage statusMessage) {
+                                                       JvMainChatsGlobalDefines.TypeStatusMessage statusMessage) {
         return new JvRectChatMainChatUI(nickName,
                 shortLastMessage,
                 lastMessageSender,
