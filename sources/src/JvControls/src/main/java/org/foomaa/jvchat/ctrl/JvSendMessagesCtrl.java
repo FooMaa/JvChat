@@ -174,14 +174,14 @@ public class JvSendMessagesCtrl {
             case CheckOnlineUserRequest -> {
                 if (parameters.length == 1) {
                     Object ip = parameters[0];
-                    byte[] bodyMessage = createBodyCheckOnlineRequestMessage(type, (String) ip);
+                    byte[] bodyMessage = createBodyCheckOnlineUserRequestMessage(type, (String) ip);
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
             case CheckOnlineUserReply -> {
                 if (parameters.length == 1) {
                     Object login = parameters[0];
-                    byte[] bodyMessage = createBodyCheckOnlineReplyMessage(type, (String) login);
+                    byte[] bodyMessage = createBodyCheckOnlineUserReplyMessage(type, (String) login);
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
@@ -249,11 +249,11 @@ public class JvSendMessagesCtrl {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
     }
 
-    private byte[] createBodyCheckOnlineRequestMessage(JvDefinesMessages.TypeMessage type, String ip) {
+    private byte[] createBodyCheckOnlineUserRequestMessage(JvDefinesMessages.TypeMessage type, String ip) {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, ip);
     }
 
-    private byte[] createBodyCheckOnlineReplyMessage(JvDefinesMessages.TypeMessage type, String login) {
+    private byte[] createBodyCheckOnlineUserReplyMessage(JvDefinesMessages.TypeMessage type, String login) {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, login);
     }
 }

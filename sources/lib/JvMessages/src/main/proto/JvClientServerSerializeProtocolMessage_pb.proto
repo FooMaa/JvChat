@@ -138,10 +138,14 @@ message LoadUsersOnlineStatusRequest {
 }
 
 message LoadUsersOnlineStatusReply {
+    repeated LoginsStatusOnlineInfoMap loginsStatusOnlineInfoMap = 1;
+}
+
+message LoginsStatusOnlineInfoMap {
     enum StatusOnline {
         Error = 0;
         Offline = 1;
         Online = 2;
     }
-    map<string, StatusOnline> mapLoginsStatuses = 1;
+    map<string, StatusOnline> mapInfo = 1;
 }

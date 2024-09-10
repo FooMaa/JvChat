@@ -2,6 +2,7 @@ package org.foomaa.jvchat.messages;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
+import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 
 import java.util.*;
@@ -35,8 +36,10 @@ public class JvDeserializatorDataMessages {
             case ChangePasswordReply -> takeChangePasswordReplyMessage(data);
             case ChatsLoadRequest -> takeChatsLoadRequestMessage(data);
             case ChatsLoadReply -> takeChatsLoadReplyMessage(data);
-            case CheckOnlineUserRequest -> takeCheckOnlineRequestMessage(data);
-            case CheckOnlineUserReply -> takeCheckOnlineReplyMessage(data);
+            case CheckOnlineUserRequest -> takeCheckOnlineUserRequestMessage(data);
+            case CheckOnlineUserReply -> takeCheckOnlineUserReplyMessage(data);
+            case LoadUsersOnlineStatusRequest -> takeLoadUsersOnlineStatusRequestMessage(data);
+            case LoadUsersOnlineStatusReply -> takeLoadUsersOnlineStatusReplyMessage(data);
         };
     }
 
@@ -241,7 +244,7 @@ public class JvDeserializatorDataMessages {
         return result;
     }
 
-    private HashMap<JvDefinesMessages.TypeData, String> takeCheckOnlineRequestMessage(byte[] data) {
+    private HashMap<JvDefinesMessages.TypeData, String> takeCheckOnlineUserRequestMessage(byte[] data) {
         HashMap<JvDefinesMessages.TypeData, String> result = new HashMap<>();
         try {
             result.put(JvDefinesMessages.TypeData.IP, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
@@ -252,7 +255,7 @@ public class JvDeserializatorDataMessages {
         return result;
     }
 
-    private HashMap<JvDefinesMessages.TypeData, String> takeCheckOnlineReplyMessage(byte[] data) {
+    private HashMap<JvDefinesMessages.TypeData, String> takeCheckOnlineUserReplyMessage(byte[] data) {
         HashMap<JvDefinesMessages.TypeData, String> result = new HashMap<>();
         try {
             result.put(JvDefinesMessages.TypeData.Login, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
@@ -261,5 +264,13 @@ public class JvDeserializatorDataMessages {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }
         return result;
+    }
+
+    private HashMap<JvDefinesMessages.TypeData, List<String>> takeLoadUsersOnlineStatusRequestMessage(byte[] data) {
+        return null;
+    }
+
+    private HashMap<JvDefinesMessages.TypeData, List<Map<String, JvMainChatsGlobalDefines.TypeStatusOnline>>> takeLoadUsersOnlineStatusReplyMessage(byte[] data) {
+        return null;
     }
 }

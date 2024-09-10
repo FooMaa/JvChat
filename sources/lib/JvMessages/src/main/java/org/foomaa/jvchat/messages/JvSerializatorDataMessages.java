@@ -1,6 +1,7 @@
 package org.foomaa.jvchat.messages;
 
 import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
+import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.tools.JvGetterTools;
 
 import java.util.HashMap;
@@ -155,7 +156,7 @@ public class JvSerializatorDataMessages {
             case CheckOnlineUserRequest -> {
                 if (parameters.length == 1) {
                     Object ip = parameters[0];
-                    return createCheckOnlineRequestMessage(type, (String) ip);
+                    return createCheckOnlineUserRequestMessage(type, (String) ip);
                 } else {
                     return new byte[0];
                 }
@@ -163,7 +164,27 @@ public class JvSerializatorDataMessages {
             case CheckOnlineUserReply -> {
                 if (parameters.length == 1) {
                     Object login = parameters[0];
-                    return createCheckOnlineReplyMessage(type, (String) login);
+                    return createCheckOnlineUserReplyMessage(type, (String) login);
+                } else {
+                    return new byte[0];
+                }
+            }
+            case LoadUsersOnlineStatusRequest -> {
+                if (parameters.length == 1) {
+                    Object loginsObject = parameters[0];
+                    List<String> loginsList = JvGetterTools.getInstance()
+                            .getBeanStructTools().checkedCastList(loginsObject, String.class);
+                    return createLoadUsersOnlineStatusRequestMessage(type, loginsList);
+                } else {
+                    return new byte[0];
+                }
+            }
+            case LoadUsersOnlineStatusReply -> {
+                if (parameters.length == 1) {
+                    Object statusesUsersObj = parameters[0];
+                    List<Map<String, JvMainChatsGlobalDefines.TypeStatusOnline>> statusesUsersMap = JvGetterTools.getInstance()
+                            .getBeanStructTools().objectInListMaps(statusesUsersObj, String.class, JvMainChatsGlobalDefines.TypeStatusOnline.class);
+                    return createLoadUsersOnlineStatusReplyMessage(type, statusesUsersMap);
                 } else {
                     return new byte[0];
                 }
@@ -356,8 +377,7 @@ public class JvSerializatorDataMessages {
         JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply.Builder builder =
                 JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply.newBuilder();
 
-        for (int i = 0; i < chatsInfo.toArray().length; i++) {
-            Map<JvDbGlobalDefines.LineKeys, String> map = chatsInfo.get(i);
+        for (Map<JvDbGlobalDefines.LineKeys, String> map : chatsInfo) {
             Map<String, String> newMapStr = new HashMap<>();
 
             for (JvDbGlobalDefines.LineKeys key : map.keySet()) {
@@ -381,7 +401,7 @@ public class JvSerializatorDataMessages {
         return resMsg.toByteArray();
     }
 
-    private byte[] createCheckOnlineRequestMessage(JvDefinesMessages.TypeMessage type, String ip) {
+    private byte[] createCheckOnlineUserRequestMessage(JvDefinesMessages.TypeMessage type, String ip) {
         JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest msgCheckOnlineRequest =
                 JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserRequest.newBuilder()
                         .setIp(ip)
@@ -394,7 +414,7 @@ public class JvSerializatorDataMessages {
         return resMsg.toByteArray();
     }
 
-    private byte[] createCheckOnlineReplyMessage(JvDefinesMessages.TypeMessage type, String login) {
+    private byte[] createCheckOnlineUserReplyMessage(JvDefinesMessages.TypeMessage type, String login) {
         JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply msgCheckOnlineReplyBuilder =
                 JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply.newBuilder()
                         .setLogin(login)
@@ -404,6 +424,56 @@ public class JvSerializatorDataMessages {
                         .setType(type.getValue())
                         .setCheckOnlineReply(msgCheckOnlineReplyBuilder)
                         .build();
+        return resMsg.toByteArray();
+    }
+
+    private byte[] createLoadUsersOnlineStatusRequestMessage(JvDefinesMessages.TypeMessage type, List<String> logins) {
+        JvClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusRequest.Builder builder =
+                JvClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusRequest.newBuilder();
+
+        for (String login : logins) {
+            builder.addLogins(login);
+        }
+
+        JvClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusRequest msgLoadUsersOnlineStatusRequest = builder.build();
+
+        JvClientServerSerializeProtocolMessage_pb.General resMsg =
+                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
+                        .setType(type.getValue())
+                        .setLoadUsersOnlineStatusRequest(msgLoadUsersOnlineStatusRequest)
+                        .build();
+        return resMsg.toByteArray();
+    }
+
+    private byte[] createLoadUsersOnlineStatusReplyMessage(JvDefinesMessages.TypeMessage type, List<Map<String, JvMainChatsGlobalDefines.TypeStatusOnline>> statusesUsers) {
+        JvClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusReply.Builder builder =
+                JvClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusReply.newBuilder();
+
+        for (Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> map : statusesUsers) {
+            Map<String, JvClientServerSerializeProtocolMessage_pb.LoginsStatusOnlineInfoMap.StatusOnline> newMapStr =
+                    new HashMap<>();
+
+            for (String key : map.keySet()) {
+                int integerStatus =  map.get(key).getValue();
+                JvClientServerSerializeProtocolMessage_pb.LoginsStatusOnlineInfoMap.StatusOnline statusMsg =
+                        JvClientServerSerializeProtocolMessage_pb.LoginsStatusOnlineInfoMap.StatusOnline.forNumber(integerStatus);
+                newMapStr.put(key, statusMsg);
+            }
+
+            JvClientServerSerializeProtocolMessage_pb.LoginsStatusOnlineInfoMap loginsStatusOnlineInfoMap = JvClientServerSerializeProtocolMessage_pb.LoginsStatusOnlineInfoMap
+                    .newBuilder()
+                    .putAllMapInfo(newMapStr)
+                    .build();
+            builder.addLoginsStatusOnlineInfoMap(loginsStatusOnlineInfoMap);
+        }
+
+        JvClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusReply loadUsersOnlineStatusReply = builder.build();
+        JvClientServerSerializeProtocolMessage_pb.General resMsg =
+                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
+                        .setType(type.getValue())
+                        .setLoadUsersOnlineStatusReply(loadUsersOnlineStatusReply)
+                        .build();
+
         return resMsg.toByteArray();
     }
 }

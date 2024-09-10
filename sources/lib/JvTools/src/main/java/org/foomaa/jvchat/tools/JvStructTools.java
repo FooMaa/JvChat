@@ -39,4 +39,18 @@ public class JvStructTools {
 
         return resultList;
     }
+
+    public <TYPE_LIST> List<TYPE_LIST> checkedCastList(Object object,
+                                                       Class<TYPE_LIST> clazzType) {
+        List<TYPE_LIST> resultList = new ArrayList<>();
+
+        if (object instanceof List<?> objectList) {
+            for (Object objectTmp : objectList) {
+                TYPE_LIST data = clazzType.cast(objectTmp);
+                resultList.add(data);
+            }
+        }
+
+        return resultList;
+    }
 }

@@ -39,8 +39,8 @@ public class JvTakeMessagesCtrl {
             case VerifyFamousEmailReply -> workVerifyFamousEmailReplyMessage(getDeserializeMapData(type, data));
             case ChangePasswordRequest -> workChangePasswordRequestMessage(getDeserializeMapData(type, data));
             case ChangePasswordReply -> workChangePasswordReplyMessage(getDeserializeMapData(type, data));
-            case CheckOnlineUserRequest -> workCheckOnlineRequestMessage(getDeserializeMapData(type, data));
-            case CheckOnlineUserReply -> workCheckOnlineReplyMessage(getDeserializeMapData(type, data));
+            case CheckOnlineUserRequest -> workCheckOnlineUserRequestMessage(getDeserializeMapData(type, data));
+            case CheckOnlineUserReply -> workCheckOnlineUserReplyMessage(getDeserializeMapData(type, data));
             case ChatsLoadRequest -> workChatsLoadRequestMessage(getDeserializeMapData(type, data));
             case ChatsLoadReply -> workChatsLoadReplyMessage(getDeserializeMapData(type, data));
         }
@@ -256,14 +256,14 @@ public class JvTakeMessagesCtrl {
                 .setChatsLoadReplyFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
     }
 
-    private void workCheckOnlineRequestMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
+    private void workCheckOnlineUserRequestMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         String ip = (String) map.get(JvDefinesMessages.TypeData.IP);
         String login = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
         JvGetterControls.getInstance().getBeanSendMessagesCtrl()
                 .sendMessage(JvDefinesMessages.TypeMessage.CheckOnlineUserReply, login);
     }
 
-    private void workCheckOnlineReplyMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
+    private void workCheckOnlineUserReplyMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         String login = (String) map.get(JvDefinesMessages.TypeData.Login);
         JvGetterControls.getInstance().getBeanOnlineServersCtrl().addUsersOnline(login);
     }

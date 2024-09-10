@@ -304,9 +304,6 @@ public class JvDbCtrl {
 
                     db.closeResultSet(resultSet);
 
-                    System.out.println("#####################################");
-                    System.out.println(result);
-
                     if (!result.isEmpty()) {
                         return result;
                     }

@@ -29,7 +29,9 @@ public class JvDefinesMessages {
         ChatsLoadRequest(12),
         ChatsLoadReply(13),
         CheckOnlineUserRequest(14),
-        CheckOnlineUserReply(15);
+        CheckOnlineUserReply(15),
+        LoadUsersOnlineStatusRequest(16),
+        LoadUsersOnlineStatusReply(17);
 
         private final int value;
 
@@ -65,7 +67,8 @@ public class JvDefinesMessages {
         VerifyCode,
         ChatsLoad,
         ChatsInfoList,
-        IP
+        IP,
+        UsersOnlineInfoList,
     }
 
     public enum TypeErrorRegistration {
