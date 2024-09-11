@@ -285,31 +285,27 @@ public class JvDeserializatorDataMessages {
         return result;
     }
 
-    private HashMap<JvDefinesMessages.TypeData, List<Map<String, JvMainChatsGlobalDefines.TypeStatusOnline>>> takeLoadUsersOnlineStatusReplyMessage(byte[] data) {
-        HashMap<JvDefinesMessages.TypeData, List<Map<String, JvMainChatsGlobalDefines.TypeStatusOnline>>> result =
-                new HashMap<>();
+    private HashMap<JvDefinesMessages.TypeData, Map<String, ?>> takeLoadUsersOnlineStatusReplyMessage(byte[] data) {
+        HashMap<JvDefinesMessages.TypeData, Map<String, ?>> result = new HashMap<>();
         try {
             JvClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusReply loadUsersOnlineStatusReply =
                     JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).getLoadUsersOnlineStatusReply();
 
-            List<Map<String, JvMainChatsGlobalDefines.TypeStatusOnline>> listMainData = new ArrayList<>();
-            for (int i = 0; i < loadUsersOnlineStatusReply.getLoginsStatusOnlineInfoMapCount(); i++) {
-                Map<String, JvClientServerSerializeProtocolMessage_pb.LoginsStatusOnlineInfoMap.StatusOnline> map =
-                        loadUsersOnlineStatusReply.getLoginsStatusOnlineInfoMap(i).getMapInfoMap();
-                Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> newMap = new HashMap<>();
+            Map<String, JvClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusReply.StatusOnline> mapStatusesUsers =
+                    loadUsersOnlineStatusReply.getMapStatusOnlineMap();
+            Map<String, String> mapLastOnlineTimeUsers = loadUsersOnlineStatusReply.getMapLastOnlineTimeMap();
 
-                for (String key : map.keySet()) {
-                    int integerStatus = map.get(key).getNumber();
-                    JvMainChatsGlobalDefines.TypeStatusOnline statusMsg =
-                            JvMainChatsGlobalDefines.TypeStatusOnline.getTypeStatusOnline(integerStatus);
+            Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> newMapStatusesUsers = new HashMap<>();
+            for (String key : mapStatusesUsers.keySet()) {
+                int integerStatus = mapStatusesUsers.get(key).getNumber();
+                JvMainChatsGlobalDefines.TypeStatusOnline statusMsg =
+                        JvMainChatsGlobalDefines.TypeStatusOnline.getTypeStatusOnline(integerStatus);
 
-                    newMap.put(key, statusMsg);
-                }
-
-                listMainData.add(newMap);
+                newMapStatusesUsers.put(key, statusMsg);
             }
 
-            result.put(JvDefinesMessages.TypeData.UsersOnlineInfoList, listMainData);
+            result.put(JvDefinesMessages.TypeData.UsersOnlineInfoList, newMapStatusesUsers);
+            result.put(JvDefinesMessages.TypeData.TimeStampString, mapLastOnlineTimeUsers);
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }

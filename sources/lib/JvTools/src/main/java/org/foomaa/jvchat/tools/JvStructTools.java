@@ -53,4 +53,20 @@ public class JvStructTools {
 
         return resultList;
     }
+
+    public <TYPE_KEY, TYPE_VALUE> Map<TYPE_KEY, TYPE_VALUE> objectInMap(Object object,
+                                                                        Class<TYPE_KEY> clazzKey,
+                                                                        Class<TYPE_VALUE> clazzValue) {
+        Map<TYPE_KEY, TYPE_VALUE> resultMap = new HashMap<>();
+
+        if (object instanceof Map<?,?> map) {
+            for (Object key : map.keySet()) {
+                TYPE_KEY keyCast = clazzKey.cast(key);
+                TYPE_VALUE valueCast = clazzValue.cast(map.get(key));
+                resultMap.put(keyCast, valueCast);
+            }
+        }
+
+        return resultMap;
+    }
 }
