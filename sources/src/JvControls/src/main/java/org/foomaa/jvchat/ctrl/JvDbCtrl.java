@@ -34,7 +34,7 @@ public class JvDbCtrl {
         Login,
         Email,
         VerifyFamousEmailCode,
-        VerifyRegistrationEmail
+        VerifyRegistrationEmail,
     }
 
     public enum TypeExecutionGetSingle {
@@ -43,7 +43,8 @@ public class JvDbCtrl {
     }
 
     public enum TypeExecutionGetMultiple {
-        ChatsLoad
+        ChatsLoad,
+        StatusOnlineTimeUser,
     }
 
     private JvDbCtrl() {
@@ -281,26 +282,21 @@ public class JvDbCtrl {
                 if (parameters.length == 1) {
                     String sender = parameters[0];
                     ResultSet resultSet = db.makeExecution(dbRequests.getChats(sender));
-                    List<Map<JvDbGlobalDefines.LineKeys, String>> result = new ArrayList<>();
+                    List<Map<JvDbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
 
-                    try {
-                        ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
-                        int columnCount = resultSetMetaData.getColumnCount();
+                    db.closeResultSet(resultSet);
 
-                        while (resultSet.next()) {
-                            Map<JvDbGlobalDefines.LineKeys, String> row = new HashMap<>();
-
-                            for (int i = 1; i <= columnCount; i++) {
-                                String columnName = resultSetMetaData.getColumnName(i);
-                                String value = resultSet.getObject(i).toString();
-                                row.put(JvDbGlobalDefines.LineKeys.getTypeLineKey(columnName), value);
-                            }
-
-                            result.add(row);
-                        }
-                    } catch (SQLException exception) {
-                        JvLog.write(JvLog.TypeLog.Error, "Ошибка при работе с ResultSet из БД");
+                    if (!result.isEmpty()) {
+                        return result;
                     }
+                }
+                return null;
+            }
+            case StatusOnlineTimeUser -> {
+                if (parameters.length == 1) {
+                    String login = parameters[0];
+                    ResultSet resultSet = db.makeExecution(dbRequests.getStatusOnlineTimeUser(login));
+                    List<Map<JvDbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
 
                     db.closeResultSet(resultSet);
 
@@ -312,5 +308,30 @@ public class JvDbCtrl {
             }
         }
         return null;
+    }
+
+    public List<Map<JvDbGlobalDefines.LineKeys, String>> multipleDataFromResultSet(ResultSet resultSet) {
+        List<Map<JvDbGlobalDefines.LineKeys, String>> result = new ArrayList<>();
+
+        try {
+            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+            int columnCount = resultSetMetaData.getColumnCount();
+
+            while (resultSet.next()) {
+                Map<JvDbGlobalDefines.LineKeys, String> row = new HashMap<>();
+
+                for (int i = 1; i <= columnCount; i++) {
+                    String columnName = resultSetMetaData.getColumnName(i);
+                    String value = resultSet.getObject(i).toString();
+                    row.put(JvDbGlobalDefines.LineKeys.getTypeLineKey(columnName), value);
+                }
+
+                result.add(row);
+            }
+        } catch (SQLException exception) {
+            JvLog.write(JvLog.TypeLog.Error, "Ошибка при работе с ResultSet из БД");
+        }
+
+        return result;
     }
 }

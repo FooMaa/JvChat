@@ -11,7 +11,9 @@ public class JvDbGlobalDefines {
         Receiver("receiver"),
         LastMessage("last_message"),
         DateTimeMessage("datetime_last_message"),
-        StatusMessage("status_message");
+        StatusMessage("status_message"),
+        Status("status"),
+        LastOnlineTime("last_online_time");
 
         private final String value;
 

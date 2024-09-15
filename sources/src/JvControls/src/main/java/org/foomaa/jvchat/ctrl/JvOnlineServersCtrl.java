@@ -23,6 +23,12 @@ public class JvOnlineServersCtrl {
         if (!usersOnline.contains(userLogin)) {
             usersOnline.add(userLogin);
         }
-        System.out.println(usersOnline);
+    }
+
+    @Deprecated
+    public void removeUsersOnline(String userLogin) {
+        if (usersOnline.contains(userLogin)) {
+            usersOnline.remove(userLogin);
+        }
     }
 }

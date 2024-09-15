@@ -295,7 +295,6 @@ CREATE OR REPLACE FUNCTION chat_schema.chats_messages_get_chats_by_login(
 $BODY$
 DECLARE
     rv chat_schema.chats_messages%rowtype;
-    rLogin_ID int;
 BEGIN
     RETURN QUERY 
     SELECT DISTINCT ON (LEAST(chats.senderID, chats.receiverID), GREATEST(chats.senderID, chats.receiverID)) 
@@ -344,7 +343,7 @@ $BODY$
 DECLARE
     rv timestamp;
 BEGIN
-    SELECT last_online INTO rv 
+    SELECT last_online_time INTO rv 
     FROM chat_schema.online_users_info 
     LEFT JOIN chat_schema.auth_users_info ON chat_schema.online_users_info.id_user = chat_schema.auth_users_info.id
     WHERE login=f_login;
@@ -353,6 +352,22 @@ BEGIN
         RETURN rv;
     END IF;
     RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION chat_schema.online_users_info_get_status_time_by_user_login(
+    f_login character varying
+)
+    RETURNS TABLE (status int, last_online_time timestamp) AS
+$BODY$
+DECLARE
+    rv chat_schema.online_users_info%rowtype;
+BEGIN
+    RETURN QUERY
+    SELECT chat_schema.online_users_info.status, chat_schema.online_users_info.last_online_time
+    FROM chat_schema.online_users_info 
+    LEFT JOIN chat_schema.auth_users_info ON chat_schema.online_users_info.id_user = chat_schema.auth_users_info.id
+    WHERE login=f_login;
 END;
 $BODY$ LANGUAGE plpgsql;
 

@@ -90,4 +90,11 @@ public class JvDbRequests {
                 "SELECT * FROM chat_schema.chats_messages_get_chats_by_login('%s');",
                 login);
     }
+
+    public String getStatusOnlineTimeUser(String login) {
+        return String.format(
+                "SELECT * FROM chat_schema.online_users_info_get_status_time_by_user_login('%s');",
+                login
+        );
+    }
 }
