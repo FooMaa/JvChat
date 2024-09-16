@@ -35,9 +35,9 @@ DECLARE
     rv integer;
 BEGIN
     rv := -1;
-    PERFORM * FROM chat_schema.auth_users_info WHERE email=f_email;
+    PERFORM * FROM chat_schema.auth_users_info WHERE email = f_email;
     IF found THEN
-        UPDATE chat_schema.auth_users_info SET password=f_password WHERE email=f_email;
+        UPDATE chat_schema.auth_users_info SET password = f_password WHERE email = f_email;
         rv := 1;
     END IF;
 
@@ -50,7 +50,7 @@ CREATE OR REPLACE FUNCTION chat_schema.auth_users_info_remove(f_login  integer)
 $BODY$
 DECLARE
 BEGIN
-    DELETE FROM chat_schema.auth_users_info WHERE login=f_login;
+    DELETE FROM chat_schema.auth_users_info WHERE login = f_login;
     RETURN true;
 END;
 $BODY$ LANGUAGE plpgsql;
@@ -64,7 +64,7 @@ $BODY$
 DECLARE
     rv chat_schema.auth_users_info%rowtype;
 BEGIN
-    SELECT * INTO rv FROM chat_schema.auth_users_info WHERE login=f_login AND password=f_password;
+    SELECT * INTO rv FROM chat_schema.auth_users_info WHERE login = f_login AND password = f_password;
     IF found THEN
         RETURN NEXT rv;
     END IF;
@@ -79,7 +79,7 @@ $BODY$
 DECLARE
     rv chat_schema.auth_users_info%rowtype;
 BEGIN
-    SELECT * INTO rv FROM chat_schema.auth_users_info WHERE login=f_login;
+    SELECT * INTO rv FROM chat_schema.auth_users_info WHERE login = f_login;
     IF found THEN
         RETURN NEXT rv;
     END IF;
@@ -94,7 +94,7 @@ $BODY$
 DECLARE
     rv chat_schema.auth_users_info%rowtype;
 BEGIN
-    SELECT * INTO rv FROM chat_schema.auth_users_info WHERE email=f_email;
+    SELECT * INTO rv FROM chat_schema.auth_users_info WHERE email = f_email;
     IF found THEN
         RETURN NEXT rv;
     END IF;
@@ -109,7 +109,7 @@ $BODY$
 DECLARE
     rv integer;
 BEGIN
-    SELECT id INTO rv FROM chat_schema.auth_users_info WHERE email=f_email;
+    SELECT id INTO rv FROM chat_schema.auth_users_info WHERE email = f_email;
     IF found THEN
         RETURN rv;
     END IF;
@@ -125,7 +125,7 @@ $BODY$
 DECLARE
     rv character varying;
 BEGIN
-    SELECT login INTO rv FROM chat_schema.auth_users_info WHERE email=f_email;
+    SELECT login INTO rv FROM chat_schema.auth_users_info WHERE email = f_email;
     IF found THEN
         RETURN rv;
     END IF;
@@ -164,10 +164,10 @@ DECLARE
     rs bool;
 BEGIN
     rv := -1;
-    PERFORM * FROM chat_schema.verify_famous_email WHERE id_user=f_id_user;
+    PERFORM * FROM chat_schema.verify_famous_email WHERE id_user = f_id_user;
     IF found THEN
         --SELECT * INTO rs FROM chat_schema.verify_famous_email_remove();
-        UPDATE chat_schema.verify_famous_email SET code=f_code, datetime=NOW() WHERE id_user=f_id_user;
+        UPDATE chat_schema.verify_famous_email SET code = f_code, datetime = NOW() WHERE id_user = f_id_user;
         rv := 1;
     ELSE
         --SELECT * INTO rs FROM chat_schema.verify_famous_email_remove();
@@ -201,9 +201,9 @@ DECLARE
 BEGIN
     SELECT * INTO rs FROM chat_schema.verify_famous_email_remove();
     SELECT * INTO rv FROM chat_schema.verify_famous_email, chat_schema.auth_users_info 
-    WHERE chat_schema.auth_users_info.id=chat_schema.verify_famous_email.id_user 
-    AND f_email=chat_schema.auth_users_info.email 
-    AND f_code=chat_schema.verify_famous_email.code;
+    WHERE chat_schema.auth_users_info.id = chat_schema.verify_famous_email.id_user 
+    AND f_email = chat_schema.auth_users_info.email 
+    AND f_code = chat_schema.verify_famous_email.code;
     IF found THEN
         RETURN NEXT rv;
     END IF;
@@ -241,10 +241,10 @@ DECLARE
     rs bool;
 BEGIN
     rv := -1;
-    PERFORM * FROM chat_schema.verify_registration_email WHERE email=f_email;
+    PERFORM * FROM chat_schema.verify_registration_email WHERE email = f_email;
     IF found THEN
         --SELECT * INTO rs FROM chat_schema.verify_registration_email_remove();
-        UPDATE chat_schema.verify_registration_email SET code=f_code, datetime=NOW() WHERE email=f_email;
+        UPDATE chat_schema.verify_registration_email SET code = f_code, datetime = NOW() WHERE email = f_email;
         rv := 1;
     ELSE
         --SELECT * INTO rs FROM chat_schema.verify_registration_email_remove();
@@ -315,46 +315,6 @@ $BODY$ LANGUAGE plpgsql;
 -- chat_schema.online_users_info
 -- ----------------------------------------------------------------------------------------------
 
-CREATE OR REPLACE FUNCTION chat_schema.online_users_info_get_status_by_user_login(
-    f_login character varying
-)
-    RETURNS integer AS
-$BODY$
-DECLARE
-    rv integer;
-BEGIN
-    SELECT status INTO rv 
-    FROM chat_schema.online_users_info 
-    LEFT JOIN chat_schema.auth_users_info ON chat_schema.online_users_info.id_user = chat_schema.auth_users_info.id
-    WHERE login=f_login;
-
-    IF found THEN
-        RETURN rv;
-    END IF;
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE OR REPLACE FUNCTION chat_schema.online_users_info_get_last_online_by_user_login(
-    f_login character varying
-)
-    RETURNS timestamp AS
-$BODY$
-DECLARE
-    rv timestamp;
-BEGIN
-    SELECT last_online_time INTO rv 
-    FROM chat_schema.online_users_info 
-    LEFT JOIN chat_schema.auth_users_info ON chat_schema.online_users_info.id_user = chat_schema.auth_users_info.id
-    WHERE login=f_login;
-
-    IF found THEN
-        RETURN rv;
-    END IF;
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
 CREATE OR REPLACE FUNCTION chat_schema.online_users_info_get_status_time_by_user_login(
     f_login character varying
 )
@@ -367,7 +327,34 @@ BEGIN
     SELECT chat_schema.online_users_info.status, chat_schema.online_users_info.last_online_time
     FROM chat_schema.online_users_info 
     LEFT JOIN chat_schema.auth_users_info ON chat_schema.online_users_info.id_user = chat_schema.auth_users_info.id
-    WHERE login=f_login;
+    WHERE login = f_login;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION chat_schema.online_users_info_save (
+    f_login         character varying,
+    f_status        integer
+)
+    RETURNS integer AS
+$BODY$
+DECLARE
+    rv integer;
+    rs bool;
+    f_id_user integer;
+BEGIN
+    rv := -1;
+    SELECT id INTO f_id_user FROM chat_schema.auth_users_info WHERE login = f_login;
+
+    PERFORM * FROM chat_schema.online_users_info WHERE id_user = f_id_user;
+    IF found THEN
+        UPDATE chat_schema.online_users_info SET status = f_status, last_online_time = NOW() WHERE id_user = f_id_user;
+        rv := 1;
+    ELSE
+        INSERT INTO chat_schema.online_users_info(id_user, status, last_online_time) VALUES (f_id_user, f_status, NOW());
+        rv := 2;
+    END IF;
+
+    RETURN rv;
 END;
 $BODY$ LANGUAGE plpgsql;
 
