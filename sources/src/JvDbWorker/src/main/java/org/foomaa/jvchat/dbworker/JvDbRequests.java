@@ -40,6 +40,13 @@ public class JvDbRequests {
                 code);
     }
 
+    public String insertOnlineUsersInfo(String login, int status) {
+        return String.format(
+                "SELECT * FROM chat_schema.online_users_info_save('%s', %d);",
+                login,
+                status);
+    }
+
     public String checkUserPassword(String login, String password) {
         return String.format(
                 "SELECT * FROM chat_schema.auth_users_info_check_login_password('%s', '%s');",
