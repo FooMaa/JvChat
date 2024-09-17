@@ -26,7 +26,8 @@ public class JvDbCtrl {
         RegisterForm,
         ChangePassword,
         VerifyFamousEmail,
-        VerifyRegistrationEmail
+        VerifyRegistrationEmail,
+        OnlineUsersInfo,
     }
 
     public enum TypeExecutionCheck {
@@ -60,6 +61,7 @@ public class JvDbCtrl {
     @Autowired(required = false)
     @Qualifier("beanDbWorker")
     @Profile("servers")
+    @SuppressWarnings("unused")
     private void setDb(JvDbWorker newDb) {
         if (db != newDb) {
             db = newDb;
@@ -69,6 +71,7 @@ public class JvDbCtrl {
     @Autowired(required = false)
     @Qualifier("beanDbRequests")
     @Profile("servers")
+    @SuppressWarnings("unused")
     private void setDbRequests(JvDbRequests newDbRequests) {
         if (dbRequests != newDbRequests) {
             dbRequests = newDbRequests;
@@ -101,6 +104,7 @@ public class JvDbCtrl {
         return result;
     }
 
+    @Deprecated
     public boolean ifExistsLineInTable(ResultSet resultSet) {
         boolean res = false;
         try {
@@ -158,6 +162,16 @@ public class JvDbCtrl {
                     String email = parameters[0];
                     String code = parameters[1];
                     ResultSet rs = db.makeExecution(dbRequests.insertVerifyRegistrationEmail(email, code));
+                    db.closeResultSet(rs);
+                    return true;
+                }
+                return false;
+            }
+            case OnlineUsersInfo -> {
+                if (parameters.length == 2) {
+                    String login = parameters[0];
+                    String status = parameters[1];
+                    ResultSet rs = db.makeExecution(dbRequests.insertOnlineUsersInfo(login, status));
                     db.closeResultSet(rs);
                     return true;
                 }

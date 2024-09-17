@@ -1,6 +1,6 @@
 package org.foomaa.jvchat.globaldefines;
 
-
+@SuppressWarnings("unused")
 public class JvColorsAnsiGlobalDefines {
     private static JvColorsAnsiGlobalDefines instance;
     // Reset

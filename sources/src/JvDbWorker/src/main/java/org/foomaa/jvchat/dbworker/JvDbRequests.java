@@ -40,9 +40,9 @@ public class JvDbRequests {
                 code);
     }
 
-    public String insertOnlineUsersInfo(String login, int status) {
+    public String insertOnlineUsersInfo(String login, String status) {
         return String.format(
-                "SELECT * FROM chat_schema.online_users_info_save('%s', %d);",
+                "SELECT * FROM chat_schema.online_users_info_save('%s', %s);",
                 login,
                 status);
     }

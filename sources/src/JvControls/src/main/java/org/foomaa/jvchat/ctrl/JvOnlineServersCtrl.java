@@ -1,5 +1,7 @@
 package org.foomaa.jvchat.ctrl;
 
+import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,13 +24,24 @@ public class JvOnlineServersCtrl {
     public void addUsersOnline(String userLogin) {
         if (!usersOnline.contains(userLogin)) {
             usersOnline.add(userLogin);
+            saveStatusOnline(userLogin, JvMainChatsGlobalDefines.TypeStatusOnline.Online);
         }
     }
 
-    @Deprecated
     public void removeUsersOnline(String userLogin) {
         if (usersOnline.contains(userLogin)) {
             usersOnline.remove(userLogin);
+            saveStatusOnline(userLogin, JvMainChatsGlobalDefines.TypeStatusOnline.Offline);
         }
+    }
+
+    public void saveStatusOnline(String userLogin, JvMainChatsGlobalDefines.TypeStatusOnline statusOnline) {
+        int onlineStatusInteger = statusOnline.getValue();
+        String onlineStatusString = String.valueOf(onlineStatusInteger);
+        JvGetterControls.getInstance()
+                .getBeanDbCtrl().insertQueryToDB(
+                        JvDbCtrl.TypeExecutionInsert.OnlineUsersInfo,
+                        userLogin,
+                        onlineStatusString);
     }
 }

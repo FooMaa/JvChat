@@ -6,6 +6,15 @@ import java.util.Objects;
 public class JvDbGlobalDefines {
     private static JvDbGlobalDefines instance;
 
+    private JvDbGlobalDefines() {}
+
+    public static JvDbGlobalDefines getInstance() {
+        if (instance == null) {
+            instance = new JvDbGlobalDefines();
+        }
+        return instance;
+    }
+
     public enum LineKeys {
         Sender("sender"),
         Receiver("receiver"),
@@ -34,14 +43,5 @@ public class JvDbGlobalDefines {
             }
             return null;
         }
-    }
-
-    private JvDbGlobalDefines() {}
-
-    public static JvDbGlobalDefines getInstance() {
-        if (instance == null) {
-            instance = new JvDbGlobalDefines();
-        }
-        return instance;
     }
 }
