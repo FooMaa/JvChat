@@ -12,6 +12,7 @@ public class JvOnlineServersCtrl {
 
     private JvOnlineServersCtrl() {
         usersOnline = new ArrayList<>();
+        loadDataOnlineUsers();
     }
 
     static JvOnlineServersCtrl getInstance() {
@@ -43,5 +44,9 @@ public class JvOnlineServersCtrl {
                         JvDbCtrl.TypeExecutionInsert.OnlineUsersInfo,
                         userLogin,
                         onlineStatusString);
+    }
+
+    private void loadDataOnlineUsers() {
+        return;
     }
 }

@@ -257,6 +257,7 @@ public class JvTakeMessagesCtrl {
     }
 
     private void workCheckOnlineUserRequestMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
+        @SuppressWarnings("unused")
         String ip = (String) map.get(JvDefinesMessages.TypeData.IP);
         String login = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
         JvGetterControls.getInstance().getBeanSendMessagesCtrl()
