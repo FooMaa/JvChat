@@ -331,6 +331,20 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION chat_schema.online_users_info_get_online_users()
+    RETURNS TABLE (login character varying) AS
+$BODY$
+DECLARE
+    rv chat_schema.online_users_info%rowtype;
+BEGIN
+    RETURN QUERY
+    SELECT chat_schema.auth_users_info.login
+    FROM chat_schema.online_users_info 
+    LEFT JOIN chat_schema.auth_users_info ON chat_schema.online_users_info.id_user = chat_schema.auth_users_info.id
+    WHERE chat_schema.online_users_info.status = 2;
+END;
+$BODY$ LANGUAGE plpgsql;
+
 CREATE OR REPLACE FUNCTION chat_schema.online_users_info_save (
     f_login         character varying,
     f_status        integer
