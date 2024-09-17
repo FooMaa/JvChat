@@ -104,4 +104,8 @@ public class JvDbRequests {
                 login
         );
     }
+
+    public String getOnlineUsers() {
+        return "SELECT * FROM chat_schema.online_users_info_get_online_users();";
+    }
 }

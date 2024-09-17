@@ -22,7 +22,8 @@ public class JvDbGlobalDefines {
         DateTimeMessage("datetime_last_message"),
         StatusMessage("status_message"),
         Status("status"),
-        LastOnlineTime("last_online_time");
+        LastOnlineTime("last_online_time"),
+        Login("login");
 
         private final String value;
 

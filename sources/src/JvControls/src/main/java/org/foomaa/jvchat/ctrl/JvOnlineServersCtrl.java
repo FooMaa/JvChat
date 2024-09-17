@@ -1,9 +1,11 @@
 package org.foomaa.jvchat.ctrl;
 
+import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 public class JvOnlineServersCtrl {
@@ -47,6 +49,12 @@ public class JvOnlineServersCtrl {
     }
 
     private void loadDataOnlineUsers() {
-        return;
+        List<Map<JvDbGlobalDefines.LineKeys, String>> dataFromDb  = JvGetterControls.getInstance()
+                .getBeanDbCtrl().getMultipleInfoFromDb(
+                        JvDbCtrl.TypeExecutionGetMultiple.OnlineUsers);
+
+        for (Map<JvDbGlobalDefines.LineKeys, String> map : dataFromDb) {
+            usersOnline.addAll(map.values());
+        }
     }
 }

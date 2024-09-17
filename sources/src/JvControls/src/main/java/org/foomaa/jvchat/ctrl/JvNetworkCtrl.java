@@ -1,6 +1,5 @@
 package org.foomaa.jvchat.ctrl;
 
-import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.settings.JvMainSettings;
 import org.foomaa.jvchat.network.JvServersSocket;
@@ -13,7 +12,6 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.LinkedList;
-import java.util.List;
 
 
 public class JvNetworkCtrl {
@@ -49,6 +47,7 @@ public class JvNetworkCtrl {
     @Autowired(required = false)
     @Qualifier("beanServersSocket")
     @Profile("servers")
+    @SuppressWarnings("unused")
     private void setServersSocket(JvServersSocket newServersSocket) {
         if ( serversSocket !=  newServersSocket ) {
             serversSocket = newServersSocket;
@@ -58,6 +57,7 @@ public class JvNetworkCtrl {
     @Autowired(required = false)
     @Qualifier("beanUsersSocket")
     @Profile("users")
+    @SuppressWarnings("unused")
     private void setUsersSocket(JvUsersSocket newUsersSocket) {
         if ( usersSocket !=  newUsersSocket ) {
             usersSocket = newUsersSocket;

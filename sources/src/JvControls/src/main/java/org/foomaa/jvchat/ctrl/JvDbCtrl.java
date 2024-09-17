@@ -46,6 +46,7 @@ public class JvDbCtrl {
     public enum TypeExecutionGetMultiple {
         ChatsLoad,
         StatusOnlineTimeUser,
+        OnlineUsers,
     }
 
     private JvDbCtrl() {
@@ -310,6 +311,19 @@ public class JvDbCtrl {
                 if (parameters.length == 1) {
                     String login = parameters[0];
                     ResultSet resultSet = db.makeExecution(dbRequests.getStatusOnlineTimeUser(login));
+                    List<Map<JvDbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
+
+                    db.closeResultSet(resultSet);
+
+                    if (!result.isEmpty()) {
+                        return result;
+                    }
+                }
+                return null;
+            }
+            case OnlineUsers -> {
+                if (parameters.length == 0) {
+                    ResultSet resultSet = db.makeExecution(dbRequests.getOnlineUsers());
                     List<Map<JvDbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
 
                     db.closeResultSet(resultSet);

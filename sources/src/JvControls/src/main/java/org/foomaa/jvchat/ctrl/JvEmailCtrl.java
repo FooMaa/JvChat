@@ -22,6 +22,7 @@ public class JvEmailCtrl {
     @Autowired(required = false)
     @Qualifier("beanEmailProcessor")
     @Profile("servers")
+    @SuppressWarnings("unused")
     private void setEmailProcessor(JvEmailProcessor newEmailProcessor) {
         if (emailProcessor != newEmailProcessor) {
             emailProcessor = newEmailProcessor;
