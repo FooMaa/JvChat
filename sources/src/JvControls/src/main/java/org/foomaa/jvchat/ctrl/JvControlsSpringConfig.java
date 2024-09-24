@@ -1,11 +1,7 @@
 package org.foomaa.jvchat.ctrl;
 
-import org.springframework.context.annotation.ComponentScans;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.*;
+
 import java.net.Socket;
 
 
@@ -113,6 +109,7 @@ public class JvControlsSpringConfig {
 
     @Bean(name = "beanOnlineServersCtrl")
     @Scope("singleton")
+    @Lazy
     @Profile("servers")
     @SuppressWarnings("unused")
     public JvOnlineServersCtrl beanOnlineServersCtrl() {
