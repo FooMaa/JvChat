@@ -18,8 +18,6 @@ public class JvServersSocket {
     private static ServerSocket socketServers;
 
     private JvServersSocket() {
-        JvLog.write(JvLog.TypeLog.Info, "Server is started");
-
         try {
             if (JvGetterSettings.getInstance().getBeanServersInfoSettings().getIp().isEmpty()) {
                 socketServers = new ServerSocket(JvGetterSettings.getInstance().getBeanServersInfoSettings().getPort());
@@ -32,6 +30,7 @@ public class JvServersSocket {
             JvLog.write(JvLog.TypeLog.Info, "IP: " + socketServers.getInetAddress().toString());
             JvLog.write(JvLog.TypeLog.Info, "PORT: " + String.valueOf(socketServers.getLocalPort()));
 
+            JvLog.write(JvLog.TypeLog.Info, "Server is started");
             closeSocketWhenKill();
         } catch (IOException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Ошибка при создании сокета сервера");
