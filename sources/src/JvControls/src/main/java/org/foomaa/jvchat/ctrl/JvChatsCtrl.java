@@ -33,6 +33,7 @@ public class JvChatsCtrl {
         System.out.println(chatsInfo);
     }
 
+    @SuppressWarnings("unused")
     public List<Map<JvDbGlobalDefines.LineKeys, String>> getChatsInfo() {
         return chatsInfo;
     }

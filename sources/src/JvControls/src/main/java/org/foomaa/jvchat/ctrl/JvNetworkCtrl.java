@@ -26,9 +26,11 @@ public class JvNetworkCtrl {
 
     private JvNetworkCtrl() {}
 
+    @SuppressWarnings("InfiniteLoopStatement")
     public void startNetwork() throws IOException {
         if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             ServerSocket socketServer = serversSocket.getSocketServers();
+            JvGetterControls.getInstance().getBeanOnlineServersCtrl().loadDataOnlineUsers();
             while (true) {
                 Socket fromSocketServer = socketServer.accept();
                 JvServersSocketThreadCtrl thread = JvGetterControls.getInstance()

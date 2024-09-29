@@ -89,34 +89,42 @@ public class JvMessagesDefinesCtrl {
         }
     }
 
+    @SuppressWarnings("unused")
     public TypeFlags getEntryRequestFlag() {
         return EntryRequestFlag;
     }
 
+    @SuppressWarnings("unused")
     public TypeFlags getRegistrationRequestFlag() {
         return RegistrationRequestFlag;
     }
 
+    @SuppressWarnings("unused")
     public JvDefinesMessages.TypeErrorRegistration getErrorRegistrationFlag() {
         return errorRegistrationFlag;
     }
 
+    @SuppressWarnings("unused")
     public TypeFlags getResetPasswordRequestFlag() {
         return ResetPasswordRequestFlag;
     }
 
+    @SuppressWarnings("unused")
     public TypeFlags getVerifyFamousEmailRequestFlag() {
         return VerifyFamousEmailRequestFlag;
     }
 
+    @SuppressWarnings("unused")
     public TypeFlags getChangePasswordRequest() {
         return ChangePasswordRequest;
     }
 
+    @SuppressWarnings("unused")
     public TypeFlags getVerifyRegistrationEmailRequestFlag() {
         return VerifyRegistrationEmailRequestFlag;
     }
 
+    @SuppressWarnings("unused")
     public JvDefinesMessages.TypeErrorRegistration getErrorVerifyRegEmailFlag() {
         return errorVerifyRegEmailFlag;
     }

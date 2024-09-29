@@ -49,8 +49,7 @@ public class JvDbCtrl {
         OnlineUsers,
     }
 
-    private JvDbCtrl() {
-    }
+    private JvDbCtrl() {}
 
     static JvDbCtrl getInstance() {
         if (instance == null) {

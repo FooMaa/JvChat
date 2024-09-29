@@ -109,7 +109,6 @@ public class JvControlsSpringConfig {
 
     @Bean(name = "beanOnlineServersCtrl")
     @Scope("singleton")
-    @Lazy
     @Profile("servers")
     @SuppressWarnings("unused")
     public JvOnlineServersCtrl beanOnlineServersCtrl() {

@@ -10,11 +10,10 @@ import java.util.Map;
 
 public class JvOnlineServersCtrl {
     private static JvOnlineServersCtrl instance;
-    private List<String> usersOnline;
+    private final List<String> usersOnline;
 
     private JvOnlineServersCtrl() {
         usersOnline = new ArrayList<>();
-        loadDataOnlineUsers();
     }
 
     static JvOnlineServersCtrl getInstance() {
@@ -22,6 +21,16 @@ public class JvOnlineServersCtrl {
             instance = new JvOnlineServersCtrl();
         }
         return instance;
+    }
+
+    public void loadDataOnlineUsers() {
+        List<Map<JvDbGlobalDefines.LineKeys, String>> dataFromDb  = JvGetterControls.getInstance()
+                .getBeanDbCtrl().getMultipleInfoFromDb(
+                        JvDbCtrl.TypeExecutionGetMultiple.OnlineUsers);
+
+        for (Map<JvDbGlobalDefines.LineKeys, String> map : dataFromDb) {
+            usersOnline.addAll(map.values());
+        }
     }
 
     public void addUsersOnline(String userLogin) {
@@ -38,7 +47,7 @@ public class JvOnlineServersCtrl {
         }
     }
 
-    public void saveStatusOnline(String userLogin, JvMainChatsGlobalDefines.TypeStatusOnline statusOnline) {
+    private void saveStatusOnline(String userLogin, JvMainChatsGlobalDefines.TypeStatusOnline statusOnline) {
         int onlineStatusInteger = statusOnline.getValue();
         String onlineStatusString = String.valueOf(onlineStatusInteger);
         JvGetterControls.getInstance()
@@ -46,15 +55,5 @@ public class JvOnlineServersCtrl {
                         JvDbCtrl.TypeExecutionInsert.OnlineUsersInfo,
                         userLogin,
                         onlineStatusString);
-    }
-
-    private void loadDataOnlineUsers() {
-        List<Map<JvDbGlobalDefines.LineKeys, String>> dataFromDb  = JvGetterControls.getInstance()
-                .getBeanDbCtrl().getMultipleInfoFromDb(
-                        JvDbCtrl.TypeExecutionGetMultiple.OnlineUsers);
-
-        for (Map<JvDbGlobalDefines.LineKeys, String> map : dataFromDb) {
-            usersOnline.addAll(map.values());
-        }
     }
 }

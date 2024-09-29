@@ -6,8 +6,7 @@ import java.io.*;
 import java.net.Socket;
 
 
-public class JvServersSocketThreadCtrl extends Thread
-{
+public class JvServersSocketThreadCtrl extends Thread {
     private DataInputStream readFromUser;
     private DataOutputStream sendToUser;
 
@@ -22,6 +21,7 @@ public class JvServersSocketThreadCtrl extends Thread
     }
 
     @Override
+    @SuppressWarnings("InfiniteLoopStatement")
     public void run() {
         try {
             while (true) {

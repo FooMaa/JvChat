@@ -21,6 +21,7 @@ public class JvUsersSocketThreadCtrl extends Thread {
     }
 
     @Override
+    @SuppressWarnings("InfiniteLoopStatement")
     public void run() {
         try {
             while (true) {
