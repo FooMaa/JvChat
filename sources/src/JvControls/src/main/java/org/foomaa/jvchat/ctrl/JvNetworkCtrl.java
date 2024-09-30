@@ -89,4 +89,18 @@ public class JvNetworkCtrl {
             usersThread.send(message);
         }
     }
+
+    public void sendMessageByThread(byte[] message, Thread thread) {
+        if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
+            JvServersSocketThreadCtrl srvThr = (JvServersSocketThreadCtrl) thread;
+            srvThr.send(message);
+        } else if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.USERS) {
+            JvUsersSocketThreadCtrl usrThr = (JvUsersSocketThreadCtrl) thread;
+            usrThr.send(message);
+        }
+    }
+
+    public LinkedList<JvServersSocketThreadCtrl> getConnectionList() {
+        return connectionList;
+    }
 }
