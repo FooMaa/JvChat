@@ -76,8 +76,10 @@ public class JvNetworkCtrl {
     public void takeMessage(byte[] message, Thread thr) {
         if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             serversThread = (JvServersSocketThreadCtrl) thr;
+            JvGetterControls.getInstance().getBeanTakeMessagesCtrl().setThreadFromConnection(serversThread);
         } else if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.USERS) {
             usersThread = (JvUsersSocketThreadCtrl) thr;
+            JvGetterControls.getInstance().getBeanTakeMessagesCtrl().setThreadFromConnection(usersThread);
         }
         JvGetterControls.getInstance().getBeanTakeMessagesCtrl().takeMessage(message);
     }

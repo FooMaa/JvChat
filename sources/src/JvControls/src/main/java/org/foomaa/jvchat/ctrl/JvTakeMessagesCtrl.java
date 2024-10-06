@@ -15,6 +15,8 @@ import java.util.Map;
 public class JvTakeMessagesCtrl {
     private static JvTakeMessagesCtrl instance;
 
+    private Thread threadFrom;
+
     private JvTakeMessagesCtrl() {}
 
     static JvTakeMessagesCtrl getInstance() {
@@ -44,10 +46,21 @@ public class JvTakeMessagesCtrl {
             case ChatsLoadRequest -> workChatsLoadRequestMessage(getDeserializeMapData(type, data));
             case ChatsLoadReply -> workChatsLoadReplyMessage(getDeserializeMapData(type, data));
         }
+        clearThreadFromConnection();
     }
 
     private HashMap<JvDefinesMessages.TypeData, ?> getDeserializeMapData(JvDefinesMessages.TypeMessage type, byte[] data) {
         return JvGetterMessages.getInstance().getBeanDeserializatorDataMessages().deserializeData(type, data);
+    }
+
+    public void setThreadFromConnection(Thread thread) {
+        if (threadFrom != thread) {
+            threadFrom = thread;
+        }
+    }
+
+    private void clearThreadFromConnection() {
+        threadFrom = null;
     }
 
     private void workEntryRequestMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
@@ -266,6 +279,6 @@ public class JvTakeMessagesCtrl {
 
     private void workCheckOnlineUserReplyMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         String login = (String) map.get(JvDefinesMessages.TypeData.Login);
-        JvGetterControls.getInstance().getBeanOnlineServersCtrl().addUsersOnline(login);
+        JvGetterControls.getInstance().getBeanOnlineServersCtrl().addUsersOnline(login, threadFrom);
     }
 }
