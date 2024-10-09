@@ -299,5 +299,9 @@ public class JvTakeMessagesCtrl {
     private void workLoadUsersOnlineStatusReplyMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         String login = (String) map.get(JvDefinesMessages.TypeData.Login);
         JvGetterControls.getInstance().getBeanOnlineServersCtrl().addUsersOnline(login, threadFrom);
+
+
+        JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                .setChatsLoadReplyFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
     }
 }

@@ -194,6 +194,8 @@ public class JvSendMessagesCtrl {
                             .getBeanStructTools().checkedCastList(loginsObject, String.class);
                     byte[] bodyMessage = createBodyLoadUsersOnlineStatusRequestMessage(type, loginsList);
                     sendReadyMessageNetwork(bodyMessage);
+                    JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                            .setLoadUsersOnlineReplyFlag(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
                 }
             }
             case LoadUsersOnlineStatusReply -> {

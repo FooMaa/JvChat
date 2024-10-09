@@ -30,9 +30,10 @@ public class JvMessagesDefinesCtrl {
     JvDefinesMessages.TypeErrorRegistration.NoError;
     private TypeFlags ChangePasswordRequest = TypeFlags.DEFAULT;
     private TypeFlags VerifyRegistrationEmailRequestFlag = TypeFlags.DEFAULT;
-    private JvDefinesMessages.TypeErrorRegistration errorVerifyRegEmailFlag =
+    private JvDefinesMessages.TypeErrorRegistration ErrorVerifyRegEmailFlag =
     JvDefinesMessages.TypeErrorRegistration.NoError;
-    private TypeFlags chatsLoadReplyFlag = TypeFlags.DEFAULT;
+    private TypeFlags ChatsLoadReplyFlag = TypeFlags.DEFAULT;
+    private TypeFlags LoadUsersOnlineReplyFlag = TypeFlags.DEFAULT;
     // FLAGS
 
     public void setEntryRequestFlag(TypeFlags newFlag) {
@@ -78,58 +79,60 @@ public class JvMessagesDefinesCtrl {
     }
 
     public void setErrorVerifyRegEmailFlag(JvDefinesMessages.TypeErrorRegistration newFlag) {
-        if (errorVerifyRegEmailFlag != newFlag) {
-            errorVerifyRegEmailFlag = newFlag;
+        if (ErrorVerifyRegEmailFlag != newFlag) {
+            ErrorVerifyRegEmailFlag = newFlag;
         }
     }
 
     public void setChatsLoadReplyFlag(TypeFlags newFlag) {
-        if (chatsLoadReplyFlag != newFlag) {
-            chatsLoadReplyFlag = newFlag;
+        if (ChatsLoadReplyFlag != newFlag) {
+            ChatsLoadReplyFlag = newFlag;
         }
     }
 
-    @SuppressWarnings("unused")
+    public void setLoadUsersOnlineReplyFlag(TypeFlags newFlag) {
+        if (LoadUsersOnlineReplyFlag != newFlag) {
+            LoadUsersOnlineReplyFlag = newFlag;
+        }
+    }
+
     public TypeFlags getEntryRequestFlag() {
         return EntryRequestFlag;
     }
 
-    @SuppressWarnings("unused")
     public TypeFlags getRegistrationRequestFlag() {
         return RegistrationRequestFlag;
     }
 
-    @SuppressWarnings("unused")
     public JvDefinesMessages.TypeErrorRegistration getErrorRegistrationFlag() {
         return errorRegistrationFlag;
     }
 
-    @SuppressWarnings("unused")
     public TypeFlags getResetPasswordRequestFlag() {
         return ResetPasswordRequestFlag;
     }
 
-    @SuppressWarnings("unused")
     public TypeFlags getVerifyFamousEmailRequestFlag() {
         return VerifyFamousEmailRequestFlag;
     }
 
-    @SuppressWarnings("unused")
     public TypeFlags getChangePasswordRequest() {
         return ChangePasswordRequest;
     }
 
-    @SuppressWarnings("unused")
     public TypeFlags getVerifyRegistrationEmailRequestFlag() {
         return VerifyRegistrationEmailRequestFlag;
     }
 
-    @SuppressWarnings("unused")
     public JvDefinesMessages.TypeErrorRegistration getErrorVerifyRegEmailFlag() {
-        return errorVerifyRegEmailFlag;
+        return ErrorVerifyRegEmailFlag;
     }
 
     public TypeFlags getChatsLoadReplyFlag() {
-        return chatsLoadReplyFlag;
+        return ChatsLoadReplyFlag;
+    }
+
+    public TypeFlags getLoadUsersOnlineReplyFlag() {
+        return LoadUsersOnlineReplyFlag;
     }
 }
