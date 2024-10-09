@@ -299,6 +299,7 @@ public class JvTakeMessagesCtrl {
     private void workLoadUsersOnlineStatusReplyMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         Object objectMapStatusesUsers = map.get(JvDefinesMessages.TypeData.UsersOnlineInfoList);
         Object objectMapLastOnlineTimeUsers = map.get(JvDefinesMessages.TypeData.TimeStampLastOnlineString);
+
         Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> mapStatusesUsers =
                 JvGetterTools.getInstance().getBeanStructTools().objectInMap(objectMapStatusesUsers, String.class,
                         JvMainChatsGlobalDefines.TypeStatusOnline.class);
@@ -306,6 +307,8 @@ public class JvTakeMessagesCtrl {
                 JvGetterTools.getInstance().getBeanStructTools().objectInMap(objectMapLastOnlineTimeUsers, String.class,
                         String.class);
 
+        JvGetterControls.getInstance().getBeanChatsCtrl().setOnlineStatusesUsers(mapStatusesUsers);
+        JvGetterControls.getInstance().getBeanChatsCtrl().setLastOnlineTimeUsers(mapLastOnlineTimeUsers);
 
         JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
                 .setChatsLoadReplyFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);

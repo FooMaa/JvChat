@@ -16,7 +16,8 @@ import java.util.Objects;
 public class JvChatsCtrl {
     private static JvChatsCtrl instance;
     private List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo;
-
+    private Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> onlineStatusesUsers;
+    private Map<String, String> lastOnlineTimeUsers;
 
     private JvChatsCtrl() {}
 
@@ -32,6 +33,18 @@ public class JvChatsCtrl {
             chatsInfo = newChatsInfo;
         }
         System.out.println(chatsInfo);
+    }
+
+    public void setOnlineStatusesUsers(Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> newOnlineStatusesUsers) {
+        if (onlineStatusesUsers != newOnlineStatusesUsers) {
+            onlineStatusesUsers = newOnlineStatusesUsers;
+        }
+    }
+
+    public void setLastOnlineTimeUsers(Map<String, String> newLastOnlineTimeUsers) {
+        if (lastOnlineTimeUsers != newLastOnlineTimeUsers) {
+            lastOnlineTimeUsers = newLastOnlineTimeUsers;
+        }
     }
 
     @SuppressWarnings("unused")
