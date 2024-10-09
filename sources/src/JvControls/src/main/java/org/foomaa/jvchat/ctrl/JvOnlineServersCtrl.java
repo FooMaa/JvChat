@@ -2,9 +2,11 @@ package org.foomaa.jvchat.ctrl;
 
 import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
+import org.foomaa.jvchat.globaldefines.JvMainGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.tools.JvGetterTools;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -217,10 +219,8 @@ public class JvOnlineServersCtrl {
     private void updateListeningStructure() {
         for (CheckerOnline onlineUser : listCheckerOnline) {
             LocalDateTime lastUpdatingDateTime = onlineUser.dateTimeUpdating;
-
             Duration duration = Duration.between(lastUpdatingDateTime, LocalDateTime.now());
             long secondsAfterLastUpdating = duration.getSeconds();
-
             if (secondsAfterLastUpdating > intervalSecondsAfterLastUpdate) {
                 removeUsersOnline(onlineUser);
             }
@@ -231,5 +231,31 @@ public class JvOnlineServersCtrl {
         } catch (InterruptedException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Здесь не удалось выполнить sleep()");
         }
+    }
+
+    public Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> getStatusesUsers(List<String> logins) {
+        Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> resultMap = new HashMap<>();
+        for (String login : logins) {
+            boolean isLoginOnline = isLoginInListCheckerOnline(login);
+            if (isLoginOnline) {
+                resultMap.put(login, JvMainChatsGlobalDefines.TypeStatusOnline.Online);
+            } else {
+                resultMap.put(login, JvMainChatsGlobalDefines.TypeStatusOnline.Offline);
+            }
+        }
+        return resultMap;
+    }
+
+    public Map<String, String> getLastOnlineTimeUsers(List<String> logins) {
+        Map<String, String> resultMap = new HashMap<>();
+        for (String login : logins) {
+            boolean isLoginOnline = isLoginInListCheckerOnline(login);
+            if (!isLoginOnline) {
+//                List<Map<JvDbGlobalDefines.LineKeys, String>> dataFromDb = JvGetterControls.getInstance().getBeanDbCtrl()
+//                        .getMultipleInfoFromDb(JvDbCtrl.TypeExecutionGetMultiple.StatusOnlineTimeUser, login);
+//                dataFromDb.get()
+            }
+        }
+        return resultMap;
     }
 }

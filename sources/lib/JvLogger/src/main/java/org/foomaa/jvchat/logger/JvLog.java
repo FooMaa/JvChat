@@ -104,13 +104,13 @@ public class JvLog {
 
     private Path getProjectDirectory() {
         String nameProject = JvGetterGlobalDefines.getInstance().getBeanMainGlobalDefines().NAME_PROJECT;
-        String path = System.getProperty("user.dir");
+        String pathString = System.getProperty("user.dir");
 
-        Pattern pattern = Pattern.compile("^(.*/" + nameProject + ")(?:/.*)?$");
-        Matcher matcher = pattern.matcher(path);
+        Pattern patternPathForUnix = Pattern.compile("^(.*[\\\\/]" + nameProject + ")(?:[\\\\/].*)?$");
+        Matcher matcherUnix = patternPathForUnix.matcher(pathString);
 
-        if (matcher.find()) {
-            return Paths.get(matcher.group(1));
+        if (matcherUnix.find()) {
+            return Paths.get(matcherUnix.group(1));
         }
 
         return null;

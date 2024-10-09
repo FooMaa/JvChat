@@ -1,7 +1,7 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import org.foomaa.jvchat.ctrl.JvChatsCtrl;
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
+import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
 import javax.swing.*;
@@ -15,6 +15,7 @@ public class JvRectChatMainChatUI extends JPanel {
     private final String lastMessageSender;
     private final String timeLastMessage;
     private final JvMainChatsGlobalDefines.TypeStatusMessage statusMessage;
+    private int intervalSecondsUpdatingOnlineStatus;
 
     JvRectChatMainChatUI(String newNickName,
                          String newShortLastMessage,
@@ -26,6 +27,7 @@ public class JvRectChatMainChatUI extends JPanel {
         lastMessageSender = newLastMessageSender;
         timeLastMessage = newTimeLastMessage;
         statusMessage = newStatusMessage;
+        intervalSecondsUpdatingOnlineStatus = 10;
 
         makeChatBox();
     }
@@ -95,5 +97,25 @@ public class JvRectChatMainChatUI extends JPanel {
         }
 
         return shortLastMessage;
+    }
+
+    private void updateOnline() {
+        Runnable updateListenOnline = () -> {
+            while (true) {
+                askingStateOnline();
+                //reset frame
+            }
+        };
+
+        Thread updateThread = new Thread(updateListenOnline);
+        updateThread.start();
+    }
+
+    private void askingStateOnline() {
+        try {
+            Thread.sleep(intervalSecondsUpdatingOnlineStatus);
+        } catch (InterruptedException exception) {
+            JvLog.write(JvLog.TypeLog.Error, "Здесь не удалось выполнить sleep()");
+        }
     }
 }

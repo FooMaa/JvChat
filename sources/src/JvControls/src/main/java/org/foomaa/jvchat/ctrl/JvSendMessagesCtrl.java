@@ -1,6 +1,7 @@
 package org.foomaa.jvchat.ctrl;
 
 import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
+import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.messages.JvGetterMessages;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvGetterSettings;
@@ -186,6 +187,27 @@ public class JvSendMessagesCtrl {
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
+            case LoadUsersOnlineStatusRequest -> {
+                if (parameters.length == 1) {
+                    Object loginsObject = parameters[0];
+                    List<String> loginsList = JvGetterTools.getInstance()
+                            .getBeanStructTools().checkedCastList(loginsObject, String.class);
+                    byte[] bodyMessage = createBodyLoadUsersOnlineStatusRequestMessage(type, loginsList);
+                    sendReadyMessageNetwork(bodyMessage);
+                }
+            }
+            case LoadUsersOnlineStatusReply -> {
+                if (parameters.length == 2) {
+                    Object statusesUsersObj = parameters[0];
+                    Object lastOnlineTimeUsersObj = parameters[1];
+                    Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> statusesUsersMap = JvGetterTools.getInstance()
+                            .getBeanStructTools().objectInMap(statusesUsersObj, String.class, JvMainChatsGlobalDefines.TypeStatusOnline.class);
+                    Map<String, String> lastOnlineTimeUsers = JvGetterTools.getInstance()
+                            .getBeanStructTools().objectInMap(lastOnlineTimeUsersObj, String.class, String.class);
+                    byte[] bodyMessage = createBodyLoadUsersOnlineStatusReplyMessage(type, statusesUsersMap, lastOnlineTimeUsers);
+                    sendReadyMessageNetwork(bodyMessage);
+                }
+            }
         }
     }
 
@@ -259,5 +281,15 @@ public class JvSendMessagesCtrl {
 
     private byte[] createBodyCheckOnlineUserReplyMessage(JvDefinesMessages.TypeMessage type, String login) {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, login);
+    }
+
+    private byte[] createBodyLoadUsersOnlineStatusRequestMessage(JvDefinesMessages.TypeMessage type, List<String> logins) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, logins);
+    }
+
+    private byte[] createBodyLoadUsersOnlineStatusReplyMessage(JvDefinesMessages.TypeMessage type,
+                                                               Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> statusesUsers,
+                                                               Map<String, String> lastOnlineTimeUsers) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, statusesUsers, lastOnlineTimeUsers);
     }
 }

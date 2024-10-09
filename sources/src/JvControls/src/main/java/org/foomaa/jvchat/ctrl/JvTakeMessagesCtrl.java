@@ -2,6 +2,7 @@ package org.foomaa.jvchat.ctrl;
 
 import org.foomaa.jvchat.cryptography.JvGetterCryptography;
 import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
+import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.messages.JvGetterMessages;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvGetterSettings;
@@ -45,6 +46,8 @@ public class JvTakeMessagesCtrl {
             case CheckOnlineUserReply -> workCheckOnlineUserReplyMessage(getDeserializeMapData(type, data));
             case ChatsLoadRequest -> workChatsLoadRequestMessage(getDeserializeMapData(type, data));
             case ChatsLoadReply -> workChatsLoadReplyMessage(getDeserializeMapData(type, data));
+            case LoadUsersOnlineStatusRequest -> workLoadUsersOnlineStatusRequestMessage(getDeserializeMapData(type, data));
+            case LoadUsersOnlineStatusReply -> workLoadUsersOnlineStatusReplyMessage(getDeserializeMapData(type, data));
         }
         clearThreadFromConnection();
     }
@@ -278,6 +281,22 @@ public class JvTakeMessagesCtrl {
     }
 
     private void workCheckOnlineUserReplyMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
+        String login = (String) map.get(JvDefinesMessages.TypeData.Login);
+        JvGetterControls.getInstance().getBeanOnlineServersCtrl().addUsersOnline(login, threadFrom);
+    }
+
+    private void workLoadUsersOnlineStatusRequestMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
+        Object objectList = map.get(JvDefinesMessages.TypeData.LoginsList);
+        List<String> logins = JvGetterTools.getInstance().getBeanStructTools().checkedCastList(objectList, String.class);
+        Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> statusesUsers =
+                JvGetterControls.getInstance().getBeanOnlineServersCtrl().getStatusesUsers(logins);
+        Map<String, String> lastOnlineTimeUsers =
+                JvGetterControls.getInstance().getBeanOnlineServersCtrl().getLastOnlineTimeUsers(logins);
+        JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+                JvDefinesMessages.TypeMessage.LoadUsersOnlineStatusReply, statusesUsers, lastOnlineTimeUsers);
+    }
+
+    private void workLoadUsersOnlineStatusReplyMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         String login = (String) map.get(JvDefinesMessages.TypeData.Login);
         JvGetterControls.getInstance().getBeanOnlineServersCtrl().addUsersOnline(login, threadFrom);
     }
