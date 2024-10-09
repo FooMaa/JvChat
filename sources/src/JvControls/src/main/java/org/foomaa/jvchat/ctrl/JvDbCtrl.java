@@ -41,6 +41,7 @@ public class JvDbCtrl {
     public enum TypeExecutionGetSingle {
         LoginByEmail,
         IdByEmail,
+        LastOnlineTimeUser,
     }
 
     public enum TypeExecutionGetMultiple {
@@ -278,6 +279,18 @@ public class JvDbCtrl {
                 if (parameters.length == 1) {
                     String email = parameters[0];
                     ResultSet resultSet = db.makeExecution(dbRequests.getUserId(email));
+                    List<String> result = getStrDataAtRow(resultSet, 1);
+                    db.closeResultSet(resultSet);
+                    if (!result.isEmpty()) {
+                        return result.stream().findFirst().get();
+                    }
+                }
+                return null;
+            }
+            case LastOnlineTimeUser -> {
+                if (parameters.length == 1) {
+                    String login = parameters[0];
+                    ResultSet resultSet = db.makeExecution(dbRequests.getLastOnlineTimeUser(login));
                     List<String> result = getStrDataAtRow(resultSet, 1);
                     db.closeResultSet(resultSet);
                     if (!result.isEmpty()) {

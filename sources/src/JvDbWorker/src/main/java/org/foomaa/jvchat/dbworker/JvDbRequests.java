@@ -101,11 +101,16 @@ public class JvDbRequests {
     public String getStatusOnlineTimeUser(String login) {
         return String.format(
                 "SELECT * FROM chat_schema.online_users_info_get_status_time_by_user_login('%s');",
-                login
-        );
+                login);
     }
 
     public String getOnlineUsers() {
         return "SELECT * FROM chat_schema.online_users_info_get_online_users();";
+    }
+
+    public String getLastOnlineTimeUser(String login) {
+        return String.format(
+                "SELECT * FROM chat_schema.online_users_info_get_time_by_user_login('%s');",
+                login);
     }
 }

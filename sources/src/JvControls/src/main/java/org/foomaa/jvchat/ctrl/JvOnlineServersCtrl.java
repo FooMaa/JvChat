@@ -251,9 +251,9 @@ public class JvOnlineServersCtrl {
         for (String login : logins) {
             boolean isLoginOnline = isLoginInListCheckerOnline(login);
             if (!isLoginOnline) {
-//                List<Map<JvDbGlobalDefines.LineKeys, String>> dataFromDb = JvGetterControls.getInstance().getBeanDbCtrl()
-//                        .getMultipleInfoFromDb(JvDbCtrl.TypeExecutionGetMultiple.StatusOnlineTimeUser, login);
-//                dataFromDb.get()
+                String lastOnlineTime = JvGetterControls.getInstance().getBeanDbCtrl()
+                        .getSingleDataFromDb(JvDbCtrl.TypeExecutionGetSingle.LastOnlineTimeUser, login);
+                resultMap.put(login, lastOnlineTime);
             }
         }
         return resultMap;
