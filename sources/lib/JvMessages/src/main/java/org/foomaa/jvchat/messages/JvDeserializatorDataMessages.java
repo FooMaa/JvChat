@@ -305,7 +305,7 @@ public class JvDeserializatorDataMessages {
             }
 
             result.put(JvDefinesMessages.TypeData.UsersOnlineInfoList, newMapStatusesUsers);
-            result.put(JvDefinesMessages.TypeData.TimeStampString, mapLastOnlineTimeUsers);
+            result.put(JvDefinesMessages.TypeData.TimeStampLastOnlineString, mapLastOnlineTimeUsers);
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }

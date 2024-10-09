@@ -17,6 +17,7 @@ public class JvChatsCtrl {
     private static JvChatsCtrl instance;
     private List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo;
 
+
     private JvChatsCtrl() {}
 
     static JvChatsCtrl getInstance() {
