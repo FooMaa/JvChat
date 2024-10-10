@@ -176,6 +176,7 @@ public class JvOnlineServersCtrl {
                 onlineUser.thread = socketThreadCtrl;
                 onlineUser.isSending = true;
                 onlineUser.dateTimeSending = LocalDateTime.now();
+                onlineUser.dateTimeUpdating = LocalDateTime.now();
                 listCheckerOnline.add(onlineUser);
             }
         }

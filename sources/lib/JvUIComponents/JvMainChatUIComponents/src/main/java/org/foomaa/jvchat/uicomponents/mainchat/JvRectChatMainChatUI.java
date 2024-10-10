@@ -109,6 +109,7 @@ public class JvRectChatMainChatUI extends JPanel {
         if (statusOnline != newStatusOnline) {
             statusOnline = newStatusOnline;
         }
+        System.out.println( nickName + " " + statusOnline );
     }
 
     public void setLastOnlineDateTime(String newLastOnlineDateTime) {

@@ -15,7 +15,8 @@ public class JvUsersInfoSettings {
         return instance;
     }
 
-    private String login;
+
+    private String login = "";
 
     public void setLogin(String newLogin) {
         if (!Objects.equals(login, newLogin)) {

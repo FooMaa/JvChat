@@ -23,11 +23,13 @@ import java.util.concurrent.TimeUnit;
 
 public class JvScrollPanelChatsMainChatUI extends JPanel {
     private static JvScrollPanelChatsMainChatUI instance;
-    private final int intervalSleepUpdating;
+    private final int intervalMilliSecondsSleepUpdating;
+    private final int intervalSecondsWaitLoopUpdate;
     private Box boxComponents;
 
     private JvScrollPanelChatsMainChatUI() {
-        intervalSleepUpdating = 30000;
+        intervalMilliSecondsSleepUpdating = 30000;
+        intervalSecondsWaitLoopUpdate = 5;
         makePanel();
         runningThreadUpdateOnline();
     }
@@ -155,20 +157,22 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
     private void processUpdatingOnline() {
         sendingUpdateOnlinePackage();
 
-        try {
-            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getLoadUsersOnlineReplyFlag().wait();
-        } catch (InterruptedException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Не удалось ждать");
+        while (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getLoadUsersOnlineReplyFlag() ==
+                JvMessagesDefinesCtrl.TypeFlags.DEFAULT) {
+            try {
+                TimeUnit.SECONDS.sleep(intervalSecondsWaitLoopUpdate);
+            } catch (InterruptedException exception) {
+                JvLog.write(JvLog.TypeLog.Error, "Здесь не удалось выполнить sleep()");
+            }
         }
 
         System.out.println("Waiting success");
-
         installingUpdatingDataInRectChats();
 
         try {
-            Thread.sleep(intervalSleepUpdating);
+            Thread.sleep(intervalMilliSecondsSleepUpdating);
         } catch (InterruptedException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Не удалось ждать");
+            JvLog.write(JvLog.TypeLog.Error, "Здесь не удалось выполнить sleep()");
         }
     }
 

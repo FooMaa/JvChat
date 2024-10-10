@@ -11,6 +11,7 @@ import org.foomaa.jvchat.tools.JvGetterTools;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class JvTakeMessagesCtrl {
@@ -276,6 +277,9 @@ public class JvTakeMessagesCtrl {
         @SuppressWarnings("unused")
         String ip = (String) map.get(JvDefinesMessages.TypeData.IP);
         String login = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
+        if (!Objects.equals(login, "")) {
+            return;
+        }
         JvGetterControls.getInstance().getBeanSendMessagesCtrl()
                 .sendMessage(JvDefinesMessages.TypeMessage.CheckOnlineUserReply, login);
     }
@@ -311,6 +315,6 @@ public class JvTakeMessagesCtrl {
         JvGetterControls.getInstance().getBeanChatsCtrl().setLastOnlineTimeUsers(mapLastOnlineTimeUsers);
 
         JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                .setChatsLoadReplyFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
+                .setLoadUsersOnlineReplyFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
     }
 }

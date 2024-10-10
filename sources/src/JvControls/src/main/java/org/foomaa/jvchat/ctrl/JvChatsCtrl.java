@@ -32,7 +32,6 @@ public class JvChatsCtrl {
         if (chatsInfo != newChatsInfo) {
             chatsInfo = newChatsInfo;
         }
-        System.out.println(chatsInfo);
     }
 
     public void setOnlineStatusesUsers(Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> newOnlineStatusesUsers) {
