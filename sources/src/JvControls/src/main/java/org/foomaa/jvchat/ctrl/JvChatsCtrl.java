@@ -52,6 +52,14 @@ public class JvChatsCtrl {
         return chatsInfo;
     }
 
+    public Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> getOnlineStatusesUsers() {
+        return onlineStatusesUsers;
+    }
+
+    public Map<String, String> getLastOnlineTimeUsers() {
+        return lastOnlineTimeUsers;
+    }
+
     public List<String> getLoginsChats() {
         if (chatsInfo.isEmpty()) {
             JvLog.write(JvLog.TypeLog.Warn, "chatsInfo пуст здесь");

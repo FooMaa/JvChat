@@ -88,11 +88,19 @@ public class JvMessagesDefinesCtrl {
         if (ChatsLoadReplyFlag != newFlag) {
             ChatsLoadReplyFlag = newFlag;
         }
+
+        if (ChatsLoadReplyFlag == TypeFlags.TRUE) {
+            ChatsLoadReplyFlag.notifyAll();
+        }
     }
 
     public void setLoadUsersOnlineReplyFlag(TypeFlags newFlag) {
         if (LoadUsersOnlineReplyFlag != newFlag) {
             LoadUsersOnlineReplyFlag = newFlag;
+        }
+
+        if (LoadUsersOnlineReplyFlag == TypeFlags.TRUE) {
+            LoadUsersOnlineReplyFlag.notifyAll();
         }
     }
 

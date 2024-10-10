@@ -2,11 +2,9 @@ package org.foomaa.jvchat.ctrl;
 
 import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
-import org.foomaa.jvchat.globaldefines.JvMainGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvGetterSettings;
-import org.foomaa.jvchat.tools.JvGetterTools;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -16,9 +14,9 @@ import java.util.*;
 public class JvOnlineServersCtrl {
     private static JvOnlineServersCtrl instance;
     private final List<CheckerOnline> listCheckerOnline;
-    private final int intervalSecondsAfterLastSending;
-    private final int intervalSecondsAfterLastUpdate;
-    private final int intervalSecondsSleepAfterRoundUpdating;
+    private final int intervalMilliSecondsAfterLastSending;
+    private final int intervalMilliSecondsAfterLastUpdate;
+
 
     private static class CheckerOnline {
         public String login;
@@ -30,9 +28,8 @@ public class JvOnlineServersCtrl {
 
     private JvOnlineServersCtrl() {
         listCheckerOnline = new ArrayList<>();
-        intervalSecondsAfterLastSending = 10;
-        intervalSecondsAfterLastUpdate = 30;
-        intervalSecondsSleepAfterRoundUpdating = 5;
+        intervalMilliSecondsAfterLastSending = 10000;
+        intervalMilliSecondsAfterLastUpdate = 30000;
     }
 
     static JvOnlineServersCtrl getInstance() {
@@ -79,9 +76,14 @@ public class JvOnlineServersCtrl {
     }
 
     public void loadDataOnlineUsers() {
-        List<Map<JvDbGlobalDefines.LineKeys, String>> dataFromDb  = JvGetterControls.getInstance()
+        List<Map<JvDbGlobalDefines.LineKeys, String>> dataFromDb = JvGetterControls.getInstance()
                 .getBeanDbCtrl().getMultipleInfoFromDb(
                         JvDbCtrl.TypeExecutionGetMultiple.OnlineUsers);
+
+        if (dataFromDb == null) {
+            runningThreadListenOnline();
+            return;
+        }
 
         for (Map<JvDbGlobalDefines.LineKeys, String> map : dataFromDb) {
             for (String login : map.values()) {
@@ -92,32 +94,19 @@ public class JvOnlineServersCtrl {
             }
         }
 
-        runningThreadSendingListenOnline();
-        runningThreadUpdateListenOnline();
+        runningThreadListenOnline();
     }
 
     @SuppressWarnings("InfiniteLoopStatement")
-    private void runningThreadSendingListenOnline() {
-        Runnable sendingListenOnline = () -> {
+    private void runningThreadListenOnline() {
+        Runnable listenOnline = () -> {
             while (true) {
-                sendListeningPackage();
+                listeningPackage();
             }
         };
 
-        Thread threadSending = new Thread(sendingListenOnline);
-        threadSending.start();
-    }
-
-    @SuppressWarnings("InfiniteLoopStatement")
-    private void runningThreadUpdateListenOnline() {
-        Runnable updateListenOnline = () -> {
-            while (true) {
-                updateListeningStructure();
-            }
-        };
-
-        Thread updateThread = new Thread(updateListenOnline);
-        updateThread.start();
+        Thread thread = new Thread(listenOnline);
+        thread.start();
     }
 
     public void addUsersOnline(String userLogin, Thread threadFrom) {
@@ -169,16 +158,12 @@ public class JvOnlineServersCtrl {
                         onlineStatusString);
     }
 
-    private void sendListeningPackage() {
+    private void listeningPackage() {
         LinkedList<JvServersSocketThreadCtrl> connectionList =
                 JvGetterControls.getInstance().getBeanNetworkCtrl().getConnectionList();
 
         for (JvServersSocketThreadCtrl socketThreadCtrl : connectionList) {
-            try {
-                preSendingTasks(socketThreadCtrl);
-            } catch (InterruptedException exception) {
-                JvLog.write(JvLog.TypeLog.Error, "Здесь не удалось выполнить sleep()");
-            }
+            preSendingTasks(socketThreadCtrl);
 
             JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                     JvDefinesMessages.TypeMessage.CheckOnlineUserRequest,
@@ -194,9 +179,11 @@ public class JvOnlineServersCtrl {
                 listCheckerOnline.add(onlineUser);
             }
         }
+
+        updateListeningStructure();
     }
 
-    private void preSendingTasks(JvServersSocketThreadCtrl socketThreadCtrl) throws InterruptedException {
+    private void preSendingTasks(JvServersSocketThreadCtrl socketThreadCtrl) {
         if (isThreadInListCheckerOnline(socketThreadCtrl)) {
             CheckerOnline onlineUser = getCheckerOnlineByThread(socketThreadCtrl);
             if (onlineUser == null) {
@@ -208,28 +195,33 @@ public class JvOnlineServersCtrl {
             LocalDateTime lastSendingDateTime = onlineUser.dateTimeSending;
 
             Duration duration = Duration.between(lastSendingDateTime, LocalDateTime.now());
-            long secondsAfterLastSending = duration.getSeconds();
+            long milliSecondsAfterLastSending =  duration.toMillis();
 
-            if (flagSending && secondsAfterLastSending < intervalSecondsAfterLastSending) {
-                Thread.sleep(intervalSecondsAfterLastSending - secondsAfterLastSending);
+            if (flagSending && milliSecondsAfterLastSending < intervalMilliSecondsAfterLastSending) {
+                try {
+                    Thread.sleep(intervalMilliSecondsAfterLastSending - milliSecondsAfterLastSending * 100);
+                } catch (InterruptedException exception) {
+                    JvLog.write(JvLog.TypeLog.Error, "Здесь не удалось выполнить sleep()");
+                }
             }
         }
     }
 
     private void updateListeningStructure() {
+        List<CheckerOnline> listToRemove = new ArrayList<>();
+
         for (CheckerOnline onlineUser : listCheckerOnline) {
             LocalDateTime lastUpdatingDateTime = onlineUser.dateTimeUpdating;
             Duration duration = Duration.between(lastUpdatingDateTime, LocalDateTime.now());
-            long secondsAfterLastUpdating = duration.getSeconds();
-            if (secondsAfterLastUpdating > intervalSecondsAfterLastUpdate) {
-                removeUsersOnline(onlineUser);
+            long milliSecondsAfterLastUpdating = duration.toMillis();
+
+            if (milliSecondsAfterLastUpdating > intervalMilliSecondsAfterLastUpdate) {
+                listToRemove.add(onlineUser);
             }
         }
 
-        try {
-            Thread.sleep(intervalSecondsSleepAfterRoundUpdating);
-        } catch (InterruptedException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Здесь не удалось выполнить sleep()");
+        for (CheckerOnline onlineUser : listToRemove) {
+            removeUsersOnline(onlineUser);
         }
     }
 

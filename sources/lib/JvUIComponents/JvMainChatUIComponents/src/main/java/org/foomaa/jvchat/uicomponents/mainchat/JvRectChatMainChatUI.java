@@ -1,8 +1,7 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
-import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +14,8 @@ public class JvRectChatMainChatUI extends JPanel {
     private final String lastMessageSender;
     private final String timeLastMessage;
     private final JvMainChatsGlobalDefines.TypeStatusMessage statusMessage;
-    private int intervalSecondsUpdatingOnlineStatus;
+    private JvMainChatsGlobalDefines.TypeStatusOnline statusOnline;
+    private String lastOnlineDateTime;
 
     JvRectChatMainChatUI(String newNickName,
                          String newShortLastMessage,
@@ -27,9 +27,15 @@ public class JvRectChatMainChatUI extends JPanel {
         lastMessageSender = newLastMessageSender;
         timeLastMessage = newTimeLastMessage;
         statusMessage = newStatusMessage;
-        intervalSecondsUpdatingOnlineStatus = 10;
+
+        statusOnline = JvMainChatsGlobalDefines.TypeStatusOnline.Offline;
+        lastOnlineDateTime = "";
 
         makeChatBox();
+    }
+
+    public String getNickName() {
+        return nickName;
     }
 
     private void makeChatBox() {
@@ -99,23 +105,15 @@ public class JvRectChatMainChatUI extends JPanel {
         return shortLastMessage;
     }
 
-    private void updateOnline() {
-        Runnable updateListenOnline = () -> {
-            while (true) {
-                askingStateOnline();
-                //reset frame
-            }
-        };
-
-        Thread updateThread = new Thread(updateListenOnline);
-        updateThread.start();
+    public void setStatusOnline(JvMainChatsGlobalDefines.TypeStatusOnline newStatusOnline) {
+        if (statusOnline != newStatusOnline) {
+            statusOnline = newStatusOnline;
+        }
     }
 
-    private void askingStateOnline() {
-        try {
-            Thread.sleep(intervalSecondsUpdatingOnlineStatus);
-        } catch (InterruptedException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Здесь не удалось выполнить sleep()");
+    public void setLastOnlineDateTime(String newLastOnlineDateTime) {
+        if (!Objects.equals(lastOnlineDateTime, newLastOnlineDateTime)) {
+            lastOnlineDateTime = newLastOnlineDateTime;
         }
     }
 }

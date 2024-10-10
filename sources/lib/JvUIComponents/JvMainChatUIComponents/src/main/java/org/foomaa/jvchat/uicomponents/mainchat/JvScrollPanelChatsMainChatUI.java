@@ -3,6 +3,7 @@ package org.foomaa.jvchat.uicomponents.mainchat;
 import org.foomaa.jvchat.ctrl.JvChatsCtrl;
 import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.ctrl.JvMessagesDefinesCtrl;
+import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvGetterSettings;
@@ -16,14 +17,19 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 
 public class JvScrollPanelChatsMainChatUI extends JPanel {
     private static JvScrollPanelChatsMainChatUI instance;
+    private final int intervalSleepUpdating;
+    private Box boxComponents;
 
     private JvScrollPanelChatsMainChatUI() {
+        intervalSleepUpdating = 30000;
         makePanel();
+        runningThreadUpdateOnline();
     }
 
     public static JvScrollPanelChatsMainChatUI getInstance() {
@@ -36,10 +42,10 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
     private void makePanel() {
         setBorder(BorderFactory.createMatteBorder(0,0,0,7, Color.GRAY));
 
-        Box box = Box.createVerticalBox();
-        loadChatsInBox(box);
+        boxComponents = Box.createVerticalBox();
+        loadChatsInBox();
 
-        JScrollPane scrollPane = new JScrollPane(box);
+        JScrollPane scrollPane = new JScrollPane(boxComponents);
         scrollPane.setBorder(null);
 
         addListenerScrollPane(scrollPane);
@@ -79,7 +85,7 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
         });
     }
 
-    private void loadChatsInBox(Box box) {
+    private void loadChatsInBox() {
         setRequestChatsToServer();
 
         JvChatsCtrl chatsCtrl = JvGetterControls.getInstance().getBeanChatsCtrl();
@@ -93,7 +99,7 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
                             chatsCtrl.getLastMessageSender(login),
                             chatsCtrl.getTimeHMLastMessage(login),
                             chatsCtrl.getStatusLastMessage(login));
-            box.add(component);
+            boxComponents.add(component);
             addListenerToElements(component);
         }
     }
@@ -132,5 +138,58 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
                 System.out.println("###");
             }
         });;
+    }
+
+    @SuppressWarnings("InfiniteLoopStatement")
+    private void runningThreadUpdateOnline() {
+        Runnable listenOnline = () -> {
+            while (true) {
+                processUpdatingOnline();
+            }
+        };
+
+        Thread thread = new Thread(listenOnline);
+        thread.start();
+    }
+
+    private void processUpdatingOnline() {
+        sendingUpdateOnlinePackage();
+
+        try {
+            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getLoadUsersOnlineReplyFlag().wait();
+        } catch (InterruptedException exception) {
+            JvLog.write(JvLog.TypeLog.Error, "Не удалось ждать");
+        }
+
+        System.out.println("Waiting success");
+
+        installingUpdatingDataInRectChats();
+
+        try {
+            Thread.sleep(intervalSleepUpdating);
+        } catch (InterruptedException exception) {
+            JvLog.write(JvLog.TypeLog.Error, "Не удалось ждать");
+        }
+    }
+
+    private void sendingUpdateOnlinePackage() {
+        List<String> loginsChats = JvGetterControls.getInstance().getBeanChatsCtrl().getLoginsChats();
+        JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+                JvDefinesMessages.TypeMessage.LoadUsersOnlineStatusRequest,
+                loginsChats);
+    }
+
+    private void installingUpdatingDataInRectChats() {
+        Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> onlineStatusesUsers =
+                JvGetterControls.getInstance().getBeanChatsCtrl().getOnlineStatusesUsers();
+        Map<String, String> lastOnlineTimeUsers =
+                JvGetterControls.getInstance().getBeanChatsCtrl().getLastOnlineTimeUsers();
+
+        for (Component component : boxComponents.getComponents()) {
+            JvRectChatMainChatUI rectChatMainChatUI = (JvRectChatMainChatUI) component;
+            String login = rectChatMainChatUI.getNickName();
+            rectChatMainChatUI.setStatusOnline(onlineStatusesUsers.get(login));
+            rectChatMainChatUI.setLastOnlineDateTime(lastOnlineTimeUsers.get(login));
+        }
     }
 }
