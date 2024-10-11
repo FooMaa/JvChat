@@ -118,7 +118,6 @@ public class JvOnlineServersCtrl {
             onlineUser.thread = (JvServersSocketThreadCtrl) threadFrom;
             onlineUser.dateTimeUpdating = LocalDateTime.now();
             listCheckerOnline.add(onlineUser);
-            saveStatusOnline(userLogin, JvMainChatsGlobalDefines.TypeStatusOnline.Online);
         } else if (isThreadInListCheckerOnline((JvServersSocketThreadCtrl) threadFrom)) {
             CheckerOnline onlineUser = getCheckerOnlineByThread((JvServersSocketThreadCtrl) threadFrom);
             if (onlineUser == null) {
@@ -138,6 +137,7 @@ public class JvOnlineServersCtrl {
             onlineUser.isSending = false;
             onlineUser.dateTimeUpdating = LocalDateTime.now();
         }
+        saveStatusOnline(userLogin, JvMainChatsGlobalDefines.TypeStatusOnline.Online);
     }
 
     private void removeUsersOnline(CheckerOnline onlineUser) {
