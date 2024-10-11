@@ -3,6 +3,7 @@ package org.foomaa.jvchat.ctrl;
 import org.foomaa.jvchat.cryptography.JvGetterCryptography;
 import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
+import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvGetterMessages;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvGetterSettings;
@@ -277,9 +278,12 @@ public class JvTakeMessagesCtrl {
         @SuppressWarnings("unused")
         String ip = (String) map.get(JvDefinesMessages.TypeData.IP);
         String login = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
-        if (!Objects.equals(login, "")) {
+
+        if (Objects.equals(login, "") || login == null) {
+            JvLog.write(JvLog.TypeLog.Error, "Здесь login не задан");
             return;
         }
+
         JvGetterControls.getInstance().getBeanSendMessagesCtrl()
                 .sendMessage(JvDefinesMessages.TypeMessage.CheckOnlineUserReply, login);
     }
