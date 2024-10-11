@@ -164,10 +164,10 @@ public class JvOnlineServersCtrl {
     private void listeningPackage() {
         LinkedList<JvServersSocketThreadCtrl> connectionList = new LinkedList<>(
                 JvGetterControls.getInstance().getBeanNetworkCtrl().getConnectionList());
-        System.out.println("sended");
         for (JvServersSocketThreadCtrl socketThreadCtrl : connectionList) {
+            System.out.println("sended");
             preSendingTasks(socketThreadCtrl);
-
+            System.out.println("--------");
             JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                     JvDefinesMessages.TypeMessage.CheckOnlineUserRequest,
                     JvGetterSettings.getInstance().getBeanServersInfoSettings().getIp(),
