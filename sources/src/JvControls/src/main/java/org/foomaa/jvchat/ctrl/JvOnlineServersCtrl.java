@@ -145,7 +145,7 @@ public class JvOnlineServersCtrl {
             String userLogin = onlineUser.login;
             listCheckerOnline.remove(onlineUser);
 
-            if (!Objects.equals(userLogin, "")) {
+            if (!Objects.equals(userLogin, "") && userLogin != null) {
                 saveStatusOnline(userLogin, JvMainChatsGlobalDefines.TypeStatusOnline.Offline);
             }
         }
