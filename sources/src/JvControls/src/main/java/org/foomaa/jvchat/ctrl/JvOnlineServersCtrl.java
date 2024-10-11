@@ -162,9 +162,9 @@ public class JvOnlineServersCtrl {
     }
 
     private void listeningPackage() {
-        LinkedList<JvServersSocketThreadCtrl> connectionList =
-                JvGetterControls.getInstance().getBeanNetworkCtrl().getConnectionList();
-
+        LinkedList<JvServersSocketThreadCtrl> connectionList = new LinkedList<>(
+                JvGetterControls.getInstance().getBeanNetworkCtrl().getConnectionList());
+        System.out.println("sended");
         for (JvServersSocketThreadCtrl socketThreadCtrl : connectionList) {
             preSendingTasks(socketThreadCtrl);
 
@@ -203,7 +203,6 @@ public class JvOnlineServersCtrl {
 
             if (flagSending && milliSecondsAfterLastSending < intervalMilliSecondsAfterLastSending) {
                 try {
-                    System.out.println(intervalMilliSecondsAfterLastSending - milliSecondsAfterLastSending * 1000);
                     Thread.sleep(intervalMilliSecondsAfterLastSending - milliSecondsAfterLastSending * 1000);
                 } catch (InterruptedException exception) {
                     JvLog.write(JvLog.TypeLog.Error, "Здесь не удалось выполнить sleep()");
