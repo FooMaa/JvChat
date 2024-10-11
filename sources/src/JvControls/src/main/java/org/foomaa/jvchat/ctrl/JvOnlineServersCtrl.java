@@ -173,7 +173,6 @@ public class JvOnlineServersCtrl {
                     JvGetterSettings.getInstance().getBeanServersInfoSettings().getIp(),
                     socketThreadCtrl);
 
-
             if (!isThreadInListCheckerOnline(socketThreadCtrl)) {
                 CheckerOnline onlineUser = new CheckerOnline();
                 onlineUser.thread = socketThreadCtrl;
@@ -185,8 +184,9 @@ public class JvOnlineServersCtrl {
                 CheckerOnline onlineUser = getCheckerOnlineByThread(socketThreadCtrl);
                 if (onlineUser == null) {
                     JvLog.write(JvLog.TypeLog.Error, "Здесь onlineUser оказался null");
-                    return;
+                    continue;
                 }
+                onlineUser.isSending = true;
                 onlineUser.dateTimeSending = LocalDateTime.now();
             }
         }
