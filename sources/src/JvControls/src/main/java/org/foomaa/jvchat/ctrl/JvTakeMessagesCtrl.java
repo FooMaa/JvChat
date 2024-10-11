@@ -280,7 +280,7 @@ public class JvTakeMessagesCtrl {
         String login = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
 
         if (Objects.equals(login, "") || login == null) {
-            JvLog.write(JvLog.TypeLog.Error, "Здесь login не задан");
+            JvLog.write(JvLog.TypeLog.Warn, "Здесь login не задан");
             return;
         }
 

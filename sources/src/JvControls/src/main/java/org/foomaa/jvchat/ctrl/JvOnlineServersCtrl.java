@@ -110,33 +110,26 @@ public class JvOnlineServersCtrl {
     }
 
     public void addUsersOnline(String userLogin, Thread threadFrom) {
-        if (!isLoginInListCheckerOnline(userLogin) &&
-                !isThreadInListCheckerOnline((JvServersSocketThreadCtrl) threadFrom)) {
-            CheckerOnline onlineUser = new CheckerOnline();
-            onlineUser.login = userLogin;
-            onlineUser.isSending = false;
-            onlineUser.thread = (JvServersSocketThreadCtrl) threadFrom;
-            onlineUser.dateTimeUpdating = LocalDateTime.now();
-            listCheckerOnline.add(onlineUser);
-        } else if (isThreadInListCheckerOnline((JvServersSocketThreadCtrl) threadFrom)) {
-            CheckerOnline onlineUser = getCheckerOnlineByThread((JvServersSocketThreadCtrl) threadFrom);
-            if (onlineUser == null) {
-                JvLog.write(JvLog.TypeLog.Error, "Здесь onlineUser оказался null");
-                return;
-            }
-            onlineUser.login = userLogin;
-            onlineUser.isSending = false;
-            onlineUser.dateTimeUpdating = LocalDateTime.now();
+        CheckerOnline onlineUser;
+
+        if (isThreadInListCheckerOnline((JvServersSocketThreadCtrl) threadFrom)) {
+            onlineUser = getCheckerOnlineByThread((JvServersSocketThreadCtrl) threadFrom);
         } else if (isLoginInListCheckerOnline(userLogin)) {
-            CheckerOnline onlineUser = getCheckerOnlineByUserLogin(userLogin);
-            if (onlineUser == null) {
-                JvLog.write(JvLog.TypeLog.Error, "Здесь onlineUser оказался null");
-                return;
-            }
-            onlineUser.thread = (JvServersSocketThreadCtrl) threadFrom;
-            onlineUser.isSending = false;
-            onlineUser.dateTimeUpdating = LocalDateTime.now();
+            onlineUser = getCheckerOnlineByUserLogin(userLogin);
+        } else {
+            onlineUser = new CheckerOnline();
+            listCheckerOnline.add(onlineUser);
         }
+
+        if (onlineUser == null) {
+            JvLog.write(JvLog.TypeLog.Error, "Здесь onlineUser оказался null");
+            return;
+        }
+
+        onlineUser.login = userLogin;
+        onlineUser.thread = (JvServersSocketThreadCtrl) threadFrom;
+        onlineUser.isSending = false;
+        onlineUser.dateTimeUpdating = LocalDateTime.now();
         saveStatusOnline(userLogin, JvMainChatsGlobalDefines.TypeStatusOnline.Online);
     }
 
@@ -144,7 +137,6 @@ public class JvOnlineServersCtrl {
         if (listCheckerOnline.contains(onlineUser)) {
             String userLogin = onlineUser.login;
             listCheckerOnline.remove(onlineUser);
-
             if (!Objects.equals(userLogin, "") && userLogin != null) {
                 saveStatusOnline(userLogin, JvMainChatsGlobalDefines.TypeStatusOnline.Offline);
             }
@@ -164,10 +156,9 @@ public class JvOnlineServersCtrl {
     private void listeningPackage() {
         LinkedList<JvServersSocketThreadCtrl> connectionList = new LinkedList<>(
                 JvGetterControls.getInstance().getBeanNetworkCtrl().getConnectionList());
+
         for (JvServersSocketThreadCtrl socketThreadCtrl : connectionList) {
-            System.out.println("sended");
             preSendingTasks(socketThreadCtrl);
-            System.out.println("--------");
             JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                     JvDefinesMessages.TypeMessage.CheckOnlineUserRequest,
                     JvGetterSettings.getInstance().getBeanServersInfoSettings().getIp(),
@@ -180,15 +171,16 @@ public class JvOnlineServersCtrl {
                 onlineUser.dateTimeSending = LocalDateTime.now();
                 onlineUser.dateTimeUpdating = LocalDateTime.now();
                 listCheckerOnline.add(onlineUser);
-            } else {
-                CheckerOnline onlineUser = getCheckerOnlineByThread(socketThreadCtrl);
-                if (onlineUser == null) {
-                    JvLog.write(JvLog.TypeLog.Error, "Здесь onlineUser оказался null");
-                    continue;
-                }
-                onlineUser.isSending = true;
-                onlineUser.dateTimeSending = LocalDateTime.now();
+                continue;
             }
+
+            CheckerOnline onlineUser = getCheckerOnlineByThread(socketThreadCtrl);
+            if (onlineUser == null) {
+                JvLog.write(JvLog.TypeLog.Error, "Здесь onlineUser оказался null");
+                continue;
+            }
+            onlineUser.isSending = true;
+            onlineUser.dateTimeSending = LocalDateTime.now();
         }
 
         updateListeningStructure();
