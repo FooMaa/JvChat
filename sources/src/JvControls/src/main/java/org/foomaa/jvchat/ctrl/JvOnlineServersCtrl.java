@@ -203,7 +203,8 @@ public class JvOnlineServersCtrl {
 
             if (flagSending && milliSecondsAfterLastSending < intervalMilliSecondsAfterLastSending) {
                 try {
-                    Thread.sleep(intervalMilliSecondsAfterLastSending - milliSecondsAfterLastSending * 100);
+                    System.out.println(intervalMilliSecondsAfterLastSending - milliSecondsAfterLastSending * 1000);
+                    Thread.sleep(intervalMilliSecondsAfterLastSending - milliSecondsAfterLastSending * 1000);
                 } catch (InterruptedException exception) {
                     JvLog.write(JvLog.TypeLog.Error, "Здесь не удалось выполнить sleep()");
                 }
