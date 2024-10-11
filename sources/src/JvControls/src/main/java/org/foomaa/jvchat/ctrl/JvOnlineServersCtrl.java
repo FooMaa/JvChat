@@ -122,7 +122,7 @@ public class JvOnlineServersCtrl {
         } else if (isThreadInListCheckerOnline((JvServersSocketThreadCtrl) threadFrom)) {
             CheckerOnline onlineUser = getCheckerOnlineByThread((JvServersSocketThreadCtrl) threadFrom);
             if (onlineUser == null) {
-                JvLog.write(JvLog.TypeLog.Error, "Здесь online user оказался null");
+                JvLog.write(JvLog.TypeLog.Error, "Здесь onlineUser оказался null");
                 return;
             }
             onlineUser.login = userLogin;
@@ -131,7 +131,7 @@ public class JvOnlineServersCtrl {
         } else if (isLoginInListCheckerOnline(userLogin)) {
             CheckerOnline onlineUser = getCheckerOnlineByUserLogin(userLogin);
             if (onlineUser == null) {
-                JvLog.write(JvLog.TypeLog.Error, "Здесь online user оказался null");
+                JvLog.write(JvLog.TypeLog.Error, "Здесь onlineUser оказался null");
                 return;
             }
             onlineUser.thread = (JvServersSocketThreadCtrl) threadFrom;
@@ -181,6 +181,13 @@ public class JvOnlineServersCtrl {
                 onlineUser.dateTimeSending = LocalDateTime.now();
                 onlineUser.dateTimeUpdating = LocalDateTime.now();
                 listCheckerOnline.add(onlineUser);
+            } else {
+                CheckerOnline onlineUser = getCheckerOnlineByThread(socketThreadCtrl);
+                if (onlineUser == null) {
+                    JvLog.write(JvLog.TypeLog.Error, "Здесь onlineUser оказался null");
+                    return;
+                }
+                onlineUser.dateTimeSending = LocalDateTime.now();
             }
         }
 
