@@ -172,6 +172,7 @@ public class JvDbCtrl {
                 if (parameters.length == 2) {
                     String login = parameters[0];
                     String status = parameters[1];
+                    System.out.println(dbRequests.insertOnlineUsersInfo(login, status));
                     ResultSet rs = db.makeExecution(dbRequests.insertOnlineUsersInfo(login, status));
                     db.closeResultSet(rs);
                     return true;
