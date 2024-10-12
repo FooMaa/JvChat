@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
+import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 
@@ -16,6 +17,7 @@ public class JvRectChatMainChatUI extends JPanel {
     private final JvMainChatsGlobalDefines.TypeStatusMessage statusMessage;
     private JvMainChatsGlobalDefines.TypeStatusOnline statusOnline;
     private String lastOnlineDateTime;
+    private final String nameForLabelOnline;
 
     JvRectChatMainChatUI(String newNickName,
                          String newShortLastMessage,
@@ -30,6 +32,7 @@ public class JvRectChatMainChatUI extends JPanel {
 
         statusOnline = JvMainChatsGlobalDefines.TypeStatusOnline.Offline;
         lastOnlineDateTime = "";
+        nameForLabelOnline = "onlineLabel";
 
         makeChatBox();
     }
@@ -42,11 +45,11 @@ public class JvRectChatMainChatUI extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         setLayout(new GridBagLayout());
 
+        int gridyNum = 0;
+
         JLabel loginLabel = new JLabel(nickName);
         loginLabel.setFont(new Font("Times", Font.BOLD,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017)));
-
-        int gridyNum = 0;
 
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
@@ -56,9 +59,11 @@ public class JvRectChatMainChatUI extends JPanel {
         gbc.anchor = GridBagConstraints.WEST;
         add(loginLabel, gbc);
 
-        JLabel timeLabel = new JLabel(timeLastMessage);
-        timeLabel.setFont(new Font("Times", Font.PLAIN,
+        JLabel statusOnlineLabel = new JLabel(getStatusOnlineText());
+        statusOnlineLabel.setName(nameForLabelOnline);
+        statusOnlineLabel.setFont(new Font("Times", Font.PLAIN,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
+        statusOnlineLabel.setForeground(getStatusOnlineColor());
 
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
@@ -67,7 +72,7 @@ public class JvRectChatMainChatUI extends JPanel {
         gbc.insets = new Insets(1, 5, 1, 5);
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.EAST;
-        add(timeLabel, gbc);
+        add(statusOnlineLabel, gbc);
         gridyNum++;
 
         JLabel lastMessageLabel = new JLabel(createLastMessageString());
@@ -82,16 +87,29 @@ public class JvRectChatMainChatUI extends JPanel {
         gbc.anchor = GridBagConstraints.WEST;
         add(lastMessageLabel, gbc);
 
+        JLabel timeLabel = new JLabel(timeLastMessage);
+        timeLabel.setFont(new Font("Times", Font.PLAIN,
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
+
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.gridx = GridBagConstraints.RELATIVE;
+        gbc.gridy = gridyNum;
+        gbc.insets = new Insets(1, 5, 1, 5);
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.anchor = GridBagConstraints.EAST;
+        add(timeLabel, gbc);
+
         setStatusFront();
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
 
     private void setStatusFront() {
         switch (statusMessage) {
+            case Error -> setBackground(new Color(254,196,200));
             case Sent -> setBackground(new Color(254,252,190));
             case Delivered -> setBackground(new Color(181,252,250));
             case Read -> setBackground(new Color(191,254,188));
-            case Error -> setBackground(new Color(254,196,200));
         }
     }
 
@@ -102,19 +120,64 @@ public class JvRectChatMainChatUI extends JPanel {
             return "Вы:" + shortLastMessage;
         }
 
+        getComponents();
         return shortLastMessage;
     }
 
     public void setStatusOnline(JvMainChatsGlobalDefines.TypeStatusOnline newStatusOnline) {
         if (statusOnline != newStatusOnline) {
             statusOnline = newStatusOnline;
+            JLabel statusOnlineLabel = (JLabel) findComponentStatusOnline();
+
+            if (statusOnlineLabel == null) {
+                JvLog.write(JvLog.TypeLog.Error, "Здесь nickNameLabel оказался null");
+                return;
+            }
+
+            statusOnlineLabel.setText(getStatusOnlineText());
+            statusOnlineLabel.setForeground(getStatusOnlineColor());
         }
+
         System.out.println( nickName + " " + statusOnline );
+    }
+
+    private Component findComponentStatusOnline() {
+        for (Component component : getComponents()) {
+            if (Objects.equals(component.getName(), nameForLabelOnline)) {
+                return component;
+            }
+        }
+        return null;
     }
 
     public void setLastOnlineDateTime(String newLastOnlineDateTime) {
         if (!Objects.equals(lastOnlineDateTime, newLastOnlineDateTime)) {
             lastOnlineDateTime = newLastOnlineDateTime;
         }
+    }
+
+    private Color getStatusOnlineColor() {
+        switch (statusOnline) {
+            case Error -> {
+                return new Color(254,50,50);
+            }
+            case Offline -> {
+                return new Color(0,0,0);
+            }
+            case Online -> {
+                return new Color(50,254,50);
+            }
+        }
+        return null;
+    }
+
+    private String getStatusOnlineText() {
+        String result = "";
+        switch (statusOnline) {
+            case Error -> result = "Error status online";
+            case Offline -> result = "Offline" + lastOnlineDateTime;
+            case Online -> result = "Online";
+        }
+        return result;
     }
 }
