@@ -127,18 +127,20 @@ public class JvRectChatMainChatUI extends JPanel {
     public void setStatusOnline(JvMainChatsGlobalDefines.TypeStatusOnline newStatusOnline) {
         if (statusOnline != newStatusOnline) {
             statusOnline = newStatusOnline;
-            JLabel statusOnlineLabel = (JLabel) findComponentStatusOnline();
+        }
+        updateOnlineStatus();
+    }
 
-            if (statusOnlineLabel == null) {
-                JvLog.write(JvLog.TypeLog.Error, "Здесь nickNameLabel оказался null");
-                return;
-            }
+    private void updateOnlineStatus() {
+        JLabel statusOnlineLabel = (JLabel) findComponentStatusOnline();
 
-            statusOnlineLabel.setText(getStatusOnlineText());
-            statusOnlineLabel.setForeground(getStatusOnlineColor());
+        if (statusOnlineLabel == null) {
+            JvLog.write(JvLog.TypeLog.Error, "Здесь nickNameLabel оказался null");
+            return;
         }
 
-        System.out.println( nickName + " " + statusOnline );
+        statusOnlineLabel.setText(getStatusOnlineText());
+        statusOnlineLabel.setForeground(getStatusOnlineColor());
     }
 
     private Component findComponentStatusOnline() {
@@ -175,7 +177,7 @@ public class JvRectChatMainChatUI extends JPanel {
         String result = "";
         switch (statusOnline) {
             case Error -> result = "Error status online";
-            case Offline -> result = "Offline" + lastOnlineDateTime;
+            case Offline -> result = "Offline " + lastOnlineDateTime;
             case Online -> result = "Online";
         }
         return result;

@@ -166,7 +166,6 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
             }
         }
 
-        System.out.println("Waiting success");
         installingUpdatingDataInRectChats();
 
         try {
@@ -192,8 +191,8 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
         for (Component component : boxComponents.getComponents()) {
             JvRectChatMainChatUI rectChatMainChatUI = (JvRectChatMainChatUI) component;
             String login = rectChatMainChatUI.getNickName();
-            rectChatMainChatUI.setStatusOnline(onlineStatusesUsers.get(login));
             rectChatMainChatUI.setLastOnlineDateTime(lastOnlineTimeUsers.get(login));
+            rectChatMainChatUI.setStatusOnline(onlineStatusesUsers.get(login));
         }
     }
 }
