@@ -4,7 +4,6 @@ import org.foomaa.jvchat.logger.JvLog;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Objects;
 
 
 public class JvHashCryptography {

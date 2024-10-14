@@ -139,7 +139,7 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 System.out.println("###");
             }
-        });;
+        });
     }
 
     @SuppressWarnings("InfiniteLoopStatement")

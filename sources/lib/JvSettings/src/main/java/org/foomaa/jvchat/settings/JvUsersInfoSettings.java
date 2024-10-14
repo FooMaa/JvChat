@@ -52,5 +52,4 @@ public class JvUsersInfoSettings {
             portRemoteServer = newPortRemoteServer;
         }
     }
-
 }

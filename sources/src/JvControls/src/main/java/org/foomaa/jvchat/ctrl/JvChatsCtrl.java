@@ -15,6 +15,9 @@ import java.util.*;
 
 public class JvChatsCtrl {
     private static JvChatsCtrl instance;
+    
+    // это структуры, которые мы получаем от сервера, тк он берет их из БД, то они String.
+    // эти структуры раскручиваются при геттерах. Сетятся грязно из JvTakeMessagesCtrl
     private List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo;
     private Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> onlineStatusesUsers;
     private Map<String, String> lastOnlineTimeUsers;

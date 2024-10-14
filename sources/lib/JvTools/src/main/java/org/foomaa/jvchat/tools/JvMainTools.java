@@ -1,6 +1,5 @@
 package org.foomaa.jvchat.tools;
 
-import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.settings.JvMainSettings;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
