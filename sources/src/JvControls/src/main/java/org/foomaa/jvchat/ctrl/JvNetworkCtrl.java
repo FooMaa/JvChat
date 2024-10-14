@@ -34,6 +34,7 @@ public class JvNetworkCtrl {
         if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             ServerSocket socketServer = serversSocket.getSocketServers();
             JvGetterControls.getInstance().getBeanOnlineServersCtrl().loadDataOnlineUsers();
+            runningThreadControlSockets();
             while (true) {
                 Socket fromSocketServer = socketServer.accept();
                 JvServersSocketThreadCtrl thread = JvGetterControls.getInstance()
