@@ -6,8 +6,6 @@ import org.foomaa.jvchat.settings.JvMainSettings;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.Socket;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -15,7 +13,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
-import java.util.Scanner;
 import java.util.regex.Pattern;
 
 
@@ -96,5 +93,29 @@ public class JvMainTools {
             return true;
         }
         return regex.matcher(param).matches();
+    }
+
+    public String normalizeMillisecond(String timestamp, int normalizeCount) {
+        String resultTimestamp;
+        String[] parts = timestamp.split("\\.");
+
+        if (parts.length == 2) {
+            StringBuilder milliseconds = new StringBuilder(new StringBuilder(parts[1]));
+
+            if (milliseconds.length() < normalizeCount) {
+                while (milliseconds.length() < normalizeCount) {
+                    milliseconds.append("0");
+                }
+            } else if (milliseconds.length() > normalizeCount) {
+                milliseconds = new StringBuilder(milliseconds.substring(0, normalizeCount));
+            }
+
+            resultTimestamp = parts[0] + "." + milliseconds;
+        } else {
+            JvLog.write(JvLog.TypeLog.Error, "Не получилось нормально преобразовать дату и время к нужному формату");
+            return null;
+        }
+
+        return resultTimestamp;
     }
 }

@@ -4,7 +4,9 @@ import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.tools.JvGetterTools;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -168,10 +170,11 @@ public class JvChatsCtrl {
             if (Objects.equals(sender, login) || Objects.equals(receiver, login)) {
                 String timestampFromMap = map.get(JvDbGlobalDefines.LineKeys.DateTimeMessage);
                 int normalizeCount = 3;
-                String timestampString = normalizeMillisecond(timestampFromMap, normalizeCount);
+                String timestampString = JvGetterTools.getInstance()
+                        .getBeanMainTools().normalizeMillisecond(timestampFromMap, normalizeCount);
 
                 if (timestampString == null) {
-                    JvLog.write(JvLog.TypeLog.Error, "Не получилось нормально преобразовать дату и время к нужному формату");
+                    JvLog.write(JvLog.TypeLog.Error, "Не получилось нормализовать дату и время к нужному формату");
                     return null;
                 }
 
@@ -183,45 +186,24 @@ public class JvChatsCtrl {
         return timestamp;
     }
 
-    private String normalizeMillisecond(String timestamp, int normalizeCount) {
-        String resultTimestamp;
-        String[] parts = timestamp.split("\\.");
-
-        if (parts.length == 2) {
-            StringBuilder milliseconds = new StringBuilder(new StringBuilder(parts[1]));
-
-            if (milliseconds.length() < normalizeCount) {
-                while (milliseconds.length() < normalizeCount) {
-                    milliseconds.append("0");
-                }
-            } else if (milliseconds.length() > normalizeCount) {
-                milliseconds = new StringBuilder(milliseconds.substring(0, normalizeCount));
-            }
-
-            resultTimestamp = parts[0] + "." + milliseconds;
-        } else {
-            JvLog.write(JvLog.TypeLog.Error, "Не получилось нормально преобразовать дату и время к нужному формату");
-            return null;
-        }
-
-        return resultTimestamp;
-    }
-
     public String getTimeHMLastMessage(String login) {
         LocalDateTime timestamp = getTimestampLastMessage(login);
 
-        int hourInt = timestamp.getHour();
-        int minInt = timestamp.getMinute();
-        int dayInt = timestamp.getDayOfMonth();
-        int monthInt = timestamp.getMonthValue();
-        int yearInt = timestamp.getYear();
+        Duration duration = Duration.between(timestamp, LocalDateTime.now());
+        DateTimeFormatter formatter;
+        String result = "";
 
-        String hour = hourInt < 10 ? "0" + hourInt : String.valueOf(hourInt);
-        String min = minInt < 10 ? "0" + minInt : String.valueOf(minInt);
-        String day = dayInt < 10 ? "0" + dayInt : String.valueOf(dayInt);
-        String month = monthInt < 10 ? "0" + monthInt : String.valueOf(monthInt);
-        String year = String.valueOf(yearInt);
+        if (duration.toDays() < 1) {
+            formatter = DateTimeFormatter.ofPattern("HH:mm");
+            result = timestamp.format(formatter);
+        } else if (duration.toDays() == 1) {
+            formatter = DateTimeFormatter.ofPattern("HH:mm");
+            result = "Вчера " + timestamp.format(formatter);
+        } else {
+            formatter = DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy");
+            result = timestamp.format(formatter);
+        }
 
-        return String.format("%s:%s %s.%s.%s", hour, min, day, month, year);
+        return result;
     }
 }

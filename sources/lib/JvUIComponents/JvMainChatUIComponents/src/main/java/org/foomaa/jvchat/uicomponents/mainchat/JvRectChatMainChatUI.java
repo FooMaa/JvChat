@@ -3,9 +3,14 @@ package org.foomaa.jvchat.uicomponents.mainchat;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
+import org.foomaa.jvchat.tools.JvGetterTools;
 
 import javax.swing.*;
 import java.awt.*;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 
@@ -175,11 +180,61 @@ public class JvRectChatMainChatUI extends JPanel {
 
     private String getStatusOnlineText() {
         String result = "";
+
         switch (statusOnline) {
             case Error -> result = "Error status online";
-            case Offline -> result = "Offline " + lastOnlineDateTime;
+            case Offline -> {
+                String lastOnlineProcessed = createLastOnlineText();
+                if (lastOnlineProcessed != null && !Objects.equals(lastOnlineProcessed, "")) {
+                    result = "Offline (" + lastOnlineProcessed + ")";
+                } else {
+                    result = "Offline";
+                }
+            }
             case Online -> result = "Online";
         }
+
+        return result;
+    }
+
+    private String createLastOnlineText() {
+        if (lastOnlineDateTime == null || Objects.equals(lastOnlineDateTime, "")) {
+            JvLog.write(JvLog.TypeLog.Error, "Ошибка при попытке парсинга времени последнего онлайна");
+            return "";
+        }
+
+        int normalizeCount = 3;
+        String timestampString = JvGetterTools.getInstance()
+                .getBeanMainTools().normalizeMillisecond(lastOnlineDateTime, normalizeCount);
+
+        if (timestampString == null) {
+            JvLog.write(JvLog.TypeLog.Error, "Не получилось нормализовать дату и время к нужному формату");
+            return null;
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+        LocalDateTime localDateTime;
+        try {
+            localDateTime = LocalDateTime.parse(timestampString, formatter);
+        } catch (DateTimeParseException exception) {
+            JvLog.write(JvLog.TypeLog.Error, "Ошибка при попытке парсинга времени последнего онлайна");
+            return "";
+        }
+
+        String result = "";
+        Duration duration = Duration.between(localDateTime, LocalDateTime.now());
+
+        if (duration.toDays() < 1) {
+            formatter = DateTimeFormatter.ofPattern("HH:mm");
+            result = localDateTime.format(formatter);
+        } else if (duration.toDays() == 1) {
+            formatter = DateTimeFormatter.ofPattern("HH:mm");
+            result = "Вчера " + localDateTime.format(formatter);
+        } else {
+            formatter = DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy");
+            result = localDateTime.format(formatter);
+        }
+
         return result;
     }
 }
