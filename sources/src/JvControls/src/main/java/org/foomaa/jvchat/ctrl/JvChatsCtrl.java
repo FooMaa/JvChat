@@ -208,7 +208,7 @@ public class JvChatsCtrl {
     }
 
     private String createTextLastOnlineStatusTime(String lastOnlineDateTime) {
-        LocalDateTime localDateTime = getTimeStampLastOnline(lastOnlineDateTime);
+        LocalDateTime localDateTime = getTimestampLastOnline(lastOnlineDateTime);
         if (localDateTime == null) {
             JvLog.write(JvLog.TypeLog.Error, "Ошибка вычисления localDateTime");
             return "";
@@ -232,7 +232,7 @@ public class JvChatsCtrl {
         return result;
     }
 
-    private LocalDateTime getTimeStampLastOnline(String lastOnlineDateTime) {
+    private LocalDateTime getTimestampLastOnline(String lastOnlineDateTime) {
         if (lastOnlineDateTime == null || Objects.equals(lastOnlineDateTime, "")) {
             JvLog.write(JvLog.TypeLog.Error, "Ошибка при попытке парсинга времени последнего онлайна");
             return null;
