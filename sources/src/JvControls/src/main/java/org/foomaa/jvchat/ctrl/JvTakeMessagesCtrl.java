@@ -316,7 +316,7 @@ public class JvTakeMessagesCtrl {
                         String.class);
 
         JvGetterControls.getInstance().getBeanChatsCtrl().setOnlineStatusesUsers(mapStatusesUsers);
-        JvGetterControls.getInstance().getBeanChatsCtrl().setLastOnlineTimeUsers(mapLastOnlineTimeUsers);
+        JvGetterControls.getInstance().getBeanChatsCtrl().setLastOnlineTimeUsersByStrings(mapLastOnlineTimeUsers);
 
         JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
                 .setLoadUsersOnlineReplyFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);

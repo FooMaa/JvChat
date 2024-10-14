@@ -95,6 +95,7 @@ public class JvControlsSpringConfig {
 
     @Bean(name = "beanChatsCtrl")
     @Scope("singleton")
+    @Profile("users")
     @SuppressWarnings("unused")
     public JvChatsCtrl beanChatsCtrl() {
         return JvChatsCtrl.getInstance();

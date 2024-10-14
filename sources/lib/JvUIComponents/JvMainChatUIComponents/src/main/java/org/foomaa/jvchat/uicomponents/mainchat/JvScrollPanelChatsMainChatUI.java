@@ -186,7 +186,7 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
         Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> onlineStatusesUsers =
                 JvGetterControls.getInstance().getBeanChatsCtrl().getOnlineStatusesUsers();
         Map<String, String> lastOnlineTimeUsers =
-                JvGetterControls.getInstance().getBeanChatsCtrl().getLastOnlineTimeUsers();
+                JvGetterControls.getInstance().getBeanChatsCtrl().getLastOnlineTimeUsersText();
 
         for (Component component : boxComponents.getComponents()) {
             JvRectChatMainChatUI rectChatMainChatUI = (JvRectChatMainChatUI) component;

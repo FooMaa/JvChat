@@ -9,10 +9,8 @@ import org.foomaa.jvchat.tools.JvGetterTools;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.time.format.DateTimeParseException;
+import java.util.*;
 
 
 public class JvChatsCtrl {
@@ -42,23 +40,25 @@ public class JvChatsCtrl {
         }
     }
 
-    public void setLastOnlineTimeUsers(Map<String, String> newLastOnlineTimeUsers) {
+    public void setLastOnlineTimeUsersByStrings(Map<String, String> newLastOnlineTimeUsers) {
         if (lastOnlineTimeUsers != newLastOnlineTimeUsers) {
             lastOnlineTimeUsers = newLastOnlineTimeUsers;
         }
-    }
-
-    @SuppressWarnings("unused")
-    public List<Map<JvDbGlobalDefines.LineKeys, String>> getChatsInfo() {
-        return chatsInfo;
     }
 
     public Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> getOnlineStatusesUsers() {
         return onlineStatusesUsers;
     }
 
-    public Map<String, String> getLastOnlineTimeUsers() {
-        return lastOnlineTimeUsers;
+    public Map<String, String> getLastOnlineTimeUsersText() {
+        Map<String, String> resultMap = new HashMap<>();
+
+        for (String login : lastOnlineTimeUsers.keySet()) {
+            String value = createTextLastOnlineStatusTime(lastOnlineTimeUsers.get(login));
+            resultMap.put(login, value);
+        }
+
+        return resultMap;
     }
 
     public List<String> getLoginsChats() {
@@ -171,7 +171,7 @@ public class JvChatsCtrl {
                 String timestampFromMap = map.get(JvDbGlobalDefines.LineKeys.DateTimeMessage);
                 int normalizeCount = 3;
                 String timestampString = JvGetterTools.getInstance()
-                        .getBeanMainTools().normalizeMillisecond(timestampFromMap, normalizeCount);
+                        .getBeanFormattedTools().normalizeMillisecond(timestampFromMap, normalizeCount);
 
                 if (timestampString == null) {
                     JvLog.write(JvLog.TypeLog.Error, "Не получилось нормализовать дату и время к нужному формату");
@@ -191,7 +191,7 @@ public class JvChatsCtrl {
 
         Duration duration = Duration.between(timestamp, LocalDateTime.now());
         DateTimeFormatter formatter;
-        String result = "";
+        String result;
 
         if (duration.toDays() < 1) {
             formatter = DateTimeFormatter.ofPattern("HH:mm");
@@ -205,5 +205,57 @@ public class JvChatsCtrl {
         }
 
         return result;
+    }
+
+    private String createTextLastOnlineStatusTime(String lastOnlineDateTime) {
+        LocalDateTime localDateTime = getTimeStampLastOnline(lastOnlineDateTime);
+        if (localDateTime == null) {
+            JvLog.write(JvLog.TypeLog.Error, "Ошибка вычисления localDateTime");
+            return "";
+        }
+
+        String result;
+        DateTimeFormatter formatter;
+        Duration duration = Duration.between(localDateTime, LocalDateTime.now());
+
+        if (duration.toDays() < 1) {
+            formatter = DateTimeFormatter.ofPattern("HH:mm");
+            result = "в " + localDateTime.format(formatter);
+        } else if (duration.toDays() == 1) {
+            formatter = DateTimeFormatter.ofPattern("HH:mm");
+            result = "вчера в " + localDateTime.format(formatter);
+        } else {
+            formatter = DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy");
+            result = localDateTime.format(formatter);
+        }
+
+        return result;
+    }
+
+    private LocalDateTime getTimeStampLastOnline(String lastOnlineDateTime) {
+        if (lastOnlineDateTime == null || Objects.equals(lastOnlineDateTime, "")) {
+            JvLog.write(JvLog.TypeLog.Error, "Ошибка при попытке парсинга времени последнего онлайна");
+            return null;
+        }
+
+        int normalizeCount = 3;
+        String timestampString = JvGetterTools.getInstance()
+                .getBeanFormattedTools().normalizeMillisecond(lastOnlineDateTime, normalizeCount);
+
+        if (timestampString == null) {
+            JvLog.write(JvLog.TypeLog.Error, "Не получилось нормализовать дату и время к нужному формату");
+            return null;
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+        LocalDateTime localDateTime;
+        try {
+            localDateTime = LocalDateTime.parse(timestampString, formatter);
+        } catch (DateTimeParseException exception) {
+            JvLog.write(JvLog.TypeLog.Error, "Ошибка при попытке парсинга времени последнего онлайна");
+            return null;
+        }
+
+        return localDateTime;
     }
 }

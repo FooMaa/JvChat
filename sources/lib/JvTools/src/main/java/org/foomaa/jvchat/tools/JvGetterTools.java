@@ -38,4 +38,9 @@ public class JvGetterTools {
         return context.getBean(JvToolsSpringConfig.NameBeans.BeanUsersTools.getValue(),
                 JvUsersTools.class);
     }
+
+    public JvFormattedTools getBeanFormattedTools() {
+        return context.getBean(JvToolsSpringConfig.NameBeans.BeanUITools.getValue(),
+                JvFormattedTools.class);
+    }
 }
