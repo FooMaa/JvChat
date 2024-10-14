@@ -133,6 +133,7 @@ public class JvNetworkCtrl {
         }
 
         for (JvServersSocketThreadCtrl socketThreadCtrl : serversSocketThreadCtrlListRemove) {
+            JvLog.write(JvLog.TypeLog.Warn, "Производим вычистку потока, который не отвечает долгое время");
             connectionList.remove(socketThreadCtrl);
         }
 
