@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.ctrl;
 
+import jdk.management.jfr.FlightRecorderMXBean;
 import org.foomaa.jvchat.logger.JvLog;
 
 import java.io.*;
@@ -9,6 +10,8 @@ import java.net.Socket;
 public class JvServersSocketThreadCtrl extends Thread {
     private DataInputStream readFromUser;
     private DataOutputStream sendToUser;
+    private int errorsConnection;
+    private final int limitErrorsConnection;
 
     JvServersSocketThreadCtrl(Socket fromSocketServer) {
         try {
@@ -17,6 +20,10 @@ public class JvServersSocketThreadCtrl extends Thread {
         } catch (IOException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Ошибка в создании потоков отправки и принятия сообщений");
         }
+
+        errorsConnection = 0;
+        limitErrorsConnection = 3;
+
         start();
     }
 
@@ -33,6 +40,7 @@ public class JvServersSocketThreadCtrl extends Thread {
                 }
             }
         } catch (IOException exception) {
+            errorsConnection++;
             JvLog.write(JvLog.TypeLog.Error, "Error in network");
         }
     }
@@ -43,7 +51,12 @@ public class JvServersSocketThreadCtrl extends Thread {
             sendToUser.write(message);
             sendToUser.flush();
         } catch (IOException exception) {
+            errorsConnection++;
             JvLog.write(JvLog.TypeLog.Error, "Error in network");
         }
+    }
+
+    public boolean isErrorsExceedsLimit() {
+        return (errorsConnection > limitErrorsConnection);
     }
 }

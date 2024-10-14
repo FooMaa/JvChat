@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.ctrl;
 
+import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.settings.JvMainSettings;
 import org.foomaa.jvchat.network.JvServersSocket;
@@ -11,7 +12,9 @@ import org.springframework.context.annotation.Profile;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 
 public class JvNetworkCtrl {
@@ -104,5 +107,38 @@ public class JvNetworkCtrl {
 
     public LinkedList<JvServersSocketThreadCtrl> getConnectionList() {
         return connectionList;
+    }
+
+    @SuppressWarnings("InfiniteLoopStatement")
+    private void runningThreadControlSockets() {
+        Runnable listenErrorSocket = () -> {
+            while (true) {
+                controlErrorThreadSocket();
+            }
+        };
+
+        Thread thread = new Thread(listenErrorSocket);
+        thread.start();
+    }
+
+    private void controlErrorThreadSocket() {
+        List<JvServersSocketThreadCtrl> serversSocketThreadCtrlListRemove = new ArrayList<>();
+        int milliSecondsSleepAfterOperation = 10000;
+
+        for (JvServersSocketThreadCtrl socketThreadCtrl : connectionList) {
+            if (socketThreadCtrl.isErrorsExceedsLimit()) {
+                serversSocketThreadCtrlListRemove.add(socketThreadCtrl);
+            }
+        }
+
+        for (JvServersSocketThreadCtrl socketThreadCtrl : serversSocketThreadCtrlListRemove) {
+            connectionList.remove(socketThreadCtrl);
+        }
+
+        try {
+            Thread.sleep(milliSecondsSleepAfterOperation);
+        } catch (InterruptedException exception) {
+            JvLog.write(JvLog.TypeLog.Error, "Здесь не удалось выполнить sleep()");
+        }
     }
 }
