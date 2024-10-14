@@ -57,6 +57,6 @@ public class JvServersSocketThreadCtrl extends Thread {
     }
 
     public boolean isErrorsExceedsLimit() {
-        return (errorsConnection > limitErrorsConnection);
+        return (errorsConnection >= limitErrorsConnection);
     }
 }
