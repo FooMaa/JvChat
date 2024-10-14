@@ -137,6 +137,8 @@ public class JvNetworkCtrl {
             connectionList.remove(socketThreadCtrl);
         }
 
+        JvLog.write(JvLog.TypeLog.Warn, "Количество активных подключений после вычистки: " + connectionList.size());
+
         try {
             Thread.sleep(milliSecondsSleepAfterOperation);
         } catch (InterruptedException exception) {
