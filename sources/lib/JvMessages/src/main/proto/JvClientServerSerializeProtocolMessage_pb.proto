@@ -155,8 +155,9 @@ message LoadUsersOnlineStatusReply {
 message TextMessageSendUserToServer {
     string loginSender = 1;
     string loginDestination = 2;
-    string text = 3;
-    string timestamp = 4;
+    string uuid = 3;
+    string text = 4;
+    string timestamp = 5;
 }
 
 message TextMessagesRequestUsersToServer {
@@ -169,8 +170,9 @@ message TextMessageDeliverReplyServerToUser {
     string loginSender = 1;
     string loginDestination = 2;
     bool reply = 3;
-    string text = 4;
-    string timestamp = 5;
+    uint32 id = 4;
+    string text = 5;
+    string timestamp = 6;
 }
 
 message TextMessagesSendServerToUser {
@@ -181,13 +183,15 @@ message TextMessagesSendServerToUser {
 }
 
 message TextMessageSingleComponent {
-    string text = 1;
-    string status = 2;
-    string timestamp = 3;
+    uint32 id = 1;
+    string text = 2;
+    string status = 3;
+    string timestamp = 4;
 }
 
 message TextMessageSendChangingStatus {
     string loginSender = 1;
     string loginDestination = 2;
-    string status = 3;
+    uint32 id = 3;
+    string status = 4;
 }

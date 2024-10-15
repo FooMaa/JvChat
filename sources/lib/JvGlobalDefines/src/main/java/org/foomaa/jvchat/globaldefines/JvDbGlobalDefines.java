@@ -19,6 +19,7 @@ public class JvDbGlobalDefines {
         Sender("sender"),
         Receiver("receiver"),
         LastMessage("last_message"),
+        UuidMessage("uuid_message"),
         DateTimeMessage("datetime_last_message"),
         StatusMessage("status_message"),
         Status("status"),
