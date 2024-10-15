@@ -27,6 +27,10 @@ message General {
         CheckOnlineUserReply checkOnlineReply = 17;
         LoadUsersOnlineStatusRequest loadUsersOnlineStatusRequest = 18;
         LoadUsersOnlineStatusReply loadUsersOnlineStatusReply = 19;
+        TextMessageSendUserToServer textMessageSendUserToServer = 20;
+        TextMessagesRequestUsersToServer textMessagesRequestUsersToServer = 21;
+        TextMessageDeliverReplyServerToUser textMessageDeliverReplyServerToUser = 22;
+        TextMessagesSendServerToUser textMessagesSendServerToUser = 23;
     }
 }
 
@@ -145,4 +149,37 @@ message LoadUsersOnlineStatusReply {
     }
     map<string, StatusOnline> mapStatusOnline = 1;
     map<string, string> mapLastOnlineTime = 2;
+}
+
+message TextMessageSendUserToServer {
+    string loginSender = 1;
+    string loginDestination = 2;
+    string text = 3;
+    string timestamp = 4;
+}
+
+message TextMessagesRequestUsersToServer {
+    string loginSender = 1;
+    string loginDestination = 2;
+    uint32 quantity = 3;
+}
+
+message TextMessageDeliverReplyServerToUser {
+    string loginSender = 1;
+    string loginDestination = 2;
+    bool reply = 3;
+    string text = 4;
+    string timestamp = 5;
+}
+
+message TextMessagesSendServerToUser {
+    string loginSender = 1;
+    string loginDestination = 2;
+    bool resendToOnlineUserSingleMsg = 3;
+    repeated TextMessageSingleComponent messageComponent = 4;
+}
+
+message TextMessageSingleComponent {
+    string text = 1;
+    string timestamp = 2;
 }
