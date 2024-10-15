@@ -50,6 +50,7 @@ public class JvTakeMessagesCtrl {
             case ChatsLoadReply -> workChatsLoadReplyMessage(getDeserializeMapData(type, data));
             case LoadUsersOnlineStatusRequest -> workLoadUsersOnlineStatusRequestMessage(getDeserializeMapData(type, data));
             case LoadUsersOnlineStatusReply -> workLoadUsersOnlineStatusReplyMessage(getDeserializeMapData(type, data));
+            case TextMessageSendUserToServer -> workTextMessageSendUserToServerMessage(getDeserializeMapData(type, data));
         }
         clearThreadFromConnection();
     }
@@ -320,5 +321,15 @@ public class JvTakeMessagesCtrl {
 
         JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
                 .setLoadUsersOnlineReplyFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
+    }
+
+    private void workTextMessageSendUserToServerMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
+        String loginSender = (String) map.get(JvDefinesMessages.TypeData.LoginSender);
+        String loginDestination = (String) map.get(JvDefinesMessages.TypeData.LoginDestination);
+        String uuid = (String) map.get(JvDefinesMessages.TypeData.Uuid);
+        String text = (String) map.get(JvDefinesMessages.TypeData.Text);
+        String timestamp = (String) map.get(JvDefinesMessages.TypeData.TimeStampMessageSend);
+        // TODO (VAD) запись в БД
+        // TODO (VAD) отправить сообщение о записи обратно клиенту (сообщения еще нет 15.10.2024 18:16)
     }
 }
