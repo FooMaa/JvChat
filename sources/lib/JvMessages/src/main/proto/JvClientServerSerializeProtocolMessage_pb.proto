@@ -31,6 +31,7 @@ message General {
         TextMessagesRequestUsersToServer textMessagesRequestUsersToServer = 21;
         TextMessageDeliverReplyServerToUser textMessageDeliverReplyServerToUser = 22;
         TextMessagesSendServerToUser textMessagesSendServerToUser = 23;
+        TextMessageSendChangingStatus textMessageSendChangingStatus = 24;
     }
 }
 
@@ -183,4 +184,10 @@ message TextMessageSingleComponent {
     string text = 1;
     string status = 2;
     string timestamp = 3;
+}
+
+message TextMessageSendChangingStatus {
+    string loginSender = 1;
+    string loginDestination = 2;
+    string status = 3;
 }

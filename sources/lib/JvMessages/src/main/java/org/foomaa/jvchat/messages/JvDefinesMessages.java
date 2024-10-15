@@ -35,7 +35,9 @@ public class JvDefinesMessages {
 //        TextMessageSendUserToServer(18),
 //        TextMessagesRequestUsersToServer(19),
 //        TextMessageDeliverReplyServerToUser(20),
-//        TextMessagesSendServerToUser(21);
+//        TextMessagesSendServerToUser(21),
+//        TextMessageSendChangingStatus(22);
+
 
         private final int value;
 
