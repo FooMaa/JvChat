@@ -75,8 +75,9 @@ public class JvRectChatMainChatUI extends JPanel {
         add(statusOnlineLabel, gbc);
         gridyNum++;
 
+        boolean isBoldMessage = isBoldMessageByStatus();
         JLabel lastMessageLabel = new JLabel(createLastMessageString());
-        lastMessageLabel.setFont(new Font("Times", Font.PLAIN,
+        lastMessageLabel.setFont(new Font("Times", (isBoldMessage ? Font.BOLD : Font.PLAIN),
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
 
         gbc.weightx = 1.0;
@@ -88,7 +89,7 @@ public class JvRectChatMainChatUI extends JPanel {
         add(lastMessageLabel, gbc);
 
         JLabel timeLabel = new JLabel(timeLastMessage);
-        timeLabel.setFont(new Font("Times", Font.PLAIN,
+        timeLabel.setFont(new Font("Times", (isBoldMessage ? Font.BOLD : Font.PLAIN),
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
 
         gbc.weightx = 1.0;
@@ -100,17 +101,18 @@ public class JvRectChatMainChatUI extends JPanel {
         gbc.anchor = GridBagConstraints.EAST;
         add(timeLabel, gbc);
 
-        setStatusFront();
+        setBackground(new Color(181,252,250));
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
 
-    private void setStatusFront() {
-        switch (statusMessage) {
-            case Error -> setBackground(new Color(254,196,200));
-            case Sent -> setBackground(new Color(254,252,190));
-            case Delivered -> setBackground(new Color(181,252,250));
-            case Read -> setBackground(new Color(191,254,188));
+    private boolean isBoldMessageByStatus() {
+        String currentLogin = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
+
+        if (Objects.equals(lastMessageSender, currentLogin)) {
+            return false;
         }
+
+        return statusMessage != JvMainChatsGlobalDefines.TypeStatusMessage.Read;
     }
 
     private String createLastMessageString() {

@@ -181,5 +181,6 @@ message TextMessagesSendServerToUser {
 
 message TextMessageSingleComponent {
     string text = 1;
-    string timestamp = 2;
+    string status = 2;
+    string timestamp = 3;
 }
