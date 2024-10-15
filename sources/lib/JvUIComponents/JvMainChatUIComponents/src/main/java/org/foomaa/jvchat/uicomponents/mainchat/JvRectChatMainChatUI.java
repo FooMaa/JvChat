@@ -169,7 +169,7 @@ public class JvRectChatMainChatUI extends JPanel {
                 return new Color(0,0,0);
             }
             case Online -> {
-                return new Color(50,254,50);
+                return new Color(14, 114, 14);
             }
         }
         return null;
