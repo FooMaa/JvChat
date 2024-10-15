@@ -291,7 +291,7 @@ $BODY$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION chat_schema.chats_messages_get_chats_by_login(
     f_login character varying
 )
-    RETURNS TABLE (sender character varying, receiver character varying, last_message bytea, datetime_last_message timestamp, status_message int) AS
+    RETURNS TABLE (sender character varying, receiver character varying, last_message character varying, datetime_last_message timestamp, status_message int) AS
 $BODY$
 DECLARE
     rv chat_schema.chats_messages%rowtype;
