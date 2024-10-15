@@ -38,7 +38,6 @@ public class JvDefinesMessages {
 //        TextMessagesSendServerToUser(21),
 //        TextMessageSendChangingStatus(22);
 
-
         private final int value;
 
         TypeMessage(int newValue) {
