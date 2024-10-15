@@ -167,12 +167,8 @@ message TextMessagesRequestUsersToServer {
 }
 
 message TextMessageDeliverReplyServerToUser {
-    string loginSender = 1;
-    string loginDestination = 2;
-    bool reply = 3;
-    uint32 id = 4;
-    string text = 5;
-    string timestamp = 6;
+    bool reply = 1;
+    uint32 uuid = 2;
 }
 
 message TextMessagesSendServerToUser {

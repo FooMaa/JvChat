@@ -192,6 +192,19 @@ public class JvSerializatorDataMessages {
                     return new byte[0];
                 }
             }
+            case TextMessageSendUserToServer -> {
+                if (parameters.length == 5) {
+                    Object loginSender = parameters[0];
+                    Object loginDestination = parameters[1];
+                    Object uuid = parameters[2];
+                    Object text = parameters[3];
+                    Object timestamp = parameters[4];
+                    return createTextMessageSendUserToServerMessage(type, (String) loginSender,
+                            (String) loginDestination, (String) uuid, (String) text, (String) timestamp);
+                } else {
+                    return new byte[0];
+                }
+            }
         }
         return new byte[0];
     }
@@ -473,6 +486,25 @@ public class JvSerializatorDataMessages {
                         .setLoadUsersOnlineStatusReply(msgLoadUsersOnlineStatusReply)
                         .build();
 
+        return resMsg.toByteArray();
+    }
+
+    private byte[] createTextMessageSendUserToServerMessage(JvDefinesMessages.TypeMessage type,
+                                                            String loginSender, String loginDestination,
+                                                            String uuid, String text, String timestamp) {
+        JvClientServerSerializeProtocolMessage_pb.TextMessageSendUserToServer msgTextMessageSendUserToServer =
+                JvClientServerSerializeProtocolMessage_pb.TextMessageSendUserToServer.newBuilder()
+                        .setLoginSender(loginSender)
+                        .setLoginDestination(loginDestination)
+                        .setUuid(uuid)
+                        .setText(text)
+                        .setTimestamp(timestamp)
+                        .build();
+        JvClientServerSerializeProtocolMessage_pb.General resMsg =
+                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
+                        .setType(type.getValue())
+                        .setTextMessageSendUserToServer(msgTextMessageSendUserToServer)
+                        .build();
         return resMsg.toByteArray();
     }
 }
