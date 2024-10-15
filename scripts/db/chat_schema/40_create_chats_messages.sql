@@ -7,7 +7,7 @@ CREATE TABLE chat_schema.chats_messages (
     senderID    int NOT NULL,
     receiverID  int NOT NULL,
     status      int NOT NULL,
-    message     bytea NOT NULl,
+    message     character varying NOT NULL,
     datetime    timestamp NOT NULL DEFAULT NOW(),
     PRIMARY KEY (index),
     FOREIGN KEY (senderID) REFERENCES chat_schema.auth_users_info(id) ON UPDATE CASCADE ON DELETE CASCADE,
