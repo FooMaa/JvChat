@@ -71,7 +71,7 @@ public class JvMessagesDialogCtrl {
                 JvDefinesMessages.TypeMessage.TextMessageSendUserToServer,
                 message.loginSender,
                 message.loginReceiver,
-                message.uuid,
+                message.uuid.toString(),
                 message.text,
                 timestampNewMessage);
     }
