@@ -229,7 +229,7 @@ public class JvSendMessagesCtrl {
                     Object uuid = parameters[2];
                     Object status = parameters[3];
                     JvMainChatsGlobalDefines.TypeStatusMessage statusMsg =
-                            JvMainChatsGlobalDefines.TypeStatusMessage.getTypeStatusMessage((Integer) status);
+                            (JvMainChatsGlobalDefines.TypeStatusMessage) status;
                     byte[] bodyMessage = createBodyTextMessageChangingStatusFromServerMessage(
                             type, (String) loginSender, (String) loginReceiver, (String) uuid, statusMsg);
                     sendReadyMessageNetwork(bodyMessage);

@@ -212,7 +212,7 @@ public class JvSerializatorDataMessages {
                     Object uuid = parameters[2];
                     Object status = parameters[3];
                     JvMainChatsGlobalDefines.TypeStatusMessage statusMsg =
-                            JvMainChatsGlobalDefines.TypeStatusMessage.getTypeStatusMessage((Integer) status);
+                            (JvMainChatsGlobalDefines.TypeStatusMessage) status;
                     return createTextMessageChangingStatusFromServerMessage(type, (String) loginSender,
                             (String) loginReceiver, (String) uuid,
                             statusMsg);
