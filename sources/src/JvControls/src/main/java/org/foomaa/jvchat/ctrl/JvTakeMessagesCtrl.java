@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 
 
 public class JvTakeMessagesCtrl {
@@ -345,13 +346,14 @@ public class JvTakeMessagesCtrl {
     private void workTextMessageChangingStatusFromServerMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         String loginSender = (String) map.get(JvDefinesMessages.TypeData.LoginSender);
         String loginReceiver = (String) map.get(JvDefinesMessages.TypeData.LoginReceiver);
-        String uuid = (String) map.get(JvDefinesMessages.TypeData.Uuid);
-        int status = (Integer) map.get(JvDefinesMessages.TypeData.StatusMessage);
+        String uuidString = (String) map.get(JvDefinesMessages.TypeData.Uuid);
+        int statusInt = (Integer) map.get(JvDefinesMessages.TypeData.StatusMessage);
 
-        JvMainChatsGlobalDefines.TypeStatusMessage statusMsg =
-                JvMainChatsGlobalDefines.TypeStatusMessage.getTypeStatusMessage(status);
+        UUID uuid = UUID.fromString(uuidString);
+        JvMainChatsGlobalDefines.TypeStatusMessage status =
+                JvMainChatsGlobalDefines.TypeStatusMessage.getTypeStatusMessage(statusInt);
 
-        System.out.println("Вернулся отчет о статусе доставлено");
-        // TODO (VAD) занести в структуру
+        JvGetterControls.getInstance().getBeanMessagesDialogCtrl()
+                .setDirtyStatusToMessage( loginSender, loginReceiver, uuid, status);
     }
 }

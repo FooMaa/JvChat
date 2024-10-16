@@ -58,6 +58,7 @@ public class JvMessagesDialogCtrl {
         message.uuid = UUID.randomUUID();
         message.text = text;
         message.timestamp = LocalDateTime.now();
+        message.status = JvMainChatsGlobalDefines.TypeStatusMessage.Sent;
 
         currentListMessages.add(message);
         sendNewMessage(message);
@@ -74,5 +75,17 @@ public class JvMessagesDialogCtrl {
                 message.uuid.toString(),
                 message.text,
                 timestampNewMessage);
+    }
+
+    public void setDirtyStatusToMessage(String loginSender, String loginReceiver, UUID uuid, JvMainChatsGlobalDefines.TypeStatusMessage status) {
+        for (Message message : currentListMessages) {
+            if (message.uuid.equals(uuid) &&
+                    Objects.equals(message.loginSender, loginSender) &&
+                    Objects.equals(message.loginReceiver, loginReceiver)) {
+                message.status = status;
+                System.out.println("Set Status");
+                return;
+            }
+        }
     }
 }
