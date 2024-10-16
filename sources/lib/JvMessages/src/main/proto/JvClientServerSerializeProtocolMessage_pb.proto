@@ -28,10 +28,9 @@ message General {
         LoadUsersOnlineStatusRequest loadUsersOnlineStatusRequest = 18;
         LoadUsersOnlineStatusReply loadUsersOnlineStatusReply = 19;
         TextMessageSendUserToServer textMessageSendUserToServer = 20;
-        TextMessagesRequestUsersToServer textMessagesRequestUsersToServer = 21;
-        TextMessageDeliverReplyServerToUser textMessageDeliverReplyServerToUser = 22;
+        TextMessageChangingStatusFromServer textMessageChangingStatusFromServer = 21;
+        TextMessagesRequestUsersToServer textMessagesRequestUsersToServer = 22;
         TextMessagesSendServerToUser textMessagesSendServerToUser = 23;
-        TextMessageSendChangingStatus textMessageSendChangingStatus = 24;
     }
 }
 
@@ -160,15 +159,17 @@ message TextMessageSendUserToServer {
     string timestamp = 5;
 }
 
+message TextMessageChangingStatusFromServer {
+    string loginSender = 1;
+    string loginReceiver = 2;
+    string uuid = 3;
+    uint32 status = 4;
+}
+
 message TextMessagesRequestUsersToServer {
     string loginSender = 1;
     string loginDestination = 2;
     uint32 quantity = 3;
-}
-
-message TextMessageDeliverReplyServerToUser {
-    bool reply = 1;
-    uint32 uuid = 2;
 }
 
 message TextMessagesSendServerToUser {
@@ -183,11 +184,4 @@ message TextMessageSingleComponent {
     string text = 2;
     string status = 3;
     string timestamp = 4;
-}
-
-message TextMessageSendChangingStatus {
-    string loginSender = 1;
-    string loginDestination = 2;
-    uint32 id = 3;
-    string status = 4;
 }

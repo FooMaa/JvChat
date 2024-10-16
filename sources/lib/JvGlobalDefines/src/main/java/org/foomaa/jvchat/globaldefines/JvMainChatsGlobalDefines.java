@@ -40,7 +40,7 @@ public class JvMainChatsGlobalDefines {
                     return statusKey;
                 }
             }
-            return null;
+            return TypeStatusMessage.Error;
         }
     }
 
@@ -66,7 +66,7 @@ public class JvMainChatsGlobalDefines {
                     return statusKey;
                 }
             }
-            return null;
+            return TypeStatusOnline.Error;
         }
     }
 }

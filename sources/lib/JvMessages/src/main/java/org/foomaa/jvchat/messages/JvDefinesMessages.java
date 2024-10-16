@@ -32,7 +32,8 @@ public class JvDefinesMessages {
         CheckOnlineUserReply(15),
         LoadUsersOnlineStatusRequest(16),
         LoadUsersOnlineStatusReply(17),
-        TextMessageSendUserToServer(18);
+        TextMessageSendUserToServer(18),
+        TextMessageChangingStatusFromServer(19);
 //        TextMessagesRequestUsersToServer(19),
 //        TextMessageDeliverReplyServerToUser(20),
 //        TextMessagesSendServerToUser(21),
@@ -81,6 +82,7 @@ public class JvDefinesMessages {
         Uuid,
         Text,
         TimeStampMessageSend,
+        StatusMessage,
     }
 
     public enum TypeErrorRegistration {

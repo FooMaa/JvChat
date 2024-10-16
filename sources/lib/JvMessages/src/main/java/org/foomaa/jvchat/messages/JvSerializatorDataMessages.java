@@ -205,6 +205,21 @@ public class JvSerializatorDataMessages {
                     return new byte[0];
                 }
             }
+            case TextMessageChangingStatusFromServer -> {
+                if (parameters.length == 4) {
+                    Object loginSender = parameters[0];
+                    Object loginReceiver = parameters[1];
+                    Object uuid = parameters[2];
+                    Object status = parameters[3];
+                    JvMainChatsGlobalDefines.TypeStatusMessage statusMsg =
+                            JvMainChatsGlobalDefines.TypeStatusMessage.getTypeStatusMessage((Integer) status);
+                    return createTextMessageChangingStatusFromServerMessage(type, (String) loginSender,
+                            (String) loginReceiver, (String) uuid,
+                            statusMsg);
+                } else {
+                    return new byte[0];
+                }
+            }
         }
         return new byte[0];
     }
@@ -507,4 +522,24 @@ public class JvSerializatorDataMessages {
                         .build();
         return resMsg.toByteArray();
     }
+
+    private byte[] createTextMessageChangingStatusFromServerMessage(JvDefinesMessages.TypeMessage type,
+                                                            String loginSender, String loginReceiver, String uuid,
+                                                           JvMainChatsGlobalDefines.TypeStatusMessage status) {
+        JvClientServerSerializeProtocolMessage_pb.TextMessageChangingStatusFromServer msgTextMessageChangingStatusFromServer =
+                JvClientServerSerializeProtocolMessage_pb.TextMessageChangingStatusFromServer.newBuilder()
+                        .setLoginSender(loginSender)
+                        .setLoginReceiver(loginReceiver)
+                        .setUuid(uuid)
+                        .setStatus(status.getValue())
+                        .build();
+        JvClientServerSerializeProtocolMessage_pb.General resMsg =
+                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
+                        .setType(type.getValue())
+                        .setTextMessageChangingStatusFromServer(msgTextMessageChangingStatusFromServer)
+                        .build();
+        return resMsg.toByteArray();
+    }
+
+
 }
