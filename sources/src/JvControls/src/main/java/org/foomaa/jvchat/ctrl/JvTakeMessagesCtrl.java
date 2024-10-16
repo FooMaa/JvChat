@@ -334,7 +334,7 @@ public class JvTakeMessagesCtrl {
         String statusString = status.toString();
 
         JvGetterControls.getInstance().getBeanDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.ChatMessagesSentMessage,
-                loginSender, loginReceiver, statusString, uuid, text, timestamp);
+                loginSender, loginReceiver, statusString, text, uuid, timestamp);
         // TODO (VAD) отправить сообщение о записи обратно клиенту (сообщения еще нет 15.10.2024 18:16)
     }
 }
