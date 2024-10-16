@@ -51,6 +51,7 @@ public class JvTakeMessagesCtrl {
             case LoadUsersOnlineStatusRequest -> workLoadUsersOnlineStatusRequestMessage(getDeserializeMapData(type, data));
             case LoadUsersOnlineStatusReply -> workLoadUsersOnlineStatusReplyMessage(getDeserializeMapData(type, data));
             case TextMessageSendUserToServer -> workTextMessageSendUserToServerMessage(getDeserializeMapData(type, data));
+            case TextMessageChangingStatusFromServer -> workTextMessageChangingStatusFromServerMessage(getDeserializeMapData(type, data));
         }
         clearThreadFromConnection();
     }
@@ -335,6 +336,21 @@ public class JvTakeMessagesCtrl {
 
         JvGetterControls.getInstance().getBeanDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.ChatMessagesSentMessage,
                 loginSender, loginReceiver, statusString, text, uuid, timestamp);
-        // TODO (VAD) отправить сообщение о записи обратно клиенту (сообщения еще нет 15.10.2024 18:16)
+        JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+                JvDefinesMessages.TypeMessage.TextMessageChangingStatusFromServer, loginSender, loginReceiver, uuid, status);
+
+    }
+
+    private void workTextMessageChangingStatusFromServerMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
+        String loginSender = (String) map.get(JvDefinesMessages.TypeData.LoginSender);
+        String loginReceiver = (String) map.get(JvDefinesMessages.TypeData.LoginReceiver);
+        String uuid = (String) map.get(JvDefinesMessages.TypeData.Uuid);
+        int status = (Integer) map.get(JvDefinesMessages.TypeData.StatusMessage);
+
+        JvMainChatsGlobalDefines.TypeStatusMessage statusMsg =
+                JvMainChatsGlobalDefines.TypeStatusMessage.getTypeStatusMessage(status);
+
+        System.out.println("Вернулся отчет о статусе доставлено");
+        // TODO (VAD) занести в структуру
     }
 }

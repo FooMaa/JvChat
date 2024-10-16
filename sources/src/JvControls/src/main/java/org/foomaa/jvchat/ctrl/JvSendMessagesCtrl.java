@@ -222,6 +222,19 @@ public class JvSendMessagesCtrl {
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
+            case TextMessageChangingStatusFromServer -> {
+                if (parameters.length == 4) {
+                    Object loginSender = parameters[0];
+                    Object loginReceiver = parameters[1];
+                    Object uuid = parameters[2];
+                    Object status = parameters[3];
+                    JvMainChatsGlobalDefines.TypeStatusMessage statusMsg =
+                            JvMainChatsGlobalDefines.TypeStatusMessage.getTypeStatusMessage((Integer) status);
+                    byte[] bodyMessage = createBodyTextMessageChangingStatusFromServerMessage(
+                            type, (String) loginSender, (String) loginReceiver, (String) uuid, statusMsg);
+                    sendReadyMessageNetwork(bodyMessage);
+                }
+            }
         }
     }
 
@@ -311,11 +324,13 @@ public class JvSendMessagesCtrl {
                                                             String loginSender, String loginReceiver,
                                                             String uuid, String text, String timestamp) {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(
-                type,
-                loginSender,
-                loginReceiver,
-                uuid,
-                text,
-                timestamp);
+                type, loginSender, loginReceiver, uuid, text, timestamp);
+    }
+
+    private byte[] createBodyTextMessageChangingStatusFromServerMessage(JvDefinesMessages.TypeMessage type,
+                                                                    String loginSender, String loginReceiver, String uuid,
+                                                                    JvMainChatsGlobalDefines.TypeStatusMessage status) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(
+                type, loginSender, loginReceiver, uuid, status);
     }
 }
