@@ -52,6 +52,7 @@ public class JvPanelSendingMessageMainChatUI extends JPanel {
             String text = sendingTextAreaScroll.getText();
             if (!Objects.equals(text, "")) {
                 JvGetterControls.getInstance().getBeanMessagesDialogCtrl().createAndSendMessage(text);
+                sendingTextAreaScroll.clearText();
             }
         });
     }

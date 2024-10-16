@@ -22,4 +22,8 @@ public class JvSendingTextAreaScrollMainChatUI extends JScrollPane {
     public String getText() {
         return textArea.getText();
     }
+
+    public void clearText() {
+        textArea.setText("");
+    }
 }

@@ -330,7 +330,6 @@ public class JvSendMessagesCtrl {
     private byte[] createBodyTextMessageChangingStatusFromServerMessage(JvDefinesMessages.TypeMessage type,
                                                                     String loginSender, String loginReceiver, String uuid,
                                                                     JvMainChatsGlobalDefines.TypeStatusMessage status) {
-        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(
-                type, loginSender, loginReceiver, uuid, status);
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, loginSender, loginReceiver, uuid, status);
     }
 }
