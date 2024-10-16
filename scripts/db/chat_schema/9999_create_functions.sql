@@ -312,6 +312,48 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION chat_schema.chats_messages_save_message (
+    f_loginSender       character varying,
+    f_loginReceiver     character varying,
+    f_status            int,
+    f_message           character varying,
+    f_uuid_message      character varying,
+    f_datetime          timestamp
+)
+    RETURNS integer AS
+$BODY$
+DECLARE
+    rv integer;
+    f_id_user_sender integer;
+    f_id_user_receiver integer;
+    f_cast_timestamp timestamp;
+BEGIN
+    SELECT id INTO f_id_user_sender FROM chat_schema.auth_users_info WHERE login = f_loginSender;
+    SELECT id INTO f_id_user_receiver FROM chat_schema.auth_users_info WHERE login = f_loginReceiver;
+    SELECT cast(f_datetime as timestamp) INTO f_cast_timestamp;
+    
+    rv := -1;
+
+    PERFORM * FROM chat_schema.chats_messages 
+    WHERE senderID = f_id_user_sender 
+    AND receiverID = f_id_user_receiver
+    AND uuid_message = f_uuid_message;
+
+    IF found THEN
+        UPDATE chat_schema.chats_messages SET status = f_status, message = f_message, datetime = f_cast_timestamp 
+        WHERE senderID = f_id_user_sender 
+        AND receiverID = f_id_user_receiver
+        AND uuid_message = f_uuid_message;
+        rv := 1;
+    ELSE
+        INSERT INTO chat_schema.chats_messages (senderID, receiverID, status, message, uuid_message, datetime) VALUES (f_id_user_sender, f_id_user_receiver, f_status, f_message, f_uuid_message, f_cast_timestamp);
+        rv := 2;
+    END IF;
+
+    RETURN rv;
+END;
+$BODY$ LANGUAGE plpgsql;
+
 -- ----------------------------------------------------------------------------------------------
 -- chat_schema.online_users_info
 -- ----------------------------------------------------------------------------------------------
