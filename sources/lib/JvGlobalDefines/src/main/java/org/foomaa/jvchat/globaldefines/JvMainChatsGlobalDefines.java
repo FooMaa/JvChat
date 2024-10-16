@@ -28,6 +28,11 @@ public class JvMainChatsGlobalDefines {
             return value;
         }
 
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
         public static TypeStatusMessage getTypeStatusMessage(int value) {
             TypeStatusMessage[] statusKeys = TypeStatusMessage.values();
             for (TypeStatusMessage statusKey : statusKeys) {

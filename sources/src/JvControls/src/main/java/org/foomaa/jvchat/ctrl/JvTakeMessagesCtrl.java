@@ -329,9 +329,12 @@ public class JvTakeMessagesCtrl {
         String uuid = (String) map.get(JvDefinesMessages.TypeData.Uuid);
         String text = (String) map.get(JvDefinesMessages.TypeData.Text);
         String timestamp = (String) map.get(JvDefinesMessages.TypeData.TimeStampMessageSend);
-        System.out.println("ALO");
+
+        JvMainChatsGlobalDefines.TypeStatusMessage status = JvMainChatsGlobalDefines.TypeStatusMessage.Delivered;
+        String statusString = status.toString();
+
         JvGetterControls.getInstance().getBeanDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.ChatMessagesSentMessage,
-                loginSender, loginReceiver, uuid, text, timestamp);
+                loginSender, loginReceiver, statusString, uuid, text, timestamp);
         // TODO (VAD) отправить сообщение о записи обратно клиенту (сообщения еще нет 15.10.2024 18:16)
     }
 }

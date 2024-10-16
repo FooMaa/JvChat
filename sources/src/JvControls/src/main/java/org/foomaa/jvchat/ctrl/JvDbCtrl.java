@@ -182,11 +182,11 @@ public class JvDbCtrl {
             case ChatMessagesSentMessage -> {
                 if (parameters.length == 6) {
                     String loginSender = parameters[0];
-                    String loginReceiver  = parameters[1];
-                    String status  = parameters[2];
-                    String message  = parameters[3];
-                    String uuid_message  = parameters[4];
-                    String datetime  = parameters[5];
+                    String loginReceiver = parameters[1];
+                    String status = parameters[2];
+                    String message = parameters[3];
+                    String uuid_message = parameters[4];
+                    String datetime = parameters[5];
                     ResultSet rs = db.makeExecution(dbRequests.insertChatsSentMessage(
                             loginSender, loginReceiver, status, message, uuid_message, datetime));
                     db.closeResultSet(rs);
