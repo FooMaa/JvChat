@@ -1,11 +1,14 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
+import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Objects;
 
 
@@ -35,6 +38,7 @@ public class JvRectChatMainChatUI extends JPanel {
         nameForLabelOnline = "onlineLabel";
 
         makeChatBox();
+        addListenerToElements();
     }
 
     public String getNickName() {
@@ -191,5 +195,15 @@ public class JvRectChatMainChatUI extends JPanel {
         }
 
         return result;
+    }
+
+    private void addListenerToElements() {
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                JvGetterControls.getInstance().getBeanMessagesDialogCtrl()
+                        .setCurrentActiveLoginUI(nickName);
+            }
+        });
     }
 }

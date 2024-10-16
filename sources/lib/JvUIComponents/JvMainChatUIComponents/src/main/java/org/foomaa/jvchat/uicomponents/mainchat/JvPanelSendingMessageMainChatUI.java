@@ -1,7 +1,10 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
+import org.foomaa.jvchat.ctrl.JvGetterControls;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 
 public class JvPanelSendingMessageMainChatUI extends JPanel {
@@ -14,6 +17,7 @@ public class JvPanelSendingMessageMainChatUI extends JPanel {
         sendButton = JvGetterMainChatUIComponents.getInstance().getBeanSendButtonMainChatUI("Отправить");
 
         settingPanel();
+        addListenerToElements();
     }
 
     public static JvPanelSendingMessageMainChatUI getInstance() {
@@ -41,5 +45,14 @@ public class JvPanelSendingMessageMainChatUI extends JPanel {
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = gridxNum;
         add(sendButton, gbc);
+    }
+
+    private void addListenerToElements() {
+        sendButton.addActionListener(event -> {
+            String text = sendingTextAreaScroll.getText();
+            if (!Objects.equals(text, "")) {
+                JvGetterControls.getInstance().getBeanMessagesDialogCtrl().createAndSendMessage(text);
+            }
+        });
     }
 }

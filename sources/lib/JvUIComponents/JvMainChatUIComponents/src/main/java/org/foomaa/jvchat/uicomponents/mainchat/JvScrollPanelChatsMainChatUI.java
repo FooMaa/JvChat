@@ -102,7 +102,6 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
                             chatsCtrl.getTimeHMLastMessage(login),
                             chatsCtrl.getStatusLastMessage(login));
             boxComponents.add(component);
-            addListenerToElements(component);
         }
     }
 
@@ -131,15 +130,6 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
         }
 
         return loginsList;
-    }
-
-    public void addListenerToElements(Component component) {
-        component.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                System.out.println("###");
-            }
-        });
     }
 
     @SuppressWarnings("InfiniteLoopStatement")

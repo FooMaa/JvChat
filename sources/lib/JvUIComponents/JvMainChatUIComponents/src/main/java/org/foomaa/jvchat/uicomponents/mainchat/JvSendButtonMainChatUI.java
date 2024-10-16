@@ -1,5 +1,8 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
+import org.foomaa.jvchat.ctrl.JvGetterControls;
+import org.foomaa.jvchat.messages.JvDefinesMessages;
+
 import javax.swing.*;
 import java.util.ArrayList;
 

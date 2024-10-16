@@ -2,6 +2,9 @@ package org.foomaa.jvchat.tools;
 
 import org.foomaa.jvchat.logger.JvLog;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class JvFormattedTools {
     private static JvFormattedTools instance;
 
@@ -36,5 +39,10 @@ public class JvFormattedTools {
         }
 
         return resultTimestamp;
+    }
+
+    public String formattedTimestampToDB(LocalDateTime timestamp) {
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return timestamp.format(formatter);
     }
 }
