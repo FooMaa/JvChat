@@ -321,7 +321,7 @@ public class JvDeserializatorDataMessages {
                             .getTextMessageSendUserToServer();
 
             result.put(JvDefinesMessages.TypeData.LoginSender, msgData.getLoginSender());
-            result.put(JvDefinesMessages.TypeData.LoginDestination, msgData.getLoginDestination());
+            result.put(JvDefinesMessages.TypeData.LoginReceiver, msgData.getLoginReceiver());
             result.put(JvDefinesMessages.TypeData.Uuid, msgData.getUuid());
             result.put(JvDefinesMessages.TypeData.Text, msgData.getText());
             result.put(JvDefinesMessages.TypeData.TimeStampMessageSend, msgData.getTimestamp());

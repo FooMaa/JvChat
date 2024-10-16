@@ -28,6 +28,7 @@ public class JvDbCtrl {
         VerifyFamousEmail,
         VerifyRegistrationEmail,
         OnlineUsersInfo,
+        ChatMessagesSentMessage,
     }
 
     public enum TypeExecutionCheck {
@@ -173,6 +174,21 @@ public class JvDbCtrl {
                     String login = parameters[0];
                     String status = parameters[1];
                     ResultSet rs = db.makeExecution(dbRequests.insertOnlineUsersInfo(login, status));
+                    db.closeResultSet(rs);
+                    return true;
+                }
+                return false;
+            }
+            case ChatMessagesSentMessage -> {
+                if (parameters.length == 6) {
+                    String loginSender = parameters[0];
+                    String loginReceiver  = parameters[1];
+                    String status  = parameters[2];
+                    String message  = parameters[3];
+                    String uuid_message  = parameters[4];
+                    String datetime  = parameters[5];
+                    ResultSet rs = db.makeExecution(dbRequests.insertChatsSentMessage(
+                            loginSender, loginReceiver, status, message, uuid_message, datetime));
                     db.closeResultSet(rs);
                     return true;
                 }

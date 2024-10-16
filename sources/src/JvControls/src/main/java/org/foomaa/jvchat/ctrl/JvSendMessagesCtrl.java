@@ -213,12 +213,12 @@ public class JvSendMessagesCtrl {
             case TextMessageSendUserToServer -> {
                 if (parameters.length == 5) {
                     Object loginSender = parameters[0];
-                    Object loginDestination = parameters[1];
+                    Object loginReceiver = parameters[1];
                     Object uuid = parameters[2];
                     Object text = parameters[3];
                     Object timestamp = parameters[4];
                     byte[] bodyMessage = createBodyTextMessageSendUserToServerMessage(type, (String) loginSender,
-                            (String) loginDestination, (String) uuid, (String) text, (String) timestamp);
+                            (String) loginReceiver, (String) uuid, (String) text, (String) timestamp);
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
@@ -308,12 +308,12 @@ public class JvSendMessagesCtrl {
     }
 
     private byte[] createBodyTextMessageSendUserToServerMessage(JvDefinesMessages.TypeMessage type,
-                                                            String loginSender, String loginDestination,
+                                                            String loginSender, String loginReceiver,
                                                             String uuid, String text, String timestamp) {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(
                 type,
                 loginSender,
-                loginDestination,
+                loginReceiver,
                 uuid,
                 text,
                 timestamp);

@@ -154,7 +154,7 @@ message LoadUsersOnlineStatusReply {
 
 message TextMessageSendUserToServer {
     string loginSender = 1;
-    string loginDestination = 2;
+    string loginReceiver = 2;
     string uuid = 3;
     string text = 4;
     string timestamp = 5;

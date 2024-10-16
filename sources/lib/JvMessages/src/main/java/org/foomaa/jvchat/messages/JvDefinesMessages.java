@@ -77,7 +77,7 @@ public class JvDefinesMessages {
         LoginsList,
         TimeStampLastOnlineString,
         LoginSender,
-        LoginDestination,
+        LoginReceiver,
         Uuid,
         Text,
         TimeStampMessageSend,

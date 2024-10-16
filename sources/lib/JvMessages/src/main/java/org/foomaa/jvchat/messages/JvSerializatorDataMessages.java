@@ -195,12 +195,12 @@ public class JvSerializatorDataMessages {
             case TextMessageSendUserToServer -> {
                 if (parameters.length == 5) {
                     Object loginSender = parameters[0];
-                    Object loginDestination = parameters[1];
+                    Object loginReceiver = parameters[1];
                     Object uuid = parameters[2];
                     Object text = parameters[3];
                     Object timestamp = parameters[4];
                     return createTextMessageSendUserToServerMessage(type, (String) loginSender,
-                            (String) loginDestination, (String) uuid, (String) text, (String) timestamp);
+                            (String) loginReceiver, (String) uuid, (String) text, (String) timestamp);
                 } else {
                     return new byte[0];
                 }
@@ -490,12 +490,12 @@ public class JvSerializatorDataMessages {
     }
 
     private byte[] createTextMessageSendUserToServerMessage(JvDefinesMessages.TypeMessage type,
-                                                            String loginSender, String loginDestination,
+                                                            String loginSender, String loginReceiver,
                                                             String uuid, String text, String timestamp) {
         JvClientServerSerializeProtocolMessage_pb.TextMessageSendUserToServer msgTextMessageSendUserToServer =
                 JvClientServerSerializeProtocolMessage_pb.TextMessageSendUserToServer.newBuilder()
                         .setLoginSender(loginSender)
-                        .setLoginDestination(loginDestination)
+                        .setLoginReceiver(loginReceiver)
                         .setUuid(uuid)
                         .setText(text)
                         .setTimestamp(timestamp)
