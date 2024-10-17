@@ -7,6 +7,7 @@ import org.foomaa.jvchat.tools.JvGetterTools;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 
 public class JvSerializatorDataMessages {
@@ -205,17 +206,15 @@ public class JvSerializatorDataMessages {
                     return new byte[0];
                 }
             }
-            case TextMessageChangingStatusFromServer -> {
-                if (parameters.length == 4) {
+            case TextMessagesChangingStatusFromServer -> {
+                if (parameters.length == 3) {
                     Object loginSender = parameters[0];
                     Object loginReceiver = parameters[1];
-                    Object uuid = parameters[2];
-                    Object status = parameters[3];
-                    JvMainChatsGlobalDefines.TypeStatusMessage statusMsg =
-                            (JvMainChatsGlobalDefines.TypeStatusMessage) status;
+                    Object mapUuidStatus = parameters[2];
+                    Map<UUID, Integer> mapStatusesMessages = JvGetterTools.getInstance()
+                            .getBeanStructTools().objectInMap(mapUuidStatus, UUID.class, Integer.class);
                     return createTextMessageChangingStatusFromServerMessage(type, (String) loginSender,
-                            (String) loginReceiver, (String) uuid,
-                            statusMsg);
+                            (String) loginReceiver, mapStatusesMessages);
                 } else {
                     return new byte[0];
                 }
@@ -524,19 +523,23 @@ public class JvSerializatorDataMessages {
     }
 
     private byte[] createTextMessageChangingStatusFromServerMessage(JvDefinesMessages.TypeMessage type,
-                                                            String loginSender, String loginReceiver, String uuid,
-                                                           JvMainChatsGlobalDefines.TypeStatusMessage status) {
-        JvClientServerSerializeProtocolMessage_pb.TextMessageChangingStatusFromServer msgTextMessageChangingStatusFromServer =
-                JvClientServerSerializeProtocolMessage_pb.TextMessageChangingStatusFromServer.newBuilder()
+                                                                    String loginSender, String loginReceiver,
+                                                                    Map<UUID, Integer> mapStatusMessages) {
+        Map<String, Integer> resultMap = new HashMap<>();
+        for (UUID uuid : mapStatusMessages.keySet()) {
+            resultMap.put(uuid.toString(), mapStatusMessages.get(uuid));
+        }
+
+        JvClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServer msgTextMessagesChangingStatusFromServer =
+                JvClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServer.newBuilder()
                         .setLoginSender(loginSender)
                         .setLoginReceiver(loginReceiver)
-                        .setUuid(uuid)
-                        .setStatus(status.getValue())
+                        .putAllMapStatusMessages(resultMap)
                         .build();
         JvClientServerSerializeProtocolMessage_pb.General resMsg =
                 JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
                         .setType(type.getValue())
-                        .setTextMessageChangingStatusFromServer(msgTextMessageChangingStatusFromServer)
+                        .setTextMessagesChangingStatusFromServer(msgTextMessagesChangingStatusFromServer)
                         .build();
         return resMsg.toByteArray();
     }

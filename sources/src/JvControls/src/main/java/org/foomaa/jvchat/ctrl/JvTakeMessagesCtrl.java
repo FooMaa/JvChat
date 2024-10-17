@@ -52,7 +52,7 @@ public class JvTakeMessagesCtrl {
             case LoadUsersOnlineStatusRequest -> workLoadUsersOnlineStatusRequestMessage(getDeserializeMapData(type, data));
             case LoadUsersOnlineStatusReply -> workLoadUsersOnlineStatusReplyMessage(getDeserializeMapData(type, data));
             case TextMessageSendUserToServer -> workTextMessageSendUserToServerMessage(getDeserializeMapData(type, data));
-            case TextMessageChangingStatusFromServer -> workTextMessageChangingStatusFromServerMessage(getDeserializeMapData(type, data));
+            case TextMessagesChangingStatusFromServer -> workTextMessagesChangingStatusFromServerMessage(getDeserializeMapData(type, data));
         }
         clearThreadFromConnection();
     }
@@ -339,21 +339,19 @@ public class JvTakeMessagesCtrl {
                 loginSender, loginReceiver, statusString, text, uuid, timestamp);
 
         JvGetterControls.getInstance().getBeanSendMessagesCtrl()
-                .sendMessage(JvDefinesMessages.TypeMessage.TextMessageChangingStatusFromServer,
+                .sendMessage(JvDefinesMessages.TypeMessage.TextMessagesChangingStatusFromServer,
                         loginSender, loginReceiver, uuid, status);
     }
 
-    private void workTextMessageChangingStatusFromServerMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
+    private void workTextMessagesChangingStatusFromServerMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         String loginSender = (String) map.get(JvDefinesMessages.TypeData.LoginSender);
         String loginReceiver = (String) map.get(JvDefinesMessages.TypeData.LoginReceiver);
         String uuidString = (String) map.get(JvDefinesMessages.TypeData.Uuid);
-        int statusInt = (Integer) map.get(JvDefinesMessages.TypeData.StatusMessage);
-
-        UUID uuid = UUID.fromString(uuidString);
-        JvMainChatsGlobalDefines.TypeStatusMessage status =
-                JvMainChatsGlobalDefines.TypeStatusMessage.getTypeStatusMessage(statusInt);
+        Object statusesMap = map.get(JvDefinesMessages.TypeData.MapStatusMessages);
+        Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = JvGetterTools.getInstance()
+                .getBeanStructTools().objectInMap(statusesMap, UUID.class, JvMainChatsGlobalDefines.TypeStatusMessage.class);
 
         JvGetterControls.getInstance().getBeanMessagesDialogCtrl()
-                .setDirtyStatusToMessage( loginSender, loginReceiver, uuid, status);
+                .setDirtyStatusToMessage( loginSender, loginReceiver, mapStatusesMessages);
     }
 }

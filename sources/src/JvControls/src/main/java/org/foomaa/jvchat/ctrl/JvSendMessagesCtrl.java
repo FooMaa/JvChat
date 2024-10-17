@@ -9,6 +9,7 @@ import org.foomaa.jvchat.tools.JvGetterTools;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 
 public class JvSendMessagesCtrl {
@@ -222,16 +223,15 @@ public class JvSendMessagesCtrl {
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
-            case TextMessageChangingStatusFromServer -> {
+            case TextMessagesChangingStatusFromServer -> {
                 if (parameters.length == 4) {
                     Object loginSender = parameters[0];
                     Object loginReceiver = parameters[1];
-                    Object uuid = parameters[2];
-                    Object status = parameters[3];
-                    JvMainChatsGlobalDefines.TypeStatusMessage statusMsg =
-                            (JvMainChatsGlobalDefines.TypeStatusMessage) status;
-                    byte[] bodyMessage = createBodyTextMessageChangingStatusFromServerMessage(
-                            type, (String) loginSender, (String) loginReceiver, (String) uuid, statusMsg);
+                    Object mapUuidStatus = parameters[2];
+                    Map<UUID, Integer> mapStatusesMessages = JvGetterTools.getInstance()
+                            .getBeanStructTools().objectInMap(mapUuidStatus, UUID.class, Integer.class);
+                    byte[] bodyMessage = createBodyTextMessagesChangingStatusFromServerMessage(
+                            type, (String) loginSender, (String) loginReceiver, mapStatusesMessages);
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
@@ -327,9 +327,9 @@ public class JvSendMessagesCtrl {
                 type, loginSender, loginReceiver, uuid, text, timestamp);
     }
 
-    private byte[] createBodyTextMessageChangingStatusFromServerMessage(JvDefinesMessages.TypeMessage type,
-                                                                    String loginSender, String loginReceiver, String uuid,
-                                                                    JvMainChatsGlobalDefines.TypeStatusMessage status) {
-        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, loginSender, loginReceiver, uuid, status);
+    private byte[] createBodyTextMessagesChangingStatusFromServerMessage(JvDefinesMessages.TypeMessage type,
+                                                                         String loginSender, String loginReceiver,
+                                                                         Map<UUID, Integer> mapStatusMessages) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, loginSender, loginReceiver, mapStatusMessages);
     }
 }

@@ -28,7 +28,7 @@ message General {
         LoadUsersOnlineStatusRequest loadUsersOnlineStatusRequest = 18;
         LoadUsersOnlineStatusReply loadUsersOnlineStatusReply = 19;
         TextMessageSendUserToServer textMessageSendUserToServer = 20;
-        TextMessageChangingStatusFromServer textMessageChangingStatusFromServer = 21;
+        TextMessagesChangingStatusFromServer textMessagesChangingStatusFromServer = 21;
         TextMessagesRequestUsersToServer textMessagesRequestUsersToServer = 22;
         TextMessagesSendServerToUser textMessagesSendServerToUser = 23;
     }
@@ -159,11 +159,10 @@ message TextMessageSendUserToServer {
     string timestamp = 5;
 }
 
-message TextMessageChangingStatusFromServer {
+message TextMessagesChangingStatusFromServer {
     string loginSender = 1;
     string loginReceiver = 2;
-    string uuid = 3;
-    uint32 status = 4;
+    map<string, uint32> mapStatusMessages = 3;
 }
 
 message TextMessagesRequestUsersToServer {

@@ -7,10 +7,7 @@ import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.tools.JvGetterTools;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 
 public class JvMessagesDialogCtrl {
@@ -77,14 +74,16 @@ public class JvMessagesDialogCtrl {
                 timestampNewMessage);
     }
 
-    public void setDirtyStatusToMessage(String loginSender, String loginReceiver, UUID uuid, JvMainChatsGlobalDefines.TypeStatusMessage status) {
-        for (Message message : currentListMessages) {
-            if (message.uuid.equals(uuid) &&
-                    Objects.equals(message.loginSender, loginSender) &&
-                    Objects.equals(message.loginReceiver, loginReceiver)) {
-                message.status = status;
-                System.out.println("Set Status");
-                return;
+    public void setDirtyStatusToMessage(String loginSender, String loginReceiver, Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages) {
+        for (UUID uuid : mapStatusesMessages.keySet()) {
+            for (Message message : currentListMessages) {
+                if (message.uuid.equals(uuid) &&
+                        Objects.equals(message.loginSender, loginSender) &&
+                        Objects.equals(message.loginReceiver, loginReceiver)) {
+                    message.status = mapStatusesMessages.get(uuid);
+                    System.out.println("Set Status");
+                    return;
+                }
             }
         }
     }
