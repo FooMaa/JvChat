@@ -9,6 +9,15 @@ public class JvSendingTextAreaScrollMainChatUI extends JScrollPane {
 
     JvSendingTextAreaScrollMainChatUI() {
         textArea = new JTextArea();
+        settingPane();
+    }
+
+    private void settingPane() {
+        setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+
         setViewportView(textArea);
     }
 

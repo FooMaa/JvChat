@@ -154,6 +154,15 @@ public class JvOnlineServersCtrl {
     }
 
     private void listeningPackage() {
+        if (JvGetterControls.getInstance().getBeanNetworkCtrl().getConnectionList().isEmpty()) {
+            try {
+                Thread.sleep(intervalMilliSecondsAfterLastSending);
+                return;
+            } catch (InterruptedException exception) {
+                JvLog.write(JvLog.TypeLog.Error, "Здесь не удалось выполнить sleep()");
+            }
+        }
+
         LinkedList<JvServersSocketThreadCtrl> connectionList = new LinkedList<>(
                 JvGetterControls.getInstance().getBeanNetworkCtrl().getConnectionList());
 

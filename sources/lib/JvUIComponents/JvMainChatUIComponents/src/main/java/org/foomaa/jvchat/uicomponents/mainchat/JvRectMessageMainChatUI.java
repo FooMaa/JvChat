@@ -3,12 +3,11 @@ package org.foomaa.jvchat.uicomponents.mainchat;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 
 public class JvRectMessageMainChatUI extends JLabel {
-    private int id;
-
     JvRectMessageMainChatUI() {
         settingLabel();
     }
@@ -26,13 +25,14 @@ public class JvRectMessageMainChatUI extends JLabel {
     }
 
     private void settingLabel() {
-        setText("<html>AAAAAAAAAAAAAAAAAAAAAAA<br>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</html>");
+        setText("<html>AAAAAAAAAAAAAAAAAAAAAAA<br>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA<br>BBBBBBBBBBBBBBBBBBBBBBB</html>");
         setOpaque(false);
         setBackground(new Color(173, 216, 230));
         setFont(new Font("Times", Font.PLAIN,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
         setForeground(Color.BLACK);
         setHorizontalAlignment(SwingConstants.LEFT);
+        setBorder(new EmptyBorder(10, 10, 10 ,10));
         setVerticalAlignment(SwingConstants.TOP);
     }
 }
