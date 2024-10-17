@@ -338,9 +338,12 @@ public class JvTakeMessagesCtrl {
         JvGetterControls.getInstance().getBeanDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.ChatMessagesSentMessage,
                 loginSender, loginReceiver, statusString, text, uuid, timestamp);
 
+        Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> statusMessages = new HashMap<>();
+        statusMessages.put(UUID.fromString(uuid), status);
+
         JvGetterControls.getInstance().getBeanSendMessagesCtrl()
                 .sendMessage(JvDefinesMessages.TypeMessage.TextMessagesChangingStatusFromServer,
-                        loginSender, loginReceiver, uuid, status);
+                        loginSender, loginReceiver, statusMessages);
     }
 
     private void workTextMessagesChangingStatusFromServerMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {

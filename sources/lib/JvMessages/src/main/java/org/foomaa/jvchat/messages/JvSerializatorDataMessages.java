@@ -211,8 +211,8 @@ public class JvSerializatorDataMessages {
                     Object loginSender = parameters[0];
                     Object loginReceiver = parameters[1];
                     Object mapUuidStatus = parameters[2];
-                    Map<UUID, Integer> mapStatusesMessages = JvGetterTools.getInstance()
-                            .getBeanStructTools().objectInMap(mapUuidStatus, UUID.class, Integer.class);
+                    Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = JvGetterTools.getInstance()
+                            .getBeanStructTools().objectInMap(mapUuidStatus, UUID.class, JvMainChatsGlobalDefines.TypeStatusMessage.class);
                     return createTextMessageChangingStatusFromServerMessage(type, (String) loginSender,
                             (String) loginReceiver, mapStatusesMessages);
                 } else {
@@ -524,10 +524,11 @@ public class JvSerializatorDataMessages {
 
     private byte[] createTextMessageChangingStatusFromServerMessage(JvDefinesMessages.TypeMessage type,
                                                                     String loginSender, String loginReceiver,
-                                                                    Map<UUID, Integer> mapStatusMessages) {
+                                                                    Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
         Map<String, Integer> resultMap = new HashMap<>();
         for (UUID uuid : mapStatusMessages.keySet()) {
-            resultMap.put(uuid.toString(), mapStatusMessages.get(uuid));
+            int statusInt = mapStatusMessages.get(uuid).getValue();
+            resultMap.put(uuid.toString(), statusInt);
         }
 
         JvClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServer msgTextMessagesChangingStatusFromServer =
