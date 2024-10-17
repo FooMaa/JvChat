@@ -544,6 +544,4 @@ public class JvSerializatorDataMessages {
                         .build();
         return resMsg.toByteArray();
     }
-
-
 }

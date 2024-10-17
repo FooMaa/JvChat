@@ -228,8 +228,8 @@ public class JvSendMessagesCtrl {
                     Object loginSender = parameters[0];
                     Object loginReceiver = parameters[1];
                     Object mapUuidStatus = parameters[2];
-                    Map<UUID, Integer> mapStatusesMessages = JvGetterTools.getInstance()
-                            .getBeanStructTools().objectInMap(mapUuidStatus, UUID.class, Integer.class);
+                    Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = JvGetterTools.getInstance()
+                            .getBeanStructTools().objectInMap(mapUuidStatus, UUID.class, JvMainChatsGlobalDefines.TypeStatusMessage.class);
                     byte[] bodyMessage = createBodyTextMessagesChangingStatusFromServerMessage(
                             type, (String) loginSender, (String) loginReceiver, mapStatusesMessages);
                     sendReadyMessageNetwork(bodyMessage);
@@ -329,7 +329,7 @@ public class JvSendMessagesCtrl {
 
     private byte[] createBodyTextMessagesChangingStatusFromServerMessage(JvDefinesMessages.TypeMessage type,
                                                                          String loginSender, String loginReceiver,
-                                                                         Map<UUID, Integer> mapStatusMessages) {
+                                                                         Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, loginSender, loginReceiver, mapStatusMessages);
     }
 }
