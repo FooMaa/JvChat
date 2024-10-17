@@ -22,6 +22,8 @@ public class JvRectChatMainChatUI extends JPanel {
     private String lastOnlineDateTime;
     private final String nameForLabelOnline;
 
+    private boolean flagSelect;
+
     JvRectChatMainChatUI(String newNickName,
                          String newShortLastMessage,
                          String newLastMessageSender,
@@ -36,6 +38,8 @@ public class JvRectChatMainChatUI extends JPanel {
         statusOnline = JvMainChatsGlobalDefines.TypeStatusOnline.Offline;
         lastOnlineDateTime = "";
         nameForLabelOnline = "onlineLabel";
+
+        flagSelect = false;
 
         makeChatBox();
         addListenerToElements();
@@ -105,8 +109,17 @@ public class JvRectChatMainChatUI extends JPanel {
         gbc.anchor = GridBagConstraints.EAST;
         add(timeLabel, gbc);
 
-        setBackground(new Color(181,252,250));
+        setBackgroundColor();
+
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
+    }
+
+    private void setBackgroundColor() {
+        if (flagSelect) {
+            setBackground(new Color(246, 230, 125));
+        } else {
+            setBackground(new Color(181,252,250));
+        }
     }
 
     private boolean isBoldMessageByStatus() {
@@ -205,5 +218,12 @@ public class JvRectChatMainChatUI extends JPanel {
                         .setCurrentActiveLoginUI(nickName);
             }
         });
+    }
+
+    public void setFlagSelect(boolean newFlagSelect) {
+        if (flagSelect != newFlagSelect) {
+            flagSelect = newFlagSelect;
+            setBackgroundColor();
+        }
     }
 }

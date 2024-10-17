@@ -345,7 +345,7 @@ public class JvDeserializatorDataMessages {
             Map<String, JvClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServer.StatusMessage> mapStatusesMessages =
                     msgData.getMapStatusMessagesMap();
             Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> newMapStatusesMessages = new HashMap<>();
-            
+
             for (String key : mapStatusesMessages.keySet()) {
                 JvClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServer.StatusMessage statusTmp =
                         mapStatusesMessages.get(key);

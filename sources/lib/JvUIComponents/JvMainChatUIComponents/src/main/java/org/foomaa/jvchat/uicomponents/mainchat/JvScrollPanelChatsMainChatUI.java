@@ -26,10 +26,14 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
     private final int intervalMilliSecondsSleepUpdating;
     private final int intervalSecondsWaitLoopUpdate;
     private Box boxComponents;
+    private JvRectChatMainChatUI selectedElement;
 
     private JvScrollPanelChatsMainChatUI() {
         intervalMilliSecondsSleepUpdating = 30000;
         intervalSecondsWaitLoopUpdate = 5;
+
+        selectedElement = null;
+
         makePanel();
         runningThreadUpdateOnline();
     }
@@ -102,7 +106,21 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
                             chatsCtrl.getTimeHMLastMessage(login),
                             chatsCtrl.getStatusLastMessage(login));
             boxComponents.add(component);
+            connectSelectingElement(component);
         }
+    }
+
+    private void connectSelectingElement(JvRectChatMainChatUI component) {
+        component.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (selectedElement != null) {
+                    selectedElement.setFlagSelect(false);
+                }
+                component.setFlagSelect(true);
+                selectedElement = component;
+            }
+        });
     }
 
     private void setRequestChatsToServer() {
