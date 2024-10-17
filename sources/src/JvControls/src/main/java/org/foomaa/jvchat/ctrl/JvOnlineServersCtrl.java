@@ -130,6 +130,7 @@ public class JvOnlineServersCtrl {
         onlineUser.thread = (JvServersSocketThreadCtrl) threadFrom;
         onlineUser.isSending = false;
         onlineUser.dateTimeUpdating = LocalDateTime.now();
+        onlineUser.dateTimeSending = LocalDateTime.now();
         saveStatusOnline(userLogin, JvMainChatsGlobalDefines.TypeStatusOnline.Online);
     }
 

@@ -37,7 +37,7 @@ public class JvRectMessageMainChatUI extends JTextArea {
         int y1 = getSize().height - diameter - 5;
         int x2 = x1 - diameter - 1;
 
-        // Риуем кружки доставки
+        // Рисуем кружки доставки
         g2.fillOval(x1, y1, diameter, diameter);
         g2.fillOval(x2, y1, diameter, diameter);
 
@@ -81,12 +81,16 @@ public class JvRectMessageMainChatUI extends JTextArea {
     private void adjustHeight() {
         Dimension dimension = getSize();
         setSize(new Dimension(dimension.width, getPreferredSize().height));
-        revalidate();
-        repaint();
+        updateComponent();
     }
 
     private void setTextMessage() {
         setText("AAAAAAAAAAAaaaaaaAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBAAAAAAAAAAAaaaaaaAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBbbbbBB" +
                 "BBBBBBBBBBCCCCCCCCCCCCccccccBBBBBBBBBBCCCCCCCCCCCCcccccccccCCCCCCCCBBbbbbBBBBBBBBBBBBCCCCCCCCCCCCcccccccccCCCCCCCCcccCCCCCCCCBBbbbbBBBBBBBBBBBBCCCCCCCCCCCCcccccccccCCCCCCCC");
+    }
+
+    public void updateComponent() {
+        revalidate();
+        repaint();
     }
 }

@@ -339,12 +339,12 @@ public class JvTakeMessagesCtrl {
         JvGetterControls.getInstance().getBeanDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.ChatMessagesSentMessage,
                 loginSender, loginReceiver, statusString, text, uuid, timestamp);
 
-        Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> statusMessages = new HashMap<>();
-        statusMessages.put(UUID.fromString(uuid), status);
+        Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages = new HashMap<>();
+        mapStatusMessages.put(UUID.fromString(uuid), status);
 
         JvGetterControls.getInstance().getBeanSendMessagesCtrl()
                 .sendMessage(JvDefinesMessages.TypeMessage.TextMessagesChangingStatusFromServer,
-                        loginSender, loginReceiver, statusMessages);
+                        loginSender, loginReceiver, mapStatusMessages);
     }
 
     private void workTextMessagesChangingStatusFromServerMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
@@ -354,7 +354,7 @@ public class JvTakeMessagesCtrl {
         Object statusesMap = map.get(JvDefinesMessages.TypeData.MapStatusMessages);
         Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = JvGetterTools.getInstance()
                 .getBeanStructTools().objectInMap(statusesMap, UUID.class, JvMainChatsGlobalDefines.TypeStatusMessage.class);
-        System.out.println("ALO");
+
         JvGetterControls.getInstance().getBeanMessagesDialogCtrl()
                 .setDirtyStatusToMessage( loginSender, loginReceiver, mapStatusesMessages);
     }
