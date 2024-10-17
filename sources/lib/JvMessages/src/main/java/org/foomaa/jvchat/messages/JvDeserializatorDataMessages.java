@@ -342,12 +342,15 @@ public class JvDeserializatorDataMessages {
             result.put(JvDefinesMessages.TypeData.LoginSender, msgData.getLoginSender());
             result.put(JvDefinesMessages.TypeData.LoginReceiver, msgData.getLoginReceiver());
 
-            Map<String, Integer> mapStatusesMessages = msgData.getMapStatusMessagesMap();
+            Map<String, JvClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServer.StatusMessage> mapStatusesMessages =
+                    msgData.getMapStatusMessagesMap();
             Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> newMapStatusesMessages = new HashMap<>();
+            
             for (String key : mapStatusesMessages.keySet()) {
-                int integerStatus = mapStatusesMessages.get(key);
+                JvClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServer.StatusMessage statusTmp =
+                        mapStatusesMessages.get(key);
                 JvMainChatsGlobalDefines.TypeStatusMessage statusMsg =
-                        JvMainChatsGlobalDefines.TypeStatusMessage.getTypeStatusMessage(integerStatus);
+                        JvMainChatsGlobalDefines.TypeStatusMessage.getTypeStatusMessage(statusTmp.getNumber());
                 newMapStatusesMessages.put(UUID.fromString(key), statusMsg);
             }
 

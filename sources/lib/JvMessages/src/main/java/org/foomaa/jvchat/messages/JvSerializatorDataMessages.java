@@ -525,10 +525,13 @@ public class JvSerializatorDataMessages {
     private byte[] createTextMessageChangingStatusFromServerMessage(JvDefinesMessages.TypeMessage type,
                                                                     String loginSender, String loginReceiver,
                                                                     Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
-        Map<String, Integer> resultMap = new HashMap<>();
+        Map<String, JvClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServer.StatusMessage> resultMap =
+                new HashMap<>();
         for (UUID uuid : mapStatusMessages.keySet()) {
             int statusInt = mapStatusMessages.get(uuid).getValue();
-            resultMap.put(uuid.toString(), statusInt);
+            JvClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServer.StatusMessage statusMsg =
+                    JvClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServer.StatusMessage.forNumber(statusInt);
+            resultMap.put(uuid.toString(), statusMsg);
         }
 
         JvClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServer msgTextMessagesChangingStatusFromServer =
