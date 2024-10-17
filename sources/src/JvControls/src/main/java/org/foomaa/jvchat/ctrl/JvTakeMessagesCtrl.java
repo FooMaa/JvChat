@@ -9,6 +9,7 @@ import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.tools.JvGetterTools;
 
+import java.sql.SQLSyntaxErrorException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -349,11 +350,11 @@ public class JvTakeMessagesCtrl {
     private void workTextMessagesChangingStatusFromServerMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         String loginSender = (String) map.get(JvDefinesMessages.TypeData.LoginSender);
         String loginReceiver = (String) map.get(JvDefinesMessages.TypeData.LoginReceiver);
-        String uuidString = (String) map.get(JvDefinesMessages.TypeData.Uuid);
+
         Object statusesMap = map.get(JvDefinesMessages.TypeData.MapStatusMessages);
         Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = JvGetterTools.getInstance()
                 .getBeanStructTools().objectInMap(statusesMap, UUID.class, JvMainChatsGlobalDefines.TypeStatusMessage.class);
-
+        System.out.println("ALO");
         JvGetterControls.getInstance().getBeanMessagesDialogCtrl()
                 .setDirtyStatusToMessage( loginSender, loginReceiver, mapStatusesMessages);
     }

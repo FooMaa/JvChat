@@ -224,7 +224,7 @@ public class JvSendMessagesCtrl {
                 }
             }
             case TextMessagesChangingStatusFromServer -> {
-                if (parameters.length == 4) {
+                if (parameters.length == 3) {
                     Object loginSender = parameters[0];
                     Object loginReceiver = parameters[1];
                     Object mapUuidStatus = parameters[2];
