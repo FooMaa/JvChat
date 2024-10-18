@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
+import org.foomaa.jvchat.ctrl.JvChatsCtrl;
 import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.settings.JvGetterSettings;
@@ -70,9 +71,10 @@ public class JvPanelSendingMessageMainChatUI extends JPanel {
     private void updateComponentsAfterSending() {
         String selectedLogin = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().getCurrentActiveLoginUI();
         String senderLogin = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
-        String message =  JvGetterControls.getInstance().getBeanChatsCtrl().getLastMessage(selectedLogin);
-        JvMainChatsGlobalDefines.TypeStatusMessage statusMessage = JvGetterControls.getInstance().getBeanChatsCtrl().getStatusLastMessage(selectedLogin);
-        String time = JvGetterControls.getInstance().getBeanChatsCtrl().getTimeFormattedLastMessage(selectedLogin);
+        JvChatsCtrl chatsCtrl = JvGetterControls.getInstance().getBeanChatsCtrl();
+        String message =  chatsCtrl.getLastMessage(selectedLogin);
+        JvMainChatsGlobalDefines.TypeStatusMessage statusMessage = chatsCtrl.getStatusLastMessage(selectedLogin);
+        String time = chatsCtrl.getTimeFormattedLastMessage(selectedLogin);
 
         Box boxComponents = JvGetterMainChatUIComponents.getInstance().getBeanScrollPanelChatsMainChatUI().getBoxComponents();
 

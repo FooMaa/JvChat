@@ -68,8 +68,8 @@ public class JvMessagesDialogCtrl {
     }
 
     private void setLastMessageInChatCtrl(Message message) {
-        String timeFormatted =
-                JvGetterTools.getInstance().getBeanFormattedTools().formattedTimestampToStruct(message.timestamp);
+        String timeFormatted = JvGetterTools.getInstance().getBeanFormattedTools()
+                .formattedTimestampWithMilliSeconds(message.timestamp);
 
         JvGetterControls.getInstance().getBeanChatsCtrl().changeLastMessage(
                 message.text,
@@ -77,24 +77,6 @@ public class JvMessagesDialogCtrl {
                 message.loginReceiver,
                 timeFormatted,
                 message.status);
-    }
-
-    @Deprecated
-    @SuppressWarnings("unused")
-    private Message getLastMessage(String loginSender, String loginReceiver) {
-        LocalDateTime max = LocalDateTime.MIN;
-        Message lastMsg = null;
-
-        for (Message message : currentListMessages) {
-            if (Objects.equals(message.loginSender, loginSender) &&
-                    Objects.equals(message.loginReceiver, loginReceiver) &&
-                    message.timestamp.isAfter(max)) {
-                max = message.timestamp;
-                lastMsg = message;
-            }
-        }
-
-        return lastMsg;
     }
 
     private void sendNewMessage(Message message) {
