@@ -103,7 +103,7 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
                             login,
                             chatsCtrl.getLastMessage(login),
                             chatsCtrl.getLastMessageSender(login),
-                            chatsCtrl.getTimeHMLastMessage(login),
+                            chatsCtrl.getTimeFormattedLastMessage(login),
                             chatsCtrl.getStatusLastMessage(login));
             boxComponents.add(component);
             connectSelectingElement(component);
@@ -202,5 +202,9 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
             rectChatMainChatUI.setLastOnlineDateTime(lastOnlineTimeUsers.get(login));
             rectChatMainChatUI.setStatusOnline(onlineStatusesUsers.get(login));
         }
+    }
+
+    public Box getBoxComponents() {
+        return boxComponents;
     }
 }

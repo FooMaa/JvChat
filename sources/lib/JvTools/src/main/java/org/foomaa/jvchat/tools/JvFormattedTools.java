@@ -45,4 +45,9 @@ public class JvFormattedTools {
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return timestamp.format(formatter);
     }
+
+    public String formattedTimestampToStruct(LocalDateTime timestamp) {
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+        return timestamp.format(formatter);
+    }
 }

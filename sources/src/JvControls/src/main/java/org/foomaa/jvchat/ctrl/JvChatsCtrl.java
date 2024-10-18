@@ -157,7 +157,7 @@ public class JvChatsCtrl {
         return lastMessageSender;
     }
 
-    public LocalDateTime getTimestampLastMessage(String login) {
+    private LocalDateTime getTimestampLastMessage(String login) {
         if (chatsInfo.isEmpty()) {
             JvLog.write(JvLog.TypeLog.Error, "chatsInfo пуст здесь");
             return null;
@@ -181,6 +181,7 @@ public class JvChatsCtrl {
                     return null;
                 }
 
+                System.out.println(timestampString);
                 timestamp = LocalDateTime.parse(timestampString, formatter);
                 break;
             }
@@ -189,8 +190,13 @@ public class JvChatsCtrl {
         return timestamp;
     }
 
-    public String getTimeHMLastMessage(String login) {
+    public String getTimeFormattedLastMessage(String login) {
         LocalDateTime timestamp = getTimestampLastMessage(login);
+
+        if (timestamp == null) {
+            JvLog.write(JvLog.TypeLog.Error, "Здесь timestamp оказался null");
+            return "";
+        }
 
         Duration duration = Duration.between(timestamp, LocalDateTime.now());
         DateTimeFormatter formatter;
@@ -260,5 +266,23 @@ public class JvChatsCtrl {
         }
 
         return localDateTime;
+    }
+
+    public void changeLastMessage(String lastMessage,
+                                  String loginSender,
+                                  String loginReceiver,
+                                  String timeLastMessage,
+                                  JvMainChatsGlobalDefines.TypeStatusMessage statusMessage) {
+        for (Map<JvDbGlobalDefines.LineKeys, String> map : chatsInfo) {
+            String sender = map.get(JvDbGlobalDefines.LineKeys.Sender);
+            String receiver = map.get(JvDbGlobalDefines.LineKeys.Receiver);
+
+            if (Objects.equals(sender, loginSender) && Objects.equals(receiver, loginReceiver)) {
+                map.put(JvDbGlobalDefines.LineKeys.LastMessage, lastMessage);
+                map.put(JvDbGlobalDefines.LineKeys.DateTimeMessage, timeLastMessage);
+                map.put(JvDbGlobalDefines.LineKeys.StatusMessage, String.valueOf(statusMessage.getValue()));
+                break;
+            }
+        }
     }
 }

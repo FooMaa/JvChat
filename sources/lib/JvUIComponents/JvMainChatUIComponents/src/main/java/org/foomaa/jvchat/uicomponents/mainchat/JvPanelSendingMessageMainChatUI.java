@@ -1,6 +1,8 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
 import org.foomaa.jvchat.ctrl.JvGetterControls;
+import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
+import org.foomaa.jvchat.settings.JvGetterSettings;
 
 import javax.swing.*;
 import java.awt.*;
@@ -49,11 +51,39 @@ public class JvPanelSendingMessageMainChatUI extends JPanel {
 
     private void addListenerToElements() {
         sendButton.addActionListener(event -> {
-            String text = sendingTextAreaScroll.getText();
-            if (!Objects.equals(text, "")) {
-                JvGetterControls.getInstance().getBeanMessagesDialogCtrl().createAndSendMessage(text);
-                sendingTextAreaScroll.clearText();
-            }
+            processSendingMessage();
         });
+    }
+
+    private void processSendingMessage() {
+        sendMessageToServer();
+        updateComponentsAfterSending();
+    }
+
+    private void sendMessageToServer() {
+        String text = sendingTextAreaScroll.getText();
+        if (!Objects.equals(text, "")) {
+            JvGetterControls.getInstance().getBeanMessagesDialogCtrl().createAndSendMessage(text);
+        }
+    }
+
+    private void updateComponentsAfterSending() {
+        String selectedLogin = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().getCurrentActiveLoginUI();
+        String senderLogin = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
+        String message =  JvGetterControls.getInstance().getBeanChatsCtrl().getLastMessage(selectedLogin);
+        JvMainChatsGlobalDefines.TypeStatusMessage statusMessage = JvGetterControls.getInstance().getBeanChatsCtrl().getStatusLastMessage(selectedLogin);
+        String time = JvGetterControls.getInstance().getBeanChatsCtrl().getTimeFormattedLastMessage(selectedLogin);
+
+        Box boxComponents = JvGetterMainChatUIComponents.getInstance().getBeanScrollPanelChatsMainChatUI().getBoxComponents();
+
+        for (Component component : boxComponents.getComponents()) {
+            JvRectChatMainChatUI rectChatMainChatUI = (JvRectChatMainChatUI) component;
+            String login = rectChatMainChatUI.getNickName();
+            if (Objects.equals(selectedLogin, login)) {
+                rectChatMainChatUI.updateLastMessage(senderLogin, message, time, statusMessage);
+            }
+        }
+
+        sendingTextAreaScroll.clearText();
     }
 }

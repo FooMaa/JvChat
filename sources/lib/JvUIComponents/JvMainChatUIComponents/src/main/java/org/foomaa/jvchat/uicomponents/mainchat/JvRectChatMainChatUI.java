@@ -14,13 +14,15 @@ import java.util.Objects;
 
 public class JvRectChatMainChatUI extends JPanel {
     private final String nickName;
-    private final String shortLastMessage;
-    private final String lastMessageSender;
-    private final String timeLastMessage;
-    private final JvMainChatsGlobalDefines.TypeStatusMessage statusMessage;
+    private String shortLastMessage;
+    private String lastMessageSender;
+    private String timeLastMessage;
+    private JvMainChatsGlobalDefines.TypeStatusMessage statusMessage;
     private JvMainChatsGlobalDefines.TypeStatusOnline statusOnline;
     private String lastOnlineDateTime;
     private final String nameForLabelOnline;
+    private final String nameForLabelLastMessage;
+    private final String nameForLabelTimeLastMessage;
 
     private boolean flagSelect;
 
@@ -38,6 +40,8 @@ public class JvRectChatMainChatUI extends JPanel {
         statusOnline = JvMainChatsGlobalDefines.TypeStatusOnline.Offline;
         lastOnlineDateTime = "";
         nameForLabelOnline = "onlineLabel";
+        nameForLabelLastMessage = "lastMessageLabel";
+        nameForLabelTimeLastMessage = "timeLastMessageLabel";
 
         flagSelect = false;
 
@@ -85,6 +89,7 @@ public class JvRectChatMainChatUI extends JPanel {
 
         boolean isBoldMessage = isBoldMessageByStatus();
         JLabel lastMessageLabel = new JLabel(createLastMessageString());
+        lastMessageLabel.setName(nameForLabelLastMessage);
         lastMessageLabel.setFont(new Font("Times", (isBoldMessage ? Font.BOLD : Font.PLAIN),
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
 
@@ -96,8 +101,9 @@ public class JvRectChatMainChatUI extends JPanel {
         gbc.anchor = GridBagConstraints.WEST;
         add(lastMessageLabel, gbc);
 
-        JLabel timeLabel = new JLabel(timeLastMessage);
-        timeLabel.setFont(new Font("Times", (isBoldMessage ? Font.BOLD : Font.PLAIN),
+        JLabel timeLastMessageLabel = new JLabel(timeLastMessage);
+        timeLastMessageLabel.setName(nameForLabelTimeLastMessage);
+        timeLastMessageLabel.setFont(new Font("Times", (isBoldMessage ? Font.BOLD : Font.PLAIN),
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
 
         gbc.weightx = 1.0;
@@ -107,7 +113,7 @@ public class JvRectChatMainChatUI extends JPanel {
         gbc.insets = new Insets(1, 5, 1, 5);
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.EAST;
-        add(timeLabel, gbc);
+        add(timeLastMessageLabel, gbc);
 
         setBackgroundColor();
 
@@ -139,7 +145,6 @@ public class JvRectChatMainChatUI extends JPanel {
             return "Вы: " + shortLastMessage;
         }
 
-        getComponents();
         return shortLastMessage;
     }
 
@@ -163,8 +168,20 @@ public class JvRectChatMainChatUI extends JPanel {
     }
 
     private Component findComponentStatusOnline() {
+        return findComponentByName(nameForLabelOnline);
+    }
+
+    private Component findComponentLastMessage() {
+        return findComponentByName(nameForLabelLastMessage);
+    }
+
+    private Component findComponentTimeLastMessage() {
+        return findComponentByName(nameForLabelTimeLastMessage);
+    }
+
+    private Component findComponentByName(String nameComponent) {
         for (Component component : getComponents()) {
-            if (Objects.equals(component.getName(), nameForLabelOnline)) {
+            if (Objects.equals(component.getName(), nameComponent)) {
                 return component;
             }
         }
@@ -225,5 +242,24 @@ public class JvRectChatMainChatUI extends JPanel {
             flagSelect = newFlagSelect;
             setBackgroundColor();
         }
+    }
+
+    public void updateLastMessage(String sender, String message, String time, JvMainChatsGlobalDefines.TypeStatusMessage status) {
+        shortLastMessage = message;
+        timeLastMessage = time;
+        lastMessageSender = sender;
+        statusMessage = status;
+
+        JLabel labelMsg = (JLabel) findComponentLastMessage();
+        JLabel labelTime = (JLabel) findComponentTimeLastMessage();
+
+        labelMsg.setText(createLastMessageString());
+        labelTime.setText(timeLastMessage);
+
+        boolean isBoldMessage = isBoldMessageByStatus();
+        labelMsg.setFont(new Font("Times", (isBoldMessage ? Font.BOLD : Font.PLAIN),
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
+        labelTime.setFont(new Font("Times", (isBoldMessage ? Font.BOLD : Font.PLAIN),
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
     }
 }

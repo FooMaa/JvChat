@@ -42,6 +42,10 @@ public class JvMessagesDialogCtrl {
         }
     }
 
+    public String getCurrentActiveLoginUI() {
+        return currentActiveLoginUI;
+    }
+
     public void createAndSendMessage(String text) {
         if (Objects.equals(currentActiveLoginUI, "")) {
             JvLog.write(JvLog.TypeLog.Error, "Не выбран диалог, отправка не выполнена");
@@ -59,6 +63,38 @@ public class JvMessagesDialogCtrl {
 
         currentListMessages.add(message);
         sendNewMessage(message);
+
+        setLastMessageInChatCtrl(message);
+    }
+
+    private void setLastMessageInChatCtrl(Message message) {
+        String timeFormatted =
+                JvGetterTools.getInstance().getBeanFormattedTools().formattedTimestampToStruct(message.timestamp);
+
+        JvGetterControls.getInstance().getBeanChatsCtrl().changeLastMessage(
+                message.text,
+                message.loginSender,
+                message.loginReceiver,
+                timeFormatted,
+                message.status);
+    }
+
+    @Deprecated
+    @SuppressWarnings("unused")
+    private Message getLastMessage(String loginSender, String loginReceiver) {
+        LocalDateTime max = LocalDateTime.MIN;
+        Message lastMsg = null;
+
+        for (Message message : currentListMessages) {
+            if (Objects.equals(message.loginSender, loginSender) &&
+                    Objects.equals(message.loginReceiver, loginReceiver) &&
+                    message.timestamp.isAfter(max)) {
+                max = message.timestamp;
+                lastMsg = message;
+            }
+        }
+
+        return lastMsg;
     }
 
     private void sendNewMessage(Message message) {
