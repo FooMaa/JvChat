@@ -244,6 +244,11 @@ public class JvRectChatMainChatUI extends JPanel {
         }
     }
 
+    private void setBoldToLabelConditionally(JLabel label, boolean isBold) {
+        label.setFont(new Font("Times", (isBold ? Font.BOLD : Font.PLAIN),
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
+    }
+
     public void updateLastMessage(String sender, String message, String time, JvMainChatsGlobalDefines.TypeStatusMessage status) {
         shortLastMessage = message;
         timeLastMessage = time;
@@ -256,10 +261,7 @@ public class JvRectChatMainChatUI extends JPanel {
         labelMsg.setText(createLastMessageString());
         labelTime.setText(timeLastMessage);
 
-        boolean isBoldMessage = isBoldMessageByStatus();
-        labelMsg.setFont(new Font("Times", (isBoldMessage ? Font.BOLD : Font.PLAIN),
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
-        labelTime.setFont(new Font("Times", (isBoldMessage ? Font.BOLD : Font.PLAIN),
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
+        setBoldToLabelConditionally(labelMsg, isBoldMessageByStatus());
+        setBoldToLabelConditionally(labelTime, isBoldMessageByStatus());
     }
 }

@@ -361,7 +361,7 @@ $BODY$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION chat_schema.online_users_info_get_status_time_by_user_login(
     f_login character varying
 )
-    RETURNS TABLE (status int, last_online_time timestamp) AS
+    RETURNS TABLE (status_online int, last_online_time timestamp) AS
 $BODY$
 DECLARE
     rv chat_schema.online_users_info%rowtype;

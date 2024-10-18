@@ -22,7 +22,7 @@ public class JvDbGlobalDefines {
         UuidMessage("uuid_message"),
         DateTimeMessage("datetime_last_message"),
         StatusMessage("status_message"),
-        Status("status"),
+        StatusOnline("status_online"),
         LastOnlineTime("last_online_time"),
         Login("login");
 

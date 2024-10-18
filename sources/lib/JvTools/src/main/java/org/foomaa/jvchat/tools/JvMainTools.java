@@ -62,6 +62,7 @@ public class JvMainTools {
         }
     }
 
+    @SuppressWarnings("unused")
     public void setProfileSettingSpring() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
                 JvToolsSpringConfig.class);
