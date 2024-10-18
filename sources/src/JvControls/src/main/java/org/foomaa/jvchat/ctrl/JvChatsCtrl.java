@@ -181,7 +181,6 @@ public class JvChatsCtrl {
                     return null;
                 }
 
-                System.out.println(timestampString);
                 timestamp = LocalDateTime.parse(timestampString, formatter);
                 break;
             }
@@ -272,6 +271,7 @@ public class JvChatsCtrl {
                                   String loginSender,
                                   String loginReceiver,
                                   String timeLastMessage,
+                                  String uuid,
                                   JvMainChatsGlobalDefines.TypeStatusMessage statusMessage) {
         for (Map<JvDbGlobalDefines.LineKeys, String> map : chatsInfo) {
             String sender = map.get(JvDbGlobalDefines.LineKeys.Sender);
@@ -280,6 +280,7 @@ public class JvChatsCtrl {
             if (Objects.equals(sender, loginSender) && Objects.equals(receiver, loginReceiver)) {
                 map.put(JvDbGlobalDefines.LineKeys.LastMessage, lastMessage);
                 map.put(JvDbGlobalDefines.LineKeys.DateTimeMessage, timeLastMessage);
+                map.put(JvDbGlobalDefines.LineKeys.UuidMessage, uuid);
                 map.put(JvDbGlobalDefines.LineKeys.StatusMessage, String.valueOf(statusMessage.getValue()));
                 break;
             }

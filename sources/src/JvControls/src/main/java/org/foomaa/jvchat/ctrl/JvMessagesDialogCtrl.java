@@ -76,6 +76,7 @@ public class JvMessagesDialogCtrl {
                 message.loginSender,
                 message.loginReceiver,
                 timeFormatted,
+                message.uuid.toString(),
                 message.status);
     }
 
