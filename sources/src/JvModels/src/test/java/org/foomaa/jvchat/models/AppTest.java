@@ -1,4 +1,4 @@
-package org.foomaa.jvchat.ctrl;
+package org.foomaa.jvchat.models;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
