@@ -24,6 +24,7 @@
         <module>sources/lib/JvUIComponents</module>
         <module>sources/src/JvControls</module>
         <module>sources/src/JvModels</module>
+        <module>sources/src/JvStructObjects</module>
         <module>sources/lib/JvTools</module>
         <module>sources/lib/JvCryptography</module>
         <module>sources/lib/JvLogger</module>
