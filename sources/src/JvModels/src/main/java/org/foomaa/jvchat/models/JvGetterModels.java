@@ -1,5 +1,7 @@
 package org.foomaa.jvchat.models;
 
+import org.foomaa.jvchat.structobjects.JvMessageStructObject;
+import org.foomaa.jvchat.structobjects.JvStructObjectsSpringConfig;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 
@@ -8,8 +10,7 @@ public class JvGetterModels {
     private final AnnotationConfigApplicationContext context;
 
     private JvGetterModels() {
-        context = new AnnotationConfigApplicationContext(
-                JvModelsSpringConfig.class);
+        context = new AnnotationConfigApplicationContext(JvModelsSpringConfig.class);
     }
 
     public static JvGetterModels getInstance() {
@@ -19,4 +20,8 @@ public class JvGetterModels {
         return instance;
     }
 
+    public JvRootObjectsModel getBeanRootObjectsModel() {
+        return context.getBean(JvModelsSpringConfig.NameBeans.BeanRootObjectsModel.getValue(),
+                JvRootObjectsModel.class);
+    }
 }

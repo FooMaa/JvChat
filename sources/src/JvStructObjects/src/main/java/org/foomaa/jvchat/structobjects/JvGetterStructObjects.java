@@ -8,8 +8,7 @@ public class JvGetterStructObjects {
     private final AnnotationConfigApplicationContext context;
 
     private JvGetterStructObjects() {
-        context = new AnnotationConfigApplicationContext(
-                JvStructObjectsSpringConfig.class);
+        context = new AnnotationConfigApplicationContext(JvStructObjectsSpringConfig.class);
     }
 
     public static JvGetterStructObjects getInstance() {
@@ -24,4 +23,9 @@ public class JvGetterStructObjects {
                 JvMessageStructObject.class);
     }
 
+    public JvRootStructObject getBeanRootStructObject(String nameModel) {
+        return (JvRootStructObject) context.getBean(
+                JvStructObjectsSpringConfig.NameBeans.BeanRootStructObject.getValue(),
+                nameModel);
+    }
 }

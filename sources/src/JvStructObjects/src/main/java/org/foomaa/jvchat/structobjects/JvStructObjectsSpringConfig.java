@@ -6,7 +6,8 @@ import org.springframework.context.annotation.*;
 @Configuration
 public class JvStructObjectsSpringConfig {
     public enum NameBeans {
-        BeanMessageStructObject("beanMessageStructObject");
+        BeanMessageStructObject("beanMessageStructObject"),
+        BeanRootStructObject("beanRootStructObject");
 
         private final String value;
 
@@ -23,7 +24,15 @@ public class JvStructObjectsSpringConfig {
     @Lazy
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvBaseStructObject beanBaseStructObject(String text) {
+    public JvMessageStructObject beanBaseStructObject() {
         return new JvMessageStructObject();
+    }
+
+    @Bean(name = "beanRootStructObject")
+    @Lazy
+    @Scope("prototype")
+    @SuppressWarnings("unused")
+    public JvRootStructObject beanRootStructObject(String nameModel) {
+        return new JvRootStructObject(nameModel);
     }
 }
