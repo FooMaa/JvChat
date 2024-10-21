@@ -19,4 +19,9 @@ public class JvGetterStructObjects {
         return instance;
     }
 
+    public JvMessageStructObject getBeanMessageStructObject() {
+        return context.getBean(JvStructObjectsSpringConfig.NameBeans.BeanMessageStructObject.getValue(),
+                JvMessageStructObject.class);
+    }
+
 }

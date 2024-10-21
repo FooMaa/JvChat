@@ -15,7 +15,7 @@ public class JvMessageStructObject extends JvBaseStructObject {
     private String text;
     private LocalDateTime timestamp;
 
-    public JvMessageStructObject() {
+    JvMessageStructObject() {
         loginSender = null;
         loginReceiver = null;
         statusMessage = null;
