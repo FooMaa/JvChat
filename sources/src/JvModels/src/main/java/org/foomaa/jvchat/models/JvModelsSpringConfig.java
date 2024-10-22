@@ -2,7 +2,11 @@ package org.foomaa.jvchat.models;
 
 import org.springframework.context.annotation.*;
 
-
+/*NOTE(VAD): Все модели должны в конфигурации
+ * спринга иметь @Lazy анннотацию для корректности
+ * работы метода JvBaseModel.updateRootObjectsModel
+ * который служат для сохранения всех рутов моделей
+ */
 @Configuration
 public class JvModelsSpringConfig {
     public enum NameBeans {

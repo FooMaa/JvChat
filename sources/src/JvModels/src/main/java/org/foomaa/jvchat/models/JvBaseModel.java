@@ -56,7 +56,6 @@ public abstract class JvBaseModel {
         return rootObject;
     }
 
-    // NOTE(VAD): Все модели должны в конфигурации спринга иметь @Lazy анннотацию для корректности
     private void updateRootObjectsModel() {
         if (getClass() == JvRootObjectsModel.class) {
             return;
