@@ -52,7 +52,7 @@ public class JvMessageStructObject extends JvBaseStructObject {
     }
 
     public void setUuid(UUID newUuid) {
-        if (!uuid.equals(newUuid)) {
+        if (!Objects.equals(uuid, newUuid)) {
             uuid = newUuid;
             commitProperties();
         }
