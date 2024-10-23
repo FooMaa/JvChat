@@ -3,7 +3,11 @@ package org.foomaa.jvchat.ctrl;
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
+import org.foomaa.jvchat.models.JvGetterModels;
+import org.foomaa.jvchat.models.JvMessagesModel;
 import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.structobjects.JvBaseStructObject;
+import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 import org.foomaa.jvchat.tools.JvGetterTools;
 
 import java.time.LocalDateTime;
@@ -12,21 +16,10 @@ import java.util.*;
 
 public class JvMessagesDialogCtrl {
     private static JvMessagesDialogCtrl instance;
-    private final List<Message> currentListMessages;
-    private String currentActiveLoginUI; // loginReceiver
-
-    private static class Message {
-        public String loginSender;
-        public String loginReceiver;
-        public JvMainChatsGlobalDefines.TypeStatusMessage status;
-        public UUID uuid;
-        public String text;
-        public LocalDateTime timestamp;
-    }
+    private final JvMessagesModel messagesModel;
 
     private JvMessagesDialogCtrl() {
-        currentListMessages = new ArrayList<>();
-        currentActiveLoginUI = "";
+        messagesModel = JvGetterModels.getInstance().getBeanMessagesModel();
     }
 
     static JvMessagesDialogCtrl getInstance() {
@@ -37,69 +30,66 @@ public class JvMessagesDialogCtrl {
     }
 
     public void setCurrentActiveLoginUI(String newCurrentActiveLoginUI) {
-        if (!Objects.equals(currentActiveLoginUI, newCurrentActiveLoginUI)) {
-            currentActiveLoginUI = newCurrentActiveLoginUI;
-        }
+        messagesModel.setCurrentActiveLoginUI(newCurrentActiveLoginUI);
     }
 
     public String getCurrentActiveLoginUI() {
-        return currentActiveLoginUI;
+        return messagesModel.getCurrentActiveLoginUI();
     }
 
     public void createAndSendMessage(String text) {
-        if (Objects.equals(currentActiveLoginUI, "")) {
+        if (Objects.equals(messagesModel.getCurrentActiveLoginUI(), "")) {
             JvLog.write(JvLog.TypeLog.Error, "Не выбран диалог, отправка не выполнена");
             return;
         }
 
-        Message message = new Message();
+        String loginSender = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
+        String loginReceiver = messagesModel.getCurrentActiveLoginUI();
+        UUID uuid = UUID.randomUUID();
+        LocalDateTime timestamp = LocalDateTime.now();
+        JvMainChatsGlobalDefines.TypeStatusMessage status = JvMainChatsGlobalDefines.TypeStatusMessage.Sent;
 
-        message.loginSender = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
-        message.loginReceiver = currentActiveLoginUI;
-        message.uuid = UUID.randomUUID();
-        message.text = text;
-        message.timestamp = LocalDateTime.now();
-        message.status = JvMainChatsGlobalDefines.TypeStatusMessage.Sent;
+        JvMessageStructObject messageStructObject = messagesModel.createNewMessage(
+                loginSender, loginReceiver, text, status, uuid, timestamp);
 
-        currentListMessages.add(message);
-        sendNewMessage(message);
-
-        setLastMessageInChatCtrl(message);
+        sendNewMessage(messageStructObject);
+        setLastMessageInChatCtrl(messageStructObject);
     }
 
-    private void setLastMessageInChatCtrl(Message message) {
+    private void setLastMessageInChatCtrl(JvMessageStructObject message) {
         String timeFormatted = JvGetterTools.getInstance().getBeanFormattedTools()
-                .formattedTimestampWithMilliSeconds(message.timestamp);
+                .formattedTimestampWithMilliSeconds(message.getTimestamp());
 
         JvGetterControls.getInstance().getBeanChatsCtrl().changeLastMessage(
-                message.text,
-                message.loginSender,
-                message.loginReceiver,
+                message.getText(),
+                message.getLoginSender(),
+                message.getLoginReceiver(),
                 timeFormatted,
-                message.uuid.toString(),
-                message.status);
+                message.getUuid().toString(),
+                message.getStatusMessage());
     }
 
-    private void sendNewMessage(Message message) {
+    private void sendNewMessage(JvMessageStructObject message) {
         String timestampNewMessage = JvGetterTools.getInstance().getBeanFormattedTools()
-                .formattedTimestampToDB(message.timestamp);
+                .formattedTimestampToDB(message.getTimestamp());
 
         JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 JvDefinesMessages.TypeMessage.TextMessageSendUserToServer,
-                message.loginSender,
-                message.loginReceiver,
-                message.uuid.toString(),
-                message.text,
+                message.getLoginSender(),
+                message.getLoginReceiver(),
+                message.getUuid().toString(),
+                message.getText(),
                 timestampNewMessage);
     }
 
     public void setDirtyStatusToMessage(String loginSender, String loginReceiver, Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages) {
         for (UUID uuid : mapStatusesMessages.keySet()) {
-            for (Message message : currentListMessages) {
-                if (message.uuid.equals(uuid) &&
-                        Objects.equals(message.loginSender, loginSender) &&
-                        Objects.equals(message.loginReceiver, loginReceiver)) {
-                    message.status = mapStatusesMessages.get(uuid);
+            for (JvBaseStructObject messageBase : messagesModel.getRootObject().getChildren()) {
+                JvMessageStructObject message = (JvMessageStructObject) messageBase;
+                if (message.getUuid().equals(uuid) &&
+                        Objects.equals(message.getLoginSender(), loginSender) &&
+                        Objects.equals(message.getLoginReceiver(), loginReceiver)) {
+                    message.setStatusMessage(mapStatusesMessages.get(uuid));
                     System.out.println("Set Status");
                     return;
                 }

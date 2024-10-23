@@ -5,11 +5,14 @@ import org.foomaa.jvchat.structobjects.JvGetterStructObjects;
 import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 
 public class JvMessagesModel extends JvBaseModel {
     private static JvMessagesModel instance;
+
+    private String currentActiveLoginUI;
 
     private JvMessagesModel() {
         setRootObject(JvGetterStructObjects.getInstance()
@@ -23,12 +26,22 @@ public class JvMessagesModel extends JvBaseModel {
         return instance;
     }
 
-    public void createNewMessage(String loginSender,
-                                 String loginReceiver,
-                                 String text,
-                                 JvMainChatsGlobalDefines.TypeStatusMessage statusMessage,
-                                 UUID uuid,
-                                 LocalDateTime timestamp) {
+    public String getCurrentActiveLoginUI() {
+        return currentActiveLoginUI;
+    }
+
+    public void setCurrentActiveLoginUI(String newCurrentActiveLoginUI) {
+        if (!Objects.equals(currentActiveLoginUI, newCurrentActiveLoginUI)) {
+            currentActiveLoginUI = newCurrentActiveLoginUI;
+        }
+    }
+
+    public JvMessageStructObject createNewMessage(String loginSender,
+                                                  String loginReceiver,
+                                                  String text,
+                                                  JvMainChatsGlobalDefines.TypeStatusMessage statusMessage,
+                                                  UUID uuid,
+                                                  LocalDateTime timestamp) {
         JvMessageStructObject messageObj = JvGetterStructObjects.getInstance().getBeanMessageStructObject();
 
         messageObj.setLoginSender(loginSender);
@@ -39,5 +52,7 @@ public class JvMessagesModel extends JvBaseModel {
         messageObj.setTimestamp(timestamp);
 
         addItem(messageObj, getRootObject());
+
+        return messageObj;
     }
 }

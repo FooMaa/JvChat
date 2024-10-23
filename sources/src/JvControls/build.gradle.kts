@@ -10,4 +10,6 @@ dependencies {
     implementation(project(":JvGlobalDefines"))
     implementation(project(":JvTools"))
     implementation(project(":JvCryptography"))
+    implementation(project(":JvModels"))
+    implementation(project(":JvStructObjects"))
 }
