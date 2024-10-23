@@ -1,6 +1,7 @@
 package org.foomaa.jvchat.models;
 
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
+import org.foomaa.jvchat.structobjects.JvBaseStructObject;
 import org.foomaa.jvchat.structobjects.JvGetterStructObjects;
 import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 
@@ -54,5 +55,17 @@ public class JvMessagesModel extends JvBaseModel {
         addItem(messageObj, getRootObject());
 
         return messageObj;
+    }
+
+    public JvMessageStructObject findMessage(String loginSender, String loginReceiver, UUID uuid) {
+        for (JvBaseStructObject messageBase : getRootObject().getChildren()) {
+            JvMessageStructObject message = (JvMessageStructObject) messageBase;
+            if (message.getUuid().equals(uuid) &&
+                    Objects.equals(message.getLoginSender(), loginSender) &&
+                    Objects.equals(message.getLoginReceiver(), loginReceiver)) {
+                return message;
+            }
+        }
+        return null;
     }
 }

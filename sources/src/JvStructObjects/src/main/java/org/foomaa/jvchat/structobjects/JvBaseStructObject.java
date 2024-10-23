@@ -50,6 +50,8 @@ public abstract class JvBaseStructObject {
         return children;
     }
 
+    @Deprecated
+    @SuppressWarnings("unused")
     public void setChildren(List<JvBaseStructObject> newChildren) {
         if (children != newChildren) {
             children = newChildren;

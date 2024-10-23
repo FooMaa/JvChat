@@ -1,7 +1,5 @@
 package org.foomaa.jvchat.models;
 
-import org.foomaa.jvchat.structobjects.JvMessageStructObject;
-import org.foomaa.jvchat.structobjects.JvStructObjectsSpringConfig;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 

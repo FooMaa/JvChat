@@ -6,7 +6,6 @@ import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.models.JvGetterModels;
 import org.foomaa.jvchat.models.JvMessagesModel;
 import org.foomaa.jvchat.settings.JvGetterSettings;
-import org.foomaa.jvchat.structobjects.JvBaseStructObject;
 import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 import org.foomaa.jvchat.tools.JvGetterTools;
 
@@ -84,15 +83,10 @@ public class JvMessagesDialogCtrl {
 
     public void setDirtyStatusToMessage(String loginSender, String loginReceiver, Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages) {
         for (UUID uuid : mapStatusesMessages.keySet()) {
-            for (JvBaseStructObject messageBase : messagesModel.getRootObject().getChildren()) {
-                JvMessageStructObject message = (JvMessageStructObject) messageBase;
-                if (message.getUuid().equals(uuid) &&
-                        Objects.equals(message.getLoginSender(), loginSender) &&
-                        Objects.equals(message.getLoginReceiver(), loginReceiver)) {
-                    message.setStatusMessage(mapStatusesMessages.get(uuid));
-                    System.out.println("Set Status");
-                    return;
-                }
+            JvMessageStructObject message = messagesModel.findMessage(loginSender, loginReceiver, uuid);
+            if (message != null) {
+                message.setStatusMessage(mapStatusesMessages.get(uuid));
+                System.out.println("Set status msg");
             }
         }
     }

@@ -7,7 +7,7 @@ import org.foomaa.jvchat.structobjects.JvRootStructObject;
 
 public abstract class JvBaseModel {
     private JvRootStructObject rootObject;
-    private String nameModel;
+    private final String nameModel;
 
     JvBaseModel() {
         nameModel = getClass().getSimpleName();
@@ -30,9 +30,9 @@ public abstract class JvBaseModel {
     }
 
     private boolean removeItemProcess(JvBaseStructObject parent, JvBaseStructObject item) {
-        for (JvBaseStructObject child: rootObject.getChildren()) {
+        for (JvBaseStructObject child : parent.getChildren()) {
             if (child == item) {
-                rootObject.removeChild(item);
+                parent.removeChild(item);
                 return true;
             } else {
                 boolean removed = removeItemProcess(child, item);
@@ -52,7 +52,7 @@ public abstract class JvBaseModel {
         }
     }
 
-    public JvBaseStructObject getRootObject() {
+    protected JvBaseStructObject getRootObject() {
         return rootObject;
     }
 
