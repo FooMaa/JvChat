@@ -47,12 +47,18 @@ public class JvChatsCtrl {
             String lastMessageLoginSender = chatInfo.get(JvDbGlobalDefines.LineKeys.Sender);
             String lastMessageLoginReceiver = chatInfo.get(JvDbGlobalDefines.LineKeys.Receiver);
             String lastMessageText = chatInfo.get(JvDbGlobalDefines.LineKeys.LastMessage);
-            UUID uuidMessage = UUID.fromString(chatInfo.get(JvDbGlobalDefines.LineKeys.UuidMessage));
+            UUID uuidLastMessage = UUID.fromString(chatInfo.get(JvDbGlobalDefines.LineKeys.UuidMessage));
             JvMainChatsGlobalDefines.TypeStatusMessage statusMessage =
                     statusMessageStringToInt(chatInfo.get(JvDbGlobalDefines.LineKeys.StatusMessage));
-            LocalDateTime timestamp = timestampFromString(chatInfo.get(JvDbGlobalDefines.LineKeys.DateTimeMessage));
+            LocalDateTime timestampLastMessage = timestampFromString(chatInfo.get(JvDbGlobalDefines.LineKeys.DateTimeMessage));
 
-            chatsModel.createNewChat();
+            chatsModel.createNewChat(
+                    lastMessageLoginSender,
+                    lastMessageLoginReceiver,
+                    lastMessageText,
+                    uuidLastMessage,
+                    statusMessage,
+                    timestampLastMessage);
         }
     }
 

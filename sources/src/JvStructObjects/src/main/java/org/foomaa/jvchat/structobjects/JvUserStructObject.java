@@ -4,16 +4,21 @@ import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
 public class JvUserStructObject extends JvBaseStructObject {
     private String login;
     private JvMainChatsGlobalDefines.TypeStatusOnline statusOnline;
+
+    private final UUID uuid;
 
     private LocalDateTime timestampLastOnline;
 
     JvUserStructObject() {
         login = null;
         statusOnline = null;
+        uuid = UUID.randomUUID();
+
         commitProperties();
     }
 
@@ -48,5 +53,9 @@ public class JvUserStructObject extends JvBaseStructObject {
 
     public LocalDateTime getTimestampLastOnline() {
         return timestampLastOnline;
+    }
+
+    public UUID getUuid() {
+        return uuid;
     }
 }

@@ -66,7 +66,7 @@ public class JvMessageStructObject extends JvBaseStructObject {
     }
 
     public void setTimestamp(LocalDateTime newTimestamp) {
-        if (!timestamp.isEqual(newTimestamp)) {
+        if (!Objects.equals(timestamp, newTimestamp)) {
             timestamp = newTimestamp;
             commitProperties();
         }
