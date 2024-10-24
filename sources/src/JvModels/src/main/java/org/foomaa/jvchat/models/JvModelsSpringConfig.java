@@ -11,7 +11,8 @@ import org.springframework.context.annotation.*;
 public class JvModelsSpringConfig {
     public enum NameBeans {
         BeanRootObjectsModel("beanRootObjectsModel"),
-        BeanMessagesModel("beanMessagesModel");
+        BeanMessagesModel("beanMessagesModel"),
+        BeanChatsModel("beanChatsModel");
 
         private final String value;
 
@@ -37,5 +38,13 @@ public class JvModelsSpringConfig {
     @SuppressWarnings("unused")
     public JvMessagesModel beanMessagesModel() {
         return JvMessagesModel.getInstance();
+    }
+
+    @Bean(name = "beanChatsModel")
+    @Lazy
+    @Scope("singleton")
+    @SuppressWarnings("unused")
+    public JvChatsModel beanChatsModel() {
+        return JvChatsModel.getInstance();
     }
 }

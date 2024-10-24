@@ -28,4 +28,14 @@ public class JvGetterStructObjects {
                 JvStructObjectsSpringConfig.NameBeans.BeanRootStructObject.getValue(),
                 nameModel);
     }
+
+    public JvChatStructObject getBeanChatStructObject() {
+        return context.getBean(JvStructObjectsSpringConfig.NameBeans.BeanChatStructObject.getValue(),
+                JvChatStructObject.class);
+    }
+
+    public JvUserStructObject getBeanUserStructObject() {
+        return context.getBean(JvStructObjectsSpringConfig.NameBeans.BeanUserStructObject.getValue(),
+                JvUserStructObject.class);
+    }
 }

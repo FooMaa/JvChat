@@ -27,4 +27,9 @@ public class JvGetterModels {
         return context.getBean(JvModelsSpringConfig.NameBeans.BeanMessagesModel.getValue(),
                 JvMessagesModel.class);
     }
+
+    public JvChatsModel getBeanChatsModel() {
+        return context.getBean(JvModelsSpringConfig.NameBeans.BeanChatsModel.getValue(),
+                JvChatsModel.class);
+    }
 }
