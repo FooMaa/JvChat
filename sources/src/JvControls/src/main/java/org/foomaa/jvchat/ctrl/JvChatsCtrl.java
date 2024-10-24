@@ -24,7 +24,7 @@ public class JvChatsCtrl {
     private Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> onlineStatusesUsers;
     private Map<String, String> lastOnlineTimeUsers;
 
-    private JvChatsModel chatsModel;
+    private final JvChatsModel chatsModel;
 
     private JvChatsCtrl() {
         chatsModel = JvGetterModels.getInstance().getBeanChatsModel();
