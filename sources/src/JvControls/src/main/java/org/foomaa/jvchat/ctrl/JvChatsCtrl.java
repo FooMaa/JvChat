@@ -3,6 +3,8 @@ package org.foomaa.jvchat.ctrl;
 import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.models.JvChatsModel;
+import org.foomaa.jvchat.models.JvGetterModels;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.tools.JvGetterTools;
 
@@ -22,7 +24,11 @@ public class JvChatsCtrl {
     private Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> onlineStatusesUsers;
     private Map<String, String> lastOnlineTimeUsers;
 
-    private JvChatsCtrl() {}
+    private JvChatsModel chatsModel;
+
+    private JvChatsCtrl() {
+        chatsModel = JvGetterModels.getInstance().getBeanChatsModel();
+    }
 
     static JvChatsCtrl getInstance() {
         if (instance == null) {
@@ -36,6 +42,46 @@ public class JvChatsCtrl {
             chatsInfo = newChatsInfo;
         }
         System.out.println(chatsInfo);
+
+        for (Map<JvDbGlobalDefines.LineKeys, String> chatInfo : newChatsInfo) {
+            String lastMessageLoginSender = chatInfo.get(JvDbGlobalDefines.LineKeys.Sender);
+            String lastMessageLoginReceiver = chatInfo.get(JvDbGlobalDefines.LineKeys.Receiver);
+            String lastMessageText = chatInfo.get(JvDbGlobalDefines.LineKeys.LastMessage);
+            UUID uuidMessage = UUID.fromString(chatInfo.get(JvDbGlobalDefines.LineKeys.UuidMessage));
+            JvMainChatsGlobalDefines.TypeStatusMessage statusMessage =
+                    statusMessageStringToInt(chatInfo.get(JvDbGlobalDefines.LineKeys.StatusMessage));
+            LocalDateTime timestamp = timestampFromString(chatInfo.get(JvDbGlobalDefines.LineKeys.DateTimeMessage));
+
+            chatsModel.createNewChat();
+        }
+    }
+
+    private JvMainChatsGlobalDefines.TypeStatusMessage statusMessageStringToInt(String statusMessageStr) {
+        int statusMessageInt = 0;
+        try{
+            statusMessageInt = Integer.parseInt(statusMessageStr);
+        }
+        catch (NumberFormatException ex){
+            JvLog.write(JvLog.TypeLog.Error, "Тут статус не преобразовался в int");
+            return JvMainChatsGlobalDefines.TypeStatusMessage.Error;
+        }
+
+        return JvMainChatsGlobalDefines.TypeStatusMessage.getTypeStatusMessage(statusMessageInt);
+    }
+
+    private LocalDateTime timestampFromString(String timestampFromMap) {
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+
+        int normalizeCount = 3;
+        String timestampString = JvGetterTools.getInstance()
+                .getBeanFormattedTools().normalizeMillisecond(timestampFromMap, normalizeCount);
+
+        if (timestampString == null) {
+            JvLog.write(JvLog.TypeLog.Error, "Не получилось нормализовать дату и время к нужному формату");
+            return null;
+        }
+
+        return LocalDateTime.parse(timestampString, formatter);
     }
 
     public void setOnlineStatusesUsers(Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> newOnlineStatusesUsers) {
