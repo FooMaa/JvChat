@@ -97,30 +97,7 @@ public class JvChatsCtrl {
         }
     }
 
-    public Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> getOnlineStatusesUsers() {
-        List<JvUserStructObject> listUsers = chatsModel.getAllUsersObjects();
-        Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> resultMap = new HashMap<>();
-
-        for (JvUserStructObject user : listUsers) {
-            resultMap.put(user.getLogin(), user.getStatusOnline());
-        }
-
-        return resultMap;
-    }
-
-    public Map<String, String> getLastOnlineTimeUsersText() {
-        List<JvUserStructObject> listUsers = chatsModel.getAllUsersObjects();
-        Map<String, String> resultMap = new HashMap<>();
-
-        for (JvUserStructObject user : listUsers) {
-            String lastOnlineTime = createTextLastOnlineStatusTime(user.getTimestampLastOnline());
-            resultMap.put(user.getLogin(), lastOnlineTime);
-        }
-
-        return resultMap;
-    }
-
-    private String createTextLastOnlineStatusTime(LocalDateTime lastOnlineDateTime) {
+    public String getTimeFormattedLastOnline(LocalDateTime lastOnlineDateTime) {
         if (lastOnlineDateTime == null) {
             JvLog.write(JvLog.TypeLog.Warn, "Тут lastOnlineDateTime оказался null. (Может быть у тех, кто в сети)");
             return "";
@@ -155,16 +132,19 @@ public class JvChatsCtrl {
         return resultList;
     }
 
-    public Map<String, JvMessageStructObject> getMapLastMessagesByLogin() {
-        List<JvChatStructObject> chatsList = chatsModel.getAllChatsObjects();
-        Map<String, JvMessageStructObject> resultMap = new HashMap<>();
+    public List<JvChatStructObject> getChatsObjects() {
+        return chatsModel.getAllChatsObjects();
+    }
 
-        for (JvChatStructObject chat : chatsList) {
-            String loginChat = chat.getUserChat().getLogin();
-            resultMap.put(loginChat, chat.getLastMessage());
+    public JvUserStructObject getUserObjectsByLogin(String login) {
+        List<JvUserStructObject> usersList = chatsModel.getAllUsersObjects();
+
+        for (JvUserStructObject user : usersList) {
+            if (Objects.equals(user.getLogin(), login)) {
+                return user;
+            }
         }
-
-        return resultMap;
+        return null;
     }
 
     public String getTimeFormattedLastMessage(LocalDateTime timestamp) {
@@ -203,5 +183,17 @@ public class JvChatsCtrl {
                 return;
             }
         }
+    }
+
+    public JvMessageStructObject getMessageObjectByLoginChat(String loginChat) {
+        List<JvChatStructObject> chatsList = chatsModel.getAllChatsObjects();
+
+        for (JvChatStructObject chat : chatsList) {
+            if (Objects.equals(loginChat, chat.getUserChat().getLogin())) {
+                return chat.getLastMessage();
+            }
+        }
+
+        return null;
     }
 }

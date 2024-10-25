@@ -4,6 +4,8 @@ import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
+import org.foomaa.jvchat.structobjects.JvChatStructObject;
+import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,16 +28,13 @@ public class JvRectChatMainChatUI extends JPanel {
 
     private boolean flagSelect;
 
-    JvRectChatMainChatUI(String newNickName,
-                         String newShortLastMessage,
-                         String newLastMessageSender,
-                         String newTimeLastMessage,
-                         JvMainChatsGlobalDefines.TypeStatusMessage newStatusMessage) {
-        nickName = newNickName;
-        shortLastMessage = newShortLastMessage;
-        lastMessageSender = newLastMessageSender;
-        timeLastMessage = newTimeLastMessage;
-        statusMessage = newStatusMessage;
+    JvRectChatMainChatUI(JvChatStructObject chatObject) {
+        nickName = chatObject.getUserChat().getLogin();
+        shortLastMessage = chatObject.getLastMessage().getText();
+        lastMessageSender = chatObject.getLastMessage().getLoginSender();
+        timeLastMessage = JvGetterControls.getInstance().getBeanChatsCtrl()
+                .getTimeFormattedLastMessage(chatObject.getLastMessage().getTimestamp());
+        statusMessage = chatObject.getLastMessage().getStatusMessage();
 
         statusOnline = JvMainChatsGlobalDefines.TypeStatusOnline.Offline;
         lastOnlineDateTime = "";
@@ -249,11 +248,12 @@ public class JvRectChatMainChatUI extends JPanel {
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
     }
 
-    public void updateLastMessage(String sender, String message, String time, JvMainChatsGlobalDefines.TypeStatusMessage status) {
-        shortLastMessage = message;
-        timeLastMessage = time;
-        lastMessageSender = sender;
-        statusMessage = status;
+    public void updateLastMessage(JvMessageStructObject message) {
+        shortLastMessage = message.getText();
+        timeLastMessage = JvGetterControls.getInstance().getBeanChatsCtrl()
+                .getTimeFormattedLastMessage(message.getTimestamp());
+        lastMessageSender = message.getLoginSender();
+        statusMessage = message.getStatusMessage();
 
         JLabel labelMsg = (JLabel) findComponentLastMessage();
         JLabel labelTime = (JLabel) findComponentTimeLastMessage();

@@ -3,11 +3,11 @@ package org.foomaa.jvchat.uicomponents.mainchat;
 import org.foomaa.jvchat.ctrl.JvChatsCtrl;
 import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.ctrl.JvMessagesDefinesCtrl;
-import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvGetterSettings;
-import org.foomaa.jvchat.structobjects.JvMessageStructObject;
+import org.foomaa.jvchat.structobjects.JvChatStructObject;
+import org.foomaa.jvchat.structobjects.JvUserStructObject;
 
 import javax.swing.*;
 
@@ -18,7 +18,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 
@@ -95,18 +94,10 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
     private void loadChatsInBox() {
         setRequestChatsToServer();
 
-        JvChatsCtrl chatsCtrl = JvGetterControls.getInstance().getBeanChatsCtrl();
-        List<String> loginsList = getLoginsList();
-        Map<String, JvMessageStructObject> lastMessages = chatsCtrl.getMapLastMessagesByLogin();
+        List<JvChatStructObject> chatsObjects = getChatsObjects();
 
-        for (String login : loginsList) {
-            JvRectChatMainChatUI component = JvGetterMainChatUIComponents.getInstance()
-                    .getBeanRectChatMainChatUI(
-                            login,
-                            lastMessages.get(login).getText(),
-                            lastMessages.get(login).getLoginSender(),
-                            chatsCtrl.getTimeFormattedLastMessage(lastMessages.get(login).getTimestamp()),
-                            lastMessages.get(login).getStatusMessage());
+        for (JvChatStructObject chat : chatsObjects) {
+            JvRectChatMainChatUI component = JvGetterMainChatUIComponents.getInstance().getBeanRectChatMainChatUI(chat);
             boxComponents.add(component);
             connectSelectingElement(component);
         }
@@ -132,8 +123,8 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
                 JvDefinesMessages.TypeMessage.ChatsLoadRequest, login);
     }
 
-    private List<String> getLoginsList() {
-        List<String> loginsList = new ArrayList<>();
+    private List<JvChatStructObject> getChatsObjects() {
+        List<JvChatStructObject> loginsList = new ArrayList<>();
         while (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getChatsLoadReplyFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
@@ -145,7 +136,7 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
             if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getChatsLoadReplyFlag() ==
                     JvMessagesDefinesCtrl.TypeFlags.TRUE) {
                 JvChatsCtrl chatsCtrl = JvGetterControls.getInstance().getBeanChatsCtrl();
-                loginsList = chatsCtrl.getLoginsChats();
+                loginsList = chatsCtrl.getChatsObjects();
             }
         }
 
@@ -193,16 +184,14 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
     }
 
     private void installingUpdatingDataInRectChats() {
-        Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> onlineStatusesUsers =
-                JvGetterControls.getInstance().getBeanChatsCtrl().getOnlineStatusesUsers();
-        Map<String, String> lastOnlineTimeUsers =
-                JvGetterControls.getInstance().getBeanChatsCtrl().getLastOnlineTimeUsersText();
-
         for (Component component : boxComponents.getComponents()) {
             JvRectChatMainChatUI rectChatMainChatUI = (JvRectChatMainChatUI) component;
             String login = rectChatMainChatUI.getNickName();
-            rectChatMainChatUI.setLastOnlineDateTime(lastOnlineTimeUsers.get(login));
-            rectChatMainChatUI.setStatusOnline(onlineStatusesUsers.get(login));
+            JvUserStructObject user = JvGetterControls.getInstance().getBeanChatsCtrl().getUserObjectsByLogin(login);
+
+            String lastOnlineString = JvGetterControls.getInstance().getBeanChatsCtrl().getTimeFormattedLastOnline(user.getTimestampLastOnline());
+            rectChatMainChatUI.setLastOnlineDateTime(lastOnlineString);
+            rectChatMainChatUI.setStatusOnline(user.getStatusOnline());
         }
     }
 

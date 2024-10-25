@@ -1,6 +1,7 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
+import org.foomaa.jvchat.structobjects.JvChatStructObject;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 
@@ -40,17 +41,9 @@ public class JvGetterMainChatUIComponents {
                 JvRectMessageMainChatUI.class);
     }
 
-    public JvRectChatMainChatUI getBeanRectChatMainChatUI(String nickName,
-                                                          String shortLastMessage,
-                                                          String lastMessageSender,
-                                                          String timeLastMessage,
-                                                          JvMainChatsGlobalDefines.TypeStatusMessage statusMessage) {
+    public JvRectChatMainChatUI getBeanRectChatMainChatUI(JvChatStructObject chatObject) {
         return (JvRectChatMainChatUI) context.getBean(JvMainChatUIComponentsSpringConfig.NameBeans.BeanRectChatMainChatUI.getValue(),
-                nickName,
-                shortLastMessage,
-                lastMessageSender,
-                timeLastMessage,
-                statusMessage);
+                chatObject);
     }
 
     public JvSendButtonMainChatUI getBeanSendButtonMainChatUI(String text) {
