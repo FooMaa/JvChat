@@ -7,6 +7,7 @@ import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 
 import javax.swing.*;
 
@@ -96,15 +97,16 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
 
         JvChatsCtrl chatsCtrl = JvGetterControls.getInstance().getBeanChatsCtrl();
         List<String> loginsList = getLoginsList();
+        Map<String, JvMessageStructObject> lastMessages = chatsCtrl.getMapLastMessagesByLogin();
 
         for (String login : loginsList) {
             JvRectChatMainChatUI component = JvGetterMainChatUIComponents.getInstance()
                     .getBeanRectChatMainChatUI(
                             login,
-                            chatsCtrl.getLastMessage(login),
-                            chatsCtrl.getLastMessageSender(login),
-                            chatsCtrl.getTimeFormattedLastMessage(login),
-                            chatsCtrl.getStatusLastMessage(login));
+                            lastMessages.get(login).getText(),
+                            lastMessages.get(login).getLoginSender(),
+                            chatsCtrl.getTimeFormattedLastMessage(lastMessages.get(login).getTimestamp()),
+                            lastMessages.get(login).getStatusMessage());
             boxComponents.add(component);
             connectSelectingElement(component);
         }

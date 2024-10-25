@@ -272,7 +272,7 @@ public class JvTakeMessagesCtrl {
         List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo =
                 JvGetterTools.getInstance().getBeanStructTools()
                     .objectInListMaps(objectFromMap, JvDbGlobalDefines.LineKeys.class, String.class);
-        JvGetterControls.getInstance().getBeanChatsCtrl().createChatsInfo(chatsInfo);
+        JvGetterControls.getInstance().getBeanChatsCtrl().createChatsObjects(chatsInfo);
         JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
                 .setChatsLoadReplyFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
     }

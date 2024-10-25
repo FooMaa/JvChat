@@ -31,7 +31,7 @@ public class JvChatsCtrl {
         return instance;
     }
 
-    public void createChatsInfo(List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo) {
+    public void createChatsObjects(List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo) {
         for (Map<JvDbGlobalDefines.LineKeys, String> chat : chatsInfo) {
             String lastMessageLoginSender = chat.get(JvDbGlobalDefines.LineKeys.Sender);
             String lastMessageLoginReceiver = chat.get(JvDbGlobalDefines.LineKeys.Receiver);
@@ -155,61 +155,19 @@ public class JvChatsCtrl {
         return resultList;
     }
 
-    public String getLastMessage(String login) {
+    public Map<String, JvMessageStructObject> getMapLastMessagesByLogin() {
         List<JvChatStructObject> chatsList = chatsModel.getAllChatsObjects();
+        Map<String, JvMessageStructObject> resultMap = new HashMap<>();
 
         for (JvChatStructObject chat : chatsList) {
             String loginChat = chat.getUserChat().getLogin();
-            if (Objects.equals(login, loginChat)) {
-                return chat.getLastMessage().getText();
-            }
+            resultMap.put(loginChat, chat.getLastMessage());
         }
 
-        return "";
+        return resultMap;
     }
 
-    public JvMainChatsGlobalDefines.TypeStatusMessage getStatusLastMessage(String login) {
-        List<JvChatStructObject> chatsList = chatsModel.getAllChatsObjects();
-
-        for (JvChatStructObject chat : chatsList) {
-            String loginChat = chat.getUserChat().getLogin();
-            if (Objects.equals(login, loginChat)) {
-                return chat.getLastMessage().getStatusMessage();
-            }
-        }
-
-        return null;
-    }
-
-    public String getLastMessageSender(String login) {
-        List<JvChatStructObject> chatsList = chatsModel.getAllChatsObjects();
-
-        for (JvChatStructObject chat : chatsList) {
-            String loginChat = chat.getUserChat().getLogin();
-            if (Objects.equals(login, loginChat)) {
-                return chat.getLastMessage().getLoginSender();
-            }
-        }
-
-        return "";
-    }
-
-    private LocalDateTime getTimestampLastMessage(String login) {
-        List<JvChatStructObject> chatsList = chatsModel.getAllChatsObjects();
-
-        for (JvChatStructObject chat : chatsList) {
-            String loginChat = chat.getUserChat().getLogin();
-            if (Objects.equals(login, loginChat)) {
-                return chat.getLastMessage().getTimestamp();
-            }
-        }
-
-        return null;
-    }
-
-    public String getTimeFormattedLastMessage(String login) {
-        LocalDateTime timestamp = getTimestampLastMessage(login);
-
+    public String getTimeFormattedLastMessage(LocalDateTime timestamp) {
         if (timestamp == null) {
             JvLog.write(JvLog.TypeLog.Error, "Здесь timestamp оказался null");
             return "";
@@ -233,9 +191,7 @@ public class JvChatsCtrl {
         return result;
     }
 
-    public void changeLastMessage(String loginSender,
-                                  String loginReceiver,
-                                  JvMessageStructObject message) {
+    public void changeLastMessage(String loginSender, String loginReceiver, JvMessageStructObject message) {
         List<JvChatStructObject> chatsList = chatsModel.getAllChatsObjects();
 
         for (JvChatStructObject chat : chatsList) {

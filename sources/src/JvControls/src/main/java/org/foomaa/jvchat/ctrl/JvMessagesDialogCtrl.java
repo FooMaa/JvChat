@@ -57,9 +57,7 @@ public class JvMessagesDialogCtrl {
 
     private void setLastMessageInChatCtrl(JvMessageStructObject message) {
         JvGetterControls.getInstance().getBeanChatsCtrl().changeLastMessage(
-                message.getLoginSender(),
-                message.getLoginReceiver(),
-                message);
+                message.getLoginSender(), message.getLoginReceiver(), message);
     }
 
     private void sendNewMessage(JvMessageStructObject message) {

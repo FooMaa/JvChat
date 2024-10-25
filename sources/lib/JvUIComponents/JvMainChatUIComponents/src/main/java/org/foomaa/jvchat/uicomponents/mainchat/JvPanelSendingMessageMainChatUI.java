@@ -72,9 +72,11 @@ public class JvPanelSendingMessageMainChatUI extends JPanel {
         String selectedLogin = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().getCurrentActiveLoginUI();
         String senderLogin = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
         JvChatsCtrl chatsCtrl = JvGetterControls.getInstance().getBeanChatsCtrl();
-        String message =  chatsCtrl.getLastMessage(selectedLogin);
-        JvMainChatsGlobalDefines.TypeStatusMessage statusMessage = chatsCtrl.getStatusLastMessage(selectedLogin);
-        String time = chatsCtrl.getTimeFormattedLastMessage(selectedLogin);
+        String message =  chatsCtrl.getMapLastMessagesByLogin().get(selectedLogin).getText();
+        JvMainChatsGlobalDefines.TypeStatusMessage statusMessage =
+                chatsCtrl.getMapLastMessagesByLogin().get(selectedLogin).getStatusMessage();
+        String time = chatsCtrl.getTimeFormattedLastMessage(
+                chatsCtrl.getMapLastMessagesByLogin().get(selectedLogin).getTimestamp());
 
         Box boxComponents = JvGetterMainChatUIComponents.getInstance().getBeanScrollPanelChatsMainChatUI().getBoxComponents();
 
