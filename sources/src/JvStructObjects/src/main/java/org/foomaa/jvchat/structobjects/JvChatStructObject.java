@@ -3,7 +3,6 @@ package org.foomaa.jvchat.structobjects;
 
 public class JvChatStructObject extends JvBaseStructObject {
     private JvMessageStructObject lastMessage;
-
     private JvUserStructObject userChat;
 
     JvChatStructObject() {

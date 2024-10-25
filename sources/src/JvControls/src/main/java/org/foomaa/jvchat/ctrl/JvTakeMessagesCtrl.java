@@ -9,7 +9,6 @@ import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.tools.JvGetterTools;
 
-import java.sql.SQLSyntaxErrorException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -273,7 +272,7 @@ public class JvTakeMessagesCtrl {
         List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo =
                 JvGetterTools.getInstance().getBeanStructTools()
                     .objectInListMaps(objectFromMap, JvDbGlobalDefines.LineKeys.class, String.class);
-        JvGetterControls.getInstance().getBeanChatsCtrl().setChatsInfo(chatsInfo);
+        JvGetterControls.getInstance().getBeanChatsCtrl().createChatsInfo(chatsInfo);
         JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
                 .setChatsLoadReplyFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
     }

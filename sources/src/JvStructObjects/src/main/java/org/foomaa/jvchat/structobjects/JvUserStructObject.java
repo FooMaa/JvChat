@@ -9,9 +9,7 @@ import java.util.UUID;
 public class JvUserStructObject extends JvBaseStructObject {
     private String login;
     private JvMainChatsGlobalDefines.TypeStatusOnline statusOnline;
-
     private final UUID uuid;
-
     private LocalDateTime timestampLastOnline;
 
     JvUserStructObject() {
@@ -37,7 +35,7 @@ public class JvUserStructObject extends JvBaseStructObject {
     }
 
     public void setTimestampLastOnline(LocalDateTime newTimestampLastOnline) {
-        if (!timestampLastOnline.isEqual(newTimestampLastOnline)) {
+        if (!Objects.equals(timestampLastOnline, newTimestampLastOnline)) {
             timestampLastOnline = newTimestampLastOnline;
             commitProperties();
         }

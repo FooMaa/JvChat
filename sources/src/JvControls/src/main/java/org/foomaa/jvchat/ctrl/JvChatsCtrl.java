@@ -5,25 +5,19 @@ import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.models.JvChatsModel;
 import org.foomaa.jvchat.models.JvGetterModels;
-import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.structobjects.JvChatStructObject;
+import org.foomaa.jvchat.structobjects.JvMessageStructObject;
+import org.foomaa.jvchat.structobjects.JvUserStructObject;
 import org.foomaa.jvchat.tools.JvGetterTools;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.*;
 
 
 public class JvChatsCtrl {
     private static JvChatsCtrl instance;
-
-    // это структуры, которые мы получаем от сервера, так как он берет их из БД, то они String
-    // эти структуры раскручиваются при геттерах. Сетятся грязно из JvTakeMessagesCtrl
-    private List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo;
-    private Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> onlineStatusesUsers;
-    private Map<String, String> lastOnlineTimeUsers;
-
     private final JvChatsModel chatsModel;
 
     private JvChatsCtrl() {
@@ -37,20 +31,15 @@ public class JvChatsCtrl {
         return instance;
     }
 
-    public void setChatsInfo(List<Map<JvDbGlobalDefines.LineKeys, String>> newChatsInfo) {
-        if (chatsInfo != newChatsInfo) {
-            chatsInfo = newChatsInfo;
-        }
-        System.out.println(chatsInfo);
-
-        for (Map<JvDbGlobalDefines.LineKeys, String> chatInfo : newChatsInfo) {
-            String lastMessageLoginSender = chatInfo.get(JvDbGlobalDefines.LineKeys.Sender);
-            String lastMessageLoginReceiver = chatInfo.get(JvDbGlobalDefines.LineKeys.Receiver);
-            String lastMessageText = chatInfo.get(JvDbGlobalDefines.LineKeys.LastMessage);
-            UUID uuidLastMessage = UUID.fromString(chatInfo.get(JvDbGlobalDefines.LineKeys.UuidMessage));
+    public void createChatsInfo(List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo) {
+        for (Map<JvDbGlobalDefines.LineKeys, String> chat : chatsInfo) {
+            String lastMessageLoginSender = chat.get(JvDbGlobalDefines.LineKeys.Sender);
+            String lastMessageLoginReceiver = chat.get(JvDbGlobalDefines.LineKeys.Receiver);
+            String lastMessageText = chat.get(JvDbGlobalDefines.LineKeys.LastMessage);
+            UUID uuidLastMessage = UUID.fromString(chat.get(JvDbGlobalDefines.LineKeys.UuidMessage));
             JvMainChatsGlobalDefines.TypeStatusMessage statusMessage =
-                    statusMessageStringToInt(chatInfo.get(JvDbGlobalDefines.LineKeys.StatusMessage));
-            LocalDateTime timestampLastMessage = timestampFromString(chatInfo.get(JvDbGlobalDefines.LineKeys.DateTimeMessage));
+                    statusMessageStringToInt(chat.get(JvDbGlobalDefines.LineKeys.StatusMessage));
+            LocalDateTime timestampLastMessage = timestampFromString(chat.get(JvDbGlobalDefines.LineKeys.DateTimeMessage));
 
             chatsModel.createNewChat(
                     lastMessageLoginSender,
@@ -63,7 +52,7 @@ public class JvChatsCtrl {
     }
 
     private JvMainChatsGlobalDefines.TypeStatusMessage statusMessageStringToInt(String statusMessageStr) {
-        int statusMessageInt = 0;
+        int statusMessageInt;
         try{
             statusMessageInt = Integer.parseInt(statusMessageStr);
         }
@@ -75,12 +64,17 @@ public class JvChatsCtrl {
         return JvMainChatsGlobalDefines.TypeStatusMessage.getTypeStatusMessage(statusMessageInt);
     }
 
-    private LocalDateTime timestampFromString(String timestampFromMap) {
+    private LocalDateTime timestampFromString(String timestampStart) {
+        if (timestampStart == null || Objects.equals(timestampStart, "")) {
+            JvLog.write(JvLog.TypeLog.Error, "Ошибка при попытке парсинга времени последнего онлайна");
+            return null;
+        }
+
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
 
         int normalizeCount = 3;
         String timestampString = JvGetterTools.getInstance()
-                .getBeanFormattedTools().normalizeMillisecond(timestampFromMap, normalizeCount);
+                .getBeanFormattedTools().normalizeMillisecond(timestampStart, normalizeCount);
 
         if (timestampString == null) {
             JvLog.write(JvLog.TypeLog.Error, "Не получилось нормализовать дату и время к нужному формату");
@@ -90,156 +84,127 @@ public class JvChatsCtrl {
         return LocalDateTime.parse(timestampString, formatter);
     }
 
-    public void setOnlineStatusesUsers(Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> newOnlineStatusesUsers) {
-        if (onlineStatusesUsers != newOnlineStatusesUsers) {
-            onlineStatusesUsers = newOnlineStatusesUsers;
+    public void setOnlineStatusesUsers(Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> onlineStatusesUsers) {
+        for (String login : onlineStatusesUsers.keySet()) {
+            chatsModel.setOnlineStatusToUser(login, onlineStatusesUsers.get(login));
         }
     }
 
-    public void setLastOnlineTimeUsersByStrings(Map<String, String> newLastOnlineTimeUsers) {
-        if (lastOnlineTimeUsers != newLastOnlineTimeUsers) {
-            lastOnlineTimeUsers = newLastOnlineTimeUsers;
+    public void setLastOnlineTimeUsersByStrings(Map<String, String> lastOnlineTimeUsers) {
+        for (String login : lastOnlineTimeUsers.keySet()) {
+            LocalDateTime timestamp = timestampFromString(lastOnlineTimeUsers.get(login));
+            chatsModel.setTimestampLastOnlineToUser(login, timestamp);
         }
     }
 
     public Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> getOnlineStatusesUsers() {
-        return onlineStatusesUsers;
-    }
+        List<JvUserStructObject> listUsers = chatsModel.getAllUsersObjects();
+        Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> resultMap = new HashMap<>();
 
-    public Map<String, String> getLastOnlineTimeUsersText() {
-        Map<String, String> resultMap = new HashMap<>();
-
-        for (String login : lastOnlineTimeUsers.keySet()) {
-            String value = createTextLastOnlineStatusTime(lastOnlineTimeUsers.get(login));
-            resultMap.put(login, value);
+        for (JvUserStructObject user : listUsers) {
+            resultMap.put(user.getLogin(), user.getStatusOnline());
         }
 
         return resultMap;
     }
 
+    public Map<String, String> getLastOnlineTimeUsersText() {
+        List<JvUserStructObject> listUsers = chatsModel.getAllUsersObjects();
+        Map<String, String> resultMap = new HashMap<>();
+
+        for (JvUserStructObject user : listUsers) {
+            String lastOnlineTime = createTextLastOnlineStatusTime(user.getTimestampLastOnline());
+            resultMap.put(user.getLogin(), lastOnlineTime);
+        }
+
+        return resultMap;
+    }
+
+    private String createTextLastOnlineStatusTime(LocalDateTime lastOnlineDateTime) {
+        if (lastOnlineDateTime == null) {
+            JvLog.write(JvLog.TypeLog.Warn, "Тут lastOnlineDateTime оказался null. (Может быть у тех, кто в сети)");
+            return "";
+        }
+
+        String result;
+        DateTimeFormatter formatter;
+        Duration duration = Duration.between(lastOnlineDateTime, LocalDateTime.now());
+
+        if (duration.toDays() < 1) {
+            formatter = DateTimeFormatter.ofPattern("HH:mm");
+            result = "в " + lastOnlineDateTime.format(formatter);
+        } else if (duration.toDays() == 1) {
+            formatter = DateTimeFormatter.ofPattern("HH:mm");
+            result = "вчера в " + lastOnlineDateTime.format(formatter);
+        } else {
+            formatter = DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy");
+            result = lastOnlineDateTime.format(formatter);
+        }
+
+        return result;
+    }
+
     public List<String> getLoginsChats() {
-        if (chatsInfo.isEmpty()) {
-            JvLog.write(JvLog.TypeLog.Warn, "chatsInfo пуст здесь");
-            return null;
+        List<JvUserStructObject> listUsers = chatsModel.getAllUsersObjects();
+        List<String> resultList = new ArrayList<>();
+
+        for (JvUserStructObject user : listUsers) {
+            resultList.add(user.getLogin());
         }
 
-        String currentUserLogin = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
-        List<String> listLogins = new ArrayList<>();
-
-        for (Map<JvDbGlobalDefines.LineKeys, String> map : chatsInfo) {
-            String sender = map.get(JvDbGlobalDefines.LineKeys.Sender);
-            String receiver = map.get(JvDbGlobalDefines.LineKeys.Receiver);
-
-            if (Objects.equals(sender, currentUserLogin)) {
-                listLogins.add(receiver);
-            } else if (Objects.equals(receiver, currentUserLogin)) {
-                listLogins.add(sender);
-            }
-        }
-
-        return listLogins;
+        return resultList;
     }
 
     public String getLastMessage(String login) {
-        if (chatsInfo.isEmpty()) {
-            JvLog.write(JvLog.TypeLog.Error, "chatsInfo пуст здесь");
-            return null;
-        }
+        List<JvChatStructObject> chatsList = chatsModel.getAllChatsObjects();
 
-        String lastMessage = "";
-
-        for (Map<JvDbGlobalDefines.LineKeys, String> map : chatsInfo) {
-            String sender = map.get(JvDbGlobalDefines.LineKeys.Sender);
-            String receiver = map.get(JvDbGlobalDefines.LineKeys.Receiver);
-
-            if (Objects.equals(sender, login) || Objects.equals(receiver, login)) {
-                lastMessage = map.get(JvDbGlobalDefines.LineKeys.LastMessage);
-                break;
+        for (JvChatStructObject chat : chatsList) {
+            String loginChat = chat.getUserChat().getLogin();
+            if (Objects.equals(login, loginChat)) {
+                return chat.getLastMessage().getText();
             }
         }
 
-        return lastMessage;
+        return "";
     }
 
     public JvMainChatsGlobalDefines.TypeStatusMessage getStatusLastMessage(String login) {
-        if (chatsInfo.isEmpty()) {
-            JvLog.write(JvLog.TypeLog.Error, "chatsInfo пуст здесь");
-            return null;
-        }
+        List<JvChatStructObject> chatsList = chatsModel.getAllChatsObjects();
 
-        String statusMessageString = "";
-        int statusMessageInteger = -1;
-
-        for (Map<JvDbGlobalDefines.LineKeys, String> map : chatsInfo) {
-            String sender = map.get(JvDbGlobalDefines.LineKeys.Sender);
-            String receiver = map.get(JvDbGlobalDefines.LineKeys.Receiver);
-
-            if (Objects.equals(sender, login) || Objects.equals(receiver, login)) {
-                statusMessageString = map.get(JvDbGlobalDefines.LineKeys.StatusMessage);
-                break;
+        for (JvChatStructObject chat : chatsList) {
+            String loginChat = chat.getUserChat().getLogin();
+            if (Objects.equals(login, loginChat)) {
+                return chat.getLastMessage().getStatusMessage();
             }
         }
 
-        try {
-            statusMessageInteger = Integer.parseInt(statusMessageString);
-        } catch (NumberFormatException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Статус сообщения невозможно определить, из-за невозможности приведения его к типу int");
-        }
-
-        return JvMainChatsGlobalDefines.TypeStatusMessage.getTypeStatusMessage(statusMessageInteger);
+        return null;
     }
 
     public String getLastMessageSender(String login) {
-        if (chatsInfo.isEmpty()) {
-            JvLog.write(JvLog.TypeLog.Error, "chatsInfo пуст здесь");
-            return null;
-        }
+        List<JvChatStructObject> chatsList = chatsModel.getAllChatsObjects();
 
-        String lastMessageSender = "";
-
-        for (Map<JvDbGlobalDefines.LineKeys, String> map : chatsInfo) {
-            String sender = map.get(JvDbGlobalDefines.LineKeys.Sender);
-            String receiver = map.get(JvDbGlobalDefines.LineKeys.Receiver);
-
-            if (Objects.equals(sender, login) || Objects.equals(receiver, login)) {
-                lastMessageSender = map.get(JvDbGlobalDefines.LineKeys.Sender);
-                break;
+        for (JvChatStructObject chat : chatsList) {
+            String loginChat = chat.getUserChat().getLogin();
+            if (Objects.equals(login, loginChat)) {
+                return chat.getLastMessage().getLoginSender();
             }
         }
 
-        return lastMessageSender;
+        return "";
     }
 
     private LocalDateTime getTimestampLastMessage(String login) {
-        if (chatsInfo.isEmpty()) {
-            JvLog.write(JvLog.TypeLog.Error, "chatsInfo пуст здесь");
-            return null;
-        }
+        List<JvChatStructObject> chatsList = chatsModel.getAllChatsObjects();
 
-        LocalDateTime timestamp = null;
-        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
-
-        for (Map<JvDbGlobalDefines.LineKeys, String> map : chatsInfo) {
-            String sender = map.get(JvDbGlobalDefines.LineKeys.Sender);
-            String receiver = map.get(JvDbGlobalDefines.LineKeys.Receiver);
-
-            if (Objects.equals(sender, login) || Objects.equals(receiver, login)) {
-                String timestampFromMap = map.get(JvDbGlobalDefines.LineKeys.DateTimeMessage);
-                int normalizeCount = 3;
-                String timestampString = JvGetterTools.getInstance()
-                        .getBeanFormattedTools().normalizeMillisecond(timestampFromMap, normalizeCount);
-
-                if (timestampString == null) {
-                    JvLog.write(JvLog.TypeLog.Error, "Не получилось нормализовать дату и время к нужному формату");
-                    return null;
-                }
-
-                timestamp = LocalDateTime.parse(timestampString, formatter);
-                break;
+        for (JvChatStructObject chat : chatsList) {
+            String loginChat = chat.getUserChat().getLogin();
+            if (Objects.equals(login, loginChat)) {
+                return chat.getLastMessage().getTimestamp();
             }
         }
 
-        return timestamp;
+        return null;
     }
 
     public String getTimeFormattedLastMessage(String login) {
@@ -268,74 +233,18 @@ public class JvChatsCtrl {
         return result;
     }
 
-    private String createTextLastOnlineStatusTime(String lastOnlineDateTime) {
-        LocalDateTime localDateTime = getTimestampLastOnline(lastOnlineDateTime);
-        if (localDateTime == null) {
-            JvLog.write(JvLog.TypeLog.Error, "Ошибка вычисления localDateTime");
-            return "";
-        }
-
-        String result;
-        DateTimeFormatter formatter;
-        Duration duration = Duration.between(localDateTime, LocalDateTime.now());
-
-        if (duration.toDays() < 1) {
-            formatter = DateTimeFormatter.ofPattern("HH:mm");
-            result = "в " + localDateTime.format(formatter);
-        } else if (duration.toDays() == 1) {
-            formatter = DateTimeFormatter.ofPattern("HH:mm");
-            result = "вчера в " + localDateTime.format(formatter);
-        } else {
-            formatter = DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy");
-            result = localDateTime.format(formatter);
-        }
-
-        return result;
-    }
-
-    private LocalDateTime getTimestampLastOnline(String lastOnlineDateTime) {
-        if (lastOnlineDateTime == null || Objects.equals(lastOnlineDateTime, "")) {
-            JvLog.write(JvLog.TypeLog.Error, "Ошибка при попытке парсинга времени последнего онлайна");
-            return null;
-        }
-
-        int normalizeCount = 3;
-        String timestampString = JvGetterTools.getInstance()
-                .getBeanFormattedTools().normalizeMillisecond(lastOnlineDateTime, normalizeCount);
-
-        if (timestampString == null) {
-            JvLog.write(JvLog.TypeLog.Error, "Не получилось нормализовать дату и время к нужному формату");
-            return null;
-        }
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
-        LocalDateTime localDateTime;
-        try {
-            localDateTime = LocalDateTime.parse(timestampString, formatter);
-        } catch (DateTimeParseException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Ошибка при попытке парсинга времени последнего онлайна");
-            return null;
-        }
-
-        return localDateTime;
-    }
-
-    public void changeLastMessage(String lastMessage,
-                                  String loginSender,
+    public void changeLastMessage(String loginSender,
                                   String loginReceiver,
-                                  String timeLastMessage,
-                                  String uuid,
-                                  JvMainChatsGlobalDefines.TypeStatusMessage statusMessage) {
-        for (Map<JvDbGlobalDefines.LineKeys, String> map : chatsInfo) {
-            String sender = map.get(JvDbGlobalDefines.LineKeys.Sender);
-            String receiver = map.get(JvDbGlobalDefines.LineKeys.Receiver);
+                                  JvMessageStructObject message) {
+        List<JvChatStructObject> chatsList = chatsModel.getAllChatsObjects();
 
+        for (JvChatStructObject chat : chatsList) {
+            JvMessageStructObject lastMessageObj = chat.getLastMessage();
+            String sender = lastMessageObj.getLoginSender();
+            String receiver = lastMessageObj.getLoginReceiver();
             if (Objects.equals(sender, loginSender) && Objects.equals(receiver, loginReceiver)) {
-                map.put(JvDbGlobalDefines.LineKeys.LastMessage, lastMessage);
-                map.put(JvDbGlobalDefines.LineKeys.DateTimeMessage, timeLastMessage);
-                map.put(JvDbGlobalDefines.LineKeys.UuidMessage, uuid);
-                map.put(JvDbGlobalDefines.LineKeys.StatusMessage, String.valueOf(statusMessage.getValue()));
-                break;
+                chat.setLastMessage(message);
+                return;
             }
         }
     }

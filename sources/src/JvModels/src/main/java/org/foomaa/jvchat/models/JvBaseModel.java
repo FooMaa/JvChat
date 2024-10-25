@@ -45,7 +45,7 @@ public abstract class JvBaseModel {
         return false;
     }
 
-    public void setRootObject(JvRootStructObject newRootObject) {
+    protected void setRootObject(JvRootStructObject newRootObject) {
         if (rootObject != newRootObject) {
             rootObject = newRootObject;
             updateRootObjectsModel();

@@ -56,16 +56,10 @@ public class JvMessagesDialogCtrl {
     }
 
     private void setLastMessageInChatCtrl(JvMessageStructObject message) {
-        String timeFormatted = JvGetterTools.getInstance().getBeanFormattedTools()
-                .formattedTimestampWithMilliSeconds(message.getTimestamp());
-
         JvGetterControls.getInstance().getBeanChatsCtrl().changeLastMessage(
-                message.getText(),
                 message.getLoginSender(),
                 message.getLoginReceiver(),
-                timeFormatted,
-                message.getUuid().toString(),
-                message.getStatusMessage());
+                message);
     }
 
     private void sendNewMessage(JvMessageStructObject message) {

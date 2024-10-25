@@ -60,7 +60,8 @@ public class JvMessagesModel extends JvBaseModel {
     public JvMessageStructObject findMessage(String loginSender, String loginReceiver, UUID uuid) {
         for (JvBaseStructObject messageBase : getRootObject().getChildren()) {
             JvMessageStructObject message = (JvMessageStructObject) messageBase;
-            if (message.getUuid().equals(uuid) &&
+            if ( message != null &&
+                    message.getUuid().equals(uuid) &&
                     Objects.equals(message.getLoginSender(), loginSender) &&
                     Objects.equals(message.getLoginReceiver(), loginReceiver)) {
                 return message;
