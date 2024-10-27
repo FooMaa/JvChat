@@ -1,6 +1,5 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.structobjects.JvChatStructObject;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 

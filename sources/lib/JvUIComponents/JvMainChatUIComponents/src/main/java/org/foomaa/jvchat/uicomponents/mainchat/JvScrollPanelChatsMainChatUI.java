@@ -1,6 +1,5 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import org.foomaa.jvchat.ctrl.JvChatsCtrl;
 import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.ctrl.JvMessagesDefinesCtrl;
 import org.foomaa.jvchat.logger.JvLog;
@@ -135,8 +134,7 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
 
             if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getChatsLoadReplyFlag() ==
                     JvMessagesDefinesCtrl.TypeFlags.TRUE) {
-                JvChatsCtrl chatsCtrl = JvGetterControls.getInstance().getBeanChatsCtrl();
-                loginsList = chatsCtrl.getChatsObjects();
+                loginsList = JvGetterControls.getInstance().getBeanChatsCtrl().getChatsObjects();
             }
         }
 
@@ -187,9 +185,10 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
         for (Component component : boxComponents.getComponents()) {
             JvRectChatMainChatUI rectChatMainChatUI = (JvRectChatMainChatUI) component;
             String login = rectChatMainChatUI.getNickName();
-            JvUserStructObject user = JvGetterControls.getInstance().getBeanChatsCtrl().getUserObjectsByLogin(login);
 
+            JvUserStructObject user = JvGetterControls.getInstance().getBeanChatsCtrl().getUserObjectsByLogin(login);
             String lastOnlineString = JvGetterControls.getInstance().getBeanChatsCtrl().getTimeFormattedLastOnline(user.getTimestampLastOnline());
+
             rectChatMainChatUI.setLastOnlineDateTime(lastOnlineString);
             rectChatMainChatUI.setStatusOnline(user.getStatusOnline());
         }
