@@ -178,7 +178,8 @@ public class JvChatsCtrl {
             JvMessageStructObject lastMessageObj = chat.getLastMessage();
             String sender = lastMessageObj.getLoginSender();
             String receiver = lastMessageObj.getLoginReceiver();
-            if (Objects.equals(sender, loginSender) && Objects.equals(receiver, loginReceiver)) {
+            if ((Objects.equals(sender, loginSender) && Objects.equals(receiver, loginReceiver)) ||
+                    (Objects.equals(sender, loginReceiver) && Objects.equals(receiver, loginSender))) {
                 chat.setLastMessage(message);
                 return;
             }
