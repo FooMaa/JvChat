@@ -1,6 +1,5 @@
 package org.foomaa.jvchat.ctrl;
 
-import jdk.management.jfr.FlightRecorderMXBean;
 import org.foomaa.jvchat.logger.JvLog;
 
 import java.io.*;

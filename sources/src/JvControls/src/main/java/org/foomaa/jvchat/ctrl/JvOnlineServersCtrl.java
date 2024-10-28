@@ -17,7 +17,6 @@ public class JvOnlineServersCtrl {
     private final int intervalMilliSecondsAfterLastSending;
     private final int intervalMilliSecondsAfterLastUpdate;
 
-
     private static class CheckerOnline {
         public String login;
         public JvServersSocketThreadCtrl thread;

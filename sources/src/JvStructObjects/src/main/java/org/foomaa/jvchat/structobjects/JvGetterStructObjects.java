@@ -38,4 +38,9 @@ public class JvGetterStructObjects {
         return context.getBean(JvStructObjectsSpringConfig.NameBeans.BeanUserStructObject.getValue(),
                 JvUserStructObject.class);
     }
+
+    public JvCheckerOnlineStructObject getBeanCheckerOnlineStructObject() {
+        return context.getBean(JvStructObjectsSpringConfig.NameBeans.BeanCheckerOnlineStructObject.getValue(),
+                JvCheckerOnlineStructObject.class);
+    }
 }

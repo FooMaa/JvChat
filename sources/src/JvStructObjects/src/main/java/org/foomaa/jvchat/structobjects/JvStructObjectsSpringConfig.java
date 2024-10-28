@@ -9,7 +9,8 @@ public class JvStructObjectsSpringConfig {
         BeanMessageStructObject("beanMessageStructObject"),
         BeanRootStructObject("beanRootStructObject"),
         BeanChatStructObject("beanChatStructObject"),
-        BeanUserStructObject("beanUserStructObject");
+        BeanUserStructObject("beanUserStructObject"),
+        BeanCheckerOnlineStructObject("beanCheckerOnlineStructObject");
 
         private final String value;
 
@@ -52,5 +53,13 @@ public class JvStructObjectsSpringConfig {
     @SuppressWarnings("unused")
     public JvUserStructObject beanUserStructObject() {
         return new JvUserStructObject();
+    }
+
+    @Bean(name = "beanCheckerOnlineStructObject")
+    @Lazy
+    @Scope("prototype")
+    @SuppressWarnings("unused")
+    public JvCheckerOnlineStructObject beanCheckerOnlineStructObject() {
+        return new JvCheckerOnlineStructObject();
     }
 }
