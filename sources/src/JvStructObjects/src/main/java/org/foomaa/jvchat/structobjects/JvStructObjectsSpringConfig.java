@@ -10,7 +10,8 @@ public class JvStructObjectsSpringConfig {
         BeanRootStructObject("beanRootStructObject"),
         BeanChatStructObject("beanChatStructObject"),
         BeanUserStructObject("beanUserStructObject"),
-        BeanCheckerOnlineStructObject("beanCheckerOnlineStructObject");
+        BeanCheckerOnlineStructObject("beanCheckerOnlineStructObject"),
+        BeanServerConnectionThread("beanServerConnectionThread");
 
         private final String value;
 
@@ -57,6 +58,16 @@ public class JvStructObjectsSpringConfig {
 
     @Bean(name = "beanCheckerOnlineStructObject")
     @Lazy
+    @Profile("servers")
+    @Scope("prototype")
+    @SuppressWarnings("unused")
+    public JvServerConnectionThread beanServerConnectionThread() {
+        return new JvServerConnectionThread();
+    }
+
+    @Bean(name = "beanCheckerOnlineStructObject")
+    @Lazy
+    @Profile("servers")
     @Scope("prototype")
     @SuppressWarnings("unused")
     public JvCheckerOnlineStructObject beanCheckerOnlineStructObject() {

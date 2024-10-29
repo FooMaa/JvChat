@@ -6,6 +6,7 @@ import java.io.*;
 import java.net.Socket;
 
 
+// TODO(VAD) : переписать с Runnable
 public class JvServersSocketThreadCtrl extends Thread {
     private DataInputStream readFromUser;
     private DataOutputStream sendToUser;
