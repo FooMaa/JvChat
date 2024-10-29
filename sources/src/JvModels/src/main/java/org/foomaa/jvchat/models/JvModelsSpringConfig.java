@@ -12,7 +12,9 @@ public class JvModelsSpringConfig {
     public enum NameBeans {
         BeanRootObjectsModel("beanRootObjectsModel"),
         BeanMessagesModel("beanMessagesModel"),
-        BeanChatsModel("beanChatsModel");
+        BeanChatsModel("beanChatsModel"),
+        BeanServersConnectionsModel("beanServersConnectionsModel"),
+        BeanCheckersOnlineModel("beanCheckersOnlineModel");
 
         private final String value;
 
@@ -46,5 +48,21 @@ public class JvModelsSpringConfig {
     @SuppressWarnings("unused")
     public JvChatsModel beanChatsModel() {
         return JvChatsModel.getInstance();
+    }
+
+    @Bean(name = "beanServersConnectionsModel")
+    @Lazy
+    @Scope("singleton")
+    @SuppressWarnings("unused")
+    public JvServersConnectionsModel beanServersConnectionsModel() {
+        return JvServersConnectionsModel.getInstance();
+    }
+
+    @Bean(name = "beanCheckersOnlineModel")
+    @Lazy
+    @Scope("singleton")
+    @SuppressWarnings("unused")
+    public JvCheckersOnlineModel beanCheckersOnlineModel() {
+        return JvCheckersOnlineModel.getInstance();
     }
 }

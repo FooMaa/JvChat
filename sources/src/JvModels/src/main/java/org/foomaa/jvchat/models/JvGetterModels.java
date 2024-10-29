@@ -32,4 +32,14 @@ public class JvGetterModels {
         return context.getBean(JvModelsSpringConfig.NameBeans.BeanChatsModel.getValue(),
                 JvChatsModel.class);
     }
+
+    public JvServersConnectionsModel getBeanServersConnectionsModel() {
+        return context.getBean(JvModelsSpringConfig.NameBeans.BeanServersConnectionsModel.getValue(),
+                JvServersConnectionsModel.class);
+    }
+
+    public JvCheckersOnlineModel getBeanCheckersOnlineModel() {
+        return context.getBean(JvModelsSpringConfig.NameBeans.BeanCheckersOnlineModel.getValue(),
+                JvCheckersOnlineModel.class);
+    }
 }
