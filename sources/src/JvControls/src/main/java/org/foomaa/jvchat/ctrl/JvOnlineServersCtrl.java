@@ -19,7 +19,7 @@ public class JvOnlineServersCtrl {
 
     private static class CheckerOnline {
         public String login;
-        public JvServersSocketThreadCtrl thread;
+        public JvServersSocketRunnableCtrl thread;
         public boolean isSending;
         public LocalDateTime dateTimeSending;
         public LocalDateTime dateTimeUpdating;
@@ -38,7 +38,7 @@ public class JvOnlineServersCtrl {
         return instance;
     }
 
-    private boolean isThreadInListCheckerOnline(JvServersSocketThreadCtrl socketThreadCtrl) {
+    private boolean isThreadInListCheckerOnline(JvServersSocketRunnableCtrl socketThreadCtrl) {
         for (CheckerOnline checkerOnline : listCheckerOnline) {
             if (checkerOnline.thread == socketThreadCtrl) {
                 return true;
@@ -47,7 +47,7 @@ public class JvOnlineServersCtrl {
         return false;
     }
 
-    private CheckerOnline getCheckerOnlineByThread(JvServersSocketThreadCtrl socketThreadCtrl) {
+    private CheckerOnline getCheckerOnlineByThread(JvServersSocketRunnableCtrl socketThreadCtrl) {
         for (CheckerOnline checkerOnline : listCheckerOnline) {
             if (checkerOnline.thread == socketThreadCtrl) {
                 return checkerOnline;
@@ -111,8 +111,8 @@ public class JvOnlineServersCtrl {
     public void addUsersOnline(String userLogin, Thread threadFrom) {
         CheckerOnline onlineUser;
 
-        if (isThreadInListCheckerOnline((JvServersSocketThreadCtrl) threadFrom)) {
-            onlineUser = getCheckerOnlineByThread((JvServersSocketThreadCtrl) threadFrom);
+        if (isThreadInListCheckerOnline((JvServersSocketRunnableCtrl) threadFrom)) {
+            onlineUser = getCheckerOnlineByThread((JvServersSocketRunnableCtrl) threadFrom);
         } else if (isLoginInListCheckerOnline(userLogin)) {
             onlineUser = getCheckerOnlineByUserLogin(userLogin);
         } else {
@@ -126,7 +126,7 @@ public class JvOnlineServersCtrl {
         }
 
         onlineUser.login = userLogin;
-        onlineUser.thread = (JvServersSocketThreadCtrl) threadFrom;
+        onlineUser.thread = (JvServersSocketRunnableCtrl) threadFrom;
         onlineUser.isSending = false;
         onlineUser.dateTimeUpdating = LocalDateTime.now();
         onlineUser.dateTimeSending = LocalDateTime.now();
@@ -163,10 +163,10 @@ public class JvOnlineServersCtrl {
             }
         }
 
-        LinkedList<JvServersSocketThreadCtrl> connectionList = new LinkedList<>(
+        LinkedList<JvServersSocketRunnableCtrl> connectionList = new LinkedList<>(
                 JvGetterControls.getInstance().getBeanNetworkCtrl().getConnectionList());
 
-        for (JvServersSocketThreadCtrl socketThreadCtrl : connectionList) {
+        for (JvServersSocketRunnableCtrl socketThreadCtrl : connectionList) {
             preSendingTasks(socketThreadCtrl);
             JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                     JvDefinesMessages.TypeMessage.CheckOnlineUserRequest,
@@ -195,7 +195,7 @@ public class JvOnlineServersCtrl {
         updateListeningStructure();
     }
 
-    private void preSendingTasks(JvServersSocketThreadCtrl socketThreadCtrl) {
+    private void preSendingTasks(JvServersSocketRunnableCtrl socketThreadCtrl) {
         if (isThreadInListCheckerOnline(socketThreadCtrl)) {
             CheckerOnline onlineUser = getCheckerOnlineByThread(socketThreadCtrl);
             if (onlineUser == null) {

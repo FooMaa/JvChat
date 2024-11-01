@@ -18,8 +18,8 @@ public class JvControlsSpringConfig {
         BeanSendMessagesCtrl("beanSendMessagesCtrl"),
         BeanTakeMessagesCtrl("beanTakeMessagesCtrl"),
         BeanNetworkCtrl("beanNetworkCtrl"),
-        BeanServersSocketThreadCtrl("beanServersSocketThreadCtrl"),
-        BeanUsersSocketThreadCtrl("beanUsersSocketThreadCtrl"),
+        BeanServersSocketThreadCtrl("beanServersSocketRunnableCtrl"),
+        BeanSocketRunnableCtrl("beanSocketRunnableCtrl"),
         BeanChatsCtrl("beanChatsCtrl"),
         BeanMessagesDialogCtrl("beanMessagesDialogCtrl"),
         BeanOnlineServersCtrl("beanOnlineServersCtrl");
@@ -79,18 +79,19 @@ public class JvControlsSpringConfig {
         return JvNetworkCtrl.getInstance();
     }
 
-    @Bean(name = "beanServersSocketThreadCtrl")
+    @Bean(name = "beanServersSocketRunnableCtrl")
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvServersSocketThreadCtrl beanServersSocketThreadCtrl(Socket fromSocketServer) {
-        return new JvServersSocketThreadCtrl(fromSocketServer);
+    public JvServersSocketRunnableCtrl beanServersSocketRunnableCtrl(Socket fromSocketServer) {
+        return new JvServersSocketRunnableCtrl(fromSocketServer);
     }
 
-    @Bean(name = "beanUsersSocketThreadCtrl")
+    @Bean(name = "beanSocketRunnableCtrl")
+    @Lazy
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvUsersSocketThreadCtrl beanUsersSocketThreadCtrl(Socket fromSocketUser) {
-        return new JvUsersSocketThreadCtrl(fromSocketUser);
+    public JvSocketRunnableCtrl beanSocketRunnableCtrl(Socket socket) {
+        return new JvSocketRunnableCtrl(socket);
     }
 
     @Bean(name = "beanChatsCtrl")

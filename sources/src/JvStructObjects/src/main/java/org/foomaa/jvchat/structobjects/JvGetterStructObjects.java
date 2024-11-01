@@ -39,13 +39,13 @@ public class JvGetterStructObjects {
                 JvUserStructObject.class);
     }
 
-    public JvServerConnectionThread getBeanServerConnectionThread() {
-        return context.getBean(JvStructObjectsSpringConfig.NameBeans.BeanServerConnectionThread.getValue(),
-                JvServerConnectionThread.class);
-    }
-
     public JvCheckerOnlineStructObject getBeanCheckerOnlineStructObject() {
         return context.getBean(JvStructObjectsSpringConfig.NameBeans.BeanCheckerOnlineStructObject.getValue(),
                 JvCheckerOnlineStructObject.class);
+    }
+
+    public JvSocketStreamsStructObject getBeanSocketStreamsStructObject() {
+        return context.getBean(JvStructObjectsSpringConfig.NameBeans.BeanSocketStreamsStructObject.getValue(),
+                JvSocketStreamsStructObject.class);
     }
 }

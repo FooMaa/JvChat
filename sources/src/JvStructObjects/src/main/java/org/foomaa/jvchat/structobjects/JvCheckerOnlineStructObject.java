@@ -6,14 +6,12 @@ import java.util.Objects;
 
 public class JvCheckerOnlineStructObject extends JvBaseStructObject {
     private JvUserStructObject user;
-    private JvServerConnectionThread serversConnectionThread;
     private boolean isSending;
     private LocalDateTime dateTimeSending;
     private LocalDateTime dateTimeUpdating;
 
     JvCheckerOnlineStructObject() {
         user = null;
-        serversConnectionThread = null;
         isSending = false;
         dateTimeSending = null;
         dateTimeUpdating = null;
@@ -24,13 +22,6 @@ public class JvCheckerOnlineStructObject extends JvBaseStructObject {
     public void setUser(JvUserStructObject newUser) {
         if (user != newUser) {
             user = newUser;
-            commitProperties();
-        }
-    }
-
-    public void setThread(JvServerConnectionThread newServersConnectionThread) {
-        if (serversConnectionThread != newServersConnectionThread) {
-            serversConnectionThread = newServersConnectionThread;
             commitProperties();
         }
     }
@@ -58,10 +49,6 @@ public class JvCheckerOnlineStructObject extends JvBaseStructObject {
 
     public JvUserStructObject getUser() {
         return user;
-    }
-
-    public JvServerConnectionThread getThread() {
-        return serversConnectionThread;
     }
 
     public boolean getIsSending() {

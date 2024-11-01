@@ -1,7 +1,6 @@
 package org.foomaa.jvchat.models;
 
 import org.foomaa.jvchat.structobjects.JvGetterStructObjects;
-import org.foomaa.jvchat.structobjects.JvServerConnectionThread;
 
 public class JvCheckersOnlineModel extends JvBaseModel {
     private static JvCheckersOnlineModel instance;
@@ -19,7 +18,6 @@ public class JvCheckersOnlineModel extends JvBaseModel {
     }
 
     public void createNewCheckersOnline(Thread thread) {
-        JvServerConnectionThread serverConnectionThread = JvGetterStructObjects.getInstance().getBeanServerConnectionThread();
-        serverConnectionThread.setThread(thread);
+        return;
     }
 }
