@@ -154,7 +154,7 @@ public class JvOnlineServersCtrl {
     }
 
     private void listeningPackage() {
-        if (JvGetterControls.getInstance().getBeanNetworkCtrl().getConnectionList().isEmpty()) {
+        if (JvGetterControls.getInstance().getBeanNetworkCtrl().getActiveRunnableList().isEmpty()) {
             try {
                 Thread.sleep(intervalMilliSecondsAfterLastSending);
                 return;
@@ -164,7 +164,7 @@ public class JvOnlineServersCtrl {
         }
 
         LinkedList<JvServersSocketRunnableCtrl> connectionList = new LinkedList<>(
-                JvGetterControls.getInstance().getBeanNetworkCtrl().getConnectionList());
+                JvGetterControls.getInstance().getBeanNetworkCtrl().getActiveRunnableList());
 
         for (JvServersSocketRunnableCtrl socketThreadCtrl : connectionList) {
             preSendingTasks(socketThreadCtrl);

@@ -26,10 +26,10 @@ public class JvNetworkCtrl {
     private JvSocketRunnableCtrl usersSocketRunnableCtrl;
     private JvServersSocketRunnableCtrl serversThread;
 
-    private final LinkedList<JvServersSocketRunnableCtrl> connectionList;
+    private final LinkedList<JvServersSocketRunnableCtrl> activeRunnableList;
 
     private JvNetworkCtrl() {
-        connectionList = new LinkedList<>();
+        activeRunnableList = new LinkedList<>();
     }
 
     public void startNetwork() throws IOException {
@@ -48,7 +48,7 @@ public class JvNetworkCtrl {
         while (true) {
             Socket fromSocketServer = socketServer.accept();
             JvServersSocketRunnableCtrl socketRunnableCtrl = JvGetterControls.getInstance().getBeanServersSocketRunnableCtrl(fromSocketServer);
-            connectionList.add(socketRunnableCtrl);
+            activeRunnableList.add(socketRunnableCtrl);
             //Thread threadUsers = new Thread(socketRunnableCtrl);
             //threadUsers.start();
         }
@@ -113,8 +113,8 @@ public class JvNetworkCtrl {
         }
     }
 
-    public LinkedList<JvServersSocketRunnableCtrl> getConnectionList() {
-        return connectionList;
+    public LinkedList<JvServersSocketRunnableCtrl> getActiveRunnableList() {
+        return activeRunnableList;
     }
 
     @SuppressWarnings("InfiniteLoopStatement")
@@ -133,7 +133,7 @@ public class JvNetworkCtrl {
         List<JvServersSocketRunnableCtrl> serversSocketThreadCtrlListRemove = new ArrayList<>();
         int milliSecondsSleepAfterOperation = 10000;
 
-        for (JvServersSocketRunnableCtrl socketCtrl : connectionList) {
+        for (JvServersSocketRunnableCtrl socketCtrl : activeRunnableList) {
             if (socketCtrl.isErrorsExceedsLimit()) {
                 serversSocketThreadCtrlListRemove.add(socketCtrl);
             }
@@ -141,11 +141,11 @@ public class JvNetworkCtrl {
 
         for (JvServersSocketRunnableCtrl socketCtrl : serversSocketThreadCtrlListRemove) {
             JvLog.write(JvLog.TypeLog.Warn, "Производим вычистку потока, который не отвечает долгое время");
-            connectionList.remove(socketCtrl);
+            activeRunnableList.remove(socketCtrl);
         }
 
         if (!serversSocketThreadCtrlListRemove.isEmpty()) {
-            JvLog.write(JvLog.TypeLog.Warn, "Количество активных подключений после вычистки: " + connectionList.size());
+            JvLog.write(JvLog.TypeLog.Warn, "Количество активных подключений после вычистки: " + activeRunnableList.size());
         }
 
         try {
