@@ -23,7 +23,7 @@ public class JvNetworkCtrl {
     private JvServersSocket serversSocket;
     private JvUsersSocket usersSocket;
 
-    private JvSocketRunnableCtrl usersSocketRunnableCtrl;
+    private JvSocketRunnableCtrl currentSocketRunnableCtrl;
     private JvServersSocketRunnableCtrl serversThread;
 
     private final LinkedList<JvServersSocketRunnableCtrl> activeRunnableList;
@@ -55,11 +55,11 @@ public class JvNetworkCtrl {
     }
 
     private void startUsersNetwork() throws IOException {
-        usersSocketRunnableCtrl = JvGetterControls.getInstance().getBeanSocketRunnableCtrl(usersSocket.getCurrentSocket());
+        currentSocketRunnableCtrl = JvGetterControls.getInstance().getBeanSocketRunnableCtrl(usersSocket.getCurrentSocket());
         if (!usersSocket.getCurrentSocket().isConnected()) {
             throw new IOException();
         }
-        Thread threadUsers = new Thread(usersSocketRunnableCtrl);
+        Thread threadUsers = new Thread(currentSocketRunnableCtrl);
         threadUsers.start();
     }
 
@@ -102,7 +102,7 @@ public class JvNetworkCtrl {
         if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             serversThread.send(message);
         } else if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.USERS) {
-            usersSocketRunnableCtrl.send(message);
+            currentSocketRunnableCtrl.send(message);
         }
     }
 
