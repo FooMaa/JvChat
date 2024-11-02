@@ -26,9 +26,11 @@ public class JvNetworkCtrl {
     private JvSocketRunnableCtrl usersSocketRunnableCtrl;
     private JvServersSocketRunnableCtrl serversThread;
 
-    public LinkedList<JvServersSocketRunnableCtrl> connectionList = new LinkedList<>();
+    private final LinkedList<JvServersSocketRunnableCtrl> connectionList;
 
-    private JvNetworkCtrl() {}
+    private JvNetworkCtrl() {
+        connectionList = new LinkedList<>();
+    }
 
     public void startNetwork() throws IOException {
         if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
