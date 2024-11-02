@@ -13,7 +13,6 @@ public class JvSocketRunnableCtrl implements Runnable {
 
     JvSocketRunnableCtrl(Socket socket) {
         socketStreamsStructObject = JvGetterModels.getInstance().getBeanSocketStreamsModel().createSocketStreams(socket);
-        JvGetterModels.getInstance().getBeanSocketRunnableCtrlModel().createRunnableCtrl(this);
     }
 
     @Override
