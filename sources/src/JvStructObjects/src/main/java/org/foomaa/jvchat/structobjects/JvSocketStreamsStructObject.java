@@ -9,11 +9,16 @@ public class JvSocketStreamsStructObject extends JvBaseStructObject {
     private final UUID uuid;
     private DataOutputStream sendStream;
     private DataInputStream readStream;
+    private final int limitErrorsConnection;
+    private int errorsConnection;
 
     JvSocketStreamsStructObject() {
         uuid = UUID.randomUUID();
         sendStream = null;
         readStream = null;
+        errorsConnection = 0;
+        limitErrorsConnection = 3;
+
         commitProperties();
     }
 
@@ -31,6 +36,13 @@ public class JvSocketStreamsStructObject extends JvBaseStructObject {
         }
     }
 
+    public void setErrorsConnection(int newErrorsConnection) {
+        if (errorsConnection != newErrorsConnection) {
+            errorsConnection = newErrorsConnection;
+            commitProperties();
+        }
+    }
+
     public UUID getUuid() {
         return uuid;
     }
@@ -41,6 +53,10 @@ public class JvSocketStreamsStructObject extends JvBaseStructObject {
 
     public DataInputStream getReadStream() {
         return readStream;
+    }
+
+    public int getErrorsConnection() {
+        return errorsConnection;
     }
 
     public byte[] readStreamProcess() throws IOException {
@@ -59,5 +75,9 @@ public class JvSocketStreamsStructObject extends JvBaseStructObject {
         sendStream.writeInt(message.length);
         sendStream.write(message);
         sendStream.flush();
+    }
+
+    public boolean isErrorsExceedsLimit() {
+        return (errorsConnection >= limitErrorsConnection);
     }
 }
