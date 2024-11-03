@@ -9,6 +9,12 @@ import java.io.IOException;
 import java.net.Socket;
 
 
+/* NOTE(VAD): здесь так сделано, чтоб задачи сервера и пользователя
+ * решал один класс. Есть модель всех подключений JvSocketRunnableCtrlModel.
+ * Главным элементом модели является JvSocketRunnableCtrlStructObject,
+ * который содержит в себе Runnable поле. Это поле и есть объект
+ * данного класса JvSocketRunnableCtrl.
+ */
 public class JvSocketRunnableCtrl implements Runnable {
     private DataOutputStream sendStream;
     private DataInputStream readStream;
