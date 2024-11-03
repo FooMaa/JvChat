@@ -11,7 +11,7 @@ public class JvStructObjectsSpringConfig {
         BeanChatStructObject("beanChatStructObject"),
         BeanUserStructObject("beanUserStructObject"),
         BeanCheckerOnlineStructObject("beanCheckerOnlineStructObject"),
-        BeanSocketStreamsStructObject("beanSocketStreamsStructObject");
+        BeanSocketRunnableCtrlStructObject("beanSocketRunnableCtrlStructObject");
 
         private final String value;
 
@@ -65,11 +65,11 @@ public class JvStructObjectsSpringConfig {
         return new JvCheckerOnlineStructObject();
     }
 
-    @Bean(name = "beanSocketStreamsStructObject")
+    @Bean(name = "beanSocketRunnableCtrlStructObject")
     @Lazy
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvSocketStreamsStructObject beanSocketStreamsStructObject() {
-        return new JvSocketStreamsStructObject();
+    public JvSocketRunnableCtrlStructObject beanSocketRunnableCtrlStructObject() {
+        return new JvSocketRunnableCtrlStructObject();
     }
 }

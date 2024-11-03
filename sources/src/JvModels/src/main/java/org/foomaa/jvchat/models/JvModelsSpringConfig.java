@@ -14,7 +14,7 @@ public class JvModelsSpringConfig {
         BeanMessagesModel("beanMessagesModel"),
         BeanChatsModel("beanChatsModel"),
         BeanCheckersOnlineModel("beanCheckersOnlineModel"),
-        BeanSocketStreamsModel("beanSocketStreamsModel");
+        BeanSocketRunnableCtrlModel("beanSocketRunnableCtrlModel");
 
         private final String value;
 
@@ -58,11 +58,11 @@ public class JvModelsSpringConfig {
         return JvCheckersOnlineModel.getInstance();
     }
 
-    @Bean(name = "beanSocketStreamsModel")
+    @Bean(name = "beanSocketRunnableCtrlModel")
     @Lazy
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvSocketStreamsModel beanSocketStreamsModel() {
-        return JvSocketStreamsModel.getInstance();
+    public JvSocketRunnableCtrlModel beanSocketRunnableCtrlModel() {
+        return JvSocketRunnableCtrlModel.getInstance();
     }
 }

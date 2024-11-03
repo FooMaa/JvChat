@@ -44,8 +44,8 @@ public class JvGetterStructObjects {
                 JvCheckerOnlineStructObject.class);
     }
 
-    public JvSocketStreamsStructObject getBeanSocketStreamsStructObject() {
-        return context.getBean(JvStructObjectsSpringConfig.NameBeans.BeanSocketStreamsStructObject.getValue(),
-                JvSocketStreamsStructObject.class);
+    public JvSocketRunnableCtrlStructObject getBeanSocketRunnableCtrlStructObject() {
+        return context.getBean(JvStructObjectsSpringConfig.NameBeans.BeanSocketRunnableCtrlStructObject.getValue(),
+                JvSocketRunnableCtrlStructObject.class);
     }
 }

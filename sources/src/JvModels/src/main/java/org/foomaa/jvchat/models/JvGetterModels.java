@@ -38,8 +38,8 @@ public class JvGetterModels {
                 JvCheckersOnlineModel.class);
     }
 
-    public JvSocketStreamsModel getBeanSocketStreamsModel() {
-        return context.getBean(JvModelsSpringConfig.NameBeans.BeanSocketStreamsModel.getValue(),
-                JvSocketStreamsModel.class);
+    public JvSocketRunnableCtrlModel getBeanSocketRunnableCtrlModel() {
+        return context.getBean(JvModelsSpringConfig.NameBeans.BeanSocketRunnableCtrlModel.getValue(),
+                JvSocketRunnableCtrlModel.class);
     }
 }
