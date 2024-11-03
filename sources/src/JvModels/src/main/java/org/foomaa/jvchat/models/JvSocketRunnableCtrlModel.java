@@ -23,15 +23,14 @@ public class JvSocketRunnableCtrlModel extends JvBaseModel {
         return instance;
     }
 
-    public void createSocketStreams(Runnable socketRunnableCtrl) {
+    public void createSocketRunnableCtrlStructObject(Runnable socketRunnableCtrl) {
         JvSocketRunnableCtrlStructObject socketStreamsStructObject =
                 JvGetterStructObjects.getInstance().getBeanSocketRunnableCtrlStructObject();
-
         socketStreamsStructObject.setSocketRunnableCtrl(socketRunnableCtrl);
         addItem(socketStreamsStructObject, getRootObject());
     }
 
-    public List<JvSocketRunnableCtrlStructObject> getAllSocketStreams() {
+    public List<JvSocketRunnableCtrlStructObject> getAllSocketRunnableCtrlStructObject() {
         List<JvSocketRunnableCtrlStructObject> resultList = new ArrayList<>();
 
         for (JvBaseStructObject baseStructObject : getRootObject().getChildren()) {
@@ -40,5 +39,13 @@ public class JvSocketRunnableCtrlModel extends JvBaseModel {
         }
 
         return resultList;
+    }
+
+    public int getCountConnections() {
+        return getRootObject().getChildren().size();
+    }
+
+    public boolean isEmpty() {
+        return getRootObject().getChildren().isEmpty();
     }
 }

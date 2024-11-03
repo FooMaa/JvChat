@@ -19,7 +19,7 @@ import java.util.UUID;
 public class JvTakeMessagesCtrl {
     private static JvTakeMessagesCtrl instance;
 
-    private Thread threadFrom;
+    private Runnable runnableCtrlFrom;
 
     private JvTakeMessagesCtrl() {}
 
@@ -54,21 +54,21 @@ public class JvTakeMessagesCtrl {
             case TextMessageSendUserToServer -> workTextMessageSendUserToServerMessage(getDeserializeMapData(type, data));
             case TextMessagesChangingStatusFromServer -> workTextMessagesChangingStatusFromServerMessage(getDeserializeMapData(type, data));
         }
-        clearThreadFromConnection();
+        clearRunnableCtrlFromConnection();
     }
 
     private HashMap<JvDefinesMessages.TypeData, ?> getDeserializeMapData(JvDefinesMessages.TypeMessage type, byte[] data) {
         return JvGetterMessages.getInstance().getBeanDeserializatorDataMessages().deserializeData(type, data);
     }
 
-    public void setThreadFromConnection(Thread thread) {
-        if (threadFrom != thread) {
-            threadFrom = thread;
+    public void setRunnableCtrlFromConnection(Runnable runnable) {
+        if (runnableCtrlFrom != runnable) {
+            runnableCtrlFrom = runnable;
         }
     }
 
-    private void clearThreadFromConnection() {
-        threadFrom = null;
+    private void clearRunnableCtrlFromConnection() {
+        runnableCtrlFrom = null;
     }
 
     private void workEntryRequestMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
@@ -293,7 +293,7 @@ public class JvTakeMessagesCtrl {
 
     private void workCheckOnlineUserReplyMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         String login = (String) map.get(JvDefinesMessages.TypeData.Login);
-        JvGetterControls.getInstance().getBeanOnlineServersCtrl().addUsersOnline(login, threadFrom);
+        JvGetterControls.getInstance().getBeanOnlineServersCtrl().addUsersOnline(login, runnableCtrlFrom);
     }
 
     private void workLoadUsersOnlineStatusRequestMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {

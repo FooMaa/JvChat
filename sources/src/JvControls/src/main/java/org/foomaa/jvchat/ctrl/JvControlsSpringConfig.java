@@ -18,7 +18,6 @@ public class JvControlsSpringConfig {
         BeanSendMessagesCtrl("beanSendMessagesCtrl"),
         BeanTakeMessagesCtrl("beanTakeMessagesCtrl"),
         BeanNetworkCtrl("beanNetworkCtrl"),
-        BeanServersSocketThreadCtrl("beanServersSocketRunnableCtrl"),
         BeanSocketRunnableCtrl("beanSocketRunnableCtrl"),
         BeanChatsCtrl("beanChatsCtrl"),
         BeanMessagesDialogCtrl("beanMessagesDialogCtrl"),
@@ -77,13 +76,6 @@ public class JvControlsSpringConfig {
     @SuppressWarnings("unused")
     public JvNetworkCtrl beanNetworkCtrl() {
         return JvNetworkCtrl.getInstance();
-    }
-
-    @Bean(name = "beanServersSocketRunnableCtrl")
-    @Scope("prototype")
-    @SuppressWarnings("unused")
-    public JvServersSocketRunnableCtrl beanServersSocketRunnableCtrl(Socket fromSocketServer) {
-        return new JvServersSocketRunnableCtrl(fromSocketServer);
     }
 
     @Bean(name = "beanSocketRunnableCtrl")

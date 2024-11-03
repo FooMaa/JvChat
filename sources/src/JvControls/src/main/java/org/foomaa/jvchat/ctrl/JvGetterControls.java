@@ -61,12 +61,6 @@ public class JvGetterControls {
         return null;
     }
 
-    public JvServersSocketRunnableCtrl getBeanServersSocketRunnableCtrl(Socket fromSocketServer) {
-        return (JvServersSocketRunnableCtrl) context.getBean(
-                JvControlsSpringConfig.NameBeans.BeanServersSocketThreadCtrl.getValue(),
-                fromSocketServer);
-    }
-
     public JvSocketRunnableCtrl getBeanSocketRunnableCtrl(Socket socket) {
         return (JvSocketRunnableCtrl) context.getBean(JvControlsSpringConfig.NameBeans.BeanSocketRunnableCtrl.getValue(),
                 socket);

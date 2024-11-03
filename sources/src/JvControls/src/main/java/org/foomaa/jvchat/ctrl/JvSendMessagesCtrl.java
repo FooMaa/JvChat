@@ -178,7 +178,7 @@ public class JvSendMessagesCtrl {
                     Object ip = parameters[0];
                     Object thr = parameters[1];
                     byte[] bodyMessage = createBodyCheckOnlineUserRequestMessage(type, (String) ip);
-                    sendReadyMessageNetwork(bodyMessage, (Thread) thr);
+                    sendReadyMessageNetwork(bodyMessage, (Runnable) thr);
                 }
             }
             case CheckOnlineUserReply -> {
@@ -242,8 +242,8 @@ public class JvSendMessagesCtrl {
         JvGetterControls.getInstance().getBeanNetworkCtrl().sendMessage(bodyMessage);
     }
 
-    private void sendReadyMessageNetwork(byte[] bodyMessage, Thread thread) {
-        JvGetterControls.getInstance().getBeanNetworkCtrl().sendMessageByThread(bodyMessage, thread);
+    private void sendReadyMessageNetwork(byte[] bodyMessage, Runnable runnable) {
+        JvGetterControls.getInstance().getBeanNetworkCtrl().sendMessageByThread(bodyMessage, runnable);
     }
 
     private byte[] createBodyEntryRequestMessage(JvDefinesMessages.TypeMessage type, String login, String password) {

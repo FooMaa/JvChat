@@ -1,10 +1,13 @@
 package org.foomaa.jvchat.ctrl;
 
 import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.models.JvGetterModels;
+import org.foomaa.jvchat.models.JvSocketRunnableCtrlModel;
 import org.foomaa.jvchat.network.JvUsersSocket;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.settings.JvMainSettings;
 import org.foomaa.jvchat.network.JvServersSocket;
+import org.foomaa.jvchat.structobjects.JvSocketRunnableCtrlStructObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
@@ -12,25 +15,16 @@ import org.springframework.context.annotation.Profile;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 
 public class JvNetworkCtrl {
     private static JvNetworkCtrl instance;
-
     private JvServersSocket serversSocket;
     private JvUsersSocket usersSocket;
-
     private JvSocketRunnableCtrl currentSocketRunnableCtrl;
-    private JvServersSocketRunnableCtrl serversThread;
 
-    private final LinkedList<JvServersSocketRunnableCtrl> activeRunnableList;
-
-    private JvNetworkCtrl() {
-        activeRunnableList = new LinkedList<>();
-    }
+    private JvNetworkCtrl() {}
 
     public void startNetwork() throws IOException {
         if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
@@ -47,10 +41,10 @@ public class JvNetworkCtrl {
         runningThreadControlSockets();
         while (true) {
             Socket fromSocketServer = socketServer.accept();
-            JvServersSocketRunnableCtrl socketRunnableCtrl = JvGetterControls.getInstance().getBeanServersSocketRunnableCtrl(fromSocketServer);
-            activeRunnableList.add(socketRunnableCtrl);
-            //Thread threadUsers = new Thread(socketRunnableCtrl);
-            //threadUsers.start();
+            JvSocketRunnableCtrl socketRunnableCtrl =
+                    JvGetterControls.getInstance().getBeanSocketRunnableCtrl(fromSocketServer);
+            Thread threadServers = new Thread(socketRunnableCtrl);
+            threadServers.start();
         }
     }
 
@@ -90,31 +84,23 @@ public class JvNetworkCtrl {
         return instance;
     }
 
-    public void takeMessage(byte[] message, Thread thr) {
+    public void takeMessage(byte[] message, JvSocketRunnableCtrl runnableCtrl) {
         if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
-            serversThread = (JvServersSocketRunnableCtrl) thr;
-            JvGetterControls.getInstance().getBeanTakeMessagesCtrl().setThreadFromConnection(serversThread);
+            currentSocketRunnableCtrl = runnableCtrl;
+            JvGetterControls.getInstance().getBeanTakeMessagesCtrl().setRunnableCtrlFromConnection(currentSocketRunnableCtrl);
         }
         JvGetterControls.getInstance().getBeanTakeMessagesCtrl().takeMessage(message);
     }
 
     public void sendMessage(byte[] message) {
-        if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
-            serversThread.send(message);
-        } else if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.USERS) {
-            currentSocketRunnableCtrl.send(message);
-        }
+        currentSocketRunnableCtrl.send(message);
     }
 
-    public void sendMessageByThread(byte[] message, Thread thread) {
+    public void sendMessageByThread(byte[] message, Runnable runnable) {
         if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
-            JvServersSocketRunnableCtrl srvThr = (JvServersSocketRunnableCtrl) thread;
-            srvThr.send(message);
+            JvSocketRunnableCtrl srvRunnable = (JvSocketRunnableCtrl) runnable;
+            srvRunnable.send(message);
         }
-    }
-
-    public LinkedList<JvServersSocketRunnableCtrl> getActiveRunnableList() {
-        return activeRunnableList;
     }
 
     @SuppressWarnings("InfiniteLoopStatement")
@@ -130,22 +116,18 @@ public class JvNetworkCtrl {
     }
 
     private void controlErrorThreadSocket() {
-        List<JvServersSocketRunnableCtrl> serversSocketThreadCtrlListRemove = new ArrayList<>();
+        JvSocketRunnableCtrlModel socketRunnableCtrlModel = JvGetterModels.getInstance().getBeanSocketRunnableCtrlModel();
+        List<JvSocketRunnableCtrlStructObject> listAllConnections = socketRunnableCtrlModel.getAllSocketRunnableCtrlStructObject();
         int milliSecondsSleepAfterOperation = 10000;
 
-        for (JvServersSocketRunnableCtrl socketCtrl : activeRunnableList) {
-            if (socketCtrl.isErrorsExceedsLimit()) {
-                serversSocketThreadCtrlListRemove.add(socketCtrl);
+        for (JvSocketRunnableCtrlStructObject socketCtrl : listAllConnections) {
+            JvSocketRunnableCtrl socketRunnableCtrl = (JvSocketRunnableCtrl) socketCtrl.getSocketRunnableCtrl();
+            if (socketRunnableCtrl != null && socketRunnableCtrl.isErrorsExceedsLimit()) {
+                JvLog.write(JvLog.TypeLog.Warn, "Производим вычистку потока, который не отвечает долгое время");
+                socketRunnableCtrlModel.removeItem(socketCtrl);
+                JvLog.write(JvLog.TypeLog.Warn, "Количество активных подключений после вычистки: "
+                        + socketRunnableCtrlModel.getCountConnections());
             }
-        }
-
-        for (JvServersSocketRunnableCtrl socketCtrl : serversSocketThreadCtrlListRemove) {
-            JvLog.write(JvLog.TypeLog.Warn, "Производим вычистку потока, который не отвечает долгое время");
-            activeRunnableList.remove(socketCtrl);
-        }
-
-        if (!serversSocketThreadCtrlListRemove.isEmpty()) {
-            JvLog.write(JvLog.TypeLog.Warn, "Количество активных подключений после вычистки: " + activeRunnableList.size());
         }
 
         try {

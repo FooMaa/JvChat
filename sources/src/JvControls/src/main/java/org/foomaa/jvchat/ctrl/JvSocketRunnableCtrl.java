@@ -16,7 +16,7 @@ public class JvSocketRunnableCtrl implements Runnable {
     private int errorsConnection;
 
     JvSocketRunnableCtrl(Socket socket) {
-        JvGetterModels.getInstance().getBeanSocketRunnableCtrlModel().createSocketStreams(this);
+        JvGetterModels.getInstance().getBeanSocketRunnableCtrlModel().createSocketRunnableCtrlStructObject(this);
 
         try {
             sendStream = new DataOutputStream(socket.getOutputStream());
@@ -38,7 +38,7 @@ public class JvSocketRunnableCtrl implements Runnable {
                 if (length > 0) {
                     byte[] message = new byte[length];
                     readStream.readFully(message, 0, message.length);
-                    JvGetterControls.getInstance().getBeanNetworkCtrl().takeMessage(message, Thread.currentThread());
+                    JvGetterControls.getInstance().getBeanNetworkCtrl().takeMessage(message, this);
                 }
             }
         } catch (IOException exception) {
