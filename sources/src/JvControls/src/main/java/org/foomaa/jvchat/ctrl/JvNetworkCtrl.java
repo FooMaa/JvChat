@@ -38,7 +38,7 @@ public class JvNetworkCtrl {
     private void startServersNetwork() throws IOException {
         ServerSocket socketServer = serversSocket.getSocketServers();
         JvGetterControls.getInstance().getBeanOnlineServersCtrl().loadDataOnlineUsers();
-        runningThreadControlSockets();
+        runningErrorsControlSockets();
         while (true) {
             Socket fromSocketServer = socketServer.accept();
             JvSocketRunnableCtrl socketRunnableCtrl =
@@ -96,7 +96,7 @@ public class JvNetworkCtrl {
         currentSocketRunnableCtrl.send(message);
     }
 
-    public void sendMessageByThread(byte[] message, Runnable runnable) {
+    public void sendMessageByRunnableCtrl(byte[] message, Runnable runnable) {
         if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             JvSocketRunnableCtrl srvRunnable = (JvSocketRunnableCtrl) runnable;
             srvRunnable.send(message);
@@ -104,10 +104,10 @@ public class JvNetworkCtrl {
     }
 
     @SuppressWarnings("InfiniteLoopStatement")
-    private void runningThreadControlSockets() {
+    private void runningErrorsControlSockets() {
         Runnable listenErrorSocket = () -> {
             while (true) {
-                controlErrorThreadSocket();
+                controlErrorConnectionSocket();
             }
         };
 
@@ -115,9 +115,10 @@ public class JvNetworkCtrl {
         thread.start();
     }
 
-    private void controlErrorThreadSocket() {
+    private void controlErrorConnectionSocket() {
         JvSocketRunnableCtrlModel socketRunnableCtrlModel = JvGetterModels.getInstance().getBeanSocketRunnableCtrlModel();
         List<JvSocketRunnableCtrlStructObject> listAllConnections = socketRunnableCtrlModel.getAllSocketRunnableCtrlStructObject();
+
         int milliSecondsSleepAfterOperation = 10000;
 
         for (JvSocketRunnableCtrlStructObject socketCtrl : listAllConnections) {
@@ -125,8 +126,8 @@ public class JvNetworkCtrl {
             if (socketRunnableCtrl != null && socketRunnableCtrl.isErrorsExceedsLimit()) {
                 JvLog.write(JvLog.TypeLog.Warn, "Производим вычистку потока, который не отвечает долгое время");
                 socketRunnableCtrlModel.removeItem(socketCtrl);
-                JvLog.write(JvLog.TypeLog.Warn, "Количество активных подключений после вычистки: "
-                        + socketRunnableCtrlModel.getCountConnections());
+                JvLog.write(JvLog.TypeLog.Warn, "Количество активных подключений после вычистки: " +
+                        socketRunnableCtrlModel.getCountConnections());
             }
         }
 

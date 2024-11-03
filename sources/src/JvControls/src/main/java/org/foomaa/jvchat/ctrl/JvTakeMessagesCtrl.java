@@ -32,6 +32,7 @@ public class JvTakeMessagesCtrl {
 
     public void takeMessage(byte[] data) {
         JvDefinesMessages.TypeMessage type = JvGetterMessages.getInstance().getBeanDeserializatorDataMessages().getTypeMessage(data);
+
         switch (type) {
             case EntryRequest -> workEntryRequestMessage(getDeserializeMapData(type, data));
             case EntryReply -> workEntryReplyMessage(getDeserializeMapData(type, data));
@@ -54,6 +55,7 @@ public class JvTakeMessagesCtrl {
             case TextMessageSendUserToServer -> workTextMessageSendUserToServerMessage(getDeserializeMapData(type, data));
             case TextMessagesChangingStatusFromServer -> workTextMessagesChangingStatusFromServerMessage(getDeserializeMapData(type, data));
         }
+
         clearRunnableCtrlFromConnection();
     }
 
