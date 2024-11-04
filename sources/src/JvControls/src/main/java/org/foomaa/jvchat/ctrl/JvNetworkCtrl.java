@@ -116,13 +116,16 @@ public class JvNetworkCtrl {
     }
 
     private void controlErrorConnectionSocket() {
-        JvSocketRunnableCtrlModel socketRunnableCtrlModel = JvGetterModels.getInstance().getBeanSocketRunnableCtrlModel();
-        List<JvSocketRunnableCtrlStructObject> listAllConnections = socketRunnableCtrlModel.getAllSocketRunnableCtrlStructObject();
+        JvSocketRunnableCtrlModel socketRunnableCtrlModel =
+                JvGetterModels.getInstance().getBeanSocketRunnableCtrlModel();
+        List<JvSocketRunnableCtrlStructObject> listAllConnections =
+                socketRunnableCtrlModel.getAllSocketRunnableCtrlStructObject();
 
         int milliSecondsSleepAfterOperation = 10000;
 
         for (JvSocketRunnableCtrlStructObject socketCtrl : listAllConnections) {
             JvSocketRunnableCtrl socketRunnableCtrl = (JvSocketRunnableCtrl) socketCtrl.getSocketRunnableCtrl();
+
             if (socketRunnableCtrl != null && socketRunnableCtrl.isErrorsExceedsLimit()) {
                 JvLog.write(JvLog.TypeLog.Warn, "Производим вычистку потока, который не отвечает долгое время");
                 socketRunnableCtrlModel.removeItem(socketCtrl);

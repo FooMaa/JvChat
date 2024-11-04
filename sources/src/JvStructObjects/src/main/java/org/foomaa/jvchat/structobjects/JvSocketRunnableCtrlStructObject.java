@@ -7,7 +7,6 @@ public class JvSocketRunnableCtrlStructObject extends JvBaseStructObject {
     private final UUID uuid;
     private Runnable socketRunnableCtrl;
 
-
     JvSocketRunnableCtrlStructObject() {
         uuid = UUID.randomUUID();
         socketRunnableCtrl = null;

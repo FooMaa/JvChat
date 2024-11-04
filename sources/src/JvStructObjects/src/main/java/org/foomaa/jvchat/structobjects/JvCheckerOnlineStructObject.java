@@ -6,6 +6,7 @@ import java.util.Objects;
 
 public class JvCheckerOnlineStructObject extends JvBaseStructObject {
     private JvUserStructObject user;
+    private JvSocketRunnableCtrlStructObject socketRunnableCtrlStructObject;
     private boolean isSending;
     private LocalDateTime dateTimeSending;
     private LocalDateTime dateTimeUpdating;
@@ -15,6 +16,7 @@ public class JvCheckerOnlineStructObject extends JvBaseStructObject {
         isSending = false;
         dateTimeSending = null;
         dateTimeUpdating = null;
+        socketRunnableCtrlStructObject = null;
 
         commitProperties();
     }
@@ -47,6 +49,13 @@ public class JvCheckerOnlineStructObject extends JvBaseStructObject {
         }
     }
 
+    public void setSocketRunnableCtrlStructObject(JvSocketRunnableCtrlStructObject newRunnableCtrlStructObject) {
+        if (socketRunnableCtrlStructObject != newRunnableCtrlStructObject) {
+            socketRunnableCtrlStructObject = newRunnableCtrlStructObject;
+            commitProperties();
+        }
+    }
+
     public JvUserStructObject getUser() {
         return user;
     }
@@ -61,5 +70,9 @@ public class JvCheckerOnlineStructObject extends JvBaseStructObject {
 
     public LocalDateTime getDateTimeUpdating() {
         return dateTimeUpdating;
+    }
+
+    public JvSocketRunnableCtrlStructObject getSocketRunnableCtrlStructObject() {
+        return socketRunnableCtrlStructObject;
     }
 }
