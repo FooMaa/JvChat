@@ -13,8 +13,8 @@ public class JvModelsSpringConfig {
         BeanRootObjectsModel("beanRootObjectsModel"),
         BeanMessagesModel("beanMessagesModel"),
         BeanChatsModel("beanChatsModel"),
-        BeanServersConnectionsModel("beanServersConnectionsModel"),
-        BeanCheckersOnlineModel("beanCheckersOnlineModel");
+        BeanCheckersOnlineModel("beanCheckersOnlineModel"),
+        BeanSocketRunnableCtrlModel("beanSocketRunnableCtrlModel");
 
         private final String value;
 
@@ -50,19 +50,19 @@ public class JvModelsSpringConfig {
         return JvChatsModel.getInstance();
     }
 
-    @Bean(name = "beanServersConnectionsModel")
-    @Lazy
-    @Scope("singleton")
-    @SuppressWarnings("unused")
-    public JvServersConnectionsModel beanServersConnectionsModel() {
-        return JvServersConnectionsModel.getInstance();
-    }
-
     @Bean(name = "beanCheckersOnlineModel")
     @Lazy
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvCheckersOnlineModel beanCheckersOnlineModel() {
         return JvCheckersOnlineModel.getInstance();
+    }
+
+    @Bean(name = "beanSocketRunnableCtrlModel")
+    @Lazy
+    @Scope("singleton")
+    @SuppressWarnings("unused")
+    public JvSocketRunnableCtrlModel beanSocketRunnableCtrlModel() {
+        return JvSocketRunnableCtrlModel.getInstance();
     }
 }

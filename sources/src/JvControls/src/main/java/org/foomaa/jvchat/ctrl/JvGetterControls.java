@@ -61,16 +61,9 @@ public class JvGetterControls {
         return null;
     }
 
-    public JvServersSocketThreadCtrl getBeanServersSocketThreadCtrl(Socket fromSocketServer) {
-        return (JvServersSocketThreadCtrl) context.getBean(
-                JvControlsSpringConfig.NameBeans.BeanServersSocketThreadCtrl.getValue(),
-                fromSocketServer);
-    }
-
-    public JvUsersSocketThreadCtrl getBeanUsersSocketThreadCtrl(Socket usersSocket) {
-        return (JvUsersSocketThreadCtrl) context.getBean(
-                JvControlsSpringConfig.NameBeans.BeanUsersSocketThreadCtrl.getValue(),
-                usersSocket);
+    public JvSocketRunnableCtrl getBeanSocketRunnableCtrl(Socket socket) {
+        return (JvSocketRunnableCtrl) context.getBean(JvControlsSpringConfig.NameBeans.BeanSocketRunnableCtrl.getValue(),
+                socket);
     }
 
     public JvChatsCtrl getBeanChatsCtrl() {

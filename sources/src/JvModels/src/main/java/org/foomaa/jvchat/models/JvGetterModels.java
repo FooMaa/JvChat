@@ -33,13 +33,13 @@ public class JvGetterModels {
                 JvChatsModel.class);
     }
 
-    public JvServersConnectionsModel getBeanServersConnectionsModel() {
-        return context.getBean(JvModelsSpringConfig.NameBeans.BeanServersConnectionsModel.getValue(),
-                JvServersConnectionsModel.class);
-    }
-
     public JvCheckersOnlineModel getBeanCheckersOnlineModel() {
         return context.getBean(JvModelsSpringConfig.NameBeans.BeanCheckersOnlineModel.getValue(),
                 JvCheckersOnlineModel.class);
+    }
+
+    public JvSocketRunnableCtrlModel getBeanSocketRunnableCtrlModel() {
+        return context.getBean(JvModelsSpringConfig.NameBeans.BeanSocketRunnableCtrlModel.getValue(),
+                JvSocketRunnableCtrlModel.class);
     }
 }

@@ -6,17 +6,17 @@ import java.util.Objects;
 
 public class JvCheckerOnlineStructObject extends JvBaseStructObject {
     private JvUserStructObject user;
-    private JvServerConnectionThread serversConnectionThread;
+    private JvSocketRunnableCtrlStructObject socketRunnableCtrlStructObject;
     private boolean isSending;
     private LocalDateTime dateTimeSending;
     private LocalDateTime dateTimeUpdating;
 
     JvCheckerOnlineStructObject() {
         user = null;
-        serversConnectionThread = null;
         isSending = false;
         dateTimeSending = null;
         dateTimeUpdating = null;
+        socketRunnableCtrlStructObject = null;
 
         commitProperties();
     }
@@ -24,13 +24,6 @@ public class JvCheckerOnlineStructObject extends JvBaseStructObject {
     public void setUser(JvUserStructObject newUser) {
         if (user != newUser) {
             user = newUser;
-            commitProperties();
-        }
-    }
-
-    public void setThread(JvServerConnectionThread newServersConnectionThread) {
-        if (serversConnectionThread != newServersConnectionThread) {
-            serversConnectionThread = newServersConnectionThread;
             commitProperties();
         }
     }
@@ -56,12 +49,15 @@ public class JvCheckerOnlineStructObject extends JvBaseStructObject {
         }
     }
 
-    public JvUserStructObject getUser() {
-        return user;
+    public void setSocketRunnableCtrlStructObject(JvSocketRunnableCtrlStructObject newRunnableCtrlStructObject) {
+        if (socketRunnableCtrlStructObject != newRunnableCtrlStructObject) {
+            socketRunnableCtrlStructObject = newRunnableCtrlStructObject;
+            commitProperties();
+        }
     }
 
-    public JvServerConnectionThread getThread() {
-        return serversConnectionThread;
+    public JvUserStructObject getUser() {
+        return user;
     }
 
     public boolean getIsSending() {
@@ -74,5 +70,9 @@ public class JvCheckerOnlineStructObject extends JvBaseStructObject {
 
     public LocalDateTime getDateTimeUpdating() {
         return dateTimeUpdating;
+    }
+
+    public JvSocketRunnableCtrlStructObject getSocketRunnableCtrlStructObject() {
+        return socketRunnableCtrlStructObject;
     }
 }
