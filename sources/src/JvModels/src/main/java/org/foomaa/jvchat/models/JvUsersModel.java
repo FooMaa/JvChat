@@ -31,7 +31,7 @@ public class JvUsersModel extends JvBaseModel {
         return findUserStructObjectByLogin(login) != null;
     }
 
-    public JvUserStructObject findUserStructObjectByLogin(String login) {
+    private JvUserStructObject findUserStructObjectByLogin(String login) {
         for (JvBaseStructObject baseStructObject: getRootObject().getChildren()) {
             JvUserStructObject userStructObject = (JvUserStructObject) baseStructObject;
             if (userStructObject != null &&
@@ -39,6 +39,20 @@ public class JvUsersModel extends JvBaseModel {
                 return userStructObject;
             }
         }
+
         return null;
+    }
+
+    public JvUserStructObject findCreateUserStructObjectByLogin(String login) {
+        JvUserStructObject userStructObject = findUserStructObjectByLogin(login);
+
+        if (userStructObject == null) {
+            JvUserStructObject userChat = JvGetterStructObjects.getInstance().getBeanUserStructObject();
+            userChat.setLogin(login);
+            addItem(userChat, getRootObject());
+            return userChat;
+        }
+
+        return userStructObject;
     }
 }

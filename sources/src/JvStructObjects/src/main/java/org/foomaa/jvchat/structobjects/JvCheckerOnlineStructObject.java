@@ -28,7 +28,7 @@ public class JvCheckerOnlineStructObject extends JvBaseStructObject {
         }
     }
 
-    public void setSending(boolean newIsSending) {
+    public void setIsSending(boolean newIsSending) {
         if (isSending != newIsSending) {
             isSending = newIsSending;
             commitProperties();

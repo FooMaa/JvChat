@@ -41,6 +41,34 @@ public class JvSocketRunnableCtrlModel extends JvBaseModel {
         return resultList;
     }
 
+    private JvSocketRunnableCtrlStructObject findSocketRunnableCtrlStructObjectByRunnable(Runnable runnable) {
+        for (JvBaseStructObject baseStructObject: getRootObject().getChildren()) {
+            JvSocketRunnableCtrlStructObject socketRunnableCtrlStructObject =
+                    (JvSocketRunnableCtrlStructObject) baseStructObject;
+            if (socketRunnableCtrlStructObject != null &&
+                    socketRunnableCtrlStructObject.getSocketRunnableCtrl() == runnable) {
+                return socketRunnableCtrlStructObject;
+            }
+        }
+
+        return null;
+    }
+
+    public JvSocketRunnableCtrlStructObject findCreateSocketRunnableCtrlStructObjectByRunnable(Runnable runnable) {
+        JvSocketRunnableCtrlStructObject socketRunnableCtrlStructObject =
+                findSocketRunnableCtrlStructObjectByRunnable(runnable);
+
+        if (socketRunnableCtrlStructObject == null) {
+            JvSocketRunnableCtrlStructObject newSocketRunnableCtrlStructObject =
+                    JvGetterStructObjects.getInstance().getBeanSocketRunnableCtrlStructObject();
+            newSocketRunnableCtrlStructObject.setSocketRunnableCtrl(runnable);
+            addItem(newSocketRunnableCtrlStructObject, getRootObject());
+            return newSocketRunnableCtrlStructObject;
+        }
+
+        return socketRunnableCtrlStructObject;
+    }
+
     public int getCountConnections() {
         return getRootObject().getChildren().size();
     }
