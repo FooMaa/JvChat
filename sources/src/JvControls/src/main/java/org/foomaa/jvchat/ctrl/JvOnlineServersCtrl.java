@@ -4,6 +4,7 @@ import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
+import org.foomaa.jvchat.models.JvCheckersOnlineModel;
 import org.foomaa.jvchat.models.JvGetterModels;
 import org.foomaa.jvchat.models.JvSocketRunnableCtrlModel;
 import org.foomaa.jvchat.settings.JvGetterSettings;
@@ -19,6 +20,7 @@ public class JvOnlineServersCtrl {
     private final List<CheckerOnline> listCheckerOnline;
     private final int intervalMilliSecondsAfterLastSending;
     private final int intervalMilliSecondsAfterLastUpdate;
+    private final JvCheckersOnlineModel checkersOnlineModel;
 
     private static class CheckerOnline {
         public String login;
@@ -30,6 +32,7 @@ public class JvOnlineServersCtrl {
 
     private JvOnlineServersCtrl() {
         listCheckerOnline = new ArrayList<>();
+        checkersOnlineModel = JvGetterModels.getInstance().getBeanCheckersOnlineModel();
         intervalMilliSecondsAfterLastSending = 10000;
         intervalMilliSecondsAfterLastUpdate = 30000;
     }

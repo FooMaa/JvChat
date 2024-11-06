@@ -37,6 +37,7 @@ public class JvChatsModel extends JvBaseModel {
         } else if (Objects.equals(lastMessageLoginReceiver, currentUserLogin)) {
             userChat.setLogin(lastMessageLoginSender);
         }
+        JvGetterModels.getInstance().getBeanUsersModel().addCreatedUser(userChat);
 
         JvMessageStructObject lastMessage = JvGetterStructObjects.getInstance().getBeanMessageStructObject();
         lastMessage.setLoginSender(lastMessageLoginSender);

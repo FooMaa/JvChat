@@ -42,4 +42,9 @@ public class JvGetterModels {
         return context.getBean(JvModelsSpringConfig.NameBeans.BeanSocketRunnableCtrlModel.getValue(),
                 JvSocketRunnableCtrlModel.class);
     }
+
+    public JvUsersModel getBeanUsersModel() {
+        return context.getBean(JvModelsSpringConfig.NameBeans.BeanUsersModel.getValue(),
+                JvUsersModel.class);
+    }
 }
