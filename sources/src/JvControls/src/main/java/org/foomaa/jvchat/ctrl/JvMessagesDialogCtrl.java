@@ -75,11 +75,25 @@ public class JvMessagesDialogCtrl {
 
     public void setDirtyStatusToMessage(String loginSender, String loginReceiver, Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages) {
         for (UUID uuid : mapStatusesMessages.keySet()) {
-            JvMessageStructObject message = messagesModel.findMessage(loginSender, loginReceiver, uuid);
+            JvMessageStructObject message = findMessage(loginSender, loginReceiver, uuid);
             if (message != null) {
                 message.setStatusMessage(mapStatusesMessages.get(uuid));
                 System.out.println("Set status msg");
             }
         }
+    }
+
+    public JvMessageStructObject findMessage(String loginSender, String loginReceiver, UUID uuid) {
+        List<JvMessageStructObject> listMessages = messagesModel.getAllMessages();
+
+        for (JvMessageStructObject message : listMessages) {
+            if (message != null &&
+                    message.getUuid().equals(uuid) &&
+                    Objects.equals(message.getLoginSender(), loginSender) &&
+                    Objects.equals(message.getLoginReceiver(), loginReceiver)) {
+                return message;
+            }
+        }
+        return null;
     }
 }

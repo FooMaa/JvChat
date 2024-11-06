@@ -6,6 +6,8 @@ import org.foomaa.jvchat.structobjects.JvGetterStructObjects;
 import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -57,16 +59,16 @@ public class JvMessagesModel extends JvBaseModel {
         return messageObj;
     }
 
-    public JvMessageStructObject findMessage(String loginSender, String loginReceiver, UUID uuid) {
-        for (JvBaseStructObject messageBase : getRootObject().getChildren()) {
-            JvMessageStructObject message = (JvMessageStructObject) messageBase;
-            if ( message != null &&
-                    message.getUuid().equals(uuid) &&
-                    Objects.equals(message.getLoginSender(), loginSender) &&
-                    Objects.equals(message.getLoginReceiver(), loginReceiver)) {
-                return message;
+    public List<JvMessageStructObject> getAllMessages() {
+        List<JvMessageStructObject> resultList = new ArrayList<>();
+
+        for (JvBaseStructObject baseStructObject : getRootObject().getChildren()) {
+            JvMessageStructObject messageStructObject = (JvMessageStructObject) baseStructObject;
+            if (messageStructObject != null) {
+                resultList.add(messageStructObject);
             }
         }
-        return null;
+
+        return resultList;
     }
 }
