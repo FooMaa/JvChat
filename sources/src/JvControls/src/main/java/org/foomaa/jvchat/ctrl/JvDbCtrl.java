@@ -1,13 +1,8 @@
 package org.foomaa.jvchat.ctrl;
 
-import org.foomaa.jvchat.dbworker.JvDbRequests;
-import org.foomaa.jvchat.dbworker.JvDbWorker;
-import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
-import org.foomaa.jvchat.logger.JvLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
-
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -15,6 +10,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.foomaa.jvchat.dbworker.JvDbRequests;
+import org.foomaa.jvchat.dbworker.JvDbWorker;
+import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
+import org.foomaa.jvchat.logger.JvLog;
 
 
 public class JvDbCtrl {

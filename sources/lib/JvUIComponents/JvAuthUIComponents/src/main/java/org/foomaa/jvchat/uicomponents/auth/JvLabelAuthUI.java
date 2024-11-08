@@ -1,10 +1,10 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import org.foomaa.jvchat.settings.JvDisplaySettings;
-import org.foomaa.jvchat.settings.JvGetterSettings;
-
 import javax.swing.*;
 import java.awt.*;
+
+import org.foomaa.jvchat.settings.JvDisplaySettings;
+import org.foomaa.jvchat.settings.JvGetterSettings;
 
 
 public class JvLabelAuthUI extends JLabel {

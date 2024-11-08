@@ -6,6 +6,7 @@ import org.foomaa.jvchat.structobjects.JvUserStructObject;
 
 import java.util.Objects;
 
+
 public class JvUsersModel extends JvBaseModel {
     private static JvUsersModel instance;
 

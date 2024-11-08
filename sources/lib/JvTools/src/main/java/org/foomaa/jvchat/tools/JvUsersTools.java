@@ -2,6 +2,7 @@ package org.foomaa.jvchat.tools;
 
 import java.util.regex.Pattern;
 
+
 public class JvUsersTools {
     private static JvUsersTools instance;
 

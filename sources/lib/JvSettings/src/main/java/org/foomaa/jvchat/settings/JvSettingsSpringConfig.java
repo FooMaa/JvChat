@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 
 
 @Configuration
-public class JvSettingsSpringConfig {
+class JvSettingsSpringConfig {
     public enum NameBeans {
         BeanMainSettings("beanMainSettings"),
         BeanDisplaySettings("beanDisplaySettings"),

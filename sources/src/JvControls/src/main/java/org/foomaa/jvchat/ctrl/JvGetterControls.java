@@ -1,9 +1,10 @@
 package org.foomaa.jvchat.ctrl;
 
-import org.foomaa.jvchat.logger.JvLog;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import java.net.Socket;
 import java.util.Arrays;
+
+import org.foomaa.jvchat.logger.JvLog;
 
 
 public class JvGetterControls {

@@ -2,6 +2,7 @@ package org.foomaa.jvchat.models;
 
 import org.foomaa.jvchat.structobjects.JvGetterStructObjects;
 
+
 public class JvRootObjectsModel extends JvBaseModel {
     private static JvRootObjectsModel instance;
 

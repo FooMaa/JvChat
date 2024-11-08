@@ -4,8 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-// точкой доступа является JvLog
-public class JvMainLogger {
+class JvMainLogger {
     private static JvMainLogger instance;
     private static Logger logger;
 

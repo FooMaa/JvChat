@@ -1,14 +1,14 @@
 package org.foomaa.jvchat.network;
 
-import org.foomaa.jvchat.logger.JvLog;
-import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.InetAddress;
+
+import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.settings.JvGetterSettings;
 
 
 @Component("beanServersSocket")

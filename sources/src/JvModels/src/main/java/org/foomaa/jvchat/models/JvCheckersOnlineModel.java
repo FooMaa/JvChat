@@ -1,10 +1,11 @@
 package org.foomaa.jvchat.models;
 
-import org.foomaa.jvchat.structobjects.*;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.foomaa.jvchat.structobjects.*;
+
 
 public class JvCheckersOnlineModel extends JvBaseModel {
     private static JvCheckersOnlineModel instance;

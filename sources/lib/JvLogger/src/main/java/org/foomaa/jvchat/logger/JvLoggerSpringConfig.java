@@ -9,7 +9,6 @@ import ch.qos.logback.core.ConsoleAppender;
 import ch.qos.logback.core.util.StatusPrinter;
 import org.foomaa.jvchat.globaldefines.JvGetterGlobalDefines;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -17,7 +16,7 @@ import org.springframework.context.annotation.Lazy;
 
 
 @Configuration
-public class JvLoggerSpringConfig {
+class JvLoggerSpringConfig {
     private static LoggerContext context;
 
     public enum NameBeans {

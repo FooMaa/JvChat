@@ -1,5 +1,9 @@
 package org.foomaa.jvchat.ctrl;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.*;
+
 import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
@@ -11,10 +15,6 @@ import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.structobjects.JvCheckerOnlineStructObject;
 import org.foomaa.jvchat.structobjects.JvSocketRunnableCtrlStructObject;
 import org.foomaa.jvchat.structobjects.JvUserStructObject;
-
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.*;
 
 
 public class JvOnlineServersCtrl {

@@ -1,10 +1,10 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import org.foomaa.jvchat.settings.JvDisplaySettings;
-import org.foomaa.jvchat.settings.JvGetterSettings;
-
 import javax.swing.*;
 import java.awt.*;
+
+import org.foomaa.jvchat.settings.JvDisplaySettings;
+import org.foomaa.jvchat.settings.JvGetterSettings;
 
 
 public class JvMainFrameMainChatUI extends JFrame {
@@ -99,12 +99,5 @@ public class JvMainFrameMainChatUI extends JFrame {
     }
 
     private void addListenerToElements() {
-    }
-
-    private void closeWindow() {
-        //dispose();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(false);
-        findTextField.setUnfocusFieldOnClose(false);
     }
 }

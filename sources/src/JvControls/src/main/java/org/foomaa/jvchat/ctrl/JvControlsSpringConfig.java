@@ -1,7 +1,6 @@
 package org.foomaa.jvchat.ctrl;
 
 import org.springframework.context.annotation.*;
-
 import java.net.Socket;
 
 
@@ -10,7 +9,7 @@ import java.net.Socket;
     @ComponentScan("org.foomaa.jvchat.dbworker"),
     @ComponentScan("org.foomaa.jvchat.network")
 })
-public class JvControlsSpringConfig {
+class JvControlsSpringConfig {
     public enum NameBeans {
         BeanDbCtrl("beanDbCtrl"),
         BeanEmailCtrl("beanEmailCtrl"),

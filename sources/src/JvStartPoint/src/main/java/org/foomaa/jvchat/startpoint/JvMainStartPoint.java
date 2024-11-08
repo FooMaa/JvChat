@@ -1,17 +1,17 @@
 package org.foomaa.jvchat.startpoint;
 
-import org.foomaa.jvchat.settings.JvGetterSettings;
-import org.foomaa.jvchat.tools.JvGetterTools;
-import org.foomaa.jvchat.uilinks.JvGetterUILinks;
-import org.foomaa.jvchat.ctrl.JvGetterControls;
-import org.foomaa.jvchat.settings.JvMainSettings;
-
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import java.io.IOException;
 import java.net.URISyntaxException;
+
+import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.tools.JvGetterTools;
+import org.foomaa.jvchat.uilinks.JvGetterUILinks;
+import org.foomaa.jvchat.ctrl.JvGetterControls;
+import org.foomaa.jvchat.settings.JvMainSettings;
 
 
 @SpringBootApplication

@@ -1,9 +1,5 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import org.foomaa.jvchat.logger.JvLog;
-import org.foomaa.jvchat.settings.JvDisplaySettings;
-import org.foomaa.jvchat.settings.JvGetterSettings;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -15,6 +11,10 @@ import java.io.IOException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Objects;
+
+import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.settings.JvDisplaySettings;
+import org.foomaa.jvchat.settings.JvGetterSettings;
 
 
 public class JvPasswordFieldAuthUI extends JPanel {

@@ -1,13 +1,13 @@
 package org.foomaa.jvchat.messages;
 
-import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
-import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
-import org.foomaa.jvchat.tools.JvGetterTools;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
+import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
+import org.foomaa.jvchat.tools.JvGetterTools;
 
 
 public class JvSerializatorDataMessages {

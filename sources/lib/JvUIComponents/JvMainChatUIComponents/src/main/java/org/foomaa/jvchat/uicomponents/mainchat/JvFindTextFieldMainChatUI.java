@@ -1,9 +1,5 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import org.foomaa.jvchat.logger.JvLog;
-import org.foomaa.jvchat.settings.JvDisplaySettings;
-import org.foomaa.jvchat.settings.JvGetterSettings;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +7,10 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
+
+import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.settings.JvDisplaySettings;
+import org.foomaa.jvchat.settings.JvGetterSettings;
 
 
 public class JvFindTextFieldMainChatUI extends JPanel {
@@ -22,7 +22,7 @@ public class JvFindTextFieldMainChatUI extends JPanel {
     private final int borderSize = 1;
 
     JvFindTextFieldMainChatUI(String text) {
-        image = setIcon("/magnifier.png");
+        image = setIcon();
         defaultText = text;
 
         settingTextAndButtonPanel();
@@ -36,9 +36,9 @@ public class JvFindTextFieldMainChatUI extends JPanel {
         return instance;
     }
 
-    private BufferedImage setIcon(String path) {
+    private BufferedImage setIcon() {
         try {
-            return ImageIO.read(Objects.requireNonNull(getClass().getResource(path)));
+            return ImageIO.read(Objects.requireNonNull(getClass().getResource("/magnifier.png")));
         } catch (IOException ex) {
             JvLog.write(JvLog.TypeLog.Error, "Нет иконки глазка");
         }

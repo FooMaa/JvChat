@@ -1,11 +1,12 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import org.foomaa.jvchat.structobjects.JvChatStructObject;
 import org.springframework.context.annotation.*;
+
+import org.foomaa.jvchat.structobjects.JvChatStructObject;
 
 
 @Configuration
-public class JvMainChatUIComponentsSpringConfig {
+class JvMainChatUIComponentsSpringConfig {
     public enum NameBeans {
         BeanMainFrameMainChatUI("beanMainFrameMainChatUI"),
         BeanScrollPanelChatsMainChatUI("beanScrollPanelChatsMainChatUI"),

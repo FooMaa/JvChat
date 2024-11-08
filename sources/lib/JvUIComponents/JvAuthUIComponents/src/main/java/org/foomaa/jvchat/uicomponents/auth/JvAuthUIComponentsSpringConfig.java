@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 
 
 @Configuration
-public class JvAuthUIComponentsSpringConfig {
+class JvAuthUIComponentsSpringConfig {
     public enum NameBeans {
         BeanActiveLabelAuthUI("beanActiveLabelAuthUI"),
         BeanButtonAuthUI("beanButtonAuthUI"),

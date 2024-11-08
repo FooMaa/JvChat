@@ -1,10 +1,11 @@
 package org.foomaa.jvchat.structobjects;
 
-import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
-
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
+
+import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
+
 
 public class JvUserStructObject extends JvBaseStructObject {
     private String login;

@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Scope;
 
 
 @Configuration
-public class JvMessagesSpringConfig {
+class JvMessagesSpringConfig {
     public enum NameBeans {
         BeanDefinesMessages("beanDefinesMessages"),
         BeanSerializatorDataMessages("beanSerializatorDataMessages"),

@@ -1,15 +1,15 @@
 package org.foomaa.jvchat.models;
 
-import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
-import org.foomaa.jvchat.structobjects.JvBaseStructObject;
-import org.foomaa.jvchat.structobjects.JvGetterStructObjects;
-import org.foomaa.jvchat.structobjects.JvMessageStructObject;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+
+import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
+import org.foomaa.jvchat.structobjects.JvBaseStructObject;
+import org.foomaa.jvchat.structobjects.JvGetterStructObjects;
+import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 
 
 public class JvMessagesModel extends JvBaseModel {

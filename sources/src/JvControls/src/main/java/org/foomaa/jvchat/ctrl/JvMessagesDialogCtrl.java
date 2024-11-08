@@ -1,5 +1,8 @@
 package org.foomaa.jvchat.ctrl;
 
+import java.time.LocalDateTime;
+import java.util.*;
+
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
@@ -8,9 +11,6 @@ import org.foomaa.jvchat.models.JvMessagesModel;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 import org.foomaa.jvchat.tools.JvGetterTools;
-
-import java.time.LocalDateTime;
-import java.util.*;
 
 
 public class JvMessagesDialogCtrl {

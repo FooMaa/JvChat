@@ -1,5 +1,13 @@
 package org.foomaa.jvchat.ctrl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Profile;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.List;
+
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.models.JvGetterModels;
 import org.foomaa.jvchat.models.JvSocketRunnableCtrlModel;
@@ -8,14 +16,6 @@ import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.settings.JvMainSettings;
 import org.foomaa.jvchat.network.JvServersSocket;
 import org.foomaa.jvchat.structobjects.JvSocketRunnableCtrlStructObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Profile;
-
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.List;
 
 
 public class JvNetworkCtrl {

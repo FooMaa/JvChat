@@ -1,11 +1,11 @@
 package org.foomaa.jvchat.messages;
 
+import java.util.*;
+
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
-
-import java.util.*;
 
 
 public class JvDeserializatorDataMessages {

@@ -1,9 +1,9 @@
 package org.foomaa.jvchat.cryptography;
 
-import org.foomaa.jvchat.logger.JvLog;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import org.foomaa.jvchat.logger.JvLog;
 
 
 public class JvHashCryptography {

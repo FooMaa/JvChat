@@ -1,9 +1,10 @@
 package org.foomaa.jvchat.ctrl;
 
-import org.foomaa.jvchat.network.JvEmailProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
+
+import org.foomaa.jvchat.network.JvEmailProcessor;
 
 
 public class JvEmailCtrl {

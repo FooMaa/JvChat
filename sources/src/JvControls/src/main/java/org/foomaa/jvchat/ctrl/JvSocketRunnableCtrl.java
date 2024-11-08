@@ -1,12 +1,12 @@
 package org.foomaa.jvchat.ctrl;
 
-import org.foomaa.jvchat.logger.JvLog;
-import org.foomaa.jvchat.models.JvGetterModels;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+
+import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.models.JvGetterModels;
 
 
 /* NOTE(VAD): здесь так сделано, чтоб задачи сервера и пользователя

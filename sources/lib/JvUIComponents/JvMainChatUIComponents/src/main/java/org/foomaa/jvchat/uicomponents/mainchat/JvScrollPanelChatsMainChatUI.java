@@ -1,15 +1,6 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import org.foomaa.jvchat.ctrl.JvGetterControls;
-import org.foomaa.jvchat.ctrl.JvMessagesDefinesCtrl;
-import org.foomaa.jvchat.logger.JvLog;
-import org.foomaa.jvchat.messages.JvDefinesMessages;
-import org.foomaa.jvchat.settings.JvGetterSettings;
-import org.foomaa.jvchat.structobjects.JvChatStructObject;
-import org.foomaa.jvchat.structobjects.JvUserStructObject;
-
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -18,6 +9,14 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import org.foomaa.jvchat.ctrl.JvGetterControls;
+import org.foomaa.jvchat.ctrl.JvMessagesDefinesCtrl;
+import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.messages.JvDefinesMessages;
+import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.structobjects.JvChatStructObject;
+import org.foomaa.jvchat.structobjects.JvUserStructObject;
 
 
 public class JvScrollPanelChatsMainChatUI extends JPanel {

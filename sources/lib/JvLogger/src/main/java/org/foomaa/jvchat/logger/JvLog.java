@@ -1,7 +1,5 @@
 package org.foomaa.jvchat.logger;
 
-import org.foomaa.jvchat.globaldefines.JvGetterGlobalDefines;
-
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
@@ -11,8 +9,9 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.foomaa.jvchat.globaldefines.JvGetterGlobalDefines;
 
-// точка доступа к логированию
+
 public class JvLog {
     private static JvLog instance;
     private static JvMainLogger mainLogger;

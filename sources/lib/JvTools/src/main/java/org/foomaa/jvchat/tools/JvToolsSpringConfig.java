@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 
 
 @Configuration
-public class JvToolsSpringConfig {
+class JvToolsSpringConfig {
     public enum NameBeans {
         BeanMainTools("beanMainTools"),
         BeanStructTools("beanStructTools"),

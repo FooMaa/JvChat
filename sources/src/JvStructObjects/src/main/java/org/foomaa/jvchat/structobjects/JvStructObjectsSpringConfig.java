@@ -4,7 +4,7 @@ import org.springframework.context.annotation.*;
 
 
 @Configuration
-public class JvStructObjectsSpringConfig {
+class JvStructObjectsSpringConfig {
     public enum NameBeans {
         BeanMessageStructObject("beanMessageStructObject"),
         BeanRootStructObject("beanRootStructObject"),

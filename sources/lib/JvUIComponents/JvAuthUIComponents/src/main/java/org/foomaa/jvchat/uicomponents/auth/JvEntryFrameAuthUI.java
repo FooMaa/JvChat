@@ -1,5 +1,12 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.Objects;
+import java.util.Vector;
+import java.util.concurrent.TimeUnit;
+
 import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.ctrl.JvMessagesDefinesCtrl;
 import org.foomaa.jvchat.logger.JvLog;
@@ -7,13 +14,6 @@ import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.uicomponents.mainchat.JvGetterMainChatUIComponents;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.util.Objects;
-import java.util.Vector;
-import java.util.concurrent.TimeUnit;
 
 
 public class JvEntryFrameAuthUI extends JFrame {

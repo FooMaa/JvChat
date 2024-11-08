@@ -8,7 +8,7 @@ import org.springframework.context.annotation.*;
  * который служат для сохранения всех рутов моделей
  */
 @Configuration
-public class JvModelsSpringConfig {
+class JvModelsSpringConfig {
     public enum NameBeans {
         BeanRootObjectsModel("beanRootObjectsModel"),
         BeanMessagesModel("beanMessagesModel"),

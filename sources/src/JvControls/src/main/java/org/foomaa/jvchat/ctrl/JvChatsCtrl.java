@@ -1,5 +1,10 @@
 package org.foomaa.jvchat.ctrl;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+
 import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
@@ -9,11 +14,6 @@ import org.foomaa.jvchat.structobjects.JvChatStructObject;
 import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 import org.foomaa.jvchat.structobjects.JvUserStructObject;
 import org.foomaa.jvchat.tools.JvGetterTools;
-
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
 
 
 public class JvChatsCtrl {

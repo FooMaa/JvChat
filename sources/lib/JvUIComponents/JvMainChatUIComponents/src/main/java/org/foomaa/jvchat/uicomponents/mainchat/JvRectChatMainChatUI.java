@@ -1,17 +1,17 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Objects;
+
 import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.structobjects.JvChatStructObject;
 import org.foomaa.jvchat.structobjects.JvMessageStructObject;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.Objects;
 
 
 public class JvRectChatMainChatUI extends JPanel {

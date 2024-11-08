@@ -1,15 +1,15 @@
 package org.foomaa.jvchat.ctrl;
 
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
 import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.messages.JvGetterMessages;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.tools.JvGetterTools;
-
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 
 public class JvSendMessagesCtrl {

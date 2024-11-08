@@ -1,8 +1,5 @@
 package org.foomaa.jvchat.dbworker;
 
-import org.foomaa.jvchat.logger.JvLog;
-import org.foomaa.jvchat.settings.JvGetterSettings;
-
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -11,6 +8,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
+
+import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.settings.JvGetterSettings;
 
 
 @Component("beanDbWorker")

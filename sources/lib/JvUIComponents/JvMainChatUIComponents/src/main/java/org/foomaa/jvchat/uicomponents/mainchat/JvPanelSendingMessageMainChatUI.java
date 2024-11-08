@@ -1,11 +1,11 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import org.foomaa.jvchat.ctrl.JvGetterControls;
-import org.foomaa.jvchat.structobjects.JvMessageStructObject;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
+
+import org.foomaa.jvchat.ctrl.JvGetterControls;
+import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 
 
 public class JvPanelSendingMessageMainChatUI extends JPanel {
@@ -49,9 +49,7 @@ public class JvPanelSendingMessageMainChatUI extends JPanel {
     }
 
     private void addListenerToElements() {
-        sendButton.addActionListener(event -> {
-            processSendingMessage();
-        });
+        sendButton.addActionListener(event -> processSendingMessage());
     }
 
     private void processSendingMessage() {

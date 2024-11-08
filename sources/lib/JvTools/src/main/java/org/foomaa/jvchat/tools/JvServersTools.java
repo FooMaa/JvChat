@@ -1,13 +1,14 @@
 package org.foomaa.jvchat.tools;
 
-import org.foomaa.jvchat.logger.JvLog;
-import org.foomaa.jvchat.settings.JvGetterSettings;
-
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+
+import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.settings.JvGetterSettings;
+
 
 public class JvServersTools {
     private static JvServersTools instance;

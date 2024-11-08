@@ -1,9 +1,5 @@
 package org.foomaa.jvchat.tools;
 
-import org.foomaa.jvchat.settings.JvGetterSettings;
-import org.foomaa.jvchat.settings.JvMainSettings;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
@@ -13,6 +9,10 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
+
+import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.settings.JvMainSettings;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 
 public class JvMainTools {

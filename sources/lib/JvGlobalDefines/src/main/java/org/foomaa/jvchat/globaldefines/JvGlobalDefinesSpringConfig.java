@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Scope;
 
 
 @Configuration
-public class JvGlobalDefinesSpringConfig {
+class JvGlobalDefinesSpringConfig {
     public enum NameBeans {
         BeanMainGlobalDefines("beanMainGlobalDefines"),
         BeanColorsAnsiGlobalDefines("beanColorAnsiGlobalDefines"),

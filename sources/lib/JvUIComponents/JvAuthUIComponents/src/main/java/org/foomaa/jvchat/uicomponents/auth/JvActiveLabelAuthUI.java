@@ -1,7 +1,5 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import org.foomaa.jvchat.settings.JvGetterSettings;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -9,6 +7,8 @@ import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.foomaa.jvchat.settings.JvGetterSettings;
 
 
 public class JvActiveLabelAuthUI extends JLabel {

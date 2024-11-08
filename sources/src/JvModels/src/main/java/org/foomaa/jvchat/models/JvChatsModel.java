@@ -1,12 +1,12 @@
 package org.foomaa.jvchat.models;
 
+import java.time.LocalDateTime;
+import java.util.*;
+
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.structobjects.*;
-
-import java.time.LocalDateTime;
-import java.util.*;
 
 
 public class JvChatsModel extends JvBaseModel {
@@ -113,23 +113,6 @@ public class JvChatsModel extends JvBaseModel {
                 continue;
             }
             resultList.add(chatObject.getUserChat());
-        }
-
-        return resultList;
-    }
-
-    @Deprecated
-    @SuppressWarnings("unused")
-    public List<JvMessageStructObject> getAllLastMessagesObjects() {
-        List<JvChatStructObject> chatsList = getAllChatsObjects();
-        List<JvMessageStructObject> resultList = new ArrayList<>();
-
-        for (JvChatStructObject chatObject : chatsList) {
-            if (chatObject == null) {
-                JvLog.write(JvLog.TypeLog.Error, "Сюда попал объект chatStructObject, который null");
-                continue;
-            }
-            resultList.add(chatObject.getLastMessage());
         }
 
         return resultList;

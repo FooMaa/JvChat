@@ -1,12 +1,12 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import org.foomaa.jvchat.settings.JvGetterSettings;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
+
+import org.foomaa.jvchat.settings.JvGetterSettings;
 
 
 public class JvRectMessageMainChatUI extends JTextArea {

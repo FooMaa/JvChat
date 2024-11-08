@@ -1,13 +1,13 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import org.foomaa.jvchat.settings.JvDisplaySettings;
-import org.foomaa.jvchat.settings.JvGetterSettings;
-
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Objects;
+
+import org.foomaa.jvchat.settings.JvDisplaySettings;
+import org.foomaa.jvchat.settings.JvGetterSettings;
 
 
 public class JvTextFieldAuthUI extends JPanel {

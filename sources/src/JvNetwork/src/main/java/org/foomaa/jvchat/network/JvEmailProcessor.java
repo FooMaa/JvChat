@@ -1,11 +1,8 @@
 package org.foomaa.jvchat.network;
 
-import org.foomaa.jvchat.logger.JvLog;
-import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -13,6 +10,9 @@ import javax.mail.Transport;
 import javax.mail.internet.*;
 import java.util.Date;
 import java.util.Properties;
+
+import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.settings.JvGetterSettings;
 
 
 @Component("beanEmailProcessor")
