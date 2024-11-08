@@ -181,6 +181,7 @@ public class JvOnlineServersCtrl {
         for (JvSocketRunnableCtrlStructObject socketRunnableCtrlStructObject : connectionList) {
             JvSocketRunnableCtrl socketRunnableCtrl = (JvSocketRunnableCtrl) socketRunnableCtrlStructObject.getSocketRunnableCtrl();
             if (socketRunnableCtrl == null) {
+                JvLog.write(JvLog.TypeLog.Error, "socketRunnableCtrl оказался null");
                 continue;
             }
 

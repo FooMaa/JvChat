@@ -58,7 +58,7 @@ public class JvCheckersOnlineModel extends JvBaseModel {
                 JvGetterModels.getInstance().getBeanUsersModel().findCreateUserStructObjectByLogin(login);
         JvSocketRunnableCtrlStructObject socketRunnableCtrlStructObject =
                 JvGetterModels.getInstance().getBeanSocketRunnableCtrlModel().findCreateSocketRunnableCtrlStructObjectByRunnable(runnable);
-
+        
         checkerOnlineStructObject.setUser(userStructObject);
         checkerOnlineStructObject.setSocketRunnableCtrlStructObject(socketRunnableCtrlStructObject);
         checkerOnlineStructObject.setIsSending(isSending);
