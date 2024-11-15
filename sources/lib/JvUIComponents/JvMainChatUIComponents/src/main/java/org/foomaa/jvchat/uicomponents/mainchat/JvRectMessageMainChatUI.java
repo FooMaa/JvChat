@@ -41,6 +41,17 @@ public class JvRectMessageMainChatUI extends JTextArea {
         g2.fillOval(x1, y1, diameter, diameter);
         g2.fillOval(x2, y1, diameter, diameter);
 
+        
+        String time = "12:34";
+        Font font = new Font("Times", Font.PLAIN, 8);
+        g2.setFont(font);
+        FontMetrics fontMetrics = g2.getFontMetrics(font);
+
+        int x = getWidth() - fontMetrics.stringWidth(time) - 5;
+        int y = getHeight() - 5;
+
+        g2.drawString(time, x, y);
+
         super.paintComponent(g);
     }
 
