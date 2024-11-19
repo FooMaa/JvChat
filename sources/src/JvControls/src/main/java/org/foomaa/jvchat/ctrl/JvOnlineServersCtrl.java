@@ -253,9 +253,14 @@ public class JvOnlineServersCtrl {
             long milliSecondsAfterLastUpdating = duration.toMillis();
 
             if (milliSecondsAfterLastUpdating > intervalMilliSecondsAfterLastUpdate) {
-                System.out.println(onlineUser.getUser().getLogin());
                 checkersOnlineModel.removeItem(onlineUser);
-                System.out.println(onlineUser.getUser().getLogin());
+                
+                JvUserStructObject userStructObject = onlineUser.getUser();
+                if (userStructObject == null) {
+                    JvLog.write(JvLog.TypeLog.Error, "Здесь userStructObject равен null");
+                    continue;
+                }
+
                 saveStatusOnline(onlineUser.getUser().getLogin(), JvMainChatsGlobalDefines.TypeStatusOnline.Offline);
             }
         }
