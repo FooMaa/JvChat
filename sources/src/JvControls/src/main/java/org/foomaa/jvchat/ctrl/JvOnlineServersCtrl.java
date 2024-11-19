@@ -241,7 +241,9 @@ public class JvOnlineServersCtrl {
             long milliSecondsAfterLastUpdating = duration.toMillis();
 
             if (milliSecondsAfterLastUpdating > intervalMilliSecondsAfterLastUpdate) {
+                System.out.println(onlineUser.getUser().getLogin());
                 checkersOnlineModel.removeItem(onlineUser);
+                System.out.println(onlineUser.getUser().getLogin());
                 saveStatusOnline(onlineUser.getUser().getLogin(), JvMainChatsGlobalDefines.TypeStatusOnline.Offline);
             }
         }

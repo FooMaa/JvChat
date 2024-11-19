@@ -31,26 +31,26 @@ public class JvRectMessageMainChatUI extends JTextArea {
 
         g2.setColor(new Color(16, 126, 16));
 
-        int radius = 2;
+        int radius = 4;
         int diameter = radius * 2;
-        int x1 = getSize().width - diameter - 5;
-        int y1 = getSize().height - diameter - 5;
-        int x2 = x1 - diameter - 1;
+        int xRound = getSize().width - diameter - 5;
+        int yRound = getSize().height - diameter - 5;
+        int xRoundSecond = xRound - diameter - 1;
 
         // Рисуем кружки доставки
-        g2.fillOval(x1, y1, diameter, diameter);
-        g2.fillOval(x2, y1, diameter, diameter);
+        g2.fillOval(xRound, yRound, diameter, diameter);
+        g2.fillOval(xRoundSecond, yRound, diameter, diameter);
 
-        
         String time = "12:34";
-        Font font = new Font("Times", Font.PLAIN, 8);
+        Font font = new Font("Times", Font.BOLD,
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.010));
         g2.setFont(font);
         FontMetrics fontMetrics = g2.getFontMetrics(font);
 
-        int x = getWidth() - fontMetrics.stringWidth(time) - 5;
-        int y = getHeight() - 5;
+        int xTime = xRoundSecond - fontMetrics.stringWidth(time) - 5;
+        int yTime = getHeight() - 5;
 
-        g2.drawString(time, x, y);
+        g2.drawString(time, xTime, yTime);
 
         super.paintComponent(g);
     }
