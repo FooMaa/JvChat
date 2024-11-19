@@ -41,7 +41,12 @@ public class JvOnlineServersCtrl {
 
         for (JvCheckerOnlineStructObject checkerOnline : listCheckersOnline) {
             Runnable runnableSocketFromList = checkerOnline.getSocketRunnableCtrlStructObject().getSocketRunnableCtrl();
-            if (runnableSocketFromList == socketRunnableCtrl) {
+            if (runnableSocketFromList == null) {
+                JvLog.write(JvLog.TypeLog.Error, "Здесь мы не смогли получить runnableSocketFromList, так как он null");
+                continue;
+            }
+
+            if ( runnableSocketFromList == socketRunnableCtrl) {
                 return true;
             }
         }
@@ -54,6 +59,11 @@ public class JvOnlineServersCtrl {
 
         for (JvCheckerOnlineStructObject checkerOnline : listCheckersOnline) {
             Runnable runnableSocketFromList = checkerOnline.getSocketRunnableCtrlStructObject().getSocketRunnableCtrl();
+            if (runnableSocketFromList == null) {
+                JvLog.write(JvLog.TypeLog.Error, "Здесь мы не смогли получить runnableSocketFromList, так как он null");
+                continue;
+            }
+
             if (runnableSocketFromList == socketRunnableCtrl) {
                 return checkerOnline;
             }
