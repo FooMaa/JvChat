@@ -40,12 +40,13 @@ public class JvOnlineServersCtrl {
         List<JvCheckerOnlineStructObject> listCheckersOnline = checkersOnlineModel.getAllCheckersOnline();
 
         for (JvCheckerOnlineStructObject checkerOnline : listCheckersOnline) {
-            Runnable runnableSocketFromList = checkerOnline.getSocketRunnableCtrlStructObject().getSocketRunnableCtrl();
-            if (runnableSocketFromList == null) {
-                JvLog.write(JvLog.TypeLog.Error, "Здесь мы не смогли получить runnableSocketFromList, так как он null");
+            JvSocketRunnableCtrlStructObject socketRunnableCtrlStructObject = checkerOnline.getSocketRunnableCtrlStructObject();
+            if (socketRunnableCtrlStructObject == null) {
+                JvLog.write(JvLog.TypeLog.Error, "Здесь socketRunnableCtrlStructObject равен null");
                 continue;
             }
 
+            Runnable runnableSocketFromList = socketRunnableCtrlStructObject.getSocketRunnableCtrl();
             if ( runnableSocketFromList == socketRunnableCtrl) {
                 return true;
             }
@@ -58,12 +59,13 @@ public class JvOnlineServersCtrl {
         List<JvCheckerOnlineStructObject> listCheckersOnline = checkersOnlineModel.getAllCheckersOnline();
 
         for (JvCheckerOnlineStructObject checkerOnline : listCheckersOnline) {
-            Runnable runnableSocketFromList = checkerOnline.getSocketRunnableCtrlStructObject().getSocketRunnableCtrl();
-            if (runnableSocketFromList == null) {
-                JvLog.write(JvLog.TypeLog.Error, "Здесь мы не смогли получить runnableSocketFromList, так как он null");
+            JvSocketRunnableCtrlStructObject socketRunnableCtrlStructObject = checkerOnline.getSocketRunnableCtrlStructObject();
+            if (socketRunnableCtrlStructObject == null) {
+                JvLog.write(JvLog.TypeLog.Error, "Здесь socketRunnableCtrlStructObject равен null");
                 continue;
             }
 
+            Runnable runnableSocketFromList = socketRunnableCtrlStructObject.getSocketRunnableCtrl();
             if (runnableSocketFromList == socketRunnableCtrl) {
                 return checkerOnline;
             }
