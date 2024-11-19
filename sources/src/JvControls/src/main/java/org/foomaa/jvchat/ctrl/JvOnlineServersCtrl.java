@@ -78,7 +78,13 @@ public class JvOnlineServersCtrl {
         List<JvCheckerOnlineStructObject> listCheckersOnline = checkersOnlineModel.getAllCheckersOnline();
 
         for (JvCheckerOnlineStructObject checkerOnline : listCheckersOnline) {
-            String loginFromList = checkerOnline.getUser().getLogin();
+            JvUserStructObject userStructObject = checkerOnline.getUser();
+            if (userStructObject == null) {
+                JvLog.write(JvLog.TypeLog.Error, "Здесь userStructObject равен null");
+                continue;
+            }
+
+            String loginFromList = userStructObject.getLogin();
             if (Objects.equals(loginFromList, userLogin)) {
                 return true;
             }
@@ -254,7 +260,7 @@ public class JvOnlineServersCtrl {
 
             if (milliSecondsAfterLastUpdating > intervalMilliSecondsAfterLastUpdate) {
                 checkersOnlineModel.removeItem(onlineUser);
-                
+
                 JvUserStructObject userStructObject = onlineUser.getUser();
                 if (userStructObject == null) {
                     JvLog.write(JvLog.TypeLog.Error, "Здесь userStructObject равен null");
