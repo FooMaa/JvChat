@@ -96,4 +96,9 @@ public class JvMessagesDialogCtrl {
         }
         return null;
     }
+
+    public boolean isCurrentUserSender(JvMessageStructObject messageStructObject) {
+        String currentLogin = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
+        return Objects.equals(currentLogin, messageStructObject.getLoginSender());
+    }
 }

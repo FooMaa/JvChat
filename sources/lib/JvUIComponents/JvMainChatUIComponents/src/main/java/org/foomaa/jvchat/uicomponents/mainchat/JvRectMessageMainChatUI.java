@@ -7,12 +7,13 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 
 import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 
 
 public class JvRectMessageMainChatUI extends JTextArea {
     private final int borderSize;
 
-    JvRectMessageMainChatUI() {
+    JvRectMessageMainChatUI(JvMessageStructObject messageObject) {
         borderSize = 10;
 
         settingLabel();

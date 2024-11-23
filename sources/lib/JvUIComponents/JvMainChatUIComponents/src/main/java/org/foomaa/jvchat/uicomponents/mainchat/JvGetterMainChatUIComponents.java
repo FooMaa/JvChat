@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
+import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import org.foomaa.jvchat.structobjects.JvChatStructObject;
@@ -36,9 +37,9 @@ public class JvGetterMainChatUIComponents {
                 JvScrollPanelMessagesMainChatUI.class);
     }
 
-    public JvRectMessageMainChatUI getBeanRectMessageMainChatUI() {
-        return context.getBean(JvMainChatUIComponentsSpringConfig.NameBeans.BeanRectMessageMainChatUI.getValue(),
-                JvRectMessageMainChatUI.class);
+    public JvRectMessageMainChatUI getBeanRectMessageMainChatUI(JvMessageStructObject messageObject) {
+        return (JvRectMessageMainChatUI) context.getBean(JvMainChatUIComponentsSpringConfig.NameBeans.BeanRectMessageMainChatUI.getValue(),
+                messageObject);
     }
 
     public JvRectChatMainChatUI getBeanRectChatMainChatUI(JvChatStructObject chatObject) {

@@ -1,5 +1,8 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
+import org.foomaa.jvchat.ctrl.JvGetterControls;
+import org.foomaa.jvchat.structobjects.JvMessageStructObject;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
@@ -23,7 +26,6 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
     private void makePanel() {
         JScrollPane scrollPane = new JScrollPane(new JPanel());
         scrollPane.setBorder(null);
-
         addListenerScrollPane(scrollPane);
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -47,9 +49,9 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
             rowPanel.setLayout(new BorderLayout());
 
             if (i % 2 == 0) {
-                rowPanel.add(JvGetterMainChatUIComponents.getInstance().getBeanRectMessageMainChatUI(), BorderLayout.WEST);
+                rowPanel.add(JvGetterMainChatUIComponents.getInstance().getBeanRectMessageMainChatUI(null), BorderLayout.WEST);
             } else {
-                rowPanel.add(JvGetterMainChatUIComponents.getInstance().getBeanRectMessageMainChatUI(), BorderLayout.EAST);
+                rowPanel.add(JvGetterMainChatUIComponents.getInstance().getBeanRectMessageMainChatUI(null), BorderLayout.EAST);
             }
             scrollPanel.add(rowPanel);
         }
@@ -57,10 +59,7 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
         scrollPane.setViewportView(scrollPanel);
 
         JScrollBar verticalScrollBar = scrollPane.getVerticalScrollBar();
-
-        if (verticalScrollBar != null) {
-            verticalScrollBar.setValue(verticalScrollBar.getMaximum());
-        }
+        scrollDown(verticalScrollBar);
 
         revalidate();
         repaint();
@@ -73,5 +72,18 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
                 changeScrollPane(scrollPane);
             }
         });
+    }
+
+    private void scrollDown(JScrollBar verticalScrollBar) {
+        if (verticalScrollBar != null) {
+            verticalScrollBar.setValue(verticalScrollBar.getMaximum());
+        }
+    }
+
+    public void addMessage(JvMessageStructObject messageObject) {
+        String constraints = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().isCurrentUserSender(messageObject) ?
+                BorderLayout.EAST : BorderLayout.WEST;
+
+        //rowPanel.add(JvGetterMainChatUIComponents.getInstance().getBeanRectMessageMainChatUI(messageObject), constraints);
     }
 }
