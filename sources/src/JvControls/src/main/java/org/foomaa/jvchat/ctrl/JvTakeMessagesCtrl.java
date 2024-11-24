@@ -54,6 +54,7 @@ public class JvTakeMessagesCtrl {
             case LoadUsersOnlineStatusReply -> workLoadUsersOnlineStatusReplyMessage(getDeserializeMapData(type, data));
             case TextMessageSendUserToServer -> workTextMessageSendUserToServerMessage(getDeserializeMapData(type, data));
             case TextMessagesChangingStatusFromServer -> workTextMessagesChangingStatusFromServerMessage(getDeserializeMapData(type, data));
+            case TextMessageRedirectServerToUser -> workTextMessageRedirectServerToUserMessage(getDeserializeMapData(type, data));
         }
 
         clearRunnableCtrlFromConnection();
@@ -358,5 +359,16 @@ public class JvTakeMessagesCtrl {
 
         JvGetterControls.getInstance().getBeanMessagesDialogCtrl()
                 .setDirtyStatusToMessage( loginSender, loginReceiver, mapStatusesMessages);
+    }
+
+    private void workTextMessageRedirectServerToUserMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
+        String loginSender = (String) map.get(JvDefinesMessages.TypeData.LoginSender);
+        String loginReceiver = (String) map.get(JvDefinesMessages.TypeData.LoginReceiver);
+        String uuid = (String) map.get(JvDefinesMessages.TypeData.Uuid);
+        String text = (String) map.get(JvDefinesMessages.TypeData.Text);
+        String timestamp = (String) map.get(JvDefinesMessages.TypeData.TimeStampMessageSend);
+
+        JvMainChatsGlobalDefines.TypeStatusMessage status = JvMainChatsGlobalDefines.TypeStatusMessage.Delivered;
+        String statusString = status.toString();
     }
 }

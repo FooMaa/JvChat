@@ -235,6 +235,18 @@ public class JvSendMessagesCtrl {
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
+            case TextMessageRedirectServerToUser -> {
+                if (parameters.length == 5) {
+                    Object loginSender = parameters[0];
+                    Object loginReceiver = parameters[1];
+                    Object uuid = parameters[2];
+                    Object text = parameters[3];
+                    Object timestamp = parameters[4];
+                    byte[] bodyMessage = createBodyTextMessageRedirectServerToUserMessage(type, (String) loginSender,
+                            (String) loginReceiver, (String) uuid, (String) text, (String) timestamp);
+                    sendReadyMessageNetwork(bodyMessage);
+                }
+            }
         }
     }
 
@@ -331,5 +343,12 @@ public class JvSendMessagesCtrl {
                                                                          String loginSender, String loginReceiver,
                                                                          Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, loginSender, loginReceiver, mapStatusMessages);
+    }
+
+    private byte[] createBodyTextMessageRedirectServerToUserMessage(JvDefinesMessages.TypeMessage type,
+                                                                String loginSender, String loginReceiver,
+                                                                String uuid, String text, String timestamp) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(
+                type, loginSender, loginReceiver, uuid, text, timestamp);
     }
 }

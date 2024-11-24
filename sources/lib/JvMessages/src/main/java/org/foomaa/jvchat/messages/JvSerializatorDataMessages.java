@@ -219,6 +219,19 @@ public class JvSerializatorDataMessages {
                     return new byte[0];
                 }
             }
+            case TextMessageRedirectServerToUser -> {
+                if (parameters.length == 5) {
+                    Object loginSender = parameters[0];
+                    Object loginReceiver = parameters[1];
+                    Object uuid = parameters[2];
+                    Object text = parameters[3];
+                    Object timestamp = parameters[4];
+                    return createTextMessageRedirectServerToUserMessage(type, (String) loginSender,
+                            (String) loginReceiver, (String) uuid, (String) text, (String) timestamp);
+                } else {
+                    return new byte[0];
+                }
+            }
         }
         return new byte[0];
     }
@@ -548,6 +561,29 @@ public class JvSerializatorDataMessages {
                 JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
                         .setType(type.getValue())
                         .setTextMessagesChangingStatusFromServer(msgTextMessagesChangingStatusFromServer)
+                        .build();
+        return resMsg.toByteArray();
+    }
+
+    private byte[] createTextMessageRedirectServerToUserMessage(JvDefinesMessages.TypeMessage type,
+                                                            String loginSender, String loginReceiver,
+                                                            String uuid, String text, String timestamp) {
+        JvClientServerSerializeProtocolMessage_pb.MessageInfo messageInfo =
+                JvClientServerSerializeProtocolMessage_pb.MessageInfo.newBuilder()
+                        .setLoginSender(loginSender)
+                        .setLoginReceiver(loginReceiver)
+                        .setUuid(uuid)
+                        .setText(text)
+                        .setTimestamp(timestamp)
+                        .build();
+        JvClientServerSerializeProtocolMessage_pb.TextMessageSendUserToServer msgTextMessageSendUserToServer =
+                JvClientServerSerializeProtocolMessage_pb.TextMessageSendUserToServer.newBuilder()
+                        .setMessageInfo(messageInfo)
+                        .build();
+        JvClientServerSerializeProtocolMessage_pb.General resMsg =
+                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
+                        .setType(type.getValue())
+                        .setTextMessageSendUserToServer(msgTextMessageSendUserToServer)
                         .build();
         return resMsg.toByteArray();
     }
