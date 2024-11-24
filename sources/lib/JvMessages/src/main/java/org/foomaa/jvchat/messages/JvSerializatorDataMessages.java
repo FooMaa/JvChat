@@ -506,13 +506,17 @@ public class JvSerializatorDataMessages {
     private byte[] createTextMessageSendUserToServerMessage(JvDefinesMessages.TypeMessage type,
                                                             String loginSender, String loginReceiver,
                                                             String uuid, String text, String timestamp) {
-        JvClientServerSerializeProtocolMessage_pb.TextMessageSendUserToServer msgTextMessageSendUserToServer =
-                JvClientServerSerializeProtocolMessage_pb.TextMessageSendUserToServer.newBuilder()
+        JvClientServerSerializeProtocolMessage_pb.MessageInfo messageInfo =
+                JvClientServerSerializeProtocolMessage_pb.MessageInfo.newBuilder()
                         .setLoginSender(loginSender)
                         .setLoginReceiver(loginReceiver)
                         .setUuid(uuid)
                         .setText(text)
                         .setTimestamp(timestamp)
+                        .build();
+        JvClientServerSerializeProtocolMessage_pb.TextMessageSendUserToServer msgTextMessageSendUserToServer =
+                JvClientServerSerializeProtocolMessage_pb.TextMessageSendUserToServer.newBuilder()
+                        .setMessageInfo(messageInfo)
                         .build();
         JvClientServerSerializeProtocolMessage_pb.General resMsg =
                 JvClientServerSerializeProtocolMessage_pb.General.newBuilder()

@@ -320,12 +320,13 @@ public class JvDeserializatorDataMessages {
             JvClientServerSerializeProtocolMessage_pb.TextMessageSendUserToServer msgData =
                     JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
                             .getTextMessageSendUserToServer();
+            JvClientServerSerializeProtocolMessage_pb.MessageInfo messageInfo = msgData.getMessageInfo();
 
-            result.put(JvDefinesMessages.TypeData.LoginSender, msgData.getLoginSender());
-            result.put(JvDefinesMessages.TypeData.LoginReceiver, msgData.getLoginReceiver());
-            result.put(JvDefinesMessages.TypeData.Uuid, msgData.getUuid());
-            result.put(JvDefinesMessages.TypeData.Text, msgData.getText());
-            result.put(JvDefinesMessages.TypeData.TimeStampMessageSend, msgData.getTimestamp());
+            result.put(JvDefinesMessages.TypeData.LoginSender, messageInfo.getLoginSender());
+            result.put(JvDefinesMessages.TypeData.LoginReceiver, messageInfo.getLoginReceiver());
+            result.put(JvDefinesMessages.TypeData.Uuid, messageInfo.getUuid());
+            result.put(JvDefinesMessages.TypeData.Text, messageInfo.getText());
+            result.put(JvDefinesMessages.TypeData.TimeStampMessageSend, messageInfo.getTimestamp());
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }

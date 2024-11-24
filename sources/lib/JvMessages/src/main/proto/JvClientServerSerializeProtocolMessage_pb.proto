@@ -151,6 +151,10 @@ message LoadUsersOnlineStatusReply {
 }
 
 message TextMessageSendUserToServer {
+    MessageInfo messageInfo = 1;
+}
+
+message MessageInfo {
     string loginSender = 1;
     string loginReceiver = 2;
     string uuid = 3;
@@ -171,9 +175,5 @@ message TextMessagesChangingStatusFromServer {
 }
 
 message TextMessageRedirectServerToUser {
-    string loginSender = 1;
-    string loginReceiver = 2;
-    string uuid = 3;
-    string text = 4;
-    string timestamp = 5;
+    MessageInfo messageInfo = 1;;
 }
