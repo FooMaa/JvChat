@@ -109,5 +109,13 @@ public class JvMessagesDialogCtrl {
         if (!isUserOnline) {
             return;
         }
+
+        JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+                JvDefinesMessages.TypeMessage.TextMessageRedirectServerToUser,
+                messageStructObject.getLoginSender(),
+                messageStructObject.getLoginReceiver(),
+                messageStructObject.getUuid(),
+                messageStructObject.getText(),
+                messageStructObject.getTimestamp());
     }
 }
