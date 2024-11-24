@@ -103,10 +103,16 @@ public class JvMessagesDialogCtrl {
     }
 
     public void redirectMessageToOnlineUser(JvMessageStructObject messageStructObject) {
-        boolean isUserOnline = JvGetterControls.getInstance().getBeanOnlineServersCtrl()
-                .isLoginInListCheckerOnline(messageStructObject.getLoginReceiver());
+        JvOnlineServersCtrl onlineServersCtrl =  JvGetterControls.getInstance().getBeanOnlineServersCtrl();
 
+        boolean isUserOnline = onlineServersCtrl.isLoginInListCheckerOnline(messageStructObject.getLoginReceiver());
         if (!isUserOnline) {
+            return;
+        }
+
+        Runnable runnableUserCtrl = onlineServersCtrl.getRunnableByLogin(messageStructObject.getLoginReceiver());
+        if (runnableUserCtrl == null) {
+            JvLog.write(JvLog.TypeLog.Error, "Здесь runnableUserCtrl оказался null");
             return;
         }
 
@@ -116,6 +122,7 @@ public class JvMessagesDialogCtrl {
                 messageStructObject.getLoginReceiver(),
                 messageStructObject.getUuid(),
                 messageStructObject.getText(),
-                messageStructObject.getTimestamp());
+                messageStructObject.getTimestamp(),
+                runnableUserCtrl);
     }
 }

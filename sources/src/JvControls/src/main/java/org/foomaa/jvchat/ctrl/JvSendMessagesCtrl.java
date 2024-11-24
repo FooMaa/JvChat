@@ -236,15 +236,16 @@ public class JvSendMessagesCtrl {
                 }
             }
             case TextMessageRedirectServerToUser -> {
-                if (parameters.length == 5) {
+                if (parameters.length == 6) {
                     Object loginSender = parameters[0];
                     Object loginReceiver = parameters[1];
                     Object uuid = parameters[2];
                     Object text = parameters[3];
                     Object timestamp = parameters[4];
+                    Object runnableCtrl = parameters[5];
                     byte[] bodyMessage = createBodyTextMessageRedirectServerToUserMessage(type, (String) loginSender,
                             (String) loginReceiver, (String) uuid, (String) text, (String) timestamp);
-                    sendReadyMessageNetwork(bodyMessage);
+                    sendReadyMessageNetwork(bodyMessage, (Runnable) runnableCtrl);
                 }
             }
         }

@@ -47,7 +47,7 @@ public class JvOnlineServersCtrl {
             }
 
             Runnable runnableSocketFromList = socketRunnableCtrlStructObject.getSocketRunnableCtrl();
-            if ( runnableSocketFromList == socketRunnableCtrl) {
+            if (runnableSocketFromList == socketRunnableCtrl) {
                 return true;
             }
         }
@@ -296,5 +296,23 @@ public class JvOnlineServersCtrl {
             }
         }
         return resultMap;
+    }
+
+    public Runnable getRunnableByLogin(String login) {
+        List<JvCheckerOnlineStructObject> listCheckersOnline = checkersOnlineModel.getAllCheckersOnline();
+
+        for (JvCheckerOnlineStructObject checkerOnline : listCheckersOnline) {
+            JvSocketRunnableCtrlStructObject socketRunnableCtrlStructObject = checkerOnline.getSocketRunnableCtrlStructObject();
+            if (socketRunnableCtrlStructObject == null) {
+                JvLog.write(JvLog.TypeLog.Error, "Здесь socketRunnableCtrlStructObject равен null");
+                continue;
+            }
+
+            if (Objects.equals(checkerOnline.getUser().getLogin(), login)) {
+                return socketRunnableCtrlStructObject.getSocketRunnableCtrl();
+            }
+        }
+
+        return null;
     }
 }
