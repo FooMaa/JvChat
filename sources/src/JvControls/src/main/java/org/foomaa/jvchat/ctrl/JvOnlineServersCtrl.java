@@ -74,7 +74,7 @@ public class JvOnlineServersCtrl {
         return null;
     }
 
-    private boolean isLoginInListCheckerOnline(String userLogin) {
+    public boolean isLoginInListCheckerOnline(String userLogin) {
         List<JvCheckerOnlineStructObject> listCheckersOnline = checkersOnlineModel.getAllCheckersOnline();
 
         for (JvCheckerOnlineStructObject checkerOnline : listCheckersOnline) {

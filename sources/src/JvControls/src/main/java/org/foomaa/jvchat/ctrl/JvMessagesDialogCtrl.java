@@ -101,4 +101,13 @@ public class JvMessagesDialogCtrl {
         String currentLogin = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
         return Objects.equals(currentLogin, messageStructObject.getLoginSender());
     }
+
+    public void redirectMessageToOnlineUser(JvMessageStructObject messageStructObject) {
+        boolean isUserOnline = JvGetterControls.getInstance().getBeanOnlineServersCtrl()
+                .isLoginInListCheckerOnline(messageStructObject.getLoginReceiver());
+
+        if (!isUserOnline) {
+            return;
+        }
+    }
 }
