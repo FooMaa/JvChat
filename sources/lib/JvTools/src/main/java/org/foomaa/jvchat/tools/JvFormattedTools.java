@@ -18,7 +18,7 @@ public class JvFormattedTools {
         return instance;
     }
 
-    public String normalizeMillisecond(String timestamp, int normalizeCount) {
+    private String normalizeMillisecond(String timestamp, int normalizeCount) {
         String resultTimestamp;
         String[] parts = timestamp.split("\\.");
 
@@ -43,7 +43,20 @@ public class JvFormattedTools {
     }
 
     public String formattedTimestampToDB(LocalDateTime timestamp) {
-        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return timestamp.format(formatter);
+    }
+
+    public LocalDateTime formattedTimestampToLocalDateTime(String timestampStr, int normalizeCount) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+        String timestampString = JvGetterTools.getInstance()
+                .getBeanFormattedTools().normalizeMillisecond(timestampStr, normalizeCount);
+
+        if (timestampString == null) {
+            JvLog.write(JvLog.TypeLog.Error, "Не получилось нормализовать дату и время к нужному формату");
+            return null;
+        }
+
+        return LocalDateTime.parse(timestampString, formatter);
     }
 }

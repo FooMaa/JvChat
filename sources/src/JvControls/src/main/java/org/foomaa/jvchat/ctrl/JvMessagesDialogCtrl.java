@@ -9,6 +9,7 @@ import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.models.JvGetterModels;
 import org.foomaa.jvchat.models.JvMessagesModel;
 import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.structobjects.JvGetterStructObjects;
 import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 import org.foomaa.jvchat.tools.JvGetterTools;
 
@@ -124,5 +125,23 @@ public class JvMessagesDialogCtrl {
                 messageStructObject.getText(),
                 messageStructObject.getTimestamp(),
                 runnableUserCtrl);
+    }
+
+    public JvMessageStructObject createMessageByData(String loginSender,
+                                                     String loginReceiver,
+                                                     String text,
+                                                     JvMainChatsGlobalDefines.TypeStatusMessage statusMessage,
+                                                     UUID uuid,
+                                                     LocalDateTime timestamp) {
+        JvMessageStructObject messageObj = JvGetterStructObjects.getInstance().getBeanMessageStructObject();
+
+        messageObj.setLoginSender(loginSender);
+        messageObj.setLoginReceiver(loginReceiver);
+        messageObj.setText(text);
+        messageObj.setStatusMessage(statusMessage);
+        messageObj.setUuid(uuid);
+        messageObj.setTimestamp(timestamp);
+
+        return messageObj;
     }
 }

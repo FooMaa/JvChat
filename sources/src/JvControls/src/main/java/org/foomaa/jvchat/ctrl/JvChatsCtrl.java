@@ -70,18 +70,16 @@ public class JvChatsCtrl {
             return null;
         }
 
-        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
-
         int normalizeCount = 3;
-        String timestampString = JvGetterTools.getInstance()
-                .getBeanFormattedTools().normalizeMillisecond(timestampStart, normalizeCount);
+        LocalDateTime timestamp = JvGetterTools.getInstance()
+                .getBeanFormattedTools().formattedTimestampToLocalDateTime(timestampStart, normalizeCount);
 
-        if (timestampString == null) {
+        if (timestamp == null) {
             JvLog.write(JvLog.TypeLog.Error, "Не получилось нормализовать дату и время к нужному формату");
             return null;
         }
 
-        return LocalDateTime.parse(timestampString, formatter);
+        return timestamp;
     }
 
     public void setOnlineStatusesUsers(Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> onlineStatusesUsers) {
