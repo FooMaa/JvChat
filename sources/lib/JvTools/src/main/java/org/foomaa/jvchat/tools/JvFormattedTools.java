@@ -49,8 +49,8 @@ public class JvFormattedTools {
 
     public LocalDateTime formattedTimestampToLocalDateTime(String timestampStr, int normalizeCount) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
-        String timestampString = JvGetterTools.getInstance()
-                .getBeanFormattedTools().normalizeMillisecond(timestampStr, normalizeCount);
+        String timestampString = JvGetterTools.getInstance().getBeanFormattedTools()
+                .normalizeMillisecond(timestampStr, normalizeCount);
 
         if (timestampString == null) {
             JvLog.write(JvLog.TypeLog.Error, "Не получилось нормализовать дату и время к нужному формату");
