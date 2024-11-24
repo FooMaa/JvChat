@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.ctrl;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,9 @@ import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvGetterMessages;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
+import org.foomaa.jvchat.models.JvGetterModels;
 import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 import org.foomaa.jvchat.tools.JvGetterTools;
 
 
@@ -347,6 +350,11 @@ public class JvTakeMessagesCtrl {
         JvGetterControls.getInstance().getBeanSendMessagesCtrl()
                 .sendMessage(JvDefinesMessages.TypeMessage.TextMessagesChangingStatusFromServer,
                         loginSender, loginReceiver, mapStatusMessages);
+
+        ////// TODO
+        JvMessageStructObject messageStructObject = JvGetterModels.getInstance().getBeanMessagesModel().createNewMessage(
+                loginSender, loginReceiver, text, status, UUID.fromString(uuid), LocalDateTime.MAX);
+        JvGetterControls.getInstance().getBeanMessagesDialogCtrl().redirectMessageToOnlineUser(messageStructObject);
     }
 
     private void workTextMessagesChangingStatusFromServerMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
@@ -367,7 +375,7 @@ public class JvTakeMessagesCtrl {
         String uuid = (String) map.get(JvDefinesMessages.TypeData.Uuid);
         String text = (String) map.get(JvDefinesMessages.TypeData.Text);
         String timestamp = (String) map.get(JvDefinesMessages.TypeData.TimeStampMessageSend);
-
+        System.out.println(text);
         JvMainChatsGlobalDefines.TypeStatusMessage status = JvMainChatsGlobalDefines.TypeStatusMessage.Delivered;
         String statusString = status.toString();
     }
