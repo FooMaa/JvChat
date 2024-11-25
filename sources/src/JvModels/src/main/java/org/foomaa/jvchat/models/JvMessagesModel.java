@@ -20,6 +20,7 @@ public class JvMessagesModel extends JvBaseModel {
     private JvMessagesModel() {
         setRootObject(JvGetterStructObjects.getInstance()
                 .getBeanRootStructObject(getNameModel()));
+        currentActiveLoginUI = "";
     }
 
     static JvMessagesModel getInstance() {

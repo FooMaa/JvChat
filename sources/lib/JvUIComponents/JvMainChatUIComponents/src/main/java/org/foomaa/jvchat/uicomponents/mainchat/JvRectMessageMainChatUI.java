@@ -6,15 +6,24 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
 
+import org.foomaa.jvchat.ctrl.JvGetterControls;
+import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 
 
 public class JvRectMessageMainChatUI extends JTextArea {
-    private final int borderSize;
+    private JvMainChatsGlobalDefines.TypeStatusMessage statusMessage;
+    private String textMessage;
+    private String timestamp;
 
     JvRectMessageMainChatUI(JvMessageStructObject messageObject) {
-        borderSize = 10;
+        if (messageObject != null) {
+            textMessage = messageObject.getText();
+            statusMessage = messageObject.getStatusMessage();
+            timestamp = JvGetterControls.getInstance().getBeanMessagesDialogCtrl()
+                    .getTimeFormattedMessage(messageObject.getTimestamp());
+        }
 
         settingLabel();
         addListenerToElements();
@@ -57,6 +66,8 @@ public class JvRectMessageMainChatUI extends JTextArea {
     }
 
     private void settingLabel() {
+        int borderSize = 10;
+
         setOpaque(false);
         setEditable(false);
         setBackground(new Color(173, 216, 230));

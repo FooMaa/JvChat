@@ -11,6 +11,8 @@ import java.awt.event.ComponentEvent;
 
 public class JvScrollPanelMessagesMainChatUI extends JPanel {
     private static JvScrollPanelMessagesMainChatUI instance;
+    private JScrollPane scrollPane;
+    private JPanel panel;
 
     JvScrollPanelMessagesMainChatUI() {
         makePanel();
@@ -24,9 +26,14 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
     }
 
     private void makePanel() {
-        JScrollPane scrollPane = new JScrollPane(new JPanel());
+        panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        scrollPane = new JScrollPane(panel);
         scrollPane.setBorder(null);
-        addListenerScrollPane(scrollPane);
+        scrollPane.setViewportView(panel);
+
+        addListenerScrollPane();
 
         GridBagConstraints gbc = new GridBagConstraints();
         setLayout(new GridBagLayout());
@@ -39,56 +46,53 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
         add(scrollPane, gbc);
     }
 
-    private void changeScrollPane(JScrollPane scrollPane) {
-        JPanel scrollPanel = new JPanel();
-
-        scrollPanel.setLayout(new BoxLayout(scrollPanel, BoxLayout.Y_AXIS));
-
-        for (int i = 0; i < 50; i ++) {
-            if (i % 2 == 0) {
-                scrollPanel.add(createPanelOneMessage(null, BorderLayout.WEST));
-            } else {
-                scrollPanel.add(createPanelOneMessage(null, BorderLayout.EAST));
-            }
-        }
-
-        scrollPane.setViewportView(scrollPanel);
-
-        JScrollBar verticalScrollBar = scrollPane.getVerticalScrollBar();
-        scrollDown(verticalScrollBar);
-
-        revalidate();
-        repaint();
-    }
-
-    private JPanel createPanelOneMessage(JvMessageStructObject messageObject, String constraints) {
-        JPanel rowPanel = new JPanel();
-        rowPanel.setLayout(new BorderLayout());
-
-        rowPanel.add(JvGetterMainChatUIComponents.getInstance().getBeanRectMessageMainChatUI(messageObject), constraints);
-
-        return rowPanel;
-    }
-
-    private void addListenerScrollPane(JScrollPane scrollPane) {
+    private void addListenerScrollPane() {
         scrollPane.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                changeScrollPane(scrollPane);
+                makeDefaultMsg();
+                updatePanelMessages();
             }
         });
     }
 
-    private void scrollDown(JScrollBar verticalScrollBar) {
+    // TODO(VAD): delete
+    private void makeDefaultMsg() {
+        for (int i = 0; i < 50; i ++) {
+            if (i % 2 == 0) {
+                createPanelMessage(null, BorderLayout.WEST);
+            } else {
+                createPanelMessage(null, BorderLayout.EAST);
+            }
+        }
+    }
+
+    private void createPanelMessage(JvMessageStructObject messageObject, String constraints) {
+        JPanel rowPanel = new JPanel();
+        rowPanel.setLayout(new BorderLayout());
+        rowPanel.add(JvGetterMainChatUIComponents.getInstance().getBeanRectMessageMainChatUI(messageObject), constraints);
+        panel.add(rowPanel);
+    }
+
+    private void updatePanelMessages() {
+        revalidate();
+        repaint();
+        scrollDownPanel();
+    }
+
+    private void scrollDownPanel() {
+        JScrollBar verticalScrollBar = scrollPane.getVerticalScrollBar();
         if (verticalScrollBar != null) {
-            verticalScrollBar.setValue(verticalScrollBar.getMaximum());
+            SwingUtilities.invokeLater(() -> {
+                verticalScrollBar.setValue(verticalScrollBar.getMaximum());
+            });
         }
     }
 
     public void addMessage(JvMessageStructObject messageObject) {
         String constraints = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().isCurrentUserSender(messageObject) ?
                 BorderLayout.EAST : BorderLayout.WEST;
-
-        //rowPanel.add(JvGetterMainChatUIComponents.getInstance().getBeanRectMessageMainChatUI(messageObject), constraints);
+        createPanelMessage(null, constraints);
+        updatePanelMessages();
     }
 }

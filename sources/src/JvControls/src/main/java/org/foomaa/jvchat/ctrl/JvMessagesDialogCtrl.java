@@ -1,6 +1,7 @@
 package org.foomaa.jvchat.ctrl;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
@@ -37,10 +38,10 @@ public class JvMessagesDialogCtrl {
         return messagesModel.getCurrentActiveLoginUI();
     }
 
-    public void createAndSendMessage(String text) {
-        if (Objects.equals(messagesModel.getCurrentActiveLoginUI(), "")) {
+    public JvMessageStructObject createAndSendMessage(String text) {
+        if (Objects.equals(messagesModel.getCurrentActiveLoginUI(), "") || messagesModel.getCurrentActiveLoginUI() == null) {
             JvLog.write(JvLog.TypeLog.Error, "Не выбран диалог, отправка не выполнена");
-            return;
+            return null;
         }
 
         String loginSender = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
@@ -54,6 +55,8 @@ public class JvMessagesDialogCtrl {
 
         sendNewMessage(messageStructObject);
         setLastMessageInChatCtrl(messageStructObject);
+
+        return messageStructObject;
     }
 
     private void setLastMessageInChatCtrl(JvMessageStructObject message) {
@@ -146,5 +149,15 @@ public class JvMessagesDialogCtrl {
         messageObj.setTimestamp(timestamp);
 
         return messageObj;
+    }
+
+    public String getTimeFormattedMessage(LocalDateTime timestamp) {
+        if (timestamp == null) {
+            JvLog.write(JvLog.TypeLog.Error, "Здесь timestamp оказался null");
+            return "";
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        return timestamp.format(formatter);
     }
 }
