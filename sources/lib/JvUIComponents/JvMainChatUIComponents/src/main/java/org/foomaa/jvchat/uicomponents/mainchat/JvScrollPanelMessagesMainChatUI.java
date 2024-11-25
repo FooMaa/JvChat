@@ -45,15 +45,11 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
         scrollPanel.setLayout(new BoxLayout(scrollPanel, BoxLayout.Y_AXIS));
 
         for (int i = 0; i < 50; i ++) {
-            JPanel rowPanel = new JPanel();
-            rowPanel.setLayout(new BorderLayout());
-
             if (i % 2 == 0) {
-                rowPanel.add(JvGetterMainChatUIComponents.getInstance().getBeanRectMessageMainChatUI(null), BorderLayout.WEST);
+                scrollPanel.add(createPanelOneMessage(null, BorderLayout.WEST));
             } else {
-                rowPanel.add(JvGetterMainChatUIComponents.getInstance().getBeanRectMessageMainChatUI(null), BorderLayout.EAST);
+                scrollPanel.add(createPanelOneMessage(null, BorderLayout.EAST));
             }
-            scrollPanel.add(rowPanel);
         }
 
         scrollPane.setViewportView(scrollPanel);
@@ -63,6 +59,15 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
 
         revalidate();
         repaint();
+    }
+
+    private JPanel createPanelOneMessage(JvMessageStructObject messageObject, String constraints) {
+        JPanel rowPanel = new JPanel();
+        rowPanel.setLayout(new BorderLayout());
+
+        rowPanel.add(JvGetterMainChatUIComponents.getInstance().getBeanRectMessageMainChatUI(messageObject), constraints);
+
+        return rowPanel;
     }
 
     private void addListenerScrollPane(JScrollPane scrollPane) {
