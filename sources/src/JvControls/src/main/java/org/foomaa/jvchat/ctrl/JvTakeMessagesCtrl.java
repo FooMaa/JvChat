@@ -348,11 +348,13 @@ public class JvTakeMessagesCtrl {
         JvMessageStructObject messageObj = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().createMessageByData(
                 loginSender, loginReceiver, text, status, UUID.fromString(uuid), timestamp);
 
+        // записываем в первую очередь в БД
         JvGetterControls.getInstance().getBeanDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.ChatMessagesSentMessage,
                 loginSender, loginReceiver, statusString, text, uuid, timestampStr);
-        JvGetterControls.getInstance().getBeanSendMessagesCtrl()
-                .sendMessage(JvDefinesMessages.TypeMessage.TextMessagesChangingStatusFromServer,
-                        loginSender, loginReceiver, mapStatusMessages);
+        // отправляем статус "доставлено"
+        JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+                JvDefinesMessages.TypeMessage.TextMessagesChangingStatusFromServer, loginSender, loginReceiver, mapStatusMessages);
+        // отправляем пользователю, если он в сети
         JvGetterControls.getInstance().getBeanMessagesDialogCtrl().redirectMessageToOnlineUser(messageObj);
     }
 

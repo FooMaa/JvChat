@@ -121,7 +121,7 @@ public class JvMessagesDialogCtrl {
                 JvDefinesMessages.TypeMessage.TextMessageRedirectServerToUser,
                 messageStructObject.getLoginSender(),
                 messageStructObject.getLoginReceiver(),
-                messageStructObject.getUuid(),
+                messageStructObject.getUuid().toString(),
                 messageStructObject.getText(),
                 messageStructObject.getTimestamp(),
                 runnableUserCtrl);
