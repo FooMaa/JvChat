@@ -2,6 +2,8 @@ package org.foomaa.jvchat.tools;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.foomaa.jvchat.logger.JvLog;
 
@@ -35,19 +37,35 @@ public class JvFormattedTools {
 
             resultTimestamp = parts[0] + "." + milliseconds;
         } else {
-            JvLog.write(JvLog.TypeLog.Error, "Не получилось нормально преобразовать дату и время к нужному формату");
-            return null;
+            JvLog.write(JvLog.TypeLog.Warn, "Не получилось нормально преобразовать дату и время к нужному" +
+                    " формату с миллисекундами, попробуем с regex");
+
+            // Регулярное выражение для формата 'yyyy-MM-dd HH:mm:ss'
+            String patternStr = "^(?<year>\\d{4})-(?<month>0[1-9]|1[012])-(?<day>0[1-9]|[12][0-9]|3[01])" +
+                    "[T ](?<hour>[01][0-9]|2[0-3]):(?<minute>[0-5][0-9]):(?<second>[0-5][0-9])$";
+
+            Pattern pattern= Pattern.compile(patternStr);
+            Matcher m = pattern.matcher(timestamp);
+
+            if (m.matches()) {
+                String zeroMs = "0";
+                String addingMs = zeroMs.repeat(normalizeCount);
+                resultTimestamp = timestamp + "." + addingMs;
+            } else {
+                JvLog.write(JvLog.TypeLog.Error, "Не получилось нормально преобразовать дату и время к нужному формату");
+                return null;
+            }
         }
 
         return resultTimestamp;
     }
 
-    public String formattedTimestampToDB(LocalDateTime timestamp) {
+    public String localDateTimeToString(LocalDateTime timestamp) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return timestamp.format(formatter);
     }
 
-    public LocalDateTime formattedTimestampToLocalDateTime(String timestampStr, int normalizeCount) {
+    public LocalDateTime stringToLocalDateTime(String timestampStr, int normalizeCount) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
         String timestampString = JvGetterTools.getInstance().getBeanFormattedTools()
                 .normalizeMillisecond(timestampStr, normalizeCount);

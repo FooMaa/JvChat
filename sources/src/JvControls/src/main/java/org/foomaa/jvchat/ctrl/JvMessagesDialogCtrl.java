@@ -63,7 +63,7 @@ public class JvMessagesDialogCtrl {
 
     private void sendNewMessage(JvMessageStructObject message) {
         String timestampNewMessage = JvGetterTools.getInstance().getBeanFormattedTools()
-                .formattedTimestampToDB(message.getTimestamp());
+                .localDateTimeToString(message.getTimestamp());
 
         JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 JvDefinesMessages.TypeMessage.TextMessageSendUserToServer,
@@ -117,13 +117,16 @@ public class JvMessagesDialogCtrl {
             return;
         }
 
+        String timestampMessage = JvGetterTools.getInstance().getBeanFormattedTools()
+                .localDateTimeToString(messageStructObject.getTimestamp());
+
         JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 JvDefinesMessages.TypeMessage.TextMessageRedirectServerToUser,
                 messageStructObject.getLoginSender(),
                 messageStructObject.getLoginReceiver(),
                 messageStructObject.getUuid().toString(),
                 messageStructObject.getText(),
-                messageStructObject.getTimestamp(),
+                timestampMessage,
                 runnableUserCtrl);
     }
 

@@ -13,7 +13,6 @@ import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvGetterMessages;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
-import org.foomaa.jvchat.models.JvGetterModels;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 import org.foomaa.jvchat.tools.JvGetterTools;
@@ -342,9 +341,8 @@ public class JvTakeMessagesCtrl {
         String statusString = status.toString();
         Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages = new HashMap<>();
         mapStatusMessages.put(UUID.fromString(uuid), status);
-        int normalizeTimestampCount = 3;
         LocalDateTime timestamp = JvGetterTools.getInstance().getBeanFormattedTools()
-                .formattedTimestampToLocalDateTime(timestampStr, normalizeTimestampCount);
+                .stringToLocalDateTime(timestampStr, 3);
         JvMessageStructObject messageObj = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().createMessageByData(
                 loginSender, loginReceiver, text, status, UUID.fromString(uuid), timestamp);
 
@@ -376,7 +374,7 @@ public class JvTakeMessagesCtrl {
         String uuid = (String) map.get(JvDefinesMessages.TypeData.Uuid);
         String text = (String) map.get(JvDefinesMessages.TypeData.Text);
         String timestamp = (String) map.get(JvDefinesMessages.TypeData.TimeStampMessageSend);
-        System.out.println(text);
+
         JvMainChatsGlobalDefines.TypeStatusMessage status = JvMainChatsGlobalDefines.TypeStatusMessage.Delivered;
         String statusString = status.toString();
     }

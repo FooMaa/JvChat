@@ -72,7 +72,7 @@ public class JvChatsCtrl {
 
         int normalizeCount = 3;
         LocalDateTime timestamp = JvGetterTools.getInstance()
-                .getBeanFormattedTools().formattedTimestampToLocalDateTime(timestampStart, normalizeCount);
+                .getBeanFormattedTools().stringToLocalDateTime(timestampStart, normalizeCount);
 
         if (timestamp == null) {
             JvLog.write(JvLog.TypeLog.Error, "Не получилось нормализовать дату и время к нужному формату");
