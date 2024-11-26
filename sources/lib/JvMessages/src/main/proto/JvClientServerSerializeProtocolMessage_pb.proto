@@ -30,7 +30,8 @@ message General {
         TextMessageSendUserToServer textMessageSendUserToServer = 20;
         TextMessagesChangingStatusFromServer textMessagesChangingStatusFromServer = 21;
         TextMessageRedirectServerToUser textMessageRedirectServerToUser = 22;
-        LoadMessagesRequest loadMessagesRequest = 23;
+        MessagesLoadRequest messagesLoadRequest = 23;
+        MessagesLoadReply messagesLoadReply = 24;
     }
 }
 
@@ -179,8 +180,16 @@ message TextMessageRedirectServerToUser {
     MessageInfo messageInfo = 1;
 }
 
-message LoadMessagesRequest {
+message MessagesLoadRequest {
     string loginRequesting = 1;
     string loginDialog = 2;
     uint32 quantityMessages = 3;
+}
+
+message MessagesLoadReply {
+    repeated MessagesInfoMap messagesInfoMap = 1;
+}
+
+message MessagesInfoMap {
+    map<string, string> mapInfo = 1;
 }

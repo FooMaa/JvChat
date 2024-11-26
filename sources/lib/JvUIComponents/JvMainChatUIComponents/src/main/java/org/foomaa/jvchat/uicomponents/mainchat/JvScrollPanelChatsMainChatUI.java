@@ -125,7 +125,7 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
         int quantityMessages = JvGetterSettings.getInstance().getBeanUISettings().getQuantityMessagesLoad();
 
         JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
-                JvDefinesMessages.TypeMessage.LoadMessagesRequest, loginRequesting, loginDialog, quantityMessages);
+                JvDefinesMessages.TypeMessage.MessagesLoadRequest, loginRequesting, loginDialog, quantityMessages);
     }
 
     private void setRequestChatsToServer() {

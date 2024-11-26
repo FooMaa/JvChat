@@ -57,7 +57,7 @@ public class JvTakeMessagesCtrl {
             case TextMessageSendUserToServer -> workTextMessageSendUserToServerMessage(getDeserializeMapData(type, data));
             case TextMessagesChangingStatusFromServer -> workTextMessagesChangingStatusFromServerMessage(getDeserializeMapData(type, data));
             case TextMessageRedirectServerToUser -> workTextMessageRedirectServerToUserMessage(getDeserializeMapData(type, data));
-            case LoadMessagesRequest -> workLoadMessagesRequestMessage(getDeserializeMapData(type, data));
+            case MessagesLoadRequest -> workMessagesLoadRequestMessage(getDeserializeMapData(type, data));
         }
 
         clearRunnableCtrlFromConnection();
@@ -381,10 +381,11 @@ public class JvTakeMessagesCtrl {
         // TODO(VAD): add to widget
     }
 
-    private void workLoadMessagesRequestMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
+    private void workMessagesLoadRequestMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         String loginRequesting = (String) map.get(JvDefinesMessages.TypeData.LoginRequesting);
         String loginDialog = (String) map.get(JvDefinesMessages.TypeData.LoginDialog);
         int quantityMessages = (Integer) map.get(JvDefinesMessages.TypeData.QuantityMessages);
         System.out.println(loginRequesting +  loginDialog + quantityMessages);
+
     }
 }

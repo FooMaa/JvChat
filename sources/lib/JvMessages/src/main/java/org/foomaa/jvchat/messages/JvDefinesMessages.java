@@ -35,7 +35,8 @@ public class JvDefinesMessages {
         TextMessageSendUserToServer(18),
         TextMessagesChangingStatusFromServer(19),
         TextMessageRedirectServerToUser(20),
-        LoadMessagesRequest(21);
+        MessagesLoadRequest(21),
+        MessagesLoadReply(22);
 
         private final int value;
 
@@ -84,6 +85,7 @@ public class JvDefinesMessages {
         LoginRequesting,
         LoginDialog,
         QuantityMessages,
+        MessagesInfoList,
     }
 
     public enum TypeErrorRegistration {

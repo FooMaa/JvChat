@@ -43,7 +43,8 @@ public class JvDeserializatorDataMessages {
             case TextMessageSendUserToServer -> takeTextMessageSendUserToServerMessage(data);
             case TextMessagesChangingStatusFromServer -> takeTextMessagesChangingStatusFromServerMessage(data);
             case TextMessageRedirectServerToUser -> takeTextMessageRedirectServerToUserMessage(data);
-            case LoadMessagesRequest -> takeLoadMessagesRequestMessage(data);
+            case MessagesLoadRequest -> takeMessagesLoadRequestMessage(data);
+            case MessagesLoadReply -> takeMessagesLoadReplyMessage(data);
         };
     }
 
@@ -383,16 +384,41 @@ public class JvDeserializatorDataMessages {
         return result;
     }
 
-    private HashMap<JvDefinesMessages.TypeData, Object> takeLoadMessagesRequestMessage(byte[] data) {
+    private HashMap<JvDefinesMessages.TypeData, Object> takeMessagesLoadRequestMessage(byte[] data) {
         HashMap<JvDefinesMessages.TypeData, Object> result = new HashMap<>();
         try {
-            JvClientServerSerializeProtocolMessage_pb.LoadMessagesRequest msgData =
+            JvClientServerSerializeProtocolMessage_pb.MessagesLoadRequest msgData =
                     JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
-                            .getLoadMessagesRequest();
+                            .getMessagesLoadRequest();
 
             result.put(JvDefinesMessages.TypeData.LoginRequesting, msgData.getLoginRequesting());
             result.put(JvDefinesMessages.TypeData.LoginDialog, msgData.getLoginDialog());
             result.put(JvDefinesMessages.TypeData.QuantityMessages, msgData.getQuantityMessages());
+        } catch (InvalidProtocolBufferException exception) {
+            JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
+        }
+        return result;
+    }
+
+    private HashMap<JvDefinesMessages.TypeData, List<Map<JvDbGlobalDefines.LineKeys, String>>> takeMessagesLoadReplyMessage(byte[] data) {
+        HashMap<JvDefinesMessages.TypeData, List<Map<JvDbGlobalDefines.LineKeys, String>>> result = new HashMap<>();
+        try {
+            JvClientServerSerializeProtocolMessage_pb.MessagesLoadReply msgLoadReplyMsg =
+                    JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).getMessagesLoadReply();
+
+            List<Map<JvDbGlobalDefines.LineKeys, String>> listMainData = new ArrayList<>();
+            for (int i = 0; i < msgLoadReplyMsg.getMessagesInfoMapCount(); i++) {
+                Map<String, String> map = msgLoadReplyMsg.getMessagesInfoMap(i).getMapInfoMap();
+                Map<JvDbGlobalDefines.LineKeys, String> newMap = new HashMap<>();
+
+                for (String key : map.keySet()) {
+                    newMap.put(JvDbGlobalDefines.LineKeys.getTypeLineKey(key), map.get(key));
+                }
+
+                listMainData.add(newMap);
+            }
+
+            result.put(JvDefinesMessages.TypeData.MessagesInfoList, listMainData);
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }

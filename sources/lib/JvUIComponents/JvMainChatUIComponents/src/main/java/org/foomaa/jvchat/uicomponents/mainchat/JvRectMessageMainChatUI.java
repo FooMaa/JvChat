@@ -75,11 +75,17 @@ public class JvRectMessageMainChatUI extends JTextArea {
         setBorder(new EmptyBorder(borderSize, borderSize, borderSize, borderSize));
         setFont(new Font("Times", Font.PLAIN,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
-
         setLineWrap(true);
         setWrapStyleWord(true);
 
-        setSize(new Dimension(200,  getPreferredSize().height));
+        resizeComponentLabel();
+    }
+
+    private void resizeComponentLabel() {
+        int amendment = 20;
+        int width = (JvGetterMainChatUIComponents.getInstance()
+                .getBeanScrollPanelMessagesMainChatUI().getWidth() - amendment) / 2;
+        setSize(new Dimension(width,  getPreferredSize().height));
     }
 
     private void addListenerToElements() {

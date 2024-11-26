@@ -232,12 +232,23 @@ public class JvSerializatorDataMessages {
                     return new byte[0];
                 }
             }
-            case LoadMessagesRequest -> {
+            case MessagesLoadRequest -> {
                 if (parameters.length == 3) {
                     Object loginRequesting = parameters[0];
                     Object loginDialog = parameters[1];
                     Object quantityMessages = parameters[2];
-                    return createLoadMessagesRequestMessage(type, (String) loginRequesting, (String) loginDialog, (Integer) quantityMessages);
+                    return createMessagesLoadRequestMessage(type, (String) loginRequesting, (String) loginDialog, (Integer) quantityMessages);
+                } else {
+                    return new byte[0];
+                }
+            }
+            case MessagesLoadReply -> {
+                if (parameters.length == 1) {
+                    Object messagesInfoObj = parameters[0];
+                    List<Map<JvDbGlobalDefines.LineKeys, String>> messagesInfo =
+                            JvGetterTools.getInstance().getBeanStructTools()
+                                    .objectInListMaps(messagesInfoObj, JvDbGlobalDefines.LineKeys.class, String.class);
+                    return createMessagesLoadReplyMessage(type, messagesInfo);
                 } else {
                     return new byte[0];
                 }
@@ -598,10 +609,10 @@ public class JvSerializatorDataMessages {
         return resMsg.toByteArray();
     }
 
-    private byte[] createLoadMessagesRequestMessage(JvDefinesMessages.TypeMessage type, String loginRequesting,
+    private byte[] createMessagesLoadRequestMessage(JvDefinesMessages.TypeMessage type, String loginRequesting,
                                                     String loginDialog, int quantityMessages) {
-        JvClientServerSerializeProtocolMessage_pb.LoadMessagesRequest loadMessagesRequest =
-                JvClientServerSerializeProtocolMessage_pb.LoadMessagesRequest.newBuilder()
+        JvClientServerSerializeProtocolMessage_pb.MessagesLoadRequest loadMessagesRequest =
+                JvClientServerSerializeProtocolMessage_pb.MessagesLoadRequest.newBuilder()
                         .setLoginRequesting(loginRequesting)
                         .setLoginDialog(loginDialog)
                         .setQuantityMessages(quantityMessages)
@@ -609,8 +620,37 @@ public class JvSerializatorDataMessages {
         JvClientServerSerializeProtocolMessage_pb.General resMsg =
                 JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
                         .setType(type.getValue())
-                        .setLoadMessagesRequest(loadMessagesRequest)
+                        .setMessagesLoadRequest(loadMessagesRequest)
                         .build();
+        return resMsg.toByteArray();
+    }
+
+    private byte[] createMessagesLoadReplyMessage(JvDefinesMessages.TypeMessage type,
+                                               List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo) {
+        JvClientServerSerializeProtocolMessage_pb.MessagesLoadReply.Builder builder =
+                JvClientServerSerializeProtocolMessage_pb.MessagesLoadReply.newBuilder();
+
+        for (Map<JvDbGlobalDefines.LineKeys, String> map : chatsInfo) {
+            Map<String, String> newMapStr = new HashMap<>();
+
+            for (JvDbGlobalDefines.LineKeys key : map.keySet()) {
+                newMapStr.put(key.getValue(), map.get(key));
+            }
+
+            JvClientServerSerializeProtocolMessage_pb.MessagesInfoMap msgInfoMap = JvClientServerSerializeProtocolMessage_pb.MessagesInfoMap
+                    .newBuilder()
+                    .putAllMapInfo(newMapStr)
+                    .build();
+            builder.addMessagesInfoMap(msgInfoMap);
+        }
+
+        JvClientServerSerializeProtocolMessage_pb.MessagesLoadReply msgMessagesLoadReply = builder.build();
+        JvClientServerSerializeProtocolMessage_pb.General resMsg =
+                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
+                        .setType(type.getValue())
+                        .setMessagesLoadReply(msgMessagesLoadReply)
+                        .build();
+
         return resMsg.toByteArray();
     }
 }
