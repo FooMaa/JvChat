@@ -232,6 +232,16 @@ public class JvSerializatorDataMessages {
                     return new byte[0];
                 }
             }
+            case LoadMessagesRequest -> {
+                if (parameters.length == 3) {
+                    Object loginRequesting = parameters[0];
+                    Object loginDialog = parameters[1];
+                    Object quantity = parameters[2];
+                    return createLoadMessagesRequestMessage(type, (String) loginRequesting, (String) loginDialog, (Integer) quantity);
+                } else {
+                    return new byte[0];
+                }
+            }
         }
         return new byte[0];
     }
@@ -584,6 +594,22 @@ public class JvSerializatorDataMessages {
                 JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
                         .setType(type.getValue())
                         .setTextMessageSendUserToServer(msgTextMessageSendUserToServer)
+                        .build();
+        return resMsg.toByteArray();
+    }
+
+    private byte[] createLoadMessagesRequestMessage(JvDefinesMessages.TypeMessage type, String loginRequesting,
+                                                    String loginDialog, int quantity) {
+        JvClientServerSerializeProtocolMessage_pb.LoadMessagesRequest loadMessagesRequest =
+                JvClientServerSerializeProtocolMessage_pb.LoadMessagesRequest.newBuilder()
+                        .setLoginRequesting(loginRequesting)
+                        .setLoginDialog(loginDialog)
+                        .setQuantity(quantity)
+                        .build();
+        JvClientServerSerializeProtocolMessage_pb.General resMsg =
+                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
+                        .setType(type.getValue())
+                        .setLoadMessagesRequest(loadMessagesRequest)
                         .build();
         return resMsg.toByteArray();
     }

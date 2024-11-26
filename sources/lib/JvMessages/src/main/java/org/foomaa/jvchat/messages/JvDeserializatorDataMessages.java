@@ -43,6 +43,7 @@ public class JvDeserializatorDataMessages {
             case TextMessageSendUserToServer -> takeTextMessageSendUserToServerMessage(data);
             case TextMessagesChangingStatusFromServer -> takeTextMessagesChangingStatusFromServerMessage(data);
             case TextMessageRedirectServerToUser -> takeTextMessageRedirectServerToUserMessage(data);
+            case LoadMessagesRequest -> takeLoadMessagesRequestMessage(data);
         };
     }
 
@@ -376,6 +377,22 @@ public class JvDeserializatorDataMessages {
             result.put(JvDefinesMessages.TypeData.Uuid, messageInfo.getUuid());
             result.put(JvDefinesMessages.TypeData.Text, messageInfo.getText());
             result.put(JvDefinesMessages.TypeData.TimeStampMessageSend, messageInfo.getTimestamp());
+        } catch (InvalidProtocolBufferException exception) {
+            JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
+        }
+        return result;
+    }
+
+    private HashMap<JvDefinesMessages.TypeData, Object> takeLoadMessagesRequestMessage(byte[] data) {
+        HashMap<JvDefinesMessages.TypeData, Object> result = new HashMap<>();
+        try {
+            JvClientServerSerializeProtocolMessage_pb.LoadMessagesRequest msgData =
+                    JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
+                            .getLoadMessagesRequest();
+
+            result.put(JvDefinesMessages.TypeData.LoginRequesting, msgData.getLoginRequesting());
+            result.put(JvDefinesMessages.TypeData.LoginDialog, msgData.getLoginDialog());
+            result.put(JvDefinesMessages.TypeData.Quantity, msgData.getQuantity());
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }

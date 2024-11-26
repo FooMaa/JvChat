@@ -34,7 +34,8 @@ public class JvDefinesMessages {
         LoadUsersOnlineStatusReply(17),
         TextMessageSendUserToServer(18),
         TextMessagesChangingStatusFromServer(19),
-        TextMessageRedirectServerToUser(20);
+        TextMessageRedirectServerToUser(20),
+        LoadMessagesRequest(21);
 
         private final int value;
 
@@ -80,6 +81,9 @@ public class JvDefinesMessages {
         Text,
         TimeStampMessageSend,
         MapStatusMessages,
+        LoginRequesting,
+        LoginDialog,
+        Quantity,
     }
 
     public enum TypeErrorRegistration {

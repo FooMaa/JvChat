@@ -34,4 +34,8 @@ public class JvGetterSettings {
     public JvServersInfoSettings getBeanServersInfoSettings() {
         return context.getBean(JvSettingsSpringConfig.NameBeans.BeanServersInfoSettings.getValue(), JvServersInfoSettings.class);
     }
+
+    public JvUISettings getBeanUISettings() {
+        return context.getBean(JvSettingsSpringConfig.NameBeans.BeanUISettings.getValue(), JvUISettings.class);
+    }
 }
