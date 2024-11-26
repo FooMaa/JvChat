@@ -105,13 +105,27 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
         component.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (selectedElement != null) {
-                    selectedElement.setFlagSelect(false);
-                }
-                component.setFlagSelect(true);
-                selectedElement = component;
+                changeSelectElement(component);
+                requestMessagesFromServer();
             }
         });
+    }
+
+    private void changeSelectElement(JvRectChatMainChatUI component) {
+        if (selectedElement != null) {
+            selectedElement.setFlagSelect(false);
+        }
+        component.setFlagSelect(true);
+        selectedElement = component;
+    }
+
+    private void requestMessagesFromServer() {
+        String loginRequesting = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
+        String loginDialog = selectedElement.getNickName();
+        int quantityMessages = JvGetterSettings.getInstance().getBeanUISettings().getQuantityMessagesLoad();
+
+        JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+                JvDefinesMessages.TypeMessage.LoadMessagesRequest, loginRequesting, loginDialog, quantityMessages);
     }
 
     private void setRequestChatsToServer() {
