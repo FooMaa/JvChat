@@ -392,7 +392,7 @@ public class JvDeserializatorDataMessages {
 
             result.put(JvDefinesMessages.TypeData.LoginRequesting, msgData.getLoginRequesting());
             result.put(JvDefinesMessages.TypeData.LoginDialog, msgData.getLoginDialog());
-            result.put(JvDefinesMessages.TypeData.Quantity, msgData.getQuantity());
+            result.put(JvDefinesMessages.TypeData.QuantityMessages, msgData.getQuantityMessages());
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }

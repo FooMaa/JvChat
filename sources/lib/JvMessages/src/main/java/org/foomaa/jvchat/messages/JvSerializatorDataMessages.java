@@ -236,8 +236,8 @@ public class JvSerializatorDataMessages {
                 if (parameters.length == 3) {
                     Object loginRequesting = parameters[0];
                     Object loginDialog = parameters[1];
-                    Object quantity = parameters[2];
-                    return createLoadMessagesRequestMessage(type, (String) loginRequesting, (String) loginDialog, (Integer) quantity);
+                    Object quantityMessages = parameters[2];
+                    return createLoadMessagesRequestMessage(type, (String) loginRequesting, (String) loginDialog, (Integer) quantityMessages);
                 } else {
                     return new byte[0];
                 }
@@ -599,12 +599,12 @@ public class JvSerializatorDataMessages {
     }
 
     private byte[] createLoadMessagesRequestMessage(JvDefinesMessages.TypeMessage type, String loginRequesting,
-                                                    String loginDialog, int quantity) {
+                                                    String loginDialog, int quantityMessages) {
         JvClientServerSerializeProtocolMessage_pb.LoadMessagesRequest loadMessagesRequest =
                 JvClientServerSerializeProtocolMessage_pb.LoadMessagesRequest.newBuilder()
                         .setLoginRequesting(loginRequesting)
                         .setLoginDialog(loginDialog)
-                        .setQuantity(quantity)
+                        .setQuantityMessages(quantityMessages)
                         .build();
         JvClientServerSerializeProtocolMessage_pb.General resMsg =
                 JvClientServerSerializeProtocolMessage_pb.General.newBuilder()

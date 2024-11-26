@@ -182,5 +182,5 @@ message TextMessageRedirectServerToUser {
 message LoadMessagesRequest {
     string loginRequesting = 1;
     string loginDialog = 2;
-    uint32 quantity = 3;
+    uint32 quantityMessages = 3;
 }

@@ -248,6 +248,15 @@ public class JvSendMessagesCtrl {
                     sendReadyMessageNetwork(bodyMessage, (Runnable) runnableCtrl);
                 }
             }
+            case LoadMessagesRequest -> {
+                if (parameters.length == 3) {
+                    Object loginRequesting = parameters[0];
+                    Object loginDialog = parameters[1];
+                    Object quantityMessages = parameters[2];
+                    byte[] bodyMessage = createLoadMessagesRequestMessage(type, (String) loginRequesting, (String) loginDialog, (Integer) quantityMessages);
+                    sendReadyMessageNetwork(bodyMessage);
+                }
+            }
         }
     }
 
@@ -351,5 +360,10 @@ public class JvSendMessagesCtrl {
                                                                 String uuid, String text, String timestamp) {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(
                 type, loginSender, loginReceiver, uuid, text, timestamp);
+    }
+
+    private byte[] createLoadMessagesRequestMessage(JvDefinesMessages.TypeMessage type, String loginRequesting,
+                                                    String loginDialog, int quantityMessages) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, loginRequesting, loginDialog, quantityMessages);
     }
 }

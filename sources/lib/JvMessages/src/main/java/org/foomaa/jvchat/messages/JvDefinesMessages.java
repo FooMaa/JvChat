@@ -83,7 +83,7 @@ public class JvDefinesMessages {
         MapStatusMessages,
         LoginRequesting,
         LoginDialog,
-        Quantity,
+        QuantityMessages,
     }
 
     public enum TypeErrorRegistration {
