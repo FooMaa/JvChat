@@ -312,6 +312,33 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION chat_schema.chats_messages_get_messages_by_login(
+    f_login_one character varying,
+    f_login_two character varying,
+    f_quantity int
+)
+    RETURNS TABLE (sender character varying, receiver character varying, text_message character varying, uuid_message character varying, datetime_message timestamp, status_message int) AS
+$BODY$
+DECLARE
+    rv chat_schema.chats_messages%rowtype;
+BEGIN
+    RETURN QUERY SELECT
+    auth1.login AS sender,
+    auth2.login AS receiver,
+    chats.message AS text_message,
+    chats.uuid_message AS uuid_message, 
+    chats.datetime AS datetime_message,
+    chats.status AS status_message
+    FROM chat_schema.chats_messages AS chats
+    LEFT JOIN chat_schema.auth_users_info AS auth1 ON chats.senderID = auth1.id 
+    LEFT JOIN chat_schema.auth_users_info AS auth2 ON chats.receiverID = auth2.id  
+    WHERE (auth1.login = f_login_one AND auth2.login = f_login_two) 
+    OR (auth1.login = f_login_two AND auth2.login = f_login_one)
+    ORDER BY datetime_message DESC
+    LIMIT f_quantity;
+END;
+$BODY$ LANGUAGE plpgsql;
+
 CREATE OR REPLACE FUNCTION chat_schema.chats_messages_save_message (
     f_loginSender       character varying,
     f_loginReceiver     character varying,

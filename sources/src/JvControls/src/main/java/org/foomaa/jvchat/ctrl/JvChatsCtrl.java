@@ -39,7 +39,7 @@ public class JvChatsCtrl {
             UUID uuidLastMessage = UUID.fromString(chat.get(JvDbGlobalDefines.LineKeys.UuidMessage));
             JvMainChatsGlobalDefines.TypeStatusMessage statusMessage =
                     statusMessageStringToInt(chat.get(JvDbGlobalDefines.LineKeys.StatusMessage));
-            LocalDateTime timestampLastMessage = timestampFromString(chat.get(JvDbGlobalDefines.LineKeys.DateTimeMessage));
+            LocalDateTime timestampLastMessage = timestampFromString(chat.get(JvDbGlobalDefines.LineKeys.DateTimeLastMessage));
 
             chatsModel.createNewChat(
                     lastMessageLoginSender,
