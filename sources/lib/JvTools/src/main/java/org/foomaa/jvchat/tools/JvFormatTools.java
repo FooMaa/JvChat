@@ -8,14 +8,14 @@ import java.util.regex.Pattern;
 import org.foomaa.jvchat.logger.JvLog;
 
 
-public class JvFormattedTools {
-    private static JvFormattedTools instance;
+public class JvFormatTools {
+    private static JvFormatTools instance;
 
-    private JvFormattedTools() {}
+    private JvFormatTools() {}
 
-    static JvFormattedTools getInstance() {
+    static JvFormatTools getInstance() {
         if (instance == null) {
-            instance = new JvFormattedTools();
+            instance = new JvFormatTools();
         }
         return instance;
     }
@@ -67,7 +67,7 @@ public class JvFormattedTools {
 
     public LocalDateTime stringToLocalDateTime(String timestampStr, int normalizeCount) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
-        String timestampString = JvGetterTools.getInstance().getBeanFormattedTools()
+        String timestampString = JvGetterTools.getInstance().getBeanFormatTools()
                 .normalizeMillisecond(timestampStr, normalizeCount);
 
         if (timestampString == null) {

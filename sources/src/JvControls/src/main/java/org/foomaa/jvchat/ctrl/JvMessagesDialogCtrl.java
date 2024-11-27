@@ -65,7 +65,7 @@ public class JvMessagesDialogCtrl {
     }
 
     private void sendNewMessage(JvMessageStructObject message) {
-        String timestampNewMessage = JvGetterTools.getInstance().getBeanFormattedTools()
+        String timestampNewMessage = JvGetterTools.getInstance().getBeanFormatTools()
                 .localDateTimeToString(message.getTimestamp());
 
         JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
@@ -120,7 +120,7 @@ public class JvMessagesDialogCtrl {
             return;
         }
 
-        String timestampMessage = JvGetterTools.getInstance().getBeanFormattedTools()
+        String timestampMessage = JvGetterTools.getInstance().getBeanFormatTools()
                 .localDateTimeToString(messageStructObject.getTimestamp());
 
         JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(

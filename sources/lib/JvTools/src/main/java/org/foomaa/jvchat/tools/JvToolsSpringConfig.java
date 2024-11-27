@@ -13,7 +13,7 @@ class JvToolsSpringConfig {
         BeanStructTools("beanStructTools"),
         BeanServersTools("beanServersTools"),
         BeanUsersTools("beanUsersTools"),
-        BeanUITools("beanFormattedTools");
+        BeanFormatTools("beanFormatTools");
 
         private final String value;
 
@@ -56,10 +56,10 @@ class JvToolsSpringConfig {
         return JvUsersTools.getInstance();
     }
 
-    @Bean(name = "beanFormattedTools")
+    @Bean(name = "beanFormatTools")
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvFormattedTools beanUITools() {
-        return JvFormattedTools.getInstance();
+    public JvFormatTools beanFormatTools() {
+        return JvFormatTools.getInstance();
     }
 }

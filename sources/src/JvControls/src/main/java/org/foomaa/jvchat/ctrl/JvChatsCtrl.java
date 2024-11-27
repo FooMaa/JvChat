@@ -72,7 +72,7 @@ public class JvChatsCtrl {
 
         int normalizeCount = 3;
         LocalDateTime timestamp = JvGetterTools.getInstance()
-                .getBeanFormattedTools().stringToLocalDateTime(timestampStart, normalizeCount);
+                .getBeanFormatTools().stringToLocalDateTime(timestampStart, normalizeCount);
 
         if (timestamp == null) {
             JvLog.write(JvLog.TypeLog.Error, "Не получилось нормализовать дату и время к нужному формату");
@@ -131,7 +131,7 @@ public class JvChatsCtrl {
     }
 
     public List<JvChatStructObject> getChatsObjects() {
-        return chatsModel.getAllChatsObjects();
+        return chatsModel.getSortedChatsObjects();
     }
 
     public JvUserStructObject getUserObjectsByLogin(String login) {

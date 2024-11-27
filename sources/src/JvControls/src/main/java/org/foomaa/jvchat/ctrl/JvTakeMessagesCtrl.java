@@ -342,7 +342,7 @@ public class JvTakeMessagesCtrl {
         String statusString = status.toString();
         Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages = new HashMap<>();
         mapStatusMessages.put(UUID.fromString(uuid), status);
-        LocalDateTime timestamp = JvGetterTools.getInstance().getBeanFormattedTools()
+        LocalDateTime timestamp = JvGetterTools.getInstance().getBeanFormatTools()
                 .stringToLocalDateTime(timestampStr, 3);
         JvMessageStructObject messageObj = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().createMessageByData(
                 loginSender, loginReceiver, text, status, UUID.fromString(uuid), timestamp);

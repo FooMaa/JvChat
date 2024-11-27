@@ -117,4 +117,16 @@ public class JvChatsModel extends JvBaseModel {
 
         return resultList;
     }
+
+    public List<JvChatStructObject> getSortedChatsObjects() {
+        List<JvChatStructObject> list = getAllChatsObjects();
+
+        list.sort((chatObj1, chatObj2) -> {
+            LocalDateTime chatObj2Date = chatObj2.getLastMessage().getTimestamp();
+            LocalDateTime chatObj1Date = chatObj1.getLastMessage().getTimestamp();
+            return chatObj2Date.compareTo(chatObj1Date);
+        });
+
+        return list;
+    }
 }
