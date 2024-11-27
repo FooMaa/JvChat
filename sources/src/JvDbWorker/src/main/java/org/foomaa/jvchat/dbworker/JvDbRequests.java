@@ -125,4 +125,12 @@ public class JvDbRequests {
                 "SELECT * FROM chat_schema.online_users_info_get_time_by_user_login('%s');",
                 login);
     }
+
+    public String getQuantityMessagesByLogins(String loginOne, String loginTwo, String quantity) {
+        return String.format(
+                "SELECT * FROM chat_schema.chats_messages_get_quantity_messages_by_logins(%s, %s, %s);",
+                loginOne,
+                loginTwo,
+                quantity);
+    }
 }

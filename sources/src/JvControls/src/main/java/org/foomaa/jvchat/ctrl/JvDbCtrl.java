@@ -49,6 +49,7 @@ public class JvDbCtrl {
         ChatsLoad,
         StatusOnlineTimeUser,
         OnlineUsers,
+        MessagesLoad,
     }
 
     private JvDbCtrl() {}
@@ -323,8 +324,8 @@ public class JvDbCtrl {
         switch (type) {
             case ChatsLoad -> {
                 if (parameters.length == 1) {
-                    String sender = parameters[0];
-                    ResultSet resultSet = db.makeExecution(dbRequests.getChats(sender));
+                    String userLogin = parameters[0];
+                    ResultSet resultSet = db.makeExecution(dbRequests.getChats(userLogin));
                     List<Map<JvDbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
 
                     db.closeResultSet(resultSet);
@@ -352,6 +353,23 @@ public class JvDbCtrl {
             case OnlineUsers -> {
                 if (parameters.length == 0) {
                     ResultSet resultSet = db.makeExecution(dbRequests.getOnlineUsers());
+                    List<Map<JvDbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
+
+                    db.closeResultSet(resultSet);
+
+                    if (!result.isEmpty()) {
+                        return result;
+                    }
+                }
+                return null;
+            }
+            case MessagesLoad -> {
+                if (parameters.length == 3) {
+                    String loginRequesting = parameters[0];
+                    String loginDialog = parameters[1];
+                    String quantityMessages = parameters[2];
+                    ResultSet resultSet = db.makeExecution(dbRequests.getQuantityMessagesByLogins(
+                            loginRequesting, loginDialog, quantityMessages));
                     List<Map<JvDbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
 
                     db.closeResultSet(resultSet);

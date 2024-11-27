@@ -312,7 +312,7 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION chat_schema.chats_messages_get_messages_by_login(
+CREATE OR REPLACE FUNCTION chat_schema.chats_messages_get_quantity_messages_by_logins(
     f_login_one character varying,
     f_login_two character varying,
     f_quantity int
