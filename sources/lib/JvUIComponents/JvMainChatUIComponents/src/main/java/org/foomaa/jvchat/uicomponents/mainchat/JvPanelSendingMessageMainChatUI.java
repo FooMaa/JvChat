@@ -85,7 +85,9 @@ public class JvPanelSendingMessageMainChatUI extends JPanel {
             JvRectChatMainChatUI rectChatMainChatUI = (JvRectChatMainChatUI) component;
             String login = rectChatMainChatUI.getNickName();
             if (Objects.equals(selectedLogin, login)) {
+                boxComponents.remove(rectChatMainChatUI);
                 rectChatMainChatUI.updateLastMessage(message);
+                boxComponents.add(rectChatMainChatUI, 0);
             }
         }
 
