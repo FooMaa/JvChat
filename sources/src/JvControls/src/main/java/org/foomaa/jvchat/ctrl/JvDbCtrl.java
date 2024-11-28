@@ -371,7 +371,7 @@ public class JvDbCtrl {
                     ResultSet resultSet = db.makeExecution(dbRequests.getQuantityMessagesByLogins(
                             loginRequesting, loginDialog, quantityMessages));
                     List<Map<JvDbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
-
+                    System.out.println(result);
                     db.closeResultSet(resultSet);
 
                     if (!result.isEmpty()) {
