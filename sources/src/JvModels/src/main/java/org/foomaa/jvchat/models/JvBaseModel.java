@@ -77,6 +77,11 @@ public abstract class JvBaseModel {
 
     public void clearModel() {
         List<JvBaseStructObject> children = rootObject.getChildren();
+        if (children.isEmpty()) {
+            JvLog.write(JvLog.TypeLog.Warn, "Empty children...");
+            return;
+        }
+
         for (JvBaseStructObject child : children) {
             removeItem(child);
         }

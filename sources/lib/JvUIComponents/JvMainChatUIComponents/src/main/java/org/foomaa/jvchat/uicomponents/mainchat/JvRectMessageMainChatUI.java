@@ -5,8 +5,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
+import java.time.LocalDateTime;
 
-import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.structobjects.JvMessageStructObject;
@@ -15,15 +15,12 @@ import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 public class JvRectMessageMainChatUI extends JTextArea {
     private JvMainChatsGlobalDefines.TypeStatusMessage statusMessage;
     private String textMessage;
-    private String timestamp;
+    private LocalDateTime timestamp;
 
     JvRectMessageMainChatUI(JvMessageStructObject messageObject) {
-        if (messageObject != null) {
-            textMessage = messageObject.getText();
-            statusMessage = messageObject.getStatusMessage();
-            timestamp = JvGetterControls.getInstance().getBeanMessagesDialogCtrl()
-                    .getTimeFormattedMessage(messageObject.getTimestamp());
-        }
+        textMessage = messageObject.getText();
+        statusMessage = messageObject.getStatusMessage();
+        timestamp = messageObject.getTimestamp();
 
         settingLabel();
         addListenerToElements();
@@ -51,7 +48,7 @@ public class JvRectMessageMainChatUI extends JTextArea {
         g2.fillOval(xRound, yRound, diameter, diameter);
         g2.fillOval(xRoundSecond, yRound, diameter, diameter);
 
-        String time = "12:34";
+        String time = timestamp.getHour() + ":" + timestamp.getMinute();
         Font font = new Font("Times", Font.BOLD,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.010));
         g2.setFont(font);
@@ -114,9 +111,7 @@ public class JvRectMessageMainChatUI extends JTextArea {
     }
 
     private void setTextMessage() {
-        setText("AAAAAAAAAAAaaaaaaAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBAAAAAAAAAAAaaaaaaAAAAAAAAAAAAAAAAAAAABBBBBBBBBBBBBBBbbbbBB" +
-                "BBBBBBBBBBCCCCCCCCCCCCccccccBBBBBBBBBBCCCCCCCCCCCCcccccccccCCCCCCCCBBbbbbBBBBBBBBBBBBCCCCCCCCCCCCcccccccccC" +
-                "CCCCCCCcccCCCCCCCCBBbbbbBBBBBBBBBBBBCCCCCCCCCCCCcccccccccCCCCCCCC");
+        setText(textMessage);
     }
 
     public void updateComponent() {

@@ -53,21 +53,9 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
         scrollPane.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                makeDefaultMsg();
                 updatePanelMessages();
             }
         });
-    }
-
-    // TODO(VAD): delete
-    private void makeDefaultMsg() {
-        for (int i = 0; i < 50; i ++) {
-            if (i % 2 == 0) {
-                createPanelMessage(null, BorderLayout.WEST);
-            } else {
-                createPanelMessage(null, BorderLayout.EAST);
-            }
-        }
     }
 
     private void createPanelMessage(JvMessageStructObject messageObject, String constraints) {
@@ -95,7 +83,7 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
     public void addMessage(JvMessageStructObject messageObject) {
         String constraints = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().isCurrentUserSender(messageObject) ?
                 BorderLayout.EAST : BorderLayout.WEST;
-        createPanelMessage(null, constraints);
+        createPanelMessage(messageObject, constraints);
         updatePanelMessages();
     }
 
