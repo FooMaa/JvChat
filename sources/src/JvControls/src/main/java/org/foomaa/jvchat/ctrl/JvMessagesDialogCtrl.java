@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
@@ -57,6 +58,33 @@ public class JvMessagesDialogCtrl {
         setLastMessageInChatCtrl(messageStructObject);
 
         return messageStructObject;
+    }
+
+    public void createMessagesObjects(List<Map<JvDbGlobalDefines.LineKeys, String>> msgInfo) {
+        int normalizeCountTimestamp = 3;
+
+        for (Map<JvDbGlobalDefines.LineKeys, String> msg : msgInfo) {
+            String lastMessageLoginSender = msg.get(JvDbGlobalDefines.LineKeys.Sender);
+            String lastMessageLoginReceiver = msg.get(JvDbGlobalDefines.LineKeys.Receiver);
+            String textMessage = msg.get(JvDbGlobalDefines.LineKeys.TextMessage);
+            UUID uuidMessage = UUID.fromString(msg.get(JvDbGlobalDefines.LineKeys.UuidMessage));
+            JvMainChatsGlobalDefines.TypeStatusMessage statusMessage = JvGetterTools.getInstance().getBeanFormatTools()
+                    .statusMessageStringToInt(msg.get(JvDbGlobalDefines.LineKeys.StatusMessage));
+            LocalDateTime timestampMessage = JvGetterTools.getInstance()
+                    .getBeanFormatTools().stringToLocalDateTime(msg.get(JvDbGlobalDefines.LineKeys.DateTimeMessage), normalizeCountTimestamp);
+
+            if (timestampMessage == null) {
+                JvLog.write(JvLog.TypeLog.Warn, "Не получилось нормализовать дату и время к нужному формату");
+            }
+
+            messagesModel.createNewMessage(
+                    lastMessageLoginSender,
+                    lastMessageLoginReceiver,
+                    textMessage,
+                    statusMessage,
+                    uuidMessage,
+                    timestampMessage);
+        }
     }
 
     private void setLastMessageInChatCtrl(JvMessageStructObject message) {

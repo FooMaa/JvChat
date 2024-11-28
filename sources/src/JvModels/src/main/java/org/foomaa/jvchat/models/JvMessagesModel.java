@@ -72,4 +72,16 @@ public class JvMessagesModel extends JvBaseModel {
 
         return resultList;
     }
+
+    public List<JvMessageStructObject> getSortedMessagesObjects() {
+        List<JvMessageStructObject> list = getAllMessages();
+
+        list.sort((msgObj1, msgObj2) -> {
+            LocalDateTime msgObj2Date = msgObj2.getTimestamp();
+            LocalDateTime msgObj1Date = msgObj1.getTimestamp();
+            return msgObj2Date.compareTo(msgObj1Date);
+        });
+
+        return list;
+    }
 }

@@ -400,8 +400,7 @@ public class JvTakeMessagesCtrl {
                 JvGetterTools.getInstance().getBeanStructTools()
                         .objectInListMaps(objectFromMap, JvDbGlobalDefines.LineKeys.class, String.class);
 
-        System.out.println(msgInfo);
-//        JvGetterControls.getInstance().getBeanChatsCtrl().createChatsObjects(msgInfo);
+        JvGetterControls.getInstance().getBeanMessagesDialogCtrl().createMessagesObjects(msgInfo);
         JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
                 .setMessagesLoadReplyFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
     }

@@ -32,14 +32,20 @@ public class JvChatsCtrl {
     }
 
     public void createChatsObjects(List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo) {
+        int normalizeTimestampCount = 3;
         for (Map<JvDbGlobalDefines.LineKeys, String> chat : chatsInfo) {
             String lastMessageLoginSender = chat.get(JvDbGlobalDefines.LineKeys.Sender);
             String lastMessageLoginReceiver = chat.get(JvDbGlobalDefines.LineKeys.Receiver);
             String lastMessageText = chat.get(JvDbGlobalDefines.LineKeys.LastMessage);
             UUID uuidLastMessage = UUID.fromString(chat.get(JvDbGlobalDefines.LineKeys.UuidMessage));
-            JvMainChatsGlobalDefines.TypeStatusMessage statusMessage =
-                    statusMessageStringToInt(chat.get(JvDbGlobalDefines.LineKeys.StatusMessage));
-            LocalDateTime timestampLastMessage = timestampFromString(chat.get(JvDbGlobalDefines.LineKeys.DateTimeLastMessage));
+            JvMainChatsGlobalDefines.TypeStatusMessage statusMessage = JvGetterTools.getInstance().getBeanFormatTools()
+                    .statusMessageStringToInt(chat.get(JvDbGlobalDefines.LineKeys.StatusMessage));
+            LocalDateTime timestampLastMessage = JvGetterTools.getInstance().getBeanFormatTools()
+                    .stringToLocalDateTime(chat.get(JvDbGlobalDefines.LineKeys.DateTimeLastMessage), normalizeTimestampCount);
+
+            if (timestampLastMessage == null) {
+                JvLog.write(JvLog.TypeLog.Warn, "Не получилось нормализовать дату и время к нужному формату");
+            }
 
             chatsModel.createNewChat(
                     lastMessageLoginSender,
@@ -51,37 +57,6 @@ public class JvChatsCtrl {
         }
     }
 
-    private JvMainChatsGlobalDefines.TypeStatusMessage statusMessageStringToInt(String statusMessageStr) {
-        int statusMessageInt;
-        try{
-            statusMessageInt = Integer.parseInt(statusMessageStr);
-        }
-        catch (NumberFormatException ex){
-            JvLog.write(JvLog.TypeLog.Error, "Тут статус не преобразовался в int");
-            return JvMainChatsGlobalDefines.TypeStatusMessage.Error;
-        }
-
-        return JvMainChatsGlobalDefines.TypeStatusMessage.getTypeStatusMessage(statusMessageInt);
-    }
-
-    private LocalDateTime timestampFromString(String timestampStart) {
-        if (timestampStart == null || Objects.equals(timestampStart, "")) {
-            JvLog.write(JvLog.TypeLog.Error, "Ошибка при попытке парсинга времени последнего онлайна");
-            return null;
-        }
-
-        int normalizeCount = 3;
-        LocalDateTime timestamp = JvGetterTools.getInstance()
-                .getBeanFormatTools().stringToLocalDateTime(timestampStart, normalizeCount);
-
-        if (timestamp == null) {
-            JvLog.write(JvLog.TypeLog.Error, "Не получилось нормализовать дату и время к нужному формату");
-            return null;
-        }
-
-        return timestamp;
-    }
-
     public void setOnlineStatusesUsers(Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> onlineStatusesUsers) {
         for (String login : onlineStatusesUsers.keySet()) {
             chatsModel.setOnlineStatusToUser(login, onlineStatusesUsers.get(login));
@@ -89,8 +64,10 @@ public class JvChatsCtrl {
     }
 
     public void setLastOnlineTimeUsersByStrings(Map<String, String> lastOnlineTimeUsers) {
+        int normalizeTimestampCount = 3;
         for (String login : lastOnlineTimeUsers.keySet()) {
-            LocalDateTime timestamp = timestampFromString(lastOnlineTimeUsers.get(login));
+            LocalDateTime timestamp = JvGetterTools.getInstance().getBeanFormatTools()
+                    .stringToLocalDateTime(lastOnlineTimeUsers.get(login), normalizeTimestampCount);
             chatsModel.setTimestampLastOnlineToUser(login, timestamp);
         }
     }

@@ -2,9 +2,11 @@ package org.foomaa.jvchat.tools;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 
 
@@ -66,6 +68,11 @@ public class JvFormatTools {
     }
 
     public LocalDateTime stringToLocalDateTime(String timestampStr, int normalizeCount) {
+        if (timestampStr == null || Objects.equals(timestampStr, "")) {
+            JvLog.write(JvLog.TypeLog.Error, "Ошибка при попытке парсинга времени последнего онлайна");
+            return null;
+        }
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
         String timestampString = JvGetterTools.getInstance().getBeanFormatTools()
                 .normalizeMillisecond(timestampStr, normalizeCount);
@@ -76,5 +83,18 @@ public class JvFormatTools {
         }
 
         return LocalDateTime.parse(timestampString, formatter);
+    }
+
+    public JvMainChatsGlobalDefines.TypeStatusMessage statusMessageStringToInt(String statusMessageStr) {
+        int statusMessageInt;
+        try{
+            statusMessageInt = Integer.parseInt(statusMessageStr);
+        }
+        catch (NumberFormatException ex){
+            JvLog.write(JvLog.TypeLog.Error, "Тут статус не преобразовался в int");
+            return JvMainChatsGlobalDefines.TypeStatusMessage.Error;
+        }
+
+        return JvMainChatsGlobalDefines.TypeStatusMessage.getTypeStatusMessage(statusMessageInt);
     }
 }
