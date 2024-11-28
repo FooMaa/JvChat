@@ -128,7 +128,7 @@ public class JvDbRequests {
 
     public String getQuantityMessagesByLogins(String loginOne, String loginTwo, String quantity) {
         return String.format(
-                "SELECT * FROM chat_schema.chats_messages_get_quantity_messages_by_logins(%s, %s, %s);",
+                "SELECT * FROM chat_schema.chats_messages_get_quantity_messages_by_logins('%s', '%s', %s);",
                 loginOne,
                 loginTwo,
                 quantity);
