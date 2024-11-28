@@ -32,6 +32,8 @@ public class JvChatsCtrl {
     }
 
     public void createChatsObjects(List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo) {
+        chatsModel.clearModel();
+
         int normalizeTimestampCount = 3;
         for (Map<JvDbGlobalDefines.LineKeys, String> chat : chatsInfo) {
             String lastMessageLoginSender = chat.get(JvDbGlobalDefines.LineKeys.Sender);

@@ -61,6 +61,7 @@ public class JvMessagesDialogCtrl {
     }
 
     public void createMessagesObjects(List<Map<JvDbGlobalDefines.LineKeys, String>> msgInfo) {
+        messagesModel.clearModel();
         int normalizeCountTimestamp = 3;
 
         for (Map<JvDbGlobalDefines.LineKeys, String> msg : msgInfo) {
@@ -204,5 +205,9 @@ public class JvMessagesDialogCtrl {
         JvMessageStructObject messageStructObject = createMessageByData(
                 loginSender, loginReceiver, text, statusMessage, uuid, timestamp);
         messagesModel.addMessageStructObject(messageStructObject);
+    }
+
+    public List<JvMessageStructObject> getAllSortedMessages() {
+        return messagesModel.getSortedMessagesObjects();
     }
 }

@@ -4,6 +4,8 @@ import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.structobjects.JvBaseStructObject;
 import org.foomaa.jvchat.structobjects.JvRootStructObject;
 
+import java.util.List;
+
 
 public abstract class JvBaseModel {
     private JvRootStructObject rootObject;
@@ -71,5 +73,12 @@ public abstract class JvBaseModel {
 
     public String getNameModel() {
         return nameModel;
+    }
+
+    public void clearModel() {
+        List<JvBaseStructObject> children = rootObject.getChildren();
+        for (JvBaseStructObject child : children) {
+            removeItem(child);
+        }
     }
 }
