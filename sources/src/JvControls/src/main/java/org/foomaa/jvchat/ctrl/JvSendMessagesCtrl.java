@@ -254,6 +254,8 @@ public class JvSendMessagesCtrl {
                     Object quantityMessages = parameters[2];
                     byte[] bodyMessage = createMessagesLoadRequestMessage(type, (String) loginRequesting, (String) loginDialog, (Integer) quantityMessages);
                     sendReadyMessageNetwork(bodyMessage);
+                    JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                            .setMessagesLoadReplyFlag(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
                 }
             }
             case MessagesLoadReply -> {

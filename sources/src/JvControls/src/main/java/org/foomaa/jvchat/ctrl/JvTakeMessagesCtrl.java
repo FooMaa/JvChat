@@ -399,9 +399,10 @@ public class JvTakeMessagesCtrl {
         List<Map<JvDbGlobalDefines.LineKeys, String>> msgInfo =
                 JvGetterTools.getInstance().getBeanStructTools()
                         .objectInListMaps(objectFromMap, JvDbGlobalDefines.LineKeys.class, String.class);
+
         System.out.println(msgInfo);
 //        JvGetterControls.getInstance().getBeanChatsCtrl().createChatsObjects(msgInfo);
-//        JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-//                .setChatsLoadReplyFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
+        JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                .setMessagesLoadReplyFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
     }
 }

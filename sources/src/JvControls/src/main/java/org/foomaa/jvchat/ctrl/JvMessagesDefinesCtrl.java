@@ -34,6 +34,7 @@ public class JvMessagesDefinesCtrl {
     JvDefinesMessages.TypeErrorRegistration.NoError;
     private TypeFlags ChatsLoadReplyFlag = TypeFlags.DEFAULT;
     private TypeFlags LoadUsersOnlineReplyFlag = TypeFlags.DEFAULT;
+    private TypeFlags MessagesLoadReplyFlag = TypeFlags.DEFAULT;
     // FLAGS
 
     public void setEntryRequestFlag(TypeFlags newFlag) {
@@ -96,6 +97,12 @@ public class JvMessagesDefinesCtrl {
         }
     }
 
+    public void setMessagesLoadReplyFlag(TypeFlags newFlag) {
+        if (MessagesLoadReplyFlag != newFlag) {
+            MessagesLoadReplyFlag = newFlag;
+        }
+    }
+
     public TypeFlags getEntryRequestFlag() {
         return EntryRequestFlag;
     }
@@ -134,5 +141,9 @@ public class JvMessagesDefinesCtrl {
 
     public TypeFlags getLoadUsersOnlineReplyFlag() {
         return LoadUsersOnlineReplyFlag;
+    }
+
+    public TypeFlags getMessagesLoadReplyFlag() {
+        return MessagesLoadReplyFlag;
     }
 }
