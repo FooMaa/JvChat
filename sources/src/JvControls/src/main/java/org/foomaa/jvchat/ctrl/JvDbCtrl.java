@@ -368,6 +368,7 @@ public class JvDbCtrl {
                     String loginRequesting = parameters[0];
                     String loginDialog = parameters[1];
                     String quantityMessages = parameters[2];
+                    
                     ResultSet resultSet = db.makeExecution(dbRequests.getQuantityMessagesByLogins(
                             loginRequesting, loginDialog, quantityMessages));
                     List<Map<JvDbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
