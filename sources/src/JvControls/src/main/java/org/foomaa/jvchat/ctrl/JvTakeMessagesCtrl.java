@@ -388,7 +388,7 @@ public class JvTakeMessagesCtrl {
         int quantityMessages = (Integer) map.get(JvDefinesMessages.TypeData.QuantityMessages);
 
         List<Map<JvDbGlobalDefines.LineKeys, String>> requestDB = JvGetterControls.getInstance()
-                .getBeanDbCtrl().getMultipleInfoFromDb(JvDbCtrl.TypeExecutionGetMultiple.ChatsLoad,
+                .getBeanDbCtrl().getMultipleInfoFromDb(JvDbCtrl.TypeExecutionGetMultiple.MessagesLoad,
                         loginRequesting, loginDialog, String.valueOf(quantityMessages));
         JvGetterControls.getInstance().getBeanSendMessagesCtrl().
                 sendMessage(JvDefinesMessages.TypeMessage.MessagesLoadReply, requestDB);
