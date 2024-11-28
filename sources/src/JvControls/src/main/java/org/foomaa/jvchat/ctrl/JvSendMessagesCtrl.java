@@ -166,8 +166,7 @@ public class JvSendMessagesCtrl {
                     List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo =
                             JvGetterTools.getInstance().getBeanStructTools()
                             .objectInListMaps(chatsInfoObj, JvDbGlobalDefines.LineKeys.class, String.class);
-                    byte[] bodyMessageChatsLoadReply = createBodyChatsLoadReplyMessage(type,
-                            chatsInfo);
+                    byte[] bodyMessageChatsLoadReply = createBodyChatsLoadReplyMessage(type, chatsInfo);
                     sendReadyMessageNetwork(bodyMessageChatsLoadReply);
                     sendMessage(JvDefinesMessages.TypeMessage.CheckOnlineUserRequest,
                             JvGetterSettings.getInstance().getBeanServersInfoSettings().getIp());
@@ -255,6 +254,16 @@ public class JvSendMessagesCtrl {
                     Object quantityMessages = parameters[2];
                     byte[] bodyMessage = createMessagesLoadRequestMessage(type, (String) loginRequesting, (String) loginDialog, (Integer) quantityMessages);
                     sendReadyMessageNetwork(bodyMessage);
+                }
+            }
+            case MessagesLoadReply -> {
+                if (parameters.length == 1) {
+                    Object msgInfoObj = parameters[0];
+                    List<Map<JvDbGlobalDefines.LineKeys, String>> msgInfo =
+                            JvGetterTools.getInstance().getBeanStructTools()
+                                    .objectInListMaps(msgInfoObj, JvDbGlobalDefines.LineKeys.class, String.class);
+                    byte[] bodyMessageChatsLoadReply = createBodyMessagesLoadReplyMessage(type, msgInfo);
+                    sendReadyMessageNetwork(bodyMessageChatsLoadReply);
                 }
             }
         }
@@ -365,5 +374,9 @@ public class JvSendMessagesCtrl {
     private byte[] createMessagesLoadRequestMessage(JvDefinesMessages.TypeMessage type, String loginRequesting,
                                                     String loginDialog, int quantityMessages) {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, loginRequesting, loginDialog, quantityMessages);
+    }
+
+    private byte[] createBodyMessagesLoadReplyMessage(JvDefinesMessages.TypeMessage type, List<Map<JvDbGlobalDefines.LineKeys, String>> reply) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
     }
 }

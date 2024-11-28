@@ -58,6 +58,7 @@ public class JvTakeMessagesCtrl {
             case TextMessagesChangingStatusFromServer -> workTextMessagesChangingStatusFromServerMessage(getDeserializeMapData(type, data));
             case TextMessageRedirectServerToUser -> workTextMessageRedirectServerToUserMessage(getDeserializeMapData(type, data));
             case MessagesLoadRequest -> workMessagesLoadRequestMessage(getDeserializeMapData(type, data));
+            case MessagesLoadReply -> workMessagesLoadReplyMessage(getDeserializeMapData(type, data));
         }
 
         clearRunnableCtrlFromConnection();
@@ -385,7 +386,22 @@ public class JvTakeMessagesCtrl {
         String loginRequesting = (String) map.get(JvDefinesMessages.TypeData.LoginRequesting);
         String loginDialog = (String) map.get(JvDefinesMessages.TypeData.LoginDialog);
         int quantityMessages = (Integer) map.get(JvDefinesMessages.TypeData.QuantityMessages);
-        System.out.println(loginRequesting +  loginDialog + quantityMessages);
 
+        List<Map<JvDbGlobalDefines.LineKeys, String>> requestDB = JvGetterControls.getInstance()
+                .getBeanDbCtrl().getMultipleInfoFromDb(JvDbCtrl.TypeExecutionGetMultiple.ChatsLoad,
+                        loginRequesting, loginDialog, String.valueOf(quantityMessages));
+        JvGetterControls.getInstance().getBeanSendMessagesCtrl().
+                sendMessage(JvDefinesMessages.TypeMessage.MessagesLoadReply, requestDB);
+    }
+
+    private void workMessagesLoadReplyMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
+        Object objectFromMap = map.get(JvDefinesMessages.TypeData.MessagesInfoList);
+        List<Map<JvDbGlobalDefines.LineKeys, String>> msgInfo =
+                JvGetterTools.getInstance().getBeanStructTools()
+                        .objectInListMaps(objectFromMap, JvDbGlobalDefines.LineKeys.class, String.class);
+        System.out.println(msgInfo);
+//        JvGetterControls.getInstance().getBeanChatsCtrl().createChatsObjects(msgInfo);
+//        JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+//                .setChatsLoadReplyFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
     }
 }
