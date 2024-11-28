@@ -84,4 +84,8 @@ public class JvMessagesModel extends JvBaseModel {
 
         return list;
     }
+
+    public void addMessageStructObject(JvMessageStructObject messageStructObject) {
+        addItem(messageStructObject, getRootObject());
+    }
 }

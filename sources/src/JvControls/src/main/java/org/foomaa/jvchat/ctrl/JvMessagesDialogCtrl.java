@@ -134,7 +134,13 @@ public class JvMessagesDialogCtrl {
         return Objects.equals(currentLogin, messageStructObject.getLoginSender());
     }
 
-    public void redirectMessageToOnlineUser(JvMessageStructObject messageStructObject) {
+    public void redirectMessageToOnlineUser(String loginSender,
+                                            String loginReceiver,
+                                            String text,
+                                            JvMainChatsGlobalDefines.TypeStatusMessage statusMessage,
+                                            UUID uuid,
+                                            LocalDateTime timestamp) {
+        JvMessageStructObject messageStructObject = createMessageByData(loginSender, loginReceiver, text, statusMessage, uuid, timestamp);
         JvOnlineServersCtrl onlineServersCtrl =  JvGetterControls.getInstance().getBeanOnlineServersCtrl();
 
         boolean isUserOnline = onlineServersCtrl.isLoginInListCheckerOnline(messageStructObject.getLoginReceiver());
@@ -161,7 +167,7 @@ public class JvMessagesDialogCtrl {
                 runnableUserCtrl);
     }
 
-    public JvMessageStructObject createMessageByData(String loginSender,
+    private JvMessageStructObject createMessageByData(String loginSender,
                                                      String loginReceiver,
                                                      String text,
                                                      JvMainChatsGlobalDefines.TypeStatusMessage statusMessage,
@@ -187,5 +193,16 @@ public class JvMessagesDialogCtrl {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         return timestamp.format(formatter);
+    }
+
+    public void addRedirectMessageToModel(String loginSender,
+                                   String loginReceiver,
+                                   String text,
+                                   JvMainChatsGlobalDefines.TypeStatusMessage statusMessage,
+                                   UUID uuid,
+                                   LocalDateTime timestamp) {
+        JvMessageStructObject messageStructObject = createMessageByData(
+                loginSender, loginReceiver, text, statusMessage, uuid, timestamp);
+        messagesModel.addMessageStructObject(messageStructObject);
     }
 }

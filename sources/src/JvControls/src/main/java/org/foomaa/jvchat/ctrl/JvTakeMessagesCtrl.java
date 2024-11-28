@@ -14,7 +14,6 @@ import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvGetterMessages;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvGetterSettings;
-import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 import org.foomaa.jvchat.tools.JvGetterTools;
 
 
@@ -343,10 +342,9 @@ public class JvTakeMessagesCtrl {
         String statusString = status.toString();
         Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages = new HashMap<>();
         mapStatusMessages.put(UUID.fromString(uuid), status);
+        int normaliseTimestampCount = 3;
         LocalDateTime timestamp = JvGetterTools.getInstance().getBeanFormatTools()
-                .stringToLocalDateTime(timestampStr, 3);
-        JvMessageStructObject messageObj = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().createMessageByData(
-                loginSender, loginReceiver, text, status, UUID.fromString(uuid), timestamp);
+                .stringToLocalDateTime(timestampStr, normaliseTimestampCount);
 
         // записываем в первую очередь в БД
         JvGetterControls.getInstance().getBeanDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.ChatMessagesSentMessage,
@@ -355,7 +353,8 @@ public class JvTakeMessagesCtrl {
         JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 JvDefinesMessages.TypeMessage.TextMessagesChangingStatusFromServer, loginSender, loginReceiver, mapStatusMessages);
         // отправляем пользователю, если он в сети
-        JvGetterControls.getInstance().getBeanMessagesDialogCtrl().redirectMessageToOnlineUser(messageObj);
+        JvGetterControls.getInstance().getBeanMessagesDialogCtrl().redirectMessageToOnlineUser(
+                loginSender, loginReceiver, text, status, UUID.fromString(uuid), timestamp);
     }
 
     private void workTextMessagesChangingStatusFromServerMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
@@ -375,11 +374,17 @@ public class JvTakeMessagesCtrl {
         String loginReceiver = (String) map.get(JvDefinesMessages.TypeData.LoginReceiver);
         String uuid = (String) map.get(JvDefinesMessages.TypeData.Uuid);
         String text = (String) map.get(JvDefinesMessages.TypeData.Text);
-        String timestamp = (String) map.get(JvDefinesMessages.TypeData.TimeStampMessageSend);
+        String timestampStr = (String) map.get(JvDefinesMessages.TypeData.TimeStampMessageSend);
 
         JvMainChatsGlobalDefines.TypeStatusMessage status = JvMainChatsGlobalDefines.TypeStatusMessage.Delivered;
-        String statusString = status.toString();
-        // TODO(VAD): add to widget
+        int normaliseTimestampCount = 3;
+        LocalDateTime timestamp = JvGetterTools.getInstance().getBeanFormatTools()
+                .stringToLocalDateTime(timestampStr, normaliseTimestampCount);
+
+        JvGetterControls.getInstance().getBeanMessagesDialogCtrl().addRedirectMessageToModel(
+                loginSender, loginReceiver, text, status, UUID.fromString(uuid), timestamp);
+        JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                .setMessageRedirectServerToUserFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
     }
 
     private void workMessagesLoadRequestMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {

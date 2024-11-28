@@ -35,6 +35,7 @@ public class JvMessagesDefinesCtrl {
     private TypeFlags ChatsLoadReplyFlag = TypeFlags.DEFAULT;
     private TypeFlags LoadUsersOnlineReplyFlag = TypeFlags.DEFAULT;
     private TypeFlags MessagesLoadReplyFlag = TypeFlags.DEFAULT;
+    private TypeFlags MessageRedirectServerToUserFlag = TypeFlags.DEFAULT;
     // FLAGS
 
     public void setEntryRequestFlag(TypeFlags newFlag) {
@@ -103,6 +104,12 @@ public class JvMessagesDefinesCtrl {
         }
     }
 
+    public void setMessageRedirectServerToUserFlag(TypeFlags newFlag) {
+        if (MessageRedirectServerToUserFlag != newFlag) {
+            MessageRedirectServerToUserFlag = newFlag;
+        }
+    }
+
     public TypeFlags getEntryRequestFlag() {
         return EntryRequestFlag;
     }
@@ -145,5 +152,9 @@ public class JvMessagesDefinesCtrl {
 
     public TypeFlags getMessagesLoadReplyFlag() {
         return MessagesLoadReplyFlag;
+    }
+
+    public TypeFlags getMessageRedirectServerToUserFlag() {
+        return MessageRedirectServerToUserFlag;
     }
 }
