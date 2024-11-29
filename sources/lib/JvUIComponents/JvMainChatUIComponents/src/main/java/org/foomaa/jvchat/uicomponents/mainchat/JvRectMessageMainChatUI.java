@@ -14,8 +14,8 @@ import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 
 public class JvRectMessageMainChatUI extends JTextArea {
     private JvMainChatsGlobalDefines.TypeStatusMessage statusMessage;
-    private String textMessage;
-    private LocalDateTime timestamp;
+    private final String textMessage;
+    private final LocalDateTime timestamp;
 
     JvRectMessageMainChatUI(JvMessageStructObject messageObject) {
         textMessage = messageObject.getText();

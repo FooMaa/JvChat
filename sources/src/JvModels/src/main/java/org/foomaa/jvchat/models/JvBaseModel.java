@@ -4,6 +4,7 @@ import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.structobjects.JvBaseStructObject;
 import org.foomaa.jvchat.structobjects.JvRootStructObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -32,7 +33,9 @@ public abstract class JvBaseModel {
     }
 
     private boolean removeItemProcess(JvBaseStructObject parent, JvBaseStructObject item) {
-        for (JvBaseStructObject child : parent.getChildren()) {
+        List<JvBaseStructObject> baseStructObjects = new ArrayList<>(parent.getChildren());
+
+        for (JvBaseStructObject child : baseStructObjects) {
             if (child == item) {
                 parent.removeChild(item);
                 return true;
@@ -76,14 +79,14 @@ public abstract class JvBaseModel {
     }
 
     public void clearModel() {
-        List<JvBaseStructObject> children = rootObject.getChildren();
+        List<JvBaseStructObject> children = new ArrayList<>(rootObject.getChildren());
         if (children.isEmpty()) {
             JvLog.write(JvLog.TypeLog.Warn, "Empty children...");
             return;
         }
 
         for (JvBaseStructObject child : children) {
-            removeItem(child);
+            rootObject.removeChild(child);
         }
     }
 }
