@@ -74,9 +74,7 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
     private void scrollDownPanel() {
         JScrollBar verticalScrollBar = scrollPane.getVerticalScrollBar();
         if (verticalScrollBar != null) {
-            SwingUtilities.invokeLater(() -> {
-                verticalScrollBar.setValue(verticalScrollBar.getMaximum());
-            });
+            SwingUtilities.invokeLater(() -> verticalScrollBar.setValue(verticalScrollBar.getMaximum()));
         }
     }
 

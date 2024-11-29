@@ -13,7 +13,7 @@ import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 
 
 public class JvRectMessageMainChatUI extends JTextArea {
-    private JvMainChatsGlobalDefines.TypeStatusMessage statusMessage;
+    private final JvMainChatsGlobalDefines.TypeStatusMessage statusMessage;
     private final String textMessage;
     private final LocalDateTime timestamp;
 
@@ -45,8 +45,13 @@ public class JvRectMessageMainChatUI extends JTextArea {
         int xRoundSecond = xRound - diameter - 1;
 
         // Рисуем кружки доставки
-        g2.fillOval(xRound, yRound, diameter, diameter);
-        g2.fillOval(xRoundSecond, yRound, diameter, diameter);
+        if (statusMessage == JvMainChatsGlobalDefines.TypeStatusMessage.Delivered ||
+                statusMessage == JvMainChatsGlobalDefines.TypeStatusMessage.Read) {
+            g2.fillOval(xRound, yRound, diameter, diameter);
+        }
+        if (statusMessage == JvMainChatsGlobalDefines.TypeStatusMessage.Read) {
+            g2.fillOval(xRoundSecond, yRound, diameter, diameter);
+        }
 
         String time = timestamp.getHour() + ":" + timestamp.getMinute();
         Font font = new Font("Times", Font.BOLD,
@@ -82,7 +87,7 @@ public class JvRectMessageMainChatUI extends JTextArea {
         int amendment = 20;
         int width = (JvGetterMainChatUIComponents.getInstance()
                 .getBeanScrollPanelMessagesMainChatUI().getWidth() - amendment) / 2;
-        setSize(new Dimension(width,  getPreferredSize().height));
+        setSize(new Dimension(width,  getMinimumSize().height));
     }
 
     private void addListenerToElements() {
@@ -106,7 +111,7 @@ public class JvRectMessageMainChatUI extends JTextArea {
 
     private void adjustHeight() {
         Dimension dimension = getSize();
-        setSize(new Dimension(dimension.width, getPreferredSize().height));
+        setSize(new Dimension(dimension.width, getMinimumSize().height));
         updateComponent();
     }
 
