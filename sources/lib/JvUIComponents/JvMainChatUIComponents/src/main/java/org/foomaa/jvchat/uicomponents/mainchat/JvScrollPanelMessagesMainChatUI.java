@@ -35,6 +35,7 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
         scrollPane = new JScrollPane(panel);
         scrollPane.setBorder(null);
         scrollPane.setViewportView(panel);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         addListenerScrollPane();
 
@@ -44,8 +45,8 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
         gbc.gridy = 0;
         gbc.weightx = 0.5;
         gbc.weighty = 1.0;
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.anchor = GridBagConstraints.PAGE_END;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.SOUTH;
         add(scrollPane, gbc);
     }
 
@@ -56,6 +57,29 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
                 updatePanelMessages();
             }
         });
+
+        scrollPane.getVerticalScrollBar().addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentShown(ComponentEvent e) {
+                changeScrollPane();
+            }
+        });
+    }
+
+    private void changeScrollPane() {
+        GridBagConstraints gbc = ((GridBagLayout) getLayout()).getConstraints(scrollPane);
+
+        remove(scrollPane);
+
+        gbc.gridy = 0;
+        gbc.weightx = 0.5;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.anchor = GridBagConstraints.SOUTH;
+        add(scrollPane, gbc);
+
+        revalidate();
+        repaint();
     }
 
     private void createPanelMessage(JvMessageStructObject messageObject, String constraints) {
