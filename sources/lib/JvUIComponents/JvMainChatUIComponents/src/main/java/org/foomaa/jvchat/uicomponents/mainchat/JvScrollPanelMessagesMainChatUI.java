@@ -61,8 +61,15 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
     private void createPanelMessage(JvMessageStructObject messageObject, String constraints) {
         JPanel rowPanel = new JPanel();
         rowPanel.setLayout(new BorderLayout());
-        rowPanel.add(JvGetterMainChatUIComponents.getInstance().getBeanRectMessageMainChatUI(messageObject), constraints);
+
+        // NOTE(VAD): надо для того, чтоб компоненты не растягивались
+        JPanel tmpPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        tmpPanel.add(JvGetterMainChatUIComponents.getInstance().getBeanRectMessageMainChatUI(messageObject));
+
+        rowPanel.add(tmpPanel, constraints);
+
         panel.add(rowPanel);
+        panel.add(Box.createRigidArea(new Dimension(0, 5)));
     }
 
     private void updatePanelMessages() {
