@@ -77,17 +77,21 @@ public class JvMainFrameMainChatUI extends JFrame {
         panel.add(scrollPanelChats, gbc);
         gridxNum++;
 
+        double ratioMessagePart = 0.8;
+        int sizeYMsg = (int) Math.floor(getHeight() * ratioMessagePart);
+        int sizeYPanelSending = getHeight() - sizeYMsg;
+
         gbc.weightx = 1.25;
-        gbc.weighty = 2.5;
-        gbc.gridheight = 4;
+        gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridx = gridxNum;
+        gbc.ipady = sizeYMsg;
         panel.add(scrollPanelMessages, gbc);
 
         gbc.weightx = 1.25;
-        gbc.weighty = 0.25;
-        gbc.gridheight = 2;
-        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weighty = 0;
+        gbc.ipady = sizeYPanelSending;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = gridxNum;
         panel.add(panelSendingMessage, gbc);
 

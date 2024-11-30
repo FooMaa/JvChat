@@ -79,7 +79,7 @@ public class JvMessagesModel extends JvBaseModel {
         list.sort((msgObj1, msgObj2) -> {
             LocalDateTime msgObj2Date = msgObj2.getTimestamp();
             LocalDateTime msgObj1Date = msgObj1.getTimestamp();
-            return msgObj2Date.compareTo(msgObj1Date);
+            return msgObj1Date.compareTo(msgObj2Date);
         });
 
         return list;
