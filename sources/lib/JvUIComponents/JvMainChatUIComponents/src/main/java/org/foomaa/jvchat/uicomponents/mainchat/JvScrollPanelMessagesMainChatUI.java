@@ -32,10 +32,13 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
         panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
+        int unitIncrementScrollBar = 20;
+
         scrollPane = new JScrollPane(panel);
         scrollPane.setBorder(null);
         scrollPane.setViewportView(panel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(unitIncrementScrollBar);
 
         addListenerScrollPane();
 
