@@ -63,7 +63,12 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
             public void componentShown(ComponentEvent e) {
                 changeScrollPane();
             }
-        });
+
+            @Override
+            public void componentHidden(ComponentEvent e) {
+                changeScrollPane();
+            }
+       });
     }
 
     private void changeScrollPane() {
@@ -74,7 +79,7 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
         gbc.gridy = 0;
         gbc.weightx = 0.5;
         gbc.weighty = 1.0;
-        gbc.fill = GridBagConstraints.BOTH;
+        gbc.fill = scrollPane.getVerticalScrollBar().isVisible() ? GridBagConstraints.BOTH : GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.SOUTH;
         add(scrollPane, gbc);
 
