@@ -55,6 +55,7 @@ public class JvTakeMessagesCtrl {
             case LoadUsersOnlineStatusReply -> workLoadUsersOnlineStatusReplyMessage(getDeserializeMapData(type, data));
             case TextMessageSendUserToServer -> workTextMessageSendUserToServerMessage(getDeserializeMapData(type, data));
             case TextMessagesChangingStatusFromServer -> workTextMessagesChangingStatusFromServerMessage(getDeserializeMapData(type, data));
+            case TextMessagesChangingStatusFromUser -> workTextMessagesChangingStatusFromUserMessage(getDeserializeMapData(type, data));
             case TextMessageRedirectServerToUser -> workTextMessageRedirectServerToUserMessage(getDeserializeMapData(type, data));
             case MessagesLoadRequest -> workMessagesLoadRequestMessage(getDeserializeMapData(type, data));
             case MessagesLoadReply -> workMessagesLoadReplyMessage(getDeserializeMapData(type, data));
@@ -358,6 +359,18 @@ public class JvTakeMessagesCtrl {
     }
 
     private void workTextMessagesChangingStatusFromServerMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
+        String loginSender = (String) map.get(JvDefinesMessages.TypeData.LoginSender);
+        String loginReceiver = (String) map.get(JvDefinesMessages.TypeData.LoginReceiver);
+
+        Object statusesMap = map.get(JvDefinesMessages.TypeData.MapStatusMessages);
+        Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = JvGetterTools.getInstance()
+                .getBeanStructTools().objectInMap(statusesMap, UUID.class, JvMainChatsGlobalDefines.TypeStatusMessage.class);
+
+        JvGetterControls.getInstance().getBeanMessagesDialogCtrl()
+                .setDirtyStatusToMessage( loginSender, loginReceiver, mapStatusesMessages);
+    }
+
+    private void workTextMessagesChangingStatusFromUserMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         String loginSender = (String) map.get(JvDefinesMessages.TypeData.LoginSender);
         String loginReceiver = (String) map.get(JvDefinesMessages.TypeData.LoginReceiver);
 

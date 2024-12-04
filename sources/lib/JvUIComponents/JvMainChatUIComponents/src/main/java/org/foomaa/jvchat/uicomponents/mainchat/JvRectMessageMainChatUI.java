@@ -6,7 +6,9 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
+import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.structobjects.JvMessageStructObject;
@@ -16,11 +18,13 @@ public class JvRectMessageMainChatUI extends JTextArea {
     private final JvMainChatsGlobalDefines.TypeStatusMessage statusMessage;
     private final String textMessage;
     private final LocalDateTime timestamp;
+    private final UUID uuidMessage;
 
     JvRectMessageMainChatUI(JvMessageStructObject messageObject) {
         textMessage = messageObject.getText();
         statusMessage = messageObject.getStatusMessage();
         timestamp = messageObject.getTimestamp();
+        uuidMessage = messageObject.getUuid();
 
         settingLabel();
         addListenerToElements();
@@ -53,7 +57,7 @@ public class JvRectMessageMainChatUI extends JTextArea {
             g2.fillOval(xRoundSecond, yRound, diameter, diameter);
         }
 
-        String time = timestamp.getHour() + ":" + timestamp.getMinute();
+        String time = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().getTimeFormattedMessage(timestamp);
         Font font = new Font("Times", Font.BOLD,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.010));
         g2.setFont(font);
@@ -122,5 +126,9 @@ public class JvRectMessageMainChatUI extends JTextArea {
     public void updateComponent() {
         revalidate();
         repaint();
+    }
+
+    public UUID getUuid() {
+        return uuidMessage;
     }
 }

@@ -234,6 +234,19 @@ public class JvSendMessagesCtrl {
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
+            case TextMessagesChangingStatusFromUser -> {
+                if (parameters.length == 3) {
+                    Object loginSender = parameters[0];
+                    Object loginReceiver = parameters[1];
+                    Object mapUuidStatus = parameters[2];
+                    Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = JvGetterTools.getInstance()
+                            .getBeanStructTools().objectInMap(mapUuidStatus, UUID.class, JvMainChatsGlobalDefines.TypeStatusMessage.class);
+                    byte[] bodyMessage = createBodyTextMessagesChangingStatusFromUserMessage(
+                            type, (String) loginSender, (String) loginReceiver, mapStatusesMessages);
+                    sendReadyMessageNetwork(bodyMessage);
+                }
+            }
+
             case TextMessageRedirectServerToUser -> {
                 if (parameters.length == 6) {
                     Object loginSender = parameters[0];
@@ -361,6 +374,12 @@ public class JvSendMessagesCtrl {
     }
 
     private byte[] createBodyTextMessagesChangingStatusFromServerMessage(JvDefinesMessages.TypeMessage type,
+                                                                         String loginSender, String loginReceiver,
+                                                                         Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, loginSender, loginReceiver, mapStatusMessages);
+    }
+
+    private byte[] createBodyTextMessagesChangingStatusFromUserMessage(JvDefinesMessages.TypeMessage type,
                                                                          String loginSender, String loginReceiver,
                                                                          Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, loginSender, loginReceiver, mapStatusMessages);

@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.List;
+import java.util.UUID;
 
 
 public class JvScrollPanelMessagesMainChatUI extends JPanel {
@@ -159,6 +160,33 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
     }
 
     private void addRedirectMessage() {
+        List<JvMessageStructObject> allMessagesObjSorted = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().getAllSortedMessages();
+
+        for (JvMessageStructObject messageStructObject : allMessagesObjSorted) {
+            if (findRectMessageByUuid(panel, messageStructObject.getUuid()) == null) {
+                addMessage(messageStructObject);
+            }
+        }
+
         JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().setMessageRedirectServerToUserFlag(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
+    }
+
+    private JvRectMessageMainChatUI findRectMessageByUuid(JPanel panelMsg, UUID uuid) {
+        Component[] components = panelMsg.getComponents();
+
+        for (Component component : components) {
+            if (component instanceof JvRectMessageMainChatUI rectMessage) {
+                if (rectMessage.getUuid().equals(uuid)) {
+                    return rectMessage;
+                }
+            } else if (component instanceof JPanel tmpPanel) {
+                JvRectMessageMainChatUI rectMsg = findRectMessageByUuid(tmpPanel, uuid);
+                if (rectMsg != null) {
+                    return rectMsg;
+                }
+            }
+        }
+
+        return null;
     }
 }
