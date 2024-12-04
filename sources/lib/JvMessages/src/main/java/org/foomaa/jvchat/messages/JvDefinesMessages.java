@@ -33,11 +33,15 @@ public class JvDefinesMessages {
         LoadUsersOnlineStatusRequest(16),
         LoadUsersOnlineStatusReply(17),
         TextMessageSendUserToServer(18),
-        TextMessagesChangingStatusFromServer(19),
-        TextMessagesChangingStatusFromUser(20),
-        TextMessageRedirectServerToUser(21),
-        MessagesLoadRequest(22),
-        MessagesLoadReply(23);
+        TextMessageSendUserToServerVerification(19),
+        TextMessagesChangingStatusFromServer(20),
+        TextMessagesChangingStatusFromServerVerification(21),
+        TextMessagesChangingStatusFromUser(22),
+        TextMessagesChangingStatusFromUserVerification(23),
+        TextMessageRedirectServerToUser(24),
+        TextMessageRedirectServerToUserVerification(25),
+        MessagesLoadRequest(26),
+        MessagesLoadReply(27);
 
         private final int value;
 

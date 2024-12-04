@@ -9,30 +9,47 @@ message General {
         // Auth
         EntryRequest entryRequest = 2;
         EntryReply entryReply = 3;
+
         RegistrationRequest registrationRequest = 4;
         RegistrationReply registrationReply = 5;
+
         VerifyRegistrationEmailRequest verifyRegistrationEmailRequest = 6;
         VerifyRegistrationEmailReply verifyRegistrationEmailReply = 7;
+
         ResetPasswordRequest resetPasswordRequest = 8;
         ResetPasswordReply resetPasswordReply = 9;
+
         VerifyFamousEmailRequest verifyFamousEmailRequest = 10;
         VerifyFamousEmailReply verifyFamousEmailReply = 11;
+
         ChangePasswordRequest changePasswordRequest = 12;
         ChangePasswordReply changePasswordReply = 13;
+
 
         // Main Chat
         ChatsLoadRequest chatsLoadRequest = 14;
         ChatsLoadReply chatsLoadReply = 15;
+
         CheckOnlineUserRequest checkOnlineRequest = 16;
         CheckOnlineUserReply checkOnlineReply = 17;
+
         LoadUsersOnlineStatusRequest loadUsersOnlineStatusRequest = 18;
         LoadUsersOnlineStatusReply loadUsersOnlineStatusReply = 19;
+
         TextMessageSendUserToServer textMessageSendUserToServer = 20;
-        TextMessagesChangingStatusFromServer textMessagesChangingStatusFromServer = 21;
-        TextMessagesChangingStatusFromUser textMessagesChangingStatusFromUser = 22;
-        TextMessageRedirectServerToUser textMessageRedirectServerToUser = 23;
-        MessagesLoadRequest messagesLoadRequest = 24;
-        MessagesLoadReply messagesLoadReply = 25;
+        TextMessageSendUserToServerVerification textMessageSendUserToServerVerification = 21;
+
+        TextMessagesChangingStatusFromServer textMessagesChangingStatusFromServer = 22;
+        TextMessagesChangingStatusFromServerVerification textMessagesChangingStatusFromServerVerification = 23;
+
+        TextMessagesChangingStatusFromUser textMessagesChangingStatusFromUser = 24;
+        TextMessagesChangingStatusFromUserVerification textMessagesChangingStatusFromUserVerification = 25;
+
+        TextMessageRedirectServerToUser textMessageRedirectServerToUser = 26;
+        TextMessageRedirectServerToUserVerification textMessageRedirectServerToUserVerification = 27;
+
+        MessagesLoadRequest messagesLoadRequest = 28;
+        MessagesLoadReply messagesLoadReply = 29;
     }
 }
 
@@ -165,6 +182,10 @@ message MessageInfo {
     string timestamp = 5;
 }
 
+message TextMessageSendUserToServerVerification {
+    bool reply = 1;
+}
+
 message TextMessagesChangingStatusFromServer {
     enum StatusMessage {
             Error = 0;
@@ -175,6 +196,10 @@ message TextMessagesChangingStatusFromServer {
     string loginSender = 1;
     string loginReceiver = 2;
     map<string, StatusMessage> mapStatusMessages = 3;
+}
+
+message TextMessagesChangingStatusFromServerVerification {
+    bool reply = 1;
 }
 
 message TextMessagesChangingStatusFromUser {
@@ -189,8 +214,16 @@ message TextMessagesChangingStatusFromUser {
     map<string, StatusMessage> mapStatusMessages = 3;
 }
 
+message TextMessagesChangingStatusFromUserVerification {
+    bool reply = 1;
+}
+
 message TextMessageRedirectServerToUser {
     MessageInfo messageInfo = 1;
+}
+
+message TextMessageRedirectServerToUserVerification {
+    bool reply = 1;
 }
 
 message MessagesLoadRequest {

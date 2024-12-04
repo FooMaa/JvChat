@@ -206,6 +206,14 @@ public class JvSerializatorDataMessages {
                     return new byte[0];
                 }
             }
+            case TextMessageSendUserToServerVerification -> {
+                if (parameters.length == 1) {
+                    Object reply = parameters[0];
+                    return createTextMessageSendUserToServerVerificationMessage(type, (Boolean) reply);
+                } else {
+                    return new byte[0];
+                }
+            }
             case TextMessagesChangingStatusFromServer -> {
                 if (parameters.length == 3) {
                     Object loginSender = parameters[0];
@@ -215,6 +223,14 @@ public class JvSerializatorDataMessages {
                             .getBeanStructTools().objectInMap(mapUuidStatus, UUID.class, JvMainChatsGlobalDefines.TypeStatusMessage.class);
                     return createTextMessageChangingStatusFromServerMessage(type, (String) loginSender,
                             (String) loginReceiver, mapStatusesMessages);
+                } else {
+                    return new byte[0];
+                }
+            }
+            case TextMessagesChangingStatusFromServerVerification -> {
+                if (parameters.length == 1) {
+                    Object reply = parameters[0];
+                    return createTextMessagesChangingStatusFromServerVerificationMessage(type, (Boolean) reply);
                 } else {
                     return new byte[0];
                 }
@@ -232,6 +248,14 @@ public class JvSerializatorDataMessages {
                     return new byte[0];
                 }
             }
+            case TextMessagesChangingStatusFromUserVerification -> {
+                if (parameters.length == 1) {
+                    Object reply = parameters[0];
+                    return createTextMessagesChangingStatusFromUserVerificationMessage(type, (Boolean) reply);
+                } else {
+                    return new byte[0];
+                }
+            }
             case TextMessageRedirectServerToUser -> {
                 if (parameters.length == 5) {
                     Object loginSender = parameters[0];
@@ -241,6 +265,14 @@ public class JvSerializatorDataMessages {
                     Object timestamp = parameters[4];
                     return createTextMessageRedirectServerToUserMessage(type, (String) loginSender,
                             (String) loginReceiver, (String) uuid, (String) text, (String) timestamp);
+                } else {
+                    return new byte[0];
+                }
+            }
+            case TextMessageRedirectServerToUserVerification -> {
+                if (parameters.length == 1) {
+                    Object reply = parameters[0];
+                    return createTextMessageRedirectServerToUserVerificationMessage(type, (Boolean) reply);
                 } else {
                     return new byte[0];
                 }
@@ -573,6 +605,19 @@ public class JvSerializatorDataMessages {
         return resMsg.toByteArray();
     }
 
+    private byte[] createTextMessageSendUserToServerVerificationMessage(JvDefinesMessages.TypeMessage type, boolean reply) {
+        JvClientServerSerializeProtocolMessage_pb.TextMessageSendUserToServerVerification msgVerify =
+                JvClientServerSerializeProtocolMessage_pb.TextMessageSendUserToServerVerification.newBuilder()
+                        .setReply(reply)
+                        .build();
+        JvClientServerSerializeProtocolMessage_pb.General resMsg =
+                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
+                        .setType(type.getValue())
+                        .setTextMessageSendUserToServerVerification(msgVerify)
+                        .build();
+        return resMsg.toByteArray();
+    }
+
     private byte[] createTextMessageChangingStatusFromServerMessage(JvDefinesMessages.TypeMessage type,
                                                                     String loginSender, String loginReceiver,
                                                                     Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
@@ -595,6 +640,19 @@ public class JvSerializatorDataMessages {
                 JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
                         .setType(type.getValue())
                         .setTextMessagesChangingStatusFromServer(msgTextMessagesChangingStatusFromServer)
+                        .build();
+        return resMsg.toByteArray();
+    }
+
+    private byte[] createTextMessagesChangingStatusFromServerVerificationMessage(JvDefinesMessages.TypeMessage type, boolean reply) {
+        JvClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServerVerification msgVerify =
+                JvClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServerVerification.newBuilder()
+                        .setReply(reply)
+                        .build();
+        JvClientServerSerializeProtocolMessage_pb.General resMsg =
+                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
+                        .setType(type.getValue())
+                        .setTextMessagesChangingStatusFromServerVerification(msgVerify)
                         .build();
         return resMsg.toByteArray();
     }
@@ -625,6 +683,19 @@ public class JvSerializatorDataMessages {
         return resMsg.toByteArray();
     }
 
+    private byte[] createTextMessagesChangingStatusFromUserVerificationMessage(JvDefinesMessages.TypeMessage type, boolean reply) {
+        JvClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromUserVerification msgVerify =
+                JvClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromUserVerification.newBuilder()
+                        .setReply(reply)
+                        .build();
+        JvClientServerSerializeProtocolMessage_pb.General resMsg =
+                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
+                        .setType(type.getValue())
+                        .setTextMessagesChangingStatusFromUserVerification(msgVerify)
+                        .build();
+        return resMsg.toByteArray();
+    }
+
     private byte[] createTextMessageRedirectServerToUserMessage(JvDefinesMessages.TypeMessage type,
                                                             String loginSender, String loginReceiver,
                                                             String uuid, String text, String timestamp) {
@@ -644,6 +715,19 @@ public class JvSerializatorDataMessages {
                 JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
                         .setType(type.getValue())
                         .setTextMessageSendUserToServer(msgTextMessageSendUserToServer)
+                        .build();
+        return resMsg.toByteArray();
+    }
+
+    private byte[] createTextMessageRedirectServerToUserVerificationMessage(JvDefinesMessages.TypeMessage type, boolean reply) {
+        JvClientServerSerializeProtocolMessage_pb.TextMessageRedirectServerToUserVerification msgVerify =
+                JvClientServerSerializeProtocolMessage_pb.TextMessageRedirectServerToUserVerification.newBuilder()
+                        .setReply(reply)
+                        .build();
+        JvClientServerSerializeProtocolMessage_pb.General resMsg =
+                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
+                        .setType(type.getValue())
+                        .setTextMessageRedirectServerToUserVerification(msgVerify)
                         .build();
         return resMsg.toByteArray();
     }
