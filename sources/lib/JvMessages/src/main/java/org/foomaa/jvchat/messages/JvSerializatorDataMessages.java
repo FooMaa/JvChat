@@ -219,6 +219,19 @@ public class JvSerializatorDataMessages {
                     return new byte[0];
                 }
             }
+            case TextMessagesChangingStatusFromUser -> {
+                if (parameters.length == 3) {
+                    Object loginSender = parameters[0];
+                    Object loginReceiver = parameters[1];
+                    Object mapUuidStatus = parameters[2];
+                    Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = JvGetterTools.getInstance()
+                            .getBeanStructTools().objectInMap(mapUuidStatus, UUID.class, JvMainChatsGlobalDefines.TypeStatusMessage.class);
+                    return createTextMessageChangingStatusFromUserMessage(type, (String) loginSender,
+                            (String) loginReceiver, mapStatusesMessages);
+                } else {
+                    return new byte[0];
+                }
+            }
             case TextMessageRedirectServerToUser -> {
                 if (parameters.length == 5) {
                     Object loginSender = parameters[0];
@@ -582,6 +595,32 @@ public class JvSerializatorDataMessages {
                 JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
                         .setType(type.getValue())
                         .setTextMessagesChangingStatusFromServer(msgTextMessagesChangingStatusFromServer)
+                        .build();
+        return resMsg.toByteArray();
+    }
+
+    private byte[] createTextMessageChangingStatusFromUserMessage(JvDefinesMessages.TypeMessage type,
+                                                                    String loginSender, String loginReceiver,
+                                                                    Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
+        Map<String, JvClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromUser.StatusMessage> resultMap =
+                new HashMap<>();
+        for (UUID uuid : mapStatusMessages.keySet()) {
+            int statusInt = mapStatusMessages.get(uuid).getValue();
+            JvClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromUser.StatusMessage statusMsg =
+                    JvClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromUser.StatusMessage.forNumber(statusInt);
+            resultMap.put(uuid.toString(), statusMsg);
+        }
+
+        JvClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromUser msgTextMessagesChangingStatusFromUser =
+                JvClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromUser.newBuilder()
+                        .setLoginSender(loginSender)
+                        .setLoginReceiver(loginReceiver)
+                        .putAllMapStatusMessages(resultMap)
+                        .build();
+        JvClientServerSerializeProtocolMessage_pb.General resMsg =
+                JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
+                        .setType(type.getValue())
+                        .setTextMessagesChangingStatusFromUser(msgTextMessagesChangingStatusFromUser)
                         .build();
         return resMsg.toByteArray();
     }

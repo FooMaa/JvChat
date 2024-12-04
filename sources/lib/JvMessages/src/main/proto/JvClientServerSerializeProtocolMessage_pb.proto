@@ -29,9 +29,10 @@ message General {
         LoadUsersOnlineStatusReply loadUsersOnlineStatusReply = 19;
         TextMessageSendUserToServer textMessageSendUserToServer = 20;
         TextMessagesChangingStatusFromServer textMessagesChangingStatusFromServer = 21;
-        TextMessageRedirectServerToUser textMessageRedirectServerToUser = 22;
-        MessagesLoadRequest messagesLoadRequest = 23;
-        MessagesLoadReply messagesLoadReply = 24;
+        TextMessagesChangingStatusFromUser textMessagesChangingStatusFromUser = 22;
+        TextMessageRedirectServerToUser textMessageRedirectServerToUser = 23;
+        MessagesLoadRequest messagesLoadRequest = 24;
+        MessagesLoadReply messagesLoadReply = 25;
     }
 }
 
@@ -165,6 +166,18 @@ message MessageInfo {
 }
 
 message TextMessagesChangingStatusFromServer {
+    enum StatusMessage {
+            Error = 0;
+            Sent = 1;
+            Delivered = 2;
+            Read = 3;
+    }
+    string loginSender = 1;
+    string loginReceiver = 2;
+    map<string, StatusMessage> mapStatusMessages = 3;
+}
+
+message TextMessagesChangingStatusFromUser {
     enum StatusMessage {
             Error = 0;
             Sent = 1;

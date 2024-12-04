@@ -42,6 +42,7 @@ public class JvDeserializatorDataMessages {
             case LoadUsersOnlineStatusReply -> takeLoadUsersOnlineStatusReplyMessage(data);
             case TextMessageSendUserToServer -> takeTextMessageSendUserToServerMessage(data);
             case TextMessagesChangingStatusFromServer -> takeTextMessagesChangingStatusFromServerMessage(data);
+            case TextMessagesChangingStatusFromUser -> takeTextMessagesChangingStatusFromUserMessage(data);
             case TextMessageRedirectServerToUser -> takeTextMessageRedirectServerToUserMessage(data);
             case MessagesLoadRequest -> takeMessagesLoadRequestMessage(data);
             case MessagesLoadReply -> takeMessagesLoadReplyMessage(data);
@@ -352,6 +353,35 @@ public class JvDeserializatorDataMessages {
 
             for (String key : mapStatusesMessages.keySet()) {
                 JvClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServer.StatusMessage statusTmp =
+                        mapStatusesMessages.get(key);
+                JvMainChatsGlobalDefines.TypeStatusMessage statusMsg =
+                        JvMainChatsGlobalDefines.TypeStatusMessage.getTypeStatusMessage(statusTmp.getNumber());
+                newMapStatusesMessages.put(UUID.fromString(key), statusMsg);
+            }
+
+            result.put(JvDefinesMessages.TypeData.MapStatusMessages, newMapStatusesMessages);
+        } catch (InvalidProtocolBufferException exception) {
+            JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
+        }
+        return result;
+    }
+
+    private HashMap<JvDefinesMessages.TypeData, Object> takeTextMessagesChangingStatusFromUserMessage(byte[] data) {
+        HashMap<JvDefinesMessages.TypeData, Object> result = new HashMap<>();
+        try {
+            JvClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromUser msgData =
+                    JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
+                            .getTextMessagesChangingStatusFromUser();
+
+            result.put(JvDefinesMessages.TypeData.LoginSender, msgData.getLoginSender());
+            result.put(JvDefinesMessages.TypeData.LoginReceiver, msgData.getLoginReceiver());
+
+            Map<String, JvClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromUser.StatusMessage> mapStatusesMessages =
+                    msgData.getMapStatusMessagesMap();
+            Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> newMapStatusesMessages = new HashMap<>();
+
+            for (String key : mapStatusesMessages.keySet()) {
+                JvClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromUser.StatusMessage statusTmp =
                         mapStatusesMessages.get(key);
                 JvMainChatsGlobalDefines.TypeStatusMessage statusMsg =
                         JvMainChatsGlobalDefines.TypeStatusMessage.getTypeStatusMessage(statusTmp.getNumber());
