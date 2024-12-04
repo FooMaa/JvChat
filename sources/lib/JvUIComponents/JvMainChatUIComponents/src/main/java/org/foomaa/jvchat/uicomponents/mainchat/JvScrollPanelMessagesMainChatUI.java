@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 
@@ -161,9 +162,12 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
 
     private void addRedirectMessage() {
         List<JvMessageStructObject> allMessagesObjSorted = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().getAllSortedMessages();
+        String currentPanelLogin = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().getCurrentActiveLoginUI();
 
         for (JvMessageStructObject messageStructObject : allMessagesObjSorted) {
-            if (findRectMessageByUuid(panel, messageStructObject.getUuid()) == null) {
+            if (findRectMessageByUuid(panel,
+                    messageStructObject.getUuid()) == null &&
+                    Objects.equals(currentPanelLogin, messageStructObject.getLoginSender())) {
                 addMessage(messageStructObject);
             }
         }
