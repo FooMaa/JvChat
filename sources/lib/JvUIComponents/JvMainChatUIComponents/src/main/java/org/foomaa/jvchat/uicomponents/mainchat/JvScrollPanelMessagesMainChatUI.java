@@ -2,7 +2,6 @@ package org.foomaa.jvchat.uicomponents.mainchat;
 
 import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.ctrl.JvMessagesDefinesCtrl;
-import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 
 import javax.swing.*;
@@ -140,11 +139,11 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
     }
 
     private void processUpdatingMessages() {
-        if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getMessagesLoadReplyFlag() ==
+        if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getTextMessagesLoadReplyFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.TRUE) {
             changeAllMessages();
         }
-        if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getMessageRedirectServerToUserFlag() ==
+        if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getTextMessageRedirectServerToUserFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.TRUE) {
             addRedirectMessage();
         }
@@ -158,7 +157,7 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
             addMessage(messageStructObject);
         }
 
-        JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().setMessagesLoadReplyFlag(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
+        JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().setTextMessagesLoadReplyFlag(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
     }
 
     private void addRedirectMessage() {
@@ -173,7 +172,7 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
             }
         }
 
-        JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().setMessageRedirectServerToUserFlag(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
+        JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().setTextMessageRedirectServerToUserFlag(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
     }
 
     private JvRectMessageMainChatUI findRectMessageByUuid(JPanel panelMsg, UUID uuid) {

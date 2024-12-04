@@ -34,8 +34,12 @@ public class JvMessagesDefinesCtrl {
     JvDefinesMessages.TypeErrorRegistration.NoError;
     private TypeFlags ChatsLoadReplyFlag = TypeFlags.DEFAULT;
     private TypeFlags LoadUsersOnlineReplyFlag = TypeFlags.DEFAULT;
-    private TypeFlags MessagesLoadReplyFlag = TypeFlags.DEFAULT;
-    private TypeFlags MessageRedirectServerToUserFlag = TypeFlags.DEFAULT;
+    private TypeFlags TextMessagesLoadReplyFlag = TypeFlags.DEFAULT;
+    private TypeFlags TextMessageRedirectServerToUserFlag = TypeFlags.DEFAULT;
+    private TypeFlags TextMessageSendUserToServerVerificationFlag = TypeFlags.DEFAULT;
+    private TypeFlags TextMessagesChangingStatusFromServerVerificationFlag = TypeFlags.DEFAULT;
+    private TypeFlags TextMessagesChangingStatusFromUserVerificationFlag = TypeFlags.DEFAULT;
+    private TypeFlags TextMessageRedirectServerToUserVerification = TypeFlags.DEFAULT;
     // FLAGS
 
     public void setEntryRequestFlag(TypeFlags newFlag) {
@@ -98,15 +102,39 @@ public class JvMessagesDefinesCtrl {
         }
     }
 
-    public void setMessagesLoadReplyFlag(TypeFlags newFlag) {
-        if (MessagesLoadReplyFlag != newFlag) {
-            MessagesLoadReplyFlag = newFlag;
+    public void setTextMessagesLoadReplyFlag(TypeFlags newFlag) {
+        if (TextMessagesLoadReplyFlag != newFlag) {
+            TextMessagesLoadReplyFlag = newFlag;
         }
     }
 
-    public void setMessageRedirectServerToUserFlag(TypeFlags newFlag) {
-        if (MessageRedirectServerToUserFlag != newFlag) {
-            MessageRedirectServerToUserFlag = newFlag;
+    public void setTextMessageRedirectServerToUserFlag(TypeFlags newFlag) {
+        if (TextMessageRedirectServerToUserFlag != newFlag) {
+            TextMessageRedirectServerToUserFlag = newFlag;
+        }
+    }
+
+    public void setTextMessageSendUserToServerVerificationFlag(TypeFlags newFlag) {
+        if (TextMessageSendUserToServerVerificationFlag != newFlag) {
+            TextMessageSendUserToServerVerificationFlag = newFlag;
+        }
+    }
+
+    public void setTextMessagesChangingStatusFromServerVerificationFlag(TypeFlags newFlag) {
+        if (TextMessagesChangingStatusFromServerVerificationFlag != newFlag) {
+            TextMessagesChangingStatusFromServerVerificationFlag = newFlag;
+        }
+    }
+
+    public void setTextMessagesChangingStatusFromUserVerificationFlag(TypeFlags newFlag) {
+        if (TextMessagesChangingStatusFromUserVerificationFlag != newFlag) {
+            TextMessagesChangingStatusFromUserVerificationFlag = newFlag;
+        }
+    }
+
+    public void setTextMessageRedirectServerToUserVerification(TypeFlags newFlag) {
+        if (TextMessageRedirectServerToUserVerification != newFlag) {
+            TextMessageRedirectServerToUserVerification = newFlag;
         }
     }
 
@@ -150,11 +178,27 @@ public class JvMessagesDefinesCtrl {
         return LoadUsersOnlineReplyFlag;
     }
 
-    public TypeFlags getMessagesLoadReplyFlag() {
-        return MessagesLoadReplyFlag;
+    public TypeFlags getTextMessagesLoadReplyFlag() {
+        return TextMessagesLoadReplyFlag;
     }
 
-    public TypeFlags getMessageRedirectServerToUserFlag() {
-        return MessageRedirectServerToUserFlag;
+    public TypeFlags getTextMessageRedirectServerToUserFlag() {
+        return TextMessageRedirectServerToUserFlag;
+    }
+
+    public TypeFlags getTextMessageSendUserToServerVerificationFlag() {
+        return TextMessageSendUserToServerVerificationFlag;
+    }
+
+    public TypeFlags getTextMessagesChangingStatusFromServerVerificationFlag() {
+        return TextMessagesChangingStatusFromServerVerificationFlag;
+    }
+
+    public TypeFlags getTextMessagesChangingStatusFromUserVerificationFlag() {
+        return TextMessagesChangingStatusFromUserVerificationFlag;
+    }
+
+    public TypeFlags getTextMessageRedirectServerToUserVerification() {
+        return TextMessageRedirectServerToUserVerification;
     }
 }

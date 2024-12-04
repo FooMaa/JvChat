@@ -54,9 +54,13 @@ public class JvTakeMessagesCtrl {
             case LoadUsersOnlineStatusRequest -> workLoadUsersOnlineStatusRequestMessage(getDeserializeMapData(type, data));
             case LoadUsersOnlineStatusReply -> workLoadUsersOnlineStatusReplyMessage(getDeserializeMapData(type, data));
             case TextMessageSendUserToServer -> workTextMessageSendUserToServerMessage(getDeserializeMapData(type, data));
+            case TextMessageSendUserToServerVerification -> workTextMessageSendUserToServerVerificationMessage(getDeserializeMapData(type, data));
             case TextMessagesChangingStatusFromServer -> workTextMessagesChangingStatusFromServerMessage(getDeserializeMapData(type, data));
+            case TextMessagesChangingStatusFromServerVerification -> workTextMessagesChangingStatusFromServerVerificationMessage(getDeserializeMapData(type, data));
             case TextMessagesChangingStatusFromUser -> workTextMessagesChangingStatusFromUserMessage(getDeserializeMapData(type, data));
+            case TextMessagesChangingStatusFromUserVerification -> workTextMessagesChangingStatusFromUserVerificationMessage(getDeserializeMapData(type, data));
             case TextMessageRedirectServerToUser -> workTextMessageRedirectServerToUserMessage(getDeserializeMapData(type, data));
+            case TextMessageRedirectServerToUserVerification -> workTextMessageRedirectServerToUserVerificationMessage(getDeserializeMapData(type, data));
             case MessagesLoadRequest -> workMessagesLoadRequestMessage(getDeserializeMapData(type, data));
             case MessagesLoadReply -> workMessagesLoadReplyMessage(getDeserializeMapData(type, data));
         }
@@ -358,6 +362,16 @@ public class JvTakeMessagesCtrl {
                 loginSender, loginReceiver, text, status, UUID.fromString(uuid), timestamp);
     }
 
+    private void workTextMessageSendUserToServerVerificationMessage( HashMap<JvDefinesMessages.TypeData, ?> map) {
+        if ((Boolean) map.get(JvDefinesMessages.TypeData.BoolReply)) {
+            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                    .setTextMessageSendUserToServerVerificationFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
+        } else {
+            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                    .setTextMessageSendUserToServerVerificationFlag(JvMessagesDefinesCtrl.TypeFlags.FALSE);
+        }
+    }
+
     private void workTextMessagesChangingStatusFromServerMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         String loginSender = (String) map.get(JvDefinesMessages.TypeData.LoginSender);
         String loginReceiver = (String) map.get(JvDefinesMessages.TypeData.LoginReceiver);
@@ -370,6 +384,16 @@ public class JvTakeMessagesCtrl {
                 .setDirtyStatusToMessage( loginSender, loginReceiver, mapStatusesMessages);
     }
 
+    private void workTextMessagesChangingStatusFromServerVerificationMessage( HashMap<JvDefinesMessages.TypeData, ?> map) {
+        if ((Boolean) map.get(JvDefinesMessages.TypeData.BoolReply)) {
+            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                    .setTextMessagesChangingStatusFromServerVerificationFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
+        } else {
+            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                    .setTextMessagesChangingStatusFromServerVerificationFlag(JvMessagesDefinesCtrl.TypeFlags.FALSE);
+        }
+    }
+
     private void workTextMessagesChangingStatusFromUserMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         String loginSender = (String) map.get(JvDefinesMessages.TypeData.LoginSender);
         String loginReceiver = (String) map.get(JvDefinesMessages.TypeData.LoginReceiver);
@@ -380,6 +404,16 @@ public class JvTakeMessagesCtrl {
 
         JvGetterControls.getInstance().getBeanMessagesDialogCtrl()
                 .setDirtyStatusToMessage( loginSender, loginReceiver, mapStatusesMessages);
+    }
+
+    private void workTextMessagesChangingStatusFromUserVerificationMessage( HashMap<JvDefinesMessages.TypeData, ?> map) {
+        if ((Boolean) map.get(JvDefinesMessages.TypeData.BoolReply)) {
+            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                    .setTextMessagesChangingStatusFromUserVerificationFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
+        } else {
+            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                    .setTextMessagesChangingStatusFromUserVerificationFlag(JvMessagesDefinesCtrl.TypeFlags.FALSE);
+        }
     }
 
     private void workTextMessageRedirectServerToUserMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
@@ -397,7 +431,17 @@ public class JvTakeMessagesCtrl {
         JvGetterControls.getInstance().getBeanMessagesDialogCtrl().addRedirectMessageToModel(
                 loginSender, loginReceiver, text, status, UUID.fromString(uuid), timestamp);
         JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                .setMessageRedirectServerToUserFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
+                .setTextMessageRedirectServerToUserFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
+    }
+
+    private void workTextMessageRedirectServerToUserVerificationMessage( HashMap<JvDefinesMessages.TypeData, ?> map) {
+        if ((Boolean) map.get(JvDefinesMessages.TypeData.BoolReply)) {
+            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                    .setTextMessageRedirectServerToUserFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
+        } else {
+            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                    .setTextMessageRedirectServerToUserFlag(JvMessagesDefinesCtrl.TypeFlags.FALSE);
+        }
     }
 
     private void workMessagesLoadRequestMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
@@ -420,6 +464,6 @@ public class JvTakeMessagesCtrl {
 
         JvGetterControls.getInstance().getBeanMessagesDialogCtrl().createMessagesObjects(msgInfo);
         JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                .setMessagesLoadReplyFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
+                .setTextMessagesLoadReplyFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
     }
 }

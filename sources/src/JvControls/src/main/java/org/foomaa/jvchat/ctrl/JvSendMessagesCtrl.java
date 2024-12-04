@@ -222,6 +222,13 @@ public class JvSendMessagesCtrl {
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
+            case TextMessageSendUserToServerVerification -> {
+                if (parameters.length == 1) {
+                    Object reply = parameters[0];
+                    byte[] bodyMessage = createBodyTextMessageSendUserToServerVerificationMessage(type, (Boolean) reply);
+                    sendReadyMessageNetwork(bodyMessage);
+                }
+            }
             case TextMessagesChangingStatusFromServer -> {
                 if (parameters.length == 3) {
                     Object loginSender = parameters[0];
@@ -231,6 +238,13 @@ public class JvSendMessagesCtrl {
                             .getBeanStructTools().objectInMap(mapUuidStatus, UUID.class, JvMainChatsGlobalDefines.TypeStatusMessage.class);
                     byte[] bodyMessage = createBodyTextMessagesChangingStatusFromServerMessage(
                             type, (String) loginSender, (String) loginReceiver, mapStatusesMessages);
+                    sendReadyMessageNetwork(bodyMessage);
+                }
+            }
+            case TextMessagesChangingStatusFromServerVerification -> {
+                if (parameters.length == 1) {
+                    Object reply = parameters[0];
+                    byte[] bodyMessage = createBodyTextMessagesChangingStatusFromServerVerificationMessage(type, (Boolean) reply);
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
@@ -246,7 +260,13 @@ public class JvSendMessagesCtrl {
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
-
+            case TextMessagesChangingStatusFromUserVerification -> {
+                if (parameters.length == 1) {
+                    Object reply = parameters[0];
+                    byte[] bodyMessage = createBodyTextMessagesChangingStatusFromUserVerificationMessage(type, (Boolean) reply);
+                    sendReadyMessageNetwork(bodyMessage);
+                }
+            }
             case TextMessageRedirectServerToUser -> {
                 if (parameters.length == 6) {
                     Object loginSender = parameters[0];
@@ -260,6 +280,13 @@ public class JvSendMessagesCtrl {
                     sendReadyMessageNetwork(bodyMessage, (Runnable) runnableCtrl);
                 }
             }
+            case TextMessageRedirectServerToUserVerification -> {
+                if (parameters.length == 1) {
+                    Object reply = parameters[0];
+                    byte[] bodyMessage = createBodyTextMessageRedirectServerToUserVerificationMessage(type, (Boolean) reply);
+                    sendReadyMessageNetwork(bodyMessage);
+                }
+            }
             case MessagesLoadRequest -> {
                 if (parameters.length == 3) {
                     Object loginRequesting = parameters[0];
@@ -268,7 +295,7 @@ public class JvSendMessagesCtrl {
                     byte[] bodyMessage = createMessagesLoadRequestMessage(type, (String) loginRequesting, (String) loginDialog, (Integer) quantityMessages);
                     sendReadyMessageNetwork(bodyMessage);
                     JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                            .setMessagesLoadReplyFlag(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
+                            .setTextMessagesLoadReplyFlag(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
                 }
             }
             case MessagesLoadReply -> {
@@ -373,10 +400,18 @@ public class JvSendMessagesCtrl {
                 type, loginSender, loginReceiver, uuid, text, timestamp);
     }
 
+    private byte[] createBodyTextMessageSendUserToServerVerificationMessage(JvDefinesMessages.TypeMessage type, boolean reply) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
+    }
+
     private byte[] createBodyTextMessagesChangingStatusFromServerMessage(JvDefinesMessages.TypeMessage type,
                                                                          String loginSender, String loginReceiver,
                                                                          Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, loginSender, loginReceiver, mapStatusMessages);
+    }
+
+    private byte[] createBodyTextMessagesChangingStatusFromServerVerificationMessage(JvDefinesMessages.TypeMessage type, boolean reply) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
     }
 
     private byte[] createBodyTextMessagesChangingStatusFromUserMessage(JvDefinesMessages.TypeMessage type,
@@ -385,11 +420,19 @@ public class JvSendMessagesCtrl {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, loginSender, loginReceiver, mapStatusMessages);
     }
 
+    private byte[] createBodyTextMessagesChangingStatusFromUserVerificationMessage(JvDefinesMessages.TypeMessage type, boolean reply) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
+    }
+
     private byte[] createBodyTextMessageRedirectServerToUserMessage(JvDefinesMessages.TypeMessage type,
                                                                 String loginSender, String loginReceiver,
                                                                 String uuid, String text, String timestamp) {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(
                 type, loginSender, loginReceiver, uuid, text, timestamp);
+    }
+
+    private byte[] createBodyTextMessageRedirectServerToUserVerificationMessage(JvDefinesMessages.TypeMessage type, boolean reply) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
     }
 
     private byte[] createMessagesLoadRequestMessage(JvDefinesMessages.TypeMessage type, String loginRequesting,
