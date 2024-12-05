@@ -2,6 +2,7 @@ package org.foomaa.jvchat.uicomponents.mainchat;
 
 import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.ctrl.JvMessagesDefinesCtrl;
+import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 
 import javax.swing.*;
@@ -15,10 +16,13 @@ import java.util.UUID;
 
 public class JvScrollPanelMessagesMainChatUI extends JPanel {
     private static JvScrollPanelMessagesMainChatUI instance;
+    private final int intervalMilliSecondsSleepUpdating;
     private JScrollPane scrollPane;
     private JPanel panel;
 
     JvScrollPanelMessagesMainChatUI() {
+        intervalMilliSecondsSleepUpdating = 500;
+
         makePanel();
         runningThreadUpdateMessagesPanel();
     }
@@ -147,6 +151,16 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
                 JvMessagesDefinesCtrl.TypeFlags.TRUE) {
             addRedirectMessage();
         }
+        if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getTextMessagesChangingStatusFromServerFlag() ==
+                JvMessagesDefinesCtrl.TypeFlags.TRUE) {
+            changeStatusMessage();
+        }
+
+        try {
+            Thread.sleep(intervalMilliSecondsSleepUpdating);
+        } catch (InterruptedException exception) {
+            JvLog.write(JvLog.TypeLog.Error, "Здесь не удалось выполнить sleep()");
+        }
     }
 
     private void changeAllMessages() {
@@ -192,5 +206,20 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
         }
 
         return null;
+    }
+
+    private void changeStatusMessage() {
+        List<JvMessageStructObject> allMessagesObjSorted = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().getAllSortedMessages();
+        String currentPanelLogin = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().getCurrentActiveLoginUI();
+
+        for (JvMessageStructObject messageStructObject : allMessagesObjSorted) {
+            JvRectMessageMainChatUI rectMessage = findRectMessageByUuid(panel, messageStructObject.getUuid());
+            if ( rectMessage != null && Objects.equals(currentPanelLogin, messageStructObject.getLoginSender())) {
+                rectMessage.changeStatusMessage(messageStructObject.getStatusMessage());
+            }
+        }
+
+        JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                .setTextMessagesChangingStatusFromServerFlag(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
     }
 }

@@ -15,7 +15,7 @@ import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 
 
 public class JvRectMessageMainChatUI extends JTextArea {
-    private final JvMainChatsGlobalDefines.TypeStatusMessage statusMessage;
+    private JvMainChatsGlobalDefines.TypeStatusMessage statusMessage;
     private final String textMessage;
     private final LocalDateTime timestamp;
     private final UUID uuidMessage;
@@ -130,5 +130,12 @@ public class JvRectMessageMainChatUI extends JTextArea {
 
     public UUID getUuid() {
         return uuidMessage;
+    }
+
+    public void changeStatusMessage(JvMainChatsGlobalDefines.TypeStatusMessage newStatusMessage) {
+        if (statusMessage != newStatusMessage) {
+            statusMessage = newStatusMessage;
+            updateComponent();
+        }
     }
 }
