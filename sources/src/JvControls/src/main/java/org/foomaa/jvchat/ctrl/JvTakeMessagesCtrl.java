@@ -360,15 +360,18 @@ public class JvTakeMessagesCtrl {
         // отправляем пользователю, если он в сети
         JvGetterControls.getInstance().getBeanMessagesDialogCtrl().redirectMessageToOnlineUser(
                 loginSender, loginReceiver, text, status, UUID.fromString(uuid), timestamp);
+        // отправляем квиток о доставке
+        JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+                JvDefinesMessages.TypeMessage.TextMessageSendUserToServerVerification, true );
     }
 
     private void workTextMessageSendUserToServerVerificationMessage( HashMap<JvDefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(JvDefinesMessages.TypeData.BoolReply)) {
             JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                    .setTextMessageSendUserToServerVerificationFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
+                    .setTextMessageSendUserToServerFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
         } else {
             JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                    .setTextMessageSendUserToServerVerificationFlag(JvMessagesDefinesCtrl.TypeFlags.FALSE);
+                    .setTextMessageSendUserToServerFlag(JvMessagesDefinesCtrl.TypeFlags.FALSE);
         }
     }
 
@@ -382,15 +385,17 @@ public class JvTakeMessagesCtrl {
 
         JvGetterControls.getInstance().getBeanMessagesDialogCtrl()
                 .setDirtyStatusToMessage( loginSender, loginReceiver, mapStatusesMessages);
+        JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+                JvDefinesMessages.TypeMessage.TextMessagesChangingStatusFromServerVerification, true );
     }
 
     private void workTextMessagesChangingStatusFromServerVerificationMessage( HashMap<JvDefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(JvDefinesMessages.TypeData.BoolReply)) {
             JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                    .setTextMessagesChangingStatusFromServerVerificationFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
+                    .setTextMessagesChangingStatusFromServerFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
         } else {
             JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                    .setTextMessagesChangingStatusFromServerVerificationFlag(JvMessagesDefinesCtrl.TypeFlags.FALSE);
+                    .setTextMessagesChangingStatusFromServerFlag(JvMessagesDefinesCtrl.TypeFlags.FALSE);
         }
     }
 
@@ -404,15 +409,17 @@ public class JvTakeMessagesCtrl {
 
         JvGetterControls.getInstance().getBeanMessagesDialogCtrl()
                 .setDirtyStatusToMessage( loginSender, loginReceiver, mapStatusesMessages);
+        JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+                JvDefinesMessages.TypeMessage.TextMessagesChangingStatusFromUserVerification, true );
     }
 
     private void workTextMessagesChangingStatusFromUserVerificationMessage( HashMap<JvDefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(JvDefinesMessages.TypeData.BoolReply)) {
             JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                    .setTextMessagesChangingStatusFromUserVerificationFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
+                    .setTextMessagesChangingStatusFromUserFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
         } else {
             JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                    .setTextMessagesChangingStatusFromUserVerificationFlag(JvMessagesDefinesCtrl.TypeFlags.FALSE);
+                    .setTextMessagesChangingStatusFromUserFlag(JvMessagesDefinesCtrl.TypeFlags.FALSE);
         }
     }
 
@@ -432,6 +439,8 @@ public class JvTakeMessagesCtrl {
                 loginSender, loginReceiver, text, status, UUID.fromString(uuid), timestamp);
         JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
                 .setTextMessageRedirectServerToUserFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
+        JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+                JvDefinesMessages.TypeMessage.TextMessageRedirectServerToUserVerification, true );
     }
 
     private void workTextMessageRedirectServerToUserVerificationMessage( HashMap<JvDefinesMessages.TypeData, ?> map) {

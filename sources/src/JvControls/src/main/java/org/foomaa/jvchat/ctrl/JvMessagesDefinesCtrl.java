@@ -36,10 +36,10 @@ public class JvMessagesDefinesCtrl {
     private TypeFlags LoadUsersOnlineReplyFlag = TypeFlags.DEFAULT;
     private TypeFlags TextMessagesLoadReplyFlag = TypeFlags.DEFAULT;
     private TypeFlags TextMessageRedirectServerToUserFlag = TypeFlags.DEFAULT;
-    private TypeFlags TextMessageSendUserToServerVerificationFlag = TypeFlags.DEFAULT;
-    private TypeFlags TextMessagesChangingStatusFromServerVerificationFlag = TypeFlags.DEFAULT;
-    private TypeFlags TextMessagesChangingStatusFromUserVerificationFlag = TypeFlags.DEFAULT;
-    private TypeFlags TextMessageRedirectServerToUserVerification = TypeFlags.DEFAULT;
+    private TypeFlags TextMessageSendUserToServerFlag = TypeFlags.DEFAULT;
+    private TypeFlags TextMessagesChangingStatusFromServerFlag = TypeFlags.DEFAULT;
+    private TypeFlags TextMessagesChangingStatusFromUserFlag = TypeFlags.DEFAULT;
+    private TypeFlags TextMessageRedirectServerToUserVerificationFlag = TypeFlags.DEFAULT;
     // FLAGS
 
     public void setEntryRequestFlag(TypeFlags newFlag) {
@@ -114,27 +114,27 @@ public class JvMessagesDefinesCtrl {
         }
     }
 
-    public void setTextMessageSendUserToServerVerificationFlag(TypeFlags newFlag) {
-        if (TextMessageSendUserToServerVerificationFlag != newFlag) {
-            TextMessageSendUserToServerVerificationFlag = newFlag;
+    public void setTextMessageSendUserToServerFlag(TypeFlags newFlag) {
+        if (TextMessageSendUserToServerFlag != newFlag) {
+            TextMessageSendUserToServerFlag = newFlag;
         }
     }
 
-    public void setTextMessagesChangingStatusFromServerVerificationFlag(TypeFlags newFlag) {
-        if (TextMessagesChangingStatusFromServerVerificationFlag != newFlag) {
-            TextMessagesChangingStatusFromServerVerificationFlag = newFlag;
+    public void setTextMessagesChangingStatusFromServerFlag(TypeFlags newFlag) {
+        if (TextMessagesChangingStatusFromServerFlag != newFlag) {
+            TextMessagesChangingStatusFromServerFlag = newFlag;
         }
     }
 
-    public void setTextMessagesChangingStatusFromUserVerificationFlag(TypeFlags newFlag) {
-        if (TextMessagesChangingStatusFromUserVerificationFlag != newFlag) {
-            TextMessagesChangingStatusFromUserVerificationFlag = newFlag;
+    public void setTextMessagesChangingStatusFromUserFlag(TypeFlags newFlag) {
+        if (TextMessagesChangingStatusFromUserFlag != newFlag) {
+            TextMessagesChangingStatusFromUserFlag = newFlag;
         }
     }
 
-    public void setTextMessageRedirectServerToUserVerification(TypeFlags newFlag) {
-        if (TextMessageRedirectServerToUserVerification != newFlag) {
-            TextMessageRedirectServerToUserVerification = newFlag;
+    public void setTextMessageRedirectServerToUserVerificationFlag(TypeFlags newFlag) {
+        if (TextMessageRedirectServerToUserVerificationFlag != newFlag) {
+            TextMessageRedirectServerToUserVerificationFlag = newFlag;
         }
     }
 
@@ -186,19 +186,19 @@ public class JvMessagesDefinesCtrl {
         return TextMessageRedirectServerToUserFlag;
     }
 
-    public TypeFlags getTextMessageSendUserToServerVerificationFlag() {
-        return TextMessageSendUserToServerVerificationFlag;
+    public TypeFlags getTextMessageSendUserToServerFlag() {
+        return TextMessageSendUserToServerFlag;
     }
 
-    public TypeFlags getTextMessagesChangingStatusFromServerVerificationFlag() {
-        return TextMessagesChangingStatusFromServerVerificationFlag;
+    public TypeFlags getTextMessagesChangingStatusFromServerFlag() {
+        return TextMessagesChangingStatusFromServerFlag;
     }
 
-    public TypeFlags getTextMessagesChangingStatusFromUserVerificationFlag() {
-        return TextMessagesChangingStatusFromUserVerificationFlag;
+    public TypeFlags getTextMessagesChangingStatusFromUserFlag() {
+        return TextMessagesChangingStatusFromUserFlag;
     }
 
-    public TypeFlags getTextMessageRedirectServerToUserVerification() {
-        return TextMessageRedirectServerToUserVerification;
+    public TypeFlags getTextMessageRedirectServerToUserVerificationFlag() {
+        return TextMessageRedirectServerToUserVerificationFlag;
     }
 }
