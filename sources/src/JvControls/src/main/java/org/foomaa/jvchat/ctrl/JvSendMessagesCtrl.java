@@ -248,8 +248,6 @@ public class JvSendMessagesCtrl {
                     Object reply = parameters[0];
                     byte[] bodyMessage = createBodyTextMessagesChangingStatusFromServerVerificationMessage(type, (Boolean) reply);
                     sendReadyMessageNetwork(bodyMessage);
-                    JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                            .setTextMessagesChangingStatusFromServerFlag(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
                 }
             }
             case TextMessagesChangingStatusFromUser -> {
@@ -269,8 +267,6 @@ public class JvSendMessagesCtrl {
                     Object reply = parameters[0];
                     byte[] bodyMessage = createBodyTextMessagesChangingStatusFromUserVerificationMessage(type, (Boolean) reply);
                     sendReadyMessageNetwork(bodyMessage);
-                    JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                            .setTextMessagesChangingStatusFromUserFlag(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
                 }
             }
             case TextMessageRedirectServerToUser -> {
@@ -284,8 +280,6 @@ public class JvSendMessagesCtrl {
                     byte[] bodyMessage = createBodyTextMessageRedirectServerToUserMessage(type, (String) loginSender,
                             (String) loginReceiver, (String) uuid, (String) text, (String) timestamp);
                     sendReadyMessageNetwork(bodyMessage, (Runnable) runnableCtrl);
-                    JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                            .setTextMessageRedirectServerToUserVerificationFlag(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
                 }
             }
             case TextMessageRedirectServerToUserVerification -> {

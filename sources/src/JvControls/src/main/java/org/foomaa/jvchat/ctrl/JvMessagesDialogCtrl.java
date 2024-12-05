@@ -111,9 +111,10 @@ public class JvMessagesDialogCtrl {
             JvMessageStructObject message = findMessage(loginSender, loginReceiver, uuid);
             if (message != null) {
                 message.setStatusMessage(mapStatusesMessages.get(uuid));
-                System.out.println("Set status msg");
             }
         }
+        JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                .setTextMessagesChangingStatusFromServerFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
     }
 
     public JvMessageStructObject findMessage(String loginSender, String loginReceiver, UUID uuid) {

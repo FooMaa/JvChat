@@ -385,17 +385,16 @@ public class JvTakeMessagesCtrl {
 
         JvGetterControls.getInstance().getBeanMessagesDialogCtrl()
                 .setDirtyStatusToMessage( loginSender, loginReceiver, mapStatusesMessages);
+
         JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 JvDefinesMessages.TypeMessage.TextMessagesChangingStatusFromServerVerification, true );
     }
 
     private void workTextMessagesChangingStatusFromServerVerificationMessage( HashMap<JvDefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(JvDefinesMessages.TypeData.BoolReply)) {
-            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                    .setTextMessagesChangingStatusFromServerFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
+            JvLog.write(JvLog.TypeLog.Info, "Пришел квиток о доставке сообщения со статусом без ошибок");
         } else {
-            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                    .setTextMessagesChangingStatusFromServerFlag(JvMessagesDefinesCtrl.TypeFlags.FALSE);
+            JvLog.write(JvLog.TypeLog.Info, "Пришел квиток о доставке сообщения со статусом с ошибкой");
         }
     }
 
