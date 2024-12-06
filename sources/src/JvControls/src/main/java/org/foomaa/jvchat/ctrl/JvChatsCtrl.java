@@ -140,15 +140,15 @@ public class JvChatsCtrl {
         return result;
     }
 
-    public void changeLastMessage(String loginSender, String loginReceiver, JvMessageStructObject message) {
+    public void changeLastMessage(JvMessageStructObject message) {
         List<JvChatStructObject> chatsList = chatsModel.getAllChatsObjects();
 
         for (JvChatStructObject chat : chatsList) {
             JvMessageStructObject lastMessageObj = chat.getLastMessage();
             String sender = lastMessageObj.getLoginSender();
             String receiver = lastMessageObj.getLoginReceiver();
-            if ((Objects.equals(sender, loginSender) && Objects.equals(receiver, loginReceiver)) ||
-                    (Objects.equals(sender, loginReceiver) && Objects.equals(receiver, loginSender))) {
+            if ((Objects.equals(sender, message.getLoginSender()) && Objects.equals(receiver, message.getLoginReceiver())) ||
+                    (Objects.equals(sender, message.getLoginReceiver()) && Objects.equals(receiver, message.getLoginReceiver()))) {
                 chat.setLastMessage(message);
                 return;
             }
