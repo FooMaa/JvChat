@@ -21,16 +21,12 @@ public class JvSerializatorDataMessages {
                     Object password = parameters[1];
                     return createEntryRequestMessage(type,
                             (String) login, (String) password);
-                } else {
-                    return new byte[0];
                 }
             }
             case EntryReply -> {
                 if (parameters.length == 1) {
                     Object reply = parameters[0];
                     return createEntryReplyMessage(type, (Boolean) reply);
-                } else {
-                    return new byte[0];
                 }
             }
             case RegistrationRequest -> {
@@ -40,8 +36,6 @@ public class JvSerializatorDataMessages {
                     Object password = parameters[2];
                     return createRegistrationRequestMessage(type,
                             (String) login, (String) email, (String) password);
-                } else {
-                    return new byte[0];
                 }
             }
             case RegistrationReply -> {
@@ -50,8 +44,6 @@ public class JvSerializatorDataMessages {
                     Object error = parameters[1];
                     return createRegistrationReplyMessage(type, (Boolean) reply,
                             (JvDefinesMessages.TypeErrorRegistration) error);
-                } else {
-                    return new byte[0];
                 }
             }
             case VerifyRegistrationEmailRequest -> {
@@ -62,8 +54,6 @@ public class JvSerializatorDataMessages {
                     Object code = parameters[3];
                     return createVerifyRegistrationEmailRequestMessage(type,
                             (String) login, (String) email, (String) password, (String) code);
-                } else {
-                    return new byte[0];
                 }
             }
             case VerifyRegistrationEmailReply -> {
@@ -72,24 +62,18 @@ public class JvSerializatorDataMessages {
                     Object error = parameters[1];
                     return createVerifyRegistrationEmailReplyMessage(type, (Boolean) reply,
                             (JvDefinesMessages.TypeErrorRegistration) error);
-                } else {
-                    return new byte[0];
                 }
             }
             case ResetPasswordRequest -> {
                 if (parameters.length == 1) {
                     Object email = parameters[0];
                     return createResetPasswordRequestMessage(type, (String) email);
-                } else {
-                    return new byte[0];
                 }
             }
             case ResetPasswordReply -> {
                 if (parameters.length == 1) {
                     Object reply = parameters[0];
                     return createResetPasswordReplyMessage(type, (Boolean) reply);
-                } else {
-                    return new byte[0];
                 }
             }
             case VerifyFamousEmailRequest -> {
@@ -97,16 +81,12 @@ public class JvSerializatorDataMessages {
                     Object email = parameters[0];
                     Object password = parameters[1];
                     return createVerifyFamousEmailRequestMessage(type, (String) email, (String) password);
-                } else {
-                    return new byte[0];
                 }
             }
             case VerifyFamousEmailReply -> {
                 if (parameters.length == 1) {
                     Object reply = parameters[0];
                     return createVerifyFamousEmailReplyMessage(type, (Boolean) reply);
-                } else {
-                    return new byte[0];
                 }
             }
             case ChangePasswordRequest -> {
@@ -114,24 +94,18 @@ public class JvSerializatorDataMessages {
                     Object email = parameters[0];
                     Object code = parameters[1];
                     return createChangePasswordRequestMessage(type, (String) email, (String) code);
-                } else {
-                    return new byte[0];
                 }
             }
             case ChangePasswordReply -> {
                 if (parameters.length == 1) {
                     Object reply = parameters[0];
                     return createChangePasswordReplyMessage(type, (Boolean) reply);
-                } else {
-                    return new byte[0];
                 }
             }
             case ChatsLoadRequest -> {
                 if (parameters.length == 1) {
                     Object sender = parameters[0];
                     return createChatsLoadRequestMessage(type, (String) sender);
-                } else {
-                    return new byte[0];
                 }
             }
             case ChatsLoadReply -> {
@@ -141,24 +115,18 @@ public class JvSerializatorDataMessages {
                             JvGetterTools.getInstance().getBeanStructTools()
                                     .objectInListMaps(chatsInfoObj, JvDbGlobalDefines.LineKeys.class, String.class);
                     return createChatsLoadReplyMessage(type, chatsInfo);
-                } else {
-                    return new byte[0];
                 }
             }
             case CheckOnlineUserRequest -> {
                 if (parameters.length == 1) {
                     Object ip = parameters[0];
                     return createCheckOnlineUserRequestMessage(type, (String) ip);
-                } else {
-                    return new byte[0];
                 }
             }
             case CheckOnlineUserReply -> {
                 if (parameters.length == 1) {
                     Object login = parameters[0];
                     return createCheckOnlineUserReplyMessage(type, (String) login);
-                } else {
-                    return new byte[0];
                 }
             }
             case LoadUsersOnlineStatusRequest -> {
@@ -167,8 +135,6 @@ public class JvSerializatorDataMessages {
                     List<String> loginsList = JvGetterTools.getInstance()
                             .getBeanStructTools().checkedCastList(loginsObject, String.class);
                     return createLoadUsersOnlineStatusRequestMessage(type, loginsList);
-                } else {
-                    return new byte[0];
                 }
             }
             case LoadUsersOnlineStatusReply -> {
@@ -180,8 +146,6 @@ public class JvSerializatorDataMessages {
                     Map<String, String> lastOnlineTimeUsers = JvGetterTools.getInstance()
                             .getBeanStructTools().objectInMap(lastOnlineTimeUsersObj, String.class, String.class);
                     return createLoadUsersOnlineStatusReplyMessage(type, statusesUsersMap, lastOnlineTimeUsers);
-                } else {
-                    return new byte[0];
                 }
             }
             case TextMessageSendUserToServer -> {
@@ -193,16 +157,12 @@ public class JvSerializatorDataMessages {
                     Object timestamp = parameters[4];
                     return createTextMessageSendUserToServerMessage(type, (String) loginSender,
                             (String) loginReceiver, (String) uuid, (String) text, (String) timestamp);
-                } else {
-                    return new byte[0];
                 }
             }
             case TextMessageSendUserToServerVerification -> {
                 if (parameters.length == 1) {
                     Object reply = parameters[0];
                     return createTextMessageSendUserToServerVerificationMessage(type, (Boolean) reply);
-                } else {
-                    return new byte[0];
                 }
             }
             case TextMessagesChangingStatusFromServer -> {
@@ -214,16 +174,12 @@ public class JvSerializatorDataMessages {
                             .getBeanStructTools().objectInMap(mapUuidStatus, UUID.class, JvMainChatsGlobalDefines.TypeStatusMessage.class);
                     return createTextMessageChangingStatusFromServerMessage(type, (String) loginSender,
                             (String) loginReceiver, mapStatusesMessages);
-                } else {
-                    return new byte[0];
                 }
             }
             case TextMessagesChangingStatusFromServerVerification -> {
                 if (parameters.length == 1) {
                     Object reply = parameters[0];
                     return createTextMessagesChangingStatusFromServerVerificationMessage(type, (Boolean) reply);
-                } else {
-                    return new byte[0];
                 }
             }
             case TextMessagesChangingStatusFromUser -> {
@@ -235,16 +191,12 @@ public class JvSerializatorDataMessages {
                             .getBeanStructTools().objectInMap(mapUuidStatus, UUID.class, JvMainChatsGlobalDefines.TypeStatusMessage.class);
                     return createTextMessageChangingStatusFromUserMessage(type, (String) loginSender,
                             (String) loginReceiver, mapStatusesMessages);
-                } else {
-                    return new byte[0];
                 }
             }
             case TextMessagesChangingStatusFromUserVerification -> {
                 if (parameters.length == 1) {
                     Object reply = parameters[0];
                     return createTextMessagesChangingStatusFromUserVerificationMessage(type, (Boolean) reply);
-                } else {
-                    return new byte[0];
                 }
             }
             case TextMessageRedirectServerToUser -> {
@@ -256,16 +208,12 @@ public class JvSerializatorDataMessages {
                     Object timestamp = parameters[4];
                     return createTextMessageRedirectServerToUserMessage(type, (String) loginSender,
                             (String) loginReceiver, (String) uuid, (String) text, (String) timestamp);
-                } else {
-                    return new byte[0];
                 }
             }
             case TextMessageRedirectServerToUserVerification -> {
                 if (parameters.length == 1) {
                     Object reply = parameters[0];
                     return createTextMessageRedirectServerToUserVerificationMessage(type, (Boolean) reply);
-                } else {
-                    return new byte[0];
                 }
             }
             case MessagesLoadRequest -> {
@@ -274,8 +222,6 @@ public class JvSerializatorDataMessages {
                     Object loginDialog = parameters[1];
                     Object quantityMessages = parameters[2];
                     return createMessagesLoadRequestMessage(type, (String) loginRequesting, (String) loginDialog, (Integer) quantityMessages);
-                } else {
-                    return new byte[0];
                 }
             }
             case MessagesLoadReply -> {
@@ -285,8 +231,6 @@ public class JvSerializatorDataMessages {
                             JvGetterTools.getInstance().getBeanStructTools()
                                     .objectInListMaps(messagesInfoObj, JvDbGlobalDefines.LineKeys.class, String.class);
                     return createMessagesLoadReplyMessage(type, messagesInfo);
-                } else {
-                    return new byte[0];
                 }
             }
         }
