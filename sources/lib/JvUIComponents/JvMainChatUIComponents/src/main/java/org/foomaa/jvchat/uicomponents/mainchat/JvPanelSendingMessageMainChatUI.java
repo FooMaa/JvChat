@@ -3,6 +3,7 @@ package org.foomaa.jvchat.uicomponents.mainchat;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
+import java.util.UUID;
 
 import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.logger.JvLog;
@@ -68,7 +69,9 @@ public class JvPanelSendingMessageMainChatUI extends JPanel {
     }
 
     private void updateComponentsAfterSending() {
-        String selectedLogin = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().getCurrentActiveLoginUI();
+        UUID selectedUuid = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().getCurrentActiveChatUuid();
+        String selectedLogin = JvGetterControls.getInstance()
+                .getBeanMessagesDialogCtrl().findChatByUuid(selectedUuid).getUserChat().getLogin();
         JvMessageStructObject message = JvGetterControls.getInstance().getBeanChatsCtrl().getMessageObjectByLoginChat(selectedLogin);
 
         Box boxComponents = JvGetterMainChatUIComponents.getInstance().getBeanScrollPanelChatsMainChatUI().getBoxComponents();

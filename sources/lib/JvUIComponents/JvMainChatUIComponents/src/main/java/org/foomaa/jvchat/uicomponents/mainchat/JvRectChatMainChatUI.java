@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Objects;
+import java.util.UUID;
 
 import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.logger.JvLog;
@@ -21,6 +22,7 @@ public class JvRectChatMainChatUI extends JPanel {
     private String timeLastMessage;
     private JvMainChatsGlobalDefines.TypeStatusMessage statusMessage;
     private JvMainChatsGlobalDefines.TypeStatusOnline statusOnline;
+    private final UUID uuidChat;
     private String lastOnlineDateTime;
     private final String nameForLabelOnline;
     private final String nameForLabelLastMessage;
@@ -35,6 +37,7 @@ public class JvRectChatMainChatUI extends JPanel {
         timeLastMessage = JvGetterControls.getInstance().getBeanChatsCtrl()
                 .getTimeFormattedLastMessage(chatObject.getLastMessage().getTimestamp());
         statusMessage = chatObject.getLastMessage().getStatusMessage();
+        uuidChat = chatObject.getUuid();
 
         statusOnline = JvMainChatsGlobalDefines.TypeStatusOnline.Offline;
         lastOnlineDateTime = "";
@@ -231,7 +234,7 @@ public class JvRectChatMainChatUI extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 JvGetterControls.getInstance().getBeanMessagesDialogCtrl()
-                        .setCurrentActiveLoginUI(nickName);
+                        .setCurrentActiveChatUuid(uuidChat);
             }
         });
     }

@@ -8,9 +8,11 @@ import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
+import org.foomaa.jvchat.models.JvChatsModel;
 import org.foomaa.jvchat.models.JvGetterModels;
 import org.foomaa.jvchat.models.JvMessagesModel;
 import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.structobjects.JvChatStructObject;
 import org.foomaa.jvchat.structobjects.JvGetterStructObjects;
 import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 import org.foomaa.jvchat.tools.JvGetterTools;
@@ -18,27 +20,42 @@ import org.foomaa.jvchat.tools.JvGetterTools;
 
 public class JvMessagesDialogCtrl {
     private final JvMessagesModel messagesModel;
+    private final JvChatsModel chatsModel;
 
     JvMessagesDialogCtrl() {
         messagesModel = JvGetterModels.getInstance().getBeanMessagesModel();
+        chatsModel = JvGetterModels.getInstance().getBeanChatsModel();
     }
 
-    public void setCurrentActiveLoginUI(String newCurrentActiveLoginUI) {
-        JvGetterModels.getInstance().getBeanChatsModel().setCurrentActiveLoginUI(newCurrentActiveLoginUI);
+    public void setCurrentActiveChatUuid(UUID newUuidChat) {
+        chatsModel.setCurrentActiveChatUuid(newUuidChat);
     }
 
-    public String getCurrentActiveLoginUI() {
-        return JvGetterModels.getInstance().getBeanChatsModel().getCurrentActiveLoginUI();
+    public UUID getCurrentActiveChatUuid() {
+        return chatsModel.getCurrentActiveChatUuid();
+    }
+
+    public JvChatStructObject findChatByUuid(UUID targetUuid) {
+        List<JvChatStructObject> chatsList = chatsModel.getAllChatsObjects();
+
+        for (JvChatStructObject chat : chatsList) {
+            UUID chatUuid = chat.getUuid();
+            if (chatUuid.equals(targetUuid)) {
+                return chat;
+            }
+        }
+        return null;
     }
 
     public JvMessageStructObject createAndSendMessage(String text) {
-        if (Objects.equals(getCurrentActiveLoginUI(), "") || getCurrentActiveLoginUI() == null) {
+        if (getCurrentActiveChatUuid() == null) {
             JvLog.write(JvLog.TypeLog.Error, "Не выбран диалог, отправка не выполнена");
             return null;
         }
 
         String loginSender = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
-        String loginReceiver = getCurrentActiveLoginUI();
+        JvChatStructObject chat = findChatByUuid(getCurrentActiveChatUuid());
+        String loginReceiver = chat.getUserChat().getLogin();
         UUID uuid = UUID.randomUUID();
         LocalDateTime timestamp = LocalDateTime.now();
         JvMainChatsGlobalDefines.TypeStatusMessage status = JvMainChatsGlobalDefines.TypeStatusMessage.Sent;

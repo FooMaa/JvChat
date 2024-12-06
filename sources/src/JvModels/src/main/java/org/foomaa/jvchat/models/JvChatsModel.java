@@ -10,20 +10,21 @@ import org.foomaa.jvchat.structobjects.*;
 
 
 public class JvChatsModel extends JvBaseModel {
-    private String currentActiveLoginUI;
+    private UUID currentActiveChatUuid;
 
     JvChatsModel() {
         setRootObject(JvGetterStructObjects.getInstance()
                 .getBeanRootStructObject(getNameModel()));
+        currentActiveChatUuid = null;
     }
 
-    public String getCurrentActiveLoginUI() {
-        return currentActiveLoginUI;
+    public UUID getCurrentActiveChatUuid() {
+        return currentActiveChatUuid;
     }
 
-    public void setCurrentActiveLoginUI(String newCurrentActiveLoginUI) {
-        if (!Objects.equals(currentActiveLoginUI, newCurrentActiveLoginUI)) {
-            currentActiveLoginUI = newCurrentActiveLoginUI;
+    public void setCurrentActiveChatUuid(UUID newCurrentActiveChatUuid) {
+        if (!Objects.equals(currentActiveChatUuid, newCurrentActiveChatUuid)) {
+            currentActiveChatUuid = newCurrentActiveChatUuid;
         }
     }
 
