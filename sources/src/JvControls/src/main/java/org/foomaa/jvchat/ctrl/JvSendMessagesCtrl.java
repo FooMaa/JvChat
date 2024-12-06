@@ -223,14 +223,11 @@ public class JvSendMessagesCtrl {
                 }
             }
             case TextMessagesChangingStatusFromServer -> {
-                if (parameters.length == 3) {
-                    Object loginSender = parameters[0];
-                    Object loginReceiver = parameters[1];
-                    Object mapUuidStatus = parameters[2];
+                if (parameters.length == 1) {
+                    Object mapUuidStatus = parameters[0];
                     Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = JvGetterTools.getInstance()
                             .getBeanStructTools().objectInMap(mapUuidStatus, UUID.class, JvMainChatsGlobalDefines.TypeStatusMessage.class);
-                    byte[] bodyMessage = createBodyTextMessagesChangingStatusFromServerMessage(
-                            type, (String) loginSender, (String) loginReceiver, mapStatusesMessages);
+                    byte[] bodyMessage = createBodyTextMessagesChangingStatusFromServerMessage(type, mapStatusesMessages);
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
@@ -242,14 +239,11 @@ public class JvSendMessagesCtrl {
                 }
             }
             case TextMessagesChangingStatusFromUser -> {
-                if (parameters.length == 3) {
-                    Object loginSender = parameters[0];
-                    Object loginReceiver = parameters[1];
-                    Object mapUuidStatus = parameters[2];
+                if (parameters.length == 1) {
+                    Object mapUuidStatus = parameters[0];
                     Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = JvGetterTools.getInstance()
                             .getBeanStructTools().objectInMap(mapUuidStatus, UUID.class, JvMainChatsGlobalDefines.TypeStatusMessage.class);
-                    byte[] bodyMessage = createBodyTextMessagesChangingStatusFromUserMessage(
-                            type, (String) loginSender, (String) loginReceiver, mapStatusesMessages);
+                    byte[] bodyMessage = createBodyTextMessagesChangingStatusFromUserMessage(type, mapStatusesMessages);
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
@@ -398,9 +392,8 @@ public class JvSendMessagesCtrl {
     }
 
     private byte[] createBodyTextMessagesChangingStatusFromServerMessage(JvDefinesMessages.TypeMessage type,
-                                                                         String loginSender, String loginReceiver,
                                                                          Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
-        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, loginSender, loginReceiver, mapStatusMessages);
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, mapStatusMessages);
     }
 
     private byte[] createBodyTextMessagesChangingStatusFromServerVerificationMessage(JvDefinesMessages.TypeMessage type, boolean reply) {
@@ -408,9 +401,8 @@ public class JvSendMessagesCtrl {
     }
 
     private byte[] createBodyTextMessagesChangingStatusFromUserMessage(JvDefinesMessages.TypeMessage type,
-                                                                         String loginSender, String loginReceiver,
                                                                          Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
-        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, loginSender, loginReceiver, mapStatusMessages);
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, mapStatusMessages);
     }
 
     private byte[] createBodyTextMessagesChangingStatusFromUserVerificationMessage(JvDefinesMessages.TypeMessage type, boolean reply) {

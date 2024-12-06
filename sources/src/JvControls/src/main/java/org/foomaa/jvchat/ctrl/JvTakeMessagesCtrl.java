@@ -347,7 +347,7 @@ public class JvTakeMessagesCtrl {
                 loginSender, loginReceiver, statusString, text, uuid, timestampStr);
         // отправляем статус "доставлено"
         JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
-                JvDefinesMessages.TypeMessage.TextMessagesChangingStatusFromServer, loginSender, loginReceiver, mapStatusMessages);
+                JvDefinesMessages.TypeMessage.TextMessagesChangingStatusFromServer, mapStatusMessages);
         // отправляем пользователю, если он в сети
         JvGetterControls.getInstance().getBeanMessagesDialogCtrl().redirectMessageToOnlineUser(
                 loginSender, loginReceiver, text, status, UUID.fromString(uuid), timestamp);
@@ -371,8 +371,7 @@ public class JvTakeMessagesCtrl {
         Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = JvGetterTools.getInstance()
                 .getBeanStructTools().objectInMap(statusesMap, UUID.class, JvMainChatsGlobalDefines.TypeStatusMessage.class);
 
-        JvGetterControls.getInstance().getBeanMessagesDialogCtrl()
-                .setDirtyStatusToMessage(mapStatusesMessages);
+        JvGetterControls.getInstance().getBeanMessagesDialogCtrl().setDirtyStatusToMessage(mapStatusesMessages);
 
         JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 JvDefinesMessages.TypeMessage.TextMessagesChangingStatusFromServerVerification, true );
