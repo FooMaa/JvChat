@@ -381,6 +381,26 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION chat_schema.chats_messages_change_status (
+    f_uuid_message  character varying,        
+    f_status        int
+)
+    RETURNS integer AS
+$BODY$
+DECLARE
+    rv integer;
+BEGIN
+    rv := -1;
+    PERFORM * FROM chat_schema.chats_messages WHERE uuid_message = f_uuid_message;
+    IF found THEN
+        UPDATE chat_schema.chats_messages SET status = f_status WHERE uuid_message = f_uuid_message;
+        rv := 1;
+    END IF;
+
+    RETURN rv;
+END;
+$BODY$ LANGUAGE plpgsql;
+
 -- ----------------------------------------------------------------------------------------------
 -- chat_schema.online_users_info
 -- ----------------------------------------------------------------------------------------------
