@@ -16,19 +16,6 @@ public class JvMessagesModel extends JvBaseModel {
     JvMessagesModel() {
         setRootObject(JvGetterStructObjects.getInstance()
                 .getBeanRootStructObject(getNameModel()));
-        currentActiveLoginUI = "";
-    }
-
-    private String currentActiveLoginUI;
-
-    public String getCurrentActiveLoginUI() {
-        return currentActiveLoginUI;
-    }
-
-    public void setCurrentActiveLoginUI(String newCurrentActiveLoginUI) {
-        if (!Objects.equals(currentActiveLoginUI, newCurrentActiveLoginUI)) {
-            currentActiveLoginUI = newCurrentActiveLoginUI;
-        }
     }
 
     public JvMessageStructObject createNewMessage(String loginSender,

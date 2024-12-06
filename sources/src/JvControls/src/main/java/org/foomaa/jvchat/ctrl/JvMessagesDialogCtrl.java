@@ -24,21 +24,21 @@ public class JvMessagesDialogCtrl {
     }
 
     public void setCurrentActiveLoginUI(String newCurrentActiveLoginUI) {
-        messagesModel.setCurrentActiveLoginUI(newCurrentActiveLoginUI);
+        JvGetterModels.getInstance().getBeanChatsModel().setCurrentActiveLoginUI(newCurrentActiveLoginUI);
     }
 
     public String getCurrentActiveLoginUI() {
-        return messagesModel.getCurrentActiveLoginUI();
+        return JvGetterModels.getInstance().getBeanChatsModel().getCurrentActiveLoginUI();
     }
 
     public JvMessageStructObject createAndSendMessage(String text) {
-        if (Objects.equals(messagesModel.getCurrentActiveLoginUI(), "") || messagesModel.getCurrentActiveLoginUI() == null) {
+        if (Objects.equals(getCurrentActiveLoginUI(), "") || getCurrentActiveLoginUI() == null) {
             JvLog.write(JvLog.TypeLog.Error, "Не выбран диалог, отправка не выполнена");
             return null;
         }
 
         String loginSender = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
-        String loginReceiver = messagesModel.getCurrentActiveLoginUI();
+        String loginReceiver = getCurrentActiveLoginUI();
         UUID uuid = UUID.randomUUID();
         LocalDateTime timestamp = LocalDateTime.now();
         JvMainChatsGlobalDefines.TypeStatusMessage status = JvMainChatsGlobalDefines.TypeStatusMessage.Sent;

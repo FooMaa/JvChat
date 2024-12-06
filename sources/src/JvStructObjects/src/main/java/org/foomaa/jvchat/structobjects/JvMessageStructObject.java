@@ -2,7 +2,6 @@ package org.foomaa.jvchat.structobjects;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.UUID;
 
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 
@@ -11,7 +10,6 @@ public class JvMessageStructObject extends JvBaseStructObject {
     private String loginSender;
     private String loginReceiver;
     private JvMainChatsGlobalDefines.TypeStatusMessage statusMessage;
-    private UUID uuid;
     private String text;
     private LocalDateTime timestamp;
 
@@ -19,7 +17,6 @@ public class JvMessageStructObject extends JvBaseStructObject {
         loginSender = null;
         loginReceiver = null;
         statusMessage = null;
-        uuid = null;
         text = null;
         timestamp = null;
 
@@ -51,13 +48,6 @@ public class JvMessageStructObject extends JvBaseStructObject {
         }
     }
 
-    public void setUuid(UUID newUuid) {
-        if (!Objects.equals(uuid, newUuid)) {
-            uuid = newUuid;
-            commitProperties();
-        }
-    }
-
     public void setText(String newText) {
         if (!Objects.equals(text, newText)) {
             text = newText;
@@ -74,10 +64,6 @@ public class JvMessageStructObject extends JvBaseStructObject {
 
     public JvMainChatsGlobalDefines.TypeStatusMessage getStatusMessage() {
         return statusMessage;
-    }
-
-    public UUID getUuid() {
-        return uuid;
     }
 
     public String getText() {

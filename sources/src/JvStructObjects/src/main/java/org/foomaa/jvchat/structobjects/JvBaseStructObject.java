@@ -1,9 +1,7 @@
 package org.foomaa.jvchat.structobjects;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import org.foomaa.jvchat.logger.JvLog;
 
@@ -12,11 +10,13 @@ public abstract class JvBaseStructObject {
     private JvBaseStructObject parent;
     private List<JvBaseStructObject> children;
     private final HashMap<String, Object> properties;
+    private UUID uuid;
 
     JvBaseStructObject() {
         properties = new HashMap<>();
         children = new ArrayList<>();
         parent = null;
+        uuid = UUID.randomUUID();
     }
 
     public Object getProperty(String name) {
@@ -70,5 +70,16 @@ public abstract class JvBaseStructObject {
 
             currentClass = currentClass.getEnclosingClass();
         }
+    }
+
+    public void setUuid(UUID newUuid) {
+        if (!Objects.equals(uuid, newUuid)) {
+            uuid = newUuid;
+            commitProperties();
+        }
+    }
+
+    public UUID getUuid() {
+        return uuid;
     }
 }
