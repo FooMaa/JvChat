@@ -84,6 +84,7 @@ public class JvMainFrameMainChatUI extends JFrame {
         gbc.weighty = 0;
         gbc.ipady = sizeYPanelSending;
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.PAGE_END;
         gbc.gridx = gridxNum;
         panel.add(panelSendingMessage, gbc);
 
