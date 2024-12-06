@@ -350,9 +350,6 @@ public class JvDeserializatorDataMessages {
                     JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
                             .getTextMessagesChangingStatusFromServer();
 
-            result.put(JvDefinesMessages.TypeData.LoginSender, msgData.getLoginSender());
-            result.put(JvDefinesMessages.TypeData.LoginReceiver, msgData.getLoginReceiver());
-
             Map<String, JvClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServer.StatusMessage> mapStatusesMessages =
                     msgData.getMapStatusMessagesMap();
             Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> newMapStatusesMessages = new HashMap<>();
@@ -389,9 +386,6 @@ public class JvDeserializatorDataMessages {
             JvClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromUser msgData =
                     JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
                             .getTextMessagesChangingStatusFromUser();
-
-            result.put(JvDefinesMessages.TypeData.LoginSender, msgData.getLoginSender());
-            result.put(JvDefinesMessages.TypeData.LoginReceiver, msgData.getLoginReceiver());
 
             Map<String, JvClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromUser.StatusMessage> mapStatusesMessages =
                     msgData.getMapStatusMessagesMap();

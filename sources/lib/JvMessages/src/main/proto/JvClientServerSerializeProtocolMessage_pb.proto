@@ -193,9 +193,7 @@ message TextMessagesChangingStatusFromServer {
             Delivered = 2;
             Read = 3;
     }
-    string loginSender = 1;
-    string loginReceiver = 2;
-    map<string, StatusMessage> mapStatusMessages = 3;
+    map<string, StatusMessage> mapStatusMessages = 1;
 }
 
 message TextMessagesChangingStatusFromServerVerification {
@@ -209,9 +207,7 @@ message TextMessagesChangingStatusFromUser {
             Delivered = 2;
             Read = 3;
     }
-    string loginSender = 1;
-    string loginReceiver = 2;
-    map<string, StatusMessage> mapStatusMessages = 3;
+    map<string, StatusMessage> mapStatusMessages = 1;
 }
 
 message TextMessagesChangingStatusFromUserVerification {
