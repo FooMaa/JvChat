@@ -171,8 +171,7 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
         String currentPanelLogin = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().getCurrentActiveLoginUI();
 
         for (JvMessageStructObject messageStructObject : allMessagesObjSorted) {
-            if (findRectMessageByUuid(panel,
-                    messageStructObject.getUuid()) == null &&
+            if (findRectMessageByUuid(panel, messageStructObject.getUuid()) == null &&
                     Objects.equals(currentPanelLogin, messageStructObject.getLoginSender())) {
                 addMessage(messageStructObject);
             }
@@ -202,11 +201,10 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
 
     private void changeStatusMessage() {
         List<JvMessageStructObject> allMessagesObjSorted = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().getAllSortedMessages();
-        String currentPanelLogin = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().getCurrentActiveLoginUI();
 
         for (JvMessageStructObject messageStructObject : allMessagesObjSorted) {
             JvRectMessageMainChatUI rectMessage = findRectMessageByUuid(panel, messageStructObject.getUuid());
-            if ( rectMessage != null && Objects.equals(currentPanelLogin, messageStructObject.getLoginSender())) {
+            if (rectMessage != null) {
                 rectMessage.changeStatusMessage(messageStructObject.getStatusMessage());
             }
         }

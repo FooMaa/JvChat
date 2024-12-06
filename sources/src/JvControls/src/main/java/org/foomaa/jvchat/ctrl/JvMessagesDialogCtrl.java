@@ -100,9 +100,6 @@ public class JvMessagesDialogCtrl {
     public void setDirtyStatusToMessage(Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages) {
         for (UUID uuid : mapStatusesMessages.keySet()) {
             JvMessageStructObject message = findMessage(uuid);
-            System.out.println(uuid);
-            System.out.println(message.getUuid());
-            System.out.println("_______________________");
             if (message != null) {
                 message.setStatusMessage(mapStatusesMessages.get(uuid));
             }
