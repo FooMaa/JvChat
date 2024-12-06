@@ -367,15 +367,12 @@ public class JvTakeMessagesCtrl {
     }
 
     private void workTextMessagesChangingStatusFromServerMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
-        String loginSender = (String) map.get(JvDefinesMessages.TypeData.LoginSender);
-        String loginReceiver = (String) map.get(JvDefinesMessages.TypeData.LoginReceiver);
-
         Object statusesMap = map.get(JvDefinesMessages.TypeData.MapStatusMessages);
         Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = JvGetterTools.getInstance()
                 .getBeanStructTools().objectInMap(statusesMap, UUID.class, JvMainChatsGlobalDefines.TypeStatusMessage.class);
 
         JvGetterControls.getInstance().getBeanMessagesDialogCtrl()
-                .setDirtyStatusToMessage(loginSender, loginReceiver, mapStatusesMessages);
+                .setDirtyStatusToMessage(mapStatusesMessages);
 
         JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 JvDefinesMessages.TypeMessage.TextMessagesChangingStatusFromServerVerification, true );
@@ -390,15 +387,16 @@ public class JvTakeMessagesCtrl {
     }
 
     private void workTextMessagesChangingStatusFromUserMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
-        String loginSender = (String) map.get(JvDefinesMessages.TypeData.LoginSender);
-        String loginReceiver = (String) map.get(JvDefinesMessages.TypeData.LoginReceiver);
-
         Object statusesMap = map.get(JvDefinesMessages.TypeData.MapStatusMessages);
         Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = JvGetterTools.getInstance()
                 .getBeanStructTools().objectInMap(statusesMap, UUID.class, JvMainChatsGlobalDefines.TypeStatusMessage.class);
 
-        JvGetterControls.getInstance().getBeanMessagesDialogCtrl()
-                .setDirtyStatusToMessage(loginSender, loginReceiver, mapStatusesMessages);
+        for (UUID uuidMessage : mapStatusesMessages.keySet()) {
+            String statusByUuid = String.valueOf(mapStatusesMessages.get(uuidMessage).getValue());
+            JvGetterControls.getInstance().getBeanDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.ChatsMessageStatusChange,
+                    uuidMessage.toString(), statusByUuid);
+        }
+
         JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 JvDefinesMessages.TypeMessage.TextMessagesChangingStatusFromUserVerification, true );
     }
@@ -408,13 +406,6 @@ public class JvTakeMessagesCtrl {
             JvLog.write(JvLog.TypeLog.Info, "Пришел квиток о доставке сообщения со статусом без ошибок");
         } else {
             JvLog.write(JvLog.TypeLog.Info, "Пришел квиток о доставке сообщения со статусом с ошибкой");
-        }
-        if ((Boolean) map.get(JvDefinesMessages.TypeData.BoolReply)) {
-            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                    .setTextMessagesChangingStatusFromUserFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
-        } else {
-            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                    .setTextMessagesChangingStatusFromUserFlag(JvMessagesDefinesCtrl.TypeFlags.FALSE);
         }
     }
 

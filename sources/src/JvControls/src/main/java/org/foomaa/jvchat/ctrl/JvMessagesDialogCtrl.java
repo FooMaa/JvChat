@@ -98,9 +98,9 @@ public class JvMessagesDialogCtrl {
                 timestampNewMessage);
     }
 
-    public void setDirtyStatusToMessage(String loginSender, String loginReceiver, Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages) {
+    public void setDirtyStatusToMessage(Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages) {
         for (UUID uuid : mapStatusesMessages.keySet()) {
-            JvMessageStructObject message = findMessage(loginSender, loginReceiver, uuid);
+            JvMessageStructObject message = findMessage(uuid);
             if (message != null) {
                 message.setStatusMessage(mapStatusesMessages.get(uuid));
             }
@@ -109,14 +109,11 @@ public class JvMessagesDialogCtrl {
                 .setTextMessagesChangingStatusFromServerFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
     }
 
-    public JvMessageStructObject findMessage(String loginSender, String loginReceiver, UUID uuid) {
+    public JvMessageStructObject findMessage(UUID uuid) {
         List<JvMessageStructObject> listMessages = messagesModel.getAllMessages();
 
         for (JvMessageStructObject message : listMessages) {
-            if (message != null &&
-                    message.getUuid().equals(uuid) &&
-                    Objects.equals(message.getLoginSender(), loginSender) &&
-                    Objects.equals(message.getLoginReceiver(), loginReceiver)) {
+            if (message != null && message.getUuid().equals(uuid)) {
                 return message;
             }
         }
