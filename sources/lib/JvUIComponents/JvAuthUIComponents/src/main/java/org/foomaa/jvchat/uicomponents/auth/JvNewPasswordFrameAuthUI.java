@@ -17,7 +17,6 @@ import org.foomaa.jvchat.settings.JvGetterSettings;
 
 
 public class JvNewPasswordFrameAuthUI extends JFrame {
-    private static JvNewPasswordFrameAuthUI instance;
     private final JPanel panel;
     private final JvLabelAuthUI tInfo;
     private final JvLabelAuthUI tErrorHelpInfo;
@@ -27,7 +26,7 @@ public class JvNewPasswordFrameAuthUI extends JFrame {
     private String email;
 
 
-    private JvNewPasswordFrameAuthUI(String post) {
+    JvNewPasswordFrameAuthUI(String post) {
         super("NewPasswordWindow");
 
         email = post;
@@ -42,15 +41,6 @@ public class JvNewPasswordFrameAuthUI extends JFrame {
         makeFrameSetting();
         addListenerToElements();
         addGeneralSettingsToWidget();
-    }
-
-    public static JvNewPasswordFrameAuthUI getInstance(String post) {
-        if (instance == null) {
-            instance = new JvNewPasswordFrameAuthUI(post);
-        } else {
-            instance.setEmail(post);
-        }
-        return instance;
     }
 
     private void setEmail(String newEmail) {

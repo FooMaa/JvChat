@@ -9,18 +9,9 @@ import java.util.Objects;
 
 
 public class JvUsersModel extends JvBaseModel {
-    private static JvUsersModel instance;
-
-    private JvUsersModel() {
+    JvUsersModel() {
         setRootObject(JvGetterStructObjects.getInstance()
                 .getBeanRootStructObject(getNameModel()));
-    }
-
-    static JvUsersModel getInstance() {
-        if (instance == null) {
-            instance = new JvUsersModel();
-        }
-        return instance;
     }
 
     public void addCreatedUser(JvUserStructObject userStructObject) {

@@ -18,14 +18,13 @@ import org.foomaa.jvchat.tools.JvGetterTools;
 
 
 public class JvResetPasswordFrameAuthUI extends JFrame {
-    private static JvResetPasswordFrameAuthUI instance;
     private final JPanel panel;
     private final JvLabelAuthUI tInfo;
     private final JvTextFieldAuthUI tEmail;
     private final JvLabelAuthUI tErrorHelpInfo;
     private final JvButtonAuthUI bSet;
 
-    private JvResetPasswordFrameAuthUI() {
+    JvResetPasswordFrameAuthUI() {
         super("ResetPasswordWindow");
 
         panel = new JPanel();
@@ -38,13 +37,6 @@ public class JvResetPasswordFrameAuthUI extends JFrame {
         makeFrameSetting();
         addListenerToElements();
         addGeneralSettingsToWidget();
-    }
-
-    static JvResetPasswordFrameAuthUI getInstance() {
-        if (instance == null) {
-            instance = new JvResetPasswordFrameAuthUI();
-        }
-        return instance;
     }
 
     private void makeFrameSetting() {

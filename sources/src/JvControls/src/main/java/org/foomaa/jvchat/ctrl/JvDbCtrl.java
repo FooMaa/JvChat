@@ -18,7 +18,6 @@ import org.foomaa.jvchat.logger.JvLog;
 
 
 public class JvDbCtrl {
-    private static JvDbCtrl instance;
     private JvDbWorker db;
     private JvDbRequests dbRequests;
 
@@ -53,14 +52,7 @@ public class JvDbCtrl {
         MessagesLoad,
     }
 
-    private JvDbCtrl() {}
-
-    static JvDbCtrl getInstance() {
-        if (instance == null) {
-            instance = new JvDbCtrl();
-        }
-        return instance;
-    }
+    JvDbCtrl() {}
 
     @Autowired(required = false)
     @Qualifier("beanDbWorker")

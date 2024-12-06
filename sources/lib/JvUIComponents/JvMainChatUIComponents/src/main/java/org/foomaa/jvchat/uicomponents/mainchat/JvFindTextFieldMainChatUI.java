@@ -14,7 +14,6 @@ import org.foomaa.jvchat.settings.JvGetterSettings;
 
 
 public class JvFindTextFieldMainChatUI extends JPanel {
-    private static JvFindTextFieldMainChatUI instance;
     private final BufferedImage image;
     private JTextField textField;
     private JButton button;
@@ -27,13 +26,6 @@ public class JvFindTextFieldMainChatUI extends JPanel {
 
         settingTextAndButtonPanel();
         addListenerToElem();
-    }
-
-    public static JvFindTextFieldMainChatUI getInstance(String text) {
-        if (instance == null) {
-            instance = new JvFindTextFieldMainChatUI(text);
-        }
-        return instance;
     }
 
     private BufferedImage setIcon() {

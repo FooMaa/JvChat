@@ -8,13 +8,12 @@ import org.foomaa.jvchat.settings.JvGetterSettings;
 
 
 public class JvMainFrameMainChatUI extends JFrame {
-    private static JvMainFrameMainChatUI instance;
     private final JvScrollPanelChatsMainChatUI scrollPanelChats;
     private final JvScrollPanelMessagesMainChatUI scrollPanelMessages;
     private final JvPanelSendingMessageMainChatUI panelSendingMessage;
     private final JvFindTextFieldMainChatUI findTextField;
 
-    private JvMainFrameMainChatUI() {
+    JvMainFrameMainChatUI() {
         super("MainChatWindow");
 
         scrollPanelChats = JvGetterMainChatUIComponents.getInstance().getBeanScrollPanelChatsMainChatUI();
@@ -25,13 +24,6 @@ public class JvMainFrameMainChatUI extends JFrame {
         addGeneralSettingsToWidget();
         makeFrameSetting();
         addListenerToElements();
-    }
-
-    public static JvMainFrameMainChatUI getInstance() {
-        if (instance == null) {
-            instance = new JvMainFrameMainChatUI();
-        }
-        return instance;
     }
 
     private void addGeneralSettingsToWidget() {

@@ -28,27 +28,27 @@ class JvGlobalDefinesSpringConfig {
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvColorsAnsiGlobalDefines beanColorAnsiGlobalDefines() {
-        return JvColorsAnsiGlobalDefines.getInstance();
+        return new JvColorsAnsiGlobalDefines();
     }
 
     @Bean(name = "beanMainGlobalDefines")
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvMainGlobalDefines beanMainGlobalDefines() {
-        return JvMainGlobalDefines.getInstance();
+        return new JvMainGlobalDefines();
     }
 
     @Bean(name = "beanDbGlobalDefines")
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvDbGlobalDefines beanDbGlobalDefines() {
-        return JvDbGlobalDefines.getInstance();
+        return new JvDbGlobalDefines();
     }
 
     @Bean(name = "beanMainChatsGlobalDefines")
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvMainChatsGlobalDefines beanMainChatsGlobalDefines() {
-        return JvMainChatsGlobalDefines.getInstance();
+        return new JvMainChatsGlobalDefines();
     }
 }

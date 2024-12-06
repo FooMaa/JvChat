@@ -38,7 +38,7 @@ class JvControlsSpringConfig {
     @Profile("servers")
     @SuppressWarnings("unused")
     public JvDbCtrl beanDbCtrl() {
-        return JvDbCtrl.getInstance();
+        return new JvDbCtrl();
     }
 
     @Bean(name = "beanEmailCtrl")
@@ -46,35 +46,35 @@ class JvControlsSpringConfig {
     @Profile("servers")
     @SuppressWarnings("unused")
     public JvEmailCtrl beanEmailCtrl() {
-        return JvEmailCtrl.getInstance();
+        return new JvEmailCtrl();
     }
 
     @Bean(name = "beanMessagesDefinesCtrl")
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvMessagesDefinesCtrl beanMessagesDefinesCtrl() {
-        return JvMessagesDefinesCtrl.getInstance();
+        return new JvMessagesDefinesCtrl();
     }
 
     @Bean(name = "beanSendMessagesCtrl")
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvSendMessagesCtrl beanSendMessagesCtrl() {
-        return JvSendMessagesCtrl.getInstance();
+        return new JvSendMessagesCtrl();
     }
 
     @Bean(name = "beanTakeMessagesCtrl")
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvTakeMessagesCtrl beanTakeMessagesCtrl() {
-        return JvTakeMessagesCtrl.getInstance();
+        return new JvTakeMessagesCtrl();
     }
 
     @Bean(name = "beanNetworkCtrl")
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvNetworkCtrl beanNetworkCtrl() {
-        return JvNetworkCtrl.getInstance();
+        return new JvNetworkCtrl();
     }
 
     @Bean(name = "beanSocketRunnableCtrl")
@@ -90,14 +90,14 @@ class JvControlsSpringConfig {
     @Profile("users")
     @SuppressWarnings("unused")
     public JvChatsCtrl beanChatsCtrl() {
-        return JvChatsCtrl.getInstance();
+        return new JvChatsCtrl();
     }
 
     @Bean(name = "beanMessagesDialogCtrl")
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvMessagesDialogCtrl beanMessagesDialogCtrl() {
-        return JvMessagesDialogCtrl.getInstance();
+        return new JvMessagesDialogCtrl();
     }
 
     @Bean(name = "beanOnlineServersCtrl")
@@ -105,6 +105,6 @@ class JvControlsSpringConfig {
     @Profile("servers")
     @SuppressWarnings("unused")
     public JvOnlineServersCtrl beanOnlineServersCtrl() {
-        return JvOnlineServersCtrl.getInstance();
+        return new JvOnlineServersCtrl();
     }
 }

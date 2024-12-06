@@ -13,7 +13,8 @@ import org.foomaa.jvchat.globaldefines.JvGetterGlobalDefines;
 
 
 public class JvLog {
-    private static JvLog instance;
+    JvLog() {}
+
     private static JvMainLogger mainLogger;
 
     public enum TypeLog {
@@ -22,28 +23,17 @@ public class JvLog {
         Warn,
         Error,
         Trace
-    }
 
-    private JvLog() {
-        mainLogger = JvGetterLogger.getInstance().getBeanLogger();
-    }
-
-    static JvLog getInstance() {
-        if (instance == null) {
-            instance = new JvLog();
-        }
-        return instance;
     }
 
     public static void write(TypeLog type, String text) {
-        getInstance();
+        mainLogger = JvGetterLogger.getInstance().getBeanLogger();
 
-        // chatGPT
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
         String resultFile;
 
         if (stackTrace.length >= 3) {
-            resultFile = instance.buildStringFileLog(stackTrace);
+            resultFile = buildStringFileLog(stackTrace);
         } else {
             resultFile = "Unknown file";
         }
@@ -63,7 +53,7 @@ public class JvLog {
         }
     }
 
-    private String buildStringFileLog(StackTraceElement[] stackTrace) {
+    private static String buildStringFileLog(StackTraceElement[] stackTrace) {
         // stackTrace[0] - getStackTrace, stackTrace[1] - getCallerClassPath, stackTrace[2] - caller method
         String fileName = stackTrace[2].getFileName();
         if (fileName != null) {
@@ -81,7 +71,7 @@ public class JvLog {
         return  "Unknown file";
     }
 
-    private String findFileInDirByName(Path directory, String fileName) {
+    private static String findFileInDirByName(Path directory, String fileName) {
         if (Files.isDirectory(directory)) {
             try (DirectoryStream<Path> stream = Files.newDirectoryStream(directory)) {
                 for (Path entry : stream) {
@@ -101,7 +91,7 @@ public class JvLog {
         return "";
     }
 
-    private Path getProjectDirectory() {
+    private static Path getProjectDirectory() {
         String nameProject = JvGetterGlobalDefines.getInstance().getBeanMainGlobalDefines().NAME_PROJECT;
         String pathString = System.getProperty("user.dir");
 

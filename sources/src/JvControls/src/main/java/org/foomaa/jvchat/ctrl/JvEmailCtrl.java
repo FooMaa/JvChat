@@ -8,17 +8,9 @@ import org.foomaa.jvchat.network.JvEmailProcessor;
 
 
 public class JvEmailCtrl {
-    private static JvEmailCtrl instance;
     private JvEmailProcessor emailProcessor;
 
-    private JvEmailCtrl() {}
-
-    static JvEmailCtrl getInstance() {
-        if (instance == null) {
-            instance = new JvEmailCtrl();
-        }
-        return instance;
-    }
+    JvEmailCtrl() {}
 
     @Autowired(required = false)
     @Qualifier("beanEmailProcessor")

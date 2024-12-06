@@ -18,18 +18,9 @@ import org.foomaa.jvchat.tools.JvGetterTools;
 
 
 public class JvTakeMessagesCtrl {
-    private static JvTakeMessagesCtrl instance;
-
     private Runnable runnableCtrlFrom;
 
-    private JvTakeMessagesCtrl() {}
-
-    static JvTakeMessagesCtrl getInstance() {
-        if (instance == null) {
-            instance = new JvTakeMessagesCtrl();
-        }
-        return instance;
-    }
+    JvTakeMessagesCtrl() {}
 
     public void takeMessage(byte[] data) {
         JvDefinesMessages.TypeMessage type = JvGetterMessages.getInstance().getBeanDeserializatorDataMessages().getTypeMessage(data);

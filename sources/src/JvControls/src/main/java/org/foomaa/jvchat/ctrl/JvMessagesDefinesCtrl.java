@@ -4,18 +4,6 @@ import org.foomaa.jvchat.messages.JvDefinesMessages;
 
 
 public class JvMessagesDefinesCtrl {
-    private static JvMessagesDefinesCtrl instance;
-
-    private JvMessagesDefinesCtrl() {}
-
-    static JvMessagesDefinesCtrl getInstance() {
-        if (instance == null) {
-            instance = new JvMessagesDefinesCtrl();
-        }
-        return instance;
-    }
-
-    // FLAGS
     public enum TypeFlags {
         TRUE,
         FALSE,
@@ -40,7 +28,8 @@ public class JvMessagesDefinesCtrl {
     private TypeFlags TextMessagesChangingStatusFromServerFlag = TypeFlags.DEFAULT;
     private TypeFlags TextMessagesChangingStatusFromUserFlag = TypeFlags.DEFAULT;
     private TypeFlags TextMessageRedirectServerToUserVerificationFlag = TypeFlags.DEFAULT;
-    // FLAGS
+
+    JvMessagesDefinesCtrl() {}
 
     public void setEntryRequestFlag(TypeFlags newFlag) {
         if (EntryRequestFlag != newFlag) {

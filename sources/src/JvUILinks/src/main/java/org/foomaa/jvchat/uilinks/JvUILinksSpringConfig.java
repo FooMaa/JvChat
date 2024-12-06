@@ -39,6 +39,6 @@ class JvUILinksSpringConfig {
     @Profile("users")
     @SuppressWarnings("unused")
     public JvStartAuthenticationUILink beanStartAuthenticationUILinks() {
-        return JvStartAuthenticationUILink.getInstance();
+        return new JvStartAuthenticationUILink();
     }
 }

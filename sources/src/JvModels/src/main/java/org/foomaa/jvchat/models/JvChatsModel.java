@@ -10,18 +10,9 @@ import org.foomaa.jvchat.structobjects.*;
 
 
 public class JvChatsModel extends JvBaseModel {
-    private static JvChatsModel instance;
-
-    private JvChatsModel() {
+    JvChatsModel() {
         setRootObject(JvGetterStructObjects.getInstance()
                 .getBeanRootStructObject(getNameModel()));
-    }
-
-    static JvChatsModel getInstance() {
-        if (instance == null) {
-            instance = new JvChatsModel();
-        }
-        return instance;
     }
 
     public void createNewChat(String lastMessageLoginSender,

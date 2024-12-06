@@ -5,16 +5,7 @@ import java.util.Objects;
 
 
 public class JvServersInfoSettings {
-    private static JvServersInfoSettings instance;
-
-    private JvServersInfoSettings() {}
-
-    static JvServersInfoSettings getInstance() {
-        if (instance == null) {
-            instance = new JvServersInfoSettings();
-        }
-        return instance;
-    }
+    JvServersInfoSettings() {}
 
     // NETWORK
     private int port = 4004;

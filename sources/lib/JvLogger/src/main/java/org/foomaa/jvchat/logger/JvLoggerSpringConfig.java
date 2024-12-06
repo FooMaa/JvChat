@@ -35,7 +35,6 @@ class JvLoggerSpringConfig {
         }
     }
 
-    // это генерировал ChatGPT
     @Bean(name = "beanConfigureLogback")
     @Scope("singleton")
     @SuppressWarnings("unused")
@@ -100,14 +99,6 @@ class JvLoggerSpringConfig {
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvMainLogger beanMainLogger() {
-        return JvMainLogger.getInstance();
-    }
-
-    @Bean(name = "beanLog")
-    @Lazy
-    @Scope("singleton")
-    @SuppressWarnings("unused")
-    public JvLog beanLog() {
-        return JvLog.getInstance();
+        return new JvMainLogger();
     }
 }

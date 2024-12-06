@@ -32,7 +32,7 @@ class JvModelsSpringConfig {
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvRootObjectsModel beanRootObjectsModel() {
-        return JvRootObjectsModel.getInstance();
+        return new JvRootObjectsModel();
     }
 
     @Bean(name = "beanMessagesModel")
@@ -40,7 +40,7 @@ class JvModelsSpringConfig {
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvMessagesModel beanMessagesModel() {
-        return JvMessagesModel.getInstance();
+        return new JvMessagesModel();
     }
 
     @Bean(name = "beanChatsModel")
@@ -48,7 +48,7 @@ class JvModelsSpringConfig {
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvChatsModel beanChatsModel() {
-        return JvChatsModel.getInstance();
+        return new JvChatsModel();
     }
 
     @Bean(name = "beanCheckersOnlineModel")
@@ -56,7 +56,7 @@ class JvModelsSpringConfig {
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvCheckersOnlineModel beanCheckersOnlineModel() {
-        return JvCheckersOnlineModel.getInstance();
+        return new JvCheckersOnlineModel();
     }
 
     @Bean(name = "beanSocketRunnableCtrlModel")
@@ -64,7 +64,7 @@ class JvModelsSpringConfig {
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvSocketRunnableCtrlModel beanSocketRunnableCtrlModel() {
-        return JvSocketRunnableCtrlModel.getInstance();
+        return new JvSocketRunnableCtrlModel();
     }
 
     @Bean(name = "beanUsersModel")
@@ -72,6 +72,6 @@ class JvModelsSpringConfig {
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvUsersModel beanUsersModel() {
-        return JvUsersModel.getInstance();
+        return new JvUsersModel();
     }
 }

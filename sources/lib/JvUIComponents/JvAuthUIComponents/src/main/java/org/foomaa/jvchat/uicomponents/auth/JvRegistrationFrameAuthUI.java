@@ -18,7 +18,6 @@ import org.foomaa.jvchat.tools.JvGetterTools;
 
 
 public class JvRegistrationFrameAuthUI extends JFrame {
-    private static JvRegistrationFrameAuthUI instance;
     private final JPanel panel;
     private final JvLabelAuthUI tInfo;
     private final JvTextFieldAuthUI tLogin;
@@ -28,7 +27,7 @@ public class JvRegistrationFrameAuthUI extends JFrame {
     private final JvPasswordFieldAuthUI tPasswordConfirm;
     private final JvButtonAuthUI bRegister;
 
-    private JvRegistrationFrameAuthUI() {
+    JvRegistrationFrameAuthUI() {
         super("RegistrationWindow");
 
         panel = new JPanel();
@@ -44,13 +43,6 @@ public class JvRegistrationFrameAuthUI extends JFrame {
         makeFrameSetting();
         addListenerToElements();
         addGeneralSettingsToWidget();
-    }
-
-    static JvRegistrationFrameAuthUI getInstance() {
-        if (instance == null) {
-            instance = new JvRegistrationFrameAuthUI();
-        }
-        return instance;
     }
 
     private void makeFrameSetting() {

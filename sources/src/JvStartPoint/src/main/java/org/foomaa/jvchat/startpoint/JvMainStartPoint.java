@@ -16,7 +16,6 @@ import org.foomaa.jvchat.settings.JvMainSettings;
 
 @SpringBootApplication
 public class JvMainStartPoint implements ApplicationRunner {
-
     public static void main(String[] args) {
         SpringApplication.run( JvMainStartPoint.class, args );
     }

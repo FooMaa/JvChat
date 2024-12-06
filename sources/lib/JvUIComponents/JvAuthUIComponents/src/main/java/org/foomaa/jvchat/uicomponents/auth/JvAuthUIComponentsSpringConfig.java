@@ -79,7 +79,7 @@ class JvAuthUIComponentsSpringConfig {
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvEntryFrameAuthUI beanEntryFrameAuthUI() {
-        return JvEntryFrameAuthUI.getInstance();
+        return new JvEntryFrameAuthUI();
     }
 
     @Bean(name = "beanNewPasswordFrameAuthUI")
@@ -87,7 +87,7 @@ class JvAuthUIComponentsSpringConfig {
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvNewPasswordFrameAuthUI beanNewPasswordFrameAuthUI(String post) {
-        return JvNewPasswordFrameAuthUI.getInstance(post);
+        return new JvNewPasswordFrameAuthUI(post);
     }
 
     @Bean(name = "beanRegistrationFrameAuthUI")
@@ -95,7 +95,7 @@ class JvAuthUIComponentsSpringConfig {
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvRegistrationFrameAuthUI beanRegistrationFrameAuthUI() {
-        return JvRegistrationFrameAuthUI.getInstance();
+        return new JvRegistrationFrameAuthUI();
     }
 
     @Bean(name = "beanResetPasswordFrameAuthUI")
@@ -103,7 +103,7 @@ class JvAuthUIComponentsSpringConfig {
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvResetPasswordFrameAuthUI beanResetPasswordFrameAuthUI() {
-        return JvResetPasswordFrameAuthUI.getInstance();
+        return new JvResetPasswordFrameAuthUI();
     }
 
     @Bean(name = "beanVerifyCodeFrameAuthUI")
@@ -111,6 +111,6 @@ class JvAuthUIComponentsSpringConfig {
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvVerifyCodeFrameAuthUI beanVerifyCodeFrameAuthUI(JvVerifyCodeFrameAuthUI.RegimeWork rw) {
-        return JvVerifyCodeFrameAuthUI.getInstance(rw);
+        return new JvVerifyCodeFrameAuthUI(rw);
     }
 }

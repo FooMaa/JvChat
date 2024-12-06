@@ -9,18 +9,9 @@ import java.util.List;
 
 
 public class JvSocketRunnableCtrlModel extends JvBaseModel {
-    private static JvSocketRunnableCtrlModel instance;
-
-    private JvSocketRunnableCtrlModel() {
+    JvSocketRunnableCtrlModel() {
         setRootObject(JvGetterStructObjects.getInstance()
                 .getBeanRootStructObject(getNameModel()));
-    }
-
-    static JvSocketRunnableCtrlModel getInstance() {
-        if (instance == null) {
-            instance = new JvSocketRunnableCtrlModel();
-        }
-        return instance;
     }
 
     public void createSocketRunnableCtrlStructObject(Runnable socketRunnableCtrl) {

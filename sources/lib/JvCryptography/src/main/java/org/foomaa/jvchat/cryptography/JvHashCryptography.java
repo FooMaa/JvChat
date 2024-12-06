@@ -7,16 +7,7 @@ import org.foomaa.jvchat.logger.JvLog;
 
 
 public class JvHashCryptography {
-    private static JvHashCryptography instance;
-
-    private JvHashCryptography() {}
-
-    public static JvHashCryptography getInstance() {
-        if (instance == null) {
-            instance = new JvHashCryptography();
-        }
-        return instance;
-    }
+    JvHashCryptography() {}
 
     public String getHash(String inputString) {
         String result = "";

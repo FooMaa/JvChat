@@ -11,16 +11,7 @@ import org.foomaa.jvchat.settings.JvGetterSettings;
 
 
 public class JvServersTools {
-    private static JvServersTools instance;
-
-    private JvServersTools() {}
-
-    static JvServersTools getInstance() {
-        if (instance == null) {
-            instance = new JvServersTools();
-        }
-        return instance;
-    }
+    JvServersTools() {}
 
     public void initServersParameters() {
         Scanner in = new Scanner(System.in);

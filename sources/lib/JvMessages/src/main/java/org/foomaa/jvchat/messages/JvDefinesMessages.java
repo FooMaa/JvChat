@@ -2,16 +2,7 @@ package org.foomaa.jvchat.messages;
 
 
 public class JvDefinesMessages {
-    private static JvDefinesMessages instance;
-
-    private JvDefinesMessages() {}
-
-    static JvDefinesMessages getInstance() {
-        if (instance == null) {
-            instance = new JvDefinesMessages();
-        }
-        return instance;
-    }
+    JvDefinesMessages() {}
 
     public enum TypeMessage {
         EntryRequest(0),

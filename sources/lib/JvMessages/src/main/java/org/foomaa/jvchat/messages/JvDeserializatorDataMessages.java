@@ -9,16 +9,7 @@ import org.foomaa.jvchat.logger.JvLog;
 
 
 public class JvDeserializatorDataMessages {
-    private static JvDeserializatorDataMessages instance;
-
-    private JvDeserializatorDataMessages() {}
-
-    static JvDeserializatorDataMessages getInstance() {
-        if (instance == null) {
-            instance = new JvDeserializatorDataMessages();
-        }
-        return instance;
-    }
+    JvDeserializatorDataMessages() {}
 
     public HashMap<JvDefinesMessages.TypeData, ?> deserializeData(JvDefinesMessages.TypeMessage type, byte[] data) {
         return switch (type) {

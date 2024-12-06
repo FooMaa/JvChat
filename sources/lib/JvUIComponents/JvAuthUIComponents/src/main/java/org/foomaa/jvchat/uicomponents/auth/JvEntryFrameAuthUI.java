@@ -17,7 +17,6 @@ import org.foomaa.jvchat.uicomponents.mainchat.JvGetterMainChatUIComponents;
 
 
 public class JvEntryFrameAuthUI extends JFrame {
-    private static JvEntryFrameAuthUI instance;
     private final JPanel panel;
     private final JvLabelAuthUI tInfo;
     private final JvTextFieldAuthUI tLogin;
@@ -27,7 +26,7 @@ public class JvEntryFrameAuthUI extends JFrame {
     private final JvActiveLabelAuthUI activeRegisterLabel;
     private final JvActiveLabelAuthUI activeMissLabel;
 
-    private JvEntryFrameAuthUI() {
+    JvEntryFrameAuthUI() {
         super("EntryWindow");
 
         panel = new JPanel();
@@ -43,13 +42,6 @@ public class JvEntryFrameAuthUI extends JFrame {
         makeFrameSetting();
         addListenerToElements();
         addGeneralSettingsToWidget();
-    }
-
-    public static JvEntryFrameAuthUI getInstance() {
-        if (instance == null) {
-            instance = new JvEntryFrameAuthUI();
-        }
-        return instance;
     }
 
     private void makeFrameSetting() {

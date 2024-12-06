@@ -4,16 +4,7 @@ import java.util.Objects;
 
 
 public class JvDbGlobalDefines {
-    private static JvDbGlobalDefines instance;
-
-    private JvDbGlobalDefines() {}
-
-    public static JvDbGlobalDefines getInstance() {
-        if (instance == null) {
-            instance = new JvDbGlobalDefines();
-        }
-        return instance;
-    }
+    JvDbGlobalDefines() {}
 
     public enum LineKeys {
         Sender("sender"),

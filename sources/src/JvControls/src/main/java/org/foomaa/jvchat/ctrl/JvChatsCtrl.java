@@ -17,18 +17,10 @@ import org.foomaa.jvchat.tools.JvGetterTools;
 
 
 public class JvChatsCtrl {
-    private static JvChatsCtrl instance;
     private final JvChatsModel chatsModel;
 
-    private JvChatsCtrl() {
+    JvChatsCtrl() {
         chatsModel = JvGetterModels.getInstance().getBeanChatsModel();
-    }
-
-    static JvChatsCtrl getInstance() {
-        if (instance == null) {
-            instance = new JvChatsCtrl();
-        }
-        return instance;
     }
 
     public void createChatsObjects(List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo) {

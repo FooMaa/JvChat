@@ -19,12 +19,11 @@ import org.foomaa.jvchat.structobjects.JvSocketRunnableCtrlStructObject;
 
 
 public class JvNetworkCtrl {
-    private static JvNetworkCtrl instance;
     private JvServersSocket serversSocket;
     private JvUsersSocket usersSocket;
     private JvSocketRunnableCtrl currentSocketRunnableCtrl;
 
-    private JvNetworkCtrl() {}
+    JvNetworkCtrl() {}
 
     public void startNetwork() throws IOException {
         if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
@@ -75,13 +74,6 @@ public class JvNetworkCtrl {
         if (usersSocket != newUsersSocket) {
             usersSocket = newUsersSocket;
         }
-    }
-
-    static JvNetworkCtrl getInstance() {
-        if (instance == null) {
-            instance = new JvNetworkCtrl();
-        }
-        return instance;
     }
 
     public void takeMessage(byte[] message, JvSocketRunnableCtrl runnableCtrl) {

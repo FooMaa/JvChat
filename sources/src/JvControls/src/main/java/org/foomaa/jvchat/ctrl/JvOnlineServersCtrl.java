@@ -18,22 +18,14 @@ import org.foomaa.jvchat.structobjects.JvUserStructObject;
 
 
 public class JvOnlineServersCtrl {
-    private static JvOnlineServersCtrl instance;
     private final int intervalMilliSecondsAfterLastSending;
     private final int intervalMilliSecondsAfterLastUpdate;
     private final JvCheckersOnlineModel checkersOnlineModel;
 
-    private JvOnlineServersCtrl() {
+    JvOnlineServersCtrl() {
         checkersOnlineModel = JvGetterModels.getInstance().getBeanCheckersOnlineModel();
         intervalMilliSecondsAfterLastSending = 10000;
         intervalMilliSecondsAfterLastUpdate = 30000;
-    }
-
-    static JvOnlineServersCtrl getInstance() {
-        if (instance == null) {
-            instance = new JvOnlineServersCtrl();
-        }
-        return instance;
     }
 
     private boolean isRunnableInListCheckerOnline(JvSocketRunnableCtrl socketRunnableCtrl) {

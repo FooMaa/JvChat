@@ -3,7 +3,7 @@ package org.foomaa.jvchat.globaldefines;
 
 @SuppressWarnings("unused")
 public class JvColorsAnsiGlobalDefines {
-    private static JvColorsAnsiGlobalDefines instance;
+    JvColorsAnsiGlobalDefines() {}
 
     public final String RESET = "\033[0m";
     public final String BLACK = "\033[0;30m";
@@ -50,6 +50,11 @@ public class JvColorsAnsiGlobalDefines {
     public final String RED_BOLD_BRIGHT = "\033[1;91m";
     public final String GREEN_BOLD_BRIGHT = "\033[1;92m";
     public final String YELLOW_BOLD_BRIGHT = "\033[1;93m";
+    public final String ANSI_GREEN = "\u001B[32m";
+    public final String ANSI_YELLOW = "\u001B[33m";
+    public final String ANSI_BLUE = "\u001B[34m";
+    public final String ANSI_PURPLE = "\u001B[35m";
+    public final String ANSI_CYAN = "\u001B[36m";
     public final String BLUE_BOLD_BRIGHT = "\033[1;94m";
     public final String PURPLE_BOLD_BRIGHT = "\033[1;95m";
     public final String CYAN_BOLD_BRIGHT = "\033[1;96m";
@@ -65,19 +70,5 @@ public class JvColorsAnsiGlobalDefines {
     public final String ANSI_RESET = "\u001B[0m";
     public final String ANSI_BLACK = "\u001B[30m";
     public final String ANSI_RED = "\u001B[31m";
-    public final String ANSI_GREEN = "\u001B[32m";
-    public final String ANSI_YELLOW = "\u001B[33m";
-    public final String ANSI_BLUE = "\u001B[34m";
-    public final String ANSI_PURPLE = "\u001B[35m";
-    public final String ANSI_CYAN = "\u001B[36m";
     public final String ANSI_WHITE = "\u001B[37m";
-
-    private JvColorsAnsiGlobalDefines() {}
-
-    public static JvColorsAnsiGlobalDefines getInstance() {
-        if (instance == null) {
-            instance = new JvColorsAnsiGlobalDefines();
-        }
-        return instance;
-    }
 }

@@ -4,7 +4,6 @@ import javax.swing.*;
 
 
 public class JvOptionPaneAuthUI extends JOptionPane {
-
     public enum TypeDlg {
         ERROR,
         WARNING

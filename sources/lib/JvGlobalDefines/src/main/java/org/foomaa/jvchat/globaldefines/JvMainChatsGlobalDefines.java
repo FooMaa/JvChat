@@ -1,16 +1,7 @@
 package org.foomaa.jvchat.globaldefines;
 
 public class JvMainChatsGlobalDefines {
-    private static JvMainChatsGlobalDefines instance;
-
-    private JvMainChatsGlobalDefines() {}
-
-    public static JvMainChatsGlobalDefines getInstance() {
-        if (instance == null) {
-            instance = new JvMainChatsGlobalDefines();
-        }
-        return instance;
-    }
+    JvMainChatsGlobalDefines() {}
 
     public enum TypeStatusMessage {
         Error(0),

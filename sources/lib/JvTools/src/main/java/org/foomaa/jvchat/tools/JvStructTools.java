@@ -7,16 +7,7 @@ import java.util.Map;
 
 
 public class JvStructTools {
-    private static JvStructTools instance;
-
-    private JvStructTools() {}
-
-    static JvStructTools getInstance() {
-        if (instance == null) {
-            instance = new JvStructTools();
-        }
-        return instance;
-    }
+    JvStructTools() {}
 
     public <TYPE_KEY, TYPE_VALUE> List<Map<TYPE_KEY, TYPE_VALUE>> objectInListMaps(Object object,
                                                                                    Class<TYPE_KEY> clazzKey,

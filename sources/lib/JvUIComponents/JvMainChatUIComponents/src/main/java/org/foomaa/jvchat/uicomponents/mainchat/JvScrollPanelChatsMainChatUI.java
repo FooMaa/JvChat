@@ -20,13 +20,12 @@ import org.foomaa.jvchat.structobjects.JvUserStructObject;
 
 
 public class JvScrollPanelChatsMainChatUI extends JPanel {
-    private static JvScrollPanelChatsMainChatUI instance;
     private final int intervalMilliSecondsSleepUpdating;
     private final int intervalSecondsWaitLoopUpdate;
     private Box boxComponents;
     private JvRectChatMainChatUI selectedElement;
 
-    private JvScrollPanelChatsMainChatUI() {
+    JvScrollPanelChatsMainChatUI() {
         intervalMilliSecondsSleepUpdating = 30000;
         intervalSecondsWaitLoopUpdate = 5;
 
@@ -34,13 +33,6 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
 
         makePanel();
         runningThreadUpdateOnline();
-    }
-
-    public static JvScrollPanelChatsMainChatUI getInstance() {
-        if (instance == null) {
-            instance = new JvScrollPanelChatsMainChatUI();
-        }
-        return instance;
     }
 
     private void makePanel() {

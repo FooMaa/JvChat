@@ -4,7 +4,6 @@ import javax.swing.*;
 
 
 public class JvSendingTextAreaScrollMainChatUI extends JScrollPane {
-    private static JvSendingTextAreaScrollMainChatUI instance;
     private final JTextArea textArea;
 
     JvSendingTextAreaScrollMainChatUI() {
@@ -19,13 +18,6 @@ public class JvSendingTextAreaScrollMainChatUI extends JScrollPane {
         textArea.setWrapStyleWord(true);
 
         setViewportView(textArea);
-    }
-
-    public static JvSendingTextAreaScrollMainChatUI getInstance() {
-        if (instance == null) {
-            instance = new JvSendingTextAreaScrollMainChatUI();
-        }
-        return instance;
     }
 
     public String getText() {

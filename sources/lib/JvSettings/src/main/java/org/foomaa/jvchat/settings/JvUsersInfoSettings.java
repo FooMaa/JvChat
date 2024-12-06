@@ -4,17 +4,7 @@ import java.util.Objects;
 
 
 public class JvUsersInfoSettings {
-    private static JvUsersInfoSettings instance;
-
-    private JvUsersInfoSettings() {}
-
-    static JvUsersInfoSettings getInstance() {
-        if (instance == null) {
-            instance = new JvUsersInfoSettings();
-        }
-        return instance;
-    }
-
+    JvUsersInfoSettings() {}
 
     private String login = "";
 

@@ -17,18 +17,10 @@ import org.foomaa.jvchat.tools.JvGetterTools;
 
 
 public class JvMessagesDialogCtrl {
-    private static JvMessagesDialogCtrl instance;
     private final JvMessagesModel messagesModel;
 
-    private JvMessagesDialogCtrl() {
+    JvMessagesDialogCtrl() {
         messagesModel = JvGetterModels.getInstance().getBeanMessagesModel();
-    }
-
-    static JvMessagesDialogCtrl getInstance() {
-        if (instance == null) {
-            instance = new JvMessagesDialogCtrl();
-        }
-        return instance;
     }
 
     public void setCurrentActiveLoginUI(String newCurrentActiveLoginUI) {

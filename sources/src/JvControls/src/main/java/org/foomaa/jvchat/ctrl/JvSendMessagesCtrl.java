@@ -13,16 +13,7 @@ import org.foomaa.jvchat.tools.JvGetterTools;
 
 
 public class JvSendMessagesCtrl {
-    private static JvSendMessagesCtrl instance;
-
-    private JvSendMessagesCtrl() {}
-
-    static JvSendMessagesCtrl getInstance() {
-        if (instance == null) {
-            instance = new JvSendMessagesCtrl();
-        }
-        return instance;
-    }
+    JvSendMessagesCtrl() {}
 
     public final void sendMessage(JvDefinesMessages.TypeMessage type, Object... parameters) {
         switch (type) {

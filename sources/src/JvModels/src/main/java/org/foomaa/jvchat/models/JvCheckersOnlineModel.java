@@ -8,18 +8,9 @@ import org.foomaa.jvchat.structobjects.*;
 
 
 public class JvCheckersOnlineModel extends JvBaseModel {
-    private static JvCheckersOnlineModel instance;
-
-    private JvCheckersOnlineModel() {
+    JvCheckersOnlineModel() {
         setRootObject(JvGetterStructObjects.getInstance()
                 .getBeanRootStructObject(getNameModel()));
-    }
-
-    static JvCheckersOnlineModel getInstance() {
-        if (instance == null) {
-            instance = new JvCheckersOnlineModel();
-        }
-        return instance;
     }
 
     public void createNewCheckersOnline(String login, LocalDateTime dateTimeUpdating) {

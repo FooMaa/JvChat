@@ -6,16 +6,7 @@ import org.foomaa.jvchat.logger.JvLog;
 
 
 public class JvDisplaySettings {
-    private static JvDisplaySettings instance;
-    public int heightScreen;
-    public int widthScreen;
-
-    public enum TypeOfDisplayBorder {
-        HEIGHT,
-        WIDTH
-    }
-
-    private JvDisplaySettings() {
+    JvDisplaySettings() {
         try {
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             heightScreen = screenSize.height;
@@ -25,11 +16,11 @@ public class JvDisplaySettings {
         }
     }
 
-    static JvDisplaySettings getInstance() {
-        if (instance == null) {
-            instance = new JvDisplaySettings();
-        }
-        return instance;
+    public int heightScreen;
+    public int widthScreen;
+
+    public enum TypeOfDisplayBorder {
+        HEIGHT, WIDTH
     }
 
     public int getResizeFromDisplay(double scale, TypeOfDisplayBorder displayBorder) {

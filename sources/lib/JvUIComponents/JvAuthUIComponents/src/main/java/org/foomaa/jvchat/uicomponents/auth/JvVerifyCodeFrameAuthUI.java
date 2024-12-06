@@ -17,7 +17,6 @@ import org.foomaa.jvchat.settings.JvGetterSettings;
 
 
 public class JvVerifyCodeFrameAuthUI extends JFrame {
-    private static JvVerifyCodeFrameAuthUI instance;
     private final JPanel panel;
     private final JvLabelAuthUI tInfo;
     private final JvTextFieldAuthUI tCode;
@@ -33,7 +32,7 @@ public class JvVerifyCodeFrameAuthUI extends JFrame {
         ResetPassword
     }
 
-    private JvVerifyCodeFrameAuthUI(RegimeWork rw) {
+    JvVerifyCodeFrameAuthUI(RegimeWork rw) {
         super("VerifyCodeWindow");
 
         regime = rw;
@@ -47,15 +46,6 @@ public class JvVerifyCodeFrameAuthUI extends JFrame {
         makeFrameSetting();
         addListenerToElements();
         addGeneralSettingsToWidget();
-    }
-
-    static JvVerifyCodeFrameAuthUI getInstance(RegimeWork rw) {
-        if (instance == null) {
-            instance = new JvVerifyCodeFrameAuthUI(rw);
-        } else {
-            instance.setRegime(rw);
-        }
-        return instance;
     }
 
     public void setRegime(RegimeWork newRegime) {

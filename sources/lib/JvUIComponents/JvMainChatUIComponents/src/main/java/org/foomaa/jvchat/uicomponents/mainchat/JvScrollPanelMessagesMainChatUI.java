@@ -15,7 +15,6 @@ import java.util.UUID;
 
 
 public class JvScrollPanelMessagesMainChatUI extends JPanel {
-    private static JvScrollPanelMessagesMainChatUI instance;
     private final int intervalMilliSecondsSleepUpdating;
     private JScrollPane scrollPane;
     private JPanel panel;
@@ -25,13 +24,6 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
 
         makePanel();
         runningThreadUpdateMessagesPanel();
-    }
-
-    public static JvScrollPanelMessagesMainChatUI getInstance() {
-        if (instance == null) {
-            instance = new JvScrollPanelMessagesMainChatUI();
-        }
-        return instance;
     }
 
     private void makePanel() {

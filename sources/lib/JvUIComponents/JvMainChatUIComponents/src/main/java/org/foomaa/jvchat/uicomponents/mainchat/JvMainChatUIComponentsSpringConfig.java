@@ -35,7 +35,7 @@ class JvMainChatUIComponentsSpringConfig {
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvMainFrameMainChatUI beanMainFrameMainChatUI() {
-        return JvMainFrameMainChatUI.getInstance();
+        return new JvMainFrameMainChatUI();
     }
 
     @Bean(name = "beanScrollPanelChatsMainChatUI")
@@ -43,7 +43,7 @@ class JvMainChatUIComponentsSpringConfig {
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvScrollPanelChatsMainChatUI beanScrollPanelChatsMainChatUI() {
-        return JvScrollPanelChatsMainChatUI.getInstance();
+        return new JvScrollPanelChatsMainChatUI();
     }
 
     @Bean(name = "beanScrollPanelMessagesMainChatUI")
@@ -51,7 +51,7 @@ class JvMainChatUIComponentsSpringConfig {
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvScrollPanelMessagesMainChatUI beanScrollPanelMessagesMainChatUI() {
-        return JvScrollPanelMessagesMainChatUI.getInstance();
+        return new JvScrollPanelMessagesMainChatUI();
     }
 
     @Bean(name = "beanRectMessageMainChatUI")
@@ -75,7 +75,7 @@ class JvMainChatUIComponentsSpringConfig {
     @Scope("prototype")
     @SuppressWarnings("unused")
     public JvSendButtonMainChatUI beanSendButtonMainChatUI(String text) {
-        return JvSendButtonMainChatUI.getInstance(text);
+        return new JvSendButtonMainChatUI(text);
     }
 
     @Bean(name = "beanSendingTextAreaScrollMainChatUI")
@@ -83,7 +83,7 @@ class JvMainChatUIComponentsSpringConfig {
     @Scope("prototype")
     @SuppressWarnings("unused")
     public JvSendingTextAreaScrollMainChatUI beanSendingTextAreaScrollMainChatUI() {
-        return JvSendingTextAreaScrollMainChatUI.getInstance();
+        return new JvSendingTextAreaScrollMainChatUI();
     }
 
     @Bean(name = "beanPanelSendingMessageMainChatUI")
@@ -91,7 +91,7 @@ class JvMainChatUIComponentsSpringConfig {
     @Scope("prototype")
     @SuppressWarnings("unused")
     public JvPanelSendingMessageMainChatUI beanPanelSendingMessageMainChatUI() {
-        return JvPanelSendingMessageMainChatUI.getInstance();
+        return new JvPanelSendingMessageMainChatUI();
     }
 
     @Bean(name = "beanFindTextFieldMainChatUI")
@@ -99,6 +99,6 @@ class JvMainChatUIComponentsSpringConfig {
     @Scope("prototype")
     @SuppressWarnings("unused")
     public JvFindTextFieldMainChatUI beanFindTextFieldMainChatUI(String text) {
-        return JvFindTextFieldMainChatUI.getInstance(text);
+        return new JvFindTextFieldMainChatUI(text);
     }
 }

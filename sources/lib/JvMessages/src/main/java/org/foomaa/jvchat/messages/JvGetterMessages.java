@@ -19,12 +19,6 @@ public class JvGetterMessages {
         return instance;
     }
 
-    public JvDefinesMessages getBeanDefinesMessages() {
-        return context.getBean(
-                JvMessagesSpringConfig.NameBeans.BeanDefinesMessages.getValue(),
-                JvDefinesMessages.class);
-    }
-
     public JvSerializatorDataMessages getBeanSerializatorDataMessages() {
         return context.getBean(
                 JvMessagesSpringConfig.NameBeans.BeanSerializatorDataMessages.getValue(),

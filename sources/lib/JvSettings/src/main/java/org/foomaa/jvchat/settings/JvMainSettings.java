@@ -2,18 +2,8 @@ package org.foomaa.jvchat.settings;
 
 
 public class JvMainSettings {
-    private static JvMainSettings instance;
+    JvMainSettings() {}
 
-    private JvMainSettings() {}
-
-    static JvMainSettings getInstance() {
-        if (instance == null) {
-            instance = new JvMainSettings();
-        }
-        return instance;
-    }
-
-    // PROFILE
     public enum TypeProfiles {
         TESTS("tests"),
         USERS("users"),

@@ -30,14 +30,14 @@ class JvToolsSpringConfig {
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvMainTools beanMainTools() {
-        return JvMainTools.getInstance();
+        return new JvMainTools();
     }
 
     @Bean(name = "beanStructTools")
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvStructTools beanStructTools() {
-        return JvStructTools.getInstance();
+        return new JvStructTools();
     }
 
     @Bean(name = "beanServersTools")
@@ -45,7 +45,7 @@ class JvToolsSpringConfig {
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvServersTools beanServersTools() {
-        return JvServersTools.getInstance();
+        return new JvServersTools();
     }
 
     @Bean(name = "beanUsersTools")
@@ -53,13 +53,13 @@ class JvToolsSpringConfig {
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvUsersTools beanUsersTools() {
-        return JvUsersTools.getInstance();
+        return new JvUsersTools();
     }
 
     @Bean(name = "beanFormatTools")
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvFormatTools beanFormatTools() {
-        return JvFormatTools.getInstance();
+        return new JvFormatTools();
     }
 }

@@ -13,22 +13,13 @@ import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 
 
 public class JvMessagesModel extends JvBaseModel {
-    private static JvMessagesModel instance;
-
-    private String currentActiveLoginUI;
-
-    private JvMessagesModel() {
+    JvMessagesModel() {
         setRootObject(JvGetterStructObjects.getInstance()
                 .getBeanRootStructObject(getNameModel()));
         currentActiveLoginUI = "";
     }
 
-    static JvMessagesModel getInstance() {
-        if (instance == null) {
-            instance = new JvMessagesModel();
-        }
-        return instance;
-    }
+    private String currentActiveLoginUI;
 
     public String getCurrentActiveLoginUI() {
         return currentActiveLoginUI;

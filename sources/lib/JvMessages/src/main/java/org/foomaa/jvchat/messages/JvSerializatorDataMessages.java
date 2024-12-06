@@ -11,16 +11,7 @@ import org.foomaa.jvchat.tools.JvGetterTools;
 
 
 public class JvSerializatorDataMessages {
-    private static JvSerializatorDataMessages instance;
-
-    private JvSerializatorDataMessages() {}
-
-    static JvSerializatorDataMessages getInstance() {
-        if (instance == null) {
-            instance = new JvSerializatorDataMessages();
-        }
-        return instance;
-    }
+    JvSerializatorDataMessages() {}
 
     public byte[] serialiseData(JvDefinesMessages.TypeMessage type, Object... parameters) {
         switch (type) {

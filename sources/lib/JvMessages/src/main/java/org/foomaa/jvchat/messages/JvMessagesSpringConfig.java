@@ -23,24 +23,17 @@ class JvMessagesSpringConfig {
         }
     }
 
-    @Bean(name = "beanDefinesMessages")
-    @Scope("singleton")
-    @SuppressWarnings("unused")
-    public JvDefinesMessages beanDefinesMessages() {
-        return JvDefinesMessages.getInstance();
-    }
-
     @Bean(name = "beanSerializatorDataMessages")
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvSerializatorDataMessages beanSerializatorDataMessages() {
-        return JvSerializatorDataMessages.getInstance();
+        return new JvSerializatorDataMessages();
     }
 
     @Bean(name = "beanDeserializatorDataMessages")
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvDeserializatorDataMessages beanDeserializatorDataMessages() {
-        return JvDeserializatorDataMessages.getInstance();
+        return new JvDeserializatorDataMessages();
     }
 }

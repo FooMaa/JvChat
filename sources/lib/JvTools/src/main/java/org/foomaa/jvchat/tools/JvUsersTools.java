@@ -4,16 +4,7 @@ import java.util.regex.Pattern;
 
 
 public class JvUsersTools {
-    private static JvUsersTools instance;
-
-    private JvUsersTools() {}
-
-    static JvUsersTools getInstance() {
-        if (instance == null) {
-            instance = new JvUsersTools();
-        }
-        return instance;
-    }
+    JvUsersTools() {}
 
     public boolean validateInputEmail(String param) {
         Pattern regex = Pattern.compile(

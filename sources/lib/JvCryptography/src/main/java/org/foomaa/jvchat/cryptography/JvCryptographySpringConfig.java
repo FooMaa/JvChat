@@ -25,6 +25,6 @@ class JvCryptographySpringConfig {
     @Scope("singleton")
     @SuppressWarnings("unused")
     public JvHashCryptography beanHashCryptography() {
-        return JvHashCryptography.getInstance();
+        return new JvHashCryptography();
     }
 }

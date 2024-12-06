@@ -11,16 +11,7 @@ import org.foomaa.jvchat.logger.JvLog;
 
 
 public class JvFormatTools {
-    private static JvFormatTools instance;
-
-    private JvFormatTools() {}
-
-    static JvFormatTools getInstance() {
-        if (instance == null) {
-            instance = new JvFormatTools();
-        }
-        return instance;
-    }
+    JvFormatTools() {}
 
     private String normalizeMillisecond(String timestamp, int normalizeCount) {
         String resultTimestamp;

@@ -5,18 +5,10 @@ import org.slf4j.LoggerFactory;
 
 
 class JvMainLogger {
-    private static JvMainLogger instance;
     private static Logger logger;
 
-    private JvMainLogger() {
+    JvMainLogger() {
         logger = LoggerFactory.getLogger(JvMainLogger.class);
-    }
-
-    static JvMainLogger getInstance() {
-        if (instance == null) {
-            instance = new JvMainLogger();
-        }
-        return instance;
     }
 
     public void Debug(String text) {

@@ -16,16 +16,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 
 public class JvMainTools {
-    private static JvMainTools instance;
-
-    private JvMainTools() {}
-
-    static JvMainTools getInstance() {
-        if (instance == null) {
-            instance = new JvMainTools();
-        }
-        return instance;
-    }
+    JvMainTools() {}
 
     private String getProfileFromBuildDir(Class<?> mainClass) throws IOException, URISyntaxException {
         Path buildPath = Paths.get(Objects.requireNonNull(

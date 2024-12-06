@@ -10,7 +10,6 @@ import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 
 
 public class JvPanelSendingMessageMainChatUI extends JPanel {
-    private static JvPanelSendingMessageMainChatUI instance;
     private final JvSendingTextAreaScrollMainChatUI sendingTextAreaScroll;
     private final JButton sendButton;
 
@@ -20,13 +19,6 @@ public class JvPanelSendingMessageMainChatUI extends JPanel {
 
         settingPanel();
         addListenerToElements();
-    }
-
-    public static JvPanelSendingMessageMainChatUI getInstance() {
-        if (instance == null) {
-            instance = new JvPanelSendingMessageMainChatUI();
-        }
-        return instance;
     }
 
     private void settingPanel() {
