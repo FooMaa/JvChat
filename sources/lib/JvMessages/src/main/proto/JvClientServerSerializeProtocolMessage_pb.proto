@@ -60,7 +60,6 @@ message EntryRequest {
 
 message EntryReply {
     bool reply = 1;
-    string uuidUser = 2;
 }
 
 message RegistrationRequest {
