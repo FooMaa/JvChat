@@ -114,13 +114,14 @@ public class JvDbCtrl {
     public boolean insertQueryToDB(TypeExecutionInsert type, String... parameters) {
         switch (type) {
             case RegisterForm -> {
-                if (parameters.length == 3) {
+                if (parameters.length == 4) {
                     String login = parameters[0];
                     String email = parameters[1];
                     String hashPassword = parameters[2];
+                    String uuidUser = parameters[3];
                     if (!checkQueryToDB(TypeExecutionCheck.Login, login) &&
                             !checkQueryToDB(TypeExecutionCheck.Email, email)) {
-                        ResultSet rs = db.makeExecution(dbRequests.insertToRegForm(login, email, hashPassword));
+                        ResultSet rs = db.makeExecution(dbRequests.insertToRegForm(login, email, hashPassword, uuidUser));
                         db.closeResultSet(rs);
                         return true;
                     } else {

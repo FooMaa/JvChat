@@ -4,7 +4,8 @@
 CREATE OR REPLACE FUNCTION chat_schema.auth_users_info_save (
     f_login       character varying,
     f_email       character varying,
-    f_password    character varying
+    f_password    character varying,
+    f_uuid_user   character varying
 )
     RETURNS integer AS
 $BODY$
@@ -17,7 +18,7 @@ BEGIN
         UPDATE chat_schema.auth_users_info SET password = f_password, email = f_email WHERE login = f_login;
         rv := 1;
     ELSE
-        INSERT INTO chat_schema.auth_users_info(login, email, password) VALUES (f_login, f_email, f_password);
+        INSERT INTO chat_schema.auth_users_info(login, email, uuid_user, password) VALUES (f_login, f_email, f_uuid_user, f_password);
         rv := 2;
     END IF;
 

@@ -11,12 +11,13 @@ import org.springframework.stereotype.Component;
 public class JvDbRequests {
     private JvDbRequests() {}
 
-    public String insertToRegForm(String login, String email, String password) {
+    public String insertToRegForm(String login, String email, String password, String uuid) {
         return String.format(
-                "SELECT * FROM chat_schema.auth_users_info_save('%s', '%s', '%s');",
+                "SELECT * FROM chat_schema.auth_users_info_save('%s', '%s', '%s', '%s');",
                 login,
                 email,
-                password);
+                password,
+                uuid);
     }
 
     public String insertCodeVerifyFamousEmail(int userId, String code) {

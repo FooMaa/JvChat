@@ -149,12 +149,14 @@ public class JvTakeMessagesCtrl {
 
             String hashPassword = JvGetterCryptography.getInstance()
                     .getBeanHashCryptography().getHash(password);
+            UUID uuidUser = UUID.randomUUID();
 
             boolean requestDB = JvGetterControls.getInstance()
                     .getBeanDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.RegisterForm,
                             login,
                             email,
-                            hashPassword);
+                            hashPassword,
+                            uuidUser.toString());
             JvDefinesMessages.TypeErrorRegistration typeError = JvDefinesMessages.TypeErrorRegistration.NoError;
             if (!requestDB) {
                 boolean checkLogin = JvGetterControls.getInstance()
