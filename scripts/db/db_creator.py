@@ -17,6 +17,7 @@ DEFAULT_DB_USER = 'jvchat'
 STOCK_USER_PWD = base64.b64decode('MTExMQ==').decode('utf-8')
 DEFAULT_DB_IP = '127.0.0.1'
 DEFAULT_DB_NAME = 'chat'
+DEFAULT_DB_PORT= 5432
 DEFAULT_BACKUP_FOLDER = '/tmp/'
 DEFAULT_SCHEMA = 'chat_schema'
 DEFAULT_BACKUP = "chat_dump.bak"
@@ -51,7 +52,7 @@ if ADMIN_PWD == "" or ADMIN_PWD == None:
 
 admin_default_connection = dict({"username": ADMIN_USER,
                          "host": DEFAULT_DB_IP,
-                         "port": 5432,
+                         "port": DEFAULT_DB_PORT,
                          "database": ADMIN_DB,
                          "password": ADMIN_PWD})
 
@@ -150,7 +151,7 @@ class DataBase:
 def create_connection_db(db_name, db_user, db_pwd):
     connection = dict({"username": db_user,
                        "host": DEFAULT_DB_IP,
-                       "port": 5432,
+                       "port": DEFAULT_DB_PORT,
                        "database": db_name,
                        "password": db_pwd})
     return connection
