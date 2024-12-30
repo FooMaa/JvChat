@@ -93,7 +93,7 @@ function make_postgresql_file {
     
     service postgresql restart
 
-    echo -e "\\r[ $CHECK_MARK ] make pg_hba.conf file"
+    echo -e "\\r[ $CHECK_MARK ] make postgresql.conf file"
 }
 
 function update_pwd_postgtes_from_db {
