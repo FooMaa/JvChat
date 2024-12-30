@@ -1,12 +1,14 @@
 package org.foomaa.jvchat.settings;
 
 import java.util.Objects;
+import java.util.UUID;
 
 
 public class JvUsersInfoSettings {
     JvUsersInfoSettings() {}
 
     private String login = "";
+    private UUID uuid = null;
 
     public void setLogin(String newLogin) {
         if (!Objects.equals(login, newLogin)) {
@@ -14,8 +16,18 @@ public class JvUsersInfoSettings {
         }
     }
 
+    public UUID getUuid() {
+        return uuid;
+    }
+
     public String getLogin() {
         return login;
+    }
+
+    public void setUuid(UUID newUuid) {
+        if (!uuid.equals(newUuid)) {
+            uuid = newUuid;
+        }
     }
 
 

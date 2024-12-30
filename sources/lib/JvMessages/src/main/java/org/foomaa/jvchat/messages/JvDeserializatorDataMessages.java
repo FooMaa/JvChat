@@ -68,11 +68,13 @@ public class JvDeserializatorDataMessages {
         return result;
     }
 
-    private HashMap<JvDefinesMessages.TypeData, Boolean> takeEntryReplyMessage(byte[] data) {
-        HashMap<JvDefinesMessages.TypeData, Boolean> result = new HashMap<>();
+    private HashMap<JvDefinesMessages.TypeData, Object> takeEntryReplyMessage(byte[] data) {
+        HashMap<JvDefinesMessages.TypeData, Object> result = new HashMap<>();
         try {
             result.put(JvDefinesMessages.TypeData.BoolReply, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
                     .getEntryReply().getReply());
+            result.put(JvDefinesMessages.TypeData.Uuid, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
+                    .getEntryReply().getUuidUser());
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }

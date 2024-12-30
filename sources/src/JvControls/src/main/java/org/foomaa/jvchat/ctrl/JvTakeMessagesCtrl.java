@@ -89,6 +89,9 @@ public class JvTakeMessagesCtrl {
     }
 
     private void workEntryReplyMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
+        UUID uuidUser = UUID.fromString((String) map.get(JvDefinesMessages.TypeData.Uuid));
+        JvGetterSettings.getInstance().getBeanUsersInfoSettings().setUuid(uuidUser);
+
         if ((Boolean) map.get(JvDefinesMessages.TypeData.BoolReply)) {
             JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
                     .setEntryRequestFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);

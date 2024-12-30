@@ -1,9 +1,11 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowAdapter;
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
@@ -43,9 +45,19 @@ public class JvVerifyCodeFrameAuthUI extends JFrame {
         tErrorHelpInfo.settingToError();
         bSet = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("ОТПРАВИТЬ");
 
+        setIconImageFrame("/MainAppIcon.png");
         makeFrameSetting();
         addListenerToElements();
         addGeneralSettingsToWidget();
+    }
+
+    private void setIconImageFrame(String path) {
+        try {
+            Image img = ImageIO.read(Objects.requireNonNull(getClass().getResource(path)));
+            setIconImage(img);
+        } catch (IOException e) {
+            e.getStackTrace();
+        }
     }
 
     public void setRegime(RegimeWork newRegime) {

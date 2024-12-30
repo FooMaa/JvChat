@@ -24,9 +24,10 @@ public class JvSerializatorDataMessages {
                 }
             }
             case EntryReply -> {
-                if (parameters.length == 1) {
+                if (parameters.length == 2) {
                     Object reply = parameters[0];
-                    return createEntryReplyMessage(type, (Boolean) reply);
+                    Object uuidUser = parameters[1];
+                    return createEntryReplyMessage(type, (Boolean) reply, (UUID) uuidUser);
                 }
             }
             case RegistrationRequest -> {
@@ -245,10 +246,11 @@ public class JvSerializatorDataMessages {
         return resMsg.toByteArray();
     }
 
-    private byte[] createEntryReplyMessage(JvDefinesMessages.TypeMessage type, boolean reply) {
+    private byte[] createEntryReplyMessage(JvDefinesMessages.TypeMessage type, boolean reply, UUID uuidUser) {
         JvClientServerSerializeProtocolMessage_pb.EntryReply msgEntryReply =
                 JvClientServerSerializeProtocolMessage_pb.EntryReply.newBuilder()
                 .setReply(reply)
+                .setUuidUser(uuidUser.toString())
                 .build();
         JvClientServerSerializeProtocolMessage_pb.General resMsg =
                 JvClientServerSerializeProtocolMessage_pb.General.newBuilder()

@@ -1,8 +1,10 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
@@ -39,9 +41,19 @@ public class JvEntryFrameAuthUI extends JFrame {
         activeMissLabel = JvGetterAuthUIComponents.getInstance().getBeanActiveLabelAuthUI("Не помню пароль");
         activeRegisterLabel = JvGetterAuthUIComponents.getInstance().getBeanActiveLabelAuthUI("Регистрация");
 
+        setIconImageFrame("/MainAppIcon.png");
         makeFrameSetting();
         addListenerToElements();
         addGeneralSettingsToWidget();
+    }
+
+    private void setIconImageFrame(String path) {
+        try {
+            Image img = ImageIO.read(Objects.requireNonNull(getClass().getResource(path)));
+            setIconImage(img);
+        } catch (IOException e) {
+            e.getStackTrace();
+        }
     }
 
     private void makeFrameSetting() {
