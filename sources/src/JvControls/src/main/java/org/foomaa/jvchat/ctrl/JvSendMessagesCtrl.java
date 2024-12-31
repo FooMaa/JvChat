@@ -30,10 +30,11 @@ public class JvSendMessagesCtrl {
                 }
             }
             case EntryReply -> {
-                if (parameters.length == 1) {
+                if (parameters.length == 2) {
                     Object reply = parameters[0];
+                    Object uuidUser = parameters[1];
                     byte[] bodyMessage = createBodyEntryReplyMessage(type,
-                            (Boolean) reply);
+                            (Boolean) reply, (UUID) uuidUser);
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
@@ -310,8 +311,8 @@ public class JvSendMessagesCtrl {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, login, password);
     }
 
-    private byte[] createBodyEntryReplyMessage(JvDefinesMessages.TypeMessage type, Boolean reply) {
-        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
+    private byte[] createBodyEntryReplyMessage(JvDefinesMessages.TypeMessage type, Boolean reply, UUID uuidUser) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply, uuidUser);
     }
 
     private byte[] createBodyRegistrationRequestMessage(JvDefinesMessages.TypeMessage type, String login, String email, String password) {
