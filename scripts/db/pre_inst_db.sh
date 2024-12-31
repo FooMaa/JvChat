@@ -96,7 +96,7 @@ function make_postgresql_file {
     echo -e "\\r[ $CHECK_MARK ] make postgresql.conf file"
 }
 
-function update_pwd_postgtes_from_db {
+function update_pwd_postgres_from_db {
     echo -n "[...] set password sql user $USER_SYSTEM"
 
     pushd / >> $LOG_FILE 2>&1
@@ -132,4 +132,4 @@ if [[ $NEED_CONF == true ]]; then
     make_postgresql_file
 fi
 
-update_pwd_postgtes_from_db
+update_pwd_postgres_from_db

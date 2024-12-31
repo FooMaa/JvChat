@@ -41,7 +41,7 @@ public class JvDbCtrl {
 
     public enum TypeExecutionGetSingle {
         LoginByEmail,
-        IdByEmail,
+        UuidByEmail,
         LastOnlineTimeUser,
     }
 
@@ -144,10 +144,10 @@ public class JvDbCtrl {
                 if (parameters.length == 2) {
                     String email = parameters[0];
                     String code = parameters[1];
-                    int userId;
+                    String userUuid;
                     if (checkQueryToDB(TypeExecutionCheck.Email, email)) {
-                        userId = Integer.parseInt(getSingleDataFromDb(TypeExecutionGetSingle.IdByEmail, email));
-                        ResultSet rs = db.makeExecution(dbRequests.insertCodeVerifyFamousEmail(userId, code));
+                        userUuid = getSingleDataFromDb(TypeExecutionGetSingle.UuidByEmail, email);
+                        ResultSet rs = db.makeExecution(dbRequests.insertCodeVerifyFamousEmail(userUuid, code));
                         db.closeResultSet(rs);
                         return true;
                     }
@@ -297,10 +297,10 @@ public class JvDbCtrl {
                 }
                 return null;
             }
-            case IdByEmail -> {
+            case UuidByEmail -> {
                 if (parameters.length == 1) {
                     String email = parameters[0];
-                    ResultSet resultSet = db.makeExecution(dbRequests.getUserId(email));
+                    ResultSet resultSet = db.makeExecution(dbRequests.getUserUuid(email));
                     List<String> result = getStrDataAtRow(resultSet, 1);
                     db.closeResultSet(resultSet);
                     if (!result.isEmpty()) {

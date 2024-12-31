@@ -16,10 +16,10 @@ STOCK_ADMIN_PWD = base64.b64decode('OTk5OQ==').decode('utf-8')
 DEFAULT_DB_USER = 'jvchat'
 STOCK_USER_PWD = base64.b64decode('MTExMQ==').decode('utf-8')
 DEFAULT_DB_IP = '127.0.0.1'
-DEFAULT_DB_NAME = 'chat'
+DEFAULT_DB_NAME = 'jvchat'
 DEFAULT_DB_PORT= 5432
 DEFAULT_BACKUP_FOLDER = '/tmp/'
-DEFAULT_SCHEMA = 'chat_schema'
+DEFAULT_SCHEMA = 'jvchat_schema'
 DEFAULT_BACKUP = "chat_dump.bak"
 
 RED = '\033[31m'
