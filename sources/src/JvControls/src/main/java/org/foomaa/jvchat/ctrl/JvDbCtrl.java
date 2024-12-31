@@ -41,7 +41,8 @@ public class JvDbCtrl {
 
     public enum TypeExecutionGetSingle {
         LoginByEmail,
-        UuidByEmail,
+        UuidUserByEmail,
+        UuidUserByLogin,
         LastOnlineTimeUser,
     }
 
@@ -146,7 +147,7 @@ public class JvDbCtrl {
                     String code = parameters[1];
                     String userUuid;
                     if (checkQueryToDB(TypeExecutionCheck.Email, email)) {
-                        userUuid = getSingleDataFromDb(TypeExecutionGetSingle.UuidByEmail, email);
+                        userUuid = getSingleDataFromDb(TypeExecutionGetSingle.UuidUserByEmail, email);
                         ResultSet rs = db.makeExecution(dbRequests.insertCodeVerifyFamousEmail(userUuid, code));
                         db.closeResultSet(rs);
                         return true;
@@ -297,10 +298,22 @@ public class JvDbCtrl {
                 }
                 return null;
             }
-            case UuidByEmail -> {
+            case UuidUserByEmail -> {
                 if (parameters.length == 1) {
                     String email = parameters[0];
-                    ResultSet resultSet = db.makeExecution(dbRequests.getUserUuid(email));
+                    ResultSet resultSet = db.makeExecution(dbRequests.getUserUuidByEmail(email));
+                    List<String> result = getStrDataAtRow(resultSet, 1);
+                    db.closeResultSet(resultSet);
+                    if (!result.isEmpty()) {
+                        return result.stream().findFirst().get();
+                    }
+                }
+                return null;
+            }
+            case UuidUserByLogin -> {
+                if (parameters.length == 1) {
+                    String login = parameters[0];
+                    ResultSet resultSet = db.makeExecution(dbRequests.getUserUuidByLogin(login));
                     List<String> result = getStrDataAtRow(resultSet, 1);
                     db.closeResultSet(resultSet);
                     if (!result.isEmpty()) {

@@ -100,10 +100,16 @@ public class JvDbRequests {
                 code);
     }
 
-    public String getUserUuid(String email) {
+    public String getUserUuidByEmail(String email) {
         return String.format(
                 "SELECT * FROM jvchat_schema.auth_users_info_get_uuid_by_email('%s');",
                 email);
+    }
+
+    public String getUserUuidByLogin(String login) {
+        return String.format(
+                "SELECT * FROM jvchat_schema.auth_users_info_get_uuid_by_login('%s');",
+                login);
     }
 
     public String getLogin(String email) {

@@ -84,11 +84,18 @@ public class JvTakeMessagesCtrl {
                 .getBeanDbCtrl().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.UserPassword,
                         login,
                         hashPassword);
+
+        String uuidUserStr = JvGetterControls.getInstance()
+                .getBeanDbCtrl().getSingleDataFromDb(JvDbCtrl.TypeExecutionGetSingle.UuidUserByLogin,
+                        login);
+        UUID uuidUser = UUID.fromString(uuidUserStr);
+
         JvGetterControls.getInstance().getBeanSendMessagesCtrl()
-                .sendMessage(JvDefinesMessages.TypeMessage.EntryReply, requestDB);
+                .sendMessage(JvDefinesMessages.TypeMessage.EntryReply, requestDB, uuidUser);
     }
 
     private void workEntryReplyMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
+        System.out.println("########################");
         UUID uuidUser = UUID.fromString((String) map.get(JvDefinesMessages.TypeData.Uuid));
         JvGetterSettings.getInstance().getBeanUsersInfoSettings().setUuid(uuidUser);
 

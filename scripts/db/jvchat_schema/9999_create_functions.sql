@@ -134,6 +134,22 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
+CREATE OR REPLACE FUNCTION jvchat_schema.auth_users_info_get_uuid_by_login(
+    f_login character varying
+)
+    RETURNS character varying AS
+$BODY$
+DECLARE
+    rv character varying;
+BEGIN
+    SELECT uuid_user INTO rv FROM jvchat_schema.auth_users_info WHERE login = f_login;
+    IF found THEN
+        RETURN rv;
+    END IF;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
 -- ----------------------------------------------------------------------------------------------
 -- jvchat_schema.verify_famous_email
 -- ----------------------------------------------------------------------------------------------
