@@ -95,7 +95,6 @@ public class JvTakeMessagesCtrl {
     }
 
     private void workEntryReplyMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
-        System.out.println("########################");
         UUID uuidUser = UUID.fromString((String) map.get(JvDefinesMessages.TypeData.Uuid));
         JvGetterSettings.getInstance().getBeanUsersInfoSettings().setUuid(uuidUser);
 
