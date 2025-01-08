@@ -144,9 +144,9 @@ public class JvSendMessagesCtrl {
             }
             case ChatsLoadRequest -> {
                 if (parameters.length == 1) {
-                    Object sender = parameters[0];
+                    Object uuidUser = parameters[0];
                     byte[] bodyMessage = createBodyChatsLoadRequestMessage(type,
-                            (String) sender);
+                            (UUID) uuidUser);
                     sendReadyMessageNetwork(bodyMessage);
                     JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
                             .setChatsLoadReplyFlag(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
@@ -355,8 +355,8 @@ public class JvSendMessagesCtrl {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
     }
 
-    private byte[] createBodyChatsLoadRequestMessage(JvDefinesMessages.TypeMessage type, String sender) {
-        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, sender);
+    private byte[] createBodyChatsLoadRequestMessage(JvDefinesMessages.TypeMessage type, UUID uuidUser) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, uuidUser);
     }
 
     private byte[] createBodyChatsLoadReplyMessage(JvDefinesMessages.TypeMessage type, List<Map<JvDbGlobalDefines.LineKeys, String>> reply) {

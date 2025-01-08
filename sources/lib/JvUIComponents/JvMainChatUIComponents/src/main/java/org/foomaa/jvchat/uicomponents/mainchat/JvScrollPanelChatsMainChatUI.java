@@ -8,6 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import org.foomaa.jvchat.ctrl.JvGetterControls;
@@ -121,10 +122,10 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
     }
 
     private void setRequestChatsToServer() {
-        String login = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
+        UUID uuidUser = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
 
         JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
-                JvDefinesMessages.TypeMessage.ChatsLoadRequest, login);
+                JvDefinesMessages.TypeMessage.ChatsLoadRequest, uuidUser);
     }
 
     private List<JvChatStructObject> getChatsObjects() {

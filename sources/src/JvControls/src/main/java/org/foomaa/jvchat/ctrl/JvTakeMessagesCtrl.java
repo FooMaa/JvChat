@@ -273,9 +273,9 @@ public class JvTakeMessagesCtrl {
     }
 
     private void workChatsLoadRequestMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
+        String uuidUserStr = map.get(JvDefinesMessages.TypeData.Uuid).toString();
         List<Map<JvDbGlobalDefines.LineKeys, String>> requestDB = JvGetterControls.getInstance()
-                .getBeanDbCtrl().getMultipleInfoFromDb(JvDbCtrl.TypeExecutionGetMultiple.ChatsLoad,
-                        (String) map.get(JvDefinesMessages.TypeData.ChatsLoad));
+                .getBeanDbCtrl().getMultipleInfoFromDb(JvDbCtrl.TypeExecutionGetMultiple.ChatsLoad, uuidUserStr);
         JvGetterControls.getInstance().getBeanSendMessagesCtrl().
                 sendMessage(JvDefinesMessages.TypeMessage.ChatsLoadReply, requestDB);
     }

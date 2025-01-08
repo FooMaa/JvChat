@@ -211,11 +211,14 @@ public class JvDeserializatorDataMessages {
         return result;
     }
 
-    private HashMap<JvDefinesMessages.TypeData, String> takeChatsLoadRequestMessage(byte[] data) {
-        HashMap<JvDefinesMessages.TypeData, String> result = new HashMap<>();
+    private HashMap<JvDefinesMessages.TypeData, UUID> takeChatsLoadRequestMessage(byte[] data) {
+        HashMap<JvDefinesMessages.TypeData, UUID> result = new HashMap<>();
         try {
-            result.put(JvDefinesMessages.TypeData.ChatsLoad, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
-                    getChatsLoadRequest().getSender());
+            String uuidUserStr = JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
+                    getChatsLoadRequest().getUuidUser();
+            UUID uuidUser = UUID.fromString(uuidUserStr);
+
+            result.put(JvDefinesMessages.TypeData.Uuid, uuidUser);
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }

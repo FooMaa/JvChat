@@ -105,8 +105,8 @@ public class JvSerializatorDataMessages {
             }
             case ChatsLoadRequest -> {
                 if (parameters.length == 1) {
-                    Object sender = parameters[0];
-                    return createChatsLoadRequestMessage(type, (String) sender);
+                    Object uuidUser = parameters[0];
+                    return createChatsLoadRequestMessage(type, (UUID) uuidUser);
                 }
             }
             case ChatsLoadReply -> {
@@ -399,10 +399,10 @@ public class JvSerializatorDataMessages {
         return resMsg.toByteArray();
     }
 
-    private byte[] createChatsLoadRequestMessage(JvDefinesMessages.TypeMessage type, String login) {
+    private byte[] createChatsLoadRequestMessage(JvDefinesMessages.TypeMessage type, UUID uuidUser) {
         JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest msgChatsLoadRequest =
                 JvClientServerSerializeProtocolMessage_pb.ChatsLoadRequest.newBuilder()
-                        .setSender(login)
+                        .setUuidUser(uuidUser.toString())
                         .build();
         JvClientServerSerializeProtocolMessage_pb.General resMsg =
                 JvClientServerSerializeProtocolMessage_pb.General.newBuilder()

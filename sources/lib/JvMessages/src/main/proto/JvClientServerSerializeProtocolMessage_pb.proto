@@ -127,18 +127,8 @@ message ChangePasswordReply {
     bool reply = 1;
 }
 
-message MessageChangeStatusRequest {
-    enum Status {
-        Send = 0;
-        Deliver = 1;
-        Read = 2;
-    }
-    uint32 indexMessage = 1;
-    Status status = 2;
-}
-
 message ChatsLoadRequest {
-    string sender = 1;
+    string uuidUser = 1;
 }
 
 message ChatsLoadReply {

@@ -306,7 +306,7 @@ $BODY$ LANGUAGE plpgsql;
 -- ----------------------------------------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION jvchat_schema.chats_messages_get_chats_by_login(
-    f_login character varying
+    f_uuid character varying
 )
     RETURNS TABLE (sender character varying, receiver character varying, last_message character varying, uuid_message character varying, datetime_last_message timestamp, status_message int) AS
 $BODY$
@@ -324,7 +324,7 @@ BEGIN
     FROM jvchat_schema.chats_messages AS chats
     LEFT JOIN jvchat_schema.auth_users_info AS auth1 ON chats.senderID = auth1.id 
     LEFT JOIN jvchat_schema.auth_users_info AS auth2 ON chats.receiverID = auth2.id  
-    WHERE auth1.login = f_login OR auth2.login = f_login 
+    WHERE auth1.login = f_uuid OR auth2.login = f_uuid
     ORDER BY LEAST(chats.senderID, chats.receiverID), GREATEST(chats.senderID, chats.receiverID), datetime DESC;
 END;
 $BODY$ LANGUAGE plpgsql;
