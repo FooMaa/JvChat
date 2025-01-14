@@ -183,13 +183,7 @@ public class JvDbCtrl {
                     String message = parameters[3];
                     String uuidMessage = parameters[4];
                     String datetime = parameters[5];
-                    System.out.println(loginSender);
-                    System.out.println(loginReceiver);
-                    System.out.println(loginSender);
-                    System.out.println(status);
-                    System.out.println(message);
-                    System.out.println(uuidMessage);
-                    System.out.println(datetime);
+                    
                     ResultSet rs = db.makeExecution(dbRequests.insertChatsSentMessage(
                             loginSender, loginReceiver, status, message, uuidMessage, datetime));
                     db.closeResultSet(rs);
