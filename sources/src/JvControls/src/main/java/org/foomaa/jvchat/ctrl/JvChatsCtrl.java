@@ -42,14 +42,8 @@ public class JvChatsCtrl {
                 JvLog.write(JvLog.TypeLog.Warn, "Не получилось нормализовать дату и время к нужному формату");
             }
 
-            chatsModel.createNewChat(
-                    login,
-                    lastMessageText,
-                    uuidChat,
-                    uuidLastMessage,
-                    isLoginSentLastMessage,
-                    statusMessage,
-                    timestampLastMessage);
+            chatsModel.createNewChat(login, lastMessageText, uuidChat, uuidLastMessage,
+                    isLoginSentLastMessage, statusMessage, timestampLastMessage);
         }
     }
 
