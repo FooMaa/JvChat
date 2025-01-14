@@ -418,12 +418,6 @@ public class JvSerializatorDataMessages {
                 JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply.newBuilder();
 
         for (Map<JvDbGlobalDefines.LineKeys, String> map : chatsInfo) {
-            Map<String, String> newMapStr = new HashMap<>();
-
-            for (JvDbGlobalDefines.LineKeys key : map.keySet()) {
-                newMapStr.put(key.getValue(), map.get(key));
-            }
-
             JvClientServerSerializeProtocolMessage_pb.ChatsInfo chatsInfoPart = JvClientServerSerializeProtocolMessage_pb.ChatsInfo
                     .newBuilder()
                     .setLogin(map.get(JvDbGlobalDefines.LineKeys.Login))
@@ -431,7 +425,7 @@ public class JvSerializatorDataMessages {
                     .setUuidChat(map.get(JvDbGlobalDefines.LineKeys.UuidChat))
                     .setUuidMessage(map.get(JvDbGlobalDefines.LineKeys.UuidMessage))
                     .setStatusMessage(JvClientServerSerializeProtocolMessage_pb.ChatsInfo.TypeStatusMessage
-                            .valueOf(map.get(JvDbGlobalDefines.LineKeys.StatusMessage)))
+                            .forNumber(Integer.parseInt(map.get(JvDbGlobalDefines.LineKeys.StatusMessage))))
                     .setDateTimeLastMessage(map.get(JvDbGlobalDefines.LineKeys.DateTimeLastMessage))
                     .build();
             builder.addChatsInfo(chatsInfoPart);
