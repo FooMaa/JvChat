@@ -424,6 +424,7 @@ public class JvSerializatorDataMessages {
                     .setLastMessageText(map.get(JvDbGlobalDefines.LineKeys.LastMessageText))
                     .setUuidChat(map.get(JvDbGlobalDefines.LineKeys.UuidChat))
                     .setUuidMessage(map.get(JvDbGlobalDefines.LineKeys.UuidMessage))
+                    .setIsLoginSentLastMessage(Boolean.parseBoolean(map.get(JvDbGlobalDefines.LineKeys.IsLoginSentLastMessage)))
                     .setStatusMessage(JvClientServerSerializeProtocolMessage_pb.ChatsInfo.TypeStatusMessage
                             .forNumber(Integer.parseInt(map.get(JvDbGlobalDefines.LineKeys.StatusMessage))))
                     .setDateTimeLastMessage(map.get(JvDbGlobalDefines.LineKeys.DateTimeLastMessage))

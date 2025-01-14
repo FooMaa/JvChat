@@ -285,6 +285,7 @@ public class JvTakeMessagesCtrl {
         List<Map<JvDefinesMessages.TypeData, Object>> chatsInfo =
                 JvGetterTools.getInstance().getBeanStructTools()
                     .objectInListMaps(objectFromMap, JvDefinesMessages.TypeData.class, Object.class);
+
         JvGetterControls.getInstance().getBeanChatsCtrl().createChatsObjects(chatsInfo);
         JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
                 .setChatsLoadReplyFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
