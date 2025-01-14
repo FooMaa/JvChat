@@ -282,9 +282,9 @@ public class JvTakeMessagesCtrl {
 
     private void workChatsLoadReplyMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         Object objectFromMap = map.get(JvDefinesMessages.TypeData.ChatsInfoList);
-        List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo =
+        List<Map<JvDefinesMessages.TypeData, Object>> chatsInfo =
                 JvGetterTools.getInstance().getBeanStructTools()
-                    .objectInListMaps(objectFromMap, JvDbGlobalDefines.LineKeys.class, String.class);
+                    .objectInListMaps(objectFromMap, JvDefinesMessages.TypeData.class, Object.class);
         JvGetterControls.getInstance().getBeanChatsCtrl().createChatsObjects(chatsInfo);
         JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
                 .setChatsLoadReplyFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);

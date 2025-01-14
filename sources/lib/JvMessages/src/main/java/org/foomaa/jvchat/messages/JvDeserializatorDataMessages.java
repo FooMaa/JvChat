@@ -238,8 +238,9 @@ public class JvDeserializatorDataMessages {
                 String uuidChat = chatsLoadReplyMsg.getChatsInfo(i).getUuidChat();
                 String uuidMessage = chatsLoadReplyMsg.getChatsInfo(i).getUuidMessage();
                 Boolean isLoginSentLastMessage = chatsLoadReplyMsg.getChatsInfo(i).getIsLoginSentLastMessage();
-                JvClientServerSerializeProtocolMessage_pb.ChatsInfo.TypeStatusMessage statusMessage =
-                        chatsLoadReplyMsg.getChatsInfo(i).getStatusMessage();
+                JvMainChatsGlobalDefines.TypeStatusMessage statusMessage =
+                        JvMainChatsGlobalDefines.TypeStatusMessage.getTypeStatusMessage(
+                                chatsLoadReplyMsg.getChatsInfo(i).getStatusMessage().getNumber());
                 String dateTimeLastMessage = chatsLoadReplyMsg.getChatsInfo(i).getDateTimeLastMessage();
 
                 Map<JvDefinesMessages.TypeData, Object> newMap = new HashMap<>();
