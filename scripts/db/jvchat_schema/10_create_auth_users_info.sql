@@ -6,7 +6,7 @@ CREATE TABLE jvchat_schema.auth_users_info (
     id          serial,
     login       character varying,
     email       character varying,
-    uuid_user   character varying,
+    uuid_user   character varying NOT NULL,
     password    character varying,
     PRIMARY KEY (id)
 );

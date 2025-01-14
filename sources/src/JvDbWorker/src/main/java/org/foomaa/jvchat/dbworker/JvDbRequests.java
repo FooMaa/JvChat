@@ -112,7 +112,7 @@ public class JvDbRequests {
                 login);
     }
 
-    public String getLogin(String email) {
+    public String getLoginByEmail(String email) {
         return String.format(
                 "SELECT * FROM jvchat_schema.auth_users_info_get_login_by_email('%s');",
                 email);

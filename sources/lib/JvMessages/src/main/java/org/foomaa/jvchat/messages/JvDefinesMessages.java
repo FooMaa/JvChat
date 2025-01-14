@@ -82,6 +82,12 @@ public class JvDefinesMessages {
         LoginDialog,
         QuantityMessages,
         MessagesInfoList,
+        LastMessageText,
+        UuidChat,
+        UuidMessage,
+        IsLoginSentLastMessage,
+        DateTimeLastMessage,
+        StatusMessage,
     }
 
     public enum TypeErrorRegistration {

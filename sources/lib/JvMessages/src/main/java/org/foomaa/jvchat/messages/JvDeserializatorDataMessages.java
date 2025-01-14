@@ -225,20 +225,32 @@ public class JvDeserializatorDataMessages {
         return result;
     }
 
-    private HashMap<JvDefinesMessages.TypeData, List<Map<JvDbGlobalDefines.LineKeys, String>>> takeChatsLoadReplyMessage(byte[] data) {
-        HashMap<JvDefinesMessages.TypeData, List<Map<JvDbGlobalDefines.LineKeys, String>>> result = new HashMap<>();
+    private HashMap<JvDefinesMessages.TypeData, List<Map<JvDefinesMessages.TypeData, Object>>> takeChatsLoadReplyMessage(byte[] data) {
+        HashMap<JvDefinesMessages.TypeData, List<Map<JvDefinesMessages.TypeData, Object>>> result = new HashMap<>();
         try {
             JvClientServerSerializeProtocolMessage_pb.ChatsLoadReply chatsLoadReplyMsg =
                     JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).getChatsLoadReply();
 
-            List<Map<JvDbGlobalDefines.LineKeys, String>> listMainData = new ArrayList<>();
-            for (int i = 0; i < chatsLoadReplyMsg.getChatsInfoMapCount(); i++) {
-                Map<String, String> map = chatsLoadReplyMsg.getChatsInfoMap(i).getMapInfoMap();
-                Map<JvDbGlobalDefines.LineKeys, String> newMap = new HashMap<>();
+            List<Map<JvDefinesMessages.TypeData, Object>> listMainData = new ArrayList<>();
+            for (int i = 0; i < chatsLoadReplyMsg.getChatsInfoCount(); i++) {
+                String login = chatsLoadReplyMsg.getChatsInfo(i).getLogin();
+                String lastMessageText = chatsLoadReplyMsg.getChatsInfo(i).getLastMessageText();
+                String uuidChat = chatsLoadReplyMsg.getChatsInfo(i).getUuidChat();
+                String uuidMessage = chatsLoadReplyMsg.getChatsInfo(i).getUuidMessage();
+                Boolean isLoginSentLastMessage = chatsLoadReplyMsg.getChatsInfo(i).getIsLoginSentLastMessage();
+                JvClientServerSerializeProtocolMessage_pb.ChatsInfo.TypeStatusMessage statusMessage =
+                        chatsLoadReplyMsg.getChatsInfo(i).getStatusMessage();
+                String dateTimeLastMessage = chatsLoadReplyMsg.getChatsInfo(i).getDateTimeLastMessage();
 
-                for (String key : map.keySet()) {
-                    newMap.put(JvDbGlobalDefines.LineKeys.getTypeLineKey(key), map.get(key));
-                }
+                Map<JvDefinesMessages.TypeData, Object> newMap = new HashMap<>();
+
+                newMap.put(JvDefinesMessages.TypeData.Login, login);
+                newMap.put(JvDefinesMessages.TypeData.LastMessageText, lastMessageText);
+                newMap.put(JvDefinesMessages.TypeData.UuidChat, uuidChat);
+                newMap.put(JvDefinesMessages.TypeData.UuidMessage, uuidMessage);
+                newMap.put(JvDefinesMessages.TypeData.IsLoginSentLastMessage, isLoginSentLastMessage);
+                newMap.put(JvDefinesMessages.TypeData.StatusMessage, statusMessage);
+                newMap.put(JvDefinesMessages.TypeData.DateTimeLastMessage, dateTimeLastMessage);
 
                 listMainData.add(newMap);
             }

@@ -132,11 +132,23 @@ message ChatsLoadRequest {
 }
 
 message ChatsLoadReply {
-    repeated ChatsInfoMap chatsInfoMap = 1;
+    repeated ChatsInfo chatsInfo = 1;
 }
 
-message ChatsInfoMap {
-    map<string, string> mapInfo = 1;
+message ChatsInfo {
+    enum TypeStatusMessage {
+            Error = 0;
+            Sent = 1;
+            Delivered = 2;
+            Read = 3;
+    }
+    string login = 1;
+    string lastMessageText = 2;
+    string uuidChat = 3;
+    string uuidMessage = 4;
+    bool isLoginSentLastMessage = 5;
+    TypeStatusMessage statusMessage = 6;
+    string dateTimeLastMessage = 7;
 }
 
 message CheckOnlineUserRequest {

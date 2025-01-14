@@ -171,16 +171,19 @@ CREATE TRIGGER verify_famous_email_delete_old_rows_trigger_u
     EXECUTE PROCEDURE jvchat_schema.verify_famous_email_delete_old_rows();
 
 CREATE OR REPLACE FUNCTION jvchat_schema.verify_famous_email_save (
-    f_id_user       integer,
+    f_uuid_user       character varying,
     f_code          character varying
 )
     RETURNS integer AS
 $BODY$
 DECLARE
     rv integer;
+    f_id_user integer;
     rs bool;
 BEGIN
     rv := -1;
+    SELECT id INTO f_id_user FROM jvchat_schema.auth_users_info WHERE uuid_user = f_uuid;
+
     PERFORM * FROM jvchat_schema.verify_famous_email WHERE id_user = f_id_user;
     IF found THEN
         --SELECT * INTO rs FROM jvchat_schema.verify_famous_email_remove();
@@ -308,23 +311,39 @@ $BODY$ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION jvchat_schema.chats_messages_get_chats_by_login(
     f_uuid character varying
 )
-    RETURNS TABLE (sender character varying, receiver character varying, last_message character varying, uuid_message character varying, datetime_last_message timestamp, status_message int) AS
+    RETURNS TABLE (
+        login character varying,
+        last_message_text character varying,
+        uuid_message character varying,
+        is_login_sent_last_message bool,
+        uuid_chat character varying,
+        datetime_last_message timestamp,
+        status_message int) AS
 $BODY$
 DECLARE
     rv jvchat_schema.chats_messages%rowtype;
 BEGIN
     RETURN QUERY 
     SELECT DISTINCT ON (LEAST(chats.senderID, chats.receiverID), GREATEST(chats.senderID, chats.receiverID)) 
-    auth1.login AS sender,
-    auth2.login AS receiver,
-    chats.message AS last_message,
+    CASE
+        WHEN auth1.uuid_user = f_uuid AND auth2.uuid_user = f_uuid THEN auth1.login 
+        WHEN auth1.uuid_user = f_uuid THEN auth2.login
+        WHEN auth2.uuid_user = f_uuid THEN auth1.login        
+    END AS login,
+    chats.message AS last_message_text,
     chats.uuid_message AS uuid_message, 
+    CASE
+        WHEN auth1.uuid_user = f_uuid AND auth2.uuid_user = f_uuid THEN true
+        WHEN auth1.uuid_user = f_uuid THEN false
+        WHEN auth2.uuid_user = f_uuid THEN true
+    END AS is_login_sent_last_message,
+    chats.uuid_chat AS uuid_chat,
     chats.datetime AS datetime_last_message,
     chats.status AS status_message
     FROM jvchat_schema.chats_messages AS chats
     LEFT JOIN jvchat_schema.auth_users_info AS auth1 ON chats.senderID = auth1.id 
     LEFT JOIN jvchat_schema.auth_users_info AS auth2 ON chats.receiverID = auth2.id  
-    WHERE auth1.login = f_uuid OR auth2.login = f_uuid
+    WHERE auth1.uuid_user = f_uuid OR auth2.uuid_user = f_uuid
     ORDER BY LEAST(chats.senderID, chats.receiverID), GREATEST(chats.senderID, chats.receiverID), datetime DESC;
 END;
 $BODY$ LANGUAGE plpgsql;

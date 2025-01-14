@@ -28,10 +28,11 @@ public class JvChatsCtrl {
 
         int normalizeTimestampCount = 3;
         for (Map<JvDbGlobalDefines.LineKeys, String> chat : chatsInfo) {
-            String lastMessageLoginSender = chat.get(JvDbGlobalDefines.LineKeys.Sender);
-            String lastMessageLoginReceiver = chat.get(JvDbGlobalDefines.LineKeys.Receiver);
-            String lastMessageText = chat.get(JvDbGlobalDefines.LineKeys.LastMessage);
+            String login = chat.get(JvDbGlobalDefines.LineKeys.Login);
+            String lastMessageText = chat.get(JvDbGlobalDefines.LineKeys.LastMessageText);
+            UUID uuidChat = UUID.fromString(chat.get(JvDbGlobalDefines.LineKeys.UuidChat));
             UUID uuidLastMessage = UUID.fromString(chat.get(JvDbGlobalDefines.LineKeys.UuidMessage));
+            Boolean isLoginSentLastMessage = true;
             JvMainChatsGlobalDefines.TypeStatusMessage statusMessage = JvGetterTools.getInstance().getBeanFormatTools()
                     .statusMessageStringToInt(chat.get(JvDbGlobalDefines.LineKeys.StatusMessage));
             LocalDateTime timestampLastMessage = JvGetterTools.getInstance().getBeanFormatTools()
@@ -42,10 +43,11 @@ public class JvChatsCtrl {
             }
 
             chatsModel.createNewChat(
-                    lastMessageLoginSender,
-                    lastMessageLoginReceiver,
+                    login,
                     lastMessageText,
+                    uuidChat,
                     uuidLastMessage,
+                    isLoginSentLastMessage,
                     statusMessage,
                     timestampLastMessage);
         }

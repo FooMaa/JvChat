@@ -123,7 +123,6 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
 
     private void setRequestChatsToServer() {
         UUID uuidUser = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
-
         JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 JvDefinesMessages.TypeMessage.ChatsLoadRequest, uuidUser);
     }

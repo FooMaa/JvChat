@@ -28,24 +28,23 @@ public class JvChatsModel extends JvBaseModel {
         }
     }
 
-    public void createNewChat(String lastMessageLoginSender,
-                              String lastMessageLoginReceiver,
-                              String lastMessageText ,
-                              UUID uuidLastMessage ,
-                              JvMainChatsGlobalDefines.TypeStatusMessage statusMessage ,
+    public void createNewChat(String login,
+                              String lastMessageText,
+                              UUID uuidChat,
+                              UUID uuidLastMessage,
+                              Boolean isLoginSentLastMessage,
+                              JvMainChatsGlobalDefines.TypeStatusMessage statusMessage,
                               LocalDateTime timestampLastMessage) {
         JvUserStructObject userChat = JvGetterStructObjects.getInstance().getBeanUserStructObject();
-        String currentUserLogin = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
-        if (Objects.equals(lastMessageLoginSender, currentUserLogin)) {
-            userChat.setLogin(lastMessageLoginReceiver);
-        } else if (Objects.equals(lastMessageLoginReceiver, currentUserLogin)) {
-            userChat.setLogin(lastMessageLoginSender);
-        }
+        userChat.setLogin(login);
         JvGetterModels.getInstance().getBeanUsersModel().addCreatedUser(userChat);
 
+        String sender = isLoginSentLastMessage ? login : JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
+        String receiver = isLoginSentLastMessage ? JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin() : login;
+
         JvMessageStructObject lastMessage = JvGetterStructObjects.getInstance().getBeanMessageStructObject();
-        lastMessage.setLoginSender(lastMessageLoginSender);
-        lastMessage.setLoginReceiver(lastMessageLoginReceiver);
+        lastMessage.setLoginSender(sender);
+        lastMessage.setLoginReceiver(receiver);
         lastMessage.setText(lastMessageText);
         lastMessage.setStatusMessage(statusMessage);
         lastMessage.setUuid(uuidLastMessage);
@@ -54,6 +53,7 @@ public class JvChatsModel extends JvBaseModel {
         JvChatStructObject chat = JvGetterStructObjects.getInstance().getBeanChatStructObject();
         chat.setUserChat(userChat);
         chat.setLastMessage(lastMessage);
+        chat.setUuid(uuidChat);
 
         addItem(chat, getRootObject());
     }

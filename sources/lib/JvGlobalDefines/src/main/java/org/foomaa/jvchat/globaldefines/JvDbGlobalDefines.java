@@ -9,13 +9,15 @@ public class JvDbGlobalDefines {
     public enum LineKeys {
         Sender("sender"),
         Receiver("receiver"),
-        LastMessage("last_message"),
+        Login("login"),
+        LastMessageText("last_message_text"),
+        UuidChat("uuid_chat"),
         UuidMessage("uuid_message"),
+        IsLoginSentLastMessage("is_login_sent_last_message"),
         DateTimeLastMessage("datetime_last_message"),
         StatusMessage("status_message"),
         StatusOnline("status_online"),
         LastOnlineTime("last_online_time"),
-        Login("login"),
         TextMessage("text_message"),
         DateTimeMessage("datetime_message");
 

@@ -25,7 +25,7 @@ public class JvUsersInfoSettings {
     }
 
     public void setUuid(UUID newUuid) {
-        if (uuid != null && !uuid.equals(newUuid)) {
+        if (uuid == null || !uuid.equals(newUuid)) {
             uuid = newUuid;
         }
     }
