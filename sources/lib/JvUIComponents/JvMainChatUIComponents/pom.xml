@@ -19,6 +19,9 @@
             <resource>
                 <directory>../../../res/JvMainChatUIComponents/icons/</directory>
             </resource>
+            <resource>
+                <directory>../../../res/AllDefaultsRes/icons/</directory>
+            </resource>
         </resources>
     </build>
 

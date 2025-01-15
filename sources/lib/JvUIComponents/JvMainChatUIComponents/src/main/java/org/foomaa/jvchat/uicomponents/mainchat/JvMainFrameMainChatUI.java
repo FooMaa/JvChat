@@ -1,7 +1,10 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.util.Objects;
 
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.settings.JvGetterSettings;
@@ -21,9 +24,19 @@ public class JvMainFrameMainChatUI extends JFrame {
         panelSendingMessage = JvGetterMainChatUIComponents.getInstance().getBeanPanelSendingMessageMainChatUI();
         findTextField = JvGetterMainChatUIComponents.getInstance().getBeanFindTextFieldMainChatUI("Поиск по логину");
 
+        setIconImageFrame("/MainAppIcon.png");
         addGeneralSettingsToWidget();
         makeFrameSetting();
         addListenerToElements();
+    }
+
+    private void setIconImageFrame(String path) {
+        try {
+            Image img = ImageIO.read(Objects.requireNonNull(getClass().getResource(path)));
+            setIconImage(img);
+        } catch (IOException e) {
+            e.getStackTrace();
+        }
     }
 
     private void addGeneralSettingsToWidget() {

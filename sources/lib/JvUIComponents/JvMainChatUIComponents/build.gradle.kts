@@ -18,6 +18,7 @@ tasks.withType<ProcessResources> {
 sourceSets.getByName("main") {
     java.srcDir("src/main/java/")
     resources.srcDir("../../../res/JvMainChatUIComponents/icons/")
+    resources.srcDir("../../../res/AllDefaultsRes/icons/")
 }
 sourceSets.getByName("test") {
     java.srcDir("src/test/java/")
