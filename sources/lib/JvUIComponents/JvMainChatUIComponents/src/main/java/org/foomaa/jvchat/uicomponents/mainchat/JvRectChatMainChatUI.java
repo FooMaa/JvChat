@@ -23,6 +23,7 @@ public class JvRectChatMainChatUI extends JPanel {
     private JvMainChatsGlobalDefines.TypeStatusMessage statusMessage;
     private JvMainChatsGlobalDefines.TypeStatusOnline statusOnline;
     private final UUID uuidChat;
+    private final UUID uuidUser;
     private String lastOnlineDateTime;
     private final String nameForLabelOnline;
     private final String nameForLabelLastMessage;
@@ -38,7 +39,7 @@ public class JvRectChatMainChatUI extends JPanel {
                 .getTimeFormattedLastMessage(chatObject.getLastMessage().getTimestamp());
         statusMessage = chatObject.getLastMessage().getStatusMessage();
         uuidChat = chatObject.getUuid();
-
+        uuidUser = chatObject.getUserChat().getUuid();
         statusOnline = JvMainChatsGlobalDefines.TypeStatusOnline.Offline;
         lastOnlineDateTime = "";
         nameForLabelOnline = "onlineLabel";
@@ -53,6 +54,10 @@ public class JvRectChatMainChatUI extends JPanel {
 
     public String getNickName() {
         return nickName;
+    }
+
+    public UUID getUuidUser() {
+        return uuidUser;
     }
 
     private void makeChatBox() {
