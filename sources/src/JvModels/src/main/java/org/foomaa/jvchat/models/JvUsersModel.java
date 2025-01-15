@@ -5,7 +5,7 @@ import org.foomaa.jvchat.structobjects.JvBaseStructObject;
 import org.foomaa.jvchat.structobjects.JvGetterStructObjects;
 import org.foomaa.jvchat.structobjects.JvUserStructObject;
 
-import java.util.Objects;
+import java.util.UUID;
 
 
 public class JvUsersModel extends JvBaseModel {
@@ -15,20 +15,19 @@ public class JvUsersModel extends JvBaseModel {
     }
 
     public void addCreatedUser(JvUserStructObject userStructObject) {
-        if (isLoginAdded(userStructObject.getLogin())) {
+        if (isUuidUserAdded(userStructObject.getUuid())) {
             addItem(userStructObject, getRootObject());
         }
     }
 
-    private boolean isLoginAdded(String login) {
-        return findUserStructObjectByLogin(login) != null;
+    private boolean isUuidUserAdded(UUID uuidUser) {
+        return findUserStructObjectByUuidUser(uuidUser) != null;
     }
 
-    private JvUserStructObject findUserStructObjectByLogin(String login) {
+    private JvUserStructObject findUserStructObjectByUuidUser(UUID uuidUser) {
         for (JvBaseStructObject baseStructObject: getRootObject().getChildren()) {
             JvUserStructObject userStructObject = (JvUserStructObject) baseStructObject;
-            if (userStructObject != null &&
-                    Objects.equals(userStructObject.getLogin(), login)) {
+            if (userStructObject != null && userStructObject.getUuid().equals(uuidUser)) {
                 return userStructObject;
             }
         }
@@ -36,13 +35,13 @@ public class JvUsersModel extends JvBaseModel {
         return null;
     }
 
-    public JvUserStructObject findCreateUserStructObjectByLogin(String login) {
-        JvUserStructObject userStructObject = findUserStructObjectByLogin(login);
+    public JvUserStructObject findCreateUserStructObjectByUuidUser(UUID uuidUser) {
+        JvUserStructObject userStructObject = findUserStructObjectByUuidUser(uuidUser);
 
         if (userStructObject == null) {
-            JvLog.write(JvLog.TypeLog.Warn, "Здесь не создан userStructObject c логином, создаю...");
+            JvLog.write(JvLog.TypeLog.Warn, "Здесь не создан userStructObject c uuid, создаю...");
             JvUserStructObject userChat = JvGetterStructObjects.getInstance().getBeanUserStructObject();
-            userChat.setLogin(login);
+            userChat.setUuid(uuidUser);
             addItem(userChat, getRootObject());
             return userChat;
         }

@@ -143,12 +143,13 @@ message ChatsInfo {
             Read = 3;
     }
     string login = 1;
-    string lastMessageText = 2;
-    string uuidChat = 3;
-    string uuidMessage = 4;
-    bool isLoginSentLastMessage = 5;
-    TypeStatusMessage statusMessage = 6;
-    string dateTimeLastMessage = 7;
+    string uuidUser = 2;
+    string lastMessageText = 3;
+    string uuidChat = 4;
+    string uuidMessage = 5;
+    bool isLoginSentLastMessage = 6;
+    TypeStatusMessage statusMessage = 7;
+    string dateTimeLastMessage = 8;
 }
 
 message CheckOnlineUserRequest {
@@ -156,11 +157,11 @@ message CheckOnlineUserRequest {
 }
 
 message CheckOnlineUserReply {
-    string login = 1;
+    string uuidUser = 1;
 }
 
 message LoadUsersOnlineStatusRequest {
-    repeated string logins = 1;
+    repeated string uuidsUsers = 1;
 }
 
 message LoadUsersOnlineStatusReply {

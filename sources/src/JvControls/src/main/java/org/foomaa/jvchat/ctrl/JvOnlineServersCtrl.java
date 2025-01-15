@@ -66,7 +66,7 @@ public class JvOnlineServersCtrl {
         return null;
     }
 
-    public boolean isLoginInListCheckerOnline(String userLogin) {
+    public boolean isUuidUserInListCheckerOnline(UUID uuidUser) {
         List<JvCheckerOnlineStructObject> listCheckersOnline = checkersOnlineModel.getAllCheckersOnline();
 
         for (JvCheckerOnlineStructObject checkerOnline : listCheckersOnline) {
@@ -76,8 +76,8 @@ public class JvOnlineServersCtrl {
                 continue;
             }
 
-            String loginFromList = userStructObject.getLogin();
-            if (Objects.equals(loginFromList, userLogin)) {
+            UUID uuidUserFromList = userStructObject.getUuid();
+            if (uuidUserFromList.equals(uuidUser)) {
                 return true;
             }
         }
@@ -85,12 +85,12 @@ public class JvOnlineServersCtrl {
         return false;
     }
 
-    private JvCheckerOnlineStructObject getCheckerOnlineByUserLogin(String userLogin) {
+    private JvCheckerOnlineStructObject getCheckerOnlineByUuidUser(UUID uuidUser) {
         List<JvCheckerOnlineStructObject> listCheckersOnline = checkersOnlineModel.getAllCheckersOnline();
 
         for (JvCheckerOnlineStructObject checkerOnline : listCheckersOnline) {
-            String loginFromList = checkerOnline.getUser().getLogin();
-            if (Objects.equals(loginFromList, userLogin)) {
+            UUID uuidUserFromList = checkerOnline.getUser().getUuid();
+            if (uuidUserFromList.equals(uuidUser)) {
                 return checkerOnline;
             }
         }
@@ -109,8 +109,8 @@ public class JvOnlineServersCtrl {
         }
 
         for (Map<JvDbGlobalDefines.LineKeys, String> map : dataFromDb) {
-            for (String login : map.values()) {
-                checkersOnlineModel.createNewCheckersOnline(login, LocalDateTime.now());
+            for (String uuidUser : map.values()) {
+                checkersOnlineModel.createNewCheckersOnline(UUID.fromString(uuidUser), LocalDateTime.now());
             }
         }
 
@@ -129,16 +129,16 @@ public class JvOnlineServersCtrl {
         thread.start();
     }
 
-    public void addUsersOnline(String userLogin, Runnable runnableFrom) {
+    public void addUsersOnline(UUID uuidUser, Runnable runnableFrom) {
         JvCheckerOnlineStructObject onlineUser;
 
         if (isRunnableInListCheckerOnline((JvSocketRunnableCtrl) runnableFrom)) {
             onlineUser = getCheckerOnlineByRunnable((JvSocketRunnableCtrl) runnableFrom);
-        } else if (isLoginInListCheckerOnline(userLogin)) {
-            onlineUser = getCheckerOnlineByUserLogin(userLogin);
+        } else if (isUuidUserInListCheckerOnline(uuidUser)) {
+            onlineUser = getCheckerOnlineByUuidUser(uuidUser);
         } else {
             checkersOnlineModel.createNewCheckersOnline(
-                    userLogin,
+                    uuidUser,
                     runnableFrom,
                     false,
                     LocalDateTime.now(),
@@ -152,7 +152,7 @@ public class JvOnlineServersCtrl {
         }
 
         JvUserStructObject userStructObject =
-                JvGetterModels.getInstance().getBeanUsersModel().findCreateUserStructObjectByLogin(userLogin);
+                JvGetterModels.getInstance().getBeanUsersModel().findCreateUserStructObjectByUuidUser(uuidUser);
         JvSocketRunnableCtrlStructObject socketRunnableCtrlStructObject =
                 JvGetterModels.getInstance().getBeanSocketRunnableCtrlModel().findCreateSocketRunnableCtrlStructObjectByRunnable(runnableFrom);
 
@@ -162,16 +162,16 @@ public class JvOnlineServersCtrl {
         onlineUser.setDateTimeUpdating(LocalDateTime.now());
         onlineUser.setDateTimeSending(LocalDateTime.now());
 
-        saveStatusOnline(userLogin, JvMainChatsGlobalDefines.TypeStatusOnline.Online);
+        saveStatusOnline(uuidUser, JvMainChatsGlobalDefines.TypeStatusOnline.Online);
     }
 
-    private void saveStatusOnline(String userLogin, JvMainChatsGlobalDefines.TypeStatusOnline statusOnline) {
+    private void saveStatusOnline(UUID uuidUser, JvMainChatsGlobalDefines.TypeStatusOnline statusOnline) {
         int onlineStatusInteger = statusOnline.getValue();
         String onlineStatusString = String.valueOf(onlineStatusInteger);
         JvGetterControls.getInstance()
                 .getBeanDbCtrl().insertQueryToDB(
                         JvDbCtrl.TypeExecutionInsert.OnlineUsersInfo,
-                        userLogin,
+                        uuidUser.toString(),
                         onlineStatusString);
     }
 
@@ -259,32 +259,32 @@ public class JvOnlineServersCtrl {
                     continue;
                 }
 
-                saveStatusOnline(onlineUser.getUser().getLogin(), JvMainChatsGlobalDefines.TypeStatusOnline.Offline);
+                saveStatusOnline(onlineUser.getUser().getUuid(), JvMainChatsGlobalDefines.TypeStatusOnline.Offline);
             }
         }
     }
 
-    public Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> getStatusesUsers(List<String> logins) {
-        Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> resultMap = new HashMap<>();
-        for (String login : logins) {
-            boolean isLoginOnline = isLoginInListCheckerOnline(login);
+    public Map<UUID, JvMainChatsGlobalDefines.TypeStatusOnline> getStatusesUsers(List<UUID> uuidsUsers) {
+        Map<UUID, JvMainChatsGlobalDefines.TypeStatusOnline> resultMap = new HashMap<>();
+        for (UUID uuidUser : uuidsUsers) {
+            boolean isLoginOnline = isUuidUserInListCheckerOnline(uuidUser);
             if (isLoginOnline) {
-                resultMap.put(login, JvMainChatsGlobalDefines.TypeStatusOnline.Online);
+                resultMap.put(uuidUser, JvMainChatsGlobalDefines.TypeStatusOnline.Online);
             } else {
-                resultMap.put(login, JvMainChatsGlobalDefines.TypeStatusOnline.Offline);
+                resultMap.put(uuidUser, JvMainChatsGlobalDefines.TypeStatusOnline.Offline);
             }
         }
         return resultMap;
     }
 
-    public Map<String, String> getLastOnlineTimeUsers(List<String> logins) {
-        Map<String, String> resultMap = new HashMap<>();
-        for (String login : logins) {
-            boolean isLoginOnline = isLoginInListCheckerOnline(login);
-            if (!isLoginOnline) {
+    public Map<UUID, String> getLastOnlineTimeUsers(List<UUID> uuidsUsers) {
+        Map<UUID, String> resultMap = new HashMap<>();
+        for (UUID uuidUser : uuidsUsers) {
+            boolean isUserOnline = isUuidUserInListCheckerOnline(uuidUser);
+            if (!isUserOnline) {
                 String lastOnlineTime = JvGetterControls.getInstance().getBeanDbCtrl()
-                        .getSingleDataFromDb(JvDbCtrl.TypeExecutionGetSingle.LastOnlineTimeUser, login);
-                resultMap.put(login, lastOnlineTime);
+                        .getSingleDataFromDb(JvDbCtrl.TypeExecutionGetSingle.LastOnlineTimeUser, uuidUser.toString());
+                resultMap.put(uuidUser, lastOnlineTime);
             }
         }
         return resultMap;

@@ -313,6 +313,7 @@ CREATE OR REPLACE FUNCTION jvchat_schema.chats_messages_get_chats_by_login(
 )
     RETURNS TABLE (
         login character varying,
+        uuid_user character varying,
         last_message_text character varying,
         uuid_message character varying,
         is_login_sent_last_message bool,
@@ -330,6 +331,11 @@ BEGIN
         WHEN auth1.uuid_user = f_uuid THEN auth2.login
         WHEN auth2.uuid_user = f_uuid THEN auth1.login        
     END AS login,
+    CASE
+        WHEN auth1.uuid_user = f_uuid AND auth2.uuid_user = f_uuid THEN auth1.uuid_user 
+        WHEN auth1.uuid_user = f_uuid THEN auth2.uuid_user
+        WHEN auth2.uuid_user = f_uuid THEN auth1.uuid_user    
+    END AS uuid_user,
     chats.message AS last_message_text,
     chats.uuid_message AS uuid_message, 
     CASE
@@ -441,8 +447,8 @@ $BODY$ LANGUAGE plpgsql;
 -- jvchat_schema.online_users_info
 -- ----------------------------------------------------------------------------------------------
 
-CREATE OR REPLACE FUNCTION jvchat_schema.online_users_info_get_status_time_by_user_login(
-    f_login character varying
+CREATE OR REPLACE FUNCTION jvchat_schema.online_users_info_get_status_time_by_uuid_user(
+    f_uuid_user character varying
 )
     RETURNS TABLE (status_online int, last_online_time timestamp) AS
 $BODY$
@@ -453,25 +459,25 @@ BEGIN
     SELECT jvchat_schema.online_users_info.status, jvchat_schema.online_users_info.last_online_time
     FROM jvchat_schema.online_users_info 
     LEFT JOIN jvchat_schema.auth_users_info ON jvchat_schema.online_users_info.id_user = jvchat_schema.auth_users_info.id
-    WHERE login = f_login;
+    WHERE uuid_user = f_uuid_user;
 END;
 $BODY$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION jvchat_schema.online_users_info_get_online_users()
-    RETURNS TABLE (login character varying) AS
+    RETURNS TABLE (uuid_user character varying) AS
 $BODY$
 DECLARE
     rv jvchat_schema.online_users_info%rowtype;
 BEGIN
     RETURN QUERY
-    SELECT jvchat_schema.auth_users_info.login
+    SELECT jvchat_schema.auth_users_info.uuid_user
     FROM jvchat_schema.online_users_info 
     LEFT JOIN jvchat_schema.auth_users_info ON jvchat_schema.online_users_info.id_user = jvchat_schema.auth_users_info.id
     WHERE jvchat_schema.online_users_info.status = 2;
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION jvchat_schema.online_users_info_get_time_by_user_login(f_login character varying)
+CREATE OR REPLACE FUNCTION jvchat_schema.online_users_info_get_time_by_user_uuid(f_uuid_user character varying)
     RETURNS timestamp AS
 $BODY$
 DECLARE
@@ -481,7 +487,7 @@ BEGIN
     INTO rv
     FROM jvchat_schema.online_users_info 
     LEFT JOIN jvchat_schema.auth_users_info ON jvchat_schema.online_users_info.id_user = jvchat_schema.auth_users_info.id
-    WHERE jvchat_schema.auth_users_info.login = f_login;
+    WHERE jvchat_schema.auth_users_info.uuid_user = f_uuid_user;
 
     IF found THEN
         RETURN rv;
@@ -491,7 +497,7 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION jvchat_schema.online_users_info_save (
-    f_login         character varying,
+    f_uuid_user         character varying,
     f_status        integer
 )
     RETURNS integer AS
@@ -502,7 +508,7 @@ DECLARE
     f_id_user integer;
 BEGIN
     rv := -1;
-    SELECT id INTO f_id_user FROM jvchat_schema.auth_users_info WHERE login = f_login;
+    SELECT id INTO f_id_user FROM jvchat_schema.auth_users_info WHERE uuid_user = f_uuid_user;
 
     PERFORM * FROM jvchat_schema.online_users_info WHERE id_user = f_id_user;
     IF found THEN
@@ -518,14 +524,17 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION jvchat_schema.online_users_info_update_time (
-    f_id_user   integer
+    f_uuid_user   character varying
 )
     RETURNS integer AS
 $BODY$
 DECLARE
+    f_id_user integer;
     rv integer;
 BEGIN
     rv := -1;
+    SELECT id INTO f_id_user FROM jvchat_schema.auth_users_info WHERE uuid_user = f_uuid_user;
+
     PERFORM * FROM jvchat_schema.online_users_info WHERE id_user = f_id_user;
     IF found THEN
         UPDATE jvchat_schema.online_users_info SET last_online_time = NOW() WHERE id_user = f_id_user;

@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
@@ -242,8 +243,9 @@ public class JvEntryFrameAuthUI extends JFrame {
     private void openMainPage() {
         JvGetterSettings.getInstance().getBeanUsersInfoSettings().setLogin(tLogin.getInputText());
 
+        UUID uuidUser = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
         JvGetterControls.getInstance().getBeanSendMessagesCtrl()
-                .sendMessage(JvDefinesMessages.TypeMessage.CheckOnlineUserReply, tLogin.getInputText());
+                .sendMessage(JvDefinesMessages.TypeMessage.CheckOnlineUserReply, uuidUser);
 
         closeWindow();
         setEnabled(true);

@@ -11,6 +11,7 @@ public class JvDbGlobalDefines {
         Receiver("receiver"),
         Login("login"),
         LastMessageText("last_message_text"),
+        UuidUser("uuid_user"),
         UuidChat("uuid_chat"),
         UuidMessage("uuid_message"),
         IsLoginSentLastMessage("is_login_sent_last_message"),
