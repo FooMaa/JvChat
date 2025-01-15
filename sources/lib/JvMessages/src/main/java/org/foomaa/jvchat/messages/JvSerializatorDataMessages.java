@@ -142,10 +142,10 @@ public class JvSerializatorDataMessages {
                 if (parameters.length == 2) {
                     Object statusesUsersObj = parameters[0];
                     Object lastOnlineTimeUsersObj = parameters[1];
-                    Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> statusesUsersMap = JvGetterTools.getInstance()
-                            .getBeanStructTools().objectInMap(statusesUsersObj, String.class, JvMainChatsGlobalDefines.TypeStatusOnline.class);
-                    Map<String, String> lastOnlineTimeUsers = JvGetterTools.getInstance()
-                            .getBeanStructTools().objectInMap(lastOnlineTimeUsersObj, String.class, String.class);
+                    Map<UUID, JvMainChatsGlobalDefines.TypeStatusOnline> statusesUsersMap = JvGetterTools.getInstance()
+                            .getBeanStructTools().objectInMap(statusesUsersObj, UUID.class, JvMainChatsGlobalDefines.TypeStatusOnline.class);
+                    Map<UUID, String> lastOnlineTimeUsers = JvGetterTools.getInstance()
+                            .getBeanStructTools().objectInMap(lastOnlineTimeUsersObj, UUID.class, String.class);
                     return createLoadUsersOnlineStatusReplyMessage(type, statusesUsersMap, lastOnlineTimeUsers);
                 }
             }
@@ -488,22 +488,28 @@ public class JvSerializatorDataMessages {
     }
 
     private byte[] createLoadUsersOnlineStatusReplyMessage(JvDefinesMessages.TypeMessage type,
-                                                           Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> statusesUsers,
-                                                           Map<String, String> lastOnlineTimeUsers) {
+                                                           Map<UUID, JvMainChatsGlobalDefines.TypeStatusOnline> statusesUsers,
+                                                           Map<UUID, String> lastOnlineTimeUsers) {
         Map<String, JvClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusReply.StatusOnline> newMapStatusesUsers = new HashMap<>();
 
-        for (String key : statusesUsers.keySet()) {
+        for (UUID key : statusesUsers.keySet()) {
             int integerStatus =  statusesUsers.get(key).getValue();
             JvClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusReply.StatusOnline statusMsg =
                     JvClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusReply.StatusOnline.forNumber(integerStatus);
-            newMapStatusesUsers.put(key, statusMsg);
+            newMapStatusesUsers.put(key.toString(), statusMsg);
+        }
+
+        Map<String, String> newMapLastOnlineTimes = new HashMap<>();
+
+        for (UUID key : lastOnlineTimeUsers.keySet()) {
+            newMapLastOnlineTimes.put(key.toString(), lastOnlineTimeUsers.get(key));
         }
 
         JvClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusReply msgLoadUsersOnlineStatusReply =
                 JvClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusReply
                         .newBuilder()
                         .putAllMapStatusOnline(newMapStatusesUsers)
-                        .putAllMapLastOnlineTime(lastOnlineTimeUsers)
+                        .putAllMapLastOnlineTime(newMapLastOnlineTimes)
                         .build();
 
         JvClientServerSerializeProtocolMessage_pb.General resMsg =

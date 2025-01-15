@@ -194,10 +194,10 @@ public class JvSendMessagesCtrl {
                 if (parameters.length == 2) {
                     Object statusesUsersObj = parameters[0];
                     Object lastOnlineTimeUsersObj = parameters[1];
-                    Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> statusesUsersMap = JvGetterTools.getInstance()
-                            .getBeanStructTools().objectInMap(statusesUsersObj, String.class, JvMainChatsGlobalDefines.TypeStatusOnline.class);
-                    Map<String, String> lastOnlineTimeUsers = JvGetterTools.getInstance()
-                            .getBeanStructTools().objectInMap(lastOnlineTimeUsersObj, String.class, String.class);
+                    Map<UUID, JvMainChatsGlobalDefines.TypeStatusOnline> statusesUsersMap = JvGetterTools.getInstance()
+                            .getBeanStructTools().objectInMap(statusesUsersObj, UUID.class, JvMainChatsGlobalDefines.TypeStatusOnline.class);
+                    Map<UUID, String> lastOnlineTimeUsers = JvGetterTools.getInstance()
+                            .getBeanStructTools().objectInMap(lastOnlineTimeUsersObj, UUID.class, String.class);
                     byte[] bodyMessage = createBodyLoadUsersOnlineStatusReplyMessage(type, statusesUsersMap, lastOnlineTimeUsers);
                     sendReadyMessageNetwork(bodyMessage);
                 }
@@ -376,8 +376,8 @@ public class JvSendMessagesCtrl {
     }
 
     private byte[] createBodyLoadUsersOnlineStatusReplyMessage(JvDefinesMessages.TypeMessage type,
-                                                               Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> statusesUsers,
-                                                               Map<String, String> lastOnlineTimeUsers) {
+                                                               Map<UUID, JvMainChatsGlobalDefines.TypeStatusOnline> statusesUsers,
+                                                               Map<UUID, String> lastOnlineTimeUsers) {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, statusesUsers, lastOnlineTimeUsers);
     }
 
