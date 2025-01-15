@@ -234,6 +234,7 @@ public class JvDeserializatorDataMessages {
             List<Map<JvDefinesMessages.TypeData, Object>> listMainData = new ArrayList<>();
             for (int i = 0; i < chatsLoadReplyMsg.getChatsInfoCount(); i++) {
                 String login = chatsLoadReplyMsg.getChatsInfo(i).getLogin();
+                String uuidUser = chatsLoadReplyMsg.getChatsInfo(i).getUuidUser();
                 String lastMessageText = chatsLoadReplyMsg.getChatsInfo(i).getLastMessageText();
                 String uuidChat = chatsLoadReplyMsg.getChatsInfo(i).getUuidChat();
                 String uuidMessage = chatsLoadReplyMsg.getChatsInfo(i).getUuidMessage();
@@ -246,6 +247,7 @@ public class JvDeserializatorDataMessages {
                 Map<JvDefinesMessages.TypeData, Object> newMap = new HashMap<>();
 
                 newMap.put(JvDefinesMessages.TypeData.Login, login);
+                newMap.put(JvDefinesMessages.TypeData.UuidUser, uuidUser);
                 newMap.put(JvDefinesMessages.TypeData.LastMessageText, lastMessageText);
                 newMap.put(JvDefinesMessages.TypeData.UuidChat, uuidChat);
                 newMap.put(JvDefinesMessages.TypeData.UuidMessage, uuidMessage);

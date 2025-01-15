@@ -29,6 +29,7 @@ public class JvChatsModel extends JvBaseModel {
     }
 
     public void createNewChat(String login,
+                              UUID uuidUser,
                               String lastMessageText,
                               UUID uuidChat,
                               UUID uuidLastMessage,
@@ -37,6 +38,7 @@ public class JvChatsModel extends JvBaseModel {
                               LocalDateTime timestampLastMessage) {
         JvUserStructObject userChat = JvGetterStructObjects.getInstance().getBeanUserStructObject();
         userChat.setLogin(login);
+        userChat.setUuid(uuidUser);
         JvGetterModels.getInstance().getBeanUsersModel().addCreatedUser(userChat);
 
         String sender = isLoginSentLastMessage ? login : JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();

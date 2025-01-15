@@ -313,6 +313,7 @@ CREATE OR REPLACE FUNCTION jvchat_schema.chats_messages_get_chats_by_login(
 )
     RETURNS TABLE (
         login character varying,
+        uuid_user character varying,
         last_message_text character varying,
         uuid_message character varying,
         is_login_sent_last_message bool,
@@ -330,6 +331,11 @@ BEGIN
         WHEN auth1.uuid_user = f_uuid THEN auth2.login
         WHEN auth2.uuid_user = f_uuid THEN auth1.login        
     END AS login,
+    CASE
+        WHEN auth1.uuid_user = f_uuid AND auth2.uuid_user = f_uuid THEN auth1.uuid_user 
+        WHEN auth1.uuid_user = f_uuid THEN auth2.uuid_user
+        WHEN auth2.uuid_user = f_uuid THEN auth1.uuid_user    
+    END AS uuid_user,
     chats.message AS last_message_text,
     chats.uuid_message AS uuid_message, 
     CASE

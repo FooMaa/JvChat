@@ -423,6 +423,7 @@ public class JvSerializatorDataMessages {
                     .setLogin(map.get(JvDbGlobalDefines.LineKeys.Login))
                     .setLastMessageText(map.get(JvDbGlobalDefines.LineKeys.LastMessageText))
                     .setUuidChat(map.get(JvDbGlobalDefines.LineKeys.UuidChat))
+                    .setUuidUser(map.get(JvDbGlobalDefines.LineKeys.UuidUser))
                     .setUuidMessage(map.get(JvDbGlobalDefines.LineKeys.UuidMessage))
                     .setIsLoginSentLastMessage(Boolean.parseBoolean(map.get(JvDbGlobalDefines.LineKeys.IsLoginSentLastMessage)))
                     .setStatusMessage(JvClientServerSerializeProtocolMessage_pb.ChatsInfo.TypeStatusMessage

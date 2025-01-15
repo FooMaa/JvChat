@@ -280,8 +280,8 @@ public class JvOnlineServersCtrl {
     public Map<UUID, String> getLastOnlineTimeUsers(List<UUID> uuidsUsers) {
         Map<UUID, String> resultMap = new HashMap<>();
         for (UUID uuidUser : uuidsUsers) {
-            boolean isLoginOnline = isUuidUserInListCheckerOnline(uuidUser);
-            if (!isLoginOnline) {
+            boolean isUserOnline = isUuidUserInListCheckerOnline(uuidUser);
+            if (!isUserOnline) {
                 String lastOnlineTime = JvGetterControls.getInstance().getBeanDbCtrl()
                         .getSingleDataFromDb(JvDbCtrl.TypeExecutionGetSingle.LastOnlineTimeUser, uuidUser.toString());
                 resultMap.put(uuidUser, lastOnlineTime);

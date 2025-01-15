@@ -29,6 +29,7 @@ public class JvChatsCtrl {
         int normalizeTimestampCount = 3;
         for (Map<JvDefinesMessages.TypeData, Object> chat : chatsInfo) {
             String login = (String) chat.get(JvDefinesMessages.TypeData.Login);
+            UUID uuidUser = UUID.fromString((String) chat.get(JvDefinesMessages.TypeData.UuidUser));
             String lastMessageText = (String) chat.get(JvDefinesMessages.TypeData.LastMessageText);
             UUID uuidChat = UUID.fromString((String) chat.get(JvDefinesMessages.TypeData.UuidChat));
             UUID uuidLastMessage = UUID.fromString((String) chat.get(JvDefinesMessages.TypeData.UuidMessage));
@@ -42,7 +43,7 @@ public class JvChatsCtrl {
                 JvLog.write(JvLog.TypeLog.Warn, "Не получилось нормализовать дату и время к нужному формату");
             }
 
-            chatsModel.createNewChat(login, lastMessageText, uuidChat, uuidLastMessage,
+            chatsModel.createNewChat(login, uuidUser, lastMessageText, uuidChat, uuidLastMessage,
                     isLoginSentLastMessage, statusMessage, timestampLastMessage);
         }
     }
