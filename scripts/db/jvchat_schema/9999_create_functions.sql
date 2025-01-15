@@ -524,11 +524,12 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION jvchat_schema.online_users_info_update_time (
-    f_uuid_user   integer
+    f_uuid_user   character varying
 )
     RETURNS integer AS
 $BODY$
 DECLARE
+    f_uuid_user integer;
     rv integer;
 BEGIN
     rv := -1;
