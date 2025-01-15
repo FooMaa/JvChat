@@ -448,7 +448,7 @@ $BODY$ LANGUAGE plpgsql;
 -- ----------------------------------------------------------------------------------------------
 
 CREATE OR REPLACE FUNCTION jvchat_schema.online_users_info_get_status_time_by_user_login(
-    f_login character varying
+    f_uuid_user character varying
 )
     RETURNS TABLE (status_online int, last_online_time timestamp) AS
 $BODY$
@@ -459,7 +459,7 @@ BEGIN
     SELECT jvchat_schema.online_users_info.status, jvchat_schema.online_users_info.last_online_time
     FROM jvchat_schema.online_users_info 
     LEFT JOIN jvchat_schema.auth_users_info ON jvchat_schema.online_users_info.id_user = jvchat_schema.auth_users_info.id
-    WHERE login = f_login;
+    WHERE uuid_user = f_uuid_user;
 END;
 $BODY$ LANGUAGE plpgsql;
 

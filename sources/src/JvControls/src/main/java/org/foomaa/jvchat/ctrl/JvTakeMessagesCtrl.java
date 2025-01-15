@@ -94,7 +94,7 @@ public class JvTakeMessagesCtrl {
     }
 
     private void workEntryReplyMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
-        UUID uuidUser = UUID.fromString((String) map.get(JvDefinesMessages.TypeData.UuidUser));
+        UUID uuidUser = (UUID) map.get(JvDefinesMessages.TypeData.UuidUser);
         JvGetterSettings.getInstance().getBeanUsersInfoSettings().setUuid(uuidUser);
 
         if ((Boolean) map.get(JvDefinesMessages.TypeData.BoolReply)) {
@@ -305,7 +305,7 @@ public class JvTakeMessagesCtrl {
     }
 
     private void workCheckOnlineUserReplyMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
-        UUID uuidUser = UUID.fromString((String) map.get(JvDefinesMessages.TypeData.UuidUser));
+        UUID uuidUser = (UUID) map.get(JvDefinesMessages.TypeData.UuidUser);
         JvGetterControls.getInstance().getBeanOnlineServersCtrl().addUsersOnline(uuidUser, runnableCtrlFrom);
     }
 
@@ -324,11 +324,11 @@ public class JvTakeMessagesCtrl {
         Object objectMapStatusesUsers = map.get(JvDefinesMessages.TypeData.UsersOnlineInfoList);
         Object objectMapLastOnlineTimeUsers = map.get(JvDefinesMessages.TypeData.TimeStampLastOnlineString);
 
-        Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> mapStatusesUsers =
-                JvGetterTools.getInstance().getBeanStructTools().objectInMap(objectMapStatusesUsers, String.class,
+        Map<UUID, JvMainChatsGlobalDefines.TypeStatusOnline> mapStatusesUsers =
+                JvGetterTools.getInstance().getBeanStructTools().objectInMap(objectMapStatusesUsers, UUID.class,
                         JvMainChatsGlobalDefines.TypeStatusOnline.class);
-        Map<String, String> mapLastOnlineTimeUsers =
-                JvGetterTools.getInstance().getBeanStructTools().objectInMap(objectMapLastOnlineTimeUsers, String.class,
+        Map<UUID, String> mapLastOnlineTimeUsers =
+                JvGetterTools.getInstance().getBeanStructTools().objectInMap(objectMapLastOnlineTimeUsers, UUID.class,
                         String.class);
 
         JvGetterControls.getInstance().getBeanChatsCtrl().setOnlineStatusesUsers(mapStatusesUsers);

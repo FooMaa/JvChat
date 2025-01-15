@@ -124,10 +124,10 @@ public class JvDbRequests {
                 login);
     }
 
-    public String getStatusOnlineTimeUser(String login) {
+    public String getStatusOnlineTimeUser(String uuidUser) {
         return String.format(
-                "SELECT * FROM jvchat_schema.online_users_info_get_status_time_by_user_login('%s');",
-                login);
+                "SELECT * FROM jvchat_schema.online_users_info_get_status_time_by_uuid_user('%s');",
+                uuidUser);
     }
 
     public String getOnlineUsers() {

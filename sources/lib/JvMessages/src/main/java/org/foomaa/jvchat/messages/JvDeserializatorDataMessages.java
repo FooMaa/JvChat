@@ -73,8 +73,8 @@ public class JvDeserializatorDataMessages {
         try {
             result.put(JvDefinesMessages.TypeData.BoolReply, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
                     .getEntryReply().getReply());
-            result.put(JvDefinesMessages.TypeData.UuidUser, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
-                    .getEntryReply().getUuidUser());
+            result.put(JvDefinesMessages.TypeData.UuidUser, UUID.fromString(JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
+                    .getEntryReply().getUuidUser()));
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }
@@ -234,10 +234,10 @@ public class JvDeserializatorDataMessages {
             List<Map<JvDefinesMessages.TypeData, Object>> listMainData = new ArrayList<>();
             for (int i = 0; i < chatsLoadReplyMsg.getChatsInfoCount(); i++) {
                 String login = chatsLoadReplyMsg.getChatsInfo(i).getLogin();
-                String uuidUser = chatsLoadReplyMsg.getChatsInfo(i).getUuidUser();
+                UUID uuidUser = UUID.fromString(chatsLoadReplyMsg.getChatsInfo(i).getUuidUser());
                 String lastMessageText = chatsLoadReplyMsg.getChatsInfo(i).getLastMessageText();
-                String uuidChat = chatsLoadReplyMsg.getChatsInfo(i).getUuidChat();
-                String uuidMessage = chatsLoadReplyMsg.getChatsInfo(i).getUuidMessage();
+                UUID uuidChat = UUID.fromString(chatsLoadReplyMsg.getChatsInfo(i).getUuidChat());
+                UUID uuidMessage = UUID.fromString(chatsLoadReplyMsg.getChatsInfo(i).getUuidMessage());
                 Boolean isLoginSentLastMessage = chatsLoadReplyMsg.getChatsInfo(i).getIsLoginSentLastMessage();
                 JvMainChatsGlobalDefines.TypeStatusMessage statusMessage =
                         JvMainChatsGlobalDefines.TypeStatusMessage.getTypeStatusMessage(
@@ -276,11 +276,11 @@ public class JvDeserializatorDataMessages {
         return result;
     }
 
-    private HashMap<JvDefinesMessages.TypeData, String> takeCheckOnlineUserReplyMessage(byte[] data) {
-        HashMap<JvDefinesMessages.TypeData, String> result = new HashMap<>();
+    private HashMap<JvDefinesMessages.TypeData, UUID> takeCheckOnlineUserReplyMessage(byte[] data) {
+        HashMap<JvDefinesMessages.TypeData, UUID> result = new HashMap<>();
         try {
-            result.put(JvDefinesMessages.TypeData.UuidUser, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
-                    getCheckOnlineReply().getUuidUser());
+            result.put(JvDefinesMessages.TypeData.UuidUser, UUID.fromString(JvClientServerSerializeProtocolMessage_pb.General
+                    .parseFrom(data).getCheckOnlineReply().getUuidUser()));
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }
@@ -306,8 +306,8 @@ public class JvDeserializatorDataMessages {
         return result;
     }
 
-    private HashMap<JvDefinesMessages.TypeData, Map<String, ?>> takeLoadUsersOnlineStatusReplyMessage(byte[] data) {
-        HashMap<JvDefinesMessages.TypeData, Map<String, ?>> result = new HashMap<>();
+    private HashMap<JvDefinesMessages.TypeData, Map<UUID, ?>> takeLoadUsersOnlineStatusReplyMessage(byte[] data) {
+        HashMap<JvDefinesMessages.TypeData, Map<UUID, ?>> result = new HashMap<>();
         try {
             JvClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusReply loadUsersOnlineStatusReply =
                     JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).getLoadUsersOnlineStatusReply();
@@ -316,17 +316,22 @@ public class JvDeserializatorDataMessages {
                     loadUsersOnlineStatusReply.getMapStatusOnlineMap();
             Map<String, String> mapLastOnlineTimeUsers = loadUsersOnlineStatusReply.getMapLastOnlineTimeMap();
 
-            Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> newMapStatusesUsers = new HashMap<>();
+            Map<UUID, JvMainChatsGlobalDefines.TypeStatusOnline> newMapStatusesUsers = new HashMap<>();
             for (String key : mapStatusesUsers.keySet()) {
                 int integerStatus = mapStatusesUsers.get(key).getNumber();
                 JvMainChatsGlobalDefines.TypeStatusOnline statusMsg =
                         JvMainChatsGlobalDefines.TypeStatusOnline.getTypeStatusOnline(integerStatus);
 
-                newMapStatusesUsers.put(key, statusMsg);
+                newMapStatusesUsers.put(UUID.fromString(key), statusMsg);
+            }
+
+            Map<UUID, String> newMapLastOnlineTimes = new HashMap<>();
+            for (String key : mapLastOnlineTimeUsers.keySet()) {
+                newMapLastOnlineTimes.put(UUID.fromString(key), mapLastOnlineTimeUsers.get(key));
             }
 
             result.put(JvDefinesMessages.TypeData.UsersOnlineInfoList, newMapStatusesUsers);
-            result.put(JvDefinesMessages.TypeData.TimeStampLastOnlineString, mapLastOnlineTimeUsers);
+            result.put(JvDefinesMessages.TypeData.TimeStampLastOnlineString, newMapLastOnlineTimes);
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }

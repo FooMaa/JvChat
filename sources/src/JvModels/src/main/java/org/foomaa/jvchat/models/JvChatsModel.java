@@ -60,8 +60,8 @@ public class JvChatsModel extends JvBaseModel {
         addItem(chat, getRootObject());
     }
 
-    public void setOnlineStatusToUser(String login, JvMainChatsGlobalDefines.TypeStatusOnline statusOnline) {
-        JvChatStructObject chat = findByLogin(login);
+    public void setOnlineStatusToUser(UUID uuidUser, JvMainChatsGlobalDefines.TypeStatusOnline statusOnline) {
+        JvChatStructObject chat = findByUuidUser(uuidUser);
         if (chat == null) {
             JvLog.write(JvLog.TypeLog.Error, "Сюда попал объект chat, который null");
             return;
@@ -69,8 +69,8 @@ public class JvChatsModel extends JvBaseModel {
         chat.getUserChat().setStatusOnline(statusOnline);
     }
 
-    public void setTimestampLastOnlineToUser(String login, LocalDateTime timestamp) {
-        JvChatStructObject chat = findByLogin(login);
+    public void setTimestampLastOnlineToUser(UUID uuidUser, LocalDateTime timestamp) {
+        JvChatStructObject chat = findByUuidUser(uuidUser);
         if (chat == null) {
             JvLog.write(JvLog.TypeLog.Error, "Сюда попал объект chat, который null");
             return;
@@ -78,15 +78,15 @@ public class JvChatsModel extends JvBaseModel {
         chat.getUserChat().setTimestampLastOnline(timestamp);
     }
 
-    private JvChatStructObject findByLogin(String login) {
+    private JvChatStructObject findByUuidUser(UUID uuidUser) {
         for (JvBaseStructObject baseStructObject : getRootObject().getChildren()) {
             JvChatStructObject chatStructObject = (JvChatStructObject) baseStructObject;
             if (chatStructObject == null) {
                 JvLog.write(JvLog.TypeLog.Error, "Сюда попал объект chatStructObject, который null");
                 continue;
             }
-            String loginObj = chatStructObject.getUserChat().getLogin();
-            if (Objects.equals(loginObj, login)) {
+            UUID uuidObj = chatStructObject.getUserChat().getUuid();
+            if (uuidObj.equals(uuidUser)) {
                 return chatStructObject;
             }
         }

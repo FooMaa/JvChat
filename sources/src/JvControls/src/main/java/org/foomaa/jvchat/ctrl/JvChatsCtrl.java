@@ -29,10 +29,10 @@ public class JvChatsCtrl {
         int normalizeTimestampCount = 3;
         for (Map<JvDefinesMessages.TypeData, Object> chat : chatsInfo) {
             String login = (String) chat.get(JvDefinesMessages.TypeData.Login);
-            UUID uuidUser = UUID.fromString((String) chat.get(JvDefinesMessages.TypeData.UuidUser));
+            UUID uuidUser = (UUID) chat.get(JvDefinesMessages.TypeData.UuidUser);
             String lastMessageText = (String) chat.get(JvDefinesMessages.TypeData.LastMessageText);
-            UUID uuidChat = UUID.fromString((String) chat.get(JvDefinesMessages.TypeData.UuidChat));
-            UUID uuidLastMessage = UUID.fromString((String) chat.get(JvDefinesMessages.TypeData.UuidMessage));
+            UUID uuidChat = (UUID) chat.get(JvDefinesMessages.TypeData.UuidChat);
+            UUID uuidLastMessage = (UUID) chat.get(JvDefinesMessages.TypeData.UuidMessage);
             Boolean isLoginSentLastMessage = (Boolean) chat.get(JvDefinesMessages.TypeData.IsLoginSentLastMessage);
             JvMainChatsGlobalDefines.TypeStatusMessage statusMessage =
                     (JvMainChatsGlobalDefines.TypeStatusMessage) chat.get(JvDefinesMessages.TypeData.StatusMessage);
@@ -48,18 +48,18 @@ public class JvChatsCtrl {
         }
     }
 
-    public void setOnlineStatusesUsers(Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> onlineStatusesUsers) {
-        for (String login : onlineStatusesUsers.keySet()) {
-            chatsModel.setOnlineStatusToUser(login, onlineStatusesUsers.get(login));
+    public void setOnlineStatusesUsers(Map<UUID, JvMainChatsGlobalDefines.TypeStatusOnline> onlineStatusesUsers) {
+        for (UUID uuidUser : onlineStatusesUsers.keySet()) {
+            chatsModel.setOnlineStatusToUser(uuidUser, onlineStatusesUsers.get(uuidUser));
         }
     }
 
-    public void setLastOnlineTimeUsersByStrings(Map<String, String> lastOnlineTimeUsers) {
+    public void setLastOnlineTimeUsersByStrings(Map<UUID, String> lastOnlineTimeUsers) {
         int normalizeTimestampCount = 3;
-        for (String login : lastOnlineTimeUsers.keySet()) {
+        for (UUID uuidUser : lastOnlineTimeUsers.keySet()) {
             LocalDateTime timestamp = JvGetterTools.getInstance().getBeanFormatTools()
-                    .stringToLocalDateTime(lastOnlineTimeUsers.get(login), normalizeTimestampCount);
-            chatsModel.setTimestampLastOnlineToUser(login, timestamp);
+                    .stringToLocalDateTime(lastOnlineTimeUsers.get(uuidUser), normalizeTimestampCount);
+            chatsModel.setTimestampLastOnlineToUser(uuidUser, timestamp);
         }
     }
 

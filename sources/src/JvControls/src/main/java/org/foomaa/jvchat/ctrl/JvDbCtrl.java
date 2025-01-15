@@ -357,8 +357,8 @@ public class JvDbCtrl {
             }
             case StatusOnlineTimeUser -> {
                 if (parameters.length == 1) {
-                    String login = parameters[0];
-                    ResultSet resultSet = db.makeExecution(dbRequests.getStatusOnlineTimeUser(login));
+                    String uuidUser = parameters[0];
+                    ResultSet resultSet = db.makeExecution(dbRequests.getStatusOnlineTimeUser(uuidUser));
                     List<Map<JvDbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
 
                     db.closeResultSet(resultSet);
