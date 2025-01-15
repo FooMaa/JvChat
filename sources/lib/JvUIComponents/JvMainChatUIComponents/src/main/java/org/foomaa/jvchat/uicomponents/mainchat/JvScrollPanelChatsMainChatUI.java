@@ -180,10 +180,10 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
     }
 
     private void sendingUpdateOnlinePackage() {
-        List<String> loginsChats = JvGetterControls.getInstance().getBeanChatsCtrl().getLoginsChats();
+        List<UUID> uuidsUsersChats = JvGetterControls.getInstance().getBeanChatsCtrl().getUuidsUsersChats();
         JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 JvDefinesMessages.TypeMessage.LoadUsersOnlineStatusRequest,
-                loginsChats);
+                uuidsUsersChats);
     }
 
     private void installingUpdatingDataInRectChats() {

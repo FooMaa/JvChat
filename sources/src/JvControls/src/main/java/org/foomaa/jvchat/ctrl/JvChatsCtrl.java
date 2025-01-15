@@ -86,12 +86,12 @@ public class JvChatsCtrl {
         return result;
     }
 
-    public List<String> getLoginsChats() {
+    public List<UUID> getUuidsUsersChats() {
         List<JvUserStructObject> listUsers = chatsModel.getAllUsersObjects();
-        List<String> resultList = new ArrayList<>();
+        List<UUID> resultList = new ArrayList<>();
 
         for (JvUserStructObject user : listUsers) {
-            resultList.add(user.getLogin());
+            resultList.add(user.getUuid());
         }
 
         return resultList;
