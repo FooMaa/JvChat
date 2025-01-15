@@ -458,20 +458,20 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION jvchat_schema.online_users_info_get_online_users()
-    RETURNS TABLE (login character varying) AS
+    RETURNS TABLE (uuid_user character varying) AS
 $BODY$
 DECLARE
     rv jvchat_schema.online_users_info%rowtype;
 BEGIN
     RETURN QUERY
-    SELECT jvchat_schema.auth_users_info.login
+    SELECT jvchat_schema.auth_users_info.uuid_user
     FROM jvchat_schema.online_users_info 
     LEFT JOIN jvchat_schema.auth_users_info ON jvchat_schema.online_users_info.id_user = jvchat_schema.auth_users_info.id
     WHERE jvchat_schema.online_users_info.status = 2;
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION jvchat_schema.online_users_info_get_time_by_user_login(f_login character varying)
+CREATE OR REPLACE FUNCTION jvchat_schema.online_users_info_get_time_by_user_uuid(f_uuid_user character varying)
     RETURNS timestamp AS
 $BODY$
 DECLARE
@@ -481,7 +481,7 @@ BEGIN
     INTO rv
     FROM jvchat_schema.online_users_info 
     LEFT JOIN jvchat_schema.auth_users_info ON jvchat_schema.online_users_info.id_user = jvchat_schema.auth_users_info.id
-    WHERE jvchat_schema.auth_users_info.login = f_login;
+    WHERE jvchat_schema.auth_users_info.uuid_user = f_uuid_user;
 
     IF found THEN
         RETURN rv;
@@ -491,7 +491,7 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION jvchat_schema.online_users_info_save (
-    f_login         character varying,
+    f_uuid_user         character varying,
     f_status        integer
 )
     RETURNS integer AS
@@ -502,7 +502,7 @@ DECLARE
     f_id_user integer;
 BEGIN
     rv := -1;
-    SELECT id INTO f_id_user FROM jvchat_schema.auth_users_info WHERE login = f_login;
+    SELECT id INTO f_id_user FROM jvchat_schema.auth_users_info WHERE uuid_user = f_uuid_user;
 
     PERFORM * FROM jvchat_schema.online_users_info WHERE id_user = f_id_user;
     IF found THEN

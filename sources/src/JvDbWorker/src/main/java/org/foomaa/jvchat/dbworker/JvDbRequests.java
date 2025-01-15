@@ -41,10 +41,10 @@ public class JvDbRequests {
                 code);
     }
 
-    public String insertOnlineUsersInfo(String login, String status) {
+    public String insertOnlineUsersInfo(String uuidUser, String status) {
         return String.format(
                 "SELECT * FROM jvchat_schema.online_users_info_save('%s', %s);",
-                login,
+                uuidUser,
                 status);
     }
 
@@ -134,10 +134,10 @@ public class JvDbRequests {
         return "SELECT * FROM jvchat_schema.online_users_info_get_online_users();";
     }
 
-    public String getLastOnlineTimeUser(String login) {
+    public String getLastOnlineTimeUser(String uuidUser) {
         return String.format(
-                "SELECT * FROM jvchat_schema.online_users_info_get_time_by_user_login('%s');",
-                login);
+                "SELECT * FROM jvchat_schema.online_users_info_get_time_by_user_uuid('%s');",
+                uuidUser);
     }
 
     public String getQuantityMessagesByLogins(String loginOne, String loginTwo, String quantity) {

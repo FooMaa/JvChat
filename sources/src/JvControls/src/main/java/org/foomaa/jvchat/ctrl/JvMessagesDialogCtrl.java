@@ -150,7 +150,7 @@ public class JvMessagesDialogCtrl {
         JvMessageStructObject messageStructObject = createMessageByData(loginSender, loginReceiver, text, statusMessage, uuid, timestamp);
         JvOnlineServersCtrl onlineServersCtrl =  JvGetterControls.getInstance().getBeanOnlineServersCtrl();
 
-        boolean isUserOnline = onlineServersCtrl.isLoginInListCheckerOnline(messageStructObject.getLoginReceiver());
+        boolean isUserOnline = true;//onlineServersCtrl.isUuidUserInListCheckerOnline(messageStructObject.getLoginReceiver());
         if (!isUserOnline) {
             return;
         }

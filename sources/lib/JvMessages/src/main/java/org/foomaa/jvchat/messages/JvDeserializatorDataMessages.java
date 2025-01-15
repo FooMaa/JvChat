@@ -73,7 +73,7 @@ public class JvDeserializatorDataMessages {
         try {
             result.put(JvDefinesMessages.TypeData.BoolReply, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
                     .getEntryReply().getReply());
-            result.put(JvDefinesMessages.TypeData.Uuid, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
+            result.put(JvDefinesMessages.TypeData.UuidUser, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
                     .getEntryReply().getUuidUser());
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
@@ -218,7 +218,7 @@ public class JvDeserializatorDataMessages {
                     getChatsLoadRequest().getUuidUser();
             UUID uuidUser = UUID.fromString(uuidUserStr);
 
-            result.put(JvDefinesMessages.TypeData.Uuid, uuidUser);
+            result.put(JvDefinesMessages.TypeData.UuidUser, uuidUser);
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }
@@ -277,27 +277,27 @@ public class JvDeserializatorDataMessages {
     private HashMap<JvDefinesMessages.TypeData, String> takeCheckOnlineUserReplyMessage(byte[] data) {
         HashMap<JvDefinesMessages.TypeData, String> result = new HashMap<>();
         try {
-            result.put(JvDefinesMessages.TypeData.Login, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
-                    getCheckOnlineReply().getLogin());
+            result.put(JvDefinesMessages.TypeData.UuidUser, JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
+                    getCheckOnlineReply().getUuidUser());
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }
         return result;
     }
 
-    private HashMap<JvDefinesMessages.TypeData, List<String>> takeLoadUsersOnlineStatusRequestMessage(byte[] data) {
-        HashMap<JvDefinesMessages.TypeData, List<String>> result = new HashMap<>();
+    private HashMap<JvDefinesMessages.TypeData, List<UUID>> takeLoadUsersOnlineStatusRequestMessage(byte[] data) {
+        HashMap<JvDefinesMessages.TypeData, List<UUID>> result = new HashMap<>();
         try {
             JvClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusRequest loadUsersOnlineStatusRequestMsg =
                     JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).getLoadUsersOnlineStatusRequest();
 
-            List<String> listMainData = new ArrayList<>();
-            for (int i = 0; i < loadUsersOnlineStatusRequestMsg.getLoginsCount(); i++) {
-                String login = loadUsersOnlineStatusRequestMsg.getLogins(i);
-                listMainData.add(login);
+            List<UUID> listMainData = new ArrayList<>();
+            for (int i = 0; i < loadUsersOnlineStatusRequestMsg.getUuidsUsersCount(); i++) {
+                UUID uuidUser = UUID.fromString(loadUsersOnlineStatusRequestMsg.getUuidsUsers(i));
+                listMainData.add(uuidUser);
             }
 
-            result.put(JvDefinesMessages.TypeData.LoginsList, listMainData);
+            result.put(JvDefinesMessages.TypeData.UuidsUsersList, listMainData);
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }
@@ -341,7 +341,7 @@ public class JvDeserializatorDataMessages {
 
             result.put(JvDefinesMessages.TypeData.LoginSender, messageInfo.getLoginSender());
             result.put(JvDefinesMessages.TypeData.LoginReceiver, messageInfo.getLoginReceiver());
-            result.put(JvDefinesMessages.TypeData.Uuid, messageInfo.getUuid());
+            result.put(JvDefinesMessages.TypeData.UuidMessage, messageInfo.getUuid());
             result.put(JvDefinesMessages.TypeData.Text, messageInfo.getText());
             result.put(JvDefinesMessages.TypeData.TimeStampMessageSend, messageInfo.getTimestamp());
         } catch (InvalidProtocolBufferException exception) {
@@ -445,7 +445,7 @@ public class JvDeserializatorDataMessages {
 
             result.put(JvDefinesMessages.TypeData.LoginSender, messageInfo.getLoginSender());
             result.put(JvDefinesMessages.TypeData.LoginReceiver, messageInfo.getLoginReceiver());
-            result.put(JvDefinesMessages.TypeData.Uuid, messageInfo.getUuid());
+            result.put(JvDefinesMessages.TypeData.UuidMessage, messageInfo.getUuid());
             result.put(JvDefinesMessages.TypeData.Text, messageInfo.getText());
             result.put(JvDefinesMessages.TypeData.TimeStampMessageSend, messageInfo.getTimestamp());
         } catch (InvalidProtocolBufferException exception) {

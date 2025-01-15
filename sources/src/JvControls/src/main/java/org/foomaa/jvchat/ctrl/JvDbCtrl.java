@@ -325,8 +325,8 @@ public class JvDbCtrl {
             }
             case LastOnlineTimeUser -> {
                 if (parameters.length == 1) {
-                    String login = parameters[0];
-                    ResultSet resultSet = db.makeExecution(dbRequests.getLastOnlineTimeUser(login));
+                    String uuidUser = parameters[0];
+                    ResultSet resultSet = db.makeExecution(dbRequests.getLastOnlineTimeUser(uuidUser));
                     List<String> result = getStrDataAtRow(resultSet, 1);
                     db.closeResultSet(resultSet);
                     if (!result.isEmpty()) {

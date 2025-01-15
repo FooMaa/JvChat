@@ -3,6 +3,7 @@ package org.foomaa.jvchat.models;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.foomaa.jvchat.structobjects.*;
 
@@ -13,12 +14,12 @@ public class JvCheckersOnlineModel extends JvBaseModel {
                 .getBeanRootStructObject(getNameModel()));
     }
 
-    public void createNewCheckersOnline(String login, LocalDateTime dateTimeUpdating) {
+    public void createNewCheckersOnline(UUID uuidUser, LocalDateTime dateTimeUpdating) {
         JvCheckerOnlineStructObject checkerOnlineStructObject =
                 JvGetterStructObjects.getInstance().getBeanCheckerOnlineStructObject();
 
         JvUserStructObject userStructObject =
-                JvGetterModels.getInstance().getBeanUsersModel().findCreateUserStructObjectByLogin(login);
+                JvGetterModels.getInstance().getBeanUsersModel().findCreateUserStructObjectByUuidUser(uuidUser);
 
         checkerOnlineStructObject.setUser(userStructObject);
         checkerOnlineStructObject.setDateTimeUpdating(dateTimeUpdating);
@@ -41,12 +42,12 @@ public class JvCheckersOnlineModel extends JvBaseModel {
         addItem(checkerOnlineStructObject, getRootObject());
     }
 
-    public void createNewCheckersOnline(String login, Runnable runnable, boolean isSending, LocalDateTime dateTimeSending, LocalDateTime dateTimeUpdating) {
+    public void createNewCheckersOnline(UUID uuidUser, Runnable runnable, boolean isSending, LocalDateTime dateTimeSending, LocalDateTime dateTimeUpdating) {
         JvCheckerOnlineStructObject checkerOnlineStructObject =
                 JvGetterStructObjects.getInstance().getBeanCheckerOnlineStructObject();
 
         JvUserStructObject userStructObject =
-                JvGetterModels.getInstance().getBeanUsersModel().findCreateUserStructObjectByLogin(login);
+                JvGetterModels.getInstance().getBeanUsersModel().findCreateUserStructObjectByUuidUser(uuidUser);
         JvSocketRunnableCtrlStructObject socketRunnableCtrlStructObject =
                 JvGetterModels.getInstance().getBeanSocketRunnableCtrlModel().findCreateSocketRunnableCtrlStructObjectByRunnable(runnable);
         

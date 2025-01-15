@@ -126,16 +126,16 @@ public class JvSerializatorDataMessages {
             }
             case CheckOnlineUserReply -> {
                 if (parameters.length == 1) {
-                    Object login = parameters[0];
-                    return createCheckOnlineUserReplyMessage(type, (String) login);
+                    Object uuidUser = parameters[0];
+                    return createCheckOnlineUserReplyMessage(type, (UUID) uuidUser);
                 }
             }
             case LoadUsersOnlineStatusRequest -> {
                 if (parameters.length == 1) {
-                    Object loginsObject = parameters[0];
-                    List<String> loginsList = JvGetterTools.getInstance()
-                            .getBeanStructTools().checkedCastList(loginsObject, String.class);
-                    return createLoadUsersOnlineStatusRequestMessage(type, loginsList);
+                    Object uuidsObject = parameters[0];
+                    List<UUID> uuidsUsers = JvGetterTools.getInstance()
+                            .getBeanStructTools().checkedCastList(uuidsObject, UUID.class);
+                    return createLoadUsersOnlineStatusRequestMessage(type, uuidsUsers);
                 }
             }
             case LoadUsersOnlineStatusReply -> {
@@ -455,10 +455,10 @@ public class JvSerializatorDataMessages {
         return resMsg.toByteArray();
     }
 
-    private byte[] createCheckOnlineUserReplyMessage(JvDefinesMessages.TypeMessage type, String login) {
+    private byte[] createCheckOnlineUserReplyMessage(JvDefinesMessages.TypeMessage type, UUID uuidUser) {
         JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply msgCheckOnlineReplyBuilder =
                 JvClientServerSerializeProtocolMessage_pb.CheckOnlineUserReply.newBuilder()
-                        .setLogin(login)
+                        .setUuidUser(uuidUser.toString())
                         .build();
         JvClientServerSerializeProtocolMessage_pb.General resMsg =
                 JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
@@ -468,12 +468,12 @@ public class JvSerializatorDataMessages {
         return resMsg.toByteArray();
     }
 
-    private byte[] createLoadUsersOnlineStatusRequestMessage(JvDefinesMessages.TypeMessage type, List<String> logins) {
+    private byte[] createLoadUsersOnlineStatusRequestMessage(JvDefinesMessages.TypeMessage type, List<UUID> uuidsUsers) {
         JvClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusRequest.Builder builder =
                 JvClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusRequest.newBuilder();
 
-        for (String login : logins) {
-            builder.addLogins(login);
+        for (UUID uuidUser : uuidsUsers) {
+            builder.addUuidsUsers(uuidUser.toString());
         }
 
         JvClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusRequest msgLoadUsersOnlineStatusRequest = builder.build();

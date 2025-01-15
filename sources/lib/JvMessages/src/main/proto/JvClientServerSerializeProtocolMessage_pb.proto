@@ -156,11 +156,11 @@ message CheckOnlineUserRequest {
 }
 
 message CheckOnlineUserReply {
-    string login = 1;
+    string uuidUser = 1;
 }
 
 message LoadUsersOnlineStatusRequest {
-    repeated string logins = 1;
+    repeated string uuidsUsers = 1;
 }
 
 message LoadUsersOnlineStatusReply {

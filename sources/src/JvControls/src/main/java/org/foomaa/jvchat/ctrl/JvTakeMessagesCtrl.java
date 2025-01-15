@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.UUID;
 
 import org.foomaa.jvchat.cryptography.JvGetterCryptography;
@@ -95,7 +94,7 @@ public class JvTakeMessagesCtrl {
     }
 
     private void workEntryReplyMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
-        UUID uuidUser = UUID.fromString((String) map.get(JvDefinesMessages.TypeData.Uuid));
+        UUID uuidUser = UUID.fromString((String) map.get(JvDefinesMessages.TypeData.UuidUser));
         JvGetterSettings.getInstance().getBeanUsersInfoSettings().setUuid(uuidUser);
 
         if ((Boolean) map.get(JvDefinesMessages.TypeData.BoolReply)) {
@@ -273,7 +272,7 @@ public class JvTakeMessagesCtrl {
     }
 
     private void workChatsLoadRequestMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
-        String uuidUserStr = map.get(JvDefinesMessages.TypeData.Uuid).toString();
+        String uuidUserStr = map.get(JvDefinesMessages.TypeData.UuidUser).toString();
         List<Map<JvDbGlobalDefines.LineKeys, String>> requestDB = JvGetterControls.getInstance()
                 .getBeanDbCtrl().getMultipleInfoFromDb(JvDbCtrl.TypeExecutionGetMultiple.ChatsLoad, uuidUserStr);
         JvGetterControls.getInstance().getBeanSendMessagesCtrl().
@@ -294,29 +293,29 @@ public class JvTakeMessagesCtrl {
     private void workCheckOnlineUserRequestMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         @SuppressWarnings("unused")
         String ip = (String) map.get(JvDefinesMessages.TypeData.IP);
-        String login = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
+        UUID uuidUser = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
 
-        if (Objects.equals(login, "") || login == null) {
-            JvLog.write(JvLog.TypeLog.Warn, "Здесь login не задан");
+        if (uuidUser == null) {
+            JvLog.write(JvLog.TypeLog.Warn, "Здесь uuidUser не задан");
             return;
         }
 
         JvGetterControls.getInstance().getBeanSendMessagesCtrl()
-                .sendMessage(JvDefinesMessages.TypeMessage.CheckOnlineUserReply, login);
+                .sendMessage(JvDefinesMessages.TypeMessage.CheckOnlineUserReply, uuidUser);
     }
 
     private void workCheckOnlineUserReplyMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
-        String login = (String) map.get(JvDefinesMessages.TypeData.Login);
-        JvGetterControls.getInstance().getBeanOnlineServersCtrl().addUsersOnline(login, runnableCtrlFrom);
+        UUID uuidUser = UUID.fromString((String) map.get(JvDefinesMessages.TypeData.UuidUser));
+        JvGetterControls.getInstance().getBeanOnlineServersCtrl().addUsersOnline(uuidUser, runnableCtrlFrom);
     }
 
     private void workLoadUsersOnlineStatusRequestMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
-        Object objectList = map.get(JvDefinesMessages.TypeData.LoginsList);
-        List<String> logins = JvGetterTools.getInstance().getBeanStructTools().checkedCastList(objectList, String.class);
-        Map<String, JvMainChatsGlobalDefines.TypeStatusOnline> statusesUsers =
-                JvGetterControls.getInstance().getBeanOnlineServersCtrl().getStatusesUsers(logins);
-        Map<String, String> lastOnlineTimeUsers =
-                JvGetterControls.getInstance().getBeanOnlineServersCtrl().getLastOnlineTimeUsers(logins);
+        Object objectList = map.get(JvDefinesMessages.TypeData.UuidsUsersList);
+        List<UUID> uuidsUsers = JvGetterTools.getInstance().getBeanStructTools().checkedCastList(objectList, UUID.class);
+        Map<UUID, JvMainChatsGlobalDefines.TypeStatusOnline> statusesUsers =
+                JvGetterControls.getInstance().getBeanOnlineServersCtrl().getStatusesUsers(uuidsUsers);
+        Map<UUID, String> lastOnlineTimeUsers =
+                JvGetterControls.getInstance().getBeanOnlineServersCtrl().getLastOnlineTimeUsers(uuidsUsers);
         JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 JvDefinesMessages.TypeMessage.LoadUsersOnlineStatusReply, statusesUsers, lastOnlineTimeUsers);
     }
@@ -342,7 +341,7 @@ public class JvTakeMessagesCtrl {
     private void workTextMessageSendUserToServerMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         String loginSender = (String) map.get(JvDefinesMessages.TypeData.LoginSender);
         String loginReceiver = (String) map.get(JvDefinesMessages.TypeData.LoginReceiver);
-        String uuid = (String) map.get(JvDefinesMessages.TypeData.Uuid);
+        String uuid = (String) map.get(JvDefinesMessages.TypeData.UuidMessage);
         String text = (String) map.get(JvDefinesMessages.TypeData.Text);
         String timestampStr = (String) map.get(JvDefinesMessages.TypeData.TimeStampMessageSend);
 
@@ -423,7 +422,7 @@ public class JvTakeMessagesCtrl {
     private void workTextMessageRedirectServerToUserMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         String loginSender = (String) map.get(JvDefinesMessages.TypeData.LoginSender);
         String loginReceiver = (String) map.get(JvDefinesMessages.TypeData.LoginReceiver);
-        String uuid = (String) map.get(JvDefinesMessages.TypeData.Uuid);
+        String uuid = (String) map.get(JvDefinesMessages.TypeData.UuidMessage);
         String text = (String) map.get(JvDefinesMessages.TypeData.Text);
         String timestampStr = (String) map.get(JvDefinesMessages.TypeData.TimeStampMessageSend);
 
