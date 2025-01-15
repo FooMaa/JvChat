@@ -529,7 +529,7 @@ CREATE OR REPLACE FUNCTION jvchat_schema.online_users_info_update_time (
     RETURNS integer AS
 $BODY$
 DECLARE
-    f_uuid_user integer;
+    f_id_user integer;
     rv integer;
 BEGIN
     rv := -1;
