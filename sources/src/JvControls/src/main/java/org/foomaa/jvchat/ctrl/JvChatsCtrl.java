@@ -102,11 +102,11 @@ public class JvChatsCtrl {
         return chatsModel.getSortedChatsObjects();
     }
 
-    public JvUserStructObject getUserObjectsByLogin(String login) {
+    public JvUserStructObject getUserObjectsByUuidUser(UUID uuidUser) {
         List<JvUserStructObject> usersList = chatsModel.getAllUsersObjects();
 
         for (JvUserStructObject user : usersList) {
-            if (Objects.equals(user.getLogin(), login)) {
+            if (user.getUuid().equals(uuidUser)) {
                 return user;
             }
         }

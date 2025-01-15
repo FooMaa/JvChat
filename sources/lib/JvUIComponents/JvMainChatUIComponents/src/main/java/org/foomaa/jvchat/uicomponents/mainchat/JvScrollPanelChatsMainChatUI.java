@@ -189,9 +189,9 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
     private void installingUpdatingDataInRectChats() {
         for (Component component : boxComponents.getComponents()) {
             JvRectChatMainChatUI rectChatMainChatUI = (JvRectChatMainChatUI) component;
-            String login = rectChatMainChatUI.getNickName();
+            UUID uuidUser = rectChatMainChatUI.getUuidUser();
 
-            JvUserStructObject user = JvGetterControls.getInstance().getBeanChatsCtrl().getUserObjectsByLogin(login);
+            JvUserStructObject user = JvGetterControls.getInstance().getBeanChatsCtrl().getUserObjectsByUuidUser(uuidUser);
             String lastOnlineString = JvGetterControls.getInstance().getBeanChatsCtrl().getTimeFormattedLastOnline(user.getTimestampLastOnline());
 
             rectChatMainChatUI.setLastOnlineDateTime(lastOnlineString);
