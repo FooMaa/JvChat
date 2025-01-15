@@ -447,7 +447,7 @@ $BODY$ LANGUAGE plpgsql;
 -- jvchat_schema.online_users_info
 -- ----------------------------------------------------------------------------------------------
 
-CREATE OR REPLACE FUNCTION jvchat_schema.online_users_info_get_status_time_by_user_login(
+CREATE OR REPLACE FUNCTION jvchat_schema.online_users_info_get_status_time_by_uuid_user(
     f_uuid_user character varying
 )
     RETURNS TABLE (status_online int, last_online_time timestamp) AS
@@ -524,7 +524,7 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION jvchat_schema.online_users_info_update_time (
-    f_id_user   integer
+    f_uuid_user   integer
 )
     RETURNS integer AS
 $BODY$
@@ -532,6 +532,8 @@ DECLARE
     rv integer;
 BEGIN
     rv := -1;
+    SELECT id INTO f_id_user FROM jvchat_schema.auth_users_info WHERE uuid_user = f_uuid_user;
+
     PERFORM * FROM jvchat_schema.online_users_info WHERE id_user = f_id_user;
     IF found THEN
         UPDATE jvchat_schema.online_users_info SET last_online_time = NOW() WHERE id_user = f_id_user;
