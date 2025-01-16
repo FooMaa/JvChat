@@ -358,22 +358,29 @@ CREATE OR REPLACE FUNCTION jvchat_schema.chats_messages_get_quantity_messages_by
     f_uuid_chat character varying,
     f_quantity int
 )
-    RETURNS TABLE (sender character varying, receiver character varying, text_message character varying, uuid_message character varying, datetime_message timestamp, status_message int) AS
+    RETURNS TABLE (sender character varying, receiver character varying, uuid_message character varying, text_message character varying, datetime_message timestamp, status_message int) AS
 $BODY$
 DECLARE
     rv jvchat_schema.chats_messages%rowtype;
 BEGIN
+    string uuidUserSender = 1;
+    string uuidUserReceiver = 2;
+    string uuidMessage = 3;
+    uint32 statusMessage = 4;
+    string text = 5;
+    string timestamp = 6;
+
     RETURN QUERY SELECT
-    auth1.login AS sender,
-    auth2.login AS receiver,
-    chats.message AS text_message,
-    chats.uuid_message AS uuid_message, 
+    auth1.uuid_user AS uuid_sender,
+    auth2.uuid_user AS uuid_receiver,
+    chats.uuid_message AS uuid_message,
+    chats.message AS text_message, 
     chats.datetime AS datetime_message,
     chats.status AS status_message
     FROM jvchat_schema.chats_messages AS chats
     LEFT JOIN jvchat_schema.auth_users_info AS auth1 ON chats.senderID = auth1.id 
     LEFT JOIN jvchat_schema.auth_users_info AS auth2 ON chats.receiverID = auth2.id  
-    WHERE chats_messages.uuid_chat = f_uuid_chat
+    WHERE chats.uuid_chat = f_uuid_chat
     ORDER BY datetime_message DESC
     LIMIT f_quantity;
 END;
