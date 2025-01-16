@@ -1,6 +1,5 @@
 package org.foomaa.jvchat.messages;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -681,11 +680,11 @@ public class JvSerializatorDataMessages {
     }
 
     private byte[] createMessagesLoadReplyMessage(JvDefinesMessages.TypeMessage type,
-                                               List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo) {
+                                               List<Map<JvDbGlobalDefines.LineKeys, String>> msgInfo) {
         JvClientServerSerializeProtocolMessage_pb.MessagesLoadReply.Builder builder =
                 JvClientServerSerializeProtocolMessage_pb.MessagesLoadReply.newBuilder();
 
-        for (Map<JvDbGlobalDefines.LineKeys, String> map : chatsInfo) {
+        for (Map<JvDbGlobalDefines.LineKeys, String> map : msgInfo) {
             JvClientServerSerializeProtocolMessage_pb.MessagesInfo msgInfoMap = JvClientServerSerializeProtocolMessage_pb.MessagesInfo
                     .newBuilder()
                     .setUuidUserSender(map.get(JvDbGlobalDefines.LineKeys.UuidSender))

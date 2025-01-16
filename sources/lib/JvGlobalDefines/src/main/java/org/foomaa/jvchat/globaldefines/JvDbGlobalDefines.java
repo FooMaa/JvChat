@@ -7,8 +7,6 @@ public class JvDbGlobalDefines {
     JvDbGlobalDefines() {}
 
     public enum LineKeys {
-        Sender("sender"),
-        Receiver("receiver"),
         Login("login"),
         LastMessageText("last_message_text"),
         UuidUser("uuid_user"),

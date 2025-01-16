@@ -394,9 +394,14 @@ DECLARE
     f_id_user_sender integer;
     f_id_user_receiver integer;
     f_cast_timestamp timestamp;
+    f_uuid_chat character varying;
 BEGIN
     SELECT id INTO f_id_user_sender FROM jvchat_schema.auth_users_info WHERE uuid_user = f_uuid_user_sender;
     SELECT id INTO f_id_user_receiver FROM jvchat_schema.auth_users_info WHERE uuid_user = f_uuid_user_receiver;
+    SELECT uuid_chat INTO f_uuid_chat FROM jvchat_schema.chats_messages WHERE (senderID = f_id_user_sender 
+        AND receiverID = f_id_user_receiver) OR (senderID = f_id_user_receiver
+        AND receiverID = f_id_user_sender) 
+    LIMIT 1;
     SELECT cast(f_datetime as timestamp) INTO f_cast_timestamp;
     
     rv := -1;
@@ -413,7 +418,7 @@ BEGIN
         AND uuid_message = f_uuid_message;
         rv := 1;
     ELSE
-        INSERT INTO jvchat_schema.chats_messages (senderID, receiverID, status, message, uuid_message, datetime) VALUES (f_id_user_sender, f_id_user_receiver, f_status, f_message, f_uuid_message, f_cast_timestamp);
+        INSERT INTO jvchat_schema.chats_messages (senderID, receiverID, status, message, uuid_chat, uuid_message, datetime) VALUES (f_id_user_sender, f_id_user_receiver, f_status, f_message, f_uuid_message, f_cast_timestamp);
         rv := 2;
     END IF;
 

@@ -109,7 +109,7 @@ public class JvMessagesDialogCtrl {
                 JvDefinesMessages.TypeMessage.TextMessageSendUserToServer,
                 message.getUuidUserSender(),
                 message.getUuidUserReceiver(),
-                message.getUuid().toString(),
+                message.getUuid(),
                 message.getText(),
                 timestampNewMessage);
     }
