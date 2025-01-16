@@ -169,12 +169,10 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
     private void addRedirectMessage() {
         List<JvMessageStructObject> allMessagesObjSorted = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().getAllSortedMessages();
         UUID currentPanelUuid = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().getCurrentActiveChatUuid();
-        String currentPanelLogin = JvGetterControls.getInstance()
-                .getBeanMessagesDialogCtrl().findChatByUuid(currentPanelUuid).getUserChat().getLogin();
 
         for (JvMessageStructObject messageStructObject : allMessagesObjSorted) {
             if (findRectMessageByUuid(panel, messageStructObject.getUuid()) == null &&
-                    Objects.equals(currentPanelLogin, messageStructObject.getUuidUserSender())) {
+                    messageStructObject.getUuidUserSender().equals(currentPanelUuid)) {
                 addMessage(messageStructObject);
             }
         }

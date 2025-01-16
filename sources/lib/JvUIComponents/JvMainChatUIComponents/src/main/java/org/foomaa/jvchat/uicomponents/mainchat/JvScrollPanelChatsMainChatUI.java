@@ -127,7 +127,7 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
     }
 
     private List<JvChatStructObject> getChatsObjects() {
-        List<JvChatStructObject> loginsList = new ArrayList<>();
+        List<JvChatStructObject> chatsStructObjectsList = new ArrayList<>();
         while (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getChatsLoadReplyFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
@@ -138,11 +138,11 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
 
             if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getChatsLoadReplyFlag() ==
                     JvMessagesDefinesCtrl.TypeFlags.TRUE) {
-                loginsList = JvGetterControls.getInstance().getBeanChatsCtrl().getChatsObjects();
+                chatsStructObjectsList = JvGetterControls.getInstance().getBeanChatsCtrl().getChatsObjects();
             }
         }
 
-        return loginsList;
+        return chatsStructObjectsList;
     }
 
     @SuppressWarnings("InfiniteLoopStatement")

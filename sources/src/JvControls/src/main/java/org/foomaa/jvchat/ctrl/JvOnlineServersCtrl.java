@@ -267,8 +267,8 @@ public class JvOnlineServersCtrl {
     public Map<UUID, JvMainChatsGlobalDefines.TypeStatusOnline> getStatusesUsers(List<UUID> uuidsUsers) {
         Map<UUID, JvMainChatsGlobalDefines.TypeStatusOnline> resultMap = new HashMap<>();
         for (UUID uuidUser : uuidsUsers) {
-            boolean isLoginOnline = isUuidUserInListCheckerOnline(uuidUser);
-            if (isLoginOnline) {
+            boolean isUserOnline = isUuidUserInListCheckerOnline(uuidUser);
+            if (isUserOnline) {
                 resultMap.put(uuidUser, JvMainChatsGlobalDefines.TypeStatusOnline.Online);
             } else {
                 resultMap.put(uuidUser, JvMainChatsGlobalDefines.TypeStatusOnline.Offline);
