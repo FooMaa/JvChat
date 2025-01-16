@@ -217,4 +217,16 @@ public class JvMessagesDialogCtrl {
     public List<JvMessageStructObject> getAllSortedMessages() {
         return messagesModel.getSortedMessagesObjects();
     }
+
+    public UUID findUuidChatByUuidUser(UUID uuidSender) {
+        List<JvChatStructObject> chatsList = chatsModel.getAllChatsObjects();
+
+        for (JvChatStructObject chat : chatsList) {
+            UUID userUuid = chat.getUserChat().getUuid();
+            if (userUuid.equals(uuidSender)) {
+                return chat.getUuid();
+            }
+        }
+        return null;
+    }
 }

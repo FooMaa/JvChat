@@ -170,8 +170,11 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
         UUID currentPanelUuid = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().getCurrentActiveChatUuid();
 
         for (JvMessageStructObject messageStructObject : allMessagesObjSorted) {
+            UUID uuidChat = JvGetterControls.getInstance().getBeanMessagesDialogCtrl()
+                    .findUuidChatByUuidUser(messageStructObject.getUuidUserSender());
             if (findRectMessageByUuid(panel, messageStructObject.getUuid()) == null &&
-                    messageStructObject.getUuidUserSender().equals(currentPanelUuid)) {
+                    uuidChat != null &&
+                    uuidChat.equals(currentPanelUuid)) {
                 addMessage(messageStructObject);
             }
         }
