@@ -52,10 +52,6 @@ public class JvRectChatMainChatUI extends JPanel {
         addListenerToElements();
     }
 
-    public String getNickName() {
-        return nickName;
-    }
-
     public UUID getUuidUser() {
         return uuidUser;
     }
