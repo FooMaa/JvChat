@@ -113,12 +113,11 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
     }
 
     private void requestMessagesFromServer() {
-        String loginRequesting = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
-        String loginDialog = selectedElement.getNickName();
+        UUID uuidChat = selectedElement.getUuidChat();
         int quantityMessages = JvGetterSettings.getInstance().getBeanUISettings().getQuantityMessagesLoad();
 
         JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
-                JvDefinesMessages.TypeMessage.MessagesLoadRequest, loginRequesting, loginDialog, quantityMessages);
+                JvDefinesMessages.TypeMessage.MessagesLoadRequest, uuidChat, quantityMessages);
     }
 
     private void setRequestChatsToServer() {

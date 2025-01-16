@@ -60,6 +60,10 @@ public class JvRectChatMainChatUI extends JPanel {
         return uuidUser;
     }
 
+    public UUID getUuidChat() {
+        return uuidChat;
+    }
+
     private void makeChatBox() {
         GridBagConstraints gbc = new GridBagConstraints();
         setLayout(new GridBagLayout());
