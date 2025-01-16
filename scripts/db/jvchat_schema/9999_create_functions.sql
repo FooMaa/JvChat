@@ -418,7 +418,7 @@ BEGIN
         AND uuid_message = f_uuid_message;
         rv := 1;
     ELSE
-        INSERT INTO jvchat_schema.chats_messages (senderID, receiverID, status, message, uuid_chat, uuid_message, datetime) VALUES (f_id_user_sender, f_id_user_receiver, f_status, f_message, f_uuid_message, f_cast_timestamp);
+        INSERT INTO jvchat_schema.chats_messages (senderID, receiverID, status, message, uuid_chat, uuid_message, datetime) VALUES (f_id_user_sender, f_id_user_receiver, f_status, f_message, f_uuid_chat, f_uuid_message, f_cast_timestamp);
         rv := 2;
     END IF;
 
