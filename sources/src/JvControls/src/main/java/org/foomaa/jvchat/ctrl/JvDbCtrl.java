@@ -382,13 +382,11 @@ public class JvDbCtrl {
                 return null;
             }
             case MessagesLoad -> {
-                if (parameters.length == 3) {
-                    String loginRequesting = parameters[0];
-                    String loginDialog = parameters[1];
-                    String quantityMessages = parameters[2];
+                if (parameters.length == 2) {
+                    String uuidChat = parameters[0];
+                    String quantityMessages = parameters[1];
 
-                    ResultSet resultSet = db.makeExecution(dbRequests.getQuantityMessagesByLogins(
-                            loginRequesting, loginDialog, quantityMessages));
+                    ResultSet resultSet = db.makeExecution(dbRequests.getQuantityMessagesByUuids(uuidChat, quantityMessages));
                     List<Map<JvDbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
 
                     db.closeResultSet(resultSet);

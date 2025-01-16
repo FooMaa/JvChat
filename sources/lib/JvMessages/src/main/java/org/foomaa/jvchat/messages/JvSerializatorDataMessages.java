@@ -213,11 +213,10 @@ public class JvSerializatorDataMessages {
                 }
             }
             case MessagesLoadRequest -> {
-                if (parameters.length == 3) {
-                    Object uuidUserRequesting = parameters[0];
-                    Object uuidChat = parameters[1];
-                    Object quantityMessages = parameters[2];
-                    return createMessagesLoadRequestMessage(type, (UUID) uuidUserRequesting, (UUID) uuidChat, (Integer) quantityMessages);
+                if (parameters.length == 2) {
+                    Object uuidChat = parameters[0];
+                    Object quantityMessages = parameters[1];
+                    return createMessagesLoadRequestMessage(type, (UUID) uuidChat, (Integer) quantityMessages);
                 }
             }
             case MessagesLoadReply -> {
@@ -666,11 +665,10 @@ public class JvSerializatorDataMessages {
         return resMsg.toByteArray();
     }
 
-    private byte[] createMessagesLoadRequestMessage(JvDefinesMessages.TypeMessage type, UUID uuidUserRequesting,
+    private byte[] createMessagesLoadRequestMessage(JvDefinesMessages.TypeMessage type,
                                                     UUID uuidChat, int quantityMessages) {
         JvClientServerSerializeProtocolMessage_pb.MessagesLoadRequest loadMessagesRequest =
                 JvClientServerSerializeProtocolMessage_pb.MessagesLoadRequest.newBuilder()
-                        .setUuidUserRequesting(uuidUserRequesting.toString())
                         .setUuidChat(uuidChat.toString())
                         .setQuantityMessages(quantityMessages)
                         .build();

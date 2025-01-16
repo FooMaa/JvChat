@@ -354,9 +354,8 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION jvchat_schema.chats_messages_get_quantity_messages_by_logins(
-    f_login_one character varying,
-    f_login_two character varying,
+CREATE OR REPLACE FUNCTION jvchat_schema.chats_messages_get_quantity_messages_by_chat(
+    f_uuid_chat character varying,
     f_quantity int
 )
     RETURNS TABLE (sender character varying, receiver character varying, text_message character varying, uuid_message character varying, datetime_message timestamp, status_message int) AS
@@ -374,8 +373,7 @@ BEGIN
     FROM jvchat_schema.chats_messages AS chats
     LEFT JOIN jvchat_schema.auth_users_info AS auth1 ON chats.senderID = auth1.id 
     LEFT JOIN jvchat_schema.auth_users_info AS auth2 ON chats.receiverID = auth2.id  
-    WHERE (auth1.login = f_login_one AND auth2.login = f_login_two) 
-    OR (auth1.login = f_login_two AND auth2.login = f_login_one)
+    WHERE chats_messages.uuid_chat = f_uuid_chat
     ORDER BY datetime_message DESC
     LIMIT f_quantity;
 END;

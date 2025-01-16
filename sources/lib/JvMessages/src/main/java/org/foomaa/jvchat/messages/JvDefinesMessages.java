@@ -87,7 +87,6 @@ public class JvDefinesMessages {
         UuidUser,
         UuidUserSender,
         UuidUserReceiver,
-        UuidUserRequesting,
         IsLoginSentLastMessage,
         DateTimeLastMessage,
         StatusMessage,

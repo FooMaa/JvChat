@@ -227,9 +227,8 @@ message TextMessageRedirectServerToUserVerification {
 }
 
 message MessagesLoadRequest {
-    string uuidUserRequesting = 1;
-    string uuidChat = 2;
-    uint32 quantityMessages = 3;
+    string uuidChat = 1;
+    uint32 quantityMessages = 2;
 }
 
 message MessagesLoadReply {

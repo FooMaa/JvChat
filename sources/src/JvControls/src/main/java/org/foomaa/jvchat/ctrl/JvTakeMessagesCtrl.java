@@ -451,13 +451,12 @@ public class JvTakeMessagesCtrl {
     }
 
     private void workMessagesLoadRequestMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
-        String loginRequesting = (String) map.get(JvDefinesMessages.TypeData.LoginRequesting);
-        String loginDialog = (String) map.get(JvDefinesMessages.TypeData.LoginDialog);
+        UUID uuidChat = (UUID) map.get(JvDefinesMessages.TypeData.UuidChat);
         int quantityMessages = (Integer) map.get(JvDefinesMessages.TypeData.QuantityMessages);
 
         List<Map<JvDbGlobalDefines.LineKeys, String>> requestDB = JvGetterControls.getInstance()
                 .getBeanDbCtrl().getMultipleInfoFromDb(JvDbCtrl.TypeExecutionGetMultiple.MessagesLoad,
-                        loginRequesting, loginDialog, String.valueOf(quantityMessages));
+                        uuidChat.toString(), String.valueOf(quantityMessages));
         JvGetterControls.getInstance().getBeanSendMessagesCtrl().
                 sendMessage(JvDefinesMessages.TypeMessage.MessagesLoadReply, requestDB);
     }

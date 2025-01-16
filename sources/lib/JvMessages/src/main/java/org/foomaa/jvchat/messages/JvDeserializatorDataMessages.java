@@ -481,8 +481,7 @@ public class JvDeserializatorDataMessages {
                     JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
                             .getMessagesLoadRequest();
 
-            result.put(JvDefinesMessages.TypeData.UuidUserRequesting, msgData.getUuidUserRequesting());
-            result.put(JvDefinesMessages.TypeData.UuidChat, msgData.getUuidChat());
+            result.put(JvDefinesMessages.TypeData.UuidChat, UUID.fromString(msgData.getUuidChat()));
             result.put(JvDefinesMessages.TypeData.QuantityMessages, msgData.getQuantityMessages());
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");

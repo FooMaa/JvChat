@@ -140,11 +140,10 @@ public class JvDbRequests {
                 uuidUser);
     }
 
-    public String getQuantityMessagesByLogins(String loginOne, String loginTwo, String quantity) {
+    public String getQuantityMessagesByUuids(String uuidChat, String quantity) {
         return String.format(
-                "SELECT * FROM jvchat_schema.chats_messages_get_quantity_messages_by_logins('%s', '%s', %s);",
-                loginOne,
-                loginTwo,
+                "SELECT * FROM jvchat_schema.chats_messages_get_quantity_messages_by_chat('%s', %s);",
+                uuidChat,
                 quantity);
     }
 }

@@ -276,11 +276,10 @@ public class JvSendMessagesCtrl {
                 }
             }
             case MessagesLoadRequest -> {
-                if (parameters.length == 3) {
-                    Object uuidUserRequesting = parameters[0];
-                    Object uuidChat = parameters[1];
-                    Object quantityMessages = parameters[2];
-                    byte[] bodyMessage = createMessagesLoadRequestMessage(type, (UUID) uuidUserRequesting, (UUID) uuidChat, (Integer) quantityMessages);
+                if (parameters.length == 2) {
+                    Object uuidChat = parameters[0];
+                    Object quantityMessages = parameters[1];
+                    byte[] bodyMessage = createMessagesLoadRequestMessage(type, (UUID) uuidChat, (Integer) quantityMessages);
                     sendReadyMessageNetwork(bodyMessage);
                     JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
                             .setTextMessagesLoadReplyFlag(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
@@ -421,9 +420,8 @@ public class JvSendMessagesCtrl {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
     }
 
-    private byte[] createMessagesLoadRequestMessage(JvDefinesMessages.TypeMessage type, UUID uuidUserRequesting,
-                                                    UUID uuidChat, int quantityMessages) {
-        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, uuidUserRequesting, uuidChat, quantityMessages);
+    private byte[] createMessagesLoadRequestMessage(JvDefinesMessages.TypeMessage type, UUID uuidChat, int quantityMessages) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, uuidChat, quantityMessages);
     }
 
     private byte[] createBodyMessagesLoadReplyMessage(JvDefinesMessages.TypeMessage type, List<Map<JvDbGlobalDefines.LineKeys, String>> reply) {
