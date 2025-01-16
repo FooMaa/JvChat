@@ -113,12 +113,11 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
     }
 
     private void requestMessagesFromServer() {
-        String loginRequesting = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
-        String loginDialog = selectedElement.getNickName();
+        UUID uuidChat = selectedElement.getUuidChat();
         int quantityMessages = JvGetterSettings.getInstance().getBeanUISettings().getQuantityMessagesLoad();
 
         JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
-                JvDefinesMessages.TypeMessage.MessagesLoadRequest, loginRequesting, loginDialog, quantityMessages);
+                JvDefinesMessages.TypeMessage.MessagesLoadRequest, uuidChat, quantityMessages);
     }
 
     private void setRequestChatsToServer() {
@@ -128,7 +127,7 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
     }
 
     private List<JvChatStructObject> getChatsObjects() {
-        List<JvChatStructObject> loginsList = new ArrayList<>();
+        List<JvChatStructObject> chatsStructObjectsList = new ArrayList<>();
         while (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getChatsLoadReplyFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
@@ -139,11 +138,11 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
 
             if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getChatsLoadReplyFlag() ==
                     JvMessagesDefinesCtrl.TypeFlags.TRUE) {
-                loginsList = JvGetterControls.getInstance().getBeanChatsCtrl().getChatsObjects();
+                chatsStructObjectsList = JvGetterControls.getInstance().getBeanChatsCtrl().getChatsObjects();
             }
         }
 
-        return loginsList;
+        return chatsStructObjectsList;
     }
 
     @SuppressWarnings("InfiniteLoopStatement")

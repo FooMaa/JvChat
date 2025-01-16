@@ -177,15 +177,14 @@ public class JvDbCtrl {
             }
             case ChatMessagesSentMessage -> {
                 if (parameters.length == 6) {
-                    String loginSender = parameters[0];
-                    String loginReceiver = parameters[1];
-                    String status = parameters[2];
-                    String message = parameters[3];
-                    String uuidMessage = parameters[4];
-                    String datetime = parameters[5];
-                    
+                    String uuidUserSender = parameters[0];
+                    String uuidUserReceiver = parameters[1];
+                    String uuidMessage = parameters[2];
+                    String status = parameters[3];
+                    String text = parameters[4];
+                    String timestamp = parameters[5];
                     ResultSet rs = db.makeExecution(dbRequests.insertChatsSentMessage(
-                            loginSender, loginReceiver, status, message, uuidMessage, datetime));
+                            uuidUserSender, uuidUserReceiver, uuidMessage, status, text, timestamp));
                     db.closeResultSet(rs);
                     return true;
                 }
@@ -383,13 +382,11 @@ public class JvDbCtrl {
                 return null;
             }
             case MessagesLoad -> {
-                if (parameters.length == 3) {
-                    String loginRequesting = parameters[0];
-                    String loginDialog = parameters[1];
-                    String quantityMessages = parameters[2];
+                if (parameters.length == 2) {
+                    String uuidChat = parameters[0];
+                    String quantityMessages = parameters[1];
 
-                    ResultSet resultSet = db.makeExecution(dbRequests.getQuantityMessagesByLogins(
-                            loginRequesting, loginDialog, quantityMessages));
+                    ResultSet resultSet = db.makeExecution(dbRequests.getQuantityMessagesByUuids(uuidChat, quantityMessages));
                     List<Map<JvDbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
 
                     db.closeResultSet(resultSet);

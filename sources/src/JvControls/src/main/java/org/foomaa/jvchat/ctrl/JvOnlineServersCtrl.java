@@ -267,8 +267,8 @@ public class JvOnlineServersCtrl {
     public Map<UUID, JvMainChatsGlobalDefines.TypeStatusOnline> getStatusesUsers(List<UUID> uuidsUsers) {
         Map<UUID, JvMainChatsGlobalDefines.TypeStatusOnline> resultMap = new HashMap<>();
         for (UUID uuidUser : uuidsUsers) {
-            boolean isLoginOnline = isUuidUserInListCheckerOnline(uuidUser);
-            if (isLoginOnline) {
+            boolean isUserOnline = isUuidUserInListCheckerOnline(uuidUser);
+            if (isUserOnline) {
                 resultMap.put(uuidUser, JvMainChatsGlobalDefines.TypeStatusOnline.Online);
             } else {
                 resultMap.put(uuidUser, JvMainChatsGlobalDefines.TypeStatusOnline.Offline);
@@ -290,7 +290,7 @@ public class JvOnlineServersCtrl {
         return resultMap;
     }
 
-    public Runnable getRunnableByLogin(String login) {
+    public Runnable getRunnableByUuidUser(UUID uuidUser) {
         List<JvCheckerOnlineStructObject> listCheckersOnline = checkersOnlineModel.getAllCheckersOnline();
 
         for (JvCheckerOnlineStructObject checkerOnline : listCheckersOnline) {
@@ -300,7 +300,7 @@ public class JvOnlineServersCtrl {
                 continue;
             }
 
-            if (Objects.equals(checkerOnline.getUser().getLogin(), login)) {
+            if (checkerOnline.getUser().getUuid().equals(uuidUser)) {
                 return socketRunnableCtrlStructObject.getSocketRunnableCtrl();
             }
         }

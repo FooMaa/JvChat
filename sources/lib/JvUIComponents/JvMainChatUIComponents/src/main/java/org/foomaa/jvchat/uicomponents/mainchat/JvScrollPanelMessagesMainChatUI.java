@@ -10,7 +10,6 @@ import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 
@@ -169,12 +168,10 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
     private void addRedirectMessage() {
         List<JvMessageStructObject> allMessagesObjSorted = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().getAllSortedMessages();
         UUID currentPanelUuid = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().getCurrentActiveChatUuid();
-        String currentPanelLogin = JvGetterControls.getInstance()
-                .getBeanMessagesDialogCtrl().findChatByUuid(currentPanelUuid).getUserChat().getLogin();
 
         for (JvMessageStructObject messageStructObject : allMessagesObjSorted) {
             if (findRectMessageByUuid(panel, messageStructObject.getUuid()) == null &&
-                    Objects.equals(currentPanelLogin, messageStructObject.getLoginSender())) {
+                    messageStructObject.getUuidUserSender().equals(currentPanelUuid)) {
                 addMessage(messageStructObject);
             }
         }

@@ -204,13 +204,13 @@ public class JvSendMessagesCtrl {
             }
             case TextMessageSendUserToServer -> {
                 if (parameters.length == 5) {
-                    Object loginSender = parameters[0];
-                    Object loginReceiver = parameters[1];
-                    Object uuid = parameters[2];
+                    Object uuidUserSender = parameters[0];
+                    Object uuidUserReceiver = parameters[1];
+                    Object uuidMessage = parameters[2];
                     Object text = parameters[3];
                     Object timestamp = parameters[4];
-                    byte[] bodyMessage = createBodyTextMessageSendUserToServerMessage(type, (String) loginSender,
-                            (String) loginReceiver, (String) uuid, (String) text, (String) timestamp);
+                    byte[] bodyMessage = createBodyTextMessageSendUserToServerMessage(type, (UUID) uuidUserSender,
+                            (UUID) uuidUserReceiver, (UUID) uuidMessage, (String) text, (String) timestamp);
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
@@ -257,14 +257,14 @@ public class JvSendMessagesCtrl {
             }
             case TextMessageRedirectServerToUser -> {
                 if (parameters.length == 6) {
-                    Object loginSender = parameters[0];
-                    Object loginReceiver = parameters[1];
-                    Object uuid = parameters[2];
+                    Object uuidUserSender = parameters[0];
+                    Object uuidUserReceiver = parameters[1];
+                    Object uuidMessage = parameters[2];
                     Object text = parameters[3];
                     Object timestamp = parameters[4];
                     Object runnableCtrl = parameters[5];
-                    byte[] bodyMessage = createBodyTextMessageRedirectServerToUserMessage(type, (String) loginSender,
-                            (String) loginReceiver, (String) uuid, (String) text, (String) timestamp);
+                    byte[] bodyMessage = createBodyTextMessageRedirectServerToUserMessage(type, (UUID) uuidUserSender,
+                            (UUID) uuidUserReceiver, (UUID) uuidMessage, (String) text, (String) timestamp);
                     sendReadyMessageNetwork(bodyMessage, (Runnable) runnableCtrl);
                 }
             }
@@ -276,11 +276,10 @@ public class JvSendMessagesCtrl {
                 }
             }
             case MessagesLoadRequest -> {
-                if (parameters.length == 3) {
-                    Object loginRequesting = parameters[0];
-                    Object loginDialog = parameters[1];
-                    Object quantityMessages = parameters[2];
-                    byte[] bodyMessage = createMessagesLoadRequestMessage(type, (String) loginRequesting, (String) loginDialog, (Integer) quantityMessages);
+                if (parameters.length == 2) {
+                    Object uuidChat = parameters[0];
+                    Object quantityMessages = parameters[1];
+                    byte[] bodyMessage = createMessagesLoadRequestMessage(type, (UUID) uuidChat, (Integer) quantityMessages);
                     sendReadyMessageNetwork(bodyMessage);
                     JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
                             .setTextMessagesLoadReplyFlag(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
@@ -382,10 +381,10 @@ public class JvSendMessagesCtrl {
     }
 
     private byte[] createBodyTextMessageSendUserToServerMessage(JvDefinesMessages.TypeMessage type,
-                                                            String loginSender, String loginReceiver,
-                                                            String uuid, String text, String timestamp) {
+                                                                UUID uuidUserSender, UUID uuidUserReceiver, UUID uuidMessage,
+                                                                String text, String timestamp) {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(
-                type, loginSender, loginReceiver, uuid, text, timestamp);
+                type, uuidUserSender, uuidUserReceiver, uuidMessage, text, timestamp);
     }
 
     private byte[] createBodyTextMessageSendUserToServerVerificationMessage(JvDefinesMessages.TypeMessage type, boolean reply) {
@@ -411,19 +410,18 @@ public class JvSendMessagesCtrl {
     }
 
     private byte[] createBodyTextMessageRedirectServerToUserMessage(JvDefinesMessages.TypeMessage type,
-                                                                String loginSender, String loginReceiver,
-                                                                String uuid, String text, String timestamp) {
+                                                                    UUID uuidUserSender, UUID uuidUserReceiver, UUID uuidMessage,
+                                                                    String text, String timestamp) {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(
-                type, loginSender, loginReceiver, uuid, text, timestamp);
+                type, uuidUserSender, uuidUserReceiver, uuidMessage, text, timestamp);
     }
 
     private byte[] createBodyTextMessageRedirectServerToUserVerificationMessage(JvDefinesMessages.TypeMessage type, boolean reply) {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
     }
 
-    private byte[] createMessagesLoadRequestMessage(JvDefinesMessages.TypeMessage type, String loginRequesting,
-                                                    String loginDialog, int quantityMessages) {
-        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, loginRequesting, loginDialog, quantityMessages);
+    private byte[] createMessagesLoadRequestMessage(JvDefinesMessages.TypeMessage type, UUID uuidChat, int quantityMessages) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, uuidChat, quantityMessages);
     }
 
     private byte[] createBodyMessagesLoadReplyMessage(JvDefinesMessages.TypeMessage type, List<Map<JvDbGlobalDefines.LineKeys, String>> reply) {

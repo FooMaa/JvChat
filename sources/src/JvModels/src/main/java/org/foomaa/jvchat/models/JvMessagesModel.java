@@ -17,19 +17,19 @@ public class JvMessagesModel extends JvBaseModel {
                 .getBeanRootStructObject(getNameModel()));
     }
 
-    public JvMessageStructObject createNewMessage(String loginSender,
-                                                  String loginReceiver,
-                                                  String text,
+    public JvMessageStructObject createNewMessage(UUID uuidUserSender,
+                                                  UUID uuidUserReceiver,
+                                                  UUID uuidMessage,
                                                   JvMainChatsGlobalDefines.TypeStatusMessage statusMessage,
-                                                  UUID uuid,
+                                                  String text,
                                                   LocalDateTime timestamp) {
         JvMessageStructObject messageObj = JvGetterStructObjects.getInstance().getBeanMessageStructObject();
 
-        messageObj.setLoginSender(loginSender);
-        messageObj.setLoginReceiver(loginReceiver);
+        messageObj.setUuidUserSender(uuidUserSender);
+        messageObj.setUuidUserReceiver(uuidUserReceiver);
         messageObj.setText(text);
         messageObj.setStatusMessage(statusMessage);
-        messageObj.setUuid(uuid);
+        messageObj.setUuid(uuidMessage);
         messageObj.setTimestamp(timestamp);
 
         addItem(messageObj, getRootObject());

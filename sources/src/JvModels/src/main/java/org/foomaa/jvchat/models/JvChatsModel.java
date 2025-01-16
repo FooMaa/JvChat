@@ -41,12 +41,12 @@ public class JvChatsModel extends JvBaseModel {
         userChat.setUuid(uuidUser);
         JvGetterModels.getInstance().getBeanUsersModel().addCreatedUser(userChat);
 
-        String sender = isLoginSentLastMessage ? login : JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
-        String receiver = isLoginSentLastMessage ? JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin() : login;
+        UUID uuidSender = isLoginSentLastMessage ? uuidUser : JvGetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
+        UUID uuidReceiver = isLoginSentLastMessage ? JvGetterSettings.getInstance().getBeanUsersInfoSettings().getUuid() : uuidUser;
 
         JvMessageStructObject lastMessage = JvGetterStructObjects.getInstance().getBeanMessageStructObject();
-        lastMessage.setLoginSender(sender);
-        lastMessage.setLoginReceiver(receiver);
+        lastMessage.setUuidUserSender(uuidSender);
+        lastMessage.setUuidUserReceiver(uuidReceiver);
         lastMessage.setText(lastMessageText);
         lastMessage.setStatusMessage(statusMessage);
         lastMessage.setUuid(uuidLastMessage);

@@ -70,16 +70,14 @@ public class JvPanelSendingMessageMainChatUI extends JPanel {
 
     private void updateComponentsAfterSending() {
         UUID selectedUuid = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().getCurrentActiveChatUuid();
-        String selectedLogin = JvGetterControls.getInstance()
-                .getBeanMessagesDialogCtrl().findChatByUuid(selectedUuid).getUserChat().getLogin();
-        JvMessageStructObject message = JvGetterControls.getInstance().getBeanChatsCtrl().getMessageObjectByLoginChat(selectedLogin);
+        JvMessageStructObject message = JvGetterControls.getInstance().getBeanChatsCtrl().getMessageObjectByUuidChat(selectedUuid);
 
         Box boxComponents = JvGetterMainChatUIComponents.getInstance().getBeanScrollPanelChatsMainChatUI().getBoxComponents();
 
         for (Component component : boxComponents.getComponents()) {
             JvRectChatMainChatUI rectChatMainChatUI = (JvRectChatMainChatUI) component;
-            String login = rectChatMainChatUI.getNickName();
-            if (Objects.equals(selectedLogin, login)) {
+            UUID uuid = rectChatMainChatUI.getUuidChat();
+            if (uuid.equals(selectedUuid)) {
                 boxComponents.remove(rectChatMainChatUI);
                 rectChatMainChatUI.updateLastMessage(message);
                 boxComponents.add(rectChatMainChatUI, 0);

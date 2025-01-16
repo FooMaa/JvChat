@@ -314,11 +314,11 @@ CREATE OR REPLACE FUNCTION jvchat_schema.chats_messages_get_chats_by_login(
     RETURNS TABLE (
         login character varying,
         uuid_user character varying,
-        last_message_text character varying,
+        text_message character varying,
         uuid_message character varying,
         is_login_sent_last_message bool,
         uuid_chat character varying,
-        datetime_last_message timestamp,
+        datetime_message timestamp,
         status_message int) AS
 $BODY$
 DECLARE
@@ -336,7 +336,7 @@ BEGIN
         WHEN auth1.uuid_user = f_uuid THEN auth2.uuid_user
         WHEN auth2.uuid_user = f_uuid THEN auth1.uuid_user    
     END AS uuid_user,
-    chats.message AS last_message_text,
+    chats.message AS text_message,
     chats.uuid_message AS uuid_message, 
     CASE
         WHEN auth1.uuid_user = f_uuid AND auth2.uuid_user = f_uuid THEN true
@@ -344,7 +344,7 @@ BEGIN
         WHEN auth2.uuid_user = f_uuid THEN true
     END AS is_login_sent_last_message,
     chats.uuid_chat AS uuid_chat,
-    chats.datetime AS datetime_last_message,
+    chats.datetime AS datetime_message,
     chats.status AS status_message
     FROM jvchat_schema.chats_messages AS chats
     LEFT JOIN jvchat_schema.auth_users_info AS auth1 ON chats.senderID = auth1.id 
@@ -354,40 +354,38 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION jvchat_schema.chats_messages_get_quantity_messages_by_logins(
-    f_login_one character varying,
-    f_login_two character varying,
+CREATE OR REPLACE FUNCTION jvchat_schema.chats_messages_get_quantity_messages_by_chat(
+    f_uuid_chat character varying,
     f_quantity int
 )
-    RETURNS TABLE (sender character varying, receiver character varying, text_message character varying, uuid_message character varying, datetime_message timestamp, status_message int) AS
+    RETURNS TABLE (uuid_sender character varying, uuid_receiver character varying, uuid_message character varying, text_message character varying, datetime_message timestamp, status_message int) AS
 $BODY$
 DECLARE
     rv jvchat_schema.chats_messages%rowtype;
 BEGIN
     RETURN QUERY SELECT
-    auth1.login AS sender,
-    auth2.login AS receiver,
-    chats.message AS text_message,
-    chats.uuid_message AS uuid_message, 
+    auth1.uuid_user AS uuid_sender,
+    auth2.uuid_user AS uuid_receiver,
+    chats.uuid_message AS uuid_message,
+    chats.message AS text_message, 
     chats.datetime AS datetime_message,
     chats.status AS status_message
     FROM jvchat_schema.chats_messages AS chats
     LEFT JOIN jvchat_schema.auth_users_info AS auth1 ON chats.senderID = auth1.id 
     LEFT JOIN jvchat_schema.auth_users_info AS auth2 ON chats.receiverID = auth2.id  
-    WHERE (auth1.login = f_login_one AND auth2.login = f_login_two) 
-    OR (auth1.login = f_login_two AND auth2.login = f_login_one)
+    WHERE chats.uuid_chat = f_uuid_chat
     ORDER BY datetime_message DESC
     LIMIT f_quantity;
 END;
 $BODY$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION jvchat_schema.chats_messages_save_message (
-    f_loginSender       character varying,
-    f_loginReceiver     character varying,
-    f_status            int,
-    f_message           character varying,
-    f_uuid_message      character varying,
-    f_datetime          timestamp
+    f_uuid_user_sender      character varying,
+    f_uuid_user_receiver    character varying,
+    f_uuid_message          character varying,
+    f_status                integer,
+    f_message               character varying,
+    f_datetime              timestamp
 )
     RETURNS integer AS
 $BODY$
@@ -396,9 +394,14 @@ DECLARE
     f_id_user_sender integer;
     f_id_user_receiver integer;
     f_cast_timestamp timestamp;
+    f_uuid_chat character varying;
 BEGIN
-    SELECT id INTO f_id_user_sender FROM jvchat_schema.auth_users_info WHERE login = f_loginSender;
-    SELECT id INTO f_id_user_receiver FROM jvchat_schema.auth_users_info WHERE login = f_loginReceiver;
+    SELECT id INTO f_id_user_sender FROM jvchat_schema.auth_users_info WHERE uuid_user = f_uuid_user_sender;
+    SELECT id INTO f_id_user_receiver FROM jvchat_schema.auth_users_info WHERE uuid_user = f_uuid_user_receiver;
+    SELECT uuid_chat INTO f_uuid_chat FROM jvchat_schema.chats_messages WHERE (senderID = f_id_user_sender 
+        AND receiverID = f_id_user_receiver) OR (senderID = f_id_user_receiver
+        AND receiverID = f_id_user_sender) 
+    LIMIT 1;
     SELECT cast(f_datetime as timestamp) INTO f_cast_timestamp;
     
     rv := -1;
@@ -415,7 +418,7 @@ BEGIN
         AND uuid_message = f_uuid_message;
         rv := 1;
     ELSE
-        INSERT INTO jvchat_schema.chats_messages (senderID, receiverID, status, message, uuid_message, datetime) VALUES (f_id_user_sender, f_id_user_receiver, f_status, f_message, f_uuid_message, f_cast_timestamp);
+        INSERT INTO jvchat_schema.chats_messages (senderID, receiverID, status, message, uuid_chat, uuid_message, datetime) VALUES (f_id_user_sender, f_id_user_receiver, f_status, f_message, f_uuid_chat, f_uuid_message, f_cast_timestamp);
         rv := 2;
     END IF;
 

@@ -16,6 +16,12 @@ public class JvUsersInfoSettings {
         }
     }
 
+    public void setUuid(UUID newUuid) {
+        if (uuid == null || !uuid.equals(newUuid)) {
+            uuid = newUuid;
+        }
+    }
+
     public UUID getUuid() {
         return uuid;
     }
@@ -24,20 +30,9 @@ public class JvUsersInfoSettings {
         return login;
     }
 
-    public void setUuid(UUID newUuid) {
-        if (uuid == null || !uuid.equals(newUuid)) {
-            uuid = newUuid;
-        }
-    }
-
-
+    
     private String ipRemoteServer;
-
     private int portRemoteServer = 4004;
-
-    public String getIpRemoteServer() {
-        return ipRemoteServer;
-    }
 
     public void setIpRemoteServer(String newIPRemoteServer) {
         if (!Objects.equals(ipRemoteServer, newIPRemoteServer)) {
@@ -45,13 +40,17 @@ public class JvUsersInfoSettings {
         }
     }
 
-    public int getPortRemoteServer() {
-        return portRemoteServer;
-    }
-
     public void setPortRemoteServer(int newPortRemoteServer) {
         if (!Objects.equals(portRemoteServer, newPortRemoteServer)) {
             portRemoteServer = newPortRemoteServer;
         }
+    }
+
+    public String getIpRemoteServer() {
+        return ipRemoteServer;
+    }
+
+    public int getPortRemoteServer() {
+        return portRemoteServer;
     }
 }

@@ -30,14 +30,14 @@ public class JvChatsCtrl {
         for (Map<JvDefinesMessages.TypeData, Object> chat : chatsInfo) {
             String login = (String) chat.get(JvDefinesMessages.TypeData.Login);
             UUID uuidUser = (UUID) chat.get(JvDefinesMessages.TypeData.UuidUser);
-            String lastMessageText = (String) chat.get(JvDefinesMessages.TypeData.LastMessageText);
+            String lastMessageText = (String) chat.get(JvDefinesMessages.TypeData.TextMessage);
             UUID uuidChat = (UUID) chat.get(JvDefinesMessages.TypeData.UuidChat);
             UUID uuidLastMessage = (UUID) chat.get(JvDefinesMessages.TypeData.UuidMessage);
             Boolean isLoginSentLastMessage = (Boolean) chat.get(JvDefinesMessages.TypeData.IsLoginSentLastMessage);
             JvMainChatsGlobalDefines.TypeStatusMessage statusMessage =
                     (JvMainChatsGlobalDefines.TypeStatusMessage) chat.get(JvDefinesMessages.TypeData.StatusMessage);
             LocalDateTime timestampLastMessage = JvGetterTools.getInstance().getBeanFormatTools()
-                    .stringToLocalDateTime((String) chat.get(JvDefinesMessages.TypeData.DateTimeLastMessage), normalizeTimestampCount);
+                    .stringToLocalDateTime((String) chat.get(JvDefinesMessages.TypeData.Timestamp), normalizeTimestampCount);
 
             if (timestampLastMessage == null) {
                 JvLog.write(JvLog.TypeLog.Warn, "Не получилось нормализовать дату и время к нужному формату");
@@ -142,21 +142,21 @@ public class JvChatsCtrl {
 
         for (JvChatStructObject chat : chatsList) {
             JvMessageStructObject lastMessageObj = chat.getLastMessage();
-            String sender = lastMessageObj.getLoginSender();
-            String receiver = lastMessageObj.getLoginReceiver();
-            if ((Objects.equals(sender, message.getLoginSender()) && Objects.equals(receiver, message.getLoginReceiver())) ||
-                    (Objects.equals(sender, message.getLoginReceiver()) && Objects.equals(receiver, message.getLoginReceiver()))) {
+            UUID uuidUserSender = lastMessageObj.getUuidUserSender();
+            UUID uuidUserReceiver = lastMessageObj.getUuidUserReceiver();
+            if ((uuidUserSender.equals(message.getUuidUserSender()) && uuidUserReceiver.equals(message.getUuidUserReceiver())) ||
+                    (uuidUserSender.equals(message.getUuidUserReceiver()) && uuidUserReceiver.equals(message.getUuidUserReceiver()))) {
                 chat.setLastMessage(message);
                 return;
             }
         }
     }
 
-    public JvMessageStructObject getMessageObjectByLoginChat(String loginChat) {
+    public JvMessageStructObject getMessageObjectByUuidChat(UUID uuidChat) {
         List<JvChatStructObject> chatsList = chatsModel.getAllChatsObjects();
 
         for (JvChatStructObject chat : chatsList) {
-            if (Objects.equals(loginChat, chat.getUserChat().getLogin())) {
+            if (chat.getUuid().equals(uuidChat)) {
                 return chat.getLastMessage();
             }
         }

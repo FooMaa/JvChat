@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
@@ -53,15 +52,15 @@ public class JvMessagesDialogCtrl {
             return null;
         }
 
-        String loginSender = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
+        UUID uuidSender = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
         JvChatStructObject chat = findChatByUuid(getCurrentActiveChatUuid());
-        String loginReceiver = chat.getUserChat().getLogin();
-        UUID uuid = UUID.randomUUID();
+        UUID uuidReceiver = chat.getUserChat().getUuid();
+        UUID uuidMessage = UUID.randomUUID();
         LocalDateTime timestamp = LocalDateTime.now();
         JvMainChatsGlobalDefines.TypeStatusMessage status = JvMainChatsGlobalDefines.TypeStatusMessage.Sent;
 
         JvMessageStructObject messageStructObject = messagesModel.createNewMessage(
-                loginSender, loginReceiver, text, status, uuid, timestamp);
+                uuidSender, uuidReceiver, uuidMessage, status, text, timestamp);
 
         sendNewMessage(messageStructObject);
         setLastMessageInChatCtrl(messageStructObject);
@@ -69,30 +68,31 @@ public class JvMessagesDialogCtrl {
         return messageStructObject;
     }
 
-    public void createMessagesObjects(List<Map<JvDbGlobalDefines.LineKeys, String>> msgInfo) {
+    public void createMessagesObjects(List<Map<JvDefinesMessages.TypeData, Object>> msgInfo) {
         messagesModel.clearModel();
         int normalizeCountTimestamp = 3;
 
-        for (Map<JvDbGlobalDefines.LineKeys, String> msg : msgInfo) {
-            String lastMessageLoginSender = msg.get(JvDbGlobalDefines.LineKeys.Sender);
-            String lastMessageLoginReceiver = msg.get(JvDbGlobalDefines.LineKeys.Receiver);
-            String textMessage = msg.get(JvDbGlobalDefines.LineKeys.TextMessage);
-            UUID uuidMessage = UUID.fromString(msg.get(JvDbGlobalDefines.LineKeys.UuidMessage));
-            JvMainChatsGlobalDefines.TypeStatusMessage statusMessage = JvGetterTools.getInstance().getBeanFormatTools()
-                    .statusMessageStringToInt(msg.get(JvDbGlobalDefines.LineKeys.StatusMessage));
+        for (Map<JvDefinesMessages.TypeData, Object> msg : msgInfo) {
+            UUID uuidUserSender = (UUID) msg.get(JvDefinesMessages.TypeData.UuidUserSender);
+            UUID uuidUserReceiver = (UUID) msg.get(JvDefinesMessages.TypeData.UuidUserReceiver);
+            UUID uuidMessage = (UUID) msg.get(JvDefinesMessages.TypeData.UuidMessage);
+            String text = (String) msg.get(JvDefinesMessages.TypeData.TextMessage);
+            JvMainChatsGlobalDefines.TypeStatusMessage statusMessage = JvMainChatsGlobalDefines.TypeStatusMessage
+                    .getTypeStatusMessage((Integer) msg.get(JvDefinesMessages.TypeData.StatusMessage));
             LocalDateTime timestampMessage = JvGetterTools.getInstance()
-                    .getBeanFormatTools().stringToLocalDateTime(msg.get(JvDbGlobalDefines.LineKeys.DateTimeMessage), normalizeCountTimestamp);
+                    .getBeanFormatTools().stringToLocalDateTime(
+                            (String) msg.get(JvDefinesMessages.TypeData.Timestamp), normalizeCountTimestamp);
 
             if (timestampMessage == null) {
                 JvLog.write(JvLog.TypeLog.Warn, "Не получилось нормализовать дату и время к нужному формату");
             }
 
             messagesModel.createNewMessage(
-                    lastMessageLoginSender,
-                    lastMessageLoginReceiver,
-                    textMessage,
-                    statusMessage,
+                    uuidUserSender,
+                    uuidUserReceiver,
                     uuidMessage,
+                    statusMessage,
+                    text,
                     timestampMessage);
         }
     }
@@ -107,9 +107,9 @@ public class JvMessagesDialogCtrl {
 
         JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 JvDefinesMessages.TypeMessage.TextMessageSendUserToServer,
-                message.getLoginSender(),
-                message.getLoginReceiver(),
-                message.getUuid().toString(),
+                message.getUuidUserSender(),
+                message.getUuidUserReceiver(),
+                message.getUuid(),
                 message.getText(),
                 timestampNewMessage);
     }
@@ -137,25 +137,26 @@ public class JvMessagesDialogCtrl {
     }
 
     public boolean isCurrentUserSender(JvMessageStructObject messageStructObject) {
-        String currentLogin = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
-        return Objects.equals(currentLogin, messageStructObject.getLoginSender());
+        UUID currentUuid = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
+        return Objects.equals(currentUuid, messageStructObject.getUuidUserSender());
     }
 
-    public void redirectMessageToOnlineUser(String loginSender,
-                                            String loginReceiver,
-                                            String text,
+    public void redirectMessageToOnlineUser(UUID uuidUserSender,
+                                            UUID uuidUserReceiver,
+                                            UUID uuidMessage,
                                             JvMainChatsGlobalDefines.TypeStatusMessage statusMessage,
-                                            UUID uuid,
+                                            String text,
                                             LocalDateTime timestamp) {
-        JvMessageStructObject messageStructObject = createMessageByData(loginSender, loginReceiver, text, statusMessage, uuid, timestamp);
+        JvMessageStructObject messageStructObject = createMessageByData(
+                uuidUserSender, uuidUserReceiver, uuidMessage, statusMessage, text, timestamp);
         JvOnlineServersCtrl onlineServersCtrl =  JvGetterControls.getInstance().getBeanOnlineServersCtrl();
 
-        boolean isUserOnline = true;//onlineServersCtrl.isUuidUserInListCheckerOnline(messageStructObject.getLoginReceiver());
+        boolean isUserOnline = onlineServersCtrl.isUuidUserInListCheckerOnline(messageStructObject.getUuidUserReceiver());
         if (!isUserOnline) {
             return;
         }
 
-        Runnable runnableUserCtrl = onlineServersCtrl.getRunnableByLogin(messageStructObject.getLoginReceiver());
+        Runnable runnableUserCtrl = onlineServersCtrl.getRunnableByUuidUser(messageStructObject.getUuidUserReceiver());
         if (runnableUserCtrl == null) {
             JvLog.write(JvLog.TypeLog.Error, "Здесь runnableUserCtrl оказался null");
             return;
@@ -166,27 +167,27 @@ public class JvMessagesDialogCtrl {
 
         JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 JvDefinesMessages.TypeMessage.TextMessageRedirectServerToUser,
-                messageStructObject.getLoginSender(),
-                messageStructObject.getLoginReceiver(),
-                messageStructObject.getUuid().toString(),
+                messageStructObject.getUuidUserSender(),
+                messageStructObject.getUuidUserReceiver(),
+                messageStructObject.getUuid(),
                 messageStructObject.getText(),
                 timestampMessage,
                 runnableUserCtrl);
     }
 
-    private JvMessageStructObject createMessageByData(String loginSender,
-                                                     String loginReceiver,
-                                                     String text,
-                                                     JvMainChatsGlobalDefines.TypeStatusMessage statusMessage,
-                                                     UUID uuid,
-                                                     LocalDateTime timestamp) {
+    private JvMessageStructObject createMessageByData(UUID uuidUserSender,
+                                                      UUID uuidUserReceiver,
+                                                      UUID uuidMessage,
+                                                      JvMainChatsGlobalDefines.TypeStatusMessage statusMessage,
+                                                      String text,
+                                                      LocalDateTime timestamp) {
         JvMessageStructObject messageObj = JvGetterStructObjects.getInstance().getBeanMessageStructObject();
 
-        messageObj.setLoginSender(loginSender);
-        messageObj.setLoginReceiver(loginReceiver);
+        messageObj.setUuidUserSender(uuidUserSender);
+        messageObj.setUuidUserReceiver(uuidUserReceiver);
         messageObj.setText(text);
         messageObj.setStatusMessage(statusMessage);
-        messageObj.setUuid(uuid);
+        messageObj.setUuid(uuidMessage);
         messageObj.setTimestamp(timestamp);
 
         return messageObj;
@@ -202,14 +203,14 @@ public class JvMessagesDialogCtrl {
         return timestamp.format(formatter);
     }
 
-    public void addRedirectMessageToModel(String loginSender,
-                                   String loginReceiver,
-                                   String text,
-                                   JvMainChatsGlobalDefines.TypeStatusMessage statusMessage,
-                                   UUID uuid,
-                                   LocalDateTime timestamp) {
+    public void addRedirectMessageToModel(UUID uuidUserSender,
+                                          UUID uuidUserReceiver,
+                                          UUID uuidMessage,
+                                          JvMainChatsGlobalDefines.TypeStatusMessage statusMessage,
+                                          String text,
+                                          LocalDateTime timestamp) {
         JvMessageStructObject messageStructObject = createMessageByData(
-                loginSender, loginReceiver, text, statusMessage, uuid, timestamp);
+                uuidUserSender, uuidUserReceiver, uuidMessage, statusMessage, text, timestamp);
         messagesModel.addMessageStructObject(messageStructObject);
     }
 

@@ -53,6 +53,8 @@ message General {
     }
 }
 
+// Main
+
 message EntryRequest {
     string login = 1;
     string password = 2;
@@ -135,23 +137,6 @@ message ChatsLoadReply {
     repeated ChatsInfo chatsInfo = 1;
 }
 
-message ChatsInfo {
-    enum TypeStatusMessage {
-            Error = 0;
-            Sent = 1;
-            Delivered = 2;
-            Read = 3;
-    }
-    string login = 1;
-    string uuidUser = 2;
-    string lastMessageText = 3;
-    string uuidChat = 4;
-    string uuidMessage = 5;
-    bool isLoginSentLastMessage = 6;
-    TypeStatusMessage statusMessage = 7;
-    string dateTimeLastMessage = 8;
-}
-
 message CheckOnlineUserRequest {
     string ip = 1;
 }
@@ -175,15 +160,7 @@ message LoadUsersOnlineStatusReply {
 }
 
 message TextMessageSendUserToServer {
-    MessageInfo messageInfo = 1;
-}
-
-message MessageInfo {
-    string loginSender = 1;
-    string loginReceiver = 2;
-    string uuid = 3;
-    string text = 4;
-    string timestamp = 5;
+    TextMessageInfo textMessageInfo = 1;
 }
 
 message TextMessageSendUserToServerVerification {
@@ -219,7 +196,7 @@ message TextMessagesChangingStatusFromUserVerification {
 }
 
 message TextMessageRedirectServerToUser {
-    MessageInfo messageInfo = 1;
+    TextMessageInfo textMessageInfo = 1;
 }
 
 message TextMessageRedirectServerToUserVerification {
@@ -227,15 +204,38 @@ message TextMessageRedirectServerToUserVerification {
 }
 
 message MessagesLoadRequest {
-    string loginRequesting = 1;
-    string loginDialog = 2;
-    uint32 quantityMessages = 3;
+    string uuidChat = 1;
+    uint32 quantityMessages = 2;
 }
 
 message MessagesLoadReply {
-    repeated MessagesInfoMap messagesInfoMap = 1;
+    repeated TextMessageInfo textMessageInfo = 1;
 }
 
-message MessagesInfoMap {
-    map<string, string> mapInfo = 1;
+// Helpers
+
+message ChatsInfo {
+    enum TypeStatusMessage {
+            Error = 0;
+            Sent = 1;
+            Delivered = 2;
+            Read = 3;
+    }
+    string login = 1;
+    string uuidUser = 2;
+    string lastMessageText = 3;
+    string uuidChat = 4;
+    string uuidMessage = 5;
+    bool isLoginSentLastMessage = 6;
+    TypeStatusMessage statusMessage = 7;
+    string dateTimeLastMessage = 8;
+}
+
+message TextMessageInfo {
+    string uuidUserSender = 1;
+    string uuidUserReceiver = 2;
+    string uuidMessage = 3;
+    uint32 statusMessage = 4;
+    string text = 5;
+    string timestamp = 6;
 }
