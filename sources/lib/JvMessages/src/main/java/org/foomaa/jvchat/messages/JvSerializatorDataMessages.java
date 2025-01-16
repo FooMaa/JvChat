@@ -420,14 +420,14 @@ public class JvSerializatorDataMessages {
             JvClientServerSerializeProtocolMessage_pb.ChatsInfo chatsInfoPart = JvClientServerSerializeProtocolMessage_pb.ChatsInfo
                     .newBuilder()
                     .setLogin(map.get(JvDbGlobalDefines.LineKeys.Login))
-                    .setLastMessageText(map.get(JvDbGlobalDefines.LineKeys.LastMessageText))
+                    .setLastMessageText(map.get(JvDbGlobalDefines.LineKeys.TextMessage))
                     .setUuidChat(map.get(JvDbGlobalDefines.LineKeys.UuidChat))
                     .setUuidUser(map.get(JvDbGlobalDefines.LineKeys.UuidUser))
                     .setUuidMessage(map.get(JvDbGlobalDefines.LineKeys.UuidMessage))
                     .setIsLoginSentLastMessage(Boolean.parseBoolean(map.get(JvDbGlobalDefines.LineKeys.IsLoginSentLastMessage)))
                     .setStatusMessage(JvClientServerSerializeProtocolMessage_pb.ChatsInfo.TypeStatusMessage
                             .forNumber(Integer.parseInt(map.get(JvDbGlobalDefines.LineKeys.StatusMessage))))
-                    .setDateTimeLastMessage(map.get(JvDbGlobalDefines.LineKeys.DateTimeLastMessage))
+                    .setDateTimeLastMessage(map.get(JvDbGlobalDefines.LineKeys.DateTimeMessage))
                     .build();
             builder.addChatsInfo(chatsInfoPart);
         }

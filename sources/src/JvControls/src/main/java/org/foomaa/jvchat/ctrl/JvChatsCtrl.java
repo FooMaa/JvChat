@@ -30,14 +30,14 @@ public class JvChatsCtrl {
         for (Map<JvDefinesMessages.TypeData, Object> chat : chatsInfo) {
             String login = (String) chat.get(JvDefinesMessages.TypeData.Login);
             UUID uuidUser = (UUID) chat.get(JvDefinesMessages.TypeData.UuidUser);
-            String lastMessageText = (String) chat.get(JvDefinesMessages.TypeData.LastMessageText);
+            String lastMessageText = (String) chat.get(JvDefinesMessages.TypeData.TextMessage);
             UUID uuidChat = (UUID) chat.get(JvDefinesMessages.TypeData.UuidChat);
             UUID uuidLastMessage = (UUID) chat.get(JvDefinesMessages.TypeData.UuidMessage);
             Boolean isLoginSentLastMessage = (Boolean) chat.get(JvDefinesMessages.TypeData.IsLoginSentLastMessage);
             JvMainChatsGlobalDefines.TypeStatusMessage statusMessage =
                     (JvMainChatsGlobalDefines.TypeStatusMessage) chat.get(JvDefinesMessages.TypeData.StatusMessage);
             LocalDateTime timestampLastMessage = JvGetterTools.getInstance().getBeanFormatTools()
-                    .stringToLocalDateTime((String) chat.get(JvDefinesMessages.TypeData.DateTimeLastMessage), normalizeTimestampCount);
+                    .stringToLocalDateTime((String) chat.get(JvDefinesMessages.TypeData.Timestamp), normalizeTimestampCount);
 
             if (timestampLastMessage == null) {
                 JvLog.write(JvLog.TypeLog.Warn, "Не получилось нормализовать дату и время к нужному формату");

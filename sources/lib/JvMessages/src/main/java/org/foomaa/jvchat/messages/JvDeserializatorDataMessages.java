@@ -1,13 +1,10 @@
 package org.foomaa.jvchat.messages;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 import com.google.protobuf.InvalidProtocolBufferException;
-import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
-import org.foomaa.jvchat.tools.JvGetterTools;
 
 
 public class JvDeserializatorDataMessages {
@@ -250,12 +247,12 @@ public class JvDeserializatorDataMessages {
 
                 newMap.put(JvDefinesMessages.TypeData.Login, login);
                 newMap.put(JvDefinesMessages.TypeData.UuidUser, uuidUser);
-                newMap.put(JvDefinesMessages.TypeData.LastMessageText, lastMessageText);
+                newMap.put(JvDefinesMessages.TypeData.TextMessage, lastMessageText);
                 newMap.put(JvDefinesMessages.TypeData.UuidChat, uuidChat);
                 newMap.put(JvDefinesMessages.TypeData.UuidMessage, uuidMessage);
                 newMap.put(JvDefinesMessages.TypeData.IsLoginSentLastMessage, isLoginSentLastMessage);
                 newMap.put(JvDefinesMessages.TypeData.StatusMessage, statusMessage);
-                newMap.put(JvDefinesMessages.TypeData.DateTimeLastMessage, dateTimeLastMessage);
+                newMap.put(JvDefinesMessages.TypeData.Timestamp, dateTimeLastMessage);
 
                 listMainData.add(newMap);
             }
@@ -333,7 +330,7 @@ public class JvDeserializatorDataMessages {
             }
 
             result.put(JvDefinesMessages.TypeData.UsersOnlineInfoList, newMapStatusesUsers);
-            result.put(JvDefinesMessages.TypeData.TimeStampLastOnlineString, newMapLastOnlineTimes);
+            result.put(JvDefinesMessages.TypeData.Timestamp, newMapLastOnlineTimes);
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }
@@ -351,8 +348,8 @@ public class JvDeserializatorDataMessages {
             result.put(JvDefinesMessages.TypeData.UuidUserSender, UUID.fromString(messageInfo.getUuidUserSender()));
             result.put(JvDefinesMessages.TypeData.UuidUserReceiver, UUID.fromString(messageInfo.getUuidUserReceiver()));
             result.put(JvDefinesMessages.TypeData.UuidMessage, UUID.fromString(messageInfo.getUuidMessage()));
-            result.put(JvDefinesMessages.TypeData.Text, messageInfo.getText());
-            result.put(JvDefinesMessages.TypeData.TimeStampMessageSend, messageInfo.getTimestamp());
+            result.put(JvDefinesMessages.TypeData.TextMessage, messageInfo.getText());
+            result.put(JvDefinesMessages.TypeData.Timestamp, messageInfo.getTimestamp());
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }
@@ -455,8 +452,8 @@ public class JvDeserializatorDataMessages {
             result.put(JvDefinesMessages.TypeData.UuidUserSender, messageInfo.getUuidUserSender());
             result.put(JvDefinesMessages.TypeData.UuidUserReceiver, messageInfo.getUuidUserReceiver());
             result.put(JvDefinesMessages.TypeData.UuidMessage, messageInfo.getUuidMessage());
-            result.put(JvDefinesMessages.TypeData.Text, messageInfo.getText());
-            result.put(JvDefinesMessages.TypeData.TimeStampMessageSend, messageInfo.getTimestamp());
+            result.put(JvDefinesMessages.TypeData.TextMessage, messageInfo.getText());
+            result.put(JvDefinesMessages.TypeData.Timestamp, messageInfo.getTimestamp());
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }
@@ -510,8 +507,8 @@ public class JvDeserializatorDataMessages {
                 newMap.put(JvDefinesMessages.TypeData.UuidUserReceiver, uuidUserReceiver);
                 newMap.put(JvDefinesMessages.TypeData.UuidMessage, uuidMessage);
                 newMap.put(JvDefinesMessages.TypeData.StatusMessage, statusMessage);
-                newMap.put(JvDefinesMessages.TypeData.Text, text);
-                newMap.put(JvDefinesMessages.TypeData.TimeStampMessageSend, timestamp);
+                newMap.put(JvDefinesMessages.TypeData.TextMessage, text);
+                newMap.put(JvDefinesMessages.TypeData.Timestamp, timestamp);
 
                 listMainData.add(newMap);
             }

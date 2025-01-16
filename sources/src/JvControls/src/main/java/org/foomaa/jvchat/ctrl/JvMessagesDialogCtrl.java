@@ -76,12 +76,12 @@ public class JvMessagesDialogCtrl {
             UUID uuidUserSender = (UUID) msg.get(JvDefinesMessages.TypeData.UuidUserSender);
             UUID uuidUserReceiver = (UUID) msg.get(JvDefinesMessages.TypeData.UuidUserReceiver);
             UUID uuidMessage = (UUID) msg.get(JvDefinesMessages.TypeData.UuidMessage);
-            String text = (String) msg.get(JvDefinesMessages.TypeData.Text);
+            String text = (String) msg.get(JvDefinesMessages.TypeData.TextMessage);
             JvMainChatsGlobalDefines.TypeStatusMessage statusMessage = JvMainChatsGlobalDefines.TypeStatusMessage
                     .getTypeStatusMessage((Integer) msg.get(JvDefinesMessages.TypeData.StatusMessage));
             LocalDateTime timestampMessage = JvGetterTools.getInstance()
                     .getBeanFormatTools().stringToLocalDateTime(
-                            (String) msg.get(JvDefinesMessages.TypeData.TimeStampMessageSend), normalizeCountTimestamp);
+                            (String) msg.get(JvDefinesMessages.TypeData.Timestamp), normalizeCountTimestamp);
 
             if (timestampMessage == null) {
                 JvLog.write(JvLog.TypeLog.Warn, "Не получилось нормализовать дату и время к нужному формату");
@@ -169,7 +169,7 @@ public class JvMessagesDialogCtrl {
                 JvDefinesMessages.TypeMessage.TextMessageRedirectServerToUser,
                 messageStructObject.getUuidUserSender(),
                 messageStructObject.getUuidUserReceiver(),
-                messageStructObject.getUuid().toString(),
+                messageStructObject.getUuid(),
                 messageStructObject.getText(),
                 timestampMessage,
                 runnableUserCtrl);

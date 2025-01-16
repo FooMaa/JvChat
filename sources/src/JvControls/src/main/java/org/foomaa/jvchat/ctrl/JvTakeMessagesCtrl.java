@@ -322,7 +322,7 @@ public class JvTakeMessagesCtrl {
 
     private void workLoadUsersOnlineStatusReplyMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         Object objectMapStatusesUsers = map.get(JvDefinesMessages.TypeData.UsersOnlineInfoList);
-        Object objectMapLastOnlineTimeUsers = map.get(JvDefinesMessages.TypeData.TimeStampLastOnlineString);
+        Object objectMapLastOnlineTimeUsers = map.get(JvDefinesMessages.TypeData.Timestamp);
 
         Map<UUID, JvMainChatsGlobalDefines.TypeStatusOnline> mapStatusesUsers =
                 JvGetterTools.getInstance().getBeanStructTools().objectInMap(objectMapStatusesUsers, UUID.class,
@@ -342,8 +342,8 @@ public class JvTakeMessagesCtrl {
         UUID uuidUserSender = (UUID) map.get(JvDefinesMessages.TypeData.UuidUserSender);
         UUID uuidUserReceiver = (UUID) map.get(JvDefinesMessages.TypeData.UuidUserReceiver);
         UUID uuidMessage = (UUID) map.get(JvDefinesMessages.TypeData.UuidMessage);
-        String text = (String) map.get(JvDefinesMessages.TypeData.Text);
-        String timestampStr = (String) map.get(JvDefinesMessages.TypeData.TimeStampMessageSend);
+        String text = (String) map.get(JvDefinesMessages.TypeData.TextMessage);
+        String timestampStr = (String) map.get(JvDefinesMessages.TypeData.Timestamp);
 
         JvMainChatsGlobalDefines.TypeStatusMessage status = JvMainChatsGlobalDefines.TypeStatusMessage.Delivered;
         String statusString = status.toString();
@@ -423,8 +423,8 @@ public class JvTakeMessagesCtrl {
         UUID uuidUserSender = (UUID) map.get(JvDefinesMessages.TypeData.UuidUserSender);
         UUID uuidUserReceiver = (UUID) map.get(JvDefinesMessages.TypeData.UuidUserReceiver);
         UUID uuidMessage = (UUID) map.get(JvDefinesMessages.TypeData.UuidMessage);
-        String text = (String) map.get(JvDefinesMessages.TypeData.Text);
-        String timestampStr = (String) map.get(JvDefinesMessages.TypeData.TimeStampMessageSend);
+        String text = (String) map.get(JvDefinesMessages.TypeData.TextMessage);
+        String timestampStr = (String) map.get(JvDefinesMessages.TypeData.Timestamp);
 
         JvMainChatsGlobalDefines.TypeStatusMessage status = JvMainChatsGlobalDefines.TypeStatusMessage.Delivered;
         int normaliseTimestampCount = 3;

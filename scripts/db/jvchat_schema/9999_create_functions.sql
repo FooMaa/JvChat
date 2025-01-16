@@ -318,7 +318,7 @@ CREATE OR REPLACE FUNCTION jvchat_schema.chats_messages_get_chats_by_login(
         uuid_message character varying,
         is_login_sent_last_message bool,
         uuid_chat character varying,
-        datetime_last_message timestamp,
+        datetime_message timestamp,
         status_message int) AS
 $BODY$
 DECLARE
@@ -344,7 +344,7 @@ BEGIN
         WHEN auth2.uuid_user = f_uuid THEN true
     END AS is_login_sent_last_message,
     chats.uuid_chat AS uuid_chat,
-    chats.datetime AS datetime_last_message,
+    chats.datetime AS datetime_message,
     chats.status AS status_message
     FROM jvchat_schema.chats_messages AS chats
     LEFT JOIN jvchat_schema.auth_users_info AS auth1 ON chats.senderID = auth1.id 
