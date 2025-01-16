@@ -358,7 +358,7 @@ CREATE OR REPLACE FUNCTION jvchat_schema.chats_messages_get_quantity_messages_by
     f_uuid_chat character varying,
     f_quantity int
 )
-    RETURNS TABLE (sender character varying, receiver character varying, uuid_message character varying, text_message character varying, datetime_message timestamp, status_message int) AS
+    RETURNS TABLE (uuid_sender character varying, uuid_receiver character varying, uuid_message character varying, text_message character varying, datetime_message timestamp, status_message int) AS
 $BODY$
 DECLARE
     rv jvchat_schema.chats_messages%rowtype;
