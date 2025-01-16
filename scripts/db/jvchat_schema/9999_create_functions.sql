@@ -363,13 +363,6 @@ $BODY$
 DECLARE
     rv jvchat_schema.chats_messages%rowtype;
 BEGIN
-    string uuidUserSender = 1;
-    string uuidUserReceiver = 2;
-    string uuidMessage = 3;
-    uint32 statusMessage = 4;
-    string text = 5;
-    string timestamp = 6;
-
     RETURN QUERY SELECT
     auth1.uuid_user AS uuid_sender,
     auth2.uuid_user AS uuid_receiver,
