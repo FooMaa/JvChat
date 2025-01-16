@@ -48,16 +48,16 @@ public class JvDbRequests {
                 status);
     }
 
-    public String insertChatsSentMessage(String loginSender, String loginReceiver, String status,
-                                         String message, String uuidMessage, String datetime) {
+    public String insertChatsSentMessage(String uuidUserSender, String uuidUserReceiver, String uuidMessage,
+                                         String status, String text, String timestamp) {
         return String.format(
-                "SELECT * FROM jvchat_schema.chats_messages_save_message('%s', '%s', %s, '%s', '%s', '%s');",
-                loginSender,
-                loginReceiver,
-                status,
-                message,
+                "SELECT * FROM jvchat_schema.chats_messages_save_message('%s', '%s', '%s', %s, '%s', '%s');",
+                uuidUserSender,
+                uuidUserReceiver,
                 uuidMessage,
-                datetime);
+                status,
+                text,
+                timestamp);
     }
 
     public String insertChatsMessageStatusChange(String uuidMessage, String status) {

@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.messages;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -151,13 +152,13 @@ public class JvSerializatorDataMessages {
             }
             case TextMessageSendUserToServer -> {
                 if (parameters.length == 5) {
-                    Object loginSender = parameters[0];
-                    Object loginReceiver = parameters[1];
-                    Object uuid = parameters[2];
+                    Object uuidUserSender = parameters[0];
+                    Object uuidUserReceiver = parameters[1];
+                    Object uuidMessage = parameters[2];
                     Object text = parameters[3];
                     Object timestamp = parameters[4];
-                    return createTextMessageSendUserToServerMessage(type, (String) loginSender,
-                            (String) loginReceiver, (String) uuid, (String) text, (String) timestamp);
+                    return createTextMessageSendUserToServerMessage(type, (UUID) uuidUserSender,
+                            (UUID) uuidUserReceiver, (UUID) uuidMessage, (String) text, (String) timestamp);
                 }
             }
             case TextMessageSendUserToServerVerification -> {
@@ -196,13 +197,13 @@ public class JvSerializatorDataMessages {
             }
             case TextMessageRedirectServerToUser -> {
                 if (parameters.length == 5) {
-                    Object loginSender = parameters[0];
-                    Object loginReceiver = parameters[1];
-                    Object uuid = parameters[2];
+                    Object uuidUserSender = parameters[0];
+                    Object uuidUserReceiver = parameters[1];
+                    Object uuidMessage = parameters[2];
                     Object text = parameters[3];
                     Object timestamp = parameters[4];
-                    return createTextMessageRedirectServerToUserMessage(type, (String) loginSender,
-                            (String) loginReceiver, (String) uuid, (String) text, (String) timestamp);
+                    return createTextMessageRedirectServerToUserMessage(type, (UUID) uuidUserSender,
+                            (UUID) uuidUserReceiver, (UUID) uuidMessage, (String) text, (String) timestamp);
                 }
             }
             case TextMessageRedirectServerToUserVerification -> {
@@ -213,10 +214,10 @@ public class JvSerializatorDataMessages {
             }
             case MessagesLoadRequest -> {
                 if (parameters.length == 3) {
-                    Object loginRequesting = parameters[0];
-                    Object loginDialog = parameters[1];
+                    Object uuidUserRequesting = parameters[0];
+                    Object uuidChat = parameters[1];
                     Object quantityMessages = parameters[2];
-                    return createMessagesLoadRequestMessage(type, (String) loginRequesting, (String) loginDialog, (Integer) quantityMessages);
+                    return createMessagesLoadRequestMessage(type, (UUID) uuidUserRequesting, (UUID) uuidChat, (Integer) quantityMessages);
                 }
             }
             case MessagesLoadReply -> {
@@ -522,19 +523,19 @@ public class JvSerializatorDataMessages {
     }
 
     private byte[] createTextMessageSendUserToServerMessage(JvDefinesMessages.TypeMessage type,
-                                                            String loginSender, String loginReceiver,
-                                                            String uuid, String text, String timestamp) {
-        JvClientServerSerializeProtocolMessage_pb.MessageInfo messageInfo =
-                JvClientServerSerializeProtocolMessage_pb.MessageInfo.newBuilder()
-                        .setLoginSender(loginSender)
-                        .setLoginReceiver(loginReceiver)
-                        .setUuid(uuid)
+                                                            UUID uuidUserSender, UUID uuidUserReceiver,
+                                                            UUID uuidMessage, String text, String timestamp) {
+        JvClientServerSerializeProtocolMessage_pb.TextMessageInfo messageInfo =
+                JvClientServerSerializeProtocolMessage_pb.TextMessageInfo.newBuilder()
+                        .setUuidUserSender(uuidUserSender.toString())
+                        .setUuidUserReceiver(uuidUserReceiver.toString())
+                        .setUuidMessage(uuidMessage.toString())
                         .setText(text)
                         .setTimestamp(timestamp)
                         .build();
         JvClientServerSerializeProtocolMessage_pb.TextMessageSendUserToServer msgTextMessageSendUserToServer =
                 JvClientServerSerializeProtocolMessage_pb.TextMessageSendUserToServer.newBuilder()
-                        .setMessageInfo(messageInfo)
+                        .setTextMessageInfo(messageInfo)
                         .build();
         JvClientServerSerializeProtocolMessage_pb.General resMsg =
                 JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
@@ -630,19 +631,19 @@ public class JvSerializatorDataMessages {
     }
 
     private byte[] createTextMessageRedirectServerToUserMessage(JvDefinesMessages.TypeMessage type,
-                                                            String loginSender, String loginReceiver,
-                                                            String uuid, String text, String timestamp) {
-        JvClientServerSerializeProtocolMessage_pb.MessageInfo messageInfo =
-                JvClientServerSerializeProtocolMessage_pb.MessageInfo.newBuilder()
-                        .setLoginSender(loginSender)
-                        .setLoginReceiver(loginReceiver)
-                        .setUuid(uuid)
+                                                                UUID uuidUserSender, UUID uuidUserReceiver,
+                                                                UUID uuidMessage, String text, String timestamp) {
+        JvClientServerSerializeProtocolMessage_pb.TextMessageInfo messageInfo =
+                JvClientServerSerializeProtocolMessage_pb.TextMessageInfo.newBuilder()
+                        .setUuidUserSender(uuidUserSender.toString())
+                        .setUuidUserReceiver(uuidUserReceiver.toString())
+                        .setUuidMessage(uuidMessage.toString())
                         .setText(text)
                         .setTimestamp(timestamp)
                         .build();
         JvClientServerSerializeProtocolMessage_pb.TextMessageSendUserToServer msgTextMessageSendUserToServer =
                 JvClientServerSerializeProtocolMessage_pb.TextMessageSendUserToServer.newBuilder()
-                        .setMessageInfo(messageInfo)
+                        .setTextMessageInfo(messageInfo)
                         .build();
         JvClientServerSerializeProtocolMessage_pb.General resMsg =
                 JvClientServerSerializeProtocolMessage_pb.General.newBuilder()
@@ -665,12 +666,12 @@ public class JvSerializatorDataMessages {
         return resMsg.toByteArray();
     }
 
-    private byte[] createMessagesLoadRequestMessage(JvDefinesMessages.TypeMessage type, String loginRequesting,
-                                                    String loginDialog, int quantityMessages) {
+    private byte[] createMessagesLoadRequestMessage(JvDefinesMessages.TypeMessage type, UUID uuidUserRequesting,
+                                                    UUID uuidChat, int quantityMessages) {
         JvClientServerSerializeProtocolMessage_pb.MessagesLoadRequest loadMessagesRequest =
                 JvClientServerSerializeProtocolMessage_pb.MessagesLoadRequest.newBuilder()
-                        .setLoginRequesting(loginRequesting)
-                        .setLoginDialog(loginDialog)
+                        .setUuidUserRequesting(uuidUserRequesting.toString())
+                        .setUuidChat(uuidChat.toString())
                         .setQuantityMessages(quantityMessages)
                         .build();
         JvClientServerSerializeProtocolMessage_pb.General resMsg =
@@ -687,17 +688,16 @@ public class JvSerializatorDataMessages {
                 JvClientServerSerializeProtocolMessage_pb.MessagesLoadReply.newBuilder();
 
         for (Map<JvDbGlobalDefines.LineKeys, String> map : chatsInfo) {
-            Map<String, String> newMapStr = new HashMap<>();
-
-            for (JvDbGlobalDefines.LineKeys key : map.keySet()) {
-                newMapStr.put(key.getValue(), map.get(key));
-            }
-
-            JvClientServerSerializeProtocolMessage_pb.MessagesInfoMap msgInfoMap = JvClientServerSerializeProtocolMessage_pb.MessagesInfoMap
+            JvClientServerSerializeProtocolMessage_pb.MessagesInfo msgInfoMap = JvClientServerSerializeProtocolMessage_pb.MessagesInfo
                     .newBuilder()
-                    .putAllMapInfo(newMapStr)
+                    .setUuidUserSender(map.get(JvDbGlobalDefines.LineKeys.UuidSender))
+                    .setUuidUserReceiver(map.get(JvDbGlobalDefines.LineKeys.UuidReceiver))
+                    .setUuidMessage(map.get(JvDbGlobalDefines.LineKeys.UuidMessage))
+                    .setStatusMessage(Integer.parseInt(map.get(JvDbGlobalDefines.LineKeys.StatusMessage)))
+                    .setText(map.get(JvDbGlobalDefines.LineKeys.TextMessage))
+                    .setTimestamp(map.get(JvDbGlobalDefines.LineKeys.DateTimeMessage))
                     .build();
-            builder.addMessagesInfoMap(msgInfoMap);
+            builder.addMessagesInfo(msgInfoMap);
         }
 
         JvClientServerSerializeProtocolMessage_pb.MessagesLoadReply msgMessagesLoadReply = builder.build();

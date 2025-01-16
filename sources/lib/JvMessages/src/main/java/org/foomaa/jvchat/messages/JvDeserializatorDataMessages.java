@@ -1,11 +1,13 @@
 package org.foomaa.jvchat.messages;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.tools.JvGetterTools;
 
 
 public class JvDeserializatorDataMessages {
@@ -338,17 +340,17 @@ public class JvDeserializatorDataMessages {
         return result;
     }
 
-    private HashMap<JvDefinesMessages.TypeData, String> takeTextMessageSendUserToServerMessage(byte[] data) {
-        HashMap<JvDefinesMessages.TypeData, String> result = new HashMap<>();
+    private HashMap<JvDefinesMessages.TypeData, Object> takeTextMessageSendUserToServerMessage(byte[] data) {
+        HashMap<JvDefinesMessages.TypeData, Object> result = new HashMap<>();
         try {
             JvClientServerSerializeProtocolMessage_pb.TextMessageSendUserToServer msgData =
                     JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
                             .getTextMessageSendUserToServer();
-            JvClientServerSerializeProtocolMessage_pb.MessageInfo messageInfo = msgData.getMessageInfo();
+            JvClientServerSerializeProtocolMessage_pb.TextMessageInfo messageInfo = msgData.getTextMessageInfo();
 
-            result.put(JvDefinesMessages.TypeData.LoginSender, messageInfo.getLoginSender());
-            result.put(JvDefinesMessages.TypeData.LoginReceiver, messageInfo.getLoginReceiver());
-            result.put(JvDefinesMessages.TypeData.UuidMessage, messageInfo.getUuid());
+            result.put(JvDefinesMessages.TypeData.UuidUserSender, UUID.fromString(messageInfo.getUuidUserSender()));
+            result.put(JvDefinesMessages.TypeData.UuidUserReceiver, UUID.fromString(messageInfo.getUuidUserReceiver()));
+            result.put(JvDefinesMessages.TypeData.UuidMessage, UUID.fromString(messageInfo.getUuidMessage()));
             result.put(JvDefinesMessages.TypeData.Text, messageInfo.getText());
             result.put(JvDefinesMessages.TypeData.TimeStampMessageSend, messageInfo.getTimestamp());
         } catch (InvalidProtocolBufferException exception) {
@@ -448,11 +450,11 @@ public class JvDeserializatorDataMessages {
             JvClientServerSerializeProtocolMessage_pb.TextMessageSendUserToServer msgData =
                     JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
                             .getTextMessageSendUserToServer();
-            JvClientServerSerializeProtocolMessage_pb.MessageInfo messageInfo = msgData.getMessageInfo();
+            JvClientServerSerializeProtocolMessage_pb.TextMessageInfo messageInfo = msgData.getTextMessageInfo();
 
-            result.put(JvDefinesMessages.TypeData.LoginSender, messageInfo.getLoginSender());
-            result.put(JvDefinesMessages.TypeData.LoginReceiver, messageInfo.getLoginReceiver());
-            result.put(JvDefinesMessages.TypeData.UuidMessage, messageInfo.getUuid());
+            result.put(JvDefinesMessages.TypeData.UuidUserSender, messageInfo.getUuidUserSender());
+            result.put(JvDefinesMessages.TypeData.UuidUserReceiver, messageInfo.getUuidUserReceiver());
+            result.put(JvDefinesMessages.TypeData.UuidMessage, messageInfo.getUuidMessage());
             result.put(JvDefinesMessages.TypeData.Text, messageInfo.getText());
             result.put(JvDefinesMessages.TypeData.TimeStampMessageSend, messageInfo.getTimestamp());
         } catch (InvalidProtocolBufferException exception) {
@@ -479,8 +481,8 @@ public class JvDeserializatorDataMessages {
                     JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
                             .getMessagesLoadRequest();
 
-            result.put(JvDefinesMessages.TypeData.LoginRequesting, msgData.getLoginRequesting());
-            result.put(JvDefinesMessages.TypeData.LoginDialog, msgData.getLoginDialog());
+            result.put(JvDefinesMessages.TypeData.UuidUserRequesting, msgData.getUuidUserRequesting());
+            result.put(JvDefinesMessages.TypeData.UuidChat, msgData.getUuidChat());
             result.put(JvDefinesMessages.TypeData.QuantityMessages, msgData.getQuantityMessages());
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
@@ -488,20 +490,29 @@ public class JvDeserializatorDataMessages {
         return result;
     }
 
-    private HashMap<JvDefinesMessages.TypeData, List<Map<JvDbGlobalDefines.LineKeys, String>>> takeMessagesLoadReplyMessage(byte[] data) {
-        HashMap<JvDefinesMessages.TypeData, List<Map<JvDbGlobalDefines.LineKeys, String>>> result = new HashMap<>();
+    private HashMap<JvDefinesMessages.TypeData, List<Map<JvDefinesMessages.TypeData, Object>>> takeMessagesLoadReplyMessage(byte[] data) {
+        HashMap<JvDefinesMessages.TypeData, List<Map<JvDefinesMessages.TypeData, Object>>> result = new HashMap<>();
         try {
             JvClientServerSerializeProtocolMessage_pb.MessagesLoadReply msgLoadReplyMsg =
                     JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).getMessagesLoadReply();
 
-            List<Map<JvDbGlobalDefines.LineKeys, String>> listMainData = new ArrayList<>();
-            for (int i = 0; i < msgLoadReplyMsg.getMessagesInfoMapCount(); i++) {
-                Map<String, String> map = msgLoadReplyMsg.getMessagesInfoMap(i).getMapInfoMap();
-                Map<JvDbGlobalDefines.LineKeys, String> newMap = new HashMap<>();
+            List<Map<JvDefinesMessages.TypeData, Object>> listMainData = new ArrayList<>();
+            for (int i = 0; i < msgLoadReplyMsg.getMessagesInfoCount(); i++) {
+                UUID uuidUserSender = UUID.fromString(msgLoadReplyMsg.getMessagesInfo(i).getUuidUserSender());
+                UUID uuidUserReceiver = UUID.fromString(msgLoadReplyMsg.getMessagesInfo(i).getUuidUserReceiver());
+                UUID uuidMessage = UUID.fromString(msgLoadReplyMsg.getMessagesInfo(i).getUuidMessage());
+                int statusMessage = msgLoadReplyMsg.getMessagesInfo(i).getStatusMessage();
+                String text = msgLoadReplyMsg.getMessagesInfo(i).getText();
+                String timestamp = msgLoadReplyMsg.getMessagesInfo(i).getTimestamp();
 
-                for (String key : map.keySet()) {
-                    newMap.put(JvDbGlobalDefines.LineKeys.getTypeLineKey(key), map.get(key));
-                }
+                Map<JvDefinesMessages.TypeData, Object> newMap = new HashMap<>();
+
+                newMap.put(JvDefinesMessages.TypeData.UuidUserSender, uuidUserSender);
+                newMap.put(JvDefinesMessages.TypeData.UuidUserReceiver, uuidUserReceiver);
+                newMap.put(JvDefinesMessages.TypeData.UuidMessage, uuidMessage);
+                newMap.put(JvDefinesMessages.TypeData.StatusMessage, statusMessage);
+                newMap.put(JvDefinesMessages.TypeData.Text, text);
+                newMap.put(JvDefinesMessages.TypeData.TimeStampMessageSend, timestamp);
 
                 listMainData.add(newMap);
             }

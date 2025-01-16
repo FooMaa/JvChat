@@ -142,10 +142,10 @@ public class JvChatsCtrl {
 
         for (JvChatStructObject chat : chatsList) {
             JvMessageStructObject lastMessageObj = chat.getLastMessage();
-            String sender = lastMessageObj.getLoginSender();
-            String receiver = lastMessageObj.getLoginReceiver();
-            if ((Objects.equals(sender, message.getLoginSender()) && Objects.equals(receiver, message.getLoginReceiver())) ||
-                    (Objects.equals(sender, message.getLoginReceiver()) && Objects.equals(receiver, message.getLoginReceiver()))) {
+            UUID uuidUserSender = lastMessageObj.getUuidUserSender();
+            UUID uuidUserReceiver = lastMessageObj.getUuidUserReceiver();
+            if ((uuidUserSender.equals(message.getUuidUserSender()) && uuidUserReceiver.equals(message.getUuidUserReceiver())) ||
+                    (uuidUserSender.equals(message.getUuidUserReceiver()) && uuidUserReceiver.equals(message.getUuidUserReceiver()))) {
                 chat.setLastMessage(message);
                 return;
             }

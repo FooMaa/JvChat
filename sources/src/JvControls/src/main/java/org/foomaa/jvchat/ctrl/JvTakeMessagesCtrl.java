@@ -339,29 +339,29 @@ public class JvTakeMessagesCtrl {
     }
 
     private void workTextMessageSendUserToServerMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
-        String loginSender = (String) map.get(JvDefinesMessages.TypeData.LoginSender);
-        String loginReceiver = (String) map.get(JvDefinesMessages.TypeData.LoginReceiver);
-        String uuid = (String) map.get(JvDefinesMessages.TypeData.UuidMessage);
+        UUID uuidUserSender = (UUID) map.get(JvDefinesMessages.TypeData.UuidUserSender);
+        UUID uuidUserReceiver = (UUID) map.get(JvDefinesMessages.TypeData.UuidUserReceiver);
+        UUID uuidMessage = (UUID) map.get(JvDefinesMessages.TypeData.UuidMessage);
         String text = (String) map.get(JvDefinesMessages.TypeData.Text);
         String timestampStr = (String) map.get(JvDefinesMessages.TypeData.TimeStampMessageSend);
 
         JvMainChatsGlobalDefines.TypeStatusMessage status = JvMainChatsGlobalDefines.TypeStatusMessage.Delivered;
         String statusString = status.toString();
         Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages = new HashMap<>();
-        mapStatusMessages.put(UUID.fromString(uuid), status);
+        mapStatusMessages.put(uuidMessage, status);
         int normaliseTimestampCount = 3;
         LocalDateTime timestamp = JvGetterTools.getInstance().getBeanFormatTools()
                 .stringToLocalDateTime(timestampStr, normaliseTimestampCount);
 
         // записываем в первую очередь в БД
         JvGetterControls.getInstance().getBeanDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.ChatMessagesSentMessage,
-                loginSender, loginReceiver, statusString, text, uuid, timestampStr);
+                uuidUserSender.toString(), uuidUserReceiver.toString(), uuidMessage.toString(), statusString, text, timestampStr);
         // отправляем статус "доставлено"
         JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 JvDefinesMessages.TypeMessage.TextMessagesChangingStatusFromServer, mapStatusMessages);
         // отправляем пользователю, если он в сети
         JvGetterControls.getInstance().getBeanMessagesDialogCtrl().redirectMessageToOnlineUser(
-                loginSender, loginReceiver, text, status, UUID.fromString(uuid), timestamp);
+                uuidUserSender, uuidUserReceiver, uuidMessage, status, text, timestamp);
         // отправляем квиток о доставке
         JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 JvDefinesMessages.TypeMessage.TextMessageSendUserToServerVerification, true );
@@ -420,9 +420,9 @@ public class JvTakeMessagesCtrl {
     }
 
     private void workTextMessageRedirectServerToUserMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
-        String loginSender = (String) map.get(JvDefinesMessages.TypeData.LoginSender);
-        String loginReceiver = (String) map.get(JvDefinesMessages.TypeData.LoginReceiver);
-        String uuid = (String) map.get(JvDefinesMessages.TypeData.UuidMessage);
+        UUID uuidUserSender = (UUID) map.get(JvDefinesMessages.TypeData.UuidUserSender);
+        UUID uuidUserReceiver = (UUID) map.get(JvDefinesMessages.TypeData.UuidUserReceiver);
+        UUID uuidMessage = (UUID) map.get(JvDefinesMessages.TypeData.UuidMessage);
         String text = (String) map.get(JvDefinesMessages.TypeData.Text);
         String timestampStr = (String) map.get(JvDefinesMessages.TypeData.TimeStampMessageSend);
 
@@ -432,7 +432,7 @@ public class JvTakeMessagesCtrl {
                 .stringToLocalDateTime(timestampStr, normaliseTimestampCount);
 
         JvGetterControls.getInstance().getBeanMessagesDialogCtrl().addRedirectMessageToModel(
-                loginSender, loginReceiver, text, status, UUID.fromString(uuid), timestamp);
+                uuidUserSender, uuidUserReceiver, uuidMessage, status, text, timestamp);
         JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
                 .setTextMessageRedirectServerToUserFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
 
@@ -464,9 +464,9 @@ public class JvTakeMessagesCtrl {
 
     private void workMessagesLoadReplyMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         Object objectFromMap = map.get(JvDefinesMessages.TypeData.MessagesInfoList);
-        List<Map<JvDbGlobalDefines.LineKeys, String>> msgInfo =
+        List<Map<JvDefinesMessages.TypeData, Object>> msgInfo =
                 JvGetterTools.getInstance().getBeanStructTools()
-                        .objectInListMaps(objectFromMap, JvDbGlobalDefines.LineKeys.class, String.class);
+                        .objectInListMaps(objectFromMap, JvDefinesMessages.TypeData.class, Object.class);
 
         JvGetterControls.getInstance().getBeanMessagesDialogCtrl().createMessagesObjects(msgInfo);
         JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()

@@ -290,7 +290,7 @@ public class JvOnlineServersCtrl {
         return resultMap;
     }
 
-    public Runnable getRunnableByLogin(String login) {
+    public Runnable getRunnableByUuidUser(UUID uuidUser) {
         List<JvCheckerOnlineStructObject> listCheckersOnline = checkersOnlineModel.getAllCheckersOnline();
 
         for (JvCheckerOnlineStructObject checkerOnline : listCheckersOnline) {
@@ -300,7 +300,7 @@ public class JvOnlineServersCtrl {
                 continue;
             }
 
-            if (Objects.equals(checkerOnline.getUser().getLogin(), login)) {
+            if (checkerOnline.getUser().getUuid().equals(uuidUser)) {
                 return socketRunnableCtrlStructObject.getSocketRunnableCtrl();
             }
         }

@@ -18,7 +18,7 @@ import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 public class JvRectChatMainChatUI extends JPanel {
     private final String nickName;
     private String shortLastMessage;
-    private String lastMessageSender;
+    private UUID lastMessageSender;
     private String timeLastMessage;
     private JvMainChatsGlobalDefines.TypeStatusMessage statusMessage;
     private JvMainChatsGlobalDefines.TypeStatusOnline statusOnline;
@@ -34,7 +34,7 @@ public class JvRectChatMainChatUI extends JPanel {
     JvRectChatMainChatUI(JvChatStructObject chatObject) {
         nickName = chatObject.getUserChat().getLogin();
         shortLastMessage = chatObject.getLastMessage().getText();
-        lastMessageSender = chatObject.getLastMessage().getLoginSender();
+        lastMessageSender = chatObject.getLastMessage().getUuidUserSender();
         timeLastMessage = JvGetterControls.getInstance().getBeanChatsCtrl()
                 .getTimeFormattedLastMessage(chatObject.getLastMessage().getTimestamp());
         statusMessage = chatObject.getLastMessage().getStatusMessage();
@@ -136,9 +136,9 @@ public class JvRectChatMainChatUI extends JPanel {
     }
 
     private boolean isBoldMessageByStatus() {
-        String currentLogin = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
+        UUID currentUuid = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
 
-        if (Objects.equals(lastMessageSender, currentLogin)) {
+        if (lastMessageSender.equals(currentUuid)) {
             return false;
         }
 
@@ -146,9 +146,9 @@ public class JvRectChatMainChatUI extends JPanel {
     }
 
     private String createLastMessageString() {
-        String currentLogin = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getLogin();
+        UUID currentUuid = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
 
-        if (Objects.equals(lastMessageSender, currentLogin)) {
+        if (lastMessageSender.equals(currentUuid)) {
             return "Вы: " + shortLastMessage;
         }
 
@@ -260,7 +260,7 @@ public class JvRectChatMainChatUI extends JPanel {
         shortLastMessage = message.getText();
         timeLastMessage = JvGetterControls.getInstance().getBeanChatsCtrl()
                 .getTimeFormattedLastMessage(message.getTimestamp());
-        lastMessageSender = message.getLoginSender();
+        lastMessageSender = message.getUuidUserSender();
         statusMessage = message.getStatusMessage();
 
         JLabel labelMsg = (JLabel) findComponentLastMessage();

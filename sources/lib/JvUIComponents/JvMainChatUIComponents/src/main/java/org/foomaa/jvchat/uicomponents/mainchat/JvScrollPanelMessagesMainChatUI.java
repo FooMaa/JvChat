@@ -174,7 +174,7 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
 
         for (JvMessageStructObject messageStructObject : allMessagesObjSorted) {
             if (findRectMessageByUuid(panel, messageStructObject.getUuid()) == null &&
-                    Objects.equals(currentPanelLogin, messageStructObject.getLoginSender())) {
+                    Objects.equals(currentPanelLogin, messageStructObject.getUuidUserSender())) {
                 addMessage(messageStructObject);
             }
         }

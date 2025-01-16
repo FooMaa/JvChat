@@ -382,12 +382,12 @@ END;
 $BODY$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION jvchat_schema.chats_messages_save_message (
-    f_loginSender       character varying,
-    f_loginReceiver     character varying,
-    f_status            int,
-    f_message           character varying,
-    f_uuid_message      character varying,
-    f_datetime          timestamp
+    f_uuid_user_sender      character varying,
+    f_uuid_user_receiver    character varying,
+    f_uuid_message          character varying,
+    f_status                integer,
+    f_message               character varying,
+    f_datetime              timestamp
 )
     RETURNS integer AS
 $BODY$
@@ -397,8 +397,8 @@ DECLARE
     f_id_user_receiver integer;
     f_cast_timestamp timestamp;
 BEGIN
-    SELECT id INTO f_id_user_sender FROM jvchat_schema.auth_users_info WHERE login = f_loginSender;
-    SELECT id INTO f_id_user_receiver FROM jvchat_schema.auth_users_info WHERE login = f_loginReceiver;
+    SELECT id INTO f_id_user_sender FROM jvchat_schema.auth_users_info WHERE uuid_user = f_uuid_user_sender;
+    SELECT id INTO f_id_user_receiver FROM jvchat_schema.auth_users_info WHERE uuid_user = f_uuid_user_receiver;
     SELECT cast(f_datetime as timestamp) INTO f_cast_timestamp;
     
     rv := -1;
