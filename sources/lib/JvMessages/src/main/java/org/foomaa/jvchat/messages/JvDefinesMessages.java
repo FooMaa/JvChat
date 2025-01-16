@@ -60,30 +60,31 @@ public class JvDefinesMessages {
     }
 
     public enum TypeData {
+        // Primitive
         IP,
         Login,
         Email,
         Password,
         ErrorReg,
+        IsLoginSentLastMessage,
         BoolReply,
-        VerifyCode,
-        ChatsInfoList,
-        MessagesInfoList,
-        UsersOnlineInfoList,
-        UuidsUsersList,
         Timestamp,
+        VerifyCode,
         TextMessage,
-        MapStatusMessages,
-        LoginRequesting,
-        LoginDialog,
+        StatusMessage,
         QuantityMessages,
+        // UUID's
         UuidChat,
-        UuidMessage,
         UuidUser,
+        UuidMessage,
         UuidUserSender,
         UuidUserReceiver,
-        IsLoginSentLastMessage,
-        StatusMessage,
+        // Collections
+        ChatsInfoList,
+        UuidsUsersList,
+        MessagesInfoList,
+        UsersOnlineInfoList,
+        StatusMessagesMap,
     }
 
     public enum TypeErrorRegistration {

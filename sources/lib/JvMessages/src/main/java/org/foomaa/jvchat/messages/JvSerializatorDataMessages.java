@@ -685,7 +685,7 @@ public class JvSerializatorDataMessages {
                 JvClientServerSerializeProtocolMessage_pb.MessagesLoadReply.newBuilder();
 
         for (Map<JvDbGlobalDefines.LineKeys, String> map : msgInfo) {
-            JvClientServerSerializeProtocolMessage_pb.MessagesInfo msgInfoMap = JvClientServerSerializeProtocolMessage_pb.MessagesInfo
+            JvClientServerSerializeProtocolMessage_pb.TextMessageInfo msgInfoMap = JvClientServerSerializeProtocolMessage_pb.TextMessageInfo
                     .newBuilder()
                     .setUuidUserSender(map.get(JvDbGlobalDefines.LineKeys.UuidSender))
                     .setUuidUserReceiver(map.get(JvDbGlobalDefines.LineKeys.UuidReceiver))
@@ -694,7 +694,7 @@ public class JvSerializatorDataMessages {
                     .setText(map.get(JvDbGlobalDefines.LineKeys.TextMessage))
                     .setTimestamp(map.get(JvDbGlobalDefines.LineKeys.DateTimeMessage))
                     .build();
-            builder.addMessagesInfo(msgInfoMap);
+            builder.addTextMessageInfo(msgInfoMap);
         }
 
         JvClientServerSerializeProtocolMessage_pb.MessagesLoadReply msgMessagesLoadReply = builder.build();

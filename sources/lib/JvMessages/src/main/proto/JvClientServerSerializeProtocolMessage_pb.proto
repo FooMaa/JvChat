@@ -53,6 +53,8 @@ message General {
     }
 }
 
+// Main
+
 message EntryRequest {
     string login = 1;
     string password = 2;
@@ -135,23 +137,6 @@ message ChatsLoadReply {
     repeated ChatsInfo chatsInfo = 1;
 }
 
-message ChatsInfo {
-    enum TypeStatusMessage {
-            Error = 0;
-            Sent = 1;
-            Delivered = 2;
-            Read = 3;
-    }
-    string login = 1;
-    string uuidUser = 2;
-    string lastMessageText = 3;
-    string uuidChat = 4;
-    string uuidMessage = 5;
-    bool isLoginSentLastMessage = 6;
-    TypeStatusMessage statusMessage = 7;
-    string dateTimeLastMessage = 8;
-}
-
 message CheckOnlineUserRequest {
     string ip = 1;
 }
@@ -176,14 +161,6 @@ message LoadUsersOnlineStatusReply {
 
 message TextMessageSendUserToServer {
     TextMessageInfo textMessageInfo = 1;
-}
-
-message TextMessageInfo {
-    string uuidUserSender = 1;
-    string uuidUserReceiver = 2;
-    string uuidMessage = 3;
-    string text = 4;
-    string timestamp = 5;
 }
 
 message TextMessageSendUserToServerVerification {
@@ -232,10 +209,29 @@ message MessagesLoadRequest {
 }
 
 message MessagesLoadReply {
-    repeated MessagesInfo messagesInfo = 1;
+    repeated TextMessageInfo textMessageInfo = 1;
 }
 
-message MessagesInfo {
+// Helpers
+
+message ChatsInfo {
+    enum TypeStatusMessage {
+            Error = 0;
+            Sent = 1;
+            Delivered = 2;
+            Read = 3;
+    }
+    string login = 1;
+    string uuidUser = 2;
+    string lastMessageText = 3;
+    string uuidChat = 4;
+    string uuidMessage = 5;
+    bool isLoginSentLastMessage = 6;
+    TypeStatusMessage statusMessage = 7;
+    string dateTimeLastMessage = 8;
+}
+
+message TextMessageInfo {
     string uuidUserSender = 1;
     string uuidUserReceiver = 2;
     string uuidMessage = 3;

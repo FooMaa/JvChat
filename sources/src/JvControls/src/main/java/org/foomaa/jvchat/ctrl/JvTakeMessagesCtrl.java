@@ -378,7 +378,7 @@ public class JvTakeMessagesCtrl {
     }
 
     private void workTextMessagesChangingStatusFromServerMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
-        Object statusesMap = map.get(JvDefinesMessages.TypeData.MapStatusMessages);
+        Object statusesMap = map.get(JvDefinesMessages.TypeData.StatusMessagesMap);
         Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = JvGetterTools.getInstance()
                 .getBeanStructTools().objectInMap(statusesMap, UUID.class, JvMainChatsGlobalDefines.TypeStatusMessage.class);
 
@@ -397,7 +397,7 @@ public class JvTakeMessagesCtrl {
     }
 
     private void workTextMessagesChangingStatusFromUserMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
-        Object statusesMap = map.get(JvDefinesMessages.TypeData.MapStatusMessages);
+        Object statusesMap = map.get(JvDefinesMessages.TypeData.StatusMessagesMap);
         Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = JvGetterTools.getInstance()
                 .getBeanStructTools().objectInMap(statusesMap, UUID.class, JvMainChatsGlobalDefines.TypeStatusMessage.class);
 

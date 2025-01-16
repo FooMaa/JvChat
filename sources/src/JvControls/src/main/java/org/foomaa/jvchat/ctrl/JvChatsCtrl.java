@@ -152,11 +152,11 @@ public class JvChatsCtrl {
         }
     }
 
-    public JvMessageStructObject getMessageObjectByLoginChat(String loginChat) {
+    public JvMessageStructObject getMessageObjectByUuidChat(UUID uuidChat) {
         List<JvChatStructObject> chatsList = chatsModel.getAllChatsObjects();
 
         for (JvChatStructObject chat : chatsList) {
-            if (Objects.equals(loginChat, chat.getUserChat().getLogin())) {
+            if (chat.getUuid().equals(uuidChat)) {
                 return chat.getLastMessage();
             }
         }

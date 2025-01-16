@@ -386,7 +386,7 @@ public class JvDeserializatorDataMessages {
                 newMapStatusesMessages.put(UUID.fromString(key), statusMsg);
             }
 
-            result.put(JvDefinesMessages.TypeData.MapStatusMessages, newMapStatusesMessages);
+            result.put(JvDefinesMessages.TypeData.StatusMessagesMap, newMapStatusesMessages);
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }
@@ -423,7 +423,7 @@ public class JvDeserializatorDataMessages {
                 newMapStatusesMessages.put(UUID.fromString(key), statusMsg);
             }
 
-            result.put(JvDefinesMessages.TypeData.MapStatusMessages, newMapStatusesMessages);
+            result.put(JvDefinesMessages.TypeData.StatusMessagesMap, newMapStatusesMessages);
         } catch (InvalidProtocolBufferException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Error in protobuf deserialised data");
         }
@@ -493,13 +493,13 @@ public class JvDeserializatorDataMessages {
                     JvClientServerSerializeProtocolMessage_pb.General.parseFrom(data).getMessagesLoadReply();
 
             List<Map<JvDefinesMessages.TypeData, Object>> listMainData = new ArrayList<>();
-            for (int i = 0; i < msgLoadReplyMsg.getMessagesInfoCount(); i++) {
-                UUID uuidUserSender = UUID.fromString(msgLoadReplyMsg.getMessagesInfo(i).getUuidUserSender());
-                UUID uuidUserReceiver = UUID.fromString(msgLoadReplyMsg.getMessagesInfo(i).getUuidUserReceiver());
-                UUID uuidMessage = UUID.fromString(msgLoadReplyMsg.getMessagesInfo(i).getUuidMessage());
-                int statusMessage = msgLoadReplyMsg.getMessagesInfo(i).getStatusMessage();
-                String text = msgLoadReplyMsg.getMessagesInfo(i).getText();
-                String timestamp = msgLoadReplyMsg.getMessagesInfo(i).getTimestamp();
+            for (int i = 0; i < msgLoadReplyMsg.getTextMessageInfoCount(); i++) {
+                UUID uuidUserSender = UUID.fromString(msgLoadReplyMsg.getTextMessageInfo(i).getUuidUserSender());
+                UUID uuidUserReceiver = UUID.fromString(msgLoadReplyMsg.getTextMessageInfo(i).getUuidUserReceiver());
+                UUID uuidMessage = UUID.fromString(msgLoadReplyMsg.getTextMessageInfo(i).getUuidMessage());
+                int statusMessage = msgLoadReplyMsg.getTextMessageInfo(i).getStatusMessage();
+                String text = msgLoadReplyMsg.getTextMessageInfo(i).getText();
+                String timestamp = msgLoadReplyMsg.getTextMessageInfo(i).getTimestamp();
 
                 Map<JvDefinesMessages.TypeData, Object> newMap = new HashMap<>();
 
