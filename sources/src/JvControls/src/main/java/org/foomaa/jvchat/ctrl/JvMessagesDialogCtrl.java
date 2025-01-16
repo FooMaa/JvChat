@@ -151,7 +151,7 @@ public class JvMessagesDialogCtrl {
                 uuidUserSender, uuidUserReceiver, uuidMessage, statusMessage, text, timestamp);
         JvOnlineServersCtrl onlineServersCtrl =  JvGetterControls.getInstance().getBeanOnlineServersCtrl();
 
-        boolean isUserOnline = true;//onlineServersCtrl.isUuidUserInListCheckerOnline(messageStructObject.getLoginReceiver());
+        boolean isUserOnline = onlineServersCtrl.isUuidUserInListCheckerOnline(messageStructObject.getUuidUserReceiver());
         if (!isUserOnline) {
             return;
         }
