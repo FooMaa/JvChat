@@ -22,7 +22,7 @@ public class JvDbRequests {
 
     public String insertCodeVerifyFamousEmail(String userUuid, String code) {
         return String.format(
-                "SELECT * FROM jvchat_schema.verify_famous_email_save( %d,'%s');",
+                "SELECT * FROM jvchat_schema.verify_famous_email_save( '%s','%s');",
                 userUuid,
                 code);
     }

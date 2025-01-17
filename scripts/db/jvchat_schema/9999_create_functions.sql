@@ -209,7 +209,7 @@ BEGIN
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION jvchat_schema.verify_famous_email_check_email_code(
+CREATE OR REPLACE FUNCTION jvchat_schema.verify_famous_email_check_email_code (
     f_email character varying,
     f_code character varying
 )
