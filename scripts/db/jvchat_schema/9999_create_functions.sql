@@ -182,7 +182,7 @@ DECLARE
     rs bool;
 BEGIN
     rv := -1;
-    SELECT id INTO f_id_user FROM jvchat_schema.auth_users_info WHERE uuid_user = f_uuid;
+    SELECT id INTO f_id_user FROM jvchat_schema.auth_users_info WHERE uuid_user = f_uuid_user;
 
     PERFORM * FROM jvchat_schema.verify_famous_email WHERE id_user = f_id_user;
     IF found THEN
