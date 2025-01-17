@@ -4,6 +4,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.Path2D;
+import java.awt.geom.RoundRectangle2D;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
@@ -20,8 +22,7 @@ import org.foomaa.jvchat.uicomponents.mainchat.JvGetterMainChatUIComponents;
 
 
 public class JvEntryFrameAuthUI extends JFrame {
-    private final JPanel panel;
-    private final JvLabelAuthUI tInfo;
+    private JPanel panel;
     private final JvTextFieldAuthUI tLogin;
     private final JvLabelAuthUI tErrorHelpInfo;
     private final JvPasswordFieldAuthUI tPassword;
@@ -32,15 +33,15 @@ public class JvEntryFrameAuthUI extends JFrame {
     JvEntryFrameAuthUI() {
         super("EntryWindow");
 
-        panel = new JPanel();
-        tInfo = JvGetterAuthUIComponents.getInstance().getBeanLabelAuthUI("Введите данные для входа:");
-        tLogin = JvGetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Логин");
+        createPanel("/AuthMainBackground.png");
+
+        tLogin = JvGetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Login");
         tErrorHelpInfo = JvGetterAuthUIComponents.getInstance().getBeanLabelAuthUI("");
         tErrorHelpInfo.settingToError();
-        tPassword = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Пароль");
-        bEnter = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("ВОЙТИ");
-        activeMissLabel = JvGetterAuthUIComponents.getInstance().getBeanActiveLabelAuthUI("Не помню пароль");
-        activeRegisterLabel = JvGetterAuthUIComponents.getInstance().getBeanActiveLabelAuthUI("Регистрация");
+        tPassword = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Password");
+        bEnter = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("NEXT");
+        activeMissLabel = JvGetterAuthUIComponents.getInstance().getBeanActiveLabelAuthUI("Reset password");
+        activeRegisterLabel = JvGetterAuthUIComponents.getInstance().getBeanActiveLabelAuthUI("Registration");
 
         setIconImageFrame("/MainAppIcon.png");
         makeFrameSetting();
@@ -57,6 +58,29 @@ public class JvEntryFrameAuthUI extends JFrame {
         }
     }
 
+    private void createPanel(String path) {
+        panel = new JPanel(new GridBagLayout()) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+
+                Image img = null;
+                try {
+                    img = ImageIO.read(Objects.requireNonNull(getClass().getResource(path)));
+                } catch (IOException e) {
+                    e.getStackTrace();
+                }
+
+                if (img == null) {
+                    JvLog.write(JvLog.TypeLog.Error, "Здесь img оказалась равная null.");
+                    return;
+                }
+
+                g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+    }
+
     private void makeFrameSetting() {
         panel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -68,14 +92,6 @@ public class JvEntryFrameAuthUI extends JFrame {
 
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
-        gbc.fill = GridBagConstraints.PAGE_START;
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0125), 0,
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0084), 0);
-        gbc.gridy = gridyNum;
-        panel.add(tInfo, gbc);
-        gridyNum++;
-
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(0, insX,
@@ -202,7 +218,7 @@ public class JvEntryFrameAuthUI extends JFrame {
 
     private void addGeneralSettingsToWidget() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("ВХОД");
+        setTitle("ENTRY");
 
         setSize(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.3,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
