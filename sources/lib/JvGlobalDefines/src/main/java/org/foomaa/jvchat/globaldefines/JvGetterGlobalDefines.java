@@ -34,4 +34,8 @@ public class JvGetterGlobalDefines {
     public JvMainChatsGlobalDefines getBeanMainChatsGlobalDefines() {
         return context.getBean(JvGlobalDefinesSpringConfig.NameBeans.BeanMainChatsGlobalDefines.getValue(), JvMainChatsGlobalDefines.class);
     }
+
+    public JvFontsGlobalDefines getBeanFontsGlobalDefines() {
+        return context.getBean(JvGlobalDefinesSpringConfig.NameBeans.BeanFontsGlobalDefines.getValue(), JvFontsGlobalDefines.class);
+    }
 }

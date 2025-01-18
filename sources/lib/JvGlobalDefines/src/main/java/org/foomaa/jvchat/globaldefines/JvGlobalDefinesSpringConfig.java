@@ -11,7 +11,8 @@ class JvGlobalDefinesSpringConfig {
         BeanMainGlobalDefines("beanMainGlobalDefines"),
         BeanColorsAnsiGlobalDefines("beanColorAnsiGlobalDefines"),
         BeanDbGlobalDefines("beanDbGlobalDefines"),
-        BeanMainChatsGlobalDefines("beanMainChatsGlobalDefines");
+        BeanMainChatsGlobalDefines("beanMainChatsGlobalDefines"),
+        BeanFontsGlobalDefines("beanFontsGlobalDefines");
 
         private final String value;
 
@@ -50,5 +51,12 @@ class JvGlobalDefinesSpringConfig {
     @SuppressWarnings("unused")
     public JvMainChatsGlobalDefines beanMainChatsGlobalDefines() {
         return new JvMainChatsGlobalDefines();
+    }
+
+    @Bean(name = "beanFontsGlobalDefines")
+    @Scope("singleton")
+    @SuppressWarnings("unused")
+    public JvFontsGlobalDefines beanFontsGlobalDefines() {
+        return new JvFontsGlobalDefines();
     }
 }

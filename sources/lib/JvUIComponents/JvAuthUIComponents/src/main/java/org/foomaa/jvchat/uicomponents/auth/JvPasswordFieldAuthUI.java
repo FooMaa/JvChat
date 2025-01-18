@@ -28,8 +28,8 @@ public class JvPasswordFieldAuthUI extends JPanel {
     private final int borderSize = 1;
 
     JvPasswordFieldAuthUI(String text) {
-        visibleImage = setIcon("/eye.png");
-        invisibleImage = setIcon("/eye-close.png");
+        visibleImage = setIcon("/Eye.png");
+        invisibleImage = setIcon("/Eye-close.png");
         defaultText = text;
 
         settingPassAndButtonPanel();

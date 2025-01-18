@@ -1,11 +1,12 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import javax.imageio.IIOException;
+import org.foomaa.jvchat.globaldefines.JvGetterGlobalDefines;
+import org.foomaa.jvchat.logger.JvLog;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.io.IOException;
-import java.io.InputStream;
 
 
 public class JvButtonAuthUI extends JButton {
@@ -14,22 +15,7 @@ public class JvButtonAuthUI extends JButton {
         setBackground(Color.WHITE);
         setFocusable(false);
         addListenerToElements();
-
-
-        // Загрузка и регистрация шрифта
-        Font customFont = null;
-        try {
-            InputStream inputStream = getClass().getResourceAsStream("/MainFont.otf");
-            customFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-            inputStream.close();
-            customFont = customFont.deriveFont(Font.BOLD, 24f);
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(customFont);
-        } catch (FontFormatException | IOException e) {
-            System.out.println("aaa");
-        }
-
-        setFont(customFont);
+        settingFont();
     }
 
     @Override
@@ -73,5 +59,14 @@ public class JvButtonAuthUI extends JButton {
             setFocusable(true);
             requestFocusInWindow();
         });
+    }
+
+    private void settingFont() {
+        try {
+            Font mmFont = JvGetterGlobalDefines.getInstance().getBeanFontsGlobalDefines().createMainMMFont(24f);
+            setFont(mmFont);
+        } catch (IOException | FontFormatException exception) {
+            JvLog.write(JvLog.TypeLog.Error, "Здесь не создался mmFont");
+        }
     }
 }

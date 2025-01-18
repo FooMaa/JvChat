@@ -30,7 +30,7 @@ public class JvFindTextFieldMainChatUI extends JPanel {
 
     private BufferedImage setIcon() {
         try {
-            return ImageIO.read(Objects.requireNonNull(getClass().getResource("/magnifier.png")));
+            return ImageIO.read(Objects.requireNonNull(getClass().getResource("/Magnifier.png")));
         } catch (IOException ex) {
             JvLog.write(JvLog.TypeLog.Error, "Нет иконки глазка");
         }

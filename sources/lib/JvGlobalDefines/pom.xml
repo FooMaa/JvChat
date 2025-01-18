@@ -13,4 +13,12 @@
     <packaging>jar</packaging>
 
     <name>JvGlobalDefines</name>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>../../../res/AllDefaultsRes/fonts/</directory>
+            </resource>
+        </resources>
+    </build>
 </project>
