@@ -4,8 +4,11 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.Objects;
 
+import org.foomaa.jvchat.globaldefines.JvGetterGlobalDefines;
+import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
@@ -14,7 +17,7 @@ public class JvTextFieldAuthUI extends JPanel {
     private JTextField textField;
 
     private final String defaultText;
-    private final int borderSize = 1;
+    private final int borderSize = 2;
 
     JvTextFieldAuthUI(String text) {
         defaultText = text;
@@ -100,6 +103,18 @@ public class JvTextFieldAuthUI extends JPanel {
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.012)));
         textField.setForeground(Color.lightGray);
         textField.setFocusable(false);
+        setFont();
+    }
+
+    private void setFont() {
+        try {
+            int size = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.012);
+            Font mmFont = JvGetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
+                    .createMainMMFont(Font.BOLD, size);
+            textField.setFont(mmFont);
+        } catch (IOException | FontFormatException exception) {
+            JvLog.write(JvLog.TypeLog.Error, "Здесь не создался mmFont");
+        }
     }
 
     public String getInputText() {
@@ -110,7 +125,7 @@ public class JvTextFieldAuthUI extends JPanel {
     }
 
     public void setErrorBorder() {
-        setBorder(new LineBorder(Color.red, borderSize));
+        setBorder(new LineBorder(Color.MAGENTA, borderSize));
     }
 
     public void setNormalBorder() {

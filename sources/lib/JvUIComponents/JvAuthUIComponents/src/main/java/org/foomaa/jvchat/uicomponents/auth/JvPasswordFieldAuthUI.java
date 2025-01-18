@@ -12,6 +12,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Objects;
 
+import org.foomaa.jvchat.globaldefines.JvGetterGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.settings.JvGetterSettings;
@@ -25,7 +26,7 @@ public class JvPasswordFieldAuthUI extends JPanel {
     private JPasswordField passwordField;
     private JButton button;
     private final String defaultText;
-    private final int borderSize = 1;
+    private final int borderSize = 2;
 
     JvPasswordFieldAuthUI(String text) {
         visibleImage = setIcon("/Eye.png");
@@ -166,16 +167,25 @@ public class JvPasswordFieldAuthUI extends JPanel {
     private void settingPassField(Dimension dim) {
         passwordField = new JPasswordField();
         Dimension calcNewDim = new Dimension((int) dim.getWidth() -
-                button.getPreferredSize().width,
-                (int) dim.getHeight() - borderSize * 2);
+                button.getPreferredSize().width, (int) dim.getHeight() - borderSize * 2);
         passwordField.setPreferredSize(calcNewDim);
         passwordField.setBorder(null);
         passwordField.setText(defaultText);
-        passwordField.setFont(new Font("Times", Font.BOLD,
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.012)));
         passwordField.setForeground(Color.lightGray);
         passwordField.setFocusable(false);
         passwordField.setEchoChar((char) 0);
+        setFont();
+    }
+
+    private void setFont() {
+        try {
+            int size = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.012);
+            Font mmFont = JvGetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
+                    .createMainMMFont(Font.BOLD, size);
+            passwordField.setFont(mmFont);
+        } catch (IOException | FontFormatException exception) {
+            JvLog.write(JvLog.TypeLog.Error, "Здесь не создался mmFont");
+        }
     }
 
     public String getInputText() {
@@ -187,7 +197,7 @@ public class JvPasswordFieldAuthUI extends JPanel {
     }
 
     public void setErrorBorder() {
-        setBorder(new LineBorder(Color.red, borderSize));
+        setBorder(new LineBorder(Color.MAGENTA, borderSize));
     }
 
     public void setNormalBorder() {

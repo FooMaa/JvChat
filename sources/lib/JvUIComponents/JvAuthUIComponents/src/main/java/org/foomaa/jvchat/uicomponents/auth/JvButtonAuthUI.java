@@ -2,6 +2,7 @@ package org.foomaa.jvchat.uicomponents.auth;
 
 import org.foomaa.jvchat.globaldefines.JvGetterGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.settings.JvGetterSettings;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +16,7 @@ public class JvButtonAuthUI extends JButton {
         setBackground(Color.WHITE);
         setFocusable(false);
         addListenerToElements();
-        settingFont();
+        setFont();
     }
 
     @Override
@@ -61,9 +62,11 @@ public class JvButtonAuthUI extends JButton {
         });
     }
 
-    private void settingFont() {
+    private void setFont() {
         try {
-            Font mmFont = JvGetterGlobalDefines.getInstance().getBeanFontsGlobalDefines().createMainMMFont(24f);
+            int size = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFont(0.008);
+            Font mmFont = JvGetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
+                    .createMainMMFont(Font.PLAIN, size);
             setFont(mmFont);
         } catch (IOException | FontFormatException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Здесь не создался mmFont");

@@ -4,8 +4,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.Path2D;
-import java.awt.geom.RoundRectangle2D;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
@@ -86,15 +84,14 @@ public class JvEntryFrameAuthUI extends JFrame {
         GridBagConstraints gbc = new GridBagConstraints();
 
         int insX = JvGetterSettings.getInstance().getBeanDisplaySettings().
-                getResizeFromDisplay(0.025,
-                        JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
+                getResizeFromDisplay(0.025, JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
         int gridyNum = 0;
 
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX,
+        gbc.insets = new Insets(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.075), insX,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.004), insX);
         gbc.gridy = gridyNum;
         panel.add(tLogin, gbc);
@@ -102,12 +99,12 @@ public class JvEntryFrameAuthUI extends JFrame {
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX, 0, insX);
+        gbc.insets = new Insets(0, insX, JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.004), insX);
         gbc.gridy = gridyNum;
         panel.add(tPassword, gbc);
         gridyNum++;
 
-        gbc.fill = GridBagConstraints.CENTER;
+        gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.insets = new Insets(0, 0,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.004), 0);
@@ -115,7 +112,6 @@ public class JvEntryFrameAuthUI extends JFrame {
         panel.add(activeMissLabel, gbc);
         gridyNum++;
 
-        gbc.fill = GridBagConstraints.CENTER;
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.insets = new Insets(0, 0,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0084), 0);
@@ -123,7 +119,6 @@ public class JvEntryFrameAuthUI extends JFrame {
         panel.add(activeRegisterLabel, gbc);
         gridyNum++;
 
-        gbc.fill = GridBagConstraints.CENTER;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(0, insX,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0084), insX);
@@ -131,13 +126,13 @@ public class JvEntryFrameAuthUI extends JFrame {
         panel.add(tErrorHelpInfo, gbc);
         gridyNum++;
 
-        gbc.fill = GridBagConstraints.PAGE_END;
+        gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.SOUTH;
         gbc.insets = new Insets(0, 0,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017), 0);
-        gbc.ipadx = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.03,
+        gbc.ipadx = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.015,
                 JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
-        gbc.ipady = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.01,
+        gbc.ipady = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.004,
                 JvDisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
         panel.add(bEnter, gbc);
@@ -181,11 +176,11 @@ public class JvEntryFrameAuthUI extends JFrame {
 
         if (Objects.equals(tLogin.getInputText(), "")) {
             tLogin.setErrorBorder();
-            fields.add("\"Логин\"");
+            fields.add("\"Login\"");
         }
         if (Objects.equals(tPassword.getInputText(), "")) {
             tPassword.setErrorBorder();
-            fields.add("\"Пароль\"");
+            fields.add("\"Password\"");
         }
 
         StringBuilder concatFields = new StringBuilder();
@@ -195,9 +190,9 @@ public class JvEntryFrameAuthUI extends JFrame {
             }
             concatFields = new StringBuilder(concatFields.substring(0, concatFields.length() - 2));
             if (fields.size() == 1) {
-                tErrorHelpInfo.setText(String.format("Поле %s должно быть заполнено", concatFields));
+                tErrorHelpInfo.setText(String.format("Fill in the field %s!", concatFields));
             } else {
-                tErrorHelpInfo.setText(String.format("Поля %s должны быть заполнены", concatFields));
+                tErrorHelpInfo.setText(String.format("Fill in the fields %s!", concatFields));
             }
             return false;
         }

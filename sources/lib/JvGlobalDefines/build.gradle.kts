@@ -6,7 +6,8 @@ tasks.withType<ProcessResources> {
 }
 
 sourceSets.getByName("main") {
-    resources.srcDir("../../../res/AllDefaultsRes/fonts/")
+    java.srcDir("src/main/java/")
+    resources.srcDir("../../res/AllDefaultsRes/fonts/")
 }
 sourceSets.getByName("test") {
     java.srcDir("src/test/java/")
