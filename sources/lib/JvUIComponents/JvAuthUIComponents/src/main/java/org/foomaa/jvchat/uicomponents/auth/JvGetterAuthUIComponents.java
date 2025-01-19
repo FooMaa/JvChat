@@ -31,9 +31,9 @@ public class JvGetterAuthUIComponents {
                 text);
     }
 
-    public JvLabelAuthUI getBeanLabelAuthUI(String text) {
-        return (JvLabelAuthUI) context.getBean(
-                JvAuthUIComponentsSpringConfig.NameBeans.BeanLabelAuthUI.getValue(),
+    public JvErrorLabelAuthUI getBeanErrorLabelAuthUI(String text) {
+        return (JvErrorLabelAuthUI) context.getBean(
+                JvAuthUIComponentsSpringConfig.NameBeans.BeanErrorLabelAuthUI.getValue(),
                 text);
     }
 

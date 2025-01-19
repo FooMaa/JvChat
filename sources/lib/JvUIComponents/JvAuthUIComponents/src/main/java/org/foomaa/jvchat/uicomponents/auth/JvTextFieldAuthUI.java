@@ -99,8 +99,6 @@ public class JvTextFieldAuthUI extends JPanel {
         textField.setPreferredSize(calcNewDim);
         textField.setBorder(null);
         textField.setText(defaultText);
-        textField.setFont(new Font("Times", Font.BOLD,
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.012)));
         textField.setForeground(Color.lightGray);
         textField.setFocusable(false);
         setFont();
@@ -108,12 +106,12 @@ public class JvTextFieldAuthUI extends JPanel {
 
     private void setFont() {
         try {
-            int size = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.012);
-            Font mmFont = JvGetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
-                    .createMainMMFont(Font.BOLD, size);
-            textField.setFont(mmFont);
+            int size = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.015);
+            Font steticaFont = JvGetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
+                    .createMainSteticaFont(Font.BOLD, size);
+            textField.setFont(steticaFont);
         } catch (IOException | FontFormatException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Здесь не создался mmFont");
+            JvLog.write(JvLog.TypeLog.Error, "Здесь не создался steticaFont");
         }
     }
 

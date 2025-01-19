@@ -21,10 +21,10 @@ import org.foomaa.jvchat.tools.JvGetterTools;
 
 public class JvRegistrationFrameAuthUI extends JFrame {
     private final JPanel panel;
-    private final JvLabelAuthUI tInfo;
+    private final JvErrorLabelAuthUI tInfo;
     private final JvTextFieldAuthUI tLogin;
     private final JvTextFieldAuthUI tEmail;
-    private final JvLabelAuthUI tErrorHelpInfo;
+    private final JvErrorLabelAuthUI tErrorHelpInfo;
     private final JvPasswordFieldAuthUI tPassword;
     private final JvPasswordFieldAuthUI tPasswordConfirm;
     private final JvButtonAuthUI bRegister;
@@ -33,10 +33,10 @@ public class JvRegistrationFrameAuthUI extends JFrame {
         super("RegistrationWindow");
 
         panel = new JPanel();
-        tInfo = JvGetterAuthUIComponents.getInstance().getBeanLabelAuthUI("Введите данные для регистрации:");
+        tInfo = JvGetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("Введите данные для регистрации:");
         tLogin = JvGetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Логин");
         tEmail = JvGetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Почта");
-        tErrorHelpInfo = JvGetterAuthUIComponents.getInstance().getBeanLabelAuthUI("");
+        tErrorHelpInfo = JvGetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
         tErrorHelpInfo.settingToError();
         tPassword = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Пароль");
         tPasswordConfirm = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Подтвердите пароль");

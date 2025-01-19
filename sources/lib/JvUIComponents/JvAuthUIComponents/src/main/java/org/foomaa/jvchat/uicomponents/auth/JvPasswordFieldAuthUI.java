@@ -179,12 +179,12 @@ public class JvPasswordFieldAuthUI extends JPanel {
 
     private void setFont() {
         try {
-            int size = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.012);
-            Font mmFont = JvGetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
-                    .createMainMMFont(Font.BOLD, size);
-            passwordField.setFont(mmFont);
+            int size = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.015);
+            Font steticaFont = JvGetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
+                    .createMainSteticaFont(Font.BOLD, size);
+            passwordField.setFont(steticaFont);
         } catch (IOException | FontFormatException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Здесь не создался mmFont");
+            JvLog.write(JvLog.TypeLog.Error, "Здесь не создался steticaFont");
         }
     }
 

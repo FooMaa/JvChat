@@ -18,8 +18,8 @@ import org.foomaa.jvchat.settings.JvGetterSettings;
 
 public class JvNewPasswordFrameAuthUI extends JFrame {
     private final JPanel panel;
-    private final JvLabelAuthUI tInfo;
-    private final JvLabelAuthUI tErrorHelpInfo;
+    private final JvErrorLabelAuthUI tInfo;
+    private final JvErrorLabelAuthUI tErrorHelpInfo;
     private final JvPasswordFieldAuthUI tPassword;
     private final JvPasswordFieldAuthUI tPasswordConfirm;
     private final JvButtonAuthUI bAccept;
@@ -31,8 +31,8 @@ public class JvNewPasswordFrameAuthUI extends JFrame {
 
         email = post;
         panel = new JPanel();
-        tInfo = JvGetterAuthUIComponents.getInstance().getBeanLabelAuthUI("Введите новый пароль:");
-        tErrorHelpInfo = JvGetterAuthUIComponents.getInstance().getBeanLabelAuthUI("");
+        tInfo = JvGetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("Введите новый пароль:");
+        tErrorHelpInfo = JvGetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
         tErrorHelpInfo.settingToError();
         tPassword = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Пароль");
         tPasswordConfirm = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Подтвердите пароль");

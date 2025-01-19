@@ -65,11 +65,11 @@ public class JvButtonAuthUI extends JButton {
     private void setFont() {
         try {
             int size = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFont(0.008);
-            Font mmFont = JvGetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
-                    .createMainMMFont(Font.PLAIN, size);
-            setFont(mmFont);
+            Font steticaFont = JvGetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
+                    .createMainSteticaFont(Font.PLAIN, size);
+            setFont(steticaFont);
         } catch (IOException | FontFormatException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Здесь не создался mmFont");
+            JvLog.write(JvLog.TypeLog.Error, "Здесь не создался steticaFont");
         }
     }
 }

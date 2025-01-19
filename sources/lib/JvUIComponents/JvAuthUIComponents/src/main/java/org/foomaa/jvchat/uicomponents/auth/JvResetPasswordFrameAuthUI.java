@@ -21,18 +21,18 @@ import org.foomaa.jvchat.tools.JvGetterTools;
 
 public class JvResetPasswordFrameAuthUI extends JFrame {
     private final JPanel panel;
-    private final JvLabelAuthUI tInfo;
+    private final JvErrorLabelAuthUI tInfo;
     private final JvTextFieldAuthUI tEmail;
-    private final JvLabelAuthUI tErrorHelpInfo;
+    private final JvErrorLabelAuthUI tErrorHelpInfo;
     private final JvButtonAuthUI bSet;
 
     JvResetPasswordFrameAuthUI() {
         super("ResetPasswordWindow");
 
         panel = new JPanel();
-        tInfo = JvGetterAuthUIComponents.getInstance().getBeanLabelAuthUI("Введите адрес почты:");
+        tInfo = JvGetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("Введите адрес почты:");
         tEmail = JvGetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Почта");
-        tErrorHelpInfo = JvGetterAuthUIComponents.getInstance().getBeanLabelAuthUI("");
+        tErrorHelpInfo = JvGetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
         tErrorHelpInfo.settingToError();
         bSet = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("ОТПРАВИТЬ");
 

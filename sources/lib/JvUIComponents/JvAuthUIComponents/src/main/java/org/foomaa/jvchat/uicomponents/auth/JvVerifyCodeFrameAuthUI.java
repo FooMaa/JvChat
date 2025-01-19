@@ -20,9 +20,9 @@ import org.foomaa.jvchat.settings.JvGetterSettings;
 
 public class JvVerifyCodeFrameAuthUI extends JFrame {
     private final JPanel panel;
-    private final JvLabelAuthUI tInfo;
+    private final JvErrorLabelAuthUI tInfo;
     private final JvTextFieldAuthUI tCode;
-    private final JvLabelAuthUI tErrorHelpInfo;
+    private final JvErrorLabelAuthUI tErrorHelpInfo;
     private final JvButtonAuthUI bSet;
     private String login;
     private String email;
@@ -39,9 +39,9 @@ public class JvVerifyCodeFrameAuthUI extends JFrame {
 
         regime = rw;
         panel = new JPanel();
-        tInfo = JvGetterAuthUIComponents.getInstance().getBeanLabelAuthUI("Введите код из почты (действует 60 с.):");
+        tInfo = JvGetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("Введите код из почты (действует 60 с.):");
         tCode = JvGetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Код");
-        tErrorHelpInfo = JvGetterAuthUIComponents.getInstance().getBeanLabelAuthUI("");
+        tErrorHelpInfo = JvGetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
         tErrorHelpInfo.settingToError();
         bSet = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("ОТПРАВИТЬ");
 

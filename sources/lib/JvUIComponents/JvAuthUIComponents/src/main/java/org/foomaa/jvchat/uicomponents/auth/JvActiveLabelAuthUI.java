@@ -24,14 +24,14 @@ public class JvActiveLabelAuthUI extends JLabel {
 
     private void setFont(boolean isEnteredMouse) {
         try {
-            int size = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.01);
-            Font mmFont = JvGetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
-                    .createMainMMFont(isEnteredMouse ? Font.BOLD : Font.PLAIN, size);
-            Map<TextAttribute, Object> attributes = new HashMap<>(mmFont.getAttributes());
+            int size = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.011);
+            Font steticaFont = JvGetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
+                    .createMainSteticaFont(isEnteredMouse ? Font.BOLD : Font.PLAIN, size);
+            Map<TextAttribute, Object> attributes = new HashMap<>(steticaFont.getAttributes());
             attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-            setFont(mmFont.deriveFont(attributes));
+            setFont(steticaFont.deriveFont(attributes));
         } catch (IOException | FontFormatException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Здесь не создался mmFont");
+            JvLog.write(JvLog.TypeLog.Error, "Здесь не создался steticaFont");
         }
     }
 

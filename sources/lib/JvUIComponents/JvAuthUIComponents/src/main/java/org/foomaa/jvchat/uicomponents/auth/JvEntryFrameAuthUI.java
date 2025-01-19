@@ -22,7 +22,7 @@ import org.foomaa.jvchat.uicomponents.mainchat.JvGetterMainChatUIComponents;
 public class JvEntryFrameAuthUI extends JFrame {
     private JPanel panel;
     private final JvTextFieldAuthUI tLogin;
-    private final JvLabelAuthUI tErrorHelpInfo;
+    private final JvErrorLabelAuthUI tErrorHelpInfo;
     private final JvPasswordFieldAuthUI tPassword;
     private final JvButtonAuthUI bEnter;
     private final JvActiveLabelAuthUI activeRegisterLabel;
@@ -34,7 +34,7 @@ public class JvEntryFrameAuthUI extends JFrame {
         createPanel("/AuthMainBackground.png");
 
         tLogin = JvGetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Login");
-        tErrorHelpInfo = JvGetterAuthUIComponents.getInstance().getBeanLabelAuthUI("");
+        tErrorHelpInfo = JvGetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
         tErrorHelpInfo.settingToError();
         tPassword = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Password");
         bEnter = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("NEXT");
@@ -114,7 +114,7 @@ public class JvEntryFrameAuthUI extends JFrame {
 
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.insets = new Insets(0, 0,
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0084), 0);
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.002), 0);
         gbc.gridy = gridyNum;
         panel.add(activeRegisterLabel, gbc);
         gridyNum++;
@@ -215,6 +215,8 @@ public class JvEntryFrameAuthUI extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("ENTRY");
 
+        //settingTitlePanel();
+
         setSize(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.3,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.3,
@@ -228,6 +230,32 @@ public class JvEntryFrameAuthUI extends JFrame {
 
         setVisible(true);
         requestFocus();
+    }
+
+    private void settingTitlePanel() {
+        setUndecorated(true); // Убираем стандартные элементы оформления окна
+        setResizable(false); // Запрещаем изменение размера окна
+        setLocationRelativeTo(null); // Центрирование окна на экране
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        // Кнопки управления окном
+        JButton closeButton = new JButton("X");
+
+        // Заголовок окна
+        JLabel titleLabel = new JLabel("Custom Window Title");
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        closeButton.addActionListener(e -> System.exit(0));     // Добавляем слушатели событий
+
+        // Создаем контейнер для размещения кнопок и заголовка
+        JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        headerPanel.setBackground(Color.DARK_GRAY);
+        headerPanel.add(titleLabel);
+        headerPanel.add(closeButton);
+
+        getContentPane().add(headerPanel, BorderLayout.NORTH); // Размещаем панель заголовка вверху окна
+        pack(); // Подгоняем размер окна под содержимое
+        setVisible(true); // Показываем окно
     }
 
     private void waitRepeatServer() {
@@ -247,7 +275,7 @@ public class JvEntryFrameAuthUI extends JFrame {
                 JvMessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             JvGetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("Вход не выполнен, данные не верные.", JvOptionPaneAuthUI.TypeDlg.ERROR);
+                    .getBeanOptionPaneAuthUI("Login failed, data is incorrect.", JvOptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 

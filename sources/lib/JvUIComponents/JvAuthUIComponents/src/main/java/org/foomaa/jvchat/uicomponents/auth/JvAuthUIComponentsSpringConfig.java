@@ -11,7 +11,7 @@ class JvAuthUIComponentsSpringConfig {
     public enum NameBeans {
         BeanActiveLabelAuthUI("beanActiveLabelAuthUI"),
         BeanButtonAuthUI("beanButtonAuthUI"),
-        BeanLabelAuthUI("beanLabelAuthUI"),
+        BeanErrorLabelAuthUI("beanErrorLabelAuthUI"),
         BeanOptionPaneAuthUI("beanOptionPaneAuthUI"),
         BeanPasswordFieldAuthUI("beanPasswordFieldAuthUI"),
         BeanTextFieldAuthUI("beanTextFieldAuthUI"),
@@ -46,11 +46,11 @@ class JvAuthUIComponentsSpringConfig {
         return new JvButtonAuthUI(text);
     }
 
-    @Bean(name = "beanLabelAuthUI")
+    @Bean(name = "beanErrorLabelAuthUI")
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvLabelAuthUI beanLabelAuthUI(String text) {
-        return new JvLabelAuthUI(text);
+    public JvErrorLabelAuthUI beanErrorLabelAuthUI(String text) {
+        return new JvErrorLabelAuthUI(text);
     }
 
     @Bean(name = "beanOptionPaneAuthUI")
