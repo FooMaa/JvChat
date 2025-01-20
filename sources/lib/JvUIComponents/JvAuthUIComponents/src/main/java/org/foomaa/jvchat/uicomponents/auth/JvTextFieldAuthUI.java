@@ -123,7 +123,7 @@ public class JvTextFieldAuthUI extends JPanel {
     }
 
     public void setErrorBorder() {
-        setBorder(new LineBorder(Color.MAGENTA, borderSize));
+        setBorder(new LineBorder(Color.RED, borderSize));
     }
 
     public void setNormalBorder() {

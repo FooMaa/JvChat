@@ -27,6 +27,7 @@ public class JvEntryFrameAuthUI extends JFrame {
     private final JvButtonAuthUI bEnter;
     private final JvActiveLabelAuthUI activeRegisterLabel;
     private final JvActiveLabelAuthUI activeMissLabel;
+    private final JvTitlePanelAuthUI titlePanel;
 
     JvEntryFrameAuthUI() {
         super("EntryWindow");
@@ -40,7 +41,9 @@ public class JvEntryFrameAuthUI extends JFrame {
         bEnter = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("NEXT");
         activeMissLabel = JvGetterAuthUIComponents.getInstance().getBeanActiveLabelAuthUI("Reset password");
         activeRegisterLabel = JvGetterAuthUIComponents.getInstance().getBeanActiveLabelAuthUI("Registration");
+        titlePanel = JvGetterAuthUIComponents.getInstance().getBeanTitlePanelAuthUI("Entry");
 
+        settingMovingTitlePanel();
         setIconImageFrame("/MainAppIcon.png");
         makeFrameSetting();
         addListenerToElements();
@@ -212,10 +215,9 @@ public class JvEntryFrameAuthUI extends JFrame {
     }
 
     private void addGeneralSettingsToWidget() {
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("ENTRY");
-
-        //settingTitlePanel();
+        setUndecorated(true);
+        getContentPane().add(titlePanel, BorderLayout.NORTH);
+        pack();
 
         setSize(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.3,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
@@ -232,30 +234,37 @@ public class JvEntryFrameAuthUI extends JFrame {
         requestFocus();
     }
 
-    private void settingTitlePanel() {
-        setUndecorated(true); // Убираем стандартные элементы оформления окна
-        setResizable(false); // Запрещаем изменение размера окна
-        setLocationRelativeTo(null); // Центрирование окна на экране
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+    private void settingMovingTitlePanel() {
+        final Point[] initialClick = new Point[1];
 
-        // Кнопки управления окном
-        JButton closeButton = new JButton("X");
+        titlePanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                initialClick[0] = e.getPoint();
+                getComponentAt(initialClick[0]);
+                titlePanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            }
 
-        // Заголовок окна
-        JLabel titleLabel = new JLabel("Custom Window Title");
-        titleLabel.setForeground(Color.WHITE);
-        titleLabel.setFont(new Font("Arial", Font.PLAIN, 16));
-        closeButton.addActionListener(e -> System.exit(0));     // Добавляем слушатели событий
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                titlePanel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            }
+        });
 
-        // Создаем контейнер для размещения кнопок и заголовка
-        JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        headerPanel.setBackground(Color.DARK_GRAY);
-        headerPanel.add(titleLabel);
-        headerPanel.add(closeButton);
+        titlePanel.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                titlePanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        getContentPane().add(headerPanel, BorderLayout.NORTH); // Размещаем панель заголовка вверху окна
-        pack(); // Подгоняем размер окна под содержимое
-        setVisible(true); // Показываем окно
+                int thisX = getLocation().x;
+                int thisY = getLocation().y;
+
+                int xMoved = (thisX + e.getX()) - (thisX + initialClick[0].x);
+                int yMoved = (thisY + e.getY()) - (thisY + initialClick[0].y);
+
+                setLocation(thisX + xMoved, thisY + yMoved);
+            }
+        });
     }
 
     private void waitRepeatServer() {

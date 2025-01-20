@@ -55,6 +55,12 @@ public class JvGetterAuthUIComponents {
                 text);
     }
 
+    public JvTitlePanelAuthUI getBeanTitlePanelAuthUI(String text) {
+        return (JvTitlePanelAuthUI) context.getBean(
+                JvAuthUIComponentsSpringConfig.NameBeans.BeanTitlePanelAuthUI.getValue(),
+                text);
+    }
+
     public JvEntryFrameAuthUI getBeanEntryFrameAuthUI() {
         return context.getBean(JvAuthUIComponentsSpringConfig.NameBeans.BeanEntryFrameAuthUI.getValue(),
                 JvEntryFrameAuthUI.class);
