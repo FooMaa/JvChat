@@ -4,6 +4,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.RoundRectangle2D;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
@@ -73,7 +74,7 @@ public class JvEntryFrameAuthUI extends JFrame {
                 }
 
                 if (img == null) {
-                    JvLog.write(JvLog.TypeLog.Error, "Здесь img оказалась равная null.");
+                    JvLog.write(JvLog.TypeLog.Error, "Here img turned out to be equal to null.");
                     return;
                 }
 
@@ -228,6 +229,8 @@ public class JvEntryFrameAuthUI extends JFrame {
         setLocationRelativeTo(null);
         toFront();
 
+        setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 15, 15));
+
         getRootPane().setDefaultButton(bEnter);
 
         setVisible(true);
@@ -274,7 +277,7 @@ public class JvEntryFrameAuthUI extends JFrame {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
-                JvLog.write(JvLog.TypeLog.Error, "Не удалось ждать");
+                JvLog.write(JvLog.TypeLog.Error, "Couldn't wait.");
             }
         }
         if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getEntryRequestFlag() ==
@@ -300,6 +303,6 @@ public class JvEntryFrameAuthUI extends JFrame {
 
         JvGetterMainChatUIComponents.getInstance().getBeanMainFrameMainChatUI().openWindow();
 
-        JvLog.write(JvLog.TypeLog.Info, "Вход выполнен");
+        JvLog.write(JvLog.TypeLog.Info, "Login done.");
     }
 }

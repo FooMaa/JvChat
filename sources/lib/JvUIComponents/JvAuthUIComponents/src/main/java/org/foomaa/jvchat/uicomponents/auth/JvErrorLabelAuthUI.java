@@ -38,7 +38,7 @@ public class JvErrorLabelAuthUI extends JLabel {
                     .createMainSteticaFont(Font.BOLD, size);
             setFont(steticaFont);
         } catch (IOException | FontFormatException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Здесь не создался steticaFont");
+            JvLog.write(JvLog.TypeLog.Error, "SteticaFont not created here");
         }
     }
 

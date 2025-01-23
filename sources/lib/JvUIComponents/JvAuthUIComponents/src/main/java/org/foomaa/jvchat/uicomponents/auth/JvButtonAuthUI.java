@@ -69,7 +69,7 @@ public class JvButtonAuthUI extends JButton {
                     .createMainSteticaFont(Font.PLAIN, size);
             setFont(steticaFont);
         } catch (IOException | FontFormatException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Здесь не создался steticaFont");
+            JvLog.write(JvLog.TypeLog.Error, "SteticaFont not created here.");
         }
     }
 }

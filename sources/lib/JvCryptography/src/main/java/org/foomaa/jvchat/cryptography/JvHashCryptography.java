@@ -25,7 +25,7 @@ public class JvHashCryptography {
             }
             result = hexString.toString();
         } catch (NoSuchAlgorithmException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Ошибка взятия хеша от строки");
+            JvLog.write(JvLog.TypeLog.Error, "Error when taking string hash.");
         }
         return result;
     }

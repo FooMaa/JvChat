@@ -12,7 +12,7 @@ public class JvDisplaySettings {
             heightScreen = screenSize.height;
             widthScreen = screenSize.width;
         } catch (Throwable exception) {
-            JvLog.write(JvLog.TypeLog.Error, "No X :0:0 find");
+            JvLog.write(JvLog.TypeLog.Error, "NFailed to get display size.");
         }
     }
 

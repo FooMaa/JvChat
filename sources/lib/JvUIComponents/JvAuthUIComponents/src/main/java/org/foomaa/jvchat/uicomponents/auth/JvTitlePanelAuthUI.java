@@ -24,8 +24,8 @@ public class JvTitlePanelAuthUI extends JPanel {
         minimizeButton = new JButton();
         titleLabel = new JLabel(text);
 
-        settingButtonImage(closeButton, "/Close.png");
-        settingButtonImage(minimizeButton, "/Minimize.png");
+        settingButtonImage(closeButton, "/Close.png", "/CloseLight.png");
+        settingButtonImage(minimizeButton, "/Minimize.png", "/MinimizeLight.png");
 
         settingCloseButton();
         settingMinimizeButton();
@@ -34,20 +34,34 @@ public class JvTitlePanelAuthUI extends JPanel {
         settingPanel();
     }
 
-    private void settingButtonImage(JButton button, String imagePath) {
+    private void settingButtonImage(JButton button, String imagePathExited, String imagePathEntered) {
         try {
-            BufferedImage image = ImageIO.read(Objects.requireNonNull(getClass().getResource(imagePath)));
-            button.setIcon(new ImageIcon(image));
-            button.setPreferredSize(new Dimension(image.getWidth(),
-                    image.getHeight()));
+            BufferedImage imageExited = ImageIO.read(Objects.requireNonNull(getClass().getResource(imagePathExited)));
+            ImageIcon iconExited = new ImageIcon(imageExited);
+
+            BufferedImage imageEntered = ImageIO.read(Objects.requireNonNull(getClass().getResource(imagePathEntered)));
+            ImageIcon iconEntered = new ImageIcon(imageEntered);
+
+            button.setIcon(iconExited);
+            button.setPreferredSize(new Dimension(iconExited.getIconWidth(), iconExited.getIconWidth()));
+
+            button.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    button.setIcon(iconEntered);
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    button.setIcon(iconExited);
+                }
+            });
         } catch (IOException ex) {
             JvLog.write(JvLog.TypeLog.Error, "No icon.");
         }
 
-
         button.setContentAreaFilled(false);
         button.setBorder(null);
-        button.setEnabled(false);
         button.setFocusPainted(false);
     }
 
@@ -72,7 +86,7 @@ public class JvTitlePanelAuthUI extends JPanel {
     private void settingTitleLabel() {
         titleLabel.setForeground(Color.LIGHT_GRAY);
         try {
-            int size = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFont(0.0095);
+            int size = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFont(0.0093);
             Font steticaFont = JvGetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
                     .createMainSteticaFont(Font.BOLD, size);
             titleLabel.setFont(steticaFont);
@@ -81,7 +95,7 @@ public class JvTitlePanelAuthUI extends JPanel {
         }
 
         Dimension currentSize = titleLabel.getPreferredSize();
-        // нужно, т.к. шрифт кастомный, и компонент может немного съесть текста из-за этого
+        // necessary because the font is custom, and the component may cut the text a little because of this
         titleLabel.setPreferredSize(new Dimension(currentSize.width + 2, currentSize.height));
     }
 
@@ -92,10 +106,12 @@ public class JvTitlePanelAuthUI extends JPanel {
         setBorder(bottomBorder);
 
         JPanel titlePanel = new JPanel(new GridBagLayout());
-        titlePanel.add(titleLabel);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(2, 0, 0, 0);
+        titlePanel.add(titleLabel, gbc);
         titlePanel.setBackground(Color.BLACK);
 
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 6, 4));
         buttonPanel.setBackground(Color.BLACK);
         buttonPanel.add(minimizeButton);
         buttonPanel.add(closeButton);

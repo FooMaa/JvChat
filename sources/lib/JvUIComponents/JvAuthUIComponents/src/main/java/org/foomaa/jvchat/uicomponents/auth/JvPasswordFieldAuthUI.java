@@ -41,7 +41,7 @@ public class JvPasswordFieldAuthUI extends JPanel {
         try {
             return ImageIO.read(Objects.requireNonNull(getClass().getResource(path)));
         } catch (IOException ex) {
-            JvLog.write(JvLog.TypeLog.Error, "Нет иконки глазка");
+            JvLog.write(JvLog.TypeLog.Error, "No icon found.");
         }
         return null;
     }
@@ -184,7 +184,7 @@ public class JvPasswordFieldAuthUI extends JPanel {
                     .createMainSteticaFont(Font.BOLD, size);
             passwordField.setFont(steticaFont);
         } catch (IOException | FontFormatException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Здесь не создался steticaFont");
+            JvLog.write(JvLog.TypeLog.Error, "SteticaFont not created here.");
         }
     }
 

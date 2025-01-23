@@ -44,7 +44,7 @@ tasks {
     val deleteGeneratingPath by creating(Delete::class) {
         val pattern = "generated/"
         val index = protoPath.indexOf(pattern)
-        var subPath = ""
+        val subPath: String
         if (index != -1) {
             subPath = protoPath.substring(0, index + pattern.length)
             val fileGeneratingMainDir = file(subPath)

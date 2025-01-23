@@ -21,7 +21,6 @@ import org.foomaa.jvchat.tools.JvGetterTools;
 
 public class JvRegistrationFrameAuthUI extends JFrame {
     private final JPanel panel;
-    private final JvErrorLabelAuthUI tInfo;
     private final JvTextFieldAuthUI tLogin;
     private final JvTextFieldAuthUI tEmail;
     private final JvErrorLabelAuthUI tErrorHelpInfo;
@@ -33,14 +32,13 @@ public class JvRegistrationFrameAuthUI extends JFrame {
         super("RegistrationWindow");
 
         panel = new JPanel();
-        tInfo = JvGetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("Введите данные для регистрации:");
-        tLogin = JvGetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Логин");
-        tEmail = JvGetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Почта");
+        tLogin = JvGetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Login");
+        tEmail = JvGetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Email");
         tErrorHelpInfo = JvGetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
         tErrorHelpInfo.settingToError();
-        tPassword = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Пароль");
-        tPasswordConfirm = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Подтвердите пароль");
-        bRegister = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("РЕГИСТРАЦИЯ");
+        tPassword = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Password");
+        tPasswordConfirm = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Confirm password");
+        bRegister = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("Next");
 
         setIconImageFrame("/MainAppIcon.png");
         makeFrameSetting();
@@ -65,16 +63,6 @@ public class JvRegistrationFrameAuthUI extends JFrame {
                 getResizeFromDisplay(0.025,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
         int gridyNum = 0;
-
-        gbc.weightx = 0.5;
-        gbc.weighty = 0.5;
-        gbc.fill = GridBagConstraints.PAGE_START;
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0125), 0,
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0084), 0);
-        gbc.gridy = gridyNum;
-        panel.add(tInfo, gbc);
-        gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
