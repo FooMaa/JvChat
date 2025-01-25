@@ -27,8 +27,6 @@ public class JvTitlePanelAuthUI extends JPanel {
         settingButtonImage(closeButton, "/Close.png", "/CloseLight.png");
         settingButtonImage(minimizeButton, "/Minimize.png", "/MinimizeLight.png");
 
-        settingCloseButton();
-        settingMinimizeButton();
         settingTitleLabel();
 
         settingPanel();
@@ -65,22 +63,12 @@ public class JvTitlePanelAuthUI extends JPanel {
         button.setFocusPainted(false);
     }
 
-    private void settingCloseButton() {
-        closeButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                System.exit(0);
-            }
-        });
+    public JButton getCloseButton() {
+        return closeButton;
     }
 
-    private void settingMinimizeButton() {
-        minimizeButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                System.exit(0);
-            }
-        });
+    public JButton getMinimizeButton() {
+        return minimizeButton;
     }
 
     private void settingTitleLabel() {

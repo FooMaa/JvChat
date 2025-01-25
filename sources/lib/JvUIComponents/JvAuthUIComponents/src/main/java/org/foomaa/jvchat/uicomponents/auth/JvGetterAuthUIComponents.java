@@ -61,6 +61,11 @@ public class JvGetterAuthUIComponents {
                 text);
     }
 
+    public JvToolTipAuthUI getBeanToolTipAuthUI() {
+        return context.getBean(JvAuthUIComponentsSpringConfig.NameBeans.BeanToolTipAuthUI.getValue(),
+                JvToolTipAuthUI.class);
+    }
+
     public JvEntryFrameAuthUI getBeanEntryFrameAuthUI() {
         return context.getBean(JvAuthUIComponentsSpringConfig.NameBeans.BeanEntryFrameAuthUI.getValue(),
                 JvEntryFrameAuthUI.class);

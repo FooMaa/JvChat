@@ -44,6 +44,7 @@ public class JvEntryFrameAuthUI extends JFrame {
         activeRegisterLabel = JvGetterAuthUIComponents.getInstance().getBeanActiveLabelAuthUI("Registration");
         titlePanel = JvGetterAuthUIComponents.getInstance().getBeanTitlePanelAuthUI("Entry");
 
+        settingComponents();
         settingMovingTitlePanel();
         setIconImageFrame("/MainAppIcon.png");
         makeFrameSetting();
@@ -58,6 +59,10 @@ public class JvEntryFrameAuthUI extends JFrame {
         } catch (IOException e) {
             e.getStackTrace();
         }
+    }
+
+    private void settingComponents() {
+        bEnter.setToolTip("To log in");
     }
 
     private void createPanel(String path) {
@@ -169,6 +174,12 @@ public class JvEntryFrameAuthUI extends JFrame {
             }
         });
 
+        titlePanel.getCloseButton().addActionListener(event -> {
+            closeWindow();
+            System.exit(0);
+        });
+
+        titlePanel.getMinimizeButton().addActionListener(event -> minimizeWindow());
     }
 
     private boolean checkFields() {
@@ -209,6 +220,10 @@ public class JvEntryFrameAuthUI extends JFrame {
         setVisible(false);
         tLogin.setUnfocusFieldOnClose(true);
         tPassword.setUnfocusFieldOnClose(true);
+    }
+
+    private void minimizeWindow() {
+        setState(Frame.ICONIFIED);
     }
 
     public void openWindow() {

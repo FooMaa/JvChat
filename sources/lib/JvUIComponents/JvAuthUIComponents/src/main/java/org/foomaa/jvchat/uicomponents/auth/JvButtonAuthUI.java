@@ -11,12 +11,25 @@ import java.io.IOException;
 
 
 public class JvButtonAuthUI extends JButton {
+    private JvToolTipAuthUI toolTip;
+
     JvButtonAuthUI(String text) {
         setText(text);
         setBackground(Color.WHITE);
         setFocusable(false);
         addListenerToElements();
         setFont();
+    }
+
+    public void setToolTip(String text) {
+        toolTip = JvGetterAuthUIComponents.getInstance().getBeanToolTipAuthUI();
+        createToolTip();
+        setToolTipText(text);
+    }
+
+    @Override
+    public JToolTip createToolTip() {
+        return toolTip;
     }
 
     @Override
