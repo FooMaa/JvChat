@@ -37,7 +37,6 @@ public class JvEntryFrameAuthUI extends JFrame {
 
         tLogin = JvGetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Login");
         tErrorHelpInfo = JvGetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
-        tErrorHelpInfo.settingToError();
         tPassword = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Password");
         bEnter = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("NEXT");
         activeMissLabel = JvGetterAuthUIComponents.getInstance().getBeanActiveLabelAuthUI("Reset password");
@@ -62,6 +61,8 @@ public class JvEntryFrameAuthUI extends JFrame {
     }
 
     private void settingComponents() {
+        tErrorHelpInfo.settingToError();
+
         bEnter.setToolTip("To log in");
         tPassword.setToolTip("To set password");
         tLogin.setToolTip("To set login");

@@ -20,26 +20,29 @@ import org.foomaa.jvchat.tools.JvGetterTools;
 
 
 public class JvRegistrationFrameAuthUI extends JFrame {
-    private final JPanel panel;
+    private JPanel panel;
     private final JvTextFieldAuthUI tLogin;
     private final JvTextFieldAuthUI tEmail;
     private final JvErrorLabelAuthUI tErrorHelpInfo;
     private final JvPasswordFieldAuthUI tPassword;
     private final JvPasswordFieldAuthUI tPasswordConfirm;
     private final JvButtonAuthUI bRegister;
+    private final JvTitlePanelAuthUI titlePanel;
 
     JvRegistrationFrameAuthUI() {
         super("RegistrationWindow");
 
-        panel = new JPanel();
+        createPanel("/AuthMainBackground.png");
+
         tLogin = JvGetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Login");
         tEmail = JvGetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Email");
         tErrorHelpInfo = JvGetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
-        tErrorHelpInfo.settingToError();
         tPassword = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Password");
         tPasswordConfirm = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Confirm password");
-        bRegister = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("Next");
+        bRegister = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("NEXT");
+        titlePanel = JvGetterAuthUIComponents.getInstance().getBeanTitlePanelAuthUI("Registration");
 
+        settingComponents();
         setIconImageFrame("/MainAppIcon.png");
         makeFrameSetting();
         addListenerToElements();
@@ -55,6 +58,39 @@ public class JvRegistrationFrameAuthUI extends JFrame {
         }
     }
 
+    private void settingComponents() {
+        tErrorHelpInfo.settingToError();
+
+        bRegister.setToolTip("To email confirmation");
+        tPassword.setToolTip("To set password");
+        tPasswordConfirm.setToolTip("To confirm password");
+        tLogin.setToolTip("To set login");
+        tEmail.setToolTip("To set email");
+    }
+
+    private void createPanel(String path) {
+        panel = new JPanel(new GridBagLayout()) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+
+                Image img = null;
+                try {
+                    img = ImageIO.read(Objects.requireNonNull(getClass().getResource(path)));
+                } catch (IOException e) {
+                    e.getStackTrace();
+                }
+
+                if (img == null) {
+                    JvLog.write(JvLog.TypeLog.Error, "Here img turned out to be equal to null.");
+                    return;
+                }
+
+                g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+    }
+
     private void makeFrameSetting() {
         panel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -66,8 +102,8 @@ public class JvRegistrationFrameAuthUI extends JFrame {
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX,
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.004), insX);
+        gbc.insets = new Insets(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.03), insX,
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0045), insX);
         gbc.gridy = gridyNum;
         panel.add(tLogin, gbc);
         gridyNum++;
@@ -75,7 +111,7 @@ public class JvRegistrationFrameAuthUI extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(0, insX,
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.004), insX);
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0045), insX);
         gbc.gridy = gridyNum;
         panel.add(tEmail, gbc);
         gridyNum++;
@@ -83,7 +119,7 @@ public class JvRegistrationFrameAuthUI extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(0, insX,
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.004), insX);
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0045), insX);
         gbc.gridy = gridyNum;
         panel.add(tPassword, gbc);
         gridyNum++;
@@ -127,16 +163,9 @@ public class JvRegistrationFrameAuthUI extends JFrame {
             }
         });
 
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                JvGetterAuthUIComponents.getInstance().getBeanEntryFrameAuthUI().openWindow();
-                tLogin.setUnfocusFieldOnClose(true);
-                tEmail.setUnfocusFieldOnClose(true);
-                tPassword.setUnfocusFieldOnClose(true);
-                tPasswordConfirm.setUnfocusFieldOnClose(true);
-            }
-        });
+        titlePanel.getCloseButton().addActionListener(event -> closeWindow());
+
+        titlePanel.getMinimizeButton().addActionListener(event -> minimizeWindow());
     }
 
     private boolean checkFields() {
@@ -192,8 +221,9 @@ public class JvRegistrationFrameAuthUI extends JFrame {
     }
 
     private void addGeneralSettingsToWidget() {
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("РЕГИСТРАЦИЯ");
+        setUndecorated(true);
+        getContentPane().add(titlePanel, BorderLayout.NORTH);
+        pack();
 
         setSize(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.3,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
@@ -211,7 +241,7 @@ public class JvRegistrationFrameAuthUI extends JFrame {
         requestFocus();
     }
 
-    private void closeWindow() {
+    private void nextCloseWindow() {
         JvVerifyCodeFrameAuthUI frm = JvGetterAuthUIComponents.getInstance()
                 .getBeanVerifyCodeFrameAuthUI(JvVerifyCodeFrameAuthUI.RegimeWork.Registration);
         frm.setRegime(JvVerifyCodeFrameAuthUI.RegimeWork.Registration);
@@ -223,6 +253,19 @@ public class JvRegistrationFrameAuthUI extends JFrame {
         tEmail.setUnfocusFieldOnClose(true);
         tPassword.setUnfocusFieldOnClose(true);
         tPasswordConfirm.setUnfocusFieldOnClose(true);
+    }
+
+    private void closeWindow() {
+        JvGetterAuthUIComponents.getInstance().getBeanEntryFrameAuthUI().openWindow();
+        tLogin.setUnfocusFieldOnClose(true);
+        tEmail.setUnfocusFieldOnClose(true);
+        tPassword.setUnfocusFieldOnClose(true);
+        tPasswordConfirm.setUnfocusFieldOnClose(true);
+        setVisible(false);
+    }
+
+    private void minimizeWindow() {
+        setState(Frame.ICONIFIED);
     }
 
     public void openWindow() {
@@ -241,7 +284,7 @@ public class JvRegistrationFrameAuthUI extends JFrame {
         }
         if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getRegistrationRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.TRUE) {
-            closeWindow();
+            nextCloseWindow();
             setEnabled(true);
         } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getRegistrationRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.FALSE) {
