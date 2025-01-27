@@ -15,7 +15,7 @@ import org.foomaa.jvchat.settings.JvGetterSettings;
 
 public class JvTextFieldAuthUI extends JPanel {
     private JTextField textField;
-
+    private JvToolTipAuthUI toolTip;
     private final String defaultText;
     private final int borderSize = 2;
 
@@ -24,6 +24,20 @@ public class JvTextFieldAuthUI extends JPanel {
 
         settingTextPanel();
         addListenerToElem();
+    }
+
+    public void setToolTip(String text) {
+        toolTip = JvGetterAuthUIComponents.getInstance().getBeanToolTipAuthUI();
+        createToolTip();
+        setToolTipText(text);
+
+        textField.createToolTip();
+        textField.setToolTipText(text);
+    }
+
+    @Override
+    public JToolTip createToolTip() {
+        return toolTip;
     }
 
     private void addListenerToElem() {
@@ -93,7 +107,12 @@ public class JvTextFieldAuthUI extends JPanel {
     }
 
     private void settingTextField(Dimension dim) {
-        textField = new JTextField();
+        textField = new JTextField() {
+            @Override
+            public JToolTip createToolTip() {
+                return toolTip;
+            }
+        };
         Dimension calcNewDim = new Dimension((int) dim.getWidth(),
                 (int) dim.getHeight() - borderSize * 2);
         textField.setPreferredSize(calcNewDim);

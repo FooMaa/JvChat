@@ -63,6 +63,10 @@ public class JvEntryFrameAuthUI extends JFrame {
 
     private void settingComponents() {
         bEnter.setToolTip("To log in");
+        tPassword.setToolTip("To set password");
+        tLogin.setToolTip("To set login");
+        activeMissLabel.setToolTip("To the password recovery form");
+        activeRegisterLabel.setToolTip("To registration form");
     }
 
     private void createPanel(String path) {
@@ -108,15 +112,14 @@ public class JvEntryFrameAuthUI extends JFrame {
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX, JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.004), insX);
+        gbc.insets = new Insets(0, insX, JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.01), insX);
         gbc.gridy = gridyNum;
         panel.add(tPassword, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.NORTH;
-        gbc.insets = new Insets(0, 0,
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.004), 0);
+        gbc.insets = new Insets(0, 0, 0, 0);
         gbc.gridy = gridyNum;
         panel.add(activeMissLabel, gbc);
         gridyNum++;

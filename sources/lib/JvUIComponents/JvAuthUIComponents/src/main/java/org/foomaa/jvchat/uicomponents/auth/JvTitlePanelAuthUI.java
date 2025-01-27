@@ -18,18 +18,41 @@ public class JvTitlePanelAuthUI extends JPanel {
     private final JButton closeButton;
     private final JButton minimizeButton;
     private final JLabel titleLabel;
+    private JvToolTipAuthUI toolTipClose;
+    private JvToolTipAuthUI toolTipMinimize;
 
     JvTitlePanelAuthUI(String text) {
-        closeButton = new JButton();
-        minimizeButton = new JButton();
+        closeButton = new JButton() {
+            @Override
+            public JToolTip createToolTip() {
+                return toolTipClose;
+            }
+        };
+        minimizeButton = new JButton() {
+            @Override
+            public JToolTip createToolTip() {
+                return toolTipMinimize;
+            }
+        };
         titleLabel = new JLabel(text);
 
+        setToolTips();
         settingButtonImage(closeButton, "/Close.png", "/CloseLight.png");
         settingButtonImage(minimizeButton, "/Minimize.png", "/MinimizeLight.png");
 
         settingTitleLabel();
 
         settingPanel();
+    }
+
+    private void setToolTips() {
+        toolTipClose = JvGetterAuthUIComponents.getInstance().getBeanToolTipAuthUI();
+        closeButton.createToolTip();
+        closeButton.setToolTipText("Close");
+
+        toolTipMinimize = JvGetterAuthUIComponents.getInstance().getBeanToolTipAuthUI();
+        minimizeButton.createToolTip();
+        minimizeButton.setToolTipText("Minimize");
     }
 
     private void settingButtonImage(JButton button, String imagePathExited, String imagePathEntered) {

@@ -33,7 +33,7 @@ public class JvErrorLabelAuthUI extends JLabel {
 
     private void setFont() {
         try {
-            int size = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFont(0.0067);
+            int size = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFont(0.0064);
             Font steticaFont = JvGetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
                     .createMainSteticaFont(Font.BOLD, size);
             setFont(steticaFont);
@@ -45,7 +45,7 @@ public class JvErrorLabelAuthUI extends JLabel {
     private void addErrorListener() {
         addPropertyChangeListener("text",propertyChangeEvent -> {
             if (!Objects.equals(getText(), "")) {
-                Timer t = new Timer(7000, actionEvent -> setText(""));
+                Timer t = new Timer(5000, actionEvent -> setText(""));
                 t.start();
             }
         });

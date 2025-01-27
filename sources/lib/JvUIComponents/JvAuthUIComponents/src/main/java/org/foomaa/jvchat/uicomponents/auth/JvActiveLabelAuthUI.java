@@ -15,11 +15,24 @@ import org.foomaa.jvchat.settings.JvGetterSettings;
 
 
 public class JvActiveLabelAuthUI extends JLabel {
+    private JvToolTipAuthUI toolTip;
+
     JvActiveLabelAuthUI(String text) {
         setText(text);
         setFont(false);
         setForeground(Color.MAGENTA);
         addCustomListenerToElem();
+    }
+
+    public void setToolTip(String text) {
+        toolTip = JvGetterAuthUIComponents.getInstance().getBeanToolTipAuthUI();
+        createToolTip();
+        setToolTipText(text);
+    }
+
+    @Override
+    public JToolTip createToolTip() {
+        return toolTip;
     }
 
     private void setFont(boolean isEnteredMouse) {
@@ -28,7 +41,7 @@ public class JvActiveLabelAuthUI extends JLabel {
             Font steticaFont = JvGetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
                     .createMainSteticaFont(isEnteredMouse ? Font.BOLD : Font.PLAIN, size);
             Map<TextAttribute, Object> attributes = new HashMap<>(steticaFont.getAttributes());
-            attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+            attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_LOW_DOTTED);
             setFont(steticaFont.deriveFont(attributes));
         } catch (IOException | FontFormatException exception) {
             JvLog.write(JvLog.TypeLog.Error, "SteticaFont not created here.");

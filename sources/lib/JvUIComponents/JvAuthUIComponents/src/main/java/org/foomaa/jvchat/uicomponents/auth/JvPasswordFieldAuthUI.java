@@ -25,6 +25,9 @@ public class JvPasswordFieldAuthUI extends JPanel {
     private boolean unLockPass = false;
     private JPasswordField passwordField;
     private JButton button;
+    private JvToolTipAuthUI toolTip;
+    private final String textButtonHide;
+    private final String textButtonShow;
     private final String defaultText;
     private final int borderSize = 2;
 
@@ -32,9 +35,28 @@ public class JvPasswordFieldAuthUI extends JPanel {
         visibleImage = setIcon("/Eye.png");
         invisibleImage = setIcon("/Eye-close.png");
         defaultText = text;
+        textButtonShow = "To show password";
+        textButtonHide = "To hide password";
 
         settingPassAndButtonPanel();
         addListenerToElem();
+    }
+
+    public void setToolTip(String text) {
+        toolTip = JvGetterAuthUIComponents.getInstance().getBeanToolTipAuthUI();
+        createToolTip();
+        setToolTipText(text);
+
+        passwordField.createToolTip();
+        passwordField.setToolTipText(text);
+
+        button.createToolTip();
+        updateToolTipButton();
+    }
+
+    @Override
+    public JToolTip createToolTip() {
+        return toolTip;
     }
 
     private BufferedImage setIcon(String path) {
@@ -47,13 +69,19 @@ public class JvPasswordFieldAuthUI extends JPanel {
     }
 
     private void settingButtonImage() {
-        button = new JButton(new ImageIcon(invisibleImage));
+        button = new JButton(new ImageIcon(invisibleImage)) {
+            @Override
+            public JToolTip createToolTip() {
+                return toolTip;
+            }
+        };
         button.setContentAreaFilled(false);
         button.setBorder(null);
         button.setEnabled(false);
         button.setFocusPainted(false);
         button.setPreferredSize(new Dimension(invisibleImage.getWidth(),
                 invisibleImage.getHeight()));
+        updateToolTipButton();
     }
 
     private void addListenerToElem() {
@@ -69,9 +97,11 @@ public class JvPasswordFieldAuthUI extends JPanel {
                     } else {
                         assert visibleImage != null;
                         button.setIcon(new ImageIcon(visibleImage));
+                        button.setToolTipText(textButtonHide);
                         passwordField.setEchoChar((char) 0);
                         flagEye = true;
                     }
+                    updateToolTipButton();
                     passwordField.requestFocusInWindow();
                 }
             }
@@ -102,7 +132,18 @@ public class JvPasswordFieldAuthUI extends JPanel {
                 focusFalse();
             }
         });
+    }
 
+    private void updateToolTipButton() {
+        if (toolTip == null) {
+            return;
+        }
+
+        if (flagEye) {
+            button.setToolTipText(textButtonHide);
+        } else {
+            button.setToolTipText(textButtonShow);
+        }
     }
 
     private void focusTrue() {
@@ -165,7 +206,12 @@ public class JvPasswordFieldAuthUI extends JPanel {
     }
 
     private void settingPassField(Dimension dim) {
-        passwordField = new JPasswordField();
+        passwordField = new JPasswordField() {
+            @Override
+            public JToolTip createToolTip() {
+                return toolTip;
+            }
+        };
         Dimension calcNewDim = new Dimension((int) dim.getWidth() -
                 button.getPreferredSize().width, (int) dim.getHeight() - borderSize * 2);
         passwordField.setPreferredSize(calcNewDim);
