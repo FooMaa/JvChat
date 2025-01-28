@@ -313,7 +313,7 @@ public class JvRegistrationFrameAuthUI extends JFrame {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
-                JvLog.write(JvLog.TypeLog.Error, "Не удалось ждать");
+                JvLog.write(JvLog.TypeLog.Error, "Couldn't wait.");
             }
         }
         if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getRegistrationRequestFlag() ==
