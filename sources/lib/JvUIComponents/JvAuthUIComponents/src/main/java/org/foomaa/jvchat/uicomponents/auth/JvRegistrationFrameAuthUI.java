@@ -3,8 +3,8 @@ package org.foomaa.jvchat.uicomponents.auth;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowAdapter;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Vector;
@@ -43,6 +43,7 @@ public class JvRegistrationFrameAuthUI extends JFrame {
         titlePanel = JvGetterAuthUIComponents.getInstance().getBeanTitlePanelAuthUI("Registration");
 
         settingComponents();
+        settingMovingTitlePanel();
         setIconImageFrame("/MainAppIcon.png");
         makeFrameSetting();
         addListenerToElements();
@@ -66,6 +67,39 @@ public class JvRegistrationFrameAuthUI extends JFrame {
         tPasswordConfirm.setToolTip("To confirm password");
         tLogin.setToolTip("To set login");
         tEmail.setToolTip("To set email");
+    }
+
+    private void settingMovingTitlePanel() {
+        final Point[] initialClick = new Point[1];
+
+        titlePanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                initialClick[0] = e.getPoint();
+                getComponentAt(initialClick[0]);
+                titlePanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                titlePanel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            }
+        });
+
+        titlePanel.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                titlePanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+                int thisX = getLocation().x;
+                int thisY = getLocation().y;
+
+                int xMoved = (thisX + e.getX()) - (thisX + initialClick[0].x);
+                int yMoved = (thisY + e.getY()) - (thisY + initialClick[0].y);
+
+                setLocation(thisX + xMoved, thisY + yMoved);
+            }
+        });
     }
 
     private void createPanel(String path) {
@@ -179,20 +213,20 @@ public class JvRegistrationFrameAuthUI extends JFrame {
 
         if (Objects.equals(tLogin.getInputText(), "")) {
             tLogin.setErrorBorder();
-            fields.add("\"Логин\"");
+            fields.add("\"Login\"");
         }
         if (Objects.equals(tEmail.getInputText(), "") ||
                 !JvGetterTools.getInstance().getBeanUsersTools().validateInputEmail(tEmail.getInputText())) {
             tEmail.setErrorBorder();
-            fields.add("\"Почта\"");
+            fields.add("\"Email\"");
         }
         if (Objects.equals(tPassword.getInputText(), "")) {
             tPassword.setErrorBorder();
-            fields.add("\"Пароль\"");
+            fields.add("\"Password\"");
         }
         if (Objects.equals(tPasswordConfirm.getInputText(), "")) {
             tPasswordConfirm.setErrorBorder();
-            fields.add("\"Подтвердите пароль\"");
+            fields.add("\"Confirm password\"");
         }
 
         if (!Objects.equals(tPassword.getInputText(), "") &&
@@ -200,7 +234,7 @@ public class JvRegistrationFrameAuthUI extends JFrame {
                 !Objects.equals(tPassword.getInputText(), tPasswordConfirm.getInputText())) {
             tPassword.setErrorBorder();
             tPasswordConfirm.setErrorBorder();
-            tErrorHelpInfo.setText("Введенные пароли должны совпадать");
+            tErrorHelpInfo.setText("The entered passwords must match!");
             return false;
         }
 
@@ -211,9 +245,9 @@ public class JvRegistrationFrameAuthUI extends JFrame {
             }
             concatFields = new StringBuilder(concatFields.substring(0, concatFields.length() - 2));
             if (fields.size() == 1) {
-                tErrorHelpInfo.setText(String.format("Поле %s должно быть заполнено или исправлено", concatFields));
+                tErrorHelpInfo.setText(String.format("Fill in the field %s!", concatFields));
             } else {
-                tErrorHelpInfo.setText(String.format("Поля %s должны быть заполнены или исправлены", concatFields));
+                tErrorHelpInfo.setText(String.format("Fill in the fields %s!", concatFields));
             }
             return false;
         }
