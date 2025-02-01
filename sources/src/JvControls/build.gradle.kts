@@ -7,6 +7,7 @@ dependencies {
     implementation(project(":JvNetwork"))
     implementation(project(":JvDbWorker"))
     implementation(project(":JvLogger"))
+    implementation(project(":JvEvents"))
     implementation(project(":JvGlobalDefines"))
     implementation(project(":JvTools"))
     implementation(project(":JvCryptography"))

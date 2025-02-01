@@ -11,7 +11,8 @@ class JvStructObjectsSpringConfig {
         BeanChatStructObject("beanChatStructObject"),
         BeanUserStructObject("beanUserStructObject"),
         BeanCheckerOnlineStructObject("beanCheckerOnlineStructObject"),
-        BeanSocketRunnableCtrlStructObject("beanSocketRunnableCtrlStructObject");
+        BeanSocketRunnableCtrlStructObject("beanSocketRunnableCtrlStructObject"),
+        BeanConnectionEventStructObject("beanConnectionEventStructObject");
 
         private final String value;
 
@@ -71,5 +72,13 @@ class JvStructObjectsSpringConfig {
     @SuppressWarnings("unused")
     public JvSocketRunnableCtrlStructObject beanSocketRunnableCtrlStructObject() {
         return new JvSocketRunnableCtrlStructObject();
+    }
+
+    @Bean(name = "beanConnectionEventStructObject")
+    @Lazy
+    @Scope("prototype")
+    @SuppressWarnings("unused")
+    public JvConnectionEventStructObject beanConnectionEventStructObject() {
+        return new JvConnectionEventStructObject();
     }
 }

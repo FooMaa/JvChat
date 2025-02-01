@@ -290,7 +290,7 @@ public class JvRegistrationFrameAuthUI extends JFrame {
     }
 
     private void closeWindow() {
-        JvGetterAuthUIComponents.getInstance().getBeanEntryFrameAuthUI().openWindow();
+        JvGetterAuthUIComponents.getInstance().getBeanMainFrameAuthUI().openWindow();
         tLogin.setUnfocusFieldOnClose(true);
         tEmail.setUnfocusFieldOnClose(true);
         tPassword.setUnfocusFieldOnClose(true);

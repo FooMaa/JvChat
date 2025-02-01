@@ -1,12 +1,12 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.*;
 
 
 @Configuration
+@ComponentScans({
+        @ComponentScan("org.foomaa.jvchat.events")
+})
 class JvAuthUIComponentsSpringConfig {
     public enum NameBeans {
         BeanActiveLabelAuthUI("beanActiveLabelAuthUI"),
@@ -15,13 +15,14 @@ class JvAuthUIComponentsSpringConfig {
         BeanOptionPaneAuthUI("beanOptionPaneAuthUI"),
         BeanPasswordFieldAuthUI("beanPasswordFieldAuthUI"),
         BeanTextFieldAuthUI("beanTextFieldAuthUI"),
-        BeanEntryFrameAuthUI("beanEntryFrameAuthUI"),
+        BeanEntryPanelAuthUI("beanEntryPanelAuthUI"),
         BeanNewPasswordFrameAuthUI("beanNewPasswordFrameAuthUI"),
         BeanRegistrationFrameAuthUI("beanRegistrationFrameAuthUI"),
         BeanResetPasswordFrameAuthUI("beanResetPasswordFrameAuthUI"),
         BeanVerifyCodeFrameAuthUI("beanVerifyCodeFrameAuthUI"),
         BeanTitlePanelAuthUI("beanTitlePanelAuthUI"),
-        BeanToolTipAuthUI("beanToolTipAuthUI");
+        BeanToolTipAuthUI("beanToolTipAuthUI"),
+        BeanMainFrameAuthUI("beanMainFrameAuthUI");
 
         private final String value;
 
@@ -92,12 +93,20 @@ class JvAuthUIComponentsSpringConfig {
         return new JvToolTipAuthUI();
     }
 
-    @Bean(name = "beanEntryFrameAuthUI")
+    @Bean(name = "beanMainFrameAuthUI")
     @Lazy
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvEntryFrameAuthUI beanEntryFrameAuthUI() {
-        return new JvEntryFrameAuthUI();
+    public JvMainFrameAuthUI beanMainFrameAuthUI() {
+        return new JvMainFrameAuthUI();
+    }
+
+    @Bean(name = "beanEntryPanelAuthUI")
+    @Lazy
+    @Scope("singleton")
+    @SuppressWarnings("unused")
+    public JvEntryPanelAuthUI beanEntryPanelAuthUI() {
+        return new JvEntryPanelAuthUI();
     }
 
     @Bean(name = "beanNewPasswordFrameAuthUI")

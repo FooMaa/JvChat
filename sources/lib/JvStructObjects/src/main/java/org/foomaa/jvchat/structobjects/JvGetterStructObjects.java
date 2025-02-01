@@ -48,4 +48,9 @@ public class JvGetterStructObjects {
         return context.getBean(JvStructObjectsSpringConfig.NameBeans.BeanSocketRunnableCtrlStructObject.getValue(),
                 JvSocketRunnableCtrlStructObject.class);
     }
+
+    public JvConnectionEventStructObject getBeanConnectionEventStructObject() {
+        return context.getBean(JvStructObjectsSpringConfig.NameBeans.BeanConnectionEventStructObject.getValue(),
+                JvConnectionEventStructObject.class);
+    }
 }

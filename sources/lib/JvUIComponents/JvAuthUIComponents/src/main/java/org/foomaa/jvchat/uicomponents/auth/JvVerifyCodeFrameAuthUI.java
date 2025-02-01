@@ -143,7 +143,7 @@ public class JvVerifyCodeFrameAuthUI extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                JvGetterAuthUIComponents.getInstance().getBeanEntryFrameAuthUI().openWindow();
+                JvGetterAuthUIComponents.getInstance().getBeanMainFrameAuthUI().openWindow();
                 tCode.setUnfocusFieldOnClose(false);
             }
         });
@@ -201,7 +201,7 @@ public class JvVerifyCodeFrameAuthUI extends JFrame {
         setVisible(false);
         //dispose();
         if (regime == RegimeWork.Registration) {
-            JvGetterAuthUIComponents.getInstance().getBeanEntryFrameAuthUI().openWindow();
+            JvGetterAuthUIComponents.getInstance().getBeanMainFrameAuthUI().openWindow();
         } else if (regime == RegimeWork.ResetPassword) {
             JvGetterAuthUIComponents.getInstance().getBeanNewPasswordFrameAuthUI(email).openWindow();
         }

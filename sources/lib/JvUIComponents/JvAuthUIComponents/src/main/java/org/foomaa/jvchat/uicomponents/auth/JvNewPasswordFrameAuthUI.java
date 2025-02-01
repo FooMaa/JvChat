@@ -117,7 +117,7 @@ public class JvNewPasswordFrameAuthUI extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                JvGetterAuthUIComponents.getInstance().getBeanEntryFrameAuthUI().openWindow();
+                JvGetterAuthUIComponents.getInstance().getBeanMainFrameAuthUI().openWindow();
                 tPassword.setUnfocusFieldOnClose(false);
                 tPasswordConfirm.setUnfocusFieldOnClose(false);
             }
@@ -188,7 +188,7 @@ public class JvNewPasswordFrameAuthUI extends JFrame {
     private void closeWindow() {
         setVisible(false);
         //dispose();
-        JvGetterAuthUIComponents.getInstance().getBeanEntryFrameAuthUI().openWindow();
+        JvGetterAuthUIComponents.getInstance().getBeanMainFrameAuthUI().openWindow();
         tPassword.setUnfocusFieldOnClose(false);
         tPasswordConfirm.setUnfocusFieldOnClose(false);
     }

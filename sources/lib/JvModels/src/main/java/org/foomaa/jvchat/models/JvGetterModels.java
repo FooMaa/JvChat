@@ -47,4 +47,9 @@ public class JvGetterModels {
         return context.getBean(JvModelsSpringConfig.NameBeans.BeanUsersModel.getValue(),
                 JvUsersModel.class);
     }
+
+    public JvConnectionsEventsModel getBeanConnectionsEventsModel() {
+        return context.getBean(JvModelsSpringConfig.NameBeans.BeanConnectionsEventsModel.getValue(),
+                JvConnectionsEventsModel.class);
+    }
 }

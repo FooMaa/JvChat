@@ -15,7 +15,8 @@ class JvModelsSpringConfig {
         BeanChatsModel("beanChatsModel"),
         BeanCheckersOnlineModel("beanCheckersOnlineModel"),
         BeanSocketRunnableCtrlModel("beanSocketRunnableCtrlModel"),
-        BeanUsersModel("beanUsersModel");
+        BeanUsersModel("beanUsersModel"),
+        BeanConnectionsEventsModel("beanConnectionsEventsModel");
 
         private final String value;
 
@@ -73,5 +74,13 @@ class JvModelsSpringConfig {
     @SuppressWarnings("unused")
     public JvUsersModel beanUsersModel() {
         return new JvUsersModel();
+    }
+
+    @Bean(name = "beanConnectionsEventsModel")
+    @Lazy
+    @Scope("singleton")
+    @SuppressWarnings("unused")
+    public JvConnectionsEventsModel beanConnectionsEventsModel() {
+        return new JvConnectionsEventsModel();
     }
 }
