@@ -6,11 +6,12 @@ import java.util.UUID;
 
 
 @Configuration
-class JvEventsSpringConfig {
+public class JvEventsSpringConfig {
     public enum NameBeans {
         BeanBaseEvent("beanBaseEvent"),
         BeanPublisherEvents("beanPublisherEvents"),
-        BeanMakerEvents("beanMakerEvents");
+        BeanMakerEvents("beanMakerEvents"),
+        BeanAspectCompareEventsUuids("beanAspectCompareEventsUuids");
 
         private final String value;
 
@@ -24,6 +25,7 @@ class JvEventsSpringConfig {
     }
 
     @Bean(name = "beanBaseEvent")
+    @Lazy
     @Scope("prototype")
     @SuppressWarnings("unused")
     public JvBaseEvent beanBaseEvent(Object source, UUID uuidKey, Object data) {
@@ -42,5 +44,12 @@ class JvEventsSpringConfig {
     @SuppressWarnings("unused")
     public JvMakerEvents beanMakerEvents() {
         return new JvMakerEvents();
+    }
+
+    @Bean(name = "beanAspectCompareEventsUuids")
+    @Scope("singleton")
+    @SuppressWarnings("unused")
+    public JvAspectCompareEventsUuids beanAspectCompareEventsUuids() {
+        return new JvAspectCompareEventsUuids();
     }
 }

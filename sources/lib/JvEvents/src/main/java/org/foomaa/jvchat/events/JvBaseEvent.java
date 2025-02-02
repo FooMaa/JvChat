@@ -20,6 +20,7 @@ public class JvBaseEvent extends ApplicationEvent {
         return data;
     }
 
+    //@JvCompareEventsUuidsAnnotation(instanceField = "la", argumentField = "aa")
     public UUID getUuidKey() {
         return uuidKey;
     }

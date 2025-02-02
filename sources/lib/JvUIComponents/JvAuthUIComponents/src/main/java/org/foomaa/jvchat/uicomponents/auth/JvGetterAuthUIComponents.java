@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
+import org.foomaa.jvchat.events.JvCompareEventsUuidsAnnotation;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 
@@ -76,6 +77,14 @@ public class JvGetterAuthUIComponents {
     }
 
     public JvMainFrameAuthUI getBeanMainFrameAuthUI() {
+        System.out.println("#####################");
+        if (context.getBean(JvAuthUIComponentsSpringConfig.NameBeans.BeanMainFrameAuthUI.getValue(),
+                JvMainFrameAuthUI.class).getClass().isAnnotationPresent(JvCompareEventsUuidsAnnotation.class)) {
+            System.out.println("Аннотация найдена на бине!");
+        } else {
+            System.out.println("Аннотация НЕ найдена на бине!");
+        }
+
         return context.getBean(JvAuthUIComponentsSpringConfig.NameBeans.BeanMainFrameAuthUI.getValue(),
                 JvMainFrameAuthUI.class);
 

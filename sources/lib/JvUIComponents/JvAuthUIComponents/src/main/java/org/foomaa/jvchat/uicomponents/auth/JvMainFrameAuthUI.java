@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
+import org.foomaa.jvchat.events.JvCompareEventsUuidsAnnotation;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import javax.imageio.ImageIO;
@@ -9,6 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -46,7 +48,8 @@ public class JvMainFrameAuthUI extends JFrame {
         uuidTEST = JvGetterEvents.getInstance().getBeanMakerEvents().addConnect(JvEntryPanelAuthUI.class, JvMainFrameAuthUI.class, JvGetterAuthUIComponents.getInstance().getContext());
     }
 
-    @EventListener//(condition = "#root.event.uuidKey.equals(@alo.uuidTEST)")
+    @JvCompareEventsUuidsAnnotation(instanceField = "uuidTest", argumentField = "uuidKey")
+    @EventListener
     @Async
     public void handleSuccessful(JvBaseEvent event) {
         if (event.getUuidKey() != uuidTEST) return;

@@ -37,4 +37,8 @@ public class JvGetterEvents {
     public JvMakerEvents getBeanMakerEvents() {
         return context.getBean(JvEventsSpringConfig.NameBeans.BeanMakerEvents.getValue(), JvMakerEvents.class);
     }
+
+    public JvAspectCompareEventsUuids getBeanAspectCompareEventsUuids() {
+        return context.getBean(JvEventsSpringConfig.NameBeans.BeanAspectCompareEventsUuids.getValue(), JvAspectCompareEventsUuids.class);
+    }
 }

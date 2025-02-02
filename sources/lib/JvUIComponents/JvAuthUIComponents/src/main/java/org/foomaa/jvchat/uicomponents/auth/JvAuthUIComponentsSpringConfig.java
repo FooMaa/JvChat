@@ -5,7 +5,7 @@ import org.springframework.context.annotation.*;
 
 @Configuration
 @ComponentScans({
-        @ComponentScan("org.foomaa.jvchat.events")
+        @ComponentScan("org.foomaa.jvchat.events"),
 })
 class JvAuthUIComponentsSpringConfig {
     public enum NameBeans {
