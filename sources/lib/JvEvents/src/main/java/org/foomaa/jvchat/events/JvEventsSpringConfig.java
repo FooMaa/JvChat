@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Configuration
 @EnableAspectJAutoProxy
-@EnableAutoConfiguration // I'll have to replace it later
+@EnableAutoConfiguration // Will change it later
 class JvEventsSpringConfig {
     public enum NameBeans {
         BeanBaseEvent("beanBaseEvent"),
