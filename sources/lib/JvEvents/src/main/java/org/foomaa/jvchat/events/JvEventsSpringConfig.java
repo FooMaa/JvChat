@@ -1,12 +1,14 @@
 package org.foomaa.jvchat.events;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.*;
-
 import java.util.UUID;
 
 
 @Configuration
-public class JvEventsSpringConfig {
+@EnableAspectJAutoProxy
+@EnableAutoConfiguration // I'll have to replace it later
+class JvEventsSpringConfig {
     public enum NameBeans {
         BeanBaseEvent("beanBaseEvent"),
         BeanPublisherEvents("beanPublisherEvents"),

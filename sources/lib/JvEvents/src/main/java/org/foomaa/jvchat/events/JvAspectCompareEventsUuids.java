@@ -3,13 +3,11 @@ package org.foomaa.jvchat.events;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
 
 
 @Aspect
-@Component
 public class JvAspectCompareEventsUuids {
     JvAspectCompareEventsUuids() {}
 
@@ -24,8 +22,8 @@ public class JvAspectCompareEventsUuids {
         }
 
         Object paramObject = methodArgs[0]; // Берем первый параметр метода
-        String objectFieldName = compareEventsUuidsAnnotation.instanceField();
-        String classFieldName = compareEventsUuidsAnnotation.argumentField();
+        String objectFieldName = compareEventsUuidsAnnotation.parameterObjUuid();
+        String classFieldName = compareEventsUuidsAnnotation.thisObjUuid();
 
         // Получаем значение поля у переданного объекта
         Object objectFieldValue = getFieldValue(paramObject, objectFieldName);

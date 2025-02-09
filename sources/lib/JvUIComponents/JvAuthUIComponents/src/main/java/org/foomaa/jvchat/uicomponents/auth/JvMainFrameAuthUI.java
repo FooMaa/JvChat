@@ -10,7 +10,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
 import java.io.IOException;
-import java.lang.annotation.Annotation;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -48,7 +47,7 @@ public class JvMainFrameAuthUI extends JFrame {
         uuidTEST = JvGetterEvents.getInstance().getBeanMakerEvents().addConnect(JvEntryPanelAuthUI.class, JvMainFrameAuthUI.class, JvGetterAuthUIComponents.getInstance().getContext());
     }
 
-    @JvCompareEventsUuidsAnnotation(instanceField = "uuidTest", argumentField = "uuidKey")
+    @JvCompareEventsUuidsAnnotation(parameterObjUuid = "uuidKey", thisObjUuid = "uuidTEST")
     @EventListener
     @Async
     public void handleSuccessful(JvBaseEvent event) {
