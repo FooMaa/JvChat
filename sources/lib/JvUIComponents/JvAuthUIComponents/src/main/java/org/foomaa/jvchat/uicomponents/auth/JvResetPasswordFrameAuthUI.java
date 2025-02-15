@@ -113,7 +113,7 @@ public class JvResetPasswordFrameAuthUI extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                JvGetterAuthUIComponents.getInstance().getBeanEntryFrameAuthUI().openWindow();
+                JvGetterAuthUIComponents.getInstance().getBeanMainFrameAuthUI().openWindow();
                 tEmail.setUnfocusFieldOnClose(false);
             }
         });

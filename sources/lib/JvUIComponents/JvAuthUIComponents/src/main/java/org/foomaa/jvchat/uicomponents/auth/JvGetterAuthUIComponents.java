@@ -8,8 +8,7 @@ public class JvGetterAuthUIComponents {
     private final AnnotationConfigApplicationContext context;
 
     private JvGetterAuthUIComponents() {
-        context = new AnnotationConfigApplicationContext(
-                JvAuthUIComponentsSpringConfig.class);
+        context = new AnnotationConfigApplicationContext(JvAuthUIComponentsSpringConfig.class);
     }
 
     public static JvGetterAuthUIComponents getInstance() {
@@ -17,6 +16,10 @@ public class JvGetterAuthUIComponents {
             instance = new JvGetterAuthUIComponents();
         }
         return instance;
+    }
+
+    public AnnotationConfigApplicationContext getContext() {
+        return context;
     }
 
     public JvActiveLabelAuthUI getBeanActiveLabelAuthUI(String text) {
@@ -66,9 +69,15 @@ public class JvGetterAuthUIComponents {
                 JvToolTipAuthUI.class);
     }
 
-    public JvEntryFrameAuthUI getBeanEntryFrameAuthUI() {
-        return context.getBean(JvAuthUIComponentsSpringConfig.NameBeans.BeanEntryFrameAuthUI.getValue(),
-                JvEntryFrameAuthUI.class);
+    public JvEntryPanelAuthUI getBeanEntryPanelAuthUI() {
+        return context.getBean(JvAuthUIComponentsSpringConfig.NameBeans.BeanEntryPanelAuthUI.getValue(),
+                JvEntryPanelAuthUI.class);
+
+    }
+
+    public JvMainFrameAuthUI getBeanMainFrameAuthUI() {
+        return context.getBean(JvAuthUIComponentsSpringConfig.NameBeans.BeanMainFrameAuthUI.getValue(),
+                JvMainFrameAuthUI.class);
 
     }
 

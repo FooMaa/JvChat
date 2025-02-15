@@ -12,9 +12,11 @@ import org.foomaa.jvchat.tools.JvGetterTools;
 import org.foomaa.jvchat.uilinks.JvGetterUILinks;
 import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.settings.JvMainSettings;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 
 @SpringBootApplication
+@EnableAsync
 public class JvMainStartPoint implements ApplicationRunner {
     public static void main(String[] args) {
         SpringApplication.run( JvMainStartPoint.class, args );
