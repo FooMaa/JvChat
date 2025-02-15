@@ -6,4 +6,5 @@ dependencies {
     implementation("org.aspectj:aspectjweaver:1.9.22.1")
     implementation(project(":JvModels"))
     implementation(project(":JvStructObjects"))
+    implementation(project(":JvLogger"))
 }
