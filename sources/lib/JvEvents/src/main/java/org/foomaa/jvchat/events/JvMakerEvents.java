@@ -15,12 +15,12 @@ public class JvMakerEvents {
         connectionsEventsModel = JvGetterModels.getInstance().getBeanConnectionsEventsModel();
     }
 
-    public void event(Object objectSender, Object data) {
+    public void event(Object objectSender, String customNameEvent, Object data) {
         List<JvConnectionEventStructObject> connections =
-                connectionsEventsModel.findConnectionsByObjectSender(objectSender.getClass());
+                connectionsEventsModel.findConnections(objectSender, customNameEvent);
         for (JvConnectionEventStructObject connection : connections) {
             UUID uuidKey = connection.getUuid();
-            JvBaseEvent baseEvent = JvGetterEvents.getInstance().getBeanBaseEvent(objectSender, uuidKey, data);
+            JvBaseEvent baseEvent = JvGetterEvents.getInstance().getBeanBaseEvent(objectSender, connection.getObjectReceiver(), uuidKey, data);
             publishEvent(baseEvent, connection.getContext());
         }
     }
@@ -29,7 +29,10 @@ public class JvMakerEvents {
         JvGetterEvents.getInstance().getBeanPublisherEvents(context).publish(event);
     }
 
-    public UUID addConnect(Class<?> clazzSender, Class<?> clazzReceiver, AnnotationConfigApplicationContext context) {
-        return connectionsEventsModel.createNewConnection(clazzSender, clazzReceiver, context);
+    public UUID addConnect(Object objectSender,
+                           Object objectReceiver,
+                           String customNameEvent,
+                           AnnotationConfigApplicationContext context) {
+        return connectionsEventsModel.createNewConnection(objectSender, objectReceiver, customNameEvent, context);
     }
 }

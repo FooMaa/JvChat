@@ -30,8 +30,8 @@ class JvEventsSpringConfig {
     @Lazy
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvBaseEvent beanBaseEvent(Object source, UUID uuidKey, Object data) {
-        return new JvBaseEvent(source, uuidKey, data);
+    public JvBaseEvent beanBaseEvent(Object source, Object destination, UUID uuidKey, Object data) {
+        return new JvBaseEvent(source, destination, uuidKey, data);
     }
 
     @Bean(name = "beanPublisherEvents")
@@ -51,7 +51,7 @@ class JvEventsSpringConfig {
     @Bean(name = "beanAspectCompareEventsUuids")
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvAspectCompareEventsUuids beanAspectCompareEventsUuids() {
-        return new JvAspectCompareEventsUuids();
+    public JvAspectCheckerEvents beanAspectCompareEventsUuids() {
+        return new JvAspectCheckerEvents();
     }
 }

@@ -17,46 +17,32 @@ public class JvConnectionsEventsModel extends JvBaseModel {
                 .getBeanRootStructObject(getNameModel()));
     }
 
-    public UUID createNewConnection(Class<?> classSender,
-                                    Class<?> classReceiver,
-                                    AnnotationConfigApplicationContext context) {
-        JvConnectionEventStructObject connectionObject =
-                JvGetterStructObjects.getInstance().getBeanConnectionEventStructObject();
-
-        connectionObject.setClassSender(classSender);
-        connectionObject.setClassReceiver(classReceiver);
-        connectionObject.setContext(context);
-
-        addItem(connectionObject, getRootObject());
-
-        return connectionObject.getUuid();
-    }
-
-    public void createNewConnection(Object objectSender,
+    public UUID createNewConnection(Object objectSender,
                                     Object objectReceiver,
+                                    String customNameEvent,
                                     AnnotationConfigApplicationContext context) {
         JvConnectionEventStructObject connectionObject =
                 JvGetterStructObjects.getInstance().getBeanConnectionEventStructObject();
 
-        connectionObject.setClassSender(objectSender.getClass());
-        connectionObject.setClassReceiver(objectReceiver.getClass());
         connectionObject.setObjectSender(objectSender);
         connectionObject.setObjectReceiver(objectReceiver);
         connectionObject.setContext(context);
 
         addItem(connectionObject, getRootObject());
+
+        return  connectionObject.getUuid();
     }
 
-    public List<JvConnectionEventStructObject> findConnectionsByObjectSender(Class<?> classSender) {
+    public List<JvConnectionEventStructObject> findConnections(Object objectSender, String customNameEvent) {
         List<JvConnectionEventStructObject> resList = new ArrayList<>();
 
         for (JvBaseStructObject baseStructObject : getRootObject().getChildren()) {
             JvConnectionEventStructObject connectionEventStructObject = (JvConnectionEventStructObject) baseStructObject;
             if (connectionEventStructObject == null) {
-                JvLog.write(JvLog.TypeLog.Error, "Сюда попал объект chatStructObject, который null");
+                JvLog.write(JvLog.TypeLog.Error, "This includes the chatStructObject object, which is null.");
                 continue;
             }
-            if (connectionEventStructObject.getClassSender() == classSender) {
+            if (connectionEventStructObject.getObjectSender() == objectSender) {
                 resList.add(connectionEventStructObject);
             }
         }

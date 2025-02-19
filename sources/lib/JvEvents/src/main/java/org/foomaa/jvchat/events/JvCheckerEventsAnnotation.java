@@ -5,7 +5,6 @@ import java.lang.annotation.*;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface JvCompareEventsUuidsAnnotation {
-    String parameterObjUuid();
-    String thisObjUuid();
+public @interface JvCheckerEventsAnnotation {
+    String connectionUuid();
 }

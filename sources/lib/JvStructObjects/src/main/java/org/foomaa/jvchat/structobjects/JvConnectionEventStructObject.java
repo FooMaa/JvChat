@@ -2,40 +2,27 @@ package org.foomaa.jvchat.structobjects;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.util.Objects;
+
 
 public class JvConnectionEventStructObject extends JvBaseStructObject {
-    private Class<?> classSender;
-    private Class<?> classReceiver;
     private Object objectSender;
     private Object objectReceiver;
+    private String customNameEvent;
+
     private AnnotationConfigApplicationContext context;
 
     JvConnectionEventStructObject() {
-        classSender = null;
-        classReceiver = null;
         objectSender = null;
         objectReceiver = null;
         context = null;
+        customNameEvent = "";
 
         commitProperties();
     }
-
-    public void setClassSender(Class<?> newClassSender) {
-        if (classSender != newClassSender) {
-            classSender = newClassSender;
-            commitProperties();
-        }
-    }
-
-    public void setClassReceiver(Class<?> newClassReceiver) {
-        if (classReceiver != newClassReceiver) {
-            classReceiver = newClassReceiver;
-        }
-    }
-
-    public void setObjectSender(Object newObjectSender) {
-        if (objectSender != newObjectSender) {
-            objectSender = newObjectSender;
+    public void setCustomNameEvent(String newCustomNameEvent) {
+        if (Objects.equals(customNameEvent, newCustomNameEvent)) {
+            customNameEvent = newCustomNameEvent;
             commitProperties();
         }
     }
@@ -54,6 +41,13 @@ public class JvConnectionEventStructObject extends JvBaseStructObject {
         }
     }
 
+    public void setObjectSender(Object newObjectSender) {
+        if (objectSender != newObjectSender) {
+            objectSender = newObjectSender;
+            commitProperties();
+        }
+    }
+
     public AnnotationConfigApplicationContext getContext() {
         return context;
     }
@@ -66,11 +60,7 @@ public class JvConnectionEventStructObject extends JvBaseStructObject {
         return objectSender;
     }
 
-    public Class<?> getClassReceiver() {
-        return classReceiver;
-    }
-
-    public Class<?> getClassSender() {
-        return classSender;
+    public String getCustomNameEvent() {
+        return customNameEvent;
     }
 }

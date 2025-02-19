@@ -1,6 +1,6 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import org.foomaa.jvchat.events.JvCompareEventsUuidsAnnotation;
+import org.foomaa.jvchat.events.JvCheckerEventsAnnotation;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import javax.imageio.ImageIO;
@@ -44,10 +44,10 @@ public class JvMainFrameAuthUI extends JFrame {
         addGeneralSettingsToWidget();
         setPanel();
 
-        uuidTEST = JvGetterEvents.getInstance().getBeanMakerEvents().addConnect(JvEntryPanelAuthUI.class, JvMainFrameAuthUI.class, JvGetterAuthUIComponents.getInstance().getContext());
+        uuidTEST = JvGetterEvents.getInstance().getBeanMakerEvents().addConnect(JvGetterAuthUIComponents.getInstance().getBeanEntryPanelAuthUI(), this, "Test", JvGetterAuthUIComponents.getInstance().getContext());
     }
 
-    @JvCompareEventsUuidsAnnotation(parameterObjUuid = "uuidKey", thisObjUuid = "uuidTEST")
+    @JvCheckerEventsAnnotation(connectionUuid = "uuidTEST")
     @EventListener
     @Async
     public void handleSuccessful(JvBaseEvent event) {

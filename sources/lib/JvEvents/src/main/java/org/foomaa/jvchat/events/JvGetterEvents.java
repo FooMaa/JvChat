@@ -25,9 +25,9 @@ public class JvGetterEvents {
         return context;
     }
 
-    public JvBaseEvent getBeanBaseEvent(Object source, UUID uuidKey, Object data) {
+    public JvBaseEvent getBeanBaseEvent(Object source, Object destination, UUID uuidKey, Object data) {
         return (JvBaseEvent) context.getBean(JvEventsSpringConfig.NameBeans.BeanBaseEvent.getValue(),
-                source, uuidKey, data);
+                source, destination, uuidKey, data);
     }
 
     public JvPublisherEvents getBeanPublisherEvents(AnnotationConfigApplicationContext context) {
@@ -38,7 +38,7 @@ public class JvGetterEvents {
         return context.getBean(JvEventsSpringConfig.NameBeans.BeanMakerEvents.getValue(), JvMakerEvents.class);
     }
 
-    public JvAspectCompareEventsUuids getBeanAspectCompareEventsUuids() {
-        return context.getBean(JvEventsSpringConfig.NameBeans.BeanAspectCompareEventsUuids.getValue(), JvAspectCompareEventsUuids.class);
+    public JvAspectCheckerEvents getBeanAspectCompareEventsUuids() {
+        return context.getBean(JvEventsSpringConfig.NameBeans.BeanAspectCompareEventsUuids.getValue(), JvAspectCheckerEvents.class);
     }
 }

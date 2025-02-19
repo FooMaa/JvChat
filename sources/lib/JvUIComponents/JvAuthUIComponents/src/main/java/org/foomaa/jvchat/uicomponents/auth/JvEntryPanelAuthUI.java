@@ -138,7 +138,7 @@ public class JvEntryPanelAuthUI extends JPanel {
                 waitRepeatServer();
             }
 
-            JvGetterEvents.getInstance().getBeanMakerEvents().event(this, "Hello");
+            JvGetterEvents.getInstance().getBeanMakerEvents().event(this, "Test", "Hello");
         });
 
         activeMissLabel.addMouseListener(new MouseAdapter() {
