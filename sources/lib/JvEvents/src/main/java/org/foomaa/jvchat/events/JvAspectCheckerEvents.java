@@ -3,6 +3,7 @@ package org.foomaa.jvchat.events;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.foomaa.jvchat.logger.JvLog;
 
 import java.lang.reflect.Field;
 
@@ -19,6 +20,7 @@ public class JvAspectCheckerEvents {
         String nameUuid = "uuidKey";
 
         if (methodArgs.length == 0) {
+            JvLog.write(JvLog.TypeLog.Error, "Method must have at least one parameter.");
             throw new IllegalArgumentException("Method must have at least one parameter.");
         }
 
@@ -33,7 +35,7 @@ public class JvAspectCheckerEvents {
         if (objectFieldValue != null && objectFieldValue.equals(classFieldValue) && destination == targetObject) {
             return joinPoint.proceed();
         } else {
-            System.out.println("Method execution skipped: " + nameUuid + " != " + classFieldName);
+            JvLog.write(JvLog.TypeLog.Error, "Method execution skipped: uuid class argument != uuid event in this class");
             return null;
         }
     }

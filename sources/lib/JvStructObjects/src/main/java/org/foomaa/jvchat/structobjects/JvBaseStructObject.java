@@ -64,7 +64,7 @@ public abstract class JvBaseStructObject {
                 try {
                     properties.put(field.getName(), field.get(this));
                 } catch (IllegalAccessException exception) {
-                    JvLog.write(JvLog.TypeLog.Error,"Тут возникла проблема с правами");
+                    JvLog.write(JvLog.TypeLog.Error,"There's a permissions problem here.");
                 }
             }
 

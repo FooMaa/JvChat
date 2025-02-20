@@ -39,7 +39,7 @@ public class JvUsersModel extends JvBaseModel {
         JvUserStructObject userStructObject = findUserStructObjectByUuidUser(uuidUser);
 
         if (userStructObject == null) {
-            JvLog.write(JvLog.TypeLog.Warn, "Здесь не создан userStructObject c uuid, создаю...");
+            JvLog.write(JvLog.TypeLog.Warn, "There is no userStructObject with uuid created here, creating...");
             JvUserStructObject userChat = JvGetterStructObjects.getInstance().getBeanUserStructObject();
             userChat.setUuid(uuidUser);
             addItem(userChat, getRootObject());

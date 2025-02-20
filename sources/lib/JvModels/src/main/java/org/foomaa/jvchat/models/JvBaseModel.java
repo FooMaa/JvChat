@@ -23,12 +23,12 @@ public abstract class JvBaseModel {
 
     public void removeItem(JvBaseStructObject item) {
         if (rootObject == null) {
-            JvLog.write(JvLog.TypeLog.Error, "Здесь rootObject оказался null");
+            JvLog.write(JvLog.TypeLog.Error, "Here rootObject turned out to be null.");
             return;
         }
 
         if (!removeItemProcess(rootObject, item)) {
-            JvLog.write(JvLog.TypeLog.Error, "Тут ошибка при удалении элемента");
+            JvLog.write(JvLog.TypeLog.Error, "There is an error when deleting an element.");
         }
     }
 
