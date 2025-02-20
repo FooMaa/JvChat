@@ -9,11 +9,11 @@ import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.models.JvGetterModels;
 
 
-/* NOTE(VAD): здесь так сделано, чтоб задачи сервера и пользователя
- * решал один класс. Есть модель всех подключений JvSocketRunnableCtrlModel.
- * Главным элементом модели является JvSocketRunnableCtrlStructObject,
- * который содержит в себе Runnable поле. Это поле и есть объект
- * данного класса JvSocketRunnableCtrl.
+/* NOTE(VAD): here it is done so that the tasks of the server and the user
+ * solved by one class. There is a model of all connections JvSocketRunnableCtrlModel.
+ * The main element of the model is JvSocketRunnableCtrlStructObject,
+ * which contains a Runnable field. This field is the object
+ * of this JvSocketRunnableCtrl class.
  */
 public class JvSocketRunnableCtrl implements Runnable {
     private DataOutputStream sendStream;
@@ -28,7 +28,7 @@ public class JvSocketRunnableCtrl implements Runnable {
             sendStream = new DataOutputStream(socket.getOutputStream());
             readStream = new DataInputStream(socket.getInputStream());
         } catch (IOException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Ошибка в создании потоков отправки и принятия сообщений");
+            JvLog.write(JvLog.TypeLog.Error, "Error in creating threads for sending and receiving messages.");
         }
 
         errorsConnection = 0;
@@ -49,7 +49,7 @@ public class JvSocketRunnableCtrl implements Runnable {
             }
         } catch (IOException exception) {
             errorsConnection++;
-            JvLog.write(JvLog.TypeLog.Error, "Error in network");
+            JvLog.write(JvLog.TypeLog.Error, "Error in network.");
         }
     }
 
@@ -60,7 +60,7 @@ public class JvSocketRunnableCtrl implements Runnable {
             sendStream.flush();
         } catch (IOException exception) {
             errorsConnection++;
-            JvLog.write(JvLog.TypeLog.Error, "Error in network");
+            JvLog.write(JvLog.TypeLog.Error, "Error in network.");
         }
     }
 

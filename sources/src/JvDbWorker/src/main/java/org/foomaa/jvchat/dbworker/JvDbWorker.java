@@ -27,7 +27,7 @@ public class JvDbWorker {
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
-            JvLog.write(JvLog.TypeLog.Error, "Error in connect to DB");
+            JvLog.write(JvLog.TypeLog.Error, "Error in connect to DB.");
             return;
         }
 
@@ -38,7 +38,7 @@ public class JvDbWorker {
                     JvGetterSettings.getInstance().getBeanServersInfoSettings().getDbUser(),
                     JvGetterSettings.getInstance().getBeanServersInfoSettings().getMagicStringDb());
         } catch (SQLException e) {
-            JvLog.write(JvLog.TypeLog.Error, "Error in connect to DB");
+            JvLog.write(JvLog.TypeLog.Error, "Error in connect to DB.");
             return;
         }
 
@@ -49,7 +49,7 @@ public class JvDbWorker {
         try {
             rs.close();
         } catch (SQLException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Ошибка закрытия ResultSet");
+            JvLog.write(JvLog.TypeLog.Error, "Error closing ResultSet.");
         }
     }
 
@@ -65,7 +65,7 @@ public class JvDbWorker {
                     ResultSet.CONCUR_READ_ONLY);
             resultSet = stmt.executeQuery(execution);
         } catch (SQLException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "БД вернула ошибку, невозможно выполнить запрос");
+            JvLog.write(JvLog.TypeLog.Error, "The database returned an error, the request cannot be executed.");
         }
         return resultSet;
     }

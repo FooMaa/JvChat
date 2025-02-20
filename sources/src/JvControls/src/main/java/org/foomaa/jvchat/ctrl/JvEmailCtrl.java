@@ -35,10 +35,10 @@ public class JvEmailCtrl {
 
     private String createVerifyFamousEmailMessage(int code, String email){
         return String.format(
-                "Вы запросили восстановление пароля. Ваш код: %d. Ваш логин: %s. " +
-                        "Код действителен в течение 60 секунд, по истечении времени следует заказать новый. " +
-                        "Никому не говорите и не отправляйте код. " +
-                        "Если это были не вы, свяжитесь с поддержкой по почте avodichenkov@mail.ru.",
+                "You have requested a password recovery. Your code: %d. Your login: %s. " +
+                        "The code is valid for 60 seconds; after the time expires, you must order a new one. " +
+                        "Don't tell or send the code to anyone. " +
+                        "If it was not you, contact support by email avodichenkov@gmail.com.",
                 code,
                 JvGetterControls.getInstance().getBeanDbCtrl().
                         getSingleDataFromDb(JvDbCtrl.TypeExecutionGetSingle.LoginByEmail, email));
@@ -57,10 +57,10 @@ public class JvEmailCtrl {
 
     private String createVerifyRegEmailMessage(int code){
         return String.format(
-                "Вы регистрируетесь в программе, для подтверждения почты введите код. Ваш код: %d. " +
-                        "Код действителен в течение 60 секунд, по истечении времени следует заказать новый. " +
-                        "Никому не говорите и не отправляйте код. " +
-                        "Если это были не вы, свяжитесь с поддержкой по почте avodichenkov@mail.ru.",
+                "You register in the program, enter the code to confirm your email. Your code: %d. " +
+                        "The code is valid for 60 seconds; after the time expires, you must order a new one. " +
+                        "Don't tell or send the code to anyone. " +
+                        "If it was not you, contact support by email avodichenkov@gmail.com.",
                 code);
     }
 }

@@ -296,7 +296,7 @@ public class JvTakeMessagesCtrl {
         UUID uuidUser = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
 
         if (uuidUser == null) {
-            JvLog.write(JvLog.TypeLog.Warn, "Здесь uuidUser не задан");
+            JvLog.write(JvLog.TypeLog.Warn, "Here uuidUser is not set.");
             return;
         }
 
@@ -390,9 +390,9 @@ public class JvTakeMessagesCtrl {
 
     private void workTextMessagesChangingStatusFromServerVerificationMessage( HashMap<JvDefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(JvDefinesMessages.TypeData.BoolReply)) {
-            JvLog.write(JvLog.TypeLog.Info, "Пришел квиток о доставке сообщения со статусом без ошибок");
+            JvLog.write(JvLog.TypeLog.Info, "Received a message delivery receipt with a status without errors.");
         } else {
-            JvLog.write(JvLog.TypeLog.Info, "Пришел квиток о доставке сообщения со статусом с ошибкой");
+            JvLog.write(JvLog.TypeLog.Info, "A message delivery receipt has arrived with an error status.");
         }
     }
 
@@ -413,9 +413,9 @@ public class JvTakeMessagesCtrl {
 
     private void workTextMessagesChangingStatusFromUserVerificationMessage( HashMap<JvDefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(JvDefinesMessages.TypeData.BoolReply)) {
-            JvLog.write(JvLog.TypeLog.Info, "Пришел квиток о доставке сообщения со статусом без ошибок");
+            JvLog.write(JvLog.TypeLog.Info, "Received a message delivery receipt with a status without errors.");
         } else {
-            JvLog.write(JvLog.TypeLog.Info, "Пришел квиток о доставке сообщения со статусом с ошибкой");
+            JvLog.write(JvLog.TypeLog.Info, "A message delivery receipt has arrived with an error status.");
         }
     }
 

@@ -58,7 +58,7 @@ public class JvEmailProcessor {
             transport.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
             transport.close();
         } catch (MessagingException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Ошибка при отправке письма");
+            JvLog.write(JvLog.TypeLog.Error, "Error sending email.");
             exception.printStackTrace();
             return false;
         }

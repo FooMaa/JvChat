@@ -32,11 +32,11 @@ public class JvMainStartPoint implements ApplicationRunner {
     private void workingArgs(ApplicationArguments args) {
         try {
             JvGetterTools.getInstance().getBeanMainTools().setProfileSetting(JvMainStartPoint.class);
-//            NOTE(VAD): Установить профиль по спрингу
+//            NOTE(VAD): Set profile by spring.
 //            JvGetterTools.getInstance().getBeanMainTools().setProfileSettingSpring();
         } catch (IOException | URISyntaxException exception) {
             JvGetterUILinks.getInstance().getBeanErrorStartUILink(
-                    "Не удалось выставить верный профиль для приложения!");
+                    "Failed to set the correct profile for the application!");
         }
 
         if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
@@ -46,7 +46,7 @@ public class JvMainStartPoint implements ApplicationRunner {
         if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.USERS) {
             if (args.getOptionValues("ipServer") == null) {
                 JvGetterUILinks.getInstance().getBeanErrorStartUILink(
-                        "Дайте в параметр IP-адрес сервера!");
+                        "Enter the server IP address in the parameter!");
             }
 
             String argsIp = args.getOptionValues("ipServer").get(0);
@@ -54,7 +54,7 @@ public class JvMainStartPoint implements ApplicationRunner {
                 JvGetterSettings.getInstance().getBeanUsersInfoSettings().setIpRemoteServer(argsIp);
             } else {
                 JvGetterUILinks.getInstance().getBeanErrorStartUILink(
-                        "В параметре запуска не верный IP!");
+                        "The startup parameter contains the wrong IP!");
             }
 
             String argsPort;
@@ -68,7 +68,7 @@ public class JvMainStartPoint implements ApplicationRunner {
                 JvGetterSettings.getInstance().getBeanUsersInfoSettings().setPortRemoteServer(Integer.parseInt(argsPort));
             } else {
                 JvGetterUILinks.getInstance().getBeanErrorStartUILink(
-                        "В параметре запуска не верный PORT!");
+                        "The PORT in the launch parameter is not correct!");
             }
         }
     }
@@ -80,7 +80,7 @@ public class JvMainStartPoint implements ApplicationRunner {
             JvGetterControls.getInstance().getBeanNetworkCtrl().startNetwork();
         } catch (IOException exception) {
             JvGetterUILinks.getInstance().getBeanErrorStartUILink(
-                    "Не удалось подключиться к серверу.\nПроверьте наличие сети и попробуйте снова!");
+                    "Failed to connect to the server.\nCheck your network availability and try again!");
         }
 
         if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.USERS) {
