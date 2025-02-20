@@ -23,6 +23,7 @@ public class JvMainFrameAuthUI extends JFrame {
     private final JvTitlePanelAuthUI titlePanel;
     private RegimeWork regimeWork;
     private UUID uuidTEST;
+    private UUID uuidSignalCloseWindow;
 
     public enum RegimeWork {
         Auth,
@@ -45,13 +46,14 @@ public class JvMainFrameAuthUI extends JFrame {
         setPanel();
 
         uuidTEST = JvGetterEvents.getInstance().getBeanMakerEvents().addConnect(JvGetterAuthUIComponents.getInstance().getBeanEntryPanelAuthUI(), this, "Test", JvGetterAuthUIComponents.getInstance().getContext());
+        uuidSignalCloseWindow = JvGetterEvents.getInstance().getBeanMakerEvents().addConnect(JvGetterAuthUIComponents.getInstance().getBeanEntryPanelAuthUI(), this, "closeWindow", JvGetterAuthUIComponents.getInstance().getContext());
+        System.out.println(uuidSignalCloseWindow);
     }
 
     @JvCheckerEventsAnnotation(connectionUuid = "uuidTEST")
     @EventListener
     @Async
     public void handleSuccessful(JvBaseEvent event) {
-        if (event.getUuidKey() != uuidTEST) return;
         System.out.println(event.getUuidKey());
         System.out.println(uuidTEST);
         System.out.println("######EVENT");
@@ -72,14 +74,17 @@ public class JvMainFrameAuthUI extends JFrame {
 
     private void addListenerToElements() {
         titlePanel.getCloseButton().addActionListener(event -> {
-            closeWindow();
+            closeWindow(null);
             System.exit(0);
         });
 
         titlePanel.getMinimizeButton().addActionListener(event -> minimizeWindow());
     }
 
-    private void closeWindow() {
+    @JvCheckerEventsAnnotation(connectionUuid = "uuidSignalCloseWindow")
+    @EventListener
+    @Async
+    public void closeWindow(JvBaseEvent event) {
         //dispose();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(false);

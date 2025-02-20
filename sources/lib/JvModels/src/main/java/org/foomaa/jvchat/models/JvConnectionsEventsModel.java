@@ -8,6 +8,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 
@@ -25,12 +26,13 @@ public class JvConnectionsEventsModel extends JvBaseModel {
                 JvGetterStructObjects.getInstance().getBeanConnectionEventStructObject();
 
         connectionObject.setObjectSender(objectSender);
+        connectionObject.setCustomNameEvent(customNameEvent);
         connectionObject.setObjectReceiver(objectReceiver);
         connectionObject.setContext(context);
 
         addItem(connectionObject, getRootObject());
 
-        return  connectionObject.getUuid();
+        return connectionObject.getUuid();
     }
 
     public List<JvConnectionEventStructObject> findConnections(Object objectSender, String customNameEvent) {
@@ -42,7 +44,8 @@ public class JvConnectionsEventsModel extends JvBaseModel {
                 JvLog.write(JvLog.TypeLog.Error, "This includes the chatStructObject object, which is null.");
                 continue;
             }
-            if (connectionEventStructObject.getObjectSender() == objectSender) {
+            if (connectionEventStructObject.getObjectSender() == objectSender &&
+                    Objects.equals(connectionEventStructObject.getCustomNameEvent(), customNameEvent)) {
                 resList.add(connectionEventStructObject);
             }
         }

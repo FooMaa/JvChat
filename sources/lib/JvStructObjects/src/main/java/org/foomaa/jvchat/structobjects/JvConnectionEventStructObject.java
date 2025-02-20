@@ -21,7 +21,7 @@ public class JvConnectionEventStructObject extends JvBaseStructObject {
         commitProperties();
     }
     public void setCustomNameEvent(String newCustomNameEvent) {
-        if (Objects.equals(customNameEvent, newCustomNameEvent)) {
+        if (!Objects.equals(customNameEvent, newCustomNameEvent)) {
             customNameEvent = newCustomNameEvent;
             commitProperties();
         }

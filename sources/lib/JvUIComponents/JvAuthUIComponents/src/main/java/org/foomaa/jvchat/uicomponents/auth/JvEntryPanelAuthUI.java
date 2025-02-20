@@ -131,6 +131,8 @@ public class JvEntryPanelAuthUI extends JPanel {
     }
 
     private void addListenerToElements() {
+        JvEntryPanelAuthUI outerThis = this;
+
         bEnter.addActionListener(event -> {
             if (checkFields()) {
                 JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(JvDefinesMessages.TypeMessage.EntryRequest,
@@ -138,14 +140,14 @@ public class JvEntryPanelAuthUI extends JPanel {
                 waitRepeatServer();
             }
 
-            JvGetterEvents.getInstance().getBeanMakerEvents().event(this, "Test", "Hello");
+            JvGetterEvents.getInstance().getBeanMakerEvents().event(outerThis, "Test", "Hello");
         });
 
         activeMissLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 JvGetterAuthUIComponents.getInstance().getBeanResetPasswordFrameAuthUI().openWindow();
-//                closeWindow();
+                JvGetterEvents.getInstance().getBeanMakerEvents().event(outerThis, "closeWindow", null);
             }
         });
 
@@ -153,7 +155,7 @@ public class JvEntryPanelAuthUI extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 JvGetterAuthUIComponents.getInstance().getBeanRegistrationFrameAuthUI().openWindow();
-//                closeWindow();
+                JvGetterEvents.getInstance().getBeanMakerEvents().event(outerThis, "closeWindow", null);
             }
         });
     }

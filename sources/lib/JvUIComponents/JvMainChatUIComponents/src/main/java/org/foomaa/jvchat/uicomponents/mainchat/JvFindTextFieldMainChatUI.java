@@ -51,7 +51,7 @@ public class JvFindTextFieldMainChatUI extends JPanel {
         button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("Find");
+                System.out.println("Find.");
             }
         });
 
