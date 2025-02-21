@@ -21,7 +21,7 @@ public class JvTitlePanelAuthUI extends JPanel {
     private JvToolTipAuthUI toolTipClose;
     private JvToolTipAuthUI toolTipMinimize;
 
-    JvTitlePanelAuthUI(String text) {
+    JvTitlePanelAuthUI() {
         closeButton = new JButton() {
             @Override
             public JToolTip createToolTip() {
@@ -34,15 +34,21 @@ public class JvTitlePanelAuthUI extends JPanel {
                 return toolTipMinimize;
             }
         };
-        titleLabel = new JLabel(text);
+        titleLabel = new JLabel();
 
         setToolTips();
         settingButtonImage(closeButton, "/Close.png", "/CloseLight.png");
         settingButtonImage(minimizeButton, "/Minimize.png", "/MinimizeLight.png");
 
         settingTitleLabel();
-
         settingPanel();
+    }
+
+    public void setTitle(String text) {
+        titleLabel.setText(text);
+        Dimension currentSize = titleLabel.getPreferredSize();
+        // necessary because the font is custom, and the component may cut the text a little because of this
+        titleLabel.setPreferredSize(new Dimension(currentSize.width + 2, currentSize.height));
     }
 
     private void setToolTips() {
@@ -104,10 +110,6 @@ public class JvTitlePanelAuthUI extends JPanel {
         } catch (IOException | FontFormatException exception) {
             JvLog.write(JvLog.TypeLog.Error, "Здесь не создался steticaFont");
         }
-
-        Dimension currentSize = titleLabel.getPreferredSize();
-        // necessary because the font is custom, and the component may cut the text a little because of this
-        titleLabel.setPreferredSize(new Dimension(currentSize.width + 2, currentSize.height));
     }
 
     private void settingPanel() {

@@ -22,7 +22,8 @@ class JvAuthUIComponentsSpringConfig {
         BeanVerifyCodeFrameAuthUI("beanVerifyCodeFrameAuthUI"),
         BeanTitlePanelAuthUI("beanTitlePanelAuthUI"),
         BeanToolTipAuthUI("beanToolTipAuthUI"),
-        BeanMainFrameAuthUI("beanMainFrameAuthUI");
+        BeanMainFrameAuthUI("beanMainFrameAuthUI"),
+        BeanDefinesAuthUI("beanDefinesAuthUI");
 
         private final String value;
 
@@ -75,14 +76,6 @@ class JvAuthUIComponentsSpringConfig {
     @SuppressWarnings("unused")
     public JvTextFieldAuthUI beanTextFieldAuthUI(String text) {
         return new JvTextFieldAuthUI(text);
-    }
-
-    @Bean(name = "beanTitlePanelAuthUI")
-    @Lazy
-    @Scope("prototype")
-    @SuppressWarnings("unused")
-    public JvTitlePanelAuthUI beanTitlePanelAuthUI(String text) {
-        return new JvTitlePanelAuthUI(text);
     }
 
     @Bean(name = "beanToolTipAuthUI")
@@ -139,5 +132,21 @@ class JvAuthUIComponentsSpringConfig {
     @SuppressWarnings("unused")
     public JvVerifyCodeFrameAuthUI beanVerifyCodeFrameAuthUI(JvVerifyCodeFrameAuthUI.RegimeWork rw) {
         return new JvVerifyCodeFrameAuthUI(rw);
+    }
+
+    @Bean(name = "beanTitlePanelAuthUI")
+    @Lazy
+    @Scope("singleton")
+    @SuppressWarnings("unused")
+    public JvTitlePanelAuthUI beanTitlePanelAuthUI() {
+        return new JvTitlePanelAuthUI();
+    }
+
+    @Bean(name = "beanDefinesAuthUI")
+    @Lazy
+    @Scope("singleton")
+    @SuppressWarnings("unused")
+    public JvDefinesAuthUI beanDefinesAuthUI() {
+        return new JvDefinesAuthUI();
     }
 }

@@ -21,46 +21,61 @@ import org.foomaa.jvchat.settings.JvGetterSettings;
 
 public class JvMainFrameAuthUI extends JFrame {
     private final JvTitlePanelAuthUI titlePanel;
-    private RegimeWork regimeWork;
-    private UUID uuidTEST;
+    private JvDefinesAuthUI.RegimeWorkMainFrame regimeWorkMainFrame;
+    @SuppressWarnings({"unused", "FieldCanBeLocal"})
     private UUID uuidSignalCloseWindow;
-
-    public enum RegimeWork {
-        Auth,
-        Registration,
-        ResetPassword,
-        VerifyCode,
-        NewPassword
-    }
+    @SuppressWarnings({"unused", "FieldCanBeLocal"})
+    private UUID uuidSignalChangeRegimeWork;
 
     JvMainFrameAuthUI() {
         super("EntryFrame");
 
-        titlePanel = JvGetterAuthUIComponents.getInstance().getBeanTitlePanelAuthUI("Entry");
-        regimeWork = RegimeWork.Auth;
+        titlePanel = JvGetterAuthUIComponents.getInstance().getBeanTitlePanelAuthUI();
+        regimeWorkMainFrame = JvDefinesAuthUI.RegimeWorkMainFrame.Auth;
 
         setIconImageFrame("/MainAppIcon.png");
+        setPanelSettings();
         settingMovingTitlePanel();
         addListenerToElements();
         addGeneralSettingsToWidget();
-        setPanel();
-
-        uuidTEST = JvGetterEvents.getInstance().getBeanMakerEvents().addConnect(JvGetterAuthUIComponents.getInstance().getBeanEntryPanelAuthUI(), this, "Test", JvGetterAuthUIComponents.getInstance().getContext());
-        uuidSignalCloseWindow = JvGetterEvents.getInstance().getBeanMakerEvents().addConnect(JvGetterAuthUIComponents.getInstance().getBeanEntryPanelAuthUI(), this, "closeWindow", JvGetterAuthUIComponents.getInstance().getContext());
-        System.out.println(uuidSignalCloseWindow);
+        createConnections();
     }
 
-    @JvCheckerEventsAnnotation(connectionUuid = "uuidTEST")
-    @EventListener
-    @Async
-    public void handleSuccessful(JvBaseEvent event) {
-        System.out.println(event.getUuidKey());
-        System.out.println(uuidTEST);
-        System.out.println("######EVENT");
+    private void createConnections() {
+        uuidSignalCloseWindow =
+                JvGetterEvents.getInstance().getBeanMakerEvents().addConnect(
+                        JvGetterAuthUIComponents.getInstance().getBeanEntryPanelAuthUI(),
+                        this,
+                        "closeWindow",
+                        JvGetterAuthUIComponents.getInstance().getContext());
+        uuidSignalChangeRegimeWork =
+                JvGetterEvents.getInstance().getBeanMakerEvents().addConnect(
+                        JvGetterAuthUIComponents.getInstance().getBeanEntryPanelAuthUI(),
+                        this,
+                        "changeRegimeWork",
+                        JvGetterAuthUIComponents.getInstance().getContext());
     }
 
-    private void setPanel() {
-        getContentPane().add(JvGetterAuthUIComponents.getInstance().getBeanEntryPanelAuthUI());
+    private void setPanelSettings() {
+        switch (regimeWorkMainFrame) {
+            case Auth -> {
+                titlePanel.setTitle("Entry");
+                getRootPane().setDefaultButton(JvGetterAuthUIComponents.getInstance().getBeanEntryPanelAuthUI().getDefaultButton());
+                getContentPane().add(JvGetterAuthUIComponents.getInstance().getBeanEntryPanelAuthUI());
+            }
+            case Registration -> {
+                titlePanel.setTitle("Registration");
+            }
+            case VerifyCode -> {
+                titlePanel.setTitle("Verify code");
+            }
+            case NewPassword -> {
+                titlePanel.setTitle("New password");
+            }
+            case ResetPassword -> {
+                titlePanel.setTitle("Reset password");
+            }
+        }
     }
 
     private void setIconImageFrame(String path) {
@@ -84,12 +99,10 @@ public class JvMainFrameAuthUI extends JFrame {
     @JvCheckerEventsAnnotation(connectionUuid = "uuidSignalCloseWindow")
     @EventListener
     @Async
+    @SuppressWarnings("unused")
     public void closeWindow(JvBaseEvent event) {
-        //dispose();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(false);
-//        tLogin.setUnfocusFieldOnClose(true);
-//        tPassword.setUnfocusFieldOnClose(true);
     }
 
     public void openWindow() {
@@ -115,8 +128,6 @@ public class JvMainFrameAuthUI extends JFrame {
         toFront();
 
         setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 15, 15));
-
-//        getRootPane().setDefaultButton(bEnter);
 
         setVisible(true);
         requestFocus();
@@ -153,5 +164,13 @@ public class JvMainFrameAuthUI extends JFrame {
                 setLocation(thisX + xMoved, thisY + yMoved);
             }
         });
+    }
+
+    @JvCheckerEventsAnnotation(connectionUuid = "uuidSignalChangeRegimeWork")
+    @EventListener
+    @Async
+    @SuppressWarnings("unused")
+    public void changeRegimeWork(JvDefinesAuthUI.RegimeWorkMainFrame newRegimeWorkMainFrame) {
+        regimeWorkMainFrame = newRegimeWorkMainFrame;
     }
 }

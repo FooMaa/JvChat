@@ -58,12 +58,6 @@ public class JvGetterAuthUIComponents {
                 text);
     }
 
-    public JvTitlePanelAuthUI getBeanTitlePanelAuthUI(String text) {
-        return (JvTitlePanelAuthUI) context.getBean(
-                JvAuthUIComponentsSpringConfig.NameBeans.BeanTitlePanelAuthUI.getValue(),
-                text);
-    }
-
     public JvToolTipAuthUI getBeanToolTipAuthUI() {
         return context.getBean(JvAuthUIComponentsSpringConfig.NameBeans.BeanToolTipAuthUI.getValue(),
                 JvToolTipAuthUI.class);
@@ -101,5 +95,15 @@ public class JvGetterAuthUIComponents {
         return (JvVerifyCodeFrameAuthUI) context.getBean(
                 JvAuthUIComponentsSpringConfig.NameBeans.BeanVerifyCodeFrameAuthUI.getValue(),
                 rw);
+    }
+
+    public JvTitlePanelAuthUI getBeanTitlePanelAuthUI() {
+        return context.getBean(
+                JvAuthUIComponentsSpringConfig.NameBeans.BeanTitlePanelAuthUI.getValue(), JvTitlePanelAuthUI.class);
+    }
+
+    public JvDefinesAuthUI getBeanDefinesAuthUI() {
+        return context.getBean(
+                JvAuthUIComponentsSpringConfig.NameBeans.BeanDefinesAuthUI.getValue(), JvDefinesAuthUI.class);
     }
 }

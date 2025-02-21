@@ -40,7 +40,7 @@ public class JvRegistrationFrameAuthUI extends JFrame {
         tPassword = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Password");
         tPasswordConfirm = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Confirm password");
         bRegister = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("NEXT");
-        titlePanel = JvGetterAuthUIComponents.getInstance().getBeanTitlePanelAuthUI("Registration");
+        titlePanel = JvGetterAuthUIComponents.getInstance().getBeanTitlePanelAuthUI();
 
         settingComponents();
         settingMovingTitlePanel();

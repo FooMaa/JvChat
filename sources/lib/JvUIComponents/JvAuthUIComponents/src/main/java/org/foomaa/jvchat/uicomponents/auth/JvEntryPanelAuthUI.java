@@ -131,23 +131,19 @@ public class JvEntryPanelAuthUI extends JPanel {
     }
 
     private void addListenerToElements() {
-        JvEntryPanelAuthUI outerThis = this;
-
         bEnter.addActionListener(event -> {
             if (checkFields()) {
                 JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(JvDefinesMessages.TypeMessage.EntryRequest,
                         tLogin.getInputText(), tPassword.getInputText());
                 waitRepeatServer();
             }
-
-            JvGetterEvents.getInstance().getBeanMakerEvents().event(outerThis, "Test", "Hello");
         });
 
         activeMissLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 JvGetterAuthUIComponents.getInstance().getBeanResetPasswordFrameAuthUI().openWindow();
-                JvGetterEvents.getInstance().getBeanMakerEvents().event(outerThis, "closeWindow", null);
+                closeFrameWindow();
             }
         });
 
@@ -155,9 +151,15 @@ public class JvEntryPanelAuthUI extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 JvGetterAuthUIComponents.getInstance().getBeanRegistrationFrameAuthUI().openWindow();
-                JvGetterEvents.getInstance().getBeanMakerEvents().event(outerThis, "closeWindow", null);
+                closeFrameWindow();
             }
         });
+    }
+
+    private void closeFrameWindow() {
+        JvGetterEvents.getInstance().getBeanMakerEvents().event(this, "closeWindow", null);
+        tLogin.setUnfocusFieldOnClose(true);
+        tPassword.setUnfocusFieldOnClose(true);
     }
 
     private boolean checkFields() {
@@ -220,11 +222,15 @@ public class JvEntryPanelAuthUI extends JPanel {
         JvGetterControls.getInstance().getBeanSendMessagesCtrl()
                 .sendMessage(JvDefinesMessages.TypeMessage.CheckOnlineUserReply, uuidUser);
 
-//        closeWindow();
+        closeFrameWindow();
         setEnabled(true);
 
         JvGetterMainChatUIComponents.getInstance().getBeanMainFrameMainChatUI().openWindow();
 
         JvLog.write(JvLog.TypeLog.Info, "Login done.");
+    }
+
+    public JvButtonAuthUI getDefaultButton() {
+        return bEnter;
     }
 }
