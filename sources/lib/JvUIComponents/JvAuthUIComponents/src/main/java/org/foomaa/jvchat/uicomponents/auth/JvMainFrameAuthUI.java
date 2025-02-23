@@ -60,11 +60,17 @@ public class JvMainFrameAuthUI extends JFrame {
         switch (regimeWorkMainFrame) {
             case Auth -> {
                 titlePanel.setTitle("Entry");
+                getContentPane().removeAll();
+                getContentPane().add(titlePanel, BorderLayout.NORTH);
                 getRootPane().setDefaultButton(JvGetterAuthUIComponents.getInstance().getBeanEntryPanelAuthUI().getDefaultButton());
                 getContentPane().add(JvGetterAuthUIComponents.getInstance().getBeanEntryPanelAuthUI());
             }
             case Registration -> {
                 titlePanel.setTitle("Registration");
+                getContentPane().removeAll();
+                getContentPane().add(titlePanel, BorderLayout.NORTH);
+                getRootPane().setDefaultButton(JvGetterAuthUIComponents.getInstance().getBeanRegistrationPanelAuthUI().getDefaultButton());
+                getContentPane().add(JvGetterAuthUIComponents.getInstance().getBeanRegistrationPanelAuthUI());
             }
             case VerifyCode -> {
                 titlePanel.setTitle("Verify code");
@@ -105,6 +111,16 @@ public class JvMainFrameAuthUI extends JFrame {
         setVisible(false);
     }
 
+    @JvCheckerEventsAnnotation(connectionUuid = "uuidSignalChangeRegimeWork")
+    @EventListener
+    @Async
+    @SuppressWarnings("unused")
+    public void changeRegimeWork(JvBaseEvent event) {
+        System.out.println("assss");
+        regimeWorkMainFrame = (JvDefinesAuthUI.RegimeWorkMainFrame) event.getData();
+        setPanelSettings();
+    }
+
     public void openWindow() {
         setVisible(true);
     }
@@ -115,7 +131,6 @@ public class JvMainFrameAuthUI extends JFrame {
 
     private void addGeneralSettingsToWidget() {
         setUndecorated(true);
-        getContentPane().add(titlePanel, BorderLayout.NORTH);
         pack();
 
         setSize(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.3,
@@ -164,13 +179,5 @@ public class JvMainFrameAuthUI extends JFrame {
                 setLocation(thisX + xMoved, thisY + yMoved);
             }
         });
-    }
-
-    @JvCheckerEventsAnnotation(connectionUuid = "uuidSignalChangeRegimeWork")
-    @EventListener
-    @Async
-    @SuppressWarnings("unused")
-    public void changeRegimeWork(JvDefinesAuthUI.RegimeWorkMainFrame newRegimeWorkMainFrame) {
-        regimeWorkMainFrame = newRegimeWorkMainFrame;
     }
 }

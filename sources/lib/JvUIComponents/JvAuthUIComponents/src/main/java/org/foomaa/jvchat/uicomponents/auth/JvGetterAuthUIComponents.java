@@ -81,9 +81,9 @@ public class JvGetterAuthUIComponents {
                 post);
     }
 
-    public JvRegistrationFrameAuthUI getBeanRegistrationFrameAuthUI() {
+    public JvRegistrationPanelAuthUI getBeanRegistrationPanelAuthUI() {
         return context.getBean(JvAuthUIComponentsSpringConfig.NameBeans.BeanRegistrationFrameAuthUI.getValue(),
-                JvRegistrationFrameAuthUI.class);
+                JvRegistrationPanelAuthUI.class);
     }
 
     public JvResetPasswordFrameAuthUI getBeanResetPasswordFrameAuthUI() {

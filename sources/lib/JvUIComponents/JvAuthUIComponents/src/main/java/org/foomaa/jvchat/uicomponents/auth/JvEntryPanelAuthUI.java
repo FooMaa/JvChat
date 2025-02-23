@@ -150,8 +150,7 @@ public class JvEntryPanelAuthUI extends JPanel {
         activeRegisterLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JvGetterAuthUIComponents.getInstance().getBeanRegistrationFrameAuthUI().openWindow();
-                closeFrameWindow();
+                changeRegime(JvDefinesAuthUI.RegimeWorkMainFrame.Registration);
             }
         });
     }
@@ -160,6 +159,10 @@ public class JvEntryPanelAuthUI extends JPanel {
         JvGetterEvents.getInstance().getBeanMakerEvents().event(this, "closeWindow", null);
         tLogin.setUnfocusFieldOnClose(true);
         tPassword.setUnfocusFieldOnClose(true);
+    }
+
+    private void changeRegime(JvDefinesAuthUI.RegimeWorkMainFrame regime) {
+        JvGetterEvents.getInstance().getBeanMakerEvents().event(this, "changeRegimeWork", regime);
     }
 
     private boolean checkFields() {

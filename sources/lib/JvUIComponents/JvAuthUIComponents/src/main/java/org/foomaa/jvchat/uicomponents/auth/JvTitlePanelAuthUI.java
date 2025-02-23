@@ -48,7 +48,7 @@ public class JvTitlePanelAuthUI extends JPanel {
         titleLabel.setText(text);
         Dimension currentSize = titleLabel.getPreferredSize();
         // necessary because the font is custom, and the component may cut the text a little because of this
-        titleLabel.setPreferredSize(new Dimension(currentSize.width + 2, currentSize.height));
+        titleLabel.setSize(new Dimension(currentSize.width + 2, currentSize.height));
     }
 
     private void setToolTips() {

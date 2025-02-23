@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.ctrl.JvMessagesDefinesCtrl;
+import org.foomaa.jvchat.events.JvGetterEvents;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
@@ -19,44 +20,27 @@ import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.tools.JvGetterTools;
 
 
-public class JvRegistrationFrameAuthUI extends JFrame {
-    private JPanel panel;
+public class JvRegistrationPanelAuthUI extends JPanel {
     private final JvTextFieldAuthUI tLogin;
     private final JvTextFieldAuthUI tEmail;
     private final JvErrorLabelAuthUI tErrorHelpInfo;
     private final JvPasswordFieldAuthUI tPassword;
     private final JvPasswordFieldAuthUI tPasswordConfirm;
     private final JvButtonAuthUI bRegister;
-    private final JvTitlePanelAuthUI titlePanel;
+    private final String backgroundPath;
 
-    JvRegistrationFrameAuthUI() {
-        super("RegistrationWindow");
-
-        createPanel("/AuthMainBackground.png");
-
+    JvRegistrationPanelAuthUI() {
         tLogin = JvGetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Login");
         tEmail = JvGetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Email");
         tErrorHelpInfo = JvGetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
         tPassword = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Password");
         tPasswordConfirm = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Confirm password");
         bRegister = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("NEXT");
-        titlePanel = JvGetterAuthUIComponents.getInstance().getBeanTitlePanelAuthUI();
+        backgroundPath = "/AuthMainBackground.png";
 
         settingComponents();
-        settingMovingTitlePanel();
-        setIconImageFrame("/MainAppIcon.png");
         makeFrameSetting();
         addListenerToElements();
-        addGeneralSettingsToWidget();
-    }
-
-    private void setIconImageFrame(String path) {
-        try {
-            Image img = ImageIO.read(Objects.requireNonNull(getClass().getResource(path)));
-            setIconImage(img);
-        } catch (IOException e) {
-            e.getStackTrace();
-        }
     }
 
     private void settingComponents() {
@@ -69,64 +53,27 @@ public class JvRegistrationFrameAuthUI extends JFrame {
         tEmail.setToolTip("To set email");
     }
 
-    private void settingMovingTitlePanel() {
-        final Point[] initialClick = new Point[1];
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
 
-        titlePanel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                initialClick[0] = e.getPoint();
-                getComponentAt(initialClick[0]);
-                titlePanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            }
+        Image img = null;
+        try {
+            img = ImageIO.read(Objects.requireNonNull(getClass().getResource(backgroundPath)));
+        } catch (IOException e) {
+            e.getStackTrace();
+        }
 
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                titlePanel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-            }
-        });
+        if (img == null) {
+            JvLog.write(JvLog.TypeLog.Error, "Here img turned out to be equal to null.");
+            return;
+        }
 
-        titlePanel.addMouseMotionListener(new MouseAdapter() {
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                titlePanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-                int thisX = getLocation().x;
-                int thisY = getLocation().y;
-
-                int xMoved = (thisX + e.getX()) - (thisX + initialClick[0].x);
-                int yMoved = (thisY + e.getY()) - (thisY + initialClick[0].y);
-
-                setLocation(thisX + xMoved, thisY + yMoved);
-            }
-        });
-    }
-
-    private void createPanel(String path) {
-        panel = new JPanel(new GridBagLayout()) {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-
-                Image img = null;
-                try {
-                    img = ImageIO.read(Objects.requireNonNull(getClass().getResource(path)));
-                } catch (IOException e) {
-                    e.getStackTrace();
-                }
-
-                if (img == null) {
-                    JvLog.write(JvLog.TypeLog.Error, "Here img turned out to be equal to null.");
-                    return;
-                }
-
-                g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
-            }
-        };
+        g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
     }
 
     private void makeFrameSetting() {
-        panel.setLayout(new GridBagLayout());
+        setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
         int insX = JvGetterSettings.getInstance().getBeanDisplaySettings().
@@ -139,7 +86,7 @@ public class JvRegistrationFrameAuthUI extends JFrame {
         gbc.insets = new Insets(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.03), insX,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0045), insX);
         gbc.gridy = gridyNum;
-        panel.add(tLogin, gbc);
+        add(tLogin, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -147,7 +94,7 @@ public class JvRegistrationFrameAuthUI extends JFrame {
         gbc.insets = new Insets(0, insX,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0045), insX);
         gbc.gridy = gridyNum;
-        panel.add(tEmail, gbc);
+        add(tEmail, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -155,14 +102,14 @@ public class JvRegistrationFrameAuthUI extends JFrame {
         gbc.insets = new Insets(0, insX,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0045), insX);
         gbc.gridy = gridyNum;
-        panel.add(tPassword, gbc);
+        add(tPassword, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(0, insX, 0, insX);
         gbc.gridy = gridyNum;
-        panel.add(tPasswordConfirm, gbc);
+        add(tPasswordConfirm, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -170,7 +117,7 @@ public class JvRegistrationFrameAuthUI extends JFrame {
         gbc.insets = new Insets(0, insX,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0084), insX);
         gbc.gridy = gridyNum;
-        panel.add(tErrorHelpInfo, gbc);
+        add(tErrorHelpInfo, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.PAGE_END;
@@ -182,9 +129,7 @@ public class JvRegistrationFrameAuthUI extends JFrame {
         gbc.ipady = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.01,
                 JvDisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
-        panel.add(bRegister, gbc);
-
-        getContentPane().add(panel);
+        add(bRegister, gbc);
     }
 
     private void addListenerToElements() {
@@ -196,10 +141,6 @@ public class JvRegistrationFrameAuthUI extends JFrame {
                 waitRepeatServer();
             }
         });
-
-        titlePanel.getCloseButton().addActionListener(event -> closeWindow());
-
-        titlePanel.getMinimizeButton().addActionListener(event -> minimizeWindow());
     }
 
     private boolean checkFields() {
@@ -254,25 +195,8 @@ public class JvRegistrationFrameAuthUI extends JFrame {
         return true;
     }
 
-    private void addGeneralSettingsToWidget() {
-        setUndecorated(true);
-        getContentPane().add(titlePanel, BorderLayout.NORTH);
-        pack();
-
-        setSize(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.3,
-                        JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.31,
-                        JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
-
-        setResizable(false);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        toFront();
-
-        getRootPane().setDefaultButton(bRegister);
-
-        setVisible(true);
-        requestFocus();
+    public JvButtonAuthUI getDefaultButton() {
+        return bRegister;
     }
 
     private void nextCloseWindow() {
@@ -289,21 +213,12 @@ public class JvRegistrationFrameAuthUI extends JFrame {
         tPasswordConfirm.setUnfocusFieldOnClose(true);
     }
 
-    private void closeWindow() {
-        JvGetterAuthUIComponents.getInstance().getBeanMainFrameAuthUI().openWindow();
+    private void closeFrameWindow() {
+        JvGetterEvents.getInstance().getBeanMakerEvents().event(this, "closeWindow", null);
         tLogin.setUnfocusFieldOnClose(true);
         tEmail.setUnfocusFieldOnClose(true);
         tPassword.setUnfocusFieldOnClose(true);
         tPasswordConfirm.setUnfocusFieldOnClose(true);
-        setVisible(false);
-    }
-
-    private void minimizeWindow() {
-        setState(Frame.ICONIFIED);
-    }
-
-    public void openWindow() {
-        setVisible(true);
     }
 
     private void waitRepeatServer() {

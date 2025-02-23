@@ -13,6 +13,7 @@ public class JvAspectCheckerEvents {
     JvAspectCheckerEvents() {}
 
     @Around("@annotation(checkerEventsAnnotation)")
+    @SuppressWarnings("unused")
     public Object checkFieldMatch(ProceedingJoinPoint joinPoint, JvCheckerEventsAnnotation checkerEventsAnnotation) throws Throwable {
         Object targetObject = joinPoint.getTarget();
         Object[] methodArgs = joinPoint.getArgs();

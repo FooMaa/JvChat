@@ -18,7 +18,6 @@ public class JvMakerEvents {
     public void event(Object objectSender, String customNameEvent, Object data) {
         List<JvConnectionEventStructObject> connections =
                 connectionsEventsModel.findConnections(objectSender, customNameEvent);
-        System.out.println(connections);
         for (JvConnectionEventStructObject connection : connections) {
             UUID uuidKey = connection.getUuid();
             JvBaseEvent baseEvent = JvGetterEvents.getInstance().getBeanBaseEvent(objectSender, connection.getObjectReceiver(), uuidKey, data);
