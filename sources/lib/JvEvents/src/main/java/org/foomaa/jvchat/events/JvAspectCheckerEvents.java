@@ -37,7 +37,7 @@ public class JvAspectCheckerEvents {
             if (objectFieldValue != null && objectFieldValue.equals(classFieldValue) && destination == targetObject) {
                 flagReturn = true;
             } else {
-                JvLog.write(JvLog.TypeLog.Error, "Method execution skipped: uuid class argument != uuid event in this class");
+                JvLog.write(JvLog.TypeLog.Info, "Method execution skipped: uuid class argument != uuid event in this class");
             }
         }
 

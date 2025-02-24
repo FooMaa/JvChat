@@ -4,8 +4,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
@@ -207,8 +205,6 @@ public class JvRegistrationPanelAuthUI extends JPanel {
                 tLogin.getInputText(),
                 tEmail.getInputText(),
                 tPassword.getInputText());
-//        frm.setRegime(JvVerifyCodePanelAuthUI.RegimeWork.Registration);
-//        frm.setParametersRegistration(tLogin.getInputText(), tEmail.getInputText(), tPassword.getInputText());
         tLogin.setUnfocusFieldOnClose(true);
         tEmail.setUnfocusFieldOnClose(true);
         tPassword.setUnfocusFieldOnClose(true);
@@ -239,16 +235,16 @@ public class JvRegistrationPanelAuthUI extends JPanel {
     private void openErrorPane() {
         switch (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getErrorRegistrationFlag()) {
             case NoError -> JvGetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("Ошибка не выяснена.", JvOptionPaneAuthUI.TypeDlg.ERROR);
+                    .getBeanOptionPaneAuthUI("The error is not clear.", JvOptionPaneAuthUI.TypeDlg.ERROR);
             case EmailSending -> JvGetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("Возможно почта недействительна.", JvOptionPaneAuthUI.TypeDlg.ERROR);
+                    .getBeanOptionPaneAuthUI("The email may be invalid.", JvOptionPaneAuthUI.TypeDlg.ERROR);
             case Login -> JvGetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("Данный логин уже используется.", JvOptionPaneAuthUI.TypeDlg.ERROR);
+                    .getBeanOptionPaneAuthUI("This login is already in use.", JvOptionPaneAuthUI.TypeDlg.ERROR);
             case Email -> JvGetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("Данная почта уже используется.", JvOptionPaneAuthUI.TypeDlg.ERROR);
+                    .getBeanOptionPaneAuthUI("This email is already in use.", JvOptionPaneAuthUI.TypeDlg.ERROR);
             case LoginAndEmail ->
                     JvGetterAuthUIComponents.getInstance()
-                            .getBeanOptionPaneAuthUI("Данные почта и логин уже используются.", JvOptionPaneAuthUI.TypeDlg.ERROR);
+                            .getBeanOptionPaneAuthUI("The email and login data are already in use.", JvOptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 }

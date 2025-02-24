@@ -82,19 +82,18 @@ public class JvGetterAuthUIComponents {
     }
 
     public JvRegistrationPanelAuthUI getBeanRegistrationPanelAuthUI() {
-        return context.getBean(JvAuthUIComponentsSpringConfig.NameBeans.BeanRegistrationFrameAuthUI.getValue(),
+        return context.getBean(JvAuthUIComponentsSpringConfig.NameBeans.BeanRegistrationPanelAuthUI.getValue(),
                 JvRegistrationPanelAuthUI.class);
     }
 
-    public JvResetPasswordFrameAuthUI getBeanResetPasswordFrameAuthUI() {
-        return context.getBean(JvAuthUIComponentsSpringConfig.NameBeans.BeanResetPasswordFrameAuthUI.getValue(),
-                JvResetPasswordFrameAuthUI.class);
+    public JvResetPasswordPanelAuthUI getBeanResetPasswordPanelAuthUI() {
+        return context.getBean(JvAuthUIComponentsSpringConfig.NameBeans.BeanResetPasswordPanelAuthUI.getValue(),
+                JvResetPasswordPanelAuthUI.class);
     }
 
-    public JvVerifyCodePanelAuthUI getBeanVerifyCodePanelAuthUI(JvVerifyCodePanelAuthUI.RegimeWork rw) {
-        return (JvVerifyCodePanelAuthUI) context.getBean(
-                JvAuthUIComponentsSpringConfig.NameBeans.BeanVerifyCodePanelAuthUI.getValue(),
-                rw);
+    public JvVerifyCodePanelAuthUI getBeanVerifyCodePanelAuthUI() {
+        return context.getBean(
+                JvAuthUIComponentsSpringConfig.NameBeans.BeanVerifyCodePanelAuthUI.getValue(), JvVerifyCodePanelAuthUI.class);
     }
 
     public JvTitlePanelAuthUI getBeanTitlePanelAuthUI() {

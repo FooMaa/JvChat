@@ -19,40 +19,46 @@ import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.tools.JvGetterTools;
 
 
-public class JvResetPasswordFrameAuthUI extends JFrame {
-    private final JPanel panel;
+public class JvResetPasswordPanelAuthUI extends JPanel {
     private final JvErrorLabelAuthUI tInfo;
     private final JvTextFieldAuthUI tEmail;
     private final JvErrorLabelAuthUI tErrorHelpInfo;
     private final JvButtonAuthUI bSet;
+    private final String backgroundPath;
 
-    JvResetPasswordFrameAuthUI() {
-        super("ResetPasswordWindow");
-
-        panel = new JPanel();
+    JvResetPasswordPanelAuthUI() {
         tInfo = JvGetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("Введите адрес почты:");
         tEmail = JvGetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Почта");
         tErrorHelpInfo = JvGetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
         tErrorHelpInfo.settingToError();
-        bSet = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("ОТПРАВИТЬ");
+        bSet = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("SEND");
+        backgroundPath = "/AuthMainBackground.png";
 
-        setIconImageFrame("/MainAppIcon.png");
         makeFrameSetting();
         addListenerToElements();
-        addGeneralSettingsToWidget();
     }
 
-    private void setIconImageFrame(String path) {
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        Image img = null;
         try {
-            Image img = ImageIO.read(Objects.requireNonNull(getClass().getResource(path)));
-            setIconImage(img);
+            img = ImageIO.read(Objects.requireNonNull(getClass().getResource(backgroundPath)));
         } catch (IOException e) {
             e.getStackTrace();
         }
+
+        if (img == null) {
+            JvLog.write(JvLog.TypeLog.Error, "Here img turned out to be equal to null.");
+            return;
+        }
+
+        g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
     }
 
     private void makeFrameSetting() {
-        panel.setLayout(new GridBagLayout());
+        setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
         int insX = JvGetterSettings.getInstance().getBeanDisplaySettings().
@@ -67,7 +73,7 @@ public class JvResetPasswordFrameAuthUI extends JFrame {
         gbc.insets = new Insets(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0125), 0,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0084), 0);
         gbc.gridy = gridyNum;
-        panel.add(tInfo, gbc);
+        add(tInfo, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -75,7 +81,7 @@ public class JvResetPasswordFrameAuthUI extends JFrame {
         gbc.insets = new Insets(0, insX,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.004), insX);
         gbc.gridy = gridyNum;
-        panel.add(tEmail, gbc);
+        add(tEmail, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -83,7 +89,7 @@ public class JvResetPasswordFrameAuthUI extends JFrame {
         gbc.insets = new Insets(0, insX,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0084), insX);
         gbc.gridy = gridyNum;
-        panel.add(tErrorHelpInfo, gbc);
+        add(tErrorHelpInfo, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.PAGE_END;
@@ -95,9 +101,7 @@ public class JvResetPasswordFrameAuthUI extends JFrame {
         gbc.ipady = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.01,
                 JvDisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
-        panel.add(bSet, gbc);
-
-        getContentPane().add(panel);
+        add(bSet, gbc);
     }
 
     private void addListenerToElements() {
@@ -107,14 +111,6 @@ public class JvResetPasswordFrameAuthUI extends JFrame {
                         .getBeanSendMessagesCtrl().sendMessage(JvDefinesMessages.TypeMessage.ResetPasswordRequest,
                         tEmail.getInputText());
                 waitRepeatServer();
-            }
-        });
-
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                JvGetterAuthUIComponents.getInstance().getBeanMainFrameAuthUI().openWindow();
-                tEmail.setUnfocusFieldOnClose(false);
             }
         });
     }
@@ -147,32 +143,14 @@ public class JvResetPasswordFrameAuthUI extends JFrame {
         return true;
     }
 
-    private void addGeneralSettingsToWidget() {
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("ВОССТАНОВЛЕНИЕ ПАРОЛЯ");
-
-        setSize(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.3,
-                        JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.25,
-                        JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
-
-        setResizable(false);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        toFront();
-
-        getRootPane().setDefaultButton(bSet);
-
-        setVisible(true);
-        requestFocus();
+    public JvButtonAuthUI getDefaultButton() {
+        return bSet;
     }
 
     private void closeWindow() {
         JvVerifyCodePanelAuthUI frm = JvGetterAuthUIComponents.getInstance()
-                .getBeanVerifyCodePanelAuthUI(JvVerifyCodePanelAuthUI.RegimeWork.ResetPassword);
-        frm.setRegime(JvVerifyCodePanelAuthUI.RegimeWork.ResetPassword);
+                .getBeanVerifyCodePanelAuthUI();
         frm.setParametersResetPassword(tEmail.getInputText());
-        frm.openWindow();
         setVisible(false);
         tEmail.setUnfocusFieldOnClose(false);
         //dispose();

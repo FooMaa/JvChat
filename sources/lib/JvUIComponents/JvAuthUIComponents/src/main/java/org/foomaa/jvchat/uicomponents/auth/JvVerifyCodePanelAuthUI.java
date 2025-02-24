@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.ctrl.JvMessagesDefinesCtrl;
+import org.foomaa.jvchat.events.JvGetterEvents;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
@@ -30,8 +31,7 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
         ResetPassword
     }
 
-    JvVerifyCodePanelAuthUI(RegimeWork rw) {
-        regime = rw;
+    JvVerifyCodePanelAuthUI() {
         tCode = JvGetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Code (valid for 60 sec.)");
         tErrorHelpInfo = JvGetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
         tErrorHelpInfo.settingToError();
@@ -61,19 +61,15 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
         g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
     }
 
-    public void setRegime(RegimeWork newRegime) {
-        if (regime != newRegime) {
-            regime = newRegime;
-        }
-    }
-
     public void setParametersRegistration(String pLogin, String pEmail, String pPassword) {
+        regime = RegimeWork.Registration;
         login = pLogin;
         email = pEmail;
         password = pPassword;
     }
 
     public void setParametersResetPassword(String pEmail) {
+        regime = RegimeWork.ResetPassword;
         email = pEmail;
     }
 
@@ -148,19 +144,16 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
         return bSet;
     }
 
-    private void closeWindow() {
-        setVisible(false);
-        //dispose();
+    private void changeRegime() {
         if (regime == RegimeWork.Registration) {
-            JvGetterAuthUIComponents.getInstance().getBeanMainFrameAuthUI().openWindow();
+            JvGetterEvents.getInstance().getBeanMakerEvents().event(
+                    this,
+                    "changeRegimeWork",
+                    JvDefinesAuthUI.RegimeWorkMainFrame.Auth);
         } else if (regime == RegimeWork.ResetPassword) {
             JvGetterAuthUIComponents.getInstance().getBeanNewPasswordFrameAuthUI(email).openWindow();
         }
         tCode.setUnfocusFieldOnClose(false);
-    }
-
-    public void openWindow() {
-        setVisible(true);
     }
 
     private void waitRepeatServerResetPassword() {
@@ -170,19 +163,19 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
-                JvLog.write(JvLog.TypeLog.Error, "Не удалось ждать");
+                JvLog.write(JvLog.TypeLog.Error, "Failed to wait.");
             }
         }
         if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyFamousEmailRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.TRUE) {
-            closeWindow();
+            changeRegime();
             setEnabled(true);
         } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyFamousEmailRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             JvGetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("Код не верен. Введите код полученный по почте еще раз. " +
-                            "Мог истечь срок действия кода, введите почту и получите новый.", JvOptionPaneAuthUI.TypeDlg.ERROR);
+                    .getBeanOptionPaneAuthUI("The code is not correct. Enter the code you received by mail again.\n" +
+                            "The code may have expired, enter your email again and get a new one.", JvOptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 
@@ -193,12 +186,12 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
-                JvLog.write(JvLog.TypeLog.Error, "Не удалось ждать");
+                JvLog.write(JvLog.TypeLog.Error, "Failed to wait.");
             }
         }
         if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyRegistrationEmailRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.TRUE) {
-            closeWindow();
+            changeRegime();
             setEnabled(true);
         } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyRegistrationEmailRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.FALSE) {
@@ -210,19 +203,19 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
     private void openErrorPane() {
         switch (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getErrorVerifyRegEmailFlag()) {
             case NoError -> JvGetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("Ошибка не выяснена.", JvOptionPaneAuthUI.TypeDlg.ERROR);
+                    .getBeanOptionPaneAuthUI("The error is not clear.", JvOptionPaneAuthUI.TypeDlg.ERROR);
             case EmailSending -> JvGetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("Возможно почта недействительна.", JvOptionPaneAuthUI.TypeDlg.ERROR);
+                    .getBeanOptionPaneAuthUI("The email may be invalid.", JvOptionPaneAuthUI.TypeDlg.ERROR);
             case Login -> JvGetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("Данный логин уже используется.", JvOptionPaneAuthUI.TypeDlg.ERROR);
+                    .getBeanOptionPaneAuthUI("This login is already in use.", JvOptionPaneAuthUI.TypeDlg.ERROR);
             case Email -> JvGetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("Данная почта уже используется.", JvOptionPaneAuthUI.TypeDlg.ERROR);
+                    .getBeanOptionPaneAuthUI("This email is already in use.", JvOptionPaneAuthUI.TypeDlg.ERROR);
             case Code -> JvGetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("Код не верен. Введите код полученный по почте еще раз. " +
-                    "Мог истечь срок действия кода, введите почту и получите новый.", JvOptionPaneAuthUI.TypeDlg.ERROR);
+                    .getBeanOptionPaneAuthUI("The code is not correct. Enter the code you received by mail again.\n" +
+                    "The code may have expired, enter your email again and get a new one.", JvOptionPaneAuthUI.TypeDlg.ERROR);
             case LoginAndEmail ->
                     JvGetterAuthUIComponents.getInstance()
-                            .getBeanOptionPaneAuthUI("Данные почта и логин уже используются.", JvOptionPaneAuthUI.TypeDlg.ERROR);
+                            .getBeanOptionPaneAuthUI("The email and login data are already in use.", JvOptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 }

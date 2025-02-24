@@ -142,8 +142,7 @@ public class JvEntryPanelAuthUI extends JPanel {
         activeMissLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JvGetterAuthUIComponents.getInstance().getBeanResetPasswordFrameAuthUI().openWindow();
-                closeFrameWindow();
+                JvGetterAuthUIComponents.getInstance().getBeanResetPasswordPanelAuthUI().openWindow();
             }
         });
 
@@ -163,6 +162,8 @@ public class JvEntryPanelAuthUI extends JPanel {
 
     private void changeRegime(JvDefinesAuthUI.RegimeWorkMainFrame regime) {
         JvGetterEvents.getInstance().getBeanMakerEvents().event(this, "changeRegimeWork", regime);
+        tLogin.setUnfocusFieldOnClose(true);
+        tPassword.setUnfocusFieldOnClose(true);
     }
 
     private boolean checkFields() {
