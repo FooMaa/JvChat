@@ -3,8 +3,6 @@ package org.foomaa.jvchat.uicomponents.auth;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Vector;
@@ -199,22 +197,10 @@ public class JvRegistrationPanelAuthUI extends JPanel {
         return bRegister;
     }
 
-    private void nextCloseWindow() {
-        JvVerifyCodeFrameAuthUI frm = JvGetterAuthUIComponents.getInstance()
-                .getBeanVerifyCodeFrameAuthUI(JvVerifyCodeFrameAuthUI.RegimeWork.Registration);
-        frm.setRegime(JvVerifyCodeFrameAuthUI.RegimeWork.Registration);
-        frm.setParametersRegistration(tLogin.getInputText(), tEmail.getInputText(), tPassword.getInputText());
-        frm.openWindow();
-        setVisible(false);
-        //dispose();
-        tLogin.setUnfocusFieldOnClose(true);
-        tEmail.setUnfocusFieldOnClose(true);
-        tPassword.setUnfocusFieldOnClose(true);
-        tPasswordConfirm.setUnfocusFieldOnClose(true);
-    }
-
-    private void closeFrameWindow() {
-        JvGetterEvents.getInstance().getBeanMakerEvents().event(this, "closeWindow", null);
+    private void changeRegimeWindow() {
+        JvGetterEvents.getInstance().getBeanMakerEvents().event(this, "changeRegimeWork", JvDefinesAuthUI.RegimeWorkMainFrame.VerifyCodeRegistration);
+//        frm.setRegime(JvVerifyCodeFrameAuthUI.RegimeWork.Registration);
+//        frm.setParametersRegistration(tLogin.getInputText(), tEmail.getInputText(), tPassword.getInputText());
         tLogin.setUnfocusFieldOnClose(true);
         tEmail.setUnfocusFieldOnClose(true);
         tPassword.setUnfocusFieldOnClose(true);
@@ -233,7 +219,7 @@ public class JvRegistrationPanelAuthUI extends JPanel {
         }
         if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getRegistrationRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.TRUE) {
-            nextCloseWindow();
+            changeRegimeWindow();
             setEnabled(true);
         } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getRegistrationRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.FALSE) {

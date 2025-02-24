@@ -25,7 +25,9 @@ public class JvMainFrameAuthUI extends JFrame {
     @SuppressWarnings({"unused", "FieldCanBeLocal"})
     private UUID uuidSignalCloseWindow;
     @SuppressWarnings({"unused", "FieldCanBeLocal"})
-    private UUID uuidSignalChangeRegimeWork;
+    private UUID uuidSignalChangeRegimeWorkEntry;
+    @SuppressWarnings({"unused", "FieldCanBeLocal"})
+    private UUID uuidSignalChangeRegimeWorkRegistration;
 
     JvMainFrameAuthUI() {
         super("EntryFrame");
@@ -48,9 +50,15 @@ public class JvMainFrameAuthUI extends JFrame {
                         this,
                         "closeWindow",
                         JvGetterAuthUIComponents.getInstance().getContext());
-        uuidSignalChangeRegimeWork =
+        uuidSignalChangeRegimeWorkEntry =
                 JvGetterEvents.getInstance().getBeanMakerEvents().addConnect(
                         JvGetterAuthUIComponents.getInstance().getBeanEntryPanelAuthUI(),
+                        this,
+                        "changeRegimeWork",
+                        JvGetterAuthUIComponents.getInstance().getContext());
+        uuidSignalChangeRegimeWorkRegistration =
+                JvGetterEvents.getInstance().getBeanMakerEvents().addConnect(
+                        JvGetterAuthUIComponents.getInstance().getBeanRegistrationPanelAuthUI(),
                         this,
                         "changeRegimeWork",
                         JvGetterAuthUIComponents.getInstance().getContext());
@@ -72,7 +80,10 @@ public class JvMainFrameAuthUI extends JFrame {
                 getRootPane().setDefaultButton(JvGetterAuthUIComponents.getInstance().getBeanRegistrationPanelAuthUI().getDefaultButton());
                 getContentPane().add(JvGetterAuthUIComponents.getInstance().getBeanRegistrationPanelAuthUI());
             }
-            case VerifyCode -> {
+            case VerifyCodeRegistration -> {
+                titlePanel.setTitle("Verify code");
+            }
+            case VerifyCodeChangePassword -> {
                 titlePanel.setTitle("Verify code");
             }
             case NewPassword -> {
@@ -111,7 +122,7 @@ public class JvMainFrameAuthUI extends JFrame {
         setVisible(false);
     }
 
-    @JvCheckerEventsAnnotation(connectionUuid = "uuidSignalChangeRegimeWork")
+    @JvCheckerEventsAnnotation(connectionUuid = {"uuidSignalChangeRegimeWorkEntry", "uuidSignalChangeRegimeWorkRegistration"})
     @EventListener
     @Async
     @SuppressWarnings("unused")

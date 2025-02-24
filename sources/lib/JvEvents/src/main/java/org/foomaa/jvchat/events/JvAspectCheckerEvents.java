@@ -27,18 +27,21 @@ public class JvAspectCheckerEvents {
 
         Object paramObject = methodArgs[0];
 
-        String classFieldName = checkerEventsAnnotation.connectionUuid();
+        String[] classFieldNames = checkerEventsAnnotation.connectionUuid();
         Object objectFieldValue = getFieldValue(paramObject, nameUuid);
-        Object classFieldValue = getFieldValue(targetObject, classFieldName);
-
         Object destination = getFieldValue(paramObject, nameDestination);
 
-        if (objectFieldValue != null && objectFieldValue.equals(classFieldValue) && destination == targetObject) {
-            return joinPoint.proceed();
-        } else {
-            JvLog.write(JvLog.TypeLog.Error, "Method execution skipped: uuid class argument != uuid event in this class");
-            return null;
+        boolean flagReturn = false;
+        for (String classFieldName : classFieldNames) {
+            Object classFieldValue = getFieldValue(targetObject, classFieldName);
+            if (objectFieldValue != null && objectFieldValue.equals(classFieldValue) && destination == targetObject) {
+                flagReturn = true;
+            } else {
+                JvLog.write(JvLog.TypeLog.Error, "Method execution skipped: uuid class argument != uuid event in this class");
+            }
         }
+
+        return flagReturn ? joinPoint.proceed() : null;
     }
 
     private Object getFieldValue(Object obj, String fieldName) throws NoSuchFieldException, IllegalAccessException {

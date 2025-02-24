@@ -17,10 +17,12 @@ public class JvBaseEvent extends ApplicationEvent {
         uuidKey = newUuidKey;
     }
 
+    @SuppressWarnings("unused")
     public UUID getUuidKey() {
         return uuidKey;
     }
 
+    @SuppressWarnings("unused")
     public Object getDestination() {
         return destination;
     }

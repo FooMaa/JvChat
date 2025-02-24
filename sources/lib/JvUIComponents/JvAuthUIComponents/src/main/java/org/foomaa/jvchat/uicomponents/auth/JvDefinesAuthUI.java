@@ -7,7 +7,8 @@ public class JvDefinesAuthUI {
         Auth,
         Registration,
         ResetPassword,
-        VerifyCode,
+        VerifyCodeRegistration,
+        VerifyCodeChangePassword,
         NewPassword
     }
 }
