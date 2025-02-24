@@ -168,9 +168,9 @@ public class JvResetPasswordFrameAuthUI extends JFrame {
     }
 
     private void closeWindow() {
-        JvVerifyCodeFrameAuthUI frm = JvGetterAuthUIComponents.getInstance()
-                .getBeanVerifyCodeFrameAuthUI(JvVerifyCodeFrameAuthUI.RegimeWork.ResetPassword);
-        frm.setRegime(JvVerifyCodeFrameAuthUI.RegimeWork.ResetPassword);
+        JvVerifyCodePanelAuthUI frm = JvGetterAuthUIComponents.getInstance()
+                .getBeanVerifyCodePanelAuthUI(JvVerifyCodePanelAuthUI.RegimeWork.ResetPassword);
+        frm.setRegime(JvVerifyCodePanelAuthUI.RegimeWork.ResetPassword);
         frm.setParametersResetPassword(tEmail.getInputText());
         frm.openWindow();
         setVisible(false);

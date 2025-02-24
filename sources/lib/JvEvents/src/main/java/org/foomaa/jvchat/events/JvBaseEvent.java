@@ -8,9 +8,9 @@ import java.util.UUID;
 public class JvBaseEvent extends ApplicationEvent {
     private final UUID uuidKey;
     private final Object destination;
-    private final Object data;
+    private final Object[] data;
 
-    JvBaseEvent(Object source, Object newDestination, UUID newUuidKey, Object newData) {
+    JvBaseEvent(Object source, Object newDestination, UUID newUuidKey, Object... newData) {
         super(source);
         destination = newDestination;
         data = newData;
@@ -27,7 +27,7 @@ public class JvBaseEvent extends ApplicationEvent {
         return destination;
     }
 
-    public Object getData() {
+    public Object[] getData() {
         return data;
     }
 }

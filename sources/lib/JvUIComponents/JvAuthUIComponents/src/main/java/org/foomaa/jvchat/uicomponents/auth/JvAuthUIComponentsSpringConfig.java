@@ -19,7 +19,7 @@ class JvAuthUIComponentsSpringConfig {
         BeanNewPasswordFrameAuthUI("beanNewPasswordFrameAuthUI"),
         BeanRegistrationFrameAuthUI("beanRegistrationPanelAuthUI"),
         BeanResetPasswordFrameAuthUI("beanResetPasswordFrameAuthUI"),
-        BeanVerifyCodeFrameAuthUI("beanVerifyCodeFrameAuthUI"),
+        BeanVerifyCodePanelAuthUI("beanVerifyCodePanelAuthUI"),
         BeanTitlePanelAuthUI("beanTitlePanelAuthUI"),
         BeanToolTipAuthUI("beanToolTipAuthUI"),
         BeanMainFrameAuthUI("beanMainFrameAuthUI"),
@@ -126,12 +126,12 @@ class JvAuthUIComponentsSpringConfig {
         return new JvResetPasswordFrameAuthUI();
     }
 
-    @Bean(name = "beanVerifyCodeFrameAuthUI")
+    @Bean(name = "beanVerifyCodePanelAuthUI")
     @Lazy
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvVerifyCodeFrameAuthUI beanVerifyCodeFrameAuthUI(JvVerifyCodeFrameAuthUI.RegimeWork rw) {
-        return new JvVerifyCodeFrameAuthUI(rw);
+    public JvVerifyCodePanelAuthUI beanVerifyCodeFrameAuthUI(JvVerifyCodePanelAuthUI.RegimeWork rw) {
+        return new JvVerifyCodePanelAuthUI(rw);
     }
 
     @Bean(name = "beanTitlePanelAuthUI")

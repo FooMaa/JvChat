@@ -156,7 +156,7 @@ public class JvEntryPanelAuthUI extends JPanel {
     }
 
     private void closeFrameWindow() {
-        JvGetterEvents.getInstance().getBeanMakerEvents().event(this, "closeWindow", null);
+        JvGetterEvents.getInstance().getBeanMakerEvents().event(this, "closeWindow");
         tLogin.setUnfocusFieldOnClose(true);
         tPassword.setUnfocusFieldOnClose(true);
     }

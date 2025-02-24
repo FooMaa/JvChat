@@ -3,11 +3,8 @@ package org.foomaa.jvchat.uicomponents.auth;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowAdapter;
 import java.io.IOException;
 import java.util.Objects;
-import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
 import org.foomaa.jvchat.ctrl.JvGetterControls;
@@ -18,9 +15,7 @@ import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
 
-public class JvVerifyCodeFrameAuthUI extends JFrame {
-    private final JPanel panel;
-    private final JvErrorLabelAuthUI tInfo;
+public class JvVerifyCodePanelAuthUI extends JPanel {
     private final JvTextFieldAuthUI tCode;
     private final JvErrorLabelAuthUI tErrorHelpInfo;
     private final JvButtonAuthUI bSet;
@@ -28,36 +23,42 @@ public class JvVerifyCodeFrameAuthUI extends JFrame {
     private String email;
     private String password;
     private RegimeWork regime;
+    private final String backgroundPath;
 
     public enum RegimeWork {
         Registration,
         ResetPassword
     }
 
-    JvVerifyCodeFrameAuthUI(RegimeWork rw) {
-        super("VerifyCodeWindow");
-
+    JvVerifyCodePanelAuthUI(RegimeWork rw) {
         regime = rw;
-        panel = new JPanel();
-        tInfo = JvGetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("Введите код из почты (действует 60 с.):");
-        tCode = JvGetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Код");
+        tCode = JvGetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Code (valid for 60 sec.)");
         tErrorHelpInfo = JvGetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
         tErrorHelpInfo.settingToError();
-        bSet = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("ОТПРАВИТЬ");
+        bSet = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("SEND");
+        backgroundPath = "/AuthMainBackground.png";
 
-        setIconImageFrame("/MainAppIcon.png");
         makeFrameSetting();
         addListenerToElements();
-        addGeneralSettingsToWidget();
     }
 
-    private void setIconImageFrame(String path) {
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        Image img = null;
         try {
-            Image img = ImageIO.read(Objects.requireNonNull(getClass().getResource(path)));
-            setIconImage(img);
+            img = ImageIO.read(Objects.requireNonNull(getClass().getResource(backgroundPath)));
         } catch (IOException e) {
             e.getStackTrace();
         }
+
+        if (img == null) {
+            JvLog.write(JvLog.TypeLog.Error, "Here img turned out to be equal to null.");
+            return;
+        }
+
+        g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
     }
 
     public void setRegime(RegimeWork newRegime) {
@@ -77,7 +78,7 @@ public class JvVerifyCodeFrameAuthUI extends JFrame {
     }
 
     private void makeFrameSetting() {
-        panel.setLayout(new GridBagLayout());
+        setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
         int insX = JvGetterSettings.getInstance().getBeanDisplaySettings().
@@ -85,44 +86,32 @@ public class JvVerifyCodeFrameAuthUI extends JFrame {
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
         int gridyNum = 0;
 
-        gbc.weightx = 0.5;
-        gbc.weighty = 0.5;
-        gbc.fill = GridBagConstraints.PAGE_START;
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0125), 0,
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0084), 0);
-        gbc.gridy = gridyNum;
-        panel.add(tInfo, gbc);
-        gridyNum++;
-
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX,
+        gbc.insets = new Insets(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.12), insX,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.004), insX);
         gbc.gridy = gridyNum;
-        panel.add(tCode, gbc);
+        add(tCode, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.anchor = GridBagConstraints.NORTH;
         gbc.insets = new Insets(0, insX,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0084), insX);
         gbc.gridy = gridyNum;
-        panel.add(tErrorHelpInfo, gbc);
+        add(tErrorHelpInfo, gbc);
         gridyNum++;
 
-        gbc.fill = GridBagConstraints.PAGE_END;
-        gbc.anchor = GridBagConstraints.NORTH;
-        gbc.insets = new Insets(0, 0,
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.anchor = GridBagConstraints.SOUTH;
+        gbc.insets = new Insets(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.046), 0,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017), 0);
-        gbc.ipadx = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.03,
+        gbc.ipadx = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.015,
                 JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
-        gbc.ipady = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.01,
+        gbc.ipady = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.004,
                 JvDisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
-        panel.add(bSet, gbc);
-
-        getContentPane().add(panel);
+        add(bSet, gbc);
     }
 
     private void addListenerToElements() {
@@ -139,62 +128,24 @@ public class JvVerifyCodeFrameAuthUI extends JFrame {
                 }
             }
         });
-
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                JvGetterAuthUIComponents.getInstance().getBeanMainFrameAuthUI().openWindow();
-                tCode.setUnfocusFieldOnClose(false);
-            }
-        });
     }
 
     private boolean checkFields() {
         tCode.setNormalBorder();
         tErrorHelpInfo.setText("");
 
-        Vector<String> fields = new Vector<>();
-
         if (Objects.equals(tCode.getInputText(), "") ||
                 (tCode.getInputText().length() != 6 )) {
             tCode.setErrorBorder();
-            fields.add("\"Код\"");
-        }
-
-        StringBuilder concatFields = new StringBuilder();
-        if (!fields.isEmpty()) {
-            for (int i = 0; i < fields.size(); i++) {
-                concatFields.append(fields.elementAt(i)).append(", ");
-            }
-            concatFields = new StringBuilder(concatFields.substring(0, concatFields.length() - 2));
-            if (fields.size() == 1) {
-                tErrorHelpInfo.setText(String.format("Поле %s должно быть заполнено и содержать отправленный код", concatFields));
-            } else {
-                tErrorHelpInfo.setText(String.format("Поля %s должны быть заполнены и содержать отправленный код", concatFields));
-            }
+            tErrorHelpInfo.setText("The \"Code\" field must be completed and contain the submitted code");
             return false;
         }
+
         return true;
     }
 
-    private void addGeneralSettingsToWidget() {
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("ПОДТВЕРЖДЕНИЕ ПОЧТЫ");
-
-        setSize(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.3,
-                        JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.25,
-                        JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
-
-        setResizable(false);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        toFront();
-
-        getRootPane().setDefaultButton(bSet);
-
-        setVisible(true);
-        requestFocus();
+    public JvButtonAuthUI getDefaultButton() {
+        return bSet;
     }
 
     private void closeWindow() {

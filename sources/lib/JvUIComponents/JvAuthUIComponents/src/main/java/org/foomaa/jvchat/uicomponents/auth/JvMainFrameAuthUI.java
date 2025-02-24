@@ -64,7 +64,7 @@ public class JvMainFrameAuthUI extends JFrame {
                         JvGetterAuthUIComponents.getInstance().getContext());
     }
 
-    private void setPanelSettings() {
+    private void setPanelSettings(Object... data) {
         switch (regimeWorkMainFrame) {
             case Auth -> {
                 titlePanel.setTitle("Entry");
@@ -82,6 +82,12 @@ public class JvMainFrameAuthUI extends JFrame {
             }
             case VerifyCodeRegistration -> {
                 titlePanel.setTitle("Verify code");
+                getContentPane().removeAll();
+                getContentPane().add(titlePanel, BorderLayout.NORTH);
+                JvVerifyCodePanelAuthUI verifyCodePanel = JvGetterAuthUIComponents.getInstance().getBeanVerifyCodePanelAuthUI(JvVerifyCodePanelAuthUI.RegimeWork.Registration);
+                getRootPane().setDefaultButton(verifyCodePanel.getDefaultButton());
+                verifyCodePanel.setParametersRegistration((String) data[1], (String) data[2], (String) data[3]);
+                getContentPane().add(verifyCodePanel);
             }
             case VerifyCodeChangePassword -> {
                 titlePanel.setTitle("Verify code");
@@ -127,9 +133,8 @@ public class JvMainFrameAuthUI extends JFrame {
     @Async
     @SuppressWarnings("unused")
     public void changeRegimeWork(JvBaseEvent event) {
-        System.out.println("assss");
-        regimeWorkMainFrame = (JvDefinesAuthUI.RegimeWorkMainFrame) event.getData();
-        setPanelSettings();
+        regimeWorkMainFrame = (JvDefinesAuthUI.RegimeWorkMainFrame) event.getData()[0];
+        setPanelSettings(event.getData());
     }
 
     public void openWindow() {

@@ -91,9 +91,9 @@ public class JvGetterAuthUIComponents {
                 JvResetPasswordFrameAuthUI.class);
     }
 
-    public JvVerifyCodeFrameAuthUI getBeanVerifyCodeFrameAuthUI(JvVerifyCodeFrameAuthUI.RegimeWork rw) {
-        return (JvVerifyCodeFrameAuthUI) context.getBean(
-                JvAuthUIComponentsSpringConfig.NameBeans.BeanVerifyCodeFrameAuthUI.getValue(),
+    public JvVerifyCodePanelAuthUI getBeanVerifyCodePanelAuthUI(JvVerifyCodePanelAuthUI.RegimeWork rw) {
+        return (JvVerifyCodePanelAuthUI) context.getBean(
+                JvAuthUIComponentsSpringConfig.NameBeans.BeanVerifyCodePanelAuthUI.getValue(),
                 rw);
     }
 

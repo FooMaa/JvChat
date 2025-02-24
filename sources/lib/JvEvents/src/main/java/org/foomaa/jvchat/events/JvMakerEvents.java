@@ -15,7 +15,7 @@ public class JvMakerEvents {
         connectionsEventsModel = JvGetterModels.getInstance().getBeanConnectionsEventsModel();
     }
 
-    public void event(Object objectSender, String customNameEvent, Object data) {
+    public void event(Object objectSender, String customNameEvent, Object... data) {
         List<JvConnectionEventStructObject> connections =
                 connectionsEventsModel.findConnections(objectSender, customNameEvent);
         for (JvConnectionEventStructObject connection : connections) {

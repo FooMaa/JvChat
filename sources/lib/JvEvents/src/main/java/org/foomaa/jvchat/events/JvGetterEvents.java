@@ -25,7 +25,7 @@ public class JvGetterEvents {
         return context;
     }
 
-    public JvBaseEvent getBeanBaseEvent(Object source, Object destination, UUID uuidKey, Object data) {
+    public JvBaseEvent getBeanBaseEvent(Object source, Object destination, UUID uuidKey, Object... data) {
         return (JvBaseEvent) context.getBean(JvEventsSpringConfig.NameBeans.BeanBaseEvent.getValue(),
                 source, destination, uuidKey, data);
     }

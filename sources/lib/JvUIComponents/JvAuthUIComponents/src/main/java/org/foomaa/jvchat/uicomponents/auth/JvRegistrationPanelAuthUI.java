@@ -4,6 +4,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
@@ -198,8 +200,14 @@ public class JvRegistrationPanelAuthUI extends JPanel {
     }
 
     private void changeRegimeWindow() {
-        JvGetterEvents.getInstance().getBeanMakerEvents().event(this, "changeRegimeWork", JvDefinesAuthUI.RegimeWorkMainFrame.VerifyCodeRegistration);
-//        frm.setRegime(JvVerifyCodeFrameAuthUI.RegimeWork.Registration);
+        JvGetterEvents.getInstance().getBeanMakerEvents().event(
+                this,
+                "changeRegimeWork",
+                JvDefinesAuthUI.RegimeWorkMainFrame.VerifyCodeRegistration,
+                tLogin.getInputText(),
+                tEmail.getInputText(),
+                tPassword.getInputText());
+//        frm.setRegime(JvVerifyCodePanelAuthUI.RegimeWork.Registration);
 //        frm.setParametersRegistration(tLogin.getInputText(), tEmail.getInputText(), tPassword.getInputText());
         tLogin.setUnfocusFieldOnClose(true);
         tEmail.setUnfocusFieldOnClose(true);
