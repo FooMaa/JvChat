@@ -108,6 +108,11 @@ public class JvMainFrameAuthUI extends JFrame {
             }
             case ResetPassword -> {
                 titlePanel.setTitle("Reset password");
+                getContentPane().removeAll();
+                getContentPane().add(titlePanel, BorderLayout.NORTH);
+                getRootPane().setDefaultButton(JvGetterAuthUIComponents.getInstance().getBeanResetPasswordPanelAuthUI().getDefaultButton());
+                getContentPane().add(JvGetterAuthUIComponents.getInstance().getBeanResetPasswordPanelAuthUI());
+                repaint();
             }
         }
     }

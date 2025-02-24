@@ -142,7 +142,7 @@ public class JvEntryPanelAuthUI extends JPanel {
         activeMissLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JvGetterAuthUIComponents.getInstance().getBeanResetPasswordPanelAuthUI().openWindow();
+                changeRegime(JvDefinesAuthUI.RegimeWorkMainFrame.ResetPassword);
             }
         });
 

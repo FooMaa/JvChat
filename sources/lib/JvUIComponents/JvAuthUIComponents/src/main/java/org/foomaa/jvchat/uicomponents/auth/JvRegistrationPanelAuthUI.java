@@ -79,6 +79,8 @@ public class JvRegistrationPanelAuthUI extends JPanel {
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
         int gridyNum = 0;
 
+        gbc.weightx = 0.5;
+        gbc.weighty = 0.5;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.03), insX,

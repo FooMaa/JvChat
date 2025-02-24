@@ -3,8 +3,6 @@ package org.foomaa.jvchat.uicomponents.auth;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowAdapter;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Vector;
@@ -20,14 +18,12 @@ import org.foomaa.jvchat.tools.JvGetterTools;
 
 
 public class JvResetPasswordPanelAuthUI extends JPanel {
-    private final JvErrorLabelAuthUI tInfo;
     private final JvTextFieldAuthUI tEmail;
     private final JvErrorLabelAuthUI tErrorHelpInfo;
     private final JvButtonAuthUI bSet;
     private final String backgroundPath;
 
     JvResetPasswordPanelAuthUI() {
-        tInfo = JvGetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("Введите адрес почты:");
         tEmail = JvGetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Почта");
         tErrorHelpInfo = JvGetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
         tErrorHelpInfo.settingToError();
@@ -68,14 +64,6 @@ public class JvResetPasswordPanelAuthUI extends JPanel {
 
         gbc.weightx = 0.5;
         gbc.weighty = 0.5;
-        gbc.fill = GridBagConstraints.PAGE_START;
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0125), 0,
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0084), 0);
-        gbc.gridy = gridyNum;
-        add(tInfo, gbc);
-        gridyNum++;
-
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(0, insX,
@@ -154,10 +142,6 @@ public class JvResetPasswordPanelAuthUI extends JPanel {
         setVisible(false);
         tEmail.setUnfocusFieldOnClose(false);
         //dispose();
-    }
-
-    public void openWindow() {
-        setVisible(true);
     }
 
     private void waitRepeatServer() {
