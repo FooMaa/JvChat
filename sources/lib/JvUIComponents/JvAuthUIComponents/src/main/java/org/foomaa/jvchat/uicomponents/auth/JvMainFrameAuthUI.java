@@ -32,6 +32,8 @@ public class JvMainFrameAuthUI extends JFrame {
     private UUID uuidSignalChangeRegimeWorkVerifyCode;
     @SuppressWarnings({"unused", "FieldCanBeLocal"})
     private UUID uuidSignalChangeRegimeWorkResetPassword;
+    @SuppressWarnings({"unused", "FieldCanBeLocal"})
+    private UUID uuidSignalChangeRegimeWorkNewPassword;
 
     JvMainFrameAuthUI() {
         super("EntryFrame");
@@ -78,6 +80,12 @@ public class JvMainFrameAuthUI extends JFrame {
                         this,
                         "changeRegimeWork",
                         JvGetterAuthUIComponents.getInstance().getContext());
+        uuidSignalChangeRegimeWorkNewPassword =
+                JvGetterEvents.getInstance().getBeanMakerEvents().addConnect(
+                        JvGetterAuthUIComponents.getInstance().getBeanNewPasswordPanelAuthUI(),
+                        this,
+                        "changeRegimeWork",
+                        JvGetterAuthUIComponents.getInstance().getContext());
     }
 
     private void setPanelSettings(Object... data) {
@@ -121,6 +129,13 @@ public class JvMainFrameAuthUI extends JFrame {
             }
             case NewPassword -> {
                 titlePanel.setTitle("New password");
+                getContentPane().removeAll();
+                getContentPane().add(titlePanel, BorderLayout.NORTH);
+                JvNewPasswordPanelAuthUI newPasswordPanel = JvGetterAuthUIComponents.getInstance().getBeanNewPasswordPanelAuthUI();
+                getRootPane().setDefaultButton(newPasswordPanel.getDefaultButton());
+                newPasswordPanel.setEmail((String) data[1]);
+                getContentPane().add(newPasswordPanel);
+                repaint();
             }
             case ResetPassword -> {
                 titlePanel.setTitle("Reset password");
@@ -164,7 +179,8 @@ public class JvMainFrameAuthUI extends JFrame {
             "uuidSignalChangeRegimeWorkEntry",
             "uuidSignalChangeRegimeWorkRegistration",
             "uuidSignalChangeRegimeWorkVerifyCode",
-            "uuidSignalChangeRegimeWorkResetPassword"})
+            "uuidSignalChangeRegimeWorkResetPassword",
+            "uuidSignalChangeRegimeWorkNewPassword"})
     @EventListener
     @Async
     @SuppressWarnings("unused")

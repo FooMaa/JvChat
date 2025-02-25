@@ -1,56 +1,70 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowAdapter;
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
 import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.ctrl.JvMessagesDefinesCtrl;
+import org.foomaa.jvchat.events.JvGetterEvents;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
 
-public class JvNewPasswordFrameAuthUI extends JFrame {
-    private final JPanel panel;
-    private final JvErrorLabelAuthUI tInfo;
+public class JvNewPasswordPanelAuthUI extends JPanel {
     private final JvErrorLabelAuthUI tErrorHelpInfo;
     private final JvPasswordFieldAuthUI tPassword;
     private final JvPasswordFieldAuthUI tPasswordConfirm;
     private final JvButtonAuthUI bAccept;
     private String email;
+    private final String backgroundPath;
 
 
-    JvNewPasswordFrameAuthUI(String post) {
-        super("NewPasswordWindow");
-
-        email = post;
-        panel = new JPanel();
-        tInfo = JvGetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("Введите новый пароль:");
+    JvNewPasswordPanelAuthUI() {
         tErrorHelpInfo = JvGetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
         tErrorHelpInfo.settingToError();
-        tPassword = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Пароль");
-        tPasswordConfirm = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Подтвердите пароль");
-        bAccept = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("ПРИНЯТЬ");
+        tPassword = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Password");
+        tPasswordConfirm = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Confirm password");
+        bAccept = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("ACCEPT");
+        backgroundPath = "/AuthMainBackground.png";
 
         makeFrameSetting();
         addListenerToElements();
-        addGeneralSettingsToWidget();
     }
 
-    private void setEmail(String newEmail) {
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        Image img = null;
+        try {
+            img = ImageIO.read(Objects.requireNonNull(getClass().getResource(backgroundPath)));
+        } catch (IOException e) {
+            e.getStackTrace();
+        }
+
+        if (img == null) {
+            JvLog.write(JvLog.TypeLog.Error, "Here img turned out to be equal to null.");
+            return;
+        }
+
+        g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+    }
+
+    public void setEmail(String newEmail) {
         if (!Objects.equals(email, newEmail)) {
             email = newEmail;
         }
     }
 
     private void makeFrameSetting() {
-        panel.setLayout(new GridBagLayout());
+        setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
         int insX = JvGetterSettings.getInstance().getBeanDisplaySettings().
@@ -58,51 +72,41 @@ public class JvNewPasswordFrameAuthUI extends JFrame {
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
         int gridyNum = 0;
 
-        gbc.weightx = 0.5;
-        gbc.weighty = 0.5;
-        gbc.fill = GridBagConstraints.PAGE_START;
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0125), 0,
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0084), 0);
-        gbc.gridy = gridyNum;
-        panel.add(tInfo, gbc);
-        gridyNum++;
-
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX,
+        gbc.insets = new Insets(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.085), insX,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.004), insX);
         gbc.gridy = gridyNum;
-        panel.add(tPassword, gbc);
+        add(tPassword, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(0, insX, 0, insX);
         gbc.gridy = gridyNum;
-        panel.add(tPasswordConfirm, gbc);
+        add(tPasswordConfirm, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(0, insX,
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0084), insX);
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0104), insX);
         gbc.gridy = gridyNum;
-        panel.add(tErrorHelpInfo, gbc);
+        add(tErrorHelpInfo, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.insets = new Insets(0, 0,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017), 0);
-        gbc.ipadx = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.03,
+        gbc.ipadx = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.015,
                 JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
-        gbc.ipady = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.01,
+        gbc.ipady = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.004,
                 JvDisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
-        panel.add(bAccept, gbc);
-
-        getContentPane().add(panel);
+        add(bAccept, gbc);
     }
 
     private void addListenerToElements() {
@@ -111,15 +115,6 @@ public class JvNewPasswordFrameAuthUI extends JFrame {
                 JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(JvDefinesMessages.TypeMessage.ChangePasswordRequest,
                         email, tPassword.getInputText());
                 waitRepeatServer();
-            }
-        });
-
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                JvGetterAuthUIComponents.getInstance().getBeanMainFrameAuthUI().openWindow();
-                tPassword.setUnfocusFieldOnClose(false);
-                tPasswordConfirm.setUnfocusFieldOnClose(false);
             }
         });
     }
@@ -133,11 +128,11 @@ public class JvNewPasswordFrameAuthUI extends JFrame {
 
         if (Objects.equals(tPassword.getInputText(), "")) {
             tPassword.setErrorBorder();
-            fields.add("\"Пароль\"");
+            fields.add("\"Password\"");
         }
         if (Objects.equals(tPasswordConfirm.getInputText(), "")) {
             tPasswordConfirm.setErrorBorder();
-            fields.add("\"Подтвердите пароль\"");
+            fields.add("\"Confirm password\"");
         }
 
         if (!Objects.equals(tPassword.getInputText(), "") &&
@@ -145,7 +140,7 @@ public class JvNewPasswordFrameAuthUI extends JFrame {
                 !Objects.equals(tPassword.getInputText(), tPasswordConfirm.getInputText())) {
             tPassword.setErrorBorder();
             tPasswordConfirm.setErrorBorder();
-            tErrorHelpInfo.setText("Введенные пароли должны совпадать");
+            tErrorHelpInfo.setText("The entered passwords must match.");
             return false;
         }
 
@@ -156,39 +151,24 @@ public class JvNewPasswordFrameAuthUI extends JFrame {
             }
             concatFields = new StringBuilder(concatFields.substring(0, concatFields.length() - 2));
             if (fields.size() == 1) {
-                tErrorHelpInfo.setText(String.format("Поле %s должно быть заполнено или исправлено", concatFields));
+                tErrorHelpInfo.setText(String.format("The %s field must be completed or corrected", concatFields));
             } else {
-                tErrorHelpInfo.setText(String.format("Поля %s должны быть заполнены или исправлены", concatFields));
+                tErrorHelpInfo.setText(String.format("The %s fields must be completed or corrected", concatFields));
             }
             return false;
         }
         return true;
     }
 
-    private void addGeneralSettingsToWidget() {
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("ВОССТАНОВЛЕНИЕ ПАРОЛЯ");
-
-        setSize(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.3,
-                        JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.275,
-                        JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
-
-        setResizable(false);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        toFront();
-
-        getRootPane().setDefaultButton(bAccept);
-
-        setVisible(true);
-        requestFocus();
+    public JvButtonAuthUI getDefaultButton() {
+        return bAccept;
     }
 
-    private void closeWindow() {
-        setVisible(false);
-        //dispose();
-        JvGetterAuthUIComponents.getInstance().getBeanMainFrameAuthUI().openWindow();
+    private void changeRegime() {
+        JvGetterEvents.getInstance().getBeanMakerEvents().event(
+                this,
+                "changeRegimeWork",
+                JvDefinesAuthUI.RegimeWorkMainFrame.Auth);
         tPassword.setUnfocusFieldOnClose(false);
         tPasswordConfirm.setUnfocusFieldOnClose(false);
     }
@@ -204,17 +184,17 @@ public class JvNewPasswordFrameAuthUI extends JFrame {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
-                JvLog.write(JvLog.TypeLog.Error, "Не удалось ждать");
+                JvLog.write(JvLog.TypeLog.Error, "Couldn't wait.");
             }
         }
         if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getChangePasswordRequest() ==
                 JvMessagesDefinesCtrl.TypeFlags.TRUE) {
-            closeWindow();
+            changeRegime();
             setEnabled(true);
         } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getChangePasswordRequest() ==
                 JvMessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            JvGetterAuthUIComponents.getInstance().getBeanOptionPaneAuthUI("Не удалось сменить пароль.",
+            JvGetterAuthUIComponents.getInstance().getBeanOptionPaneAuthUI("Failed to change password.",
                     JvOptionPaneAuthUI.TypeDlg.ERROR);
         }
     }

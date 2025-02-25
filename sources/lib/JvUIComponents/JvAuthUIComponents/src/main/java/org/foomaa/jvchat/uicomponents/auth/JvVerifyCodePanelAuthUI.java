@@ -153,7 +153,11 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
                     "changeRegimeWork",
                     JvDefinesAuthUI.RegimeWorkMainFrame.Auth);
         } else if (regime == RegimeWork.ResetPassword) {
-            JvGetterAuthUIComponents.getInstance().getBeanNewPasswordFrameAuthUI(email).openWindow();
+            JvGetterEvents.getInstance().getBeanMakerEvents().event(
+                    this,
+                    "changeRegimeWork",
+                    JvDefinesAuthUI.RegimeWorkMainFrame.NewPassword,
+                    email);
         }
         tCode.setUnfocusFieldOnClose(false);
     }
