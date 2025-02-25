@@ -124,9 +124,9 @@ public class JvRegistrationPanelAuthUI extends JPanel {
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.insets = new Insets(0, 0,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017), 0);
-        gbc.ipadx = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.03,
+        gbc.ipadx = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.015,
                 JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
-        gbc.ipady = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.01,
+        gbc.ipady = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.004,
                 JvDisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
         add(bRegister, gbc);

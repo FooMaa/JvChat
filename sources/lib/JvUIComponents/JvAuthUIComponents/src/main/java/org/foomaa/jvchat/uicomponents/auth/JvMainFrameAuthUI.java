@@ -30,6 +30,8 @@ public class JvMainFrameAuthUI extends JFrame {
     private UUID uuidSignalChangeRegimeWorkRegistration;
     @SuppressWarnings({"unused", "FieldCanBeLocal"})
     private UUID uuidSignalChangeRegimeWorkVerifyCode;
+    @SuppressWarnings({"unused", "FieldCanBeLocal"})
+    private UUID uuidSignalChangeRegimeWorkResetPassword;
 
     JvMainFrameAuthUI() {
         super("EntryFrame");
@@ -70,9 +72,16 @@ public class JvMainFrameAuthUI extends JFrame {
                         this,
                         "changeRegimeWork",
                         JvGetterAuthUIComponents.getInstance().getContext());
+        uuidSignalChangeRegimeWorkResetPassword =
+                JvGetterEvents.getInstance().getBeanMakerEvents().addConnect(
+                        JvGetterAuthUIComponents.getInstance().getBeanResetPasswordPanelAuthUI(),
+                        this,
+                        "changeRegimeWork",
+                        JvGetterAuthUIComponents.getInstance().getContext());
     }
 
     private void setPanelSettings(Object... data) {
+        System.out.println(regimeWorkMainFrame);
         switch (regimeWorkMainFrame) {
             case Auth -> {
                 titlePanel.setTitle("Entry");
@@ -100,8 +109,15 @@ public class JvMainFrameAuthUI extends JFrame {
                 getContentPane().add(verifyCodePanel);
                 repaint();
             }
-            case VerifyCodeChangePassword -> {
+            case VerifyCodeResetPassword -> {
                 titlePanel.setTitle("Verify code");
+                getContentPane().removeAll();
+                getContentPane().add(titlePanel, BorderLayout.NORTH);
+                JvVerifyCodePanelAuthUI verifyCodePanel = JvGetterAuthUIComponents.getInstance().getBeanVerifyCodePanelAuthUI();
+                getRootPane().setDefaultButton(verifyCodePanel.getDefaultButton());
+                verifyCodePanel.setParametersResetPassword((String) data[1]);
+                getContentPane().add(verifyCodePanel);
+                repaint();
             }
             case NewPassword -> {
                 titlePanel.setTitle("New password");
@@ -144,7 +160,11 @@ public class JvMainFrameAuthUI extends JFrame {
         setVisible(false);
     }
 
-    @JvCheckerEventsAnnotation(connectionUuid = {"uuidSignalChangeRegimeWorkEntry", "uuidSignalChangeRegimeWorkRegistration", "uuidSignalChangeRegimeWorkVerifyCode"})
+    @JvCheckerEventsAnnotation(connectionUuid = {
+            "uuidSignalChangeRegimeWorkEntry",
+            "uuidSignalChangeRegimeWorkRegistration",
+            "uuidSignalChangeRegimeWorkVerifyCode",
+            "uuidSignalChangeRegimeWorkResetPassword"})
     @EventListener
     @Async
     @SuppressWarnings("unused")

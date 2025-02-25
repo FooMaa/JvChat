@@ -86,7 +86,7 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.12), insX,
+        gbc.insets = new Insets(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.115), insX,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.004), insX);
         gbc.gridy = gridyNum;
         add(tCode, gbc);
