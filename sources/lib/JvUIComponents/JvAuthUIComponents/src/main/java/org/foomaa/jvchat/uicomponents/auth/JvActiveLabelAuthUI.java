@@ -44,7 +44,7 @@ public class JvActiveLabelAuthUI extends JLabel {
             attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_LOW_DOTTED);
             setFont(steticaFont.deriveFont(attributes));
         } catch (IOException | FontFormatException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "SteticaFont not created here.");
+            JvLog.write(JvLog.TypeLog.Error, "steticaFont not created here.");
         }
     }
 

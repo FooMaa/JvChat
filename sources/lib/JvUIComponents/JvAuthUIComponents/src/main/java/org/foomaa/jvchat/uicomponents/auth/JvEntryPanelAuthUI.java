@@ -167,18 +167,18 @@ public class JvEntryPanelAuthUI extends JPanel {
     }
 
     private boolean checkFields() {
-        tPassword.setNormalBorder();
-        tLogin.setNormalBorder();
+        tPassword.setErrorBorder(false);
+        tLogin.setErrorBorder(false);
         tErrorHelpInfo.setText("");
 
         Vector<String> fields = new Vector<>();
 
         if (Objects.equals(tLogin.getInputText(), "")) {
-            tLogin.setErrorBorder();
+            tLogin.setErrorBorder(true);
             fields.add("\"Login\"");
         }
         if (Objects.equals(tPassword.getInputText(), "")) {
-            tPassword.setErrorBorder();
+            tPassword.setErrorBorder(true);
             fields.add("\"Password\"");
         }
 

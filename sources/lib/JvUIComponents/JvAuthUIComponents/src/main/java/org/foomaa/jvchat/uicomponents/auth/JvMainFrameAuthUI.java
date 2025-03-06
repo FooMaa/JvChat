@@ -89,7 +89,6 @@ public class JvMainFrameAuthUI extends JFrame {
     }
 
     private void setPanelSettings(Object... data) {
-        System.out.println(regimeWorkMainFrame);
         switch (regimeWorkMainFrame) {
             case Auth -> {
                 titlePanel.setTitle("Entry");

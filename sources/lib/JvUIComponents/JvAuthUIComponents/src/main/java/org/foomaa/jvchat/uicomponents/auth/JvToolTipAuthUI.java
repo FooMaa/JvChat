@@ -30,7 +30,7 @@ public class JvToolTipAuthUI extends JToolTip {
                     .createMainSteticaFont(Font.PLAIN, size);
             setFont(steticaFont);
         } catch (IOException | FontFormatException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "SteticaFont not created here.");
+            JvLog.write(JvLog.TypeLog.Error, "steticaFont not created here.");
         }
     }
 }

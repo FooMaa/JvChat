@@ -144,37 +144,37 @@ public class JvRegistrationPanelAuthUI extends JPanel {
     }
 
     private boolean checkFields() {
-        tLogin.setNormalBorder();
-        tEmail.setNormalBorder();
-        tPassword.setNormalBorder();
-        tPasswordConfirm.setNormalBorder();
+        tLogin.setErrorBorder(false);
+        tEmail.setErrorBorder(false);
+        tPassword.setErrorBorder(false);
+        tPasswordConfirm.setErrorBorder(false);
         tErrorHelpInfo.setText("");
 
         Vector<String> fields = new Vector<>();
 
         if (Objects.equals(tLogin.getInputText(), "")) {
-            tLogin.setErrorBorder();
+            tLogin.setErrorBorder(true);
             fields.add("\"Login\"");
         }
         if (Objects.equals(tEmail.getInputText(), "") ||
                 !JvGetterTools.getInstance().getBeanUsersTools().validateInputEmail(tEmail.getInputText())) {
-            tEmail.setErrorBorder();
+            tEmail.setErrorBorder(true);
             fields.add("\"Email\"");
         }
         if (Objects.equals(tPassword.getInputText(), "")) {
-            tPassword.setErrorBorder();
+            tPassword.setErrorBorder(true);
             fields.add("\"Password\"");
         }
         if (Objects.equals(tPasswordConfirm.getInputText(), "")) {
-            tPasswordConfirm.setErrorBorder();
+            tPasswordConfirm.setErrorBorder(true);
             fields.add("\"Confirm password\"");
         }
 
         if (!Objects.equals(tPassword.getInputText(), "") &&
                 !Objects.equals(tPasswordConfirm.getInputText(), "") &&
                 !Objects.equals(tPassword.getInputText(), tPasswordConfirm.getInputText())) {
-            tPassword.setErrorBorder();
-            tPasswordConfirm.setErrorBorder();
+            tPassword.setErrorBorder(true);
+            tPasswordConfirm.setErrorBorder(true);
             tErrorHelpInfo.setText("The entered passwords must match!");
             return false;
         }

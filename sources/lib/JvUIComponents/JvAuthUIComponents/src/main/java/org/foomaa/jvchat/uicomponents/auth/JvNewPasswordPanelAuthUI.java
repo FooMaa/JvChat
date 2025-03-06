@@ -25,7 +25,6 @@ public class JvNewPasswordPanelAuthUI extends JPanel {
     private String email;
     private final String backgroundPath;
 
-
     JvNewPasswordPanelAuthUI() {
         tErrorHelpInfo = JvGetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
         tErrorHelpInfo.settingToError();
@@ -34,8 +33,17 @@ public class JvNewPasswordPanelAuthUI extends JPanel {
         bAccept = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("ACCEPT");
         backgroundPath = "/AuthMainBackground.png";
 
+        settingComponents();
         makeFrameSetting();
         addListenerToElements();
+    }
+
+    private void settingComponents() {
+        tErrorHelpInfo.settingToError();
+
+        tPassword.setToolTip("To set password");
+        tPasswordConfirm.setToolTip("To confirm password");
+        bAccept.setToolTip("To accept new password");
     }
 
     @Override
@@ -120,26 +128,26 @@ public class JvNewPasswordPanelAuthUI extends JPanel {
     }
 
     private boolean checkFields() {
-        tPassword.setNormalBorder();
-        tPasswordConfirm.setNormalBorder();
+        tPassword.setErrorBorder(false);
+        tPasswordConfirm.setErrorBorder(false);
         tErrorHelpInfo.setText("");
 
         Vector<String> fields = new Vector<>();
 
         if (Objects.equals(tPassword.getInputText(), "")) {
-            tPassword.setErrorBorder();
+            tPassword.setErrorBorder(true);
             fields.add("\"Password\"");
         }
         if (Objects.equals(tPasswordConfirm.getInputText(), "")) {
-            tPasswordConfirm.setErrorBorder();
+            tPasswordConfirm.setErrorBorder(true);
             fields.add("\"Confirm password\"");
         }
 
         if (!Objects.equals(tPassword.getInputText(), "") &&
                 !Objects.equals(tPasswordConfirm.getInputText(), "") &&
                 !Objects.equals(tPassword.getInputText(), tPasswordConfirm.getInputText())) {
-            tPassword.setErrorBorder();
-            tPasswordConfirm.setErrorBorder();
+            tPassword.setErrorBorder(true);
+            tPasswordConfirm.setErrorBorder(true);
             tErrorHelpInfo.setText("The entered passwords must match.");
             return false;
         }

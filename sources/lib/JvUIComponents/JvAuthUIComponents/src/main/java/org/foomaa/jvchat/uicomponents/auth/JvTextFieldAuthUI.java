@@ -1,7 +1,6 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -17,13 +16,37 @@ public class JvTextFieldAuthUI extends JPanel {
     private JTextField textField;
     private JvToolTipAuthUI toolTip;
     private final String defaultText;
-    private final int borderSize = 2;
+    private boolean isErrorBorderActive;
+    private final int borderSize;
 
     JvTextFieldAuthUI(String text) {
         defaultText = text;
+        borderSize = 2;
+        isErrorBorderActive = false;
 
         settingTextPanel();
         addListenerToElem();
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        setOpaque(false);
+
+        Graphics2D g2d = (Graphics2D) g.create();
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        int cornerRadius = 20;
+        g2d.setColor(getBackground());
+        g2d.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, cornerRadius, cornerRadius);
+
+        if (isErrorBorderActive) {
+            g2d.setColor(Color.RED);
+            g2d.setStroke(new BasicStroke(borderSize));
+            g2d.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, cornerRadius, cornerRadius);
+        }
+
+        g2d.dispose();
     }
 
     public void setToolTip(String text) {
@@ -88,7 +111,7 @@ public class JvTextFieldAuthUI extends JPanel {
         settingTextField(dim);
         addElements();
         setBackground(textField.getBackground());
-        setNormalBorder();
+        setErrorBorder(false);
         setPreferredSize(dim);
     }
 
@@ -130,7 +153,7 @@ public class JvTextFieldAuthUI extends JPanel {
                     .createMainSteticaFont(Font.BOLD, size);
             textField.setFont(steticaFont);
         } catch (IOException | FontFormatException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Здесь не создался steticaFont");
+            JvLog.write(JvLog.TypeLog.Error, "steticaFont was not created here.");
         }
     }
 
@@ -141,12 +164,10 @@ public class JvTextFieldAuthUI extends JPanel {
         return "";
     }
 
-    public void setErrorBorder() {
-        setBorder(new LineBorder(Color.RED, borderSize));
-    }
-
-    public void setNormalBorder() {
-        setBorder(null);
+    public void setErrorBorder(boolean flagActiveBorder) {
+        isErrorBorderActive = flagActiveBorder;
+        revalidate();
+        repaint();
     }
 
     public void setUnfocusFieldOnClose(boolean needSaveText) {

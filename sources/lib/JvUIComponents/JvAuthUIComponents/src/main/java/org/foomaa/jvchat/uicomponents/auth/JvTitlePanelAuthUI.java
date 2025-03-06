@@ -108,7 +108,7 @@ public class JvTitlePanelAuthUI extends JPanel {
                     .createMainSteticaFont(Font.BOLD, size);
             titleLabel.setFont(steticaFont);
         } catch (IOException | FontFormatException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Здесь не создался steticaFont");
+            JvLog.write(JvLog.TypeLog.Error, "steticaFont was not created here.");
         }
     }
 

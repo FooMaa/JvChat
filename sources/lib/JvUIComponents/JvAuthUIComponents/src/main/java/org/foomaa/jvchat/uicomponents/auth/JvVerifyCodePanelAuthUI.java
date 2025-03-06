@@ -38,8 +38,16 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
         bSet = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("SEND");
         backgroundPath = "/AuthMainBackground.png";
 
+        settingComponents();
         makeFrameSetting();
         addListenerToElements();
+    }
+
+    private void settingComponents() {
+        tErrorHelpInfo.settingToError();
+
+        tCode.setToolTip("To set login");
+        bSet.setToolTip("To confirm email");
     }
 
     @Override
@@ -129,12 +137,12 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
     }
 
     private boolean checkFields() {
-        tCode.setNormalBorder();
+        tCode.setErrorBorder(false);
         tErrorHelpInfo.setText("");
 
         if (Objects.equals(tCode.getInputText(), "") ||
                 (tCode.getInputText().length() != 6 )) {
-            tCode.setErrorBorder();
+            tCode.setErrorBorder(true);
             tErrorHelpInfo.setText("The \"Code\" field must be completed and contain the submitted code");
             return false;
         }

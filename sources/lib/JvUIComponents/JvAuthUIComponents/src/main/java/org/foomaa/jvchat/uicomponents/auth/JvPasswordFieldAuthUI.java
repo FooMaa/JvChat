@@ -2,7 +2,6 @@ package org.foomaa.jvchat.uicomponents.auth;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -21,15 +20,16 @@ import org.foomaa.jvchat.settings.JvGetterSettings;
 public class JvPasswordFieldAuthUI extends JPanel {
     private final BufferedImage visibleImage;
     private final BufferedImage invisibleImage;
-    private boolean flagEye = false;
-    private boolean unLockPass = false;
+    private boolean flagEye;
+    private boolean unLockPass;
     private JPasswordField passwordField;
     private JButton button;
     private JvToolTipAuthUI toolTip;
     private final String textButtonHide;
     private final String textButtonShow;
     private final String defaultText;
-    private final int borderSize = 2;
+    private final int borderSize;
+    private boolean isErrorBorderActive;
 
     JvPasswordFieldAuthUI(String text) {
         visibleImage = setIcon("/Eye.png");
@@ -37,9 +37,34 @@ public class JvPasswordFieldAuthUI extends JPanel {
         defaultText = text;
         textButtonShow = "To show password";
         textButtonHide = "To hide password";
+        flagEye = false;
+        unLockPass = false;
+        isErrorBorderActive = false;
+        borderSize = 2;
 
         settingPassAndButtonPanel();
         addListenerToElem();
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        setOpaque(false);
+
+        Graphics2D g2d = (Graphics2D) g.create();
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        int cornerRadius = 20;
+        g2d.setColor(getBackground());
+        g2d.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, cornerRadius, cornerRadius);
+
+        if (isErrorBorderActive) {
+            g2d.setColor(Color.RED);
+            g2d.setStroke(new BasicStroke(borderSize));
+            g2d.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, cornerRadius, cornerRadius);
+        }
+
+        g2d.dispose();
     }
 
     public void setToolTip(String text) {
@@ -179,7 +204,7 @@ public class JvPasswordFieldAuthUI extends JPanel {
         settingPassField(dim);
         addElements();
         setBackground(passwordField.getBackground());
-        setNormalBorder();
+        setErrorBorder(false);
         setPreferredSize(dim);
     }
 
@@ -200,7 +225,7 @@ public class JvPasswordFieldAuthUI extends JPanel {
         gbc.weightx = 0;
         gbc.weighty = 0;
         gbc.fill = GridBagConstraints.BOTH;
-        gbc.insets = new Insets(0, 0, 0, 5);
+        gbc.insets = new Insets(0, 0, 0, 7);
         gbc.gridx = gridxNum;
         add(button, gbc);
     }
@@ -242,12 +267,10 @@ public class JvPasswordFieldAuthUI extends JPanel {
         return "";
     }
 
-    public void setErrorBorder() {
-        setBorder(new LineBorder(Color.RED, borderSize));
-    }
-
-    public void setNormalBorder() {
-        setBorder(null);
+    public void setErrorBorder(boolean flagActiveBorder) {
+        isErrorBorderActive = flagActiveBorder;
+        revalidate();
+        repaint();
     }
 
     public void setUnfocusFieldOnClose(boolean needSaveText) {

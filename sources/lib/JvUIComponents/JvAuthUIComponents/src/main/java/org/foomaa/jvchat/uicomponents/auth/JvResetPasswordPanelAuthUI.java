@@ -29,8 +29,16 @@ public class JvResetPasswordPanelAuthUI extends JPanel {
         bSet = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("SEND");
         backgroundPath = "/AuthMainBackground.png";
 
+        settingComponents();
         makeFrameSetting();
         addListenerToElements();
+    }
+
+    private void settingComponents() {
+        tErrorHelpInfo.settingToError();
+
+        tEmail.setToolTip("To set email");
+        bSet.setToolTip("To email confirmation");
     }
 
     @Override
@@ -103,11 +111,11 @@ public class JvResetPasswordPanelAuthUI extends JPanel {
     }
 
     private boolean checkFields() {
-        tEmail.setNormalBorder();
+        tEmail.setErrorBorder(false);
         tErrorHelpInfo.setText("");
 
         if (Objects.equals(tEmail.getInputText(), "")) {
-            tEmail.setErrorBorder();
+            tEmail.setErrorBorder(true);
             tErrorHelpInfo.setText("The \"Email\" field must be completed or corrected");
             return false;
         }
@@ -135,7 +143,7 @@ public class JvResetPasswordPanelAuthUI extends JPanel {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
-                JvLog.write(JvLog.TypeLog.Error, "Не удалось ждать");
+                JvLog.write(JvLog.TypeLog.Error, "Couldn't wait.");
             }
         }
         if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getResetPasswordRequestFlag() ==
@@ -146,7 +154,7 @@ public class JvResetPasswordPanelAuthUI extends JPanel {
                 JvMessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             JvGetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("Данная почта не зарегистрирована.", JvOptionPaneAuthUI.TypeDlg.ERROR);
+                    .getBeanOptionPaneAuthUI("This email is not registered.", JvOptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 }
