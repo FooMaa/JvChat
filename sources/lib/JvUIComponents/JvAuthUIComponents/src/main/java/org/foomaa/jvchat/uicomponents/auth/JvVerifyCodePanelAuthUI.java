@@ -39,7 +39,7 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
         backgroundPath = "/AuthMainBackground.png";
 
         settingComponents();
-        makeFrameSetting();
+        makePanelSetting();
         addListenerToElements();
     }
 
@@ -81,7 +81,7 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
         email = pEmail;
     }
 
-    private void makeFrameSetting() {
+    private void makePanelSetting() {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 

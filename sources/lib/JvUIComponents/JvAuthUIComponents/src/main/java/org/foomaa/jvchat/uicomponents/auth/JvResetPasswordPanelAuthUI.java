@@ -14,6 +14,7 @@ import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.tools.JvGetterTools;
 
 
 public class JvResetPasswordPanelAuthUI extends JPanel {
@@ -30,7 +31,7 @@ public class JvResetPasswordPanelAuthUI extends JPanel {
         backgroundPath = "/AuthMainBackground.png";
 
         settingComponents();
-        makeFrameSetting();
+        makePanelSetting();
         addListenerToElements();
     }
 
@@ -60,7 +61,7 @@ public class JvResetPasswordPanelAuthUI extends JPanel {
         g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
     }
 
-    private void makeFrameSetting() {
+    private void makePanelSetting() {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -114,7 +115,8 @@ public class JvResetPasswordPanelAuthUI extends JPanel {
         tEmail.setErrorBorder(false);
         tErrorHelpInfo.setText("");
 
-        if (Objects.equals(tEmail.getInputText(), "")) {
+        if (Objects.equals(tEmail.getInputText(), "") ||
+                !JvGetterTools.getInstance().getBeanUsersTools().validateInputEmail(tEmail.getInputText())) {
             tEmail.setErrorBorder(true);
             tErrorHelpInfo.setText("The \"Email\" field must be completed or corrected");
             return false;

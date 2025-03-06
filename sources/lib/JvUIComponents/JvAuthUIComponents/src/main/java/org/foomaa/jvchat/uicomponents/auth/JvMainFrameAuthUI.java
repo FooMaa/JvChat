@@ -126,6 +126,14 @@ public class JvMainFrameAuthUI extends JFrame {
                 getContentPane().add(verifyCodePanel);
                 repaint();
             }
+            case ResetPassword -> {
+                titlePanel.setTitle("Reset password");
+                getContentPane().removeAll();
+                getContentPane().add(titlePanel, BorderLayout.NORTH);
+                getRootPane().setDefaultButton(JvGetterAuthUIComponents.getInstance().getBeanResetPasswordPanelAuthUI().getDefaultButton());
+                getContentPane().add(JvGetterAuthUIComponents.getInstance().getBeanResetPasswordPanelAuthUI());
+                repaint();
+            }
             case NewPassword -> {
                 titlePanel.setTitle("New password");
                 getContentPane().removeAll();
@@ -134,14 +142,6 @@ public class JvMainFrameAuthUI extends JFrame {
                 getRootPane().setDefaultButton(newPasswordPanel.getDefaultButton());
                 newPasswordPanel.setEmail((String) data[1]);
                 getContentPane().add(newPasswordPanel);
-                repaint();
-            }
-            case ResetPassword -> {
-                titlePanel.setTitle("Reset password");
-                getContentPane().removeAll();
-                getContentPane().add(titlePanel, BorderLayout.NORTH);
-                getRootPane().setDefaultButton(JvGetterAuthUIComponents.getInstance().getBeanResetPasswordPanelAuthUI().getDefaultButton());
-                getContentPane().add(JvGetterAuthUIComponents.getInstance().getBeanResetPasswordPanelAuthUI());
                 repaint();
             }
         }

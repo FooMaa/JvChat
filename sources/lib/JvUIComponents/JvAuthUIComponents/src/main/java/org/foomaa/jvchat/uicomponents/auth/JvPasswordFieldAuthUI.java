@@ -55,7 +55,7 @@ public class JvPasswordFieldAuthUI extends JPanel {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         int cornerRadius = 20;
-        g2d.setColor(getBackground());
+        g2d.setColor(passwordField.getBackground());
         g2d.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, cornerRadius, cornerRadius);
 
         if (isErrorBorderActive) {
@@ -104,8 +104,7 @@ public class JvPasswordFieldAuthUI extends JPanel {
         button.setBorder(null);
         button.setEnabled(false);
         button.setFocusPainted(false);
-        button.setPreferredSize(new Dimension(invisibleImage.getWidth(),
-                invisibleImage.getHeight()));
+        button.setPreferredSize(new Dimension(invisibleImage.getWidth(), invisibleImage.getHeight()));
         updateToolTipButton();
     }
 
