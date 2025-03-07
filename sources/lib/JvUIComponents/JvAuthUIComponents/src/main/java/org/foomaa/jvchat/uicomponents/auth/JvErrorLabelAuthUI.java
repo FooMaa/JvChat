@@ -45,8 +45,8 @@ public class JvErrorLabelAuthUI extends JLabel {
     private void addErrorListener() {
         addPropertyChangeListener("text",propertyChangeEvent -> {
             if (!Objects.equals(getText(), "")) {
-                Timer t = new Timer(5000, actionEvent -> setText(""));
-                t.start();
+                Timer timer = new Timer(5000, actionEvent -> setText(""));
+                timer.start();
             }
         });
     }
