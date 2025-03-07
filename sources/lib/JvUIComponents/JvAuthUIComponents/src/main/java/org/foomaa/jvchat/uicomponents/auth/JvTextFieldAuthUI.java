@@ -112,6 +112,7 @@ public class JvTextFieldAuthUI extends JPanel {
         addElements();
         setBackground(textField.getBackground());
         setErrorBorder(false);
+        setOpaque(false);
         setPreferredSize(dim);
     }
 

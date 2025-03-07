@@ -74,8 +74,7 @@ public class JvRegistrationPanelAuthUI extends JPanel {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        int insX = JvGetterSettings.getInstance().getBeanDisplaySettings().
-                getResizeFromDisplay(0.025,
+        int insX = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.025,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
         int gridyNum = 0;
 

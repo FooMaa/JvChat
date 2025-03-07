@@ -49,7 +49,6 @@ public class JvPasswordFieldAuthUI extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        setOpaque(false);
 
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -204,6 +203,7 @@ public class JvPasswordFieldAuthUI extends JPanel {
         addElements();
         setBackground(passwordField.getBackground());
         setErrorBorder(false);
+        setOpaque(false);
         setPreferredSize(dim);
     }
 
