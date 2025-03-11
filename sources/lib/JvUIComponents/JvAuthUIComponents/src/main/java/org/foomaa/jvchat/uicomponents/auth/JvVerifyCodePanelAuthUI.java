@@ -20,6 +20,7 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
     private final JvTextFieldAuthUI tCode;
     private final JvErrorLabelAuthUI tErrorHelpInfo;
     private final JvButtonAuthUI bSet;
+    private final JvButtonAuthUI bBack;
     private String login;
     private String email;
     private String password;
@@ -35,7 +36,8 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
         tCode = JvGetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Code (valid for 60 sec.)");
         tErrorHelpInfo = JvGetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
         tErrorHelpInfo.settingToError();
-        bSet = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("SEND");
+        bSet = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("Send");
+        bBack = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("Back");
         backgroundPath = "/AuthMainBackground.png";
 
         settingComponents();
@@ -48,6 +50,7 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
 
         tCode.setToolTip("To set login");
         bSet.setToolTip("To confirm email");
+        bBack.setToolTip("To go back");
     }
 
     @Override
@@ -92,6 +95,7 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
 
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
+        gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.115), insX,
@@ -109,9 +113,23 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
         gridyNum++;
 
         gbc.fill = GridBagConstraints.NONE;
-        gbc.anchor = GridBagConstraints.SOUTH;
-        gbc.insets = new Insets(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.046), 0,
+        gbc.anchor = GridBagConstraints.SOUTHWEST;
+        gbc.gridwidth = 1;
+        gbc.insets = new Insets(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.046),
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.026),
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017), 0);
+        gbc.ipadx = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.015,
+                JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
+        gbc.ipady = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.004,
+                JvDisplaySettings.TypeOfDisplayBorder.HEIGHT);
+        gbc.gridy = gridyNum;
+        add(bBack, gbc);
+
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.anchor = GridBagConstraints.SOUTHEAST;
+        gbc.insets = new Insets(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.046), 0,
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017),
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.026));
         gbc.ipadx = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.015,
                 JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
         gbc.ipady = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.004,
@@ -134,6 +152,10 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
                 }
             }
         });
+
+        bBack.addActionListener(event -> {
+            changeRegimeWindowBack();
+        });
     }
 
     private boolean checkFields() {
@@ -154,6 +176,21 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
         return bSet;
     }
 
+    private void changeRegimeWindowBack() {
+        if (regime == RegimeWork.Registration) {
+            JvGetterEvents.getInstance().getBeanMakerEvents().event(
+                    this,
+                    "changeRegimeWork",
+                    JvDefinesAuthUI.RegimeWorkMainFrame.Registration);
+        } else if (regime == RegimeWork.ResetPassword) {
+            JvGetterEvents.getInstance().getBeanMakerEvents().event(
+                    this,
+                    "changeRegimeWork",
+                    JvDefinesAuthUI.RegimeWorkMainFrame.ResetPassword);
+        }
+        settingUnfocusFieldsOnChangeRegime();
+    }
+
     private void changeRegime() {
         if (regime == RegimeWork.Registration) {
             JvGetterEvents.getInstance().getBeanMakerEvents().event(
@@ -167,7 +204,11 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
                     JvDefinesAuthUI.RegimeWorkMainFrame.NewPassword,
                     email);
         }
-        tCode.setUnfocusFieldOnClose(false);
+        settingUnfocusFieldsOnChangeRegime();
+    }
+
+    private void settingUnfocusFieldsOnChangeRegime() {
+        tCode.setUnfocusFieldOnClose(true);
     }
 
     private void waitRepeatServerResetPassword() {

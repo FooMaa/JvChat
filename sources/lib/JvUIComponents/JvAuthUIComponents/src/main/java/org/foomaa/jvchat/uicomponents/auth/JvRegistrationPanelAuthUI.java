@@ -47,6 +47,7 @@ public class JvRegistrationPanelAuthUI extends JPanel {
         tErrorHelpInfo.settingToError();
 
         bRegister.setToolTip("To email confirmation");
+        bBack.setToolTip("To go back");
         tPassword.setToolTip("To set password");
         tPasswordConfirm.setToolTip("To confirm password");
         tLogin.setToolTip("To set login");

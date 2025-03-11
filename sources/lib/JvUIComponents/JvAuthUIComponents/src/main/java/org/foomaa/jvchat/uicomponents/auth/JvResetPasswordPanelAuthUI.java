@@ -42,6 +42,7 @@ public class JvResetPasswordPanelAuthUI extends JPanel {
 
         tEmail.setToolTip("To set email");
         bSet.setToolTip("To email confirmation");
+        bBack.setToolTip("To go back");
     }
 
     @Override
