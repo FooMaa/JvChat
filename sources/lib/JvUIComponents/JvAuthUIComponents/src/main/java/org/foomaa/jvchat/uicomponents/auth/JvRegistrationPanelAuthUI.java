@@ -25,6 +25,7 @@ public class JvRegistrationPanelAuthUI extends JPanel {
     private final JvPasswordFieldAuthUI tPassword;
     private final JvPasswordFieldAuthUI tPasswordConfirm;
     private final JvButtonAuthUI bRegister;
+    private final JvButtonAuthUI bBack;
     private final String backgroundPath;
 
     JvRegistrationPanelAuthUI() {
@@ -33,7 +34,8 @@ public class JvRegistrationPanelAuthUI extends JPanel {
         tErrorHelpInfo = JvGetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
         tPassword = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Password");
         tPasswordConfirm = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Confirm password");
-        bRegister = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("NEXT");
+        bRegister = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("Next");
+        bBack = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("Back");
         backgroundPath = "/AuthMainBackground.png";
 
         settingComponents();
@@ -80,6 +82,7 @@ public class JvRegistrationPanelAuthUI extends JPanel {
 
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
+        gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.03), insX,
@@ -120,9 +123,21 @@ public class JvRegistrationPanelAuthUI extends JPanel {
         gridyNum++;
 
         gbc.fill = GridBagConstraints.PAGE_END;
-        gbc.anchor = GridBagConstraints.NORTH;
-        gbc.insets = new Insets(0, 0,
+        gbc.anchor = GridBagConstraints.NORTHWEST;
+        gbc.gridwidth = 1;
+        gbc.insets = new Insets(0, JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.026),
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017), 0);
+        gbc.ipadx = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.015,
+                JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
+        gbc.ipady = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.004,
+                JvDisplaySettings.TypeOfDisplayBorder.HEIGHT);
+        gbc.gridy = gridyNum;
+        add(bBack, gbc);
+
+        gbc.fill = GridBagConstraints.PAGE_END;
+        gbc.anchor = GridBagConstraints.NORTHEAST;
+        gbc.insets = new Insets(0, 0, JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017),
+                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.026));
         gbc.ipadx = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.015,
                 JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
         gbc.ipady = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.004,
@@ -139,6 +154,10 @@ public class JvRegistrationPanelAuthUI extends JPanel {
                         tLogin.getInputText(), tEmail.getInputText(), tPassword.getInputText());
                 waitRepeatServer();
             }
+        });
+
+        bBack.addActionListener(event -> {
+            changeRegimeWindowBack();
         });
     }
 
@@ -198,7 +217,15 @@ public class JvRegistrationPanelAuthUI extends JPanel {
         return bRegister;
     }
 
-    private void changeRegimeWindow() {
+    private void changeRegimeWindowBack() {
+        JvGetterEvents.getInstance().getBeanMakerEvents().event(
+                this,
+                "changeRegimeWork",
+                JvDefinesAuthUI.RegimeWorkMainFrame.Auth);
+        settingUnfocusFieldsOnChangeRegime();
+    }
+
+    private void changeRegimeWindowNext() {
         JvGetterEvents.getInstance().getBeanMakerEvents().event(
                 this,
                 "changeRegimeWork",
@@ -206,6 +233,10 @@ public class JvRegistrationPanelAuthUI extends JPanel {
                 tLogin.getInputText(),
                 tEmail.getInputText(),
                 tPassword.getInputText());
+        settingUnfocusFieldsOnChangeRegime();
+    }
+
+    private void settingUnfocusFieldsOnChangeRegime() {
         tLogin.setUnfocusFieldOnClose(true);
         tEmail.setUnfocusFieldOnClose(true);
         tPassword.setUnfocusFieldOnClose(true);
@@ -224,7 +255,7 @@ public class JvRegistrationPanelAuthUI extends JPanel {
         }
         if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getRegistrationRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.TRUE) {
-            changeRegimeWindow();
+            changeRegimeWindowNext();
             setEnabled(true);
         } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getRegistrationRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.FALSE) {
