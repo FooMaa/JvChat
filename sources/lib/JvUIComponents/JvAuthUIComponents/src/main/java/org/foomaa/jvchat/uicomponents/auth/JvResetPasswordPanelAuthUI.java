@@ -129,7 +129,7 @@ public class JvResetPasswordPanelAuthUI extends JPanel {
         });
 
         bBack.addActionListener(event -> {
-            changeRegimeWindowBack();
+            changeRegimeBack();
         });
     }
 
@@ -151,7 +151,7 @@ public class JvResetPasswordPanelAuthUI extends JPanel {
         return bSet;
     }
 
-    private void changeRegimeWindowBack() {
+    private void changeRegimeBack() {
         JvGetterEvents.getInstance().getBeanMakerEvents().event(
                 this,
                 "changeRegimeWork",
@@ -159,7 +159,7 @@ public class JvResetPasswordPanelAuthUI extends JPanel {
         settingUnfocusFieldsOnChangeRegime();
     }
 
-    private void changeRegimeWindowNext() {
+    private void changeRegimeNext() {
         JvGetterEvents.getInstance().getBeanMakerEvents().event(
                 this,
                 "changeRegimeWork",
@@ -184,7 +184,7 @@ public class JvResetPasswordPanelAuthUI extends JPanel {
         }
         if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getResetPasswordRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.TRUE) {
-            changeRegimeWindowNext();
+            changeRegimeNext();
             setEnabled(true);
         } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getResetPasswordRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.FALSE) {

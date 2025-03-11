@@ -158,7 +158,7 @@ public class JvRegistrationPanelAuthUI extends JPanel {
         });
 
         bBack.addActionListener(event -> {
-            changeRegimeWindowBack();
+            changeRegimeBack();
         });
     }
 
@@ -218,7 +218,7 @@ public class JvRegistrationPanelAuthUI extends JPanel {
         return bRegister;
     }
 
-    private void changeRegimeWindowBack() {
+    private void changeRegimeBack() {
         JvGetterEvents.getInstance().getBeanMakerEvents().event(
                 this,
                 "changeRegimeWork",
@@ -226,7 +226,7 @@ public class JvRegistrationPanelAuthUI extends JPanel {
         settingUnfocusFieldsOnChangeRegime();
     }
 
-    private void changeRegimeWindowNext() {
+    private void changeRegimeNext() {
         JvGetterEvents.getInstance().getBeanMakerEvents().event(
                 this,
                 "changeRegimeWork",
@@ -256,7 +256,7 @@ public class JvRegistrationPanelAuthUI extends JPanel {
         }
         if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getRegistrationRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.TRUE) {
-            changeRegimeWindowNext();
+            changeRegimeNext();
             setEnabled(true);
         } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getRegistrationRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.FALSE) {

@@ -154,7 +154,7 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
         });
 
         bBack.addActionListener(event -> {
-            changeRegimeWindowBack();
+            changeRegimeBack();
         });
     }
 
@@ -176,7 +176,7 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
         return bSet;
     }
 
-    private void changeRegimeWindowBack() {
+    private void changeRegimeBack() {
         if (regime == RegimeWork.Registration) {
             JvGetterEvents.getInstance().getBeanMakerEvents().event(
                     this,
@@ -191,7 +191,7 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
         settingUnfocusFieldsOnChangeRegime();
     }
 
-    private void changeRegime() {
+    private void changeRegimeNext() {
         if (regime == RegimeWork.Registration) {
             JvGetterEvents.getInstance().getBeanMakerEvents().event(
                     this,
@@ -223,7 +223,7 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
         }
         if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyFamousEmailRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.TRUE) {
-            changeRegime();
+            changeRegimeNext();
             setEnabled(true);
         } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyFamousEmailRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.FALSE) {
@@ -246,7 +246,7 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
         }
         if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyRegistrationEmailRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.TRUE) {
-            changeRegime();
+            changeRegimeNext();
             setEnabled(true);
         } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyRegistrationEmailRequestFlag() ==
                 JvMessagesDefinesCtrl.TypeFlags.FALSE) {
