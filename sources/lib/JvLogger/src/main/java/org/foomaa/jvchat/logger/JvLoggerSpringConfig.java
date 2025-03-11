@@ -41,35 +41,35 @@ class JvLoggerSpringConfig {
     public LoggerContext beanConfigureLogback() {
         context = (LoggerContext) LoggerFactory.getILoggerFactory();
 
-        // Создание Pattern Layout
+        // Create Pattern Layout
         PatternLayoutEncoder encoder = new PatternLayoutEncoder();
         encoder.setContext(context);
         encoder.setPattern("%property{colorCodeStart}%d{yyyy-MM-dd HH:mm:ss} %property{fullFileName} [ %-4level ] - %msg%property{colorCodeEnd}%n");
         encoder.start();
 
-        // Создание Console Appender
+        // Create Console Appender
         ConsoleAppender<ILoggingEvent> consoleAppender = new ConsoleAppender<>();
         consoleAppender.setContext(context);
         consoleAppender.setEncoder(encoder);
         consoleAppender.start();
 
-        // Настройка Root Logger
+        // Set Root Logger
         Logger rootLogger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
         rootLogger.setLevel(Level.INFO);
         rootLogger.addAppender(consoleAppender);
 
-        // Настройка логгера для пакета
+        // Set logger for package
         Logger exampleLogger = (Logger) LoggerFactory.getLogger("org.foomaa.jvchat.logger");
         exampleLogger.setLevel(Level.DEBUG);
         exampleLogger.setAdditive(false);
         exampleLogger.addAppender(consoleAppender);
 
-        // Печать статуса конфигурации
+        // Print configuration status
         StatusPrinter.printInCaseOfErrorsOrWarnings(context);
         return context;
     }
 
-    // нужно, чтоб динамически изменять имя файла
+    // Needed to dynamically change the file name
     public static void setContextPropertyFileName(String fullFileName) {
         String namePropertyFileName = "fullFileName";
         context.putProperty(namePropertyFileName, fullFileName);

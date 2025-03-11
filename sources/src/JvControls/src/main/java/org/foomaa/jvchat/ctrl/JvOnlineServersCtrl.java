@@ -34,7 +34,7 @@ public class JvOnlineServersCtrl {
         for (JvCheckerOnlineStructObject checkerOnline : listCheckersOnline) {
             JvSocketRunnableCtrlStructObject socketRunnableCtrlStructObject = checkerOnline.getSocketRunnableCtrlStructObject();
             if (socketRunnableCtrlStructObject == null) {
-                JvLog.write(JvLog.TypeLog.Error, "Здесь socketRunnableCtrlStructObject равен null");
+                JvLog.write(JvLog.TypeLog.Error, "Here socketRunnableCtrlStructObject is null.");
                 continue;
             }
 
@@ -53,7 +53,7 @@ public class JvOnlineServersCtrl {
         for (JvCheckerOnlineStructObject checkerOnline : listCheckersOnline) {
             JvSocketRunnableCtrlStructObject socketRunnableCtrlStructObject = checkerOnline.getSocketRunnableCtrlStructObject();
             if (socketRunnableCtrlStructObject == null) {
-                JvLog.write(JvLog.TypeLog.Error, "Здесь socketRunnableCtrlStructObject равен null");
+                JvLog.write(JvLog.TypeLog.Error, "Here socketRunnableCtrlStructObject is null.");
                 continue;
             }
 
@@ -72,7 +72,7 @@ public class JvOnlineServersCtrl {
         for (JvCheckerOnlineStructObject checkerOnline : listCheckersOnline) {
             JvUserStructObject userStructObject = checkerOnline.getUser();
             if (userStructObject == null) {
-                JvLog.write(JvLog.TypeLog.Error, "Здесь userStructObject равен null");
+                JvLog.write(JvLog.TypeLog.Error, "Here userStructObject is null.");
                 continue;
             }
 
@@ -147,7 +147,7 @@ public class JvOnlineServersCtrl {
         }
 
         if (onlineUser == null) {
-            JvLog.write(JvLog.TypeLog.Error, "Здесь onlineUser оказался null");
+            JvLog.write(JvLog.TypeLog.Error, "Here onlineUser turned out to be null.");
             return;
         }
 
@@ -182,7 +182,7 @@ public class JvOnlineServersCtrl {
                 Thread.sleep(intervalMilliSecondsAfterLastSending);
                 return;
             } catch (InterruptedException exception) {
-                JvLog.write(JvLog.TypeLog.Error, "Здесь не удалось выполнить sleep()");
+                JvLog.write(JvLog.TypeLog.Error, "Sleep() failed to running here.");
             }
         }
 
@@ -191,7 +191,7 @@ public class JvOnlineServersCtrl {
         for (JvSocketRunnableCtrlStructObject socketRunnableCtrlStructObject : connectionList) {
             JvSocketRunnableCtrl socketRunnableCtrl = (JvSocketRunnableCtrl) socketRunnableCtrlStructObject.getSocketRunnableCtrl();
             if (socketRunnableCtrl == null) {
-                JvLog.write(JvLog.TypeLog.Error, "socketRunnableCtrl оказался null");
+                JvLog.write(JvLog.TypeLog.Error, "socketRunnableCtrl turned out to be null.");
                 continue;
             }
 
@@ -208,7 +208,7 @@ public class JvOnlineServersCtrl {
 
             JvCheckerOnlineStructObject onlineUser = getCheckerOnlineByRunnable(socketRunnableCtrl);
             if (onlineUser == null) {
-                JvLog.write(JvLog.TypeLog.Error, "Здесь onlineUser оказался null");
+                JvLog.write(JvLog.TypeLog.Error, "Here onlineUser turned out to be null.");
                 continue;
             }
             onlineUser.setIsSending(true);
@@ -222,7 +222,7 @@ public class JvOnlineServersCtrl {
         if (isRunnableInListCheckerOnline(socketRunnableCtrl)) {
             JvCheckerOnlineStructObject onlineUser = getCheckerOnlineByRunnable(socketRunnableCtrl);
             if (onlineUser == null) {
-                JvLog.write(JvLog.TypeLog.Error, "Здесь online user оказался null");
+                JvLog.write(JvLog.TypeLog.Error, "Here onlineUser turned out to be null");
                 return;
             }
 
@@ -236,7 +236,7 @@ public class JvOnlineServersCtrl {
                 try {
                     Thread.sleep(intervalMilliSecondsAfterLastSending - milliSecondsAfterLastSending);
                 } catch (InterruptedException exception) {
-                    JvLog.write(JvLog.TypeLog.Error, "Здесь не удалось выполнить sleep()");
+                    JvLog.write(JvLog.TypeLog.Error, "Sleep() failed to running here.");
                 }
             }
         }
@@ -255,7 +255,7 @@ public class JvOnlineServersCtrl {
 
                 JvUserStructObject userStructObject = onlineUser.getUser();
                 if (userStructObject == null) {
-                    JvLog.write(JvLog.TypeLog.Error, "Здесь userStructObject равен null");
+                    JvLog.write(JvLog.TypeLog.Error, "Here userStructObject is null.");
                     continue;
                 }
 
@@ -296,7 +296,7 @@ public class JvOnlineServersCtrl {
         for (JvCheckerOnlineStructObject checkerOnline : listCheckersOnline) {
             JvSocketRunnableCtrlStructObject socketRunnableCtrlStructObject = checkerOnline.getSocketRunnableCtrlStructObject();
             if (socketRunnableCtrlStructObject == null) {
-                JvLog.write(JvLog.TypeLog.Error, "Здесь socketRunnableCtrlStructObject равен null");
+                JvLog.write(JvLog.TypeLog.Error, "Here socketRunnableCtrlStructObject is null.");
                 continue;
             }
 

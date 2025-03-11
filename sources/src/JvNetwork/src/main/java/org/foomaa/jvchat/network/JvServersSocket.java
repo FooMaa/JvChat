@@ -27,13 +27,13 @@ public class JvServersSocket {
                         InetAddress.getByName(JvGetterSettings.getInstance().getBeanServersInfoSettings().getIp()));
             }
 
-            JvLog.write(JvLog.TypeLog.Info, "IP: " + socketServers.getInetAddress().toString());
-            JvLog.write(JvLog.TypeLog.Info, "PORT: " + String.valueOf(socketServers.getLocalPort()));
+            JvLog.write(JvLog.TypeLog.Info, "IP: " + socketServers.getInetAddress().toString() + ".");
+            JvLog.write(JvLog.TypeLog.Info, "PORT: " + String.valueOf(socketServers.getLocalPort()) + ".");
 
-            JvLog.write(JvLog.TypeLog.Info, "Server is started");
+            JvLog.write(JvLog.TypeLog.Info, "Server is started.");
             closeSocketWhenKill();
         } catch (IOException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Ошибка при создании сокета сервера");
+            JvLog.write(JvLog.TypeLog.Error, "Error creating server socket.");
         }
     }
 

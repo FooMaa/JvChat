@@ -1,25 +1,29 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.*;
 
 
 @Configuration
+@ComponentScans({
+        @ComponentScan("org.foomaa.jvchat.events"),
+})
 class JvAuthUIComponentsSpringConfig {
     public enum NameBeans {
         BeanActiveLabelAuthUI("beanActiveLabelAuthUI"),
         BeanButtonAuthUI("beanButtonAuthUI"),
-        BeanLabelAuthUI("beanLabelAuthUI"),
+        BeanErrorLabelAuthUI("beanErrorLabelAuthUI"),
         BeanOptionPaneAuthUI("beanOptionPaneAuthUI"),
         BeanPasswordFieldAuthUI("beanPasswordFieldAuthUI"),
         BeanTextFieldAuthUI("beanTextFieldAuthUI"),
-        BeanEntryFrameAuthUI("beanEntryFrameAuthUI"),
-        BeanNewPasswordFrameAuthUI("beanNewPasswordFrameAuthUI"),
-        BeanRegistrationFrameAuthUI("beanRegistrationFrameAuthUI"),
-        BeanResetPasswordFrameAuthUI("beanResetPasswordFrameAuthUI"),
-        BeanVerifyCodeFrameAuthUI("beanVerifyCodeFrameAuthUI");
+        BeanEntryPanelAuthUI("beanEntryPanelAuthUI"),
+        BeanNewPasswordPanelAuthUI("beanNewPasswordPanelAuthUI"),
+        BeanRegistrationPanelAuthUI("beanRegistrationPanelAuthUI"),
+        BeanResetPasswordPanelAuthUI("beanResetPasswordPanelAuthUI"),
+        BeanVerifyCodePanelAuthUI("beanVerifyCodePanelAuthUI"),
+        BeanTitlePanelAuthUI("beanTitlePanelAuthUI"),
+        BeanToolTipAuthUI("beanToolTipAuthUI"),
+        BeanMainFrameAuthUI("beanMainFrameAuthUI"),
+        BeanDefinesAuthUI("beanDefinesAuthUI");
 
         private final String value;
 
@@ -46,11 +50,11 @@ class JvAuthUIComponentsSpringConfig {
         return new JvButtonAuthUI(text);
     }
 
-    @Bean(name = "beanLabelAuthUI")
+    @Bean(name = "beanErrorLabelAuthUI")
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvLabelAuthUI beanLabelAuthUI(String text) {
-        return new JvLabelAuthUI(text);
+    public JvErrorLabelAuthUI beanErrorLabelAuthUI(String text) {
+        return new JvErrorLabelAuthUI(text);
     }
 
     @Bean(name = "beanOptionPaneAuthUI")
@@ -74,43 +78,75 @@ class JvAuthUIComponentsSpringConfig {
         return new JvTextFieldAuthUI(text);
     }
 
-    @Bean(name = "beanEntryFrameAuthUI")
+    @Bean(name = "beanToolTipAuthUI")
     @Lazy
-    @Scope("singleton")
+    @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvEntryFrameAuthUI beanEntryFrameAuthUI() {
-        return new JvEntryFrameAuthUI();
+    public JvToolTipAuthUI beanToolTipAuthUI() {
+        return new JvToolTipAuthUI();
     }
 
-    @Bean(name = "beanNewPasswordFrameAuthUI")
+    @Bean(name = "beanMainFrameAuthUI")
     @Lazy
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvNewPasswordFrameAuthUI beanNewPasswordFrameAuthUI(String post) {
-        return new JvNewPasswordFrameAuthUI(post);
+    public JvMainFrameAuthUI beanMainFrameAuthUI() {
+        return new JvMainFrameAuthUI();
     }
 
-    @Bean(name = "beanRegistrationFrameAuthUI")
+    @Bean(name = "beanEntryPanelAuthUI")
     @Lazy
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvRegistrationFrameAuthUI beanRegistrationFrameAuthUI() {
-        return new JvRegistrationFrameAuthUI();
+    public JvEntryPanelAuthUI beanEntryPanelAuthUI() {
+        return new JvEntryPanelAuthUI();
     }
 
-    @Bean(name = "beanResetPasswordFrameAuthUI")
+    @Bean(name = "beanNewPasswordPanelAuthUI")
     @Lazy
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvResetPasswordFrameAuthUI beanResetPasswordFrameAuthUI() {
-        return new JvResetPasswordFrameAuthUI();
+    public JvNewPasswordPanelAuthUI beanNewPasswordPanelAuthUI() {
+        return new JvNewPasswordPanelAuthUI();
     }
 
-    @Bean(name = "beanVerifyCodeFrameAuthUI")
+    @Bean(name = "beanRegistrationPanelAuthUI")
     @Lazy
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvVerifyCodeFrameAuthUI beanVerifyCodeFrameAuthUI(JvVerifyCodeFrameAuthUI.RegimeWork rw) {
-        return new JvVerifyCodeFrameAuthUI(rw);
+    public JvRegistrationPanelAuthUI beanRegistrationPanelAuthUI() {
+        return new JvRegistrationPanelAuthUI();
+    }
+
+    @Bean(name = "beanResetPasswordPanelAuthUI")
+    @Lazy
+    @Scope("singleton")
+    @SuppressWarnings("unused")
+    public JvResetPasswordPanelAuthUI beanResetPasswordPanelAuthUI() {
+        return new JvResetPasswordPanelAuthUI();
+    }
+
+    @Bean(name = "beanVerifyCodePanelAuthUI")
+    @Lazy
+    @Scope("singleton")
+    @SuppressWarnings("unused")
+    public JvVerifyCodePanelAuthUI beanVerifyCodePanelAuthUI() {
+        return new JvVerifyCodePanelAuthUI();
+    }
+
+    @Bean(name = "beanTitlePanelAuthUI")
+    @Lazy
+    @Scope("singleton")
+    @SuppressWarnings("unused")
+    public JvTitlePanelAuthUI beanTitlePanelAuthUI() {
+        return new JvTitlePanelAuthUI();
+    }
+
+    @Bean(name = "beanDefinesAuthUI")
+    @Lazy
+    @Scope("singleton")
+    @SuppressWarnings("unused")
+    public JvDefinesAuthUI beanDefinesAuthUI() {
+        return new JvDefinesAuthUI();
     }
 }

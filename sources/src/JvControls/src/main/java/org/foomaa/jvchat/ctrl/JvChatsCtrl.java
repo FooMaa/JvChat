@@ -40,7 +40,7 @@ public class JvChatsCtrl {
                     .stringToLocalDateTime((String) chat.get(JvDefinesMessages.TypeData.Timestamp), normalizeTimestampCount);
 
             if (timestampLastMessage == null) {
-                JvLog.write(JvLog.TypeLog.Warn, "Не получилось нормализовать дату и время к нужному формату");
+                JvLog.write(JvLog.TypeLog.Warn, "It was not possible to normalize the date and time to the required format.");
             }
 
             chatsModel.createNewChat(login, uuidUser, lastMessageText, uuidChat, uuidLastMessage,
@@ -65,7 +65,7 @@ public class JvChatsCtrl {
 
     public String getTimeFormattedLastOnline(LocalDateTime lastOnlineDateTime) {
         if (lastOnlineDateTime == null) {
-            JvLog.write(JvLog.TypeLog.Warn, "Тут lastOnlineDateTime оказался null. (Может быть у тех, кто в сети)");
+            JvLog.write(JvLog.TypeLog.Warn, "Here lastOnlineDateTime turned out to be null (Maybe for those who are online).");
             return "";
         }
 
@@ -115,7 +115,7 @@ public class JvChatsCtrl {
 
     public String getTimeFormattedLastMessage(LocalDateTime timestamp) {
         if (timestamp == null) {
-            JvLog.write(JvLog.TypeLog.Error, "Здесь timestamp оказался null");
+            JvLog.write(JvLog.TypeLog.Error, "Here the timestamp turned out to be null.");
             return "";
         }
 

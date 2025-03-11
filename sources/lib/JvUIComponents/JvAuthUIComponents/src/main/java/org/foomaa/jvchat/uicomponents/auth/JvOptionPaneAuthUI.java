@@ -14,7 +14,7 @@ public class JvOptionPaneAuthUI extends JOptionPane {
             case ERROR:
                 JFrame frame = new JFrame();
                 showMessageDialog(frame, msg,
-                        "Ошибка", JOptionPane.ERROR_MESSAGE );
+                        "Error", JOptionPane.ERROR_MESSAGE );
                 break;
             case WARNING:
                 break;

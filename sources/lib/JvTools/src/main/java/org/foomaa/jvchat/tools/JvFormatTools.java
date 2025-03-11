@@ -6,7 +6,6 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 
 
@@ -30,10 +29,9 @@ public class JvFormatTools {
 
             resultTimestamp = parts[0] + "." + milliseconds;
         } else {
-            JvLog.write(JvLog.TypeLog.Warn, "Не получилось нормально преобразовать дату и время к нужному" +
-                    " формату с миллисекундами, попробуем с regex");
+            JvLog.write(JvLog.TypeLog.Warn, "It is not possible to convert the date and time to the required format. Trying regex...");
 
-            // Регулярное выражение для формата 'yyyy-MM-dd HH:mm:ss'
+            // Regex format: 'yyyy-MM-dd HH:mm:ss'
             String patternStr = "^(?<year>\\d{4})-(?<month>0[1-9]|1[012])-(?<day>0[1-9]|[12][0-9]|3[01])" +
                     "[T ](?<hour>[01][0-9]|2[0-3]):(?<minute>[0-5][0-9]):(?<second>[0-5][0-9])$";
 
@@ -45,7 +43,7 @@ public class JvFormatTools {
                 String addingMs = zeroMs.repeat(normalizeCount);
                 resultTimestamp = timestamp + "." + addingMs;
             } else {
-                JvLog.write(JvLog.TypeLog.Error, "Не получилось нормально преобразовать дату и время к нужному формату");
+                JvLog.write(JvLog.TypeLog.Error, "Error to convert the date and time to the required format.");
                 return null;
             }
         }
@@ -60,7 +58,7 @@ public class JvFormatTools {
 
     public LocalDateTime stringToLocalDateTime(String timestampStr, int normalizeCount) {
         if (timestampStr == null || Objects.equals(timestampStr, "")) {
-            JvLog.write(JvLog.TypeLog.Error, "Ошибка при попытке парсинга времени последнего онлайна");
+            JvLog.write(JvLog.TypeLog.Error, "Error getting time. Time is null or empty.");
             return null;
         }
 
@@ -69,23 +67,10 @@ public class JvFormatTools {
                 .normalizeMillisecond(timestampStr, normalizeCount);
 
         if (timestampString == null) {
-            JvLog.write(JvLog.TypeLog.Error, "Не получилось нормализовать дату и время к нужному формату");
+            JvLog.write(JvLog.TypeLog.Error, "Date and time conversion error.");
             return null;
         }
 
         return LocalDateTime.parse(timestampString, formatter);
-    }
-
-    public JvMainChatsGlobalDefines.TypeStatusMessage statusMessageStringToInt(String statusMessageStr) {
-        int statusMessageInt;
-        try{
-            statusMessageInt = Integer.parseInt(statusMessageStr);
-        }
-        catch (NumberFormatException ex){
-            JvLog.write(JvLog.TypeLog.Error, "Тут статус не преобразовался в int");
-            return JvMainChatsGlobalDefines.TypeStatusMessage.Error;
-        }
-
-        return JvMainChatsGlobalDefines.TypeStatusMessage.getTypeStatusMessage(statusMessageInt);
     }
 }

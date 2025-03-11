@@ -8,8 +8,7 @@ public class JvGetterAuthUIComponents {
     private final AnnotationConfigApplicationContext context;
 
     private JvGetterAuthUIComponents() {
-        context = new AnnotationConfigApplicationContext(
-                JvAuthUIComponentsSpringConfig.class);
+        context = new AnnotationConfigApplicationContext(JvAuthUIComponentsSpringConfig.class);
     }
 
     public static JvGetterAuthUIComponents getInstance() {
@@ -17,6 +16,10 @@ public class JvGetterAuthUIComponents {
             instance = new JvGetterAuthUIComponents();
         }
         return instance;
+    }
+
+    public AnnotationConfigApplicationContext getContext() {
+        return context;
     }
 
     public JvActiveLabelAuthUI getBeanActiveLabelAuthUI(String text) {
@@ -31,9 +34,9 @@ public class JvGetterAuthUIComponents {
                 text);
     }
 
-    public JvLabelAuthUI getBeanLabelAuthUI(String text) {
-        return (JvLabelAuthUI) context.getBean(
-                JvAuthUIComponentsSpringConfig.NameBeans.BeanLabelAuthUI.getValue(),
+    public JvErrorLabelAuthUI getBeanErrorLabelAuthUI(String text) {
+        return (JvErrorLabelAuthUI) context.getBean(
+                JvAuthUIComponentsSpringConfig.NameBeans.BeanErrorLabelAuthUI.getValue(),
                 text);
     }
 
@@ -55,31 +58,50 @@ public class JvGetterAuthUIComponents {
                 text);
     }
 
-    public JvEntryFrameAuthUI getBeanEntryFrameAuthUI() {
-        return context.getBean(JvAuthUIComponentsSpringConfig.NameBeans.BeanEntryFrameAuthUI.getValue(),
-                JvEntryFrameAuthUI.class);
+    public JvToolTipAuthUI getBeanToolTipAuthUI() {
+        return context.getBean(JvAuthUIComponentsSpringConfig.NameBeans.BeanToolTipAuthUI.getValue(),
+                JvToolTipAuthUI.class);
+    }
+
+    public JvEntryPanelAuthUI getBeanEntryPanelAuthUI() {
+        return context.getBean(JvAuthUIComponentsSpringConfig.NameBeans.BeanEntryPanelAuthUI.getValue(),
+                JvEntryPanelAuthUI.class);
 
     }
 
-    public JvNewPasswordFrameAuthUI getBeanNewPasswordFrameAuthUI(String post) {
-        return (JvNewPasswordFrameAuthUI) context.getBean(
-                JvAuthUIComponentsSpringConfig.NameBeans.BeanNewPasswordFrameAuthUI.getValue(),
-                post);
+    public JvMainFrameAuthUI getBeanMainFrameAuthUI() {
+        return context.getBean(JvAuthUIComponentsSpringConfig.NameBeans.BeanMainFrameAuthUI.getValue(),
+                JvMainFrameAuthUI.class);
+
     }
 
-    public JvRegistrationFrameAuthUI getBeanRegistrationFrameAuthUI() {
-        return context.getBean(JvAuthUIComponentsSpringConfig.NameBeans.BeanRegistrationFrameAuthUI.getValue(),
-                JvRegistrationFrameAuthUI.class);
+    public JvNewPasswordPanelAuthUI getBeanNewPasswordPanelAuthUI() {
+        return context.getBean(JvAuthUIComponentsSpringConfig.NameBeans.BeanNewPasswordPanelAuthUI.getValue(),
+                JvNewPasswordPanelAuthUI.class);
     }
 
-    public JvResetPasswordFrameAuthUI getBeanResetPasswordFrameAuthUI() {
-        return context.getBean(JvAuthUIComponentsSpringConfig.NameBeans.BeanResetPasswordFrameAuthUI.getValue(),
-                JvResetPasswordFrameAuthUI.class);
+    public JvRegistrationPanelAuthUI getBeanRegistrationPanelAuthUI() {
+        return context.getBean(JvAuthUIComponentsSpringConfig.NameBeans.BeanRegistrationPanelAuthUI.getValue(),
+                JvRegistrationPanelAuthUI.class);
     }
 
-    public JvVerifyCodeFrameAuthUI getBeanVerifyCodeFrameAuthUI(JvVerifyCodeFrameAuthUI.RegimeWork rw) {
-        return (JvVerifyCodeFrameAuthUI) context.getBean(
-                JvAuthUIComponentsSpringConfig.NameBeans.BeanVerifyCodeFrameAuthUI.getValue(),
-                rw);
+    public JvResetPasswordPanelAuthUI getBeanResetPasswordPanelAuthUI() {
+        return context.getBean(JvAuthUIComponentsSpringConfig.NameBeans.BeanResetPasswordPanelAuthUI.getValue(),
+                JvResetPasswordPanelAuthUI.class);
+    }
+
+    public JvVerifyCodePanelAuthUI getBeanVerifyCodePanelAuthUI() {
+        return context.getBean(JvAuthUIComponentsSpringConfig.NameBeans.BeanVerifyCodePanelAuthUI.getValue(),
+                JvVerifyCodePanelAuthUI.class);
+    }
+
+    public JvTitlePanelAuthUI getBeanTitlePanelAuthUI() {
+        return context.getBean(JvAuthUIComponentsSpringConfig.NameBeans.BeanTitlePanelAuthUI.getValue(),
+                JvTitlePanelAuthUI.class);
+    }
+
+    public JvDefinesAuthUI getBeanDefinesAuthUI() {
+        return context.getBean(JvAuthUIComponentsSpringConfig.NameBeans.BeanDefinesAuthUI.getValue(),
+                JvDefinesAuthUI.class);
     }
 }

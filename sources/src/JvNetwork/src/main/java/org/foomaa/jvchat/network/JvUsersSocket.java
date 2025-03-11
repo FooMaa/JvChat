@@ -24,7 +24,7 @@ public class JvUsersSocket {
                     JvGetterSettings.getInstance().getBeanUsersInfoSettings().getPortRemoteServer()), 4000);
             closeSocketWhenKill();
         } catch (IOException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "No connection");
+            JvLog.write(JvLog.TypeLog.Error, "No connection.");
         }
     }
 

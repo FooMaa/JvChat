@@ -1,26 +1,65 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.Objects;
 
+import org.foomaa.jvchat.globaldefines.JvGetterGlobalDefines;
+import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
 
 public class JvTextFieldAuthUI extends JPanel {
     private JTextField textField;
-
+    private JvToolTipAuthUI toolTip;
     private final String defaultText;
-    private final int borderSize = 1;
+    private boolean isErrorBorderActive;
+    private final int borderSize;
 
     JvTextFieldAuthUI(String text) {
         defaultText = text;
+        borderSize = 2;
+        isErrorBorderActive = false;
 
         settingTextPanel();
         addListenerToElem();
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        Graphics2D g2d = (Graphics2D) g.create();
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        int cornerRadius = 20;
+        g2d.setColor(getBackground());
+        g2d.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, cornerRadius, cornerRadius);
+
+        if (isErrorBorderActive) {
+            g2d.setColor(Color.RED);
+            g2d.setStroke(new BasicStroke(borderSize));
+            g2d.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, cornerRadius, cornerRadius);
+        }
+
+        g2d.dispose();
+    }
+
+    public void setToolTip(String text) {
+        toolTip = JvGetterAuthUIComponents.getInstance().getBeanToolTipAuthUI();
+        createToolTip();
+        setToolTipText(text);
+
+        textField.createToolTip();
+        textField.setToolTipText(text);
+    }
+
+    @Override
+    public JToolTip createToolTip() {
+        return toolTip;
     }
 
     private void addListenerToElem() {
@@ -71,7 +110,8 @@ public class JvTextFieldAuthUI extends JPanel {
         settingTextField(dim);
         addElements();
         setBackground(textField.getBackground());
-        setNormalBorder();
+        setErrorBorder(false);
+        setOpaque(false);
         setPreferredSize(dim);
     }
 
@@ -90,16 +130,31 @@ public class JvTextFieldAuthUI extends JPanel {
     }
 
     private void settingTextField(Dimension dim) {
-        textField = new JTextField();
+        textField = new JTextField() {
+            @Override
+            public JToolTip createToolTip() {
+                return toolTip;
+            }
+        };
         Dimension calcNewDim = new Dimension((int) dim.getWidth(),
                 (int) dim.getHeight() - borderSize * 2);
         textField.setPreferredSize(calcNewDim);
         textField.setBorder(null);
         textField.setText(defaultText);
-        textField.setFont(new Font("Times", Font.BOLD,
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.012)));
         textField.setForeground(Color.lightGray);
         textField.setFocusable(false);
+        setFont();
+    }
+
+    private void setFont() {
+        try {
+            int size = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.015);
+            Font steticaFont = JvGetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
+                    .createMainSteticaFont(Font.BOLD, size);
+            textField.setFont(steticaFont);
+        } catch (IOException | FontFormatException exception) {
+            JvLog.write(JvLog.TypeLog.Error, "steticaFont was not created here.");
+        }
     }
 
     public String getInputText() {
@@ -109,12 +164,10 @@ public class JvTextFieldAuthUI extends JPanel {
         return "";
     }
 
-    public void setErrorBorder() {
-        setBorder(new LineBorder(Color.red, borderSize));
-    }
-
-    public void setNormalBorder() {
-        setBorder(null);
+    public void setErrorBorder(boolean flagActiveBorder) {
+        isErrorBorderActive = flagActiveBorder;
+        revalidate();
+        repaint();
     }
 
     public void setUnfocusFieldOnClose(boolean needSaveText) {

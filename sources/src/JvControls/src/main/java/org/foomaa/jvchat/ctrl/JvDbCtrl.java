@@ -83,7 +83,7 @@ public class JvDbCtrl {
             metadata = resultSet.getMetaData();
             columnCount = metadata.getColumnCount();
         } catch (SQLException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Не возможно получить данные по столбцам и метаданные");
+            JvLog.write(JvLog.TypeLog.Error, "It is not possible to get column data and metadata.");
         }
 
         List<String> result = new ArrayList<>(columnCount);
@@ -95,7 +95,7 @@ public class JvDbCtrl {
                 result.add(resultSet.getString(i));
             }
         } catch (SQLException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Не вышло получить данные по ряду");
+            JvLog.write(JvLog.TypeLog.Error, "It was not possible to obtain data for the series.");
         }
 
         return result;
@@ -107,7 +107,7 @@ public class JvDbCtrl {
         try {
             res = resultSet.next();
         } catch (SQLException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "БД при проверке вернула исключение, что-то не так");
+            JvLog.write(JvLog.TypeLog.Error, "The database returned an exception when checking, something is wrong.");
         }
         return res;
     }
@@ -217,7 +217,7 @@ public class JvDbCtrl {
                         db.closeResultSet(rs);
                         return result;
                     } catch (SQLException exception) {
-                        JvLog.write(JvLog.TypeLog.Error, "Ошибка проверки запроса к БД");
+                        JvLog.write(JvLog.TypeLog.Error, "Error checking database query.");
                     }
                 }
                 return false;
@@ -231,7 +231,7 @@ public class JvDbCtrl {
                         db.closeResultSet(rs);
                         return result;
                     } catch (SQLException exception) {
-                        JvLog.write(JvLog.TypeLog.Error, "Ошибка проверки запроса к БД");
+                        JvLog.write(JvLog.TypeLog.Error, "Error checking database query.");
                     }
                 }
                 return false;
@@ -245,7 +245,7 @@ public class JvDbCtrl {
                         db.closeResultSet(rs);
                         return result;
                     } catch (SQLException exception) {
-                        JvLog.write(JvLog.TypeLog.Error, "Ошибка проверки запроса к БД");
+                        JvLog.write(JvLog.TypeLog.Error, "Error checking database query.");
                     }
                 }
                 return false;
@@ -260,7 +260,7 @@ public class JvDbCtrl {
                         db.closeResultSet(rs);
                         return result;
                     } catch (SQLException exception) {
-                        JvLog.write(JvLog.TypeLog.Error, "Ошибка проверки запроса к БД");
+                        JvLog.write(JvLog.TypeLog.Error, "Error checking database query.");
                     }
                 }
                 return false;
@@ -275,7 +275,7 @@ public class JvDbCtrl {
                         db.closeResultSet(rs);
                         return result;
                     } catch (SQLException exception) {
-                        JvLog.write(JvLog.TypeLog.Error, "Ошибка проверки запроса к БД");
+                        JvLog.write(JvLog.TypeLog.Error, "Error checking database query.");
                     }
                 }
                 return false;
@@ -420,7 +420,7 @@ public class JvDbCtrl {
                 result.add(row);
             }
         } catch (SQLException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Ошибка при работе с ResultSet из БД");
+            JvLog.write(JvLog.TypeLog.Error, "Error when working with ResultSet from the database.");
         }
 
         return result;

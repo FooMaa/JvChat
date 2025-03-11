@@ -119,9 +119,9 @@ public class JvNetworkCtrl {
             JvSocketRunnableCtrl socketRunnableCtrl = (JvSocketRunnableCtrl) socketCtrl.getSocketRunnableCtrl();
 
             if (socketRunnableCtrl != null && socketRunnableCtrl.isErrorsExceedsLimit()) {
-                JvLog.write(JvLog.TypeLog.Warn, "Производим вычистку потока, который не отвечает долгое время");
+                JvLog.write(JvLog.TypeLog.Warn, "We clean up a thread that has not responded for a long time.");
                 socketRunnableCtrlModel.removeItem(socketCtrl);
-                JvLog.write(JvLog.TypeLog.Warn, "Количество активных подключений после вычистки: " +
+                JvLog.write(JvLog.TypeLog.Warn, "Number of active connections after cleaning: " +
                         socketRunnableCtrlModel.getCountConnections());
             }
         }
@@ -129,7 +129,7 @@ public class JvNetworkCtrl {
         try {
             Thread.sleep(milliSecondsSleepAfterOperation);
         } catch (InterruptedException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Здесь не удалось выполнить sleep()");
+            JvLog.write(JvLog.TypeLog.Error, "Sleep() failed to running here.");
         }
     }
 }

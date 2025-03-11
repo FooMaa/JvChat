@@ -22,8 +22,7 @@ public class JvLog {
         Info,
         Warn,
         Error,
-        Trace
-
+        Trace,
     }
 
     public static void write(TypeLog type, String text) {

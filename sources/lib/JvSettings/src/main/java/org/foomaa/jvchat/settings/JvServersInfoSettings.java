@@ -61,7 +61,7 @@ public class JvServersInfoSettings {
 
     // EMAIL
     private final String emailAddress = "jvchat.foomaa@mail.ru";
-    // пароль для внешних приложений https://account.mail.ru/user/2-step-auth/passwords?back_url=https%3A%2F%2Fid.mail.ru%2Fsecurity
+    // To find this password follow the link: https://account.mail.ru/user/2-step-auth/passwords?back_url=https%3A%2F%2Fid.mail.ru%2Fsecurity
     private final String magicStringEmail =  new String(Base64.getDecoder().decode("THhtZ2lUV0gwYW1ISlRyblI0SjM=".getBytes()));
 
     public String getEmailAddress() {

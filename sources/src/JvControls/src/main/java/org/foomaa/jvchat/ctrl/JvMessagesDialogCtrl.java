@@ -84,7 +84,7 @@ public class JvMessagesDialogCtrl {
                             (String) msg.get(JvDefinesMessages.TypeData.Timestamp), normalizeCountTimestamp);
 
             if (timestampMessage == null) {
-                JvLog.write(JvLog.TypeLog.Warn, "Не получилось нормализовать дату и время к нужному формату");
+                JvLog.write(JvLog.TypeLog.Warn, "It was not possible to normalize the date and time to the required format.");
             }
 
             messagesModel.createNewMessage(
@@ -158,7 +158,7 @@ public class JvMessagesDialogCtrl {
 
         Runnable runnableUserCtrl = onlineServersCtrl.getRunnableByUuidUser(messageStructObject.getUuidUserReceiver());
         if (runnableUserCtrl == null) {
-            JvLog.write(JvLog.TypeLog.Error, "Здесь runnableUserCtrl оказался null");
+            JvLog.write(JvLog.TypeLog.Error, "Here runnableUserCtrl turned out to be null.");
             return;
         }
 
@@ -195,7 +195,7 @@ public class JvMessagesDialogCtrl {
 
     public String getTimeFormattedMessage(LocalDateTime timestamp) {
         if (timestamp == null) {
-            JvLog.write(JvLog.TypeLog.Error, "Здесь timestamp оказался null");
+            JvLog.write(JvLog.TypeLog.Error, "Here the timestamp turned out to be null.");
             return "";
         }
 

@@ -5,42 +5,59 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.foomaa.jvchat.globaldefines.JvGetterGlobalDefines;
+import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
 
 public class JvActiveLabelAuthUI extends JLabel {
+    private JvToolTipAuthUI toolTip;
+
     JvActiveLabelAuthUI(String text) {
         setText(text);
-        Font defaultfont = new Font("Times", Font.PLAIN,
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.009));
-        Map<TextAttribute, Object> attributes = new HashMap<>(defaultfont.getAttributes());
-        attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-        setFont(defaultfont.deriveFont(attributes));
-        setForeground(Color.BLUE);
-        addCustomListenerToElem(defaultfont);
+        setFont(false);
+        setForeground(Color.MAGENTA);
+        addCustomListenerToElem();
     }
 
-    private void addCustomListenerToElem(Font defaultFont) {
+    public void setToolTip(String text) {
+        toolTip = JvGetterAuthUIComponents.getInstance().getBeanToolTipAuthUI();
+        createToolTip();
+        setToolTipText(text);
+    }
+
+    @Override
+    public JToolTip createToolTip() {
+        return toolTip;
+    }
+
+    private void setFont(boolean isEnteredMouse) {
+        try {
+            int size = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.011);
+            Font steticaFont = JvGetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
+                    .createMainSteticaFont(isEnteredMouse ? Font.BOLD : Font.PLAIN, size);
+            Map<TextAttribute, Object> attributes = new HashMap<>(steticaFont.getAttributes());
+            attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_LOW_DOTTED);
+            setFont(steticaFont.deriveFont(attributes));
+        } catch (IOException | FontFormatException exception) {
+            JvLog.write(JvLog.TypeLog.Error, "steticaFont not created here.");
+        }
+    }
+
+    private void addCustomListenerToElem() {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                Font font = new Font("Times", Font.BOLD,
-                        JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.009));
-                Map<TextAttribute, Object> attributes = new HashMap<>(font.getAttributes());
-                attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-                setFont(font.deriveFont(attributes));
+                setFont(true);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                Font font = new Font("Times", Font.PLAIN,
-                        JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.009));
-                Map<TextAttribute, Object> attributes = new HashMap<>(font.getAttributes());
-                attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-                setFont(defaultFont.deriveFont(attributes));
+                setFont(false);
             }
         });
     }

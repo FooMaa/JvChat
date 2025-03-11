@@ -5,6 +5,6 @@ import org.foomaa.jvchat.uicomponents.auth.JvGetterAuthUIComponents;
 
 public class JvStartAuthenticationUILink {
     JvStartAuthenticationUILink() {
-        JvGetterAuthUIComponents.getInstance().getBeanEntryFrameAuthUI().openWindow();
+        JvGetterAuthUIComponents.getInstance().getBeanMainFrameAuthUI().openWindow();
     }
 }
