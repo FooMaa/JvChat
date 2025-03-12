@@ -21,6 +21,7 @@ sourceSets.getByName("main") {
     resources.srcDir("../../../res/JvAuthUIComponents/icons/")
     resources.srcDir("../../../res/JvAuthUIComponents/backgrounds/")
     resources.srcDir("../../../res/AllDefaultsRes/icons/")
+    resources.srcDir("../../../res/AllDefaultsRes/gifs/")
 }
 sourceSets.getByName("test") {
     java.srcDir("src/test/java/")

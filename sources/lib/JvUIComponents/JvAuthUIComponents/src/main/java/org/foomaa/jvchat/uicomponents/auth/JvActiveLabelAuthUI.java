@@ -60,5 +60,12 @@ public class JvActiveLabelAuthUI extends JLabel {
                 setFont(false);
             }
         });
+
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                setFont(false);
+            }
+        });
     }
 }

@@ -22,7 +22,11 @@ import org.foomaa.jvchat.settings.JvGetterSettings;
 public class JvMainFrameAuthUI extends JFrame {
     private final JvTitlePanelAuthUI titlePanel;
     private JvDefinesAuthUI.RegimeWorkMainFrame regimeWorkMainFrame;
+    private JPanel backgroundPanel;
     private final String backgroundPath;
+    private final String loadGifPath;
+    private JLabel loadGifLabel;
+    private GridBagConstraints gbcLoadGifLabel;
     @SuppressWarnings({"unused", "FieldCanBeLocal"})
     private UUID uuidSignalCloseWindow;
     @SuppressWarnings({"unused", "FieldCanBeLocal"})
@@ -36,17 +40,17 @@ public class JvMainFrameAuthUI extends JFrame {
     @SuppressWarnings({"unused", "FieldCanBeLocal"})
     private UUID uuidSignalChangeRegimeWorkNewPassword;
 
-    private JPanel backgroundPanel;
-
     JvMainFrameAuthUI() {
         super("EntryFrame");
 
         titlePanel = JvGetterAuthUIComponents.getInstance().getBeanTitlePanelAuthUI();
         regimeWorkMainFrame = JvDefinesAuthUI.RegimeWorkMainFrame.Auth;
         backgroundPath = "/AuthMainBackground.png";
+        loadGifPath = "/Load.gif";
 
         setIconImageFrame("/MainAppIcon.png");
         settingBackgroundPanel();
+        settingLoadLabel();
         setPanelSettings();
         settingMovingTitlePanel();
         addListenerToElements();
@@ -112,69 +116,64 @@ public class JvMainFrameAuthUI extends JFrame {
         getContentPane().add(backgroundPanel);
     }
 
+    private void settingLoadLabel() {
+        loadGifLabel = new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getResource(loadGifPath))));
+        loadGifLabel.setOpaque(false);
+        loadGifLabel.setBackground(new Color(0, 0, 0, 0));
+
+        gbcLoadGifLabel = new GridBagConstraints();
+        gbcLoadGifLabel.gridx = 0;
+        gbcLoadGifLabel.gridy = 0;
+        gbcLoadGifLabel.weightx = 1.0;
+        gbcLoadGifLabel.weighty = 1.0;
+        gbcLoadGifLabel.anchor = GridBagConstraints.CENTER;
+    }
+
+    private void loadingState() {
+        backgroundPanel.setLayout(new GridBagLayout());
+        backgroundPanel.add(loadGifLabel, gbcLoadGifLabel);
+    }
+
     private void setPanelSettings(Object... data) {
         switch (regimeWorkMainFrame) {
             case Auth -> {
-                titlePanel.setTitle("Entry");
-                getContentPane().remove(titlePanel);
-                backgroundPanel.removeAll();
-                getContentPane().add(titlePanel, BorderLayout.NORTH);
-                getRootPane().setDefaultButton(JvGetterAuthUIComponents.getInstance().getBeanEntryPanelAuthUI().getDefaultButton());
-                backgroundPanel.add(JvGetterAuthUIComponents.getInstance().getBeanEntryPanelAuthUI());
-                repaint();
+                JvEntryPanelAuthUI entryPanel = JvGetterAuthUIComponents.getInstance().getBeanEntryPanelAuthUI();
+                updateVisualPanel("Entry", entryPanel.getDefaultButton(), entryPanel);
             }
             case Registration -> {
-                titlePanel.setTitle("Registration");
-                getContentPane().remove(titlePanel);
-                backgroundPanel.removeAll();
-                getContentPane().add(titlePanel, BorderLayout.NORTH);
-                getRootPane().setDefaultButton(JvGetterAuthUIComponents.getInstance().getBeanRegistrationPanelAuthUI().getDefaultButton());
-                backgroundPanel.add(JvGetterAuthUIComponents.getInstance().getBeanRegistrationPanelAuthUI());
-                repaint();
+                JvRegistrationPanelAuthUI registrationPanel = JvGetterAuthUIComponents.getInstance().getBeanRegistrationPanelAuthUI();
+                updateVisualPanel("Registration", registrationPanel.getDefaultButton(), registrationPanel);
             }
             case VerifyCodeRegistration -> {
-                titlePanel.setTitle("Verify code");
-                getContentPane().remove(titlePanel);
-                backgroundPanel.removeAll();
-                getContentPane().add(titlePanel, BorderLayout.NORTH);
                 JvVerifyCodePanelAuthUI verifyCodePanel = JvGetterAuthUIComponents.getInstance().getBeanVerifyCodePanelAuthUI();
-                getRootPane().setDefaultButton(verifyCodePanel.getDefaultButton());
+                updateVisualPanel("Verify code", verifyCodePanel.getDefaultButton(), verifyCodePanel);
                 verifyCodePanel.setParametersRegistration((String) data[1], (String) data[2], (String) data[3]);
-                backgroundPanel.add(verifyCodePanel);
-                repaint();
             }
             case VerifyCodeResetPassword -> {
-                titlePanel.setTitle("Verify code");
-                getContentPane().remove(titlePanel);
-                backgroundPanel.removeAll();
-                getContentPane().add(titlePanel, BorderLayout.NORTH);
                 JvVerifyCodePanelAuthUI verifyCodePanel = JvGetterAuthUIComponents.getInstance().getBeanVerifyCodePanelAuthUI();
-                getRootPane().setDefaultButton(verifyCodePanel.getDefaultButton());
+                updateVisualPanel("Verify code", verifyCodePanel.getDefaultButton(), verifyCodePanel);
                 verifyCodePanel.setParametersResetPassword((String) data[1]);
-                backgroundPanel.add(verifyCodePanel);
-                repaint();
             }
             case ResetPassword -> {
-                titlePanel.setTitle("Reset password");
-                getContentPane().remove(titlePanel);
-                backgroundPanel.removeAll();
-                getContentPane().add(titlePanel, BorderLayout.NORTH);
-                getRootPane().setDefaultButton(JvGetterAuthUIComponents.getInstance().getBeanResetPasswordPanelAuthUI().getDefaultButton());
-                backgroundPanel.add(JvGetterAuthUIComponents.getInstance().getBeanResetPasswordPanelAuthUI());
-                repaint();
+                JvResetPasswordPanelAuthUI resetPasswordPanel = JvGetterAuthUIComponents.getInstance().getBeanResetPasswordPanelAuthUI();
+                updateVisualPanel("Reset password", resetPasswordPanel.getDefaultButton(), resetPasswordPanel);
             }
             case NewPassword -> {
-                titlePanel.setTitle("New password");
-                getContentPane().remove(titlePanel);
-                backgroundPanel.removeAll();
-                getContentPane().add(titlePanel, BorderLayout.NORTH);
                 JvNewPasswordPanelAuthUI newPasswordPanel = JvGetterAuthUIComponents.getInstance().getBeanNewPasswordPanelAuthUI();
-                getRootPane().setDefaultButton(newPasswordPanel.getDefaultButton());
+                updateVisualPanel("New password", newPasswordPanel.getDefaultButton(), newPasswordPanel);
                 newPasswordPanel.setEmail((String) data[1]);
-                backgroundPanel.add(newPasswordPanel);
-                repaint();
             }
         }
+    }
+
+    private void updateVisualPanel(String textTitle, JvButtonAuthUI defaultButton, JPanel newPanel) {
+        titlePanel.setTitle(textTitle);
+        getContentPane().remove(titlePanel);
+        backgroundPanel.removeAll();
+        getContentPane().add(titlePanel, BorderLayout.NORTH);
+        getRootPane().setDefaultButton(defaultButton);
+        backgroundPanel.add(newPanel);
+        repaint();
     }
 
     private void setIconImageFrame(String path) {

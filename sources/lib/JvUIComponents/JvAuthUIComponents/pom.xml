@@ -23,6 +23,9 @@
                 <directory>../../../res/AllDefaultsRes/icons/</directory>
             </resource>
             <resource>
+                <directory>../../../res/AllDefaultsRes/gifs/</directory>
+            </resource>
+            <resource>
                 <directory>../../../res/JvAuthUIComponents/backgrounds/</directory>
             </resource>
         </resources>
