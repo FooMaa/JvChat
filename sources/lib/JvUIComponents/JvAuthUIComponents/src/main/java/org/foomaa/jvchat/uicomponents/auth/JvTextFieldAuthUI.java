@@ -1,6 +1,7 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
 import javax.swing.*;
+import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
@@ -136,6 +137,22 @@ public class JvTextFieldAuthUI extends JPanel {
                 return toolTip;
             }
         };
+
+        // Setting up the cursor so that it does not overlap the text
+        DefaultCaret caret = new DefaultCaret() {
+            @Override
+            public void paint(Graphics g) {
+                if (isVisible()) {
+                    Graphics2D g2d = (Graphics2D) g.create();
+                    g2d.translate(3, 0);
+                    super.paint(g2d);
+                    g2d.dispose();
+                }
+            }
+        };
+        caret.setBlinkRate(750);
+        textField.setCaret(caret);
+
         Dimension calcNewDim = new Dimension((int) dim.getWidth(),
                 (int) dim.getHeight() - borderSize * 2);
         textField.setPreferredSize(calcNewDim);
