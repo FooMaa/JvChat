@@ -130,37 +130,40 @@ public class JvMainFrameAuthUI extends JFrame {
     }
 
     private void loadingState() {
+        backgroundPanel.removeAll();
         backgroundPanel.setLayout(new GridBagLayout());
         backgroundPanel.add(loadGifLabel, gbcLoadGifLabel);
+        revalidate();
+        repaint();
     }
 
     private void setPanelSettings(Object... data) {
         switch (regimeWorkMainFrame) {
             case Auth -> {
                 JvEntryPanelAuthUI entryPanel = JvGetterAuthUIComponents.getInstance().getBeanEntryPanelAuthUI();
-                updateVisualPanel("Entry", entryPanel.getDefaultButton(), entryPanel);
+                loadGifStart("Entry", entryPanel.getDefaultButton(), entryPanel);
             }
             case Registration -> {
                 JvRegistrationPanelAuthUI registrationPanel = JvGetterAuthUIComponents.getInstance().getBeanRegistrationPanelAuthUI();
-                updateVisualPanel("Registration", registrationPanel.getDefaultButton(), registrationPanel);
+                loadGifStart("Registration", registrationPanel.getDefaultButton(), registrationPanel);
             }
             case VerifyCodeRegistration -> {
                 JvVerifyCodePanelAuthUI verifyCodePanel = JvGetterAuthUIComponents.getInstance().getBeanVerifyCodePanelAuthUI();
-                updateVisualPanel("Verify code", verifyCodePanel.getDefaultButton(), verifyCodePanel);
+                loadGifStart("Verify code", verifyCodePanel.getDefaultButton(), verifyCodePanel);
                 verifyCodePanel.setParametersRegistration((String) data[1], (String) data[2], (String) data[3]);
             }
             case VerifyCodeResetPassword -> {
                 JvVerifyCodePanelAuthUI verifyCodePanel = JvGetterAuthUIComponents.getInstance().getBeanVerifyCodePanelAuthUI();
-                updateVisualPanel("Verify code", verifyCodePanel.getDefaultButton(), verifyCodePanel);
+                loadGifStart("Verify code", verifyCodePanel.getDefaultButton(), verifyCodePanel);
                 verifyCodePanel.setParametersResetPassword((String) data[1]);
             }
             case ResetPassword -> {
                 JvResetPasswordPanelAuthUI resetPasswordPanel = JvGetterAuthUIComponents.getInstance().getBeanResetPasswordPanelAuthUI();
-                updateVisualPanel("Reset password", resetPasswordPanel.getDefaultButton(), resetPasswordPanel);
+                loadGifStart("Reset password", resetPasswordPanel.getDefaultButton(), resetPasswordPanel);
             }
             case NewPassword -> {
                 JvNewPasswordPanelAuthUI newPasswordPanel = JvGetterAuthUIComponents.getInstance().getBeanNewPasswordPanelAuthUI();
-                updateVisualPanel("New password", newPasswordPanel.getDefaultButton(), newPasswordPanel);
+                loadGifStart("New password", newPasswordPanel.getDefaultButton(), newPasswordPanel);
                 newPasswordPanel.setEmail((String) data[1]);
             }
         }
@@ -173,7 +176,16 @@ public class JvMainFrameAuthUI extends JFrame {
         getContentPane().add(titlePanel, BorderLayout.NORTH);
         getRootPane().setDefaultButton(defaultButton);
         backgroundPanel.add(newPanel);
+        revalidate();
         repaint();
+    }
+
+    private void loadGifStart(String textTitle, JvButtonAuthUI defaultButton, JPanel newPanel) {
+        Timer timerLoadGif = new Timer(1000,
+                actionEvent -> updateVisualPanel(textTitle, defaultButton, newPanel));
+        timerLoadGif.setRepeats(false);
+        loadingState();
+        timerLoadGif.start();
     }
 
     private void setIconImageFrame(String path) {
