@@ -116,27 +116,6 @@ public class JvMainFrameAuthUI extends JFrame {
         getContentPane().add(backgroundPanel);
     }
 
-    private void settingLoadLabel() {
-        loadGifLabel = new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getResource(loadGifPath))));
-        loadGifLabel.setOpaque(false);
-        loadGifLabel.setBackground(new Color(0, 0, 0, 0));
-
-        gbcLoadGifLabel = new GridBagConstraints();
-        gbcLoadGifLabel.gridx = 0;
-        gbcLoadGifLabel.gridy = 0;
-        gbcLoadGifLabel.weightx = 1.0;
-        gbcLoadGifLabel.weighty = 1.0;
-        gbcLoadGifLabel.anchor = GridBagConstraints.CENTER;
-    }
-
-    private void loadingState() {
-        backgroundPanel.removeAll();
-        backgroundPanel.setLayout(new GridBagLayout());
-        backgroundPanel.add(loadGifLabel, gbcLoadGifLabel);
-        revalidate();
-        repaint();
-    }
-
     private void setPanelSettings(Object... data) {
         switch (regimeWorkMainFrame) {
             case Auth -> {
@@ -173,9 +152,11 @@ public class JvMainFrameAuthUI extends JFrame {
         titlePanel.setTitle(textTitle);
         getContentPane().remove(titlePanel);
         backgroundPanel.removeAll();
+
         getContentPane().add(titlePanel, BorderLayout.NORTH);
         getRootPane().setDefaultButton(defaultButton);
         backgroundPanel.add(newPanel);
+
         revalidate();
         repaint();
     }
@@ -184,8 +165,36 @@ public class JvMainFrameAuthUI extends JFrame {
         Timer timerLoadGif = new Timer(1000,
                 actionEvent -> updateVisualPanel(textTitle, defaultButton, newPanel));
         timerLoadGif.setRepeats(false);
+
         loadingState();
+
         timerLoadGif.start();
+    }
+
+    private void settingLoadLabel() {
+        loadGifLabel = new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getResource(loadGifPath))));
+        loadGifLabel.setOpaque(false);
+        loadGifLabel.setBackground(new Color(0, 0, 0, 0));
+
+        gbcLoadGifLabel = new GridBagConstraints();
+        gbcLoadGifLabel.gridx = 0;
+        gbcLoadGifLabel.gridy = 0;
+        gbcLoadGifLabel.weightx = 1.0;
+        gbcLoadGifLabel.weighty = 1.0;
+        gbcLoadGifLabel.anchor = GridBagConstraints.CENTER;
+    }
+
+    private void loadingState() {
+        titlePanel.setTitle("Loading");
+        getContentPane().remove(titlePanel);
+        backgroundPanel.removeAll();
+        getContentPane().add(titlePanel, BorderLayout.NORTH);
+
+        backgroundPanel.setLayout(new GridBagLayout());
+        backgroundPanel.add(loadGifLabel, gbcLoadGifLabel);
+
+        revalidate();
+        repaint();
     }
 
     private void setIconImageFrame(String path) {

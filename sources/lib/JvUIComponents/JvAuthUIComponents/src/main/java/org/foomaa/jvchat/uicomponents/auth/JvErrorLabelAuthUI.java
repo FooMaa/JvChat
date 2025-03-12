@@ -12,7 +12,12 @@ import org.foomaa.jvchat.settings.JvGetterSettings;
 
 
 public class JvErrorLabelAuthUI extends JLabel {
+    private final Timer timerVisible;
+
     JvErrorLabelAuthUI(String text) {
+        timerVisible = new Timer(5000, actionEvent -> setText(""));
+        timerVisible.setRepeats(false);
+
         setText(text);
         setFont(new Font("Times", Font.PLAIN,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017)));
@@ -45,8 +50,7 @@ public class JvErrorLabelAuthUI extends JLabel {
     private void addErrorListener() {
         addPropertyChangeListener("text",propertyChangeEvent -> {
             if (!Objects.equals(getText(), "")) {
-                Timer timer = new Timer(5000, actionEvent -> setText(""));
-                timer.start();
+                timerVisible.restart();
             }
         });
     }
