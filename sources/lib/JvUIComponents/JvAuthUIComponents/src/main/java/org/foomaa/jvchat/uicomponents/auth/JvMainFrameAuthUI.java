@@ -22,6 +22,7 @@ import org.foomaa.jvchat.settings.JvGetterSettings;
 public class JvMainFrameAuthUI extends JFrame {
     private final JvTitlePanelAuthUI titlePanel;
     private JvDefinesAuthUI.RegimeWorkMainFrame regimeWorkMainFrame;
+    private final String backgroundPath;
     @SuppressWarnings({"unused", "FieldCanBeLocal"})
     private UUID uuidSignalCloseWindow;
     @SuppressWarnings({"unused", "FieldCanBeLocal"})
@@ -35,13 +36,17 @@ public class JvMainFrameAuthUI extends JFrame {
     @SuppressWarnings({"unused", "FieldCanBeLocal"})
     private UUID uuidSignalChangeRegimeWorkNewPassword;
 
+    private JPanel backgroundPanel;
+
     JvMainFrameAuthUI() {
         super("EntryFrame");
 
         titlePanel = JvGetterAuthUIComponents.getInstance().getBeanTitlePanelAuthUI();
         regimeWorkMainFrame = JvDefinesAuthUI.RegimeWorkMainFrame.Auth;
+        backgroundPath = "/AuthMainBackground.png";
 
         setIconImageFrame("/MainAppIcon.png");
+        settingBackgroundPanel();
         setPanelSettings();
         settingMovingTitlePanel();
         addListenerToElements();
@@ -88,60 +93,85 @@ public class JvMainFrameAuthUI extends JFrame {
                         JvGetterAuthUIComponents.getInstance().getContext());
     }
 
+    private void settingBackgroundPanel() {
+        backgroundPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g) ;
+
+                Image img = null;
+                try {
+                    img = ImageIO.read(Objects.requireNonNull(getClass().getResource(backgroundPath)));
+                } catch (IOException e) {
+                    e.getStackTrace();
+                }
+
+                g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+        getContentPane().add(backgroundPanel);
+    }
+
     private void setPanelSettings(Object... data) {
         switch (regimeWorkMainFrame) {
             case Auth -> {
                 titlePanel.setTitle("Entry");
-                getContentPane().removeAll();
+                getContentPane().remove(titlePanel);
+                backgroundPanel.removeAll();
                 getContentPane().add(titlePanel, BorderLayout.NORTH);
                 getRootPane().setDefaultButton(JvGetterAuthUIComponents.getInstance().getBeanEntryPanelAuthUI().getDefaultButton());
-                getContentPane().add(JvGetterAuthUIComponents.getInstance().getBeanEntryPanelAuthUI());
+                backgroundPanel.add(JvGetterAuthUIComponents.getInstance().getBeanEntryPanelAuthUI());
                 repaint();
             }
             case Registration -> {
                 titlePanel.setTitle("Registration");
-                getContentPane().removeAll();
+                getContentPane().remove(titlePanel);
+                backgroundPanel.removeAll();
                 getContentPane().add(titlePanel, BorderLayout.NORTH);
                 getRootPane().setDefaultButton(JvGetterAuthUIComponents.getInstance().getBeanRegistrationPanelAuthUI().getDefaultButton());
-                getContentPane().add(JvGetterAuthUIComponents.getInstance().getBeanRegistrationPanelAuthUI());
+                backgroundPanel.add(JvGetterAuthUIComponents.getInstance().getBeanRegistrationPanelAuthUI());
                 repaint();
             }
             case VerifyCodeRegistration -> {
                 titlePanel.setTitle("Verify code");
-                getContentPane().removeAll();
+                getContentPane().remove(titlePanel);
+                backgroundPanel.removeAll();
                 getContentPane().add(titlePanel, BorderLayout.NORTH);
                 JvVerifyCodePanelAuthUI verifyCodePanel = JvGetterAuthUIComponents.getInstance().getBeanVerifyCodePanelAuthUI();
                 getRootPane().setDefaultButton(verifyCodePanel.getDefaultButton());
                 verifyCodePanel.setParametersRegistration((String) data[1], (String) data[2], (String) data[3]);
-                getContentPane().add(verifyCodePanel);
+                backgroundPanel.add(verifyCodePanel);
                 repaint();
             }
             case VerifyCodeResetPassword -> {
                 titlePanel.setTitle("Verify code");
-                getContentPane().removeAll();
+                getContentPane().remove(titlePanel);
+                backgroundPanel.removeAll();
                 getContentPane().add(titlePanel, BorderLayout.NORTH);
                 JvVerifyCodePanelAuthUI verifyCodePanel = JvGetterAuthUIComponents.getInstance().getBeanVerifyCodePanelAuthUI();
                 getRootPane().setDefaultButton(verifyCodePanel.getDefaultButton());
                 verifyCodePanel.setParametersResetPassword((String) data[1]);
-                getContentPane().add(verifyCodePanel);
+                backgroundPanel.add(verifyCodePanel);
                 repaint();
             }
             case ResetPassword -> {
                 titlePanel.setTitle("Reset password");
-                getContentPane().removeAll();
+                getContentPane().remove(titlePanel);
+                backgroundPanel.removeAll();
                 getContentPane().add(titlePanel, BorderLayout.NORTH);
                 getRootPane().setDefaultButton(JvGetterAuthUIComponents.getInstance().getBeanResetPasswordPanelAuthUI().getDefaultButton());
-                getContentPane().add(JvGetterAuthUIComponents.getInstance().getBeanResetPasswordPanelAuthUI());
+                backgroundPanel.add(JvGetterAuthUIComponents.getInstance().getBeanResetPasswordPanelAuthUI());
                 repaint();
             }
             case NewPassword -> {
                 titlePanel.setTitle("New password");
-                getContentPane().removeAll();
+                getContentPane().remove(titlePanel);
+                backgroundPanel.removeAll();
                 getContentPane().add(titlePanel, BorderLayout.NORTH);
                 JvNewPasswordPanelAuthUI newPasswordPanel = JvGetterAuthUIComponents.getInstance().getBeanNewPasswordPanelAuthUI();
                 getRootPane().setDefaultButton(newPasswordPanel.getDefaultButton());
                 newPasswordPanel.setEmail((String) data[1]);
-                getContentPane().add(newPasswordPanel);
+                backgroundPanel.add(newPasswordPanel);
                 repaint();
             }
         }

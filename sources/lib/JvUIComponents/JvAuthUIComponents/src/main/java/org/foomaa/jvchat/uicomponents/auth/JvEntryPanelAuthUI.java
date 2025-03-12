@@ -1,10 +1,8 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.Vector;
@@ -27,20 +25,19 @@ public class JvEntryPanelAuthUI extends JPanel {
     private final JvButtonAuthUI bEnter;
     private final JvActiveLabelAuthUI activeRegisterLabel;
     private final JvActiveLabelAuthUI activeMissLabel;
-    private final String backgroundPath;
 
     JvEntryPanelAuthUI() {
         tLogin = JvGetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Login");
         tErrorHelpInfo = JvGetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
         tPassword = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Password");
-        bEnter = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("NEXT");
+        bEnter = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("Next");
         activeMissLabel = JvGetterAuthUIComponents.getInstance().getBeanActiveLabelAuthUI("Reset password");
         activeRegisterLabel = JvGetterAuthUIComponents.getInstance().getBeanActiveLabelAuthUI("Registration");
-        backgroundPath = "/AuthMainBackground.png";
 
         settingComponents();
         makePanelSetting();
         addListenerToElements();
+        makePanelTransparent();
     }
 
     private void settingComponents() {
@@ -53,23 +50,9 @@ public class JvEntryPanelAuthUI extends JPanel {
         activeRegisterLabel.setToolTip("To registration form");
     }
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-
-        Image img = null;
-        try {
-            img = ImageIO.read(Objects.requireNonNull(getClass().getResource(backgroundPath)));
-        } catch (IOException e) {
-            e.getStackTrace();
-        }
-
-        if (img == null) {
-            JvLog.write(JvLog.TypeLog.Error, "Here img turned out to be equal to null.");
-            return;
-        }
-
-        g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+    private void makePanelTransparent() {
+        setOpaque(false);
+        setBackground(new Color(0, 0, 0, 0));
     }
 
     private void makePanelSetting() {

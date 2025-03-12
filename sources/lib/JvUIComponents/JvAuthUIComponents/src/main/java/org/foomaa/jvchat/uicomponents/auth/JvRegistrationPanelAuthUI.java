@@ -1,9 +1,7 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 import java.util.Objects;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
@@ -26,7 +24,6 @@ public class JvRegistrationPanelAuthUI extends JPanel {
     private final JvPasswordFieldAuthUI tPasswordConfirm;
     private final JvButtonAuthUI bRegister;
     private final JvButtonAuthUI bBack;
-    private final String backgroundPath;
 
     JvRegistrationPanelAuthUI() {
         tLogin = JvGetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Login");
@@ -36,11 +33,11 @@ public class JvRegistrationPanelAuthUI extends JPanel {
         tPasswordConfirm = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Confirm password");
         bRegister = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("Next");
         bBack = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("Back");
-        backgroundPath = "/AuthMainBackground.png";
 
         settingComponents();
         makePanelSetting();
         addListenerToElements();
+        makePanelTransparent();
     }
 
     private void settingComponents() {
@@ -54,23 +51,9 @@ public class JvRegistrationPanelAuthUI extends JPanel {
         tEmail.setToolTip("To set email");
     }
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-
-        Image img = null;
-        try {
-            img = ImageIO.read(Objects.requireNonNull(getClass().getResource(backgroundPath)));
-        } catch (IOException e) {
-            e.getStackTrace();
-        }
-
-        if (img == null) {
-            JvLog.write(JvLog.TypeLog.Error, "Here img turned out to be equal to null.");
-            return;
-        }
-
-        g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+    private void makePanelTransparent() {
+        setOpaque(false);
+        setBackground(new Color(0, 0, 0, 0));
     }
 
     private void makePanelSetting() {
@@ -157,9 +140,7 @@ public class JvRegistrationPanelAuthUI extends JPanel {
             }
         });
 
-        bBack.addActionListener(event -> {
-            changeRegimeBack();
-        });
+        bBack.addActionListener(event -> changeRegimeBack());
     }
 
     private boolean checkFields() {

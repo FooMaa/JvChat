@@ -1,9 +1,7 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -22,7 +20,6 @@ public class JvResetPasswordPanelAuthUI extends JPanel {
     private final JvErrorLabelAuthUI tErrorHelpInfo;
     private final JvButtonAuthUI bSet;
     private final JvButtonAuthUI bBack;
-    private final String backgroundPath;
 
     JvResetPasswordPanelAuthUI() {
         tEmail = JvGetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Почта");
@@ -30,11 +27,11 @@ public class JvResetPasswordPanelAuthUI extends JPanel {
         tErrorHelpInfo.settingToError();
         bSet = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("Send");
         bBack = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("Back");
-        backgroundPath = "/AuthMainBackground.png";
 
         settingComponents();
         makePanelSetting();
         addListenerToElements();
+        makePanelTransparent();
     }
 
     private void settingComponents() {
@@ -45,23 +42,9 @@ public class JvResetPasswordPanelAuthUI extends JPanel {
         bBack.setToolTip("To go back");
     }
 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-
-        Image img = null;
-        try {
-            img = ImageIO.read(Objects.requireNonNull(getClass().getResource(backgroundPath)));
-        } catch (IOException e) {
-            e.getStackTrace();
-        }
-
-        if (img == null) {
-            JvLog.write(JvLog.TypeLog.Error, "Here img turned out to be equal to null.");
-            return;
-        }
-
-        g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+    private void makePanelTransparent() {
+        setOpaque(false);
+        setBackground(new Color(0, 0, 0, 0));
     }
 
     private void makePanelSetting() {
@@ -128,9 +111,7 @@ public class JvResetPasswordPanelAuthUI extends JPanel {
             }
         });
 
-        bBack.addActionListener(event -> {
-            changeRegimeBack();
-        });
+        bBack.addActionListener(event -> changeRegimeBack());
     }
 
     private boolean checkFields() {
