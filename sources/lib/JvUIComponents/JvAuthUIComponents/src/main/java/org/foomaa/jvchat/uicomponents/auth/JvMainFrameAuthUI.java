@@ -162,8 +162,7 @@ public class JvMainFrameAuthUI extends JFrame {
     }
 
     private void loadGifStart(String textTitle, JvButtonAuthUI defaultButton, JPanel newPanel) {
-        Timer timerLoadGif = new Timer(1000,
-                actionEvent -> updateVisualPanel(textTitle, defaultButton, newPanel));
+        Timer timerLoadGif = new Timer(1000, actionEvent -> updateVisualPanel(textTitle, defaultButton, newPanel));
         timerLoadGif.setRepeats(false);
 
         loadingState();
