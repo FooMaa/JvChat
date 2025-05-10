@@ -12,12 +12,15 @@ class JvMainChatUIComponentsSpringConfig {
         BeanMainFrameMainChatUI("beanMainFrameMainChatUI"),
         BeanScrollPanelChatsMainChatUI("beanScrollPanelChatsMainChatUI"),
         BeanScrollPanelMessagesMainChatUI("beanScrollPanelMessagesMainChatUI"),
+        BeanTitlePanelMainChatUI("beanTitlePanelMainChatUI"),
+        BeanMainPanelMainChatUI("beanMainPanelMainChatUI"),
         BeanRectMessageMainChatUI("beanRectMessageMainChatUI"),
         BeanRectChatMainChatUI("beanRectChatMainChatUI"),
         BeanSendButtonMainChatUI("beanSendButtonMainChatUI"),
         BeanSendingTextAreaScrollMainChatUI("beanSendingTextAreaScrollMainChatUI"),
         BeanPanelSendingMessageMainChatUI("beanPanelSendingMessageMainChatUI"),
-        BeanFindTextFieldMainChatUI("beanFindTextFieldMainChatUI");
+        BeanFindTextFieldMainChatUI("beanFindTextFieldMainChatUI"),
+        BeanToolTipMainChatUI("beanToolTipMainChatUI");
 
         private final String value;
 
@@ -52,6 +55,22 @@ class JvMainChatUIComponentsSpringConfig {
     @SuppressWarnings("unused")
     public JvScrollPanelMessagesMainChatUI beanScrollPanelMessagesMainChatUI() {
         return new JvScrollPanelMessagesMainChatUI();
+    }
+
+    @Bean(name = "beanTitlePanelMainChatUI")
+    @Lazy
+    @Scope("singleton")
+    @SuppressWarnings("unused")
+    public JvTitlePanelMainChatUI beanTitlePanelMainChatUI() {
+        return new JvTitlePanelMainChatUI();
+    }
+
+    @Bean(name = "beanMainPanelMainChatUI")
+    @Lazy
+    @Scope("singleton")
+    @SuppressWarnings("unused")
+    public JvMainPanelMainChatUI beanMainPanelMainChatUI() {
+        return new JvMainPanelMainChatUI();
     }
 
     @Bean(name = "beanRectMessageMainChatUI")
@@ -100,5 +119,13 @@ class JvMainChatUIComponentsSpringConfig {
     @SuppressWarnings("unused")
     public JvFindTextFieldMainChatUI beanFindTextFieldMainChatUI(String text) {
         return new JvFindTextFieldMainChatUI(text);
+    }
+
+    @Bean(name = "beanToolTipMainChatUI")
+    @Lazy
+    @Scope("prototype")
+    @SuppressWarnings("unused")
+    public JvToolTipMainChatUI beanToolTipMainChatUI() {
+        return new JvToolTipMainChatUI();
     }
 }

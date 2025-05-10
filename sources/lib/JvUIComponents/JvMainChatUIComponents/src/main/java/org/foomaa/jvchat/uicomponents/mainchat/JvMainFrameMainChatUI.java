@@ -3,6 +3,9 @@ package org.foomaa.jvchat.uicomponents.mainchat;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.geom.RoundRectangle2D;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -11,23 +14,90 @@ import org.foomaa.jvchat.settings.JvGetterSettings;
 
 
 public class JvMainFrameMainChatUI extends JFrame {
-    private final JvScrollPanelChatsMainChatUI scrollPanelChats;
-    private final JvScrollPanelMessagesMainChatUI scrollPanelMessages;
-    private final JvPanelSendingMessageMainChatUI panelSendingMessage;
-    private final JvFindTextFieldMainChatUI findTextField;
+    private final String backgroundPath;
+    private final String loadGifPath;
+    private JPanel backgroundPanel;
+    private JLabel loadGifLabel;
+    private final JvTitlePanelMainChatUI titlePanel;
+    private final JvMainPanelMainChatUI mainPanel;
 
     JvMainFrameMainChatUI() {
         super("MainChatWindow");
 
-        scrollPanelChats = JvGetterMainChatUIComponents.getInstance().getBeanScrollPanelChatsMainChatUI();
-        scrollPanelMessages = JvGetterMainChatUIComponents.getInstance().getBeanScrollPanelMessagesMainChatUI();
-        panelSendingMessage = JvGetterMainChatUIComponents.getInstance().getBeanPanelSendingMessageMainChatUI();
-        findTextField = JvGetterMainChatUIComponents.getInstance().getBeanFindTextFieldMainChatUI("Поиск по логину");
+        mainPanel = JvGetterMainChatUIComponents.getInstance().getBeanMainPanelMainChatUI();
+        titlePanel = JvGetterMainChatUIComponents.getInstance().getBeanTitlePanelMainChatUI();
+        backgroundPath = "/AuthMainBackground.png";
+        loadGifPath = "/Load.gif";
 
         setIconImageFrame("/MainAppIcon.png");
+        settingBackgroundPanel();
+        settingLoadLabel();
+        loadGifStart();
+        settingMovingTitlePanel();
         addGeneralSettingsToWidget();
-        makeFrameSetting();
         addListenerToElements();
+    }
+
+    private void settingBackgroundPanel() {
+        backgroundPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g) ;
+
+                Image img = null;
+                try {
+                    img = ImageIO.read(Objects.requireNonNull(getClass().getResource(backgroundPath)));
+                } catch (IOException e) {
+                    e.getStackTrace();
+                }
+
+                g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+
+        getContentPane().add(backgroundPanel);
+    }
+
+    private void settingLoadLabel() {
+        loadGifLabel = new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getResource(loadGifPath))));
+        loadGifLabel.setOpaque(false);
+        loadGifLabel.setBackground(new Color(0, 0, 0, 0));
+    }
+
+    private void updateVisualPanel() {
+        titlePanel.setTitle("JvChat");
+        getContentPane().remove(titlePanel);
+        backgroundPanel.removeAll();
+
+        getContentPane().add(titlePanel, BorderLayout.NORTH);
+
+        backgroundPanel.setLayout(new BorderLayout());
+        backgroundPanel.add(mainPanel, BorderLayout.CENTER);
+
+        revalidate();
+        repaint();
+    }
+
+    private void loadGifStart() {
+        Timer timerLoadGif = new Timer(1000, actionEvent -> updateVisualPanel());
+        timerLoadGif.setRepeats(false);
+
+        loadingState();
+
+        timerLoadGif.start();
+    }
+
+    private void loadingState() {
+        titlePanel.setTitle("Loading");
+        getContentPane().remove(titlePanel);
+        backgroundPanel.removeAll();
+        getContentPane().add(titlePanel, BorderLayout.NORTH);
+
+        backgroundPanel.setLayout(new BorderLayout());
+        backgroundPanel.add(loadGifLabel, BorderLayout.CENTER);
+
+        revalidate();
+        repaint();
     }
 
     private void setIconImageFrame(String path) {
@@ -40,8 +110,8 @@ public class JvMainFrameMainChatUI extends JFrame {
     }
 
     private void addGeneralSettingsToWidget() {
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("Главное окно");
+        setUndecorated(true);
+        pack();
 
         setSize(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.585,
                         JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
@@ -56,58 +126,65 @@ public class JvMainFrameMainChatUI extends JFrame {
         setResizable(true);
         setLocationRelativeTo(null);
         toFront();
+
+        setShape(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 15, 15));
+
         setVisible(true);
         requestFocus();
     }
 
-    private void makeFrameSetting() {
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
+    private void addListenerToElements() {
+        titlePanel.getCloseButton().addActionListener(event -> {
+            closeWindow();
+            System.exit(0);
+        });
 
-        int gridxNum = 0;
-
-        gbc.weightx = 1.0;
-        gbc.weighty = 0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.NORTH;
-        gbc.gridx = gridxNum;
-        panel.add(findTextField, gbc);
-
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
-        gbc.gridheight = 5;
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.gridx = gridxNum;
-        panel.add(scrollPanelChats, gbc);
-        gridxNum++;
-
-        double ratioMessagePart = 0.8;
-        int sizeYMsg = (int) Math.floor(getHeight() * ratioMessagePart);
-        int sizeYPanelSending = getHeight() - sizeYMsg;
-
-        gbc.weightx = 1.25;
-        gbc.weighty = 1.0;
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.gridx = gridxNum;
-        gbc.ipady = sizeYMsg;
-        panel.add(scrollPanelMessages, gbc);
-
-        gbc.weightx = 1.25;
-        gbc.weighty = 0;
-        gbc.ipady = sizeYPanelSending;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.anchor = GridBagConstraints.PAGE_END;
-        gbc.gridx = gridxNum;
-        panel.add(panelSendingMessage, gbc);
-
-        getContentPane().add(panel);
+        titlePanel.getMinimizeButton().addActionListener(event -> minimizeWindow());
     }
 
     public void openWindow() {
         setVisible(true);
     }
 
-    private void addListenerToElements() {
+    public void closeWindow() {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(false);
+    }
+
+    private void minimizeWindow() {
+        setState(Frame.ICONIFIED);
+    }
+
+    private void settingMovingTitlePanel() {
+        final Point[] initialClick = new Point[1];
+
+        titlePanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                initialClick[0] = e.getPoint();
+                getComponentAt(initialClick[0]);
+                titlePanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                titlePanel.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            }
+        });
+
+        titlePanel.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                titlePanel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+                int thisX = getLocation().x;
+                int thisY = getLocation().y;
+
+                int xMoved = (thisX + e.getX()) - (thisX + initialClick[0].x);
+                int yMoved = (thisY + e.getY()) - (thisY + initialClick[0].y);
+
+                setLocation(thisX + xMoved, thisY + yMoved);
+            }
+        });
     }
 }

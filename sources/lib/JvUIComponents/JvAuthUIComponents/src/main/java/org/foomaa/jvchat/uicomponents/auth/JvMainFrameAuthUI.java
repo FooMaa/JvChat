@@ -26,7 +26,6 @@ public class JvMainFrameAuthUI extends JFrame {
     private final String backgroundPath;
     private final String loadGifPath;
     private JLabel loadGifLabel;
-    private GridBagConstraints gbcLoadGifLabel;
     @SuppressWarnings({"unused", "FieldCanBeLocal"})
     private UUID uuidSignalCloseWindow;
     @SuppressWarnings({"unused", "FieldCanBeLocal"})
@@ -155,7 +154,10 @@ public class JvMainFrameAuthUI extends JFrame {
 
         getContentPane().add(titlePanel, BorderLayout.NORTH);
         getRootPane().setDefaultButton(defaultButton);
-        backgroundPanel.add(newPanel);
+
+        //backgroundPanel.add(newPanel);
+        backgroundPanel.setLayout(new BorderLayout());
+        backgroundPanel.add(newPanel, BorderLayout.CENTER);
 
         revalidate();
         repaint();
@@ -174,13 +176,6 @@ public class JvMainFrameAuthUI extends JFrame {
         loadGifLabel = new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getResource(loadGifPath))));
         loadGifLabel.setOpaque(false);
         loadGifLabel.setBackground(new Color(0, 0, 0, 0));
-
-        gbcLoadGifLabel = new GridBagConstraints();
-        gbcLoadGifLabel.gridx = 0;
-        gbcLoadGifLabel.gridy = 0;
-        gbcLoadGifLabel.weightx = 1.0;
-        gbcLoadGifLabel.weighty = 1.0;
-        gbcLoadGifLabel.anchor = GridBagConstraints.CENTER;
     }
 
     private void loadingState() {
@@ -189,8 +184,8 @@ public class JvMainFrameAuthUI extends JFrame {
         backgroundPanel.removeAll();
         getContentPane().add(titlePanel, BorderLayout.NORTH);
 
-        backgroundPanel.setLayout(new GridBagLayout());
-        backgroundPanel.add(loadGifLabel, gbcLoadGifLabel);
+        backgroundPanel.setLayout(new BorderLayout());
+        backgroundPanel.add(loadGifLabel, BorderLayout.CENTER);
 
         revalidate();
         repaint();

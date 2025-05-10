@@ -1,4 +1,4 @@
-package org.foomaa.jvchat.uicomponents.auth;
+package org.foomaa.jvchat.uicomponents.mainchat;
 
 import org.foomaa.jvchat.globaldefines.JvGetterGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
@@ -15,14 +15,14 @@ import java.io.IOException;
 import java.util.Objects;
 
 
-public class JvTitlePanelAuthUI extends JPanel {
+public class JvTitlePanelMainChatUI extends JPanel {
     private final JButton closeButton;
     private final JButton minimizeButton;
     private final JLabel titleLabel;
-    private JvToolTipAuthUI toolTipClose;
-    private JvToolTipAuthUI toolTipMinimize;
+    private JvToolTipMainChatUI toolTipClose;
+    private JvToolTipMainChatUI toolTipMinimize;
 
-    JvTitlePanelAuthUI() {
+    JvTitlePanelMainChatUI() {
         closeButton = new JButton() {
             @Override
             public JToolTip createToolTip() {
@@ -55,11 +55,11 @@ public class JvTitlePanelAuthUI extends JPanel {
     }
 
     private void setToolTips() {
-        toolTipClose = JvGetterAuthUIComponents.getInstance().getBeanToolTipAuthUI();
+        toolTipClose = JvGetterMainChatUIComponents.getInstance().getBeanToolTipMainChatUI();
         closeButton.createToolTip();
         closeButton.setToolTipText("Close");
 
-        toolTipMinimize = JvGetterAuthUIComponents.getInstance().getBeanToolTipAuthUI();
+        toolTipMinimize = JvGetterMainChatUIComponents.getInstance().getBeanToolTipMainChatUI();
         minimizeButton.createToolTip();
         minimizeButton.setToolTipText("Minimize");
     }

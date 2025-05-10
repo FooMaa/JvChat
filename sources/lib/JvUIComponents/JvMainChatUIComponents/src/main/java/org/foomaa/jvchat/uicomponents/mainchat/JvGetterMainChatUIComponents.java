@@ -32,6 +32,16 @@ public class JvGetterMainChatUIComponents {
                 JvScrollPanelChatsMainChatUI.class);
     }
 
+    public JvTitlePanelMainChatUI getBeanTitlePanelMainChatUI() {
+        return context.getBean(JvMainChatUIComponentsSpringConfig.NameBeans.BeanTitlePanelMainChatUI.getValue(),
+                JvTitlePanelMainChatUI.class);
+    }
+
+    public JvMainPanelMainChatUI getBeanMainPanelMainChatUI() {
+        return context.getBean(JvMainChatUIComponentsSpringConfig.NameBeans.BeanMainPanelMainChatUI.getValue(),
+                JvMainPanelMainChatUI.class);
+    }
+
     public JvScrollPanelMessagesMainChatUI getBeanScrollPanelMessagesMainChatUI() {
         return context.getBean(JvMainChatUIComponentsSpringConfig.NameBeans.BeanScrollPanelMessagesMainChatUI.getValue(),
                 JvScrollPanelMessagesMainChatUI.class);
@@ -67,5 +77,10 @@ public class JvGetterMainChatUIComponents {
         return (JvFindTextFieldMainChatUI) context.getBean(
                 JvMainChatUIComponentsSpringConfig.NameBeans.BeanFindTextFieldMainChatUI.getValue(),
                 text);
+    }
+
+    public JvToolTipMainChatUI getBeanToolTipMainChatUI() {
+        return context.getBean(JvMainChatUIComponentsSpringConfig.NameBeans.BeanToolTipMainChatUI.getValue(),
+                JvToolTipMainChatUI.class);
     }
 }
