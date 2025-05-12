@@ -1,26 +1,21 @@
 package org.foomaa.jvchat.ctrl;
 
-import org.foomaa.jvchat.network.JvEmailProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
 
+import org.foomaa.jvchat.network.JvEmailProcessor;
+
+
 public class JvEmailCtrl {
-    private static JvEmailCtrl instance;
     private JvEmailProcessor emailProcessor;
 
-    private JvEmailCtrl() {}
-
-    static JvEmailCtrl getInstance() {
-        if (instance == null) {
-            instance = new JvEmailCtrl();
-        }
-        return instance;
-    }
+    JvEmailCtrl() {}
 
     @Autowired(required = false)
     @Qualifier("beanEmailProcessor")
     @Profile("servers")
+    @SuppressWarnings("unused")
     private void setEmailProcessor(JvEmailProcessor newEmailProcessor) {
         if (emailProcessor != newEmailProcessor) {
             emailProcessor = newEmailProcessor;
@@ -40,13 +35,13 @@ public class JvEmailCtrl {
 
     private String createVerifyFamousEmailMessage(int code, String email){
         return String.format(
-                "Вы запросили восстановление пароля. Ваш код: %d. Ваш логин: %s. " +
-                        "Код действителен в течение 60 секунд, по истечении времени следует заказать новый. " +
-                        "Никому не говорите и не отправляйте код. " +
-                        "Если это были не вы, свяжитесь с поддержкой по почте avodichenkov@mail.ru.",
+                "You have requested a password recovery. Your code: %d. Your login: %s. " +
+                        "The code is valid for 60 seconds; after the time expires, you must order a new one. " +
+                        "Don't tell or send the code to anyone. " +
+                        "If it was not you, contact support by email avodichenkov@gmail.com.",
                 code,
                 JvGetterControls.getInstance().getBeanDbCtrl().
-                        getInfoFromDb(JvDbCtrl.TypeExecutionGet.LoginByEmail, email));
+                        getSingleDataFromDb(JvDbCtrl.TypeExecutionGetSingle.LoginByEmail, email));
     }
 
     public boolean startVerifyRegEmail(String email) {
@@ -62,10 +57,10 @@ public class JvEmailCtrl {
 
     private String createVerifyRegEmailMessage(int code){
         return String.format(
-                "Вы регистрируетесь в программе, для подтверждения почты введите код. Ваш код: %d. " +
-                        "Код действителен в течение 60 секунд, по истечении времени следует заказать новый. " +
-                        "Никому не говорите и не отправляйте код. " +
-                        "Если это были не вы, свяжитесь с поддержкой по почте avodichenkov@mail.ru.",
+                "You register in the program, enter the code to confirm your email. Your code: %d. " +
+                        "The code is valid for 60 seconds; after the time expires, you must order a new one. " +
+                        "Don't tell or send the code to anyone. " +
+                        "If it was not you, contact support by email avodichenkov@gmail.com.",
                 code);
     }
 }

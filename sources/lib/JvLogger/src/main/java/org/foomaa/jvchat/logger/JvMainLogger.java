@@ -4,19 +4,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class JvMainLogger {
-    private static JvMainLogger instance;
+class JvMainLogger {
     private static Logger logger;
 
-    private JvMainLogger() {
+    JvMainLogger() {
         logger = LoggerFactory.getLogger(JvMainLogger.class);
-    }
-
-    public static JvMainLogger getInstance() {
-        if (instance == null) {
-            instance = new JvMainLogger();
-        }
-        return instance;
     }
 
     public void Debug(String text) {

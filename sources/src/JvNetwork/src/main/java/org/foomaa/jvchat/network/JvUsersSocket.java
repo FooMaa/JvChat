@@ -1,14 +1,14 @@
 package org.foomaa.jvchat.network;
 
-import org.foomaa.jvchat.logger.JvLog;
-import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+
+import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.settings.JvGetterSettings;
 
 
 @Component("beanUsersSocket")
@@ -20,11 +20,11 @@ public class JvUsersSocket {
     private JvUsersSocket() {
         try {
             socketUsers = new Socket();
-            socketUsers.connect(new InetSocketAddress(JvGetterSettings.getInstance().getBeanMainSettings().getIp(),
-                    JvGetterSettings.getInstance().getBeanMainSettings().getPort()), 4000);
+            socketUsers.connect(new InetSocketAddress(JvGetterSettings.getInstance().getBeanUsersInfoSettings().getIpRemoteServer(),
+                    JvGetterSettings.getInstance().getBeanUsersInfoSettings().getPortRemoteServer()), 4000);
             closeSocketWhenKill();
         } catch (IOException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "No connection");
+            JvLog.write(JvLog.TypeLog.Error, "No connection.");
         }
     }
 

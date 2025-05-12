@@ -28,8 +28,4 @@ class JvGetterLogger {
     JvMainLogger getBeanLogger() {
         return context.getBean(JvLoggerSpringConfig.NameBeans.BeanMainLogger.getValue(), JvMainLogger.class);
     }
-
-    JvLog getBeanLog() {
-        return context.getBean(JvLoggerSpringConfig.NameBeans.BeanLog.getValue(), JvLog.class);
-    }
 }

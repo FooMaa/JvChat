@@ -5,11 +5,19 @@
 ``` bash
 sudo scripts/dependencies/install_dependencies.sh -a -p users
 ```
+- Установить зависимости, если это вариант для серверов
+``` bash
+sudo scripts/dependencies/install_dependencies.sh -a -p servers
+```
+- Установить зависимости, если это вариант для тестов
+``` bash
+sudo scripts/dependencies/install_dependencies.sh -a -p tests
+```
 - Создать БД по умолчанию, если это серверный вариант
 ``` bash
 sudo scripts/db/make_default_db.sh
 ```
-- Собрать и запустить
+- Собрать и запустить (следует указать верный профиль: users/servers/tests)
 ``` bash
 scripts/build/build_run.sh -m -c -p users -i 192.168.23.1
 ```
@@ -17,8 +25,14 @@ scripts/build/build_run.sh -m -c -p users -i 192.168.23.1
 ``` bash
 scripts/db/db_creator.py
 ```
-## Конфигурации для запуска из среды разработки
-На место $ip вы вставляете свой IP-адрес сервера  
+## Доступные профили сборки
+| Профиль | Назначение |
+| --- | --- |
+| users | Профиль для сборки пользовательской конфигурации ПО с графикой |
+| servers | Профиль для сборки серверной конфигурации ПО без графики, консольный вариант |
+| tests | Профиль для сборки тестовой конфигурации ПО и прогона всех доступных юнит-тестов |
+### Собрать для пользователей (профиль users)
+На место $ip вы вставляете свой IP-адрес сервера.  
 Gradle:
 ```
 clean build bootRun --args='--ipServer=$ip' -Pusers
@@ -26,6 +40,35 @@ clean build bootRun --args='--ipServer=$ip' -Pusers
 Maven:
 ```
 clean install spring-boot:run -Pusers -Dspring-boot.run.arguments=--ipServer=$ip
+```
+Если нужно указать порт при запуске, то на место ```$ip``` вы вставляете свой IP-адрес сервера, на место ```$port``` вы вставляете свой порт сервера.  
+Gradle:
+```
+clean build bootRun --args="--ipServer=$ip --portServer=$port" -Pusers
+```
+Maven:
+```
+clean install spring-boot:run -Pusers -Dspring-boot.run.arguments="--ipServer=$ip --portServer=$port"
+```
+### Собрать для серверов (профиль servers)
+Gradle:
+```
+clean build bootRun -Pservers
+```
+Maven:
+```
+clean install spring-boot:run -Pservers
+```
+После данной сборки следует указать IP-адрес сервера, порт сервера и количество допустимых подключений. Либо везде нажать Enter, для того, чтоб использовать значения по умолчанию.
+### Собрать для тестов (профиль tests)
+Это нужно для запуска юнит-тестов.  
+Gradle:
+```
+clean build bootRun -Ptests
+```
+Maven:
+```
+clean install spring-boot:run -Ptests
 ```
 ## Скрипты и их назначение
 | Путь к скрипту | Назначение |

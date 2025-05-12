@@ -1,8 +1,5 @@
 package org.foomaa.jvchat.dbworker;
 
-import org.foomaa.jvchat.logger.JvLog;
-import org.foomaa.jvchat.settings.JvGetterSettings;
-
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -11,6 +8,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
+
+import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.settings.JvGetterSettings;
 
 
 @Component("beanDbWorker")
@@ -27,18 +27,18 @@ public class JvDbWorker {
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
-            JvLog.write(JvLog.TypeLog.Error, "Error in connect to DB");
+            JvLog.write(JvLog.TypeLog.Error, "Error in connect to DB.");
             return;
         }
 
         connection = null;
 
         try {
-            connection = DriverManager.getConnection(JvGetterSettings.getInstance().getBeanMainSettings().getDbUrl(),
-                    JvGetterSettings.getInstance().getBeanMainSettings().getDbUser(),
-                    JvGetterSettings.getInstance().getBeanMainSettings().getMagicStringDb());
+            connection = DriverManager.getConnection(JvGetterSettings.getInstance().getBeanServersInfoSettings().getDbUrl(),
+                    JvGetterSettings.getInstance().getBeanServersInfoSettings().getDbUser(),
+                    JvGetterSettings.getInstance().getBeanServersInfoSettings().getMagicStringDb());
         } catch (SQLException e) {
-            JvLog.write(JvLog.TypeLog.Error, "Error in connect to DB");
+            JvLog.write(JvLog.TypeLog.Error, "Error in connect to DB.");
             return;
         }
 
@@ -49,7 +49,7 @@ public class JvDbWorker {
         try {
             rs.close();
         } catch (SQLException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Ошибка закрытия ResultSet");
+            JvLog.write(JvLog.TypeLog.Error, "Error closing ResultSet.");
         }
     }
 
@@ -65,7 +65,7 @@ public class JvDbWorker {
                     ResultSet.CONCUR_READ_ONLY);
             resultSet = stmt.executeQuery(execution);
         } catch (SQLException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "БД вернула ошибку, невозможно выполнить запрос");
+            JvLog.write(JvLog.TypeLog.Error, "The database returned an error, the request cannot be executed.");
         }
         return resultSet;
     }

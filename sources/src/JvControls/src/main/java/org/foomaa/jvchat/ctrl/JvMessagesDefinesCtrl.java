@@ -1,20 +1,9 @@
 package org.foomaa.jvchat.ctrl;
 
-import org.foomaa.jvchat.messages.JvMessagesDefines;
+import org.foomaa.jvchat.messages.JvDefinesMessages;
+
 
 public class JvMessagesDefinesCtrl {
-    private static JvMessagesDefinesCtrl instance;
-
-    private JvMessagesDefinesCtrl() {}
-
-    static JvMessagesDefinesCtrl getInstance() {
-        if (instance == null) {
-            instance = new JvMessagesDefinesCtrl();
-        }
-        return instance;
-    }
-
-    // FLAGS
     public enum TypeFlags {
         TRUE,
         FALSE,
@@ -25,13 +14,22 @@ public class JvMessagesDefinesCtrl {
     private TypeFlags RegistrationRequestFlag = TypeFlags.DEFAULT;
     private TypeFlags ResetPasswordRequestFlag = TypeFlags.DEFAULT;
     private TypeFlags VerifyFamousEmailRequestFlag = TypeFlags.DEFAULT;
-    private JvMessagesDefines.TypeErrorRegistration errorRegistrationFlag =
-    JvMessagesDefines.TypeErrorRegistration.NoError;
+    private JvDefinesMessages.TypeErrorRegistration errorRegistrationFlag =
+    JvDefinesMessages.TypeErrorRegistration.NoError;
     private TypeFlags ChangePasswordRequest = TypeFlags.DEFAULT;
     private TypeFlags VerifyRegistrationEmailRequestFlag = TypeFlags.DEFAULT;
-    private JvMessagesDefines.TypeErrorRegistration errorVerifyRegEmailFlag =
-    JvMessagesDefines.TypeErrorRegistration.NoError;
-    // FLAGS
+    private JvDefinesMessages.TypeErrorRegistration ErrorVerifyRegEmailFlag =
+    JvDefinesMessages.TypeErrorRegistration.NoError;
+    private TypeFlags ChatsLoadReplyFlag = TypeFlags.DEFAULT;
+    private TypeFlags LoadUsersOnlineReplyFlag = TypeFlags.DEFAULT;
+    private TypeFlags TextMessagesLoadReplyFlag = TypeFlags.DEFAULT;
+    private TypeFlags TextMessageRedirectServerToUserFlag = TypeFlags.DEFAULT;
+    private TypeFlags TextMessageSendUserToServerFlag = TypeFlags.DEFAULT;
+    private TypeFlags TextMessagesChangingStatusFromServerFlag = TypeFlags.DEFAULT;
+    private TypeFlags TextMessagesChangingStatusFromUserFlag = TypeFlags.DEFAULT;
+    private TypeFlags TextMessageRedirectServerToUserVerificationFlag = TypeFlags.DEFAULT;
+
+    JvMessagesDefinesCtrl() {}
 
     public void setEntryRequestFlag(TypeFlags newFlag) {
         if (EntryRequestFlag != newFlag) {
@@ -57,7 +55,7 @@ public class JvMessagesDefinesCtrl {
         }
     }
 
-    public void setErrorRegistrationFlag(JvMessagesDefines.TypeErrorRegistration newFlag) {
+    public void setErrorRegistrationFlag(JvDefinesMessages.TypeErrorRegistration newFlag) {
         if (errorRegistrationFlag != newFlag) {
             errorRegistrationFlag = newFlag;
         }
@@ -75,11 +73,59 @@ public class JvMessagesDefinesCtrl {
         }
     }
 
-    public void setErrorVerifyRegEmailFlag(JvMessagesDefines.TypeErrorRegistration newFlag) {
-        if (errorVerifyRegEmailFlag != newFlag) {
-            errorVerifyRegEmailFlag = newFlag;
+    public void setErrorVerifyRegEmailFlag(JvDefinesMessages.TypeErrorRegistration newFlag) {
+        if (ErrorVerifyRegEmailFlag != newFlag) {
+            ErrorVerifyRegEmailFlag = newFlag;
         }
-    };
+    }
+
+    public void setChatsLoadReplyFlag(TypeFlags newFlag) {
+        if (ChatsLoadReplyFlag != newFlag) {
+            ChatsLoadReplyFlag = newFlag;
+        }
+    }
+
+    public void setLoadUsersOnlineReplyFlag(TypeFlags newFlag) {
+        if (LoadUsersOnlineReplyFlag != newFlag) {
+            LoadUsersOnlineReplyFlag = newFlag;
+        }
+    }
+
+    public void setTextMessagesLoadReplyFlag(TypeFlags newFlag) {
+        if (TextMessagesLoadReplyFlag != newFlag) {
+            TextMessagesLoadReplyFlag = newFlag;
+        }
+    }
+
+    public void setTextMessageRedirectServerToUserFlag(TypeFlags newFlag) {
+        if (TextMessageRedirectServerToUserFlag != newFlag) {
+            TextMessageRedirectServerToUserFlag = newFlag;
+        }
+    }
+
+    public void setTextMessageSendUserToServerFlag(TypeFlags newFlag) {
+        if (TextMessageSendUserToServerFlag != newFlag) {
+            TextMessageSendUserToServerFlag = newFlag;
+        }
+    }
+
+    public void setTextMessagesChangingStatusFromServerFlag(TypeFlags newFlag) {
+        if (TextMessagesChangingStatusFromServerFlag != newFlag) {
+            TextMessagesChangingStatusFromServerFlag = newFlag;
+        }
+    }
+
+    public void setTextMessagesChangingStatusFromUserFlag(TypeFlags newFlag) {
+        if (TextMessagesChangingStatusFromUserFlag != newFlag) {
+            TextMessagesChangingStatusFromUserFlag = newFlag;
+        }
+    }
+
+    public void setTextMessageRedirectServerToUserVerificationFlag(TypeFlags newFlag) {
+        if (TextMessageRedirectServerToUserVerificationFlag != newFlag) {
+            TextMessageRedirectServerToUserVerificationFlag = newFlag;
+        }
+    }
 
     public TypeFlags getEntryRequestFlag() {
         return EntryRequestFlag;
@@ -89,7 +135,7 @@ public class JvMessagesDefinesCtrl {
         return RegistrationRequestFlag;
     }
 
-    public JvMessagesDefines.TypeErrorRegistration getErrorRegistrationFlag() {
+    public JvDefinesMessages.TypeErrorRegistration getErrorRegistrationFlag() {
         return errorRegistrationFlag;
     }
 
@@ -109,7 +155,39 @@ public class JvMessagesDefinesCtrl {
         return VerifyRegistrationEmailRequestFlag;
     }
 
-    public JvMessagesDefines.TypeErrorRegistration getErrorVerifyRegEmailFlag() {
-        return errorVerifyRegEmailFlag;
+    public JvDefinesMessages.TypeErrorRegistration getErrorVerifyRegEmailFlag() {
+        return ErrorVerifyRegEmailFlag;
+    }
+
+    public TypeFlags getChatsLoadReplyFlag() {
+        return ChatsLoadReplyFlag;
+    }
+
+    public TypeFlags getLoadUsersOnlineReplyFlag() {
+        return LoadUsersOnlineReplyFlag;
+    }
+
+    public TypeFlags getTextMessagesLoadReplyFlag() {
+        return TextMessagesLoadReplyFlag;
+    }
+
+    public TypeFlags getTextMessageRedirectServerToUserFlag() {
+        return TextMessageRedirectServerToUserFlag;
+    }
+
+    public TypeFlags getTextMessageSendUserToServerFlag() {
+        return TextMessageSendUserToServerFlag;
+    }
+
+    public TypeFlags getTextMessagesChangingStatusFromServerFlag() {
+        return TextMessagesChangingStatusFromServerFlag;
+    }
+
+    public TypeFlags getTextMessagesChangingStatusFromUserFlag() {
+        return TextMessagesChangingStatusFromUserFlag;
+    }
+
+    public TypeFlags getTextMessageRedirectServerToUserVerificationFlag() {
+        return TextMessageRedirectServerToUserVerificationFlag;
     }
 }

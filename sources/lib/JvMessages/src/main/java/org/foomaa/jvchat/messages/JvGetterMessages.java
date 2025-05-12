@@ -2,6 +2,7 @@ package org.foomaa.jvchat.messages;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+
 public class JvGetterMessages {
     private static JvGetterMessages instance;
     private final AnnotationConfigApplicationContext context;
@@ -18,21 +19,15 @@ public class JvGetterMessages {
         return instance;
     }
 
-    public JvMessagesDefines getBeanMessagesDefines() {
+    public JvSerializatorDataMessages getBeanSerializatorDataMessages() {
         return context.getBean(
-                JvMessagesSpringConfig.NameBeans.BeanMessagesDefines.getValue(),
-                JvMessagesDefines.class);
+                JvMessagesSpringConfig.NameBeans.BeanSerializatorDataMessages.getValue(),
+                JvSerializatorDataMessages.class);
     }
 
-    public JvMessagesSerializatorData getBeanMessagesSerializatorData() {
+    public JvDeserializatorDataMessages getBeanDeserializatorDataMessages() {
         return context.getBean(
-                JvMessagesSpringConfig.NameBeans.BeanMessagesSerializatorData.getValue(),
-                JvMessagesSerializatorData.class);
-    }
-
-    public JvMessagesDeserializatorData getBeanMessagesDeserializatorData() {
-        return context.getBean(
-                JvMessagesSpringConfig.NameBeans.BeanMessagesDeserializatorData.getValue(),
-                JvMessagesDeserializatorData.class);
+                JvMessagesSpringConfig.NameBeans.BeanDeserializatorDataMessages.getValue(),
+                JvDeserializatorDataMessages.class);
     }
 }

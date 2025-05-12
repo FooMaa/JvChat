@@ -2,6 +2,7 @@ package org.foomaa.jvchat.settings;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+
 public class JvGetterSettings {
     private static JvGetterSettings instance;
     private final AnnotationConfigApplicationContext context;
@@ -24,5 +25,17 @@ public class JvGetterSettings {
 
     public JvDisplaySettings getBeanDisplaySettings() {
         return context.getBean(JvSettingsSpringConfig.NameBeans.BeanDisplaySettings.getValue(), JvDisplaySettings.class);
+    }
+
+    public JvUsersInfoSettings getBeanUsersInfoSettings() {
+        return context.getBean(JvSettingsSpringConfig.NameBeans.BeanUsersInfoSettings.getValue(), JvUsersInfoSettings.class);
+    }
+
+    public JvServersInfoSettings getBeanServersInfoSettings() {
+        return context.getBean(JvSettingsSpringConfig.NameBeans.BeanServersInfoSettings.getValue(), JvServersInfoSettings.class);
+    }
+
+    public JvUISettings getBeanUISettings() {
+        return context.getBean(JvSettingsSpringConfig.NameBeans.BeanUISettings.getValue(), JvUISettings.class);
     }
 }

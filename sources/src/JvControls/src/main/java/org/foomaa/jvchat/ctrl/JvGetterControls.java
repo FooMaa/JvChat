@@ -1,9 +1,11 @@
 package org.foomaa.jvchat.ctrl;
 
-import org.foomaa.jvchat.logger.JvLog;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import java.net.Socket;
 import java.util.Arrays;
+
+import org.foomaa.jvchat.logger.JvLog;
+
 
 public class JvGetterControls {
     private static JvGetterControls instance;
@@ -60,15 +62,23 @@ public class JvGetterControls {
         return null;
     }
 
-    public JvServersSocketThreadCtrl getBeanServersSocketThreadCtrl(Socket fromSocketServer) {
-        return (JvServersSocketThreadCtrl) context.getBean(
-                JvControlsSpringConfig.NameBeans.BeanServersSocketThreadCtrl.getValue(),
-                fromSocketServer);
+    public JvSocketRunnableCtrl getBeanSocketRunnableCtrl(Socket socket) {
+        return (JvSocketRunnableCtrl) context.getBean(JvControlsSpringConfig.NameBeans.BeanSocketRunnableCtrl.getValue(),
+                socket);
     }
 
-    public JvUsersSocketThreadCtrl getBeanUsersSocketThreadCtrl(Socket usersSocket) {
-        return (JvUsersSocketThreadCtrl) context.getBean(
-                JvControlsSpringConfig.NameBeans.BeanUsersSocketThreadCtrl.getValue(),
-                usersSocket);
+    public JvChatsCtrl getBeanChatsCtrl() {
+        return context.getBean(JvControlsSpringConfig.NameBeans.BeanChatsCtrl.getValue(),
+                JvChatsCtrl.class);
+    }
+
+    public JvMessagesDialogCtrl getBeanMessagesDialogCtrl() {
+        return context.getBean(JvControlsSpringConfig.NameBeans.BeanMessagesDialogCtrl.getValue(),
+                JvMessagesDialogCtrl.class);
+    }
+
+    public JvOnlineServersCtrl getBeanOnlineServersCtrl() {
+        return context.getBean(JvControlsSpringConfig.NameBeans.BeanOnlineServersCtrl.getValue(),
+                JvOnlineServersCtrl.class);
     }
 }

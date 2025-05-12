@@ -1,14 +1,15 @@
 package org.foomaa.jvchat.network;
 
-import org.foomaa.jvchat.logger.JvLog;
-import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.InetAddress;
+
+import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.settings.JvGetterSettings;
+
 
 @Component("beanServersSocket")
 @Scope("singleton")
@@ -17,23 +18,22 @@ public class JvServersSocket {
     private static ServerSocket socketServers;
 
     private JvServersSocket() {
-        JvLog.write(JvLog.TypeLog.Info, "Server is started");
-
         try {
-            if (JvGetterSettings.getInstance().getBeanMainSettings().getIp().isEmpty()) {
-                socketServers = new ServerSocket(JvGetterSettings.getInstance().getBeanMainSettings().getPort());
+            if (JvGetterSettings.getInstance().getBeanServersInfoSettings().getIp().isEmpty()) {
+                socketServers = new ServerSocket(JvGetterSettings.getInstance().getBeanServersInfoSettings().getPort());
             } else {
-                socketServers = new ServerSocket(JvGetterSettings.getInstance().getBeanMainSettings().getPort(),
-                        JvGetterSettings.getInstance().getBeanMainSettings().getQuantityConnections(),
-                        InetAddress.getByName(JvGetterSettings.getInstance().getBeanMainSettings().getIp()));
+                socketServers = new ServerSocket(JvGetterSettings.getInstance().getBeanServersInfoSettings().getPort(),
+                        JvGetterSettings.getInstance().getBeanServersInfoSettings().getQuantityConnections(),
+                        InetAddress.getByName(JvGetterSettings.getInstance().getBeanServersInfoSettings().getIp()));
             }
 
-            JvLog.write(JvLog.TypeLog.Info, "IP: " + socketServers.getInetAddress().toString());
-            JvLog.write(JvLog.TypeLog.Info, "PORT: " + String.valueOf(socketServers.getLocalPort()));
+            JvLog.write(JvLog.TypeLog.Info, "IP: " + socketServers.getInetAddress().toString() + ".");
+            JvLog.write(JvLog.TypeLog.Info, "PORT: " + String.valueOf(socketServers.getLocalPort()) + ".");
 
+            JvLog.write(JvLog.TypeLog.Info, "Server is started.");
             closeSocketWhenKill();
         } catch (IOException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Ошибка при создании сокета сервера");
+            JvLog.write(JvLog.TypeLog.Error, "Error creating server socket.");
         }
     }
 
