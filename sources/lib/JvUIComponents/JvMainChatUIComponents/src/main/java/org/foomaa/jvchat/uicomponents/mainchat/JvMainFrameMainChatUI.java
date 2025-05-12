@@ -64,6 +64,15 @@ public class JvMainFrameMainChatUI extends JFrame {
         loadGifLabel.setBackground(new Color(0, 0, 0, 0));
     }
 
+    private void loadGifStart() {
+        Timer timerLoadGif = new Timer(1000, actionEvent -> updateVisualPanel());
+        timerLoadGif.setRepeats(false);
+
+        loadingState();
+
+        timerLoadGif.start();
+    }
+
     private void updateVisualPanel() {
         titlePanel.setTitle("JvChat");
         getContentPane().remove(titlePanel);
@@ -76,15 +85,6 @@ public class JvMainFrameMainChatUI extends JFrame {
 
         revalidate();
         repaint();
-    }
-
-    private void loadGifStart() {
-        Timer timerLoadGif = new Timer(1000, actionEvent -> updateVisualPanel());
-        timerLoadGif.setRepeats(false);
-
-        loadingState();
-
-        timerLoadGif.start();
     }
 
     private void loadingState() {

@@ -1,13 +1,16 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -24,19 +27,70 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
     private final int intervalMilliSecondsSleepUpdating;
     private final int intervalSecondsWaitLoopUpdate;
     private Box boxComponents;
+    private final String backgroundPath;
+    private final String loadGifPath;
+    private JLabel loadGifLabel;
     private JvRectChatMainChatUI selectedElement;
 
     JvScrollPanelChatsMainChatUI() {
         intervalMilliSecondsSleepUpdating = 30000;
         intervalSecondsWaitLoopUpdate = 5;
+        backgroundPath = "/MainChatMainBackground.png";
+        loadGifPath = "/Load.gif";
 
         selectedElement = null;
 
+        settingLoadLabel();
+        loadGifStart();
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g) ;
+
+        Image img = null;
+        try {
+            img = ImageIO.read(Objects.requireNonNull(getClass().getResource(backgroundPath)));
+        } catch (IOException e) {
+            e.getStackTrace();
+        }
+
+        g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+    }
+
+    private void settingLoadLabel() {
+        loadGifLabel = new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getResource(loadGifPath))));
+        loadGifLabel.setOpaque(false);
+        loadGifLabel.setBackground(new Color(0, 0, 0, 0));
+    }
+
+    private void loadGifStart() {
+        Timer timerLoadGif = new Timer(1000, actionEvent -> updateVisualPanel());
+        timerLoadGif.setRepeats(false);
+
+        loadingState();
+
+        timerLoadGif.start();
+    }
+
+    private void updateVisualPanel() {
         makePanel();
         runningThreadUpdateOnline();
     }
 
+    private void loadingState() {
+        removeAll();
+
+        setLayout(new BorderLayout());
+        add(loadGifLabel, BorderLayout.CENTER);
+
+        revalidate();
+        repaint();
+    }
+
     private void makePanel() {
+        removeAll();
+
         setBorder(BorderFactory.createMatteBorder(0,0,0,7, Color.GRAY));
 
         boxComponents = Box.createVerticalBox();
@@ -55,6 +109,9 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
         gbc.weighty = 1.0;
         gbc.anchor = GridBagConstraints.PAGE_START;
         add(scrollPane, gbc);
+
+        revalidate();
+        repaint();
     }
 
     private void changeScrollPane(JScrollPane scrollPane) {
@@ -188,6 +245,7 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
     private void installingUpdatingDataInRectChats() {
         for (Component component : boxComponents.getComponents()) {
             JvRectChatMainChatUI rectChatMainChatUI = (JvRectChatMainChatUI) component;
+
             UUID uuidUser = rectChatMainChatUI.getUuidUser();
 
             JvUserStructObject user = JvGetterControls.getInstance().getBeanChatsCtrl().getUserObjectsByUuidUser(uuidUser);
