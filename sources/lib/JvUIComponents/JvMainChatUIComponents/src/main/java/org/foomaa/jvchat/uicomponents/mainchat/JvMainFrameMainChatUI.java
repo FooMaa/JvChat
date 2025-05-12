@@ -26,7 +26,7 @@ public class JvMainFrameMainChatUI extends JFrame {
 
         mainPanel = JvGetterMainChatUIComponents.getInstance().getBeanMainPanelMainChatUI();
         titlePanel = JvGetterMainChatUIComponents.getInstance().getBeanTitlePanelMainChatUI();
-        backgroundPath = "/AuthMainBackground.png";
+        backgroundPath = "/MainChatMainBackground.png";
         loadGifPath = "/Load.gif";
 
         setIconImageFrame("/MainAppIcon.png");

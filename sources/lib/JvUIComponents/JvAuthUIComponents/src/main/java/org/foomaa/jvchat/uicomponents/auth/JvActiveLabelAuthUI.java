@@ -20,7 +20,7 @@ public class JvActiveLabelAuthUI extends JLabel {
     JvActiveLabelAuthUI(String text) {
         setText(text);
         setFont(false);
-        setForeground(Color.MAGENTA);
+        setForeground(Color.WHITE);
         addCustomListenerToElem();
     }
 
