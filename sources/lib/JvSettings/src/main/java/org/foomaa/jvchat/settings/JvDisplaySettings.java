@@ -1,35 +1,26 @@
 package org.foomaa.jvchat.settings;
 
-import org.foomaa.jvchat.logger.JvLog;
-
 import java.awt.*;
 
+import org.foomaa.jvchat.logger.JvLog;
+
+
 public class JvDisplaySettings {
-    private static JvDisplaySettings instance;
-    public int heightScreen;
-    public int widthScreen;
-
-    public enum TypeOfDisplayBorder {
-        HEIGHT,
-        WIDTH
-
-    }
-
-    private JvDisplaySettings() {
+    JvDisplaySettings() {
         try {
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             heightScreen = screenSize.height;
             widthScreen = screenSize.width;
         } catch (Throwable exception) {
-            JvLog.write(JvLog.TypeLog.Error, "No X :0:0 find");
+            JvLog.write(JvLog.TypeLog.Error, "Failed to get display size.");
         }
     }
 
-    public static JvDisplaySettings getInstance() {
-        if (instance == null) {
-            instance = new JvDisplaySettings();
-        }
-        return instance;
+    public int heightScreen;
+    public int widthScreen;
+
+    public enum TypeOfDisplayBorder {
+        HEIGHT, WIDTH
     }
 
     public int getResizeFromDisplay(double scale, TypeOfDisplayBorder displayBorder) {
@@ -42,6 +33,7 @@ public class JvDisplaySettings {
     public int getResizePixel(double scale) {
         return (int) Math.round(scale * heightScreen);
     }
+
     public int getResizeFont(double scale) {
         return (int) Math.floor(scale * widthScreen);
     }

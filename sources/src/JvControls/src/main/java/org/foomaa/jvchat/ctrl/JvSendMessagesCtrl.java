@@ -1,21 +1,21 @@
 package org.foomaa.jvchat.ctrl;
 
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
+import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.messages.JvGetterMessages;
-import org.foomaa.jvchat.messages.JvMessagesDefines;
+import org.foomaa.jvchat.messages.JvDefinesMessages;
+import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.tools.JvGetterTools;
+
 
 public class JvSendMessagesCtrl {
-    private static JvSendMessagesCtrl instance;
+    JvSendMessagesCtrl() {}
 
-    private JvSendMessagesCtrl() {}
-
-    static JvSendMessagesCtrl getInstance() {
-        if (instance == null) {
-            instance = new JvSendMessagesCtrl();
-        }
-        return instance;
-    }
-
-    public final void sendMessage(JvMessagesDefines.TypeMessage type, Object... parameters) {
+    public final void sendMessage(JvDefinesMessages.TypeMessage type, Object... parameters) {
         switch (type) {
             case EntryRequest -> {
                 if (parameters.length == 2) {
@@ -25,15 +25,16 @@ public class JvSendMessagesCtrl {
                             (String) login,
                             (String) password);
                     sendReadyMessageNetwork(bodyMessage);
-                    JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().
-                            setEntryRequestFlag(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
+                    JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                            .setEntryRequestFlag(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
                 }
             }
             case EntryReply -> {
-                if (parameters.length == 1) {
+                if (parameters.length == 2) {
                     Object reply = parameters[0];
+                    Object uuidUser = parameters[1];
                     byte[] bodyMessage = createBodyEntryReplyMessage(type,
-                            (Boolean) reply);
+                            (Boolean) reply, (UUID) uuidUser);
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
@@ -47,8 +48,8 @@ public class JvSendMessagesCtrl {
                             (String) email,
                             (String) password);
                     sendReadyMessageNetwork(bodyMessage);
-                    JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().
-                            setRegistrationRequestFlag(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
+                    JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                            .setRegistrationRequestFlag(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
                 }
             }
             case RegistrationReply -> {
@@ -56,7 +57,7 @@ public class JvSendMessagesCtrl {
                     Object reply = parameters[0];
                     Object error = parameters[1];
                     byte[] bodyMessage = createBodyRegistrationReplyMessage(type,
-                            (Boolean) reply, (JvMessagesDefines.TypeErrorRegistration) error);
+                            (Boolean) reply, (JvDefinesMessages.TypeErrorRegistration) error);
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
@@ -72,8 +73,8 @@ public class JvSendMessagesCtrl {
                             (String) password,
                             (String) code);
                     sendReadyMessageNetwork(bodyMessage);
-                    JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().
-                            setVerifyRegistrationEmailRequestFlag(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
+                    JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                            .setVerifyRegistrationEmailRequestFlag(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
                 }
             }
             case VerifyRegistrationEmailReply -> {
@@ -81,7 +82,7 @@ public class JvSendMessagesCtrl {
                     Object reply = parameters[0];
                     Object error = parameters[1];
                     byte[] bodyMessage = createBodyVerifyRegistrationEmailReplyMessage(type,
-                            (Boolean) reply, (JvMessagesDefines.TypeErrorRegistration) error);
+                            (Boolean) reply, (JvDefinesMessages.TypeErrorRegistration) error);
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
@@ -91,8 +92,8 @@ public class JvSendMessagesCtrl {
                     byte[] bodyMessage = createBodyResetPasswordRequestMessage(type,
                             (String) email);
                     sendReadyMessageNetwork(bodyMessage);
-                    JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().
-                            setResetPasswordRequestFlag(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
+                    JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                            .setResetPasswordRequestFlag(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
                 }
             }
             case ResetPasswordReply -> {
@@ -129,8 +130,8 @@ public class JvSendMessagesCtrl {
                     byte[] bodyMessage = createBodyChangePasswordRequestMessage(type,
                             (String) email, (String) password);
                     sendReadyMessageNetwork(bodyMessage);
-                    JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().
-                            setChangePasswordRequest(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
+                    JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                            .setChangePasswordRequest(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
                 }
             }
             case ChangePasswordReply -> {
@@ -141,60 +142,289 @@ public class JvSendMessagesCtrl {
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
+            case ChatsLoadRequest -> {
+                if (parameters.length == 1) {
+                    Object uuidUser = parameters[0];
+                    byte[] bodyMessage = createBodyChatsLoadRequestMessage(type,
+                            (UUID) uuidUser);
+                    sendReadyMessageNetwork(bodyMessage);
+                    JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                            .setChatsLoadReplyFlag(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
+                }
+            }
+            case ChatsLoadReply -> {
+                if (parameters.length == 1) {
+                    Object chatsInfoObj = parameters[0];
+                    List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo =
+                            JvGetterTools.getInstance().getBeanStructTools()
+                            .objectInListMaps(chatsInfoObj, JvDbGlobalDefines.LineKeys.class, String.class);
+                    byte[] bodyMessageChatsLoadReply = createBodyChatsLoadReplyMessage(type, chatsInfo);
+                    sendReadyMessageNetwork(bodyMessageChatsLoadReply);
+                    sendMessage(JvDefinesMessages.TypeMessage.CheckOnlineUserRequest,
+                            JvGetterSettings.getInstance().getBeanServersInfoSettings().getIp());
+                }
+            }
+            case CheckOnlineUserRequest -> {
+                if (parameters.length == 2) {
+                    Object ip = parameters[0];
+                    Object runnableCtrl = parameters[1];
+                    byte[] bodyMessage = createBodyCheckOnlineUserRequestMessage(type, (String) ip);
+                    sendReadyMessageNetwork(bodyMessage, (Runnable) runnableCtrl);
+                }
+            }
+            case CheckOnlineUserReply -> {
+                if (parameters.length == 1) {
+                    Object uuidUser = parameters[0];
+                    byte[] bodyMessage = createBodyCheckOnlineUserReplyMessage(type, (UUID) uuidUser);
+                    sendReadyMessageNetwork(bodyMessage);
+                }
+            }
+            case LoadUsersOnlineStatusRequest -> {
+                if (parameters.length == 1) {
+                    Object uuidsObject = parameters[0];
+                    List<UUID> uuidsList = JvGetterTools.getInstance()
+                            .getBeanStructTools().checkedCastList(uuidsObject, UUID.class);
+                    byte[] bodyMessage = createBodyLoadUsersOnlineStatusRequestMessage(type, uuidsList);
+                    sendReadyMessageNetwork(bodyMessage);
+                    JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                            .setLoadUsersOnlineReplyFlag(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
+                }
+            }
+            case LoadUsersOnlineStatusReply -> {
+                if (parameters.length == 2) {
+                    Object statusesUsersObj = parameters[0];
+                    Object lastOnlineTimeUsersObj = parameters[1];
+                    Map<UUID, JvMainChatsGlobalDefines.TypeStatusOnline> statusesUsersMap = JvGetterTools.getInstance()
+                            .getBeanStructTools().objectInMap(statusesUsersObj, UUID.class, JvMainChatsGlobalDefines.TypeStatusOnline.class);
+                    Map<UUID, String> lastOnlineTimeUsers = JvGetterTools.getInstance()
+                            .getBeanStructTools().objectInMap(lastOnlineTimeUsersObj, UUID.class, String.class);
+                    byte[] bodyMessage = createBodyLoadUsersOnlineStatusReplyMessage(type, statusesUsersMap, lastOnlineTimeUsers);
+                    sendReadyMessageNetwork(bodyMessage);
+                }
+            }
+            case TextMessageSendUserToServer -> {
+                if (parameters.length == 5) {
+                    Object uuidUserSender = parameters[0];
+                    Object uuidUserReceiver = parameters[1];
+                    Object uuidMessage = parameters[2];
+                    Object text = parameters[3];
+                    Object timestamp = parameters[4];
+                    byte[] bodyMessage = createBodyTextMessageSendUserToServerMessage(type, (UUID) uuidUserSender,
+                            (UUID) uuidUserReceiver, (UUID) uuidMessage, (String) text, (String) timestamp);
+                    sendReadyMessageNetwork(bodyMessage);
+                }
+            }
+            case TextMessageSendUserToServerVerification -> {
+                if (parameters.length == 1) {
+                    Object reply = parameters[0];
+                    byte[] bodyMessage = createBodyTextMessageSendUserToServerVerificationMessage(type, (Boolean) reply);
+                    sendReadyMessageNetwork(bodyMessage);
+                    JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                            .setTextMessageSendUserToServerFlag(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
+                }
+            }
+            case TextMessagesChangingStatusFromServer -> {
+                if (parameters.length == 1) {
+                    Object mapUuidStatus = parameters[0];
+                    Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = JvGetterTools.getInstance()
+                            .getBeanStructTools().objectInMap(mapUuidStatus, UUID.class, JvMainChatsGlobalDefines.TypeStatusMessage.class);
+                    byte[] bodyMessage = createBodyTextMessagesChangingStatusFromServerMessage(type, mapStatusesMessages);
+                    sendReadyMessageNetwork(bodyMessage);
+                }
+            }
+            case TextMessagesChangingStatusFromServerVerification -> {
+                if (parameters.length == 1) {
+                    Object reply = parameters[0];
+                    byte[] bodyMessage = createBodyTextMessagesChangingStatusFromServerVerificationMessage(type, (Boolean) reply);
+                    sendReadyMessageNetwork(bodyMessage);
+                }
+            }
+            case TextMessagesChangingStatusFromUser -> {
+                if (parameters.length == 1) {
+                    Object mapUuidStatus = parameters[0];
+                    Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = JvGetterTools.getInstance()
+                            .getBeanStructTools().objectInMap(mapUuidStatus, UUID.class, JvMainChatsGlobalDefines.TypeStatusMessage.class);
+                    byte[] bodyMessage = createBodyTextMessagesChangingStatusFromUserMessage(type, mapStatusesMessages);
+                    sendReadyMessageNetwork(bodyMessage);
+                }
+            }
+            case TextMessagesChangingStatusFromUserVerification -> {
+                if (parameters.length == 1) {
+                    Object reply = parameters[0];
+                    byte[] bodyMessage = createBodyTextMessagesChangingStatusFromUserVerificationMessage(type, (Boolean) reply);
+                    sendReadyMessageNetwork(bodyMessage);
+                }
+            }
+            case TextMessageRedirectServerToUser -> {
+                if (parameters.length == 6) {
+                    Object uuidUserSender = parameters[0];
+                    Object uuidUserReceiver = parameters[1];
+                    Object uuidMessage = parameters[2];
+                    Object text = parameters[3];
+                    Object timestamp = parameters[4];
+                    Object runnableCtrl = parameters[5];
+                    byte[] bodyMessage = createBodyTextMessageRedirectServerToUserMessage(type, (UUID) uuidUserSender,
+                            (UUID) uuidUserReceiver, (UUID) uuidMessage, (String) text, (String) timestamp);
+                    sendReadyMessageNetwork(bodyMessage, (Runnable) runnableCtrl);
+                }
+            }
+            case TextMessageRedirectServerToUserVerification -> {
+                if (parameters.length == 1) {
+                    Object reply = parameters[0];
+                    byte[] bodyMessage = createBodyTextMessageRedirectServerToUserVerificationMessage(type, (Boolean) reply);
+                    sendReadyMessageNetwork(bodyMessage);
+                }
+            }
+            case MessagesLoadRequest -> {
+                if (parameters.length == 2) {
+                    Object uuidChat = parameters[0];
+                    Object quantityMessages = parameters[1];
+                    byte[] bodyMessage = createMessagesLoadRequestMessage(type, (UUID) uuidChat, (Integer) quantityMessages);
+                    sendReadyMessageNetwork(bodyMessage);
+                    JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                            .setTextMessagesLoadReplyFlag(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
+                }
+            }
+            case MessagesLoadReply -> {
+                if (parameters.length == 1) {
+                    Object msgInfoObj = parameters[0];
+                    List<Map<JvDbGlobalDefines.LineKeys, String>> msgInfo =
+                            JvGetterTools.getInstance().getBeanStructTools()
+                                    .objectInListMaps(msgInfoObj, JvDbGlobalDefines.LineKeys.class, String.class);
+                    byte[] bodyMessageChatsLoadReply = createBodyMessagesLoadReplyMessage(type, msgInfo);
+                    sendReadyMessageNetwork(bodyMessageChatsLoadReply);
+                }
+            }
         }
-
     }
 
     private void sendReadyMessageNetwork(byte[] bodyMessage) {
-        JvGetterControls.getInstance()
-                .getBeanNetworkCtrl().sendMessage(bodyMessage);
+        JvGetterControls.getInstance().getBeanNetworkCtrl().sendMessage(bodyMessage);
     }
 
-    private byte[] createBodyEntryRequestMessage(JvMessagesDefines.TypeMessage type, String login, String password) {
-        return JvGetterMessages.getInstance().getBeanMessagesSerializatorData().serialiseData(type, login, password);
+    private void sendReadyMessageNetwork(byte[] bodyMessage, Runnable runnableCtrl) {
+        JvGetterControls.getInstance().getBeanNetworkCtrl().sendMessageByRunnableCtrl(bodyMessage, runnableCtrl);
     }
 
-    private byte[] createBodyEntryReplyMessage(JvMessagesDefines.TypeMessage type, Boolean reply) {
-        return JvGetterMessages.getInstance().getBeanMessagesSerializatorData().serialiseData(type, reply);
+    private byte[] createBodyEntryRequestMessage(JvDefinesMessages.TypeMessage type, String login, String password) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, login, password);
     }
 
-    private byte[] createBodyRegistrationRequestMessage(JvMessagesDefines.TypeMessage type, String login, String email, String password) {
-        return JvGetterMessages.getInstance().getBeanMessagesSerializatorData().serialiseData(type, login, email, password);
+    private byte[] createBodyEntryReplyMessage(JvDefinesMessages.TypeMessage type, Boolean reply, UUID uuidUser) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply, uuidUser);
     }
 
-    private byte[] createBodyRegistrationReplyMessage(JvMessagesDefines.TypeMessage type, Boolean reply, JvMessagesDefines.TypeErrorRegistration error) {
-        return JvGetterMessages.getInstance().getBeanMessagesSerializatorData().serialiseData(type, reply, error);
+    private byte[] createBodyRegistrationRequestMessage(JvDefinesMessages.TypeMessage type, String login, String email, String password) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, login, email, password);
     }
 
-    private byte[] createBodyVerifyRegistrationEmailRequestMessage(JvMessagesDefines.TypeMessage type, String login, String email, String password, String code) {
-        return JvGetterMessages.getInstance().getBeanMessagesSerializatorData().serialiseData(type, login, email, password, code);
+    private byte[] createBodyRegistrationReplyMessage(JvDefinesMessages.TypeMessage type, Boolean reply, JvDefinesMessages.TypeErrorRegistration error) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply, error);
     }
 
-    private byte[] createBodyVerifyRegistrationEmailReplyMessage(JvMessagesDefines.TypeMessage type, Boolean reply, JvMessagesDefines.TypeErrorRegistration error) {
-        return JvGetterMessages.getInstance().getBeanMessagesSerializatorData().serialiseData(type, reply, error);
+    private byte[] createBodyVerifyRegistrationEmailRequestMessage(JvDefinesMessages.TypeMessage type, String login, String email, String password, String code) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, login, email, password, code);
     }
 
-    private byte[] createBodyResetPasswordRequestMessage(JvMessagesDefines.TypeMessage type, String email) {
-        return JvGetterMessages.getInstance().getBeanMessagesSerializatorData().serialiseData(type, email);
+    private byte[] createBodyVerifyRegistrationEmailReplyMessage(JvDefinesMessages.TypeMessage type, Boolean reply, JvDefinesMessages.TypeErrorRegistration error) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply, error);
     }
 
-    private byte[] createBodyResetPasswordReplyMessage(JvMessagesDefines.TypeMessage type, Boolean reply) {
-        return JvGetterMessages.getInstance().getBeanMessagesSerializatorData().serialiseData(type, reply);
+    private byte[] createBodyResetPasswordRequestMessage(JvDefinesMessages.TypeMessage type, String email) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, email);
     }
 
-    private byte[] createBodyVerifyFamousEmailRequestMessage(JvMessagesDefines.TypeMessage type, String email, String code) {
-        return JvGetterMessages.getInstance().getBeanMessagesSerializatorData().serialiseData(type, email, code);
+    private byte[] createBodyResetPasswordReplyMessage(JvDefinesMessages.TypeMessage type, Boolean reply) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
     }
 
-    private byte[] createBodyVerifyFamousEmailReplyMessage(JvMessagesDefines.TypeMessage type, Boolean reply) {
-        return JvGetterMessages.getInstance().getBeanMessagesSerializatorData().serialiseData(type, reply);
+    private byte[] createBodyVerifyFamousEmailRequestMessage(JvDefinesMessages.TypeMessage type, String email, String code) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, email, code);
     }
 
-    private byte[] createBodyChangePasswordRequestMessage(JvMessagesDefines.TypeMessage type, String email, String password) {
-        return JvGetterMessages.getInstance().getBeanMessagesSerializatorData().serialiseData(type, email, password);
+    private byte[] createBodyVerifyFamousEmailReplyMessage(JvDefinesMessages.TypeMessage type, Boolean reply) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
     }
 
-    private byte[] createBodyChangePasswordReplyMessage(JvMessagesDefines.TypeMessage type, Boolean reply) {
-        return JvGetterMessages.getInstance().getBeanMessagesSerializatorData().serialiseData(type, reply);
+    private byte[] createBodyChangePasswordRequestMessage(JvDefinesMessages.TypeMessage type, String email, String password) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, email, password);
+    }
+
+    private byte[] createBodyChangePasswordReplyMessage(JvDefinesMessages.TypeMessage type, Boolean reply) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
+    }
+
+    private byte[] createBodyChatsLoadRequestMessage(JvDefinesMessages.TypeMessage type, UUID uuidUser) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, uuidUser);
+    }
+
+    private byte[] createBodyChatsLoadReplyMessage(JvDefinesMessages.TypeMessage type, List<Map<JvDbGlobalDefines.LineKeys, String>> reply) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
+    }
+
+    private byte[] createBodyCheckOnlineUserRequestMessage(JvDefinesMessages.TypeMessage type, String ip) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, ip);
+    }
+
+    private byte[] createBodyCheckOnlineUserReplyMessage(JvDefinesMessages.TypeMessage type, UUID login) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, login);
+    }
+
+    private byte[] createBodyLoadUsersOnlineStatusRequestMessage(JvDefinesMessages.TypeMessage type, List<UUID> uuids) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, uuids);
+    }
+
+    private byte[] createBodyLoadUsersOnlineStatusReplyMessage(JvDefinesMessages.TypeMessage type,
+                                                               Map<UUID, JvMainChatsGlobalDefines.TypeStatusOnline> statusesUsers,
+                                                               Map<UUID, String> lastOnlineTimeUsers) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, statusesUsers, lastOnlineTimeUsers);
+    }
+
+    private byte[] createBodyTextMessageSendUserToServerMessage(JvDefinesMessages.TypeMessage type,
+                                                                UUID uuidUserSender, UUID uuidUserReceiver, UUID uuidMessage,
+                                                                String text, String timestamp) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(
+                type, uuidUserSender, uuidUserReceiver, uuidMessage, text, timestamp);
+    }
+
+    private byte[] createBodyTextMessageSendUserToServerVerificationMessage(JvDefinesMessages.TypeMessage type, boolean reply) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
+    }
+
+    private byte[] createBodyTextMessagesChangingStatusFromServerMessage(JvDefinesMessages.TypeMessage type,
+                                                                         Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, mapStatusMessages);
+    }
+
+    private byte[] createBodyTextMessagesChangingStatusFromServerVerificationMessage(JvDefinesMessages.TypeMessage type, boolean reply) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
+    }
+
+    private byte[] createBodyTextMessagesChangingStatusFromUserMessage(JvDefinesMessages.TypeMessage type,
+                                                                         Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, mapStatusMessages);
+    }
+
+    private byte[] createBodyTextMessagesChangingStatusFromUserVerificationMessage(JvDefinesMessages.TypeMessage type, boolean reply) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
+    }
+
+    private byte[] createBodyTextMessageRedirectServerToUserMessage(JvDefinesMessages.TypeMessage type,
+                                                                    UUID uuidUserSender, UUID uuidUserReceiver, UUID uuidMessage,
+                                                                    String text, String timestamp) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(
+                type, uuidUserSender, uuidUserReceiver, uuidMessage, text, timestamp);
+    }
+
+    private byte[] createBodyTextMessageRedirectServerToUserVerificationMessage(JvDefinesMessages.TypeMessage type, boolean reply) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
+    }
+
+    private byte[] createMessagesLoadRequestMessage(JvDefinesMessages.TypeMessage type, UUID uuidChat, int quantityMessages) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, uuidChat, quantityMessages);
+    }
+
+    private byte[] createBodyMessagesLoadReplyMessage(JvDefinesMessages.TypeMessage type, List<Map<JvDbGlobalDefines.LineKeys, String>> reply) {
+        return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
     }
 }

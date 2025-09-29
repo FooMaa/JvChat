@@ -2,6 +2,7 @@ package org.foomaa.jvchat.globaldefines;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+
 public class JvGetterGlobalDefines {
     private static JvGetterGlobalDefines instance;
     private final AnnotationConfigApplicationContext context;
@@ -18,11 +19,23 @@ public class JvGetterGlobalDefines {
         return instance;
     }
 
-    public JvColorsAnsi getBeanColorsAnsi() {
-        return context.getBean(JvGlobalDefinesSpringConfig.NameBeans.BeanColorsAnsi.getValue(), JvColorsAnsi.class);
+    public JvColorsAnsiGlobalDefines getBeanColorsAnsiGlobalDefines() {
+        return context.getBean(JvGlobalDefinesSpringConfig.NameBeans.BeanColorsAnsiGlobalDefines.getValue(), JvColorsAnsiGlobalDefines.class);
     }
 
-    public JvMainDefines getBeanMainDefines() {
-        return context.getBean(JvGlobalDefinesSpringConfig.NameBeans.BeanMainDefines.getValue(), JvMainDefines.class);
+    public JvMainGlobalDefines getBeanMainGlobalDefines() {
+        return context.getBean(JvGlobalDefinesSpringConfig.NameBeans.BeanMainGlobalDefines.getValue(), JvMainGlobalDefines.class);
+    }
+
+    public JvDbGlobalDefines getBeanDbGlobalDefines() {
+        return context.getBean(JvGlobalDefinesSpringConfig.NameBeans.BeanDbGlobalDefines.getValue(), JvDbGlobalDefines.class);
+    }
+
+    public JvMainChatsGlobalDefines getBeanMainChatsGlobalDefines() {
+        return context.getBean(JvGlobalDefinesSpringConfig.NameBeans.BeanMainChatsGlobalDefines.getValue(), JvMainChatsGlobalDefines.class);
+    }
+
+    public JvFontsGlobalDefines getBeanFontsGlobalDefines() {
+        return context.getBean(JvGlobalDefinesSpringConfig.NameBeans.BeanFontsGlobalDefines.getValue(), JvFontsGlobalDefines.class);
     }
 }

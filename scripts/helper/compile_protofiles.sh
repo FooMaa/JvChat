@@ -2,7 +2,7 @@
 
 PROJECT_NAME=JvChat
 PROJECT_DIR=$( echo "$(realpath $0 | sed -r 's/scripts.+//g')" )
-PROTO_PATH="$PROJECT_DIR/sources/lib/JvMessages/src/main/java/org/foomaa/jvchat/messages/protoFiles"
+PROTO_PATH="$PROJECT_DIR/sources/lib/JvMessages/src/main/proto"
 
 function create_proto_src {
     protoc $1 --java_out=$PROJECT_DIR/sources/lib/JvMessages/src/main/java --proto_path=$PROTO_PATH

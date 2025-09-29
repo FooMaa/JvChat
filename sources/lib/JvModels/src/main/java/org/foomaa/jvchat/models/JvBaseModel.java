@@ -1,0 +1,92 @@
+package org.foomaa.jvchat.models;
+
+import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.structobjects.JvBaseStructObject;
+import org.foomaa.jvchat.structobjects.JvRootStructObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+public abstract class JvBaseModel {
+    private JvRootStructObject rootObject;
+    private final String nameModel;
+
+    JvBaseModel() {
+        nameModel = getClass().getSimpleName();
+        rootObject = null;
+    }
+
+    public void addItem(JvBaseStructObject item, JvBaseStructObject parent) {
+        parent.addChild(item);
+    }
+
+    public void removeItem(JvBaseStructObject item) {
+        if (rootObject == null) {
+            JvLog.write(JvLog.TypeLog.Error, "Here rootObject turned out to be null.");
+            return;
+        }
+
+        if (!removeItemProcess(rootObject, item)) {
+            JvLog.write(JvLog.TypeLog.Error, "There is an error when deleting an element.");
+        }
+    }
+
+    private boolean removeItemProcess(JvBaseStructObject parent, JvBaseStructObject item) {
+        List<JvBaseStructObject> baseStructObjects = new ArrayList<>(parent.getChildren());
+
+        for (JvBaseStructObject child : baseStructObjects) {
+            if (child == item) {
+                parent.removeChild(item);
+                return true;
+            } else {
+                boolean removed = removeItemProcess(child, item);
+                if (removed) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    protected void setRootObject(JvRootStructObject newRootObject) {
+        if (rootObject != newRootObject) {
+            rootObject = newRootObject;
+            updateRootObjectsModel();
+        }
+    }
+
+    protected JvBaseStructObject getRootObject() {
+        return rootObject;
+    }
+
+    private void updateRootObjectsModel() {
+        if (getClass() == JvRootObjectsModel.class) {
+            return;
+        }
+
+        JvRootStructObject rootStructObjectRootModel =
+                (JvRootStructObject) JvGetterModels.getInstance().getBeanRootObjectsModel().getRootObject();
+
+        if (rootObject != null &&  rootObject != rootStructObjectRootModel) {
+            JvGetterModels.getInstance().getBeanRootObjectsModel().addItem(rootObject, rootStructObjectRootModel);
+        }
+    }
+
+    public String getNameModel() {
+        return nameModel;
+    }
+
+    public void clearModel() {
+        List<JvBaseStructObject> children = new ArrayList<>(rootObject.getChildren());
+        if (children.isEmpty()) {
+            JvLog.write(JvLog.TypeLog.Warn, "Empty children...");
+            return;
+        }
+
+        for (JvBaseStructObject child : children) {
+            rootObject.removeChild(child);
+        }
+    }
+}

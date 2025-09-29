@@ -1,11 +1,8 @@
 package org.foomaa.jvchat.network;
 
-import org.foomaa.jvchat.logger.JvLog;
-import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -13,6 +10,9 @@ import javax.mail.Transport;
 import javax.mail.internet.*;
 import java.util.Date;
 import java.util.Properties;
+
+import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.settings.JvGetterSettings;
 
 
 @Component("beanEmailProcessor")
@@ -27,8 +27,8 @@ public class JvEmailProcessor {
 
     private JvEmailProcessor() {
         host = "smtp.mail.ru";
-        userLogin = JvGetterSettings.getInstance().getBeanMainSettings().getEmailAddress();
-        userPassword = JvGetterSettings.getInstance().getBeanMainSettings().getMagicStringEmail();
+        userLogin = JvGetterSettings.getInstance().getBeanServersInfoSettings().getEmailAddress();
+        userPassword = JvGetterSettings.getInstance().getBeanServersInfoSettings().getMagicStringEmail();
 
         Properties props = new Properties();
 
@@ -58,7 +58,8 @@ public class JvEmailProcessor {
             transport.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
             transport.close();
         } catch (MessagingException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Ошибка при отправке письма");
+            JvLog.write(JvLog.TypeLog.Error, "Error sending email.");
+            exception.printStackTrace();
             return false;
         }
         return true;

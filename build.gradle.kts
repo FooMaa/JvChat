@@ -52,7 +52,7 @@ subprojects {
     }
 }
 
-// такая штука нужна, чтоб удалить принудительно папку сборки
+// This thing is needed to remove the power supply of the assembly
 //gradle.buildFinished() {
 //    delete(project.buildDir)
 //}

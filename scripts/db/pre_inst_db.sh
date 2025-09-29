@@ -6,7 +6,7 @@ PROJECT_DIR=$( echo "$(realpath $0 | sed -r 's/scripts.+//g')" )
 POST_PWD=""
 UPDATING_REPO=false
 NEED_INSTALL=false
-NEED_PGHBA=false
+NEED_CONF=false
 LOG_FILE="/tmp/pre_inst_db.log"
 USER_SYSTEM="postgres"
 CHECK_MARK="\033[0;32m\xE2\x9c\x94\033[0m"
@@ -17,7 +17,7 @@ function usage {
     Usage: $0 [options]
     -i      install dependencies    install dependencies (OPTIONAL) Example $0 -i
     -h      help menu               to see this help (OPTIONAL) Example $0 -h
-    -p      need make pg_hba.conf   copy pg_hba.conf from repo (OPTIONAL) Example $0 -h
+    -c      need make conf file     to config postgresql files (OPTIONAL) Example $0 -c
     -w      set password            set defaut password to postgres (OPTIONAL) Example $0 -w '9999'
 EOF
 }
@@ -78,7 +78,25 @@ function make_pg_hba_file {
     echo -e "\\r[ $CHECK_MARK ] make pg_hba.conf file"
 }
 
-function update_pwd_postgtes_from_db {
+function make_postgresql_file {
+    echo -n "[...] make postgresql.conf file"
+
+    pushd $DIR >> $LOG_FILE 2>&1
+
+    VERSION_PG=$(psql --version | sed -e 's/[^0-9][^0-9]*//' -e 's/\..*//')
+    CURRENT_PORT=$(grep '^port' /etc/postgresql/$VERSION_PG/main/postgresql.conf | awk '{print $3}')
+    
+    if [[ $CURRENT_PORT != 5432 ]]; then
+        cp /etc/postgresql/$VERSION_PG/main/postgresql.conf /tmp/
+        sed -i 's/^port = .*$/port = 5432/' /etc/postgresql/$VERSION_PG/main/postgresql.conf
+    fi
+    
+    service postgresql restart
+
+    echo -e "\\r[ $CHECK_MARK ] make postgresql.conf file"
+}
+
+function update_pwd_postgres_from_db {
     echo -n "[...] set password sql user $USER_SYSTEM"
 
     pushd / >> $LOG_FILE 2>&1
@@ -92,7 +110,7 @@ function update_pwd_postgtes_from_db {
 while [ -n "$1" ]; do
     case "$1" in
         -i ) NEED_INSTALL=true ;;
-        -p ) NEED_PGHBA=true ;;
+        -c ) NEED_CONF=true ;;
         -w ) if [[ -z $2 || $2 == "-"* ]]; then echo -e "You send flag without password"; usage; exit 1; else POST_PWD=$2; fi; shift ;;
         -h ) usage; exit 1;;
         -- ) usage; exit 1;;
@@ -109,8 +127,9 @@ fi
 
 set_pwd_postgres
 
-if [[ $NEED_PGHBA == true ]]; then 
+if [[ $NEED_CONF == true ]]; then 
     make_pg_hba_file
+    make_postgresql_file
 fi
 
-update_pwd_postgtes_from_db
+update_pwd_postgres_from_db

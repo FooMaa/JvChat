@@ -2,17 +2,23 @@ package org.foomaa.jvchat.tools;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 
+
 @Configuration
-public class JvToolsSpringConfig {
+class JvToolsSpringConfig {
     public enum NameBeans {
-        BeanMainTools("beanMainTools");
+        BeanMainTools("beanMainTools"),
+        BeanStructTools("beanStructTools"),
+        BeanServersTools("beanServersTools"),
+        BeanUsersTools("beanUsersTools"),
+        BeanFormatTools("beanFormatTools");
 
         private final String value;
 
-        NameBeans(String value) {
-            this.value = value;
+        NameBeans(String newValue) {
+            value = newValue;
         }
 
         public String getValue() {
@@ -22,7 +28,38 @@ public class JvToolsSpringConfig {
 
     @Bean(name = "beanMainTools")
     @Scope("singleton")
+    @SuppressWarnings("unused")
     public JvMainTools beanMainTools() {
-        return JvMainTools.getInstance();
+        return new JvMainTools();
+    }
+
+    @Bean(name = "beanStructTools")
+    @Scope("singleton")
+    @SuppressWarnings("unused")
+    public JvStructTools beanStructTools() {
+        return new JvStructTools();
+    }
+
+    @Bean(name = "beanServersTools")
+    @Profile("servers")
+    @Scope("singleton")
+    @SuppressWarnings("unused")
+    public JvServersTools beanServersTools() {
+        return new JvServersTools();
+    }
+
+    @Bean(name = "beanUsersTools")
+    @Profile("users")
+    @Scope("singleton")
+    @SuppressWarnings("unused")
+    public JvUsersTools beanUsersTools() {
+        return new JvUsersTools();
+    }
+
+    @Bean(name = "beanFormatTools")
+    @Scope("singleton")
+    @SuppressWarnings("unused")
+    public JvFormatTools beanFormatTools() {
+        return new JvFormatTools();
     }
 }

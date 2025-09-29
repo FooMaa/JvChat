@@ -4,16 +4,20 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 
+
 @Configuration
-public class JvGlobalDefinesSpringConfig {
+class JvGlobalDefinesSpringConfig {
     public enum NameBeans {
-        BeanMainDefines("beanMainDefines"),
-        BeanColorsAnsi("beanColorAnsi");
+        BeanMainGlobalDefines("beanMainGlobalDefines"),
+        BeanColorsAnsiGlobalDefines("beanColorAnsiGlobalDefines"),
+        BeanDbGlobalDefines("beanDbGlobalDefines"),
+        BeanMainChatsGlobalDefines("beanMainChatsGlobalDefines"),
+        BeanFontsGlobalDefines("beanFontsGlobalDefines");
 
         private final String value;
 
-        NameBeans(String value) {
-            this.value = value;
+        NameBeans(String newValue) {
+            value = newValue;
         }
 
         public String getValue() {
@@ -21,15 +25,38 @@ public class JvGlobalDefinesSpringConfig {
         }
     }
 
-    @Bean(name = "beanColorAnsi")
+    @Bean(name = "beanColorAnsiGlobalDefines")
     @Scope("singleton")
-    public JvColorsAnsi beanColorAnsi() {
-        return JvColorsAnsi.getInstance();
+    @SuppressWarnings("unused")
+    public JvColorsAnsiGlobalDefines beanColorAnsiGlobalDefines() {
+        return new JvColorsAnsiGlobalDefines();
     }
 
-    @Bean(name = "beanMainDefines")
+    @Bean(name = "beanMainGlobalDefines")
     @Scope("singleton")
-    public JvMainDefines beanMainDefines() {
-        return JvMainDefines.getInstance();
+    @SuppressWarnings("unused")
+    public JvMainGlobalDefines beanMainGlobalDefines() {
+        return new JvMainGlobalDefines();
+    }
+
+    @Bean(name = "beanDbGlobalDefines")
+    @Scope("singleton")
+    @SuppressWarnings("unused")
+    public JvDbGlobalDefines beanDbGlobalDefines() {
+        return new JvDbGlobalDefines();
+    }
+
+    @Bean(name = "beanMainChatsGlobalDefines")
+    @Scope("singleton")
+    @SuppressWarnings("unused")
+    public JvMainChatsGlobalDefines beanMainChatsGlobalDefines() {
+        return new JvMainChatsGlobalDefines();
+    }
+
+    @Bean(name = "beanFontsGlobalDefines")
+    @Scope("singleton")
+    @SuppressWarnings("unused")
+    public JvFontsGlobalDefines beanFontsGlobalDefines() {
+        return new JvFontsGlobalDefines();
     }
 }

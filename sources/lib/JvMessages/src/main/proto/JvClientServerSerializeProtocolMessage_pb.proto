@@ -1,0 +1,241 @@
+syntax = "proto3";
+
+option java_outer_classname = "JvClientServerSerializeProtocolMessage_pb";
+option java_package = "org.foomaa.jvchat.messages";
+
+message General {
+    uint32 type = 1;
+    oneof body {
+        // Auth
+        EntryRequest entryRequest = 2;
+        EntryReply entryReply = 3;
+
+        RegistrationRequest registrationRequest = 4;
+        RegistrationReply registrationReply = 5;
+
+        VerifyRegistrationEmailRequest verifyRegistrationEmailRequest = 6;
+        VerifyRegistrationEmailReply verifyRegistrationEmailReply = 7;
+
+        ResetPasswordRequest resetPasswordRequest = 8;
+        ResetPasswordReply resetPasswordReply = 9;
+
+        VerifyFamousEmailRequest verifyFamousEmailRequest = 10;
+        VerifyFamousEmailReply verifyFamousEmailReply = 11;
+
+        ChangePasswordRequest changePasswordRequest = 12;
+        ChangePasswordReply changePasswordReply = 13;
+
+
+        // Main Chat
+        ChatsLoadRequest chatsLoadRequest = 14;
+        ChatsLoadReply chatsLoadReply = 15;
+
+        CheckOnlineUserRequest checkOnlineRequest = 16;
+        CheckOnlineUserReply checkOnlineReply = 17;
+
+        LoadUsersOnlineStatusRequest loadUsersOnlineStatusRequest = 18;
+        LoadUsersOnlineStatusReply loadUsersOnlineStatusReply = 19;
+
+        TextMessageSendUserToServer textMessageSendUserToServer = 20;
+        TextMessageSendUserToServerVerification textMessageSendUserToServerVerification = 21;
+
+        TextMessagesChangingStatusFromServer textMessagesChangingStatusFromServer = 22;
+        TextMessagesChangingStatusFromServerVerification textMessagesChangingStatusFromServerVerification = 23;
+
+        TextMessagesChangingStatusFromUser textMessagesChangingStatusFromUser = 24;
+        TextMessagesChangingStatusFromUserVerification textMessagesChangingStatusFromUserVerification = 25;
+
+        TextMessageRedirectServerToUser textMessageRedirectServerToUser = 26;
+        TextMessageRedirectServerToUserVerification textMessageRedirectServerToUserVerification = 27;
+
+        MessagesLoadRequest messagesLoadRequest = 28;
+        MessagesLoadReply messagesLoadReply = 29;
+    }
+}
+
+// Main
+
+message EntryRequest {
+    string login = 1;
+    string password = 2;
+}
+
+message EntryReply {
+    bool reply = 1;
+    string uuidUser = 2;
+}
+
+message RegistrationRequest {
+    string login = 1;
+    string email = 2;
+    string password = 3;
+}
+
+message RegistrationReply {
+    enum Error {
+        Login = 0;
+        Email = 1;
+        LoginAndEmail = 2;
+        EmailSending = 3;
+        NoError = 9999;
+    }
+    bool reply = 1;
+    Error error = 2;
+}
+
+message VerifyRegistrationEmailRequest {
+    string login = 1;
+    string email = 2;
+    string password = 3;
+    string code = 4;
+}
+
+message VerifyRegistrationEmailReply {
+    enum Error {
+        Login = 0;
+        Email = 1;
+        LoginAndEmail = 2;
+        EmailSending = 3;
+        Code = 4;
+        NoError = 9999;
+    }
+    bool reply = 1;
+    Error error = 2;
+}
+
+message ResetPasswordRequest {
+    string email = 1;
+}
+
+message ResetPasswordReply {
+    bool reply = 1;
+}
+
+message VerifyFamousEmailRequest {
+    string email = 1;
+    string code = 2;
+}
+
+message VerifyFamousEmailReply {
+    bool reply = 1;
+}
+
+message ChangePasswordRequest {
+    string email = 1;
+    string password = 2;
+}
+
+message ChangePasswordReply {
+    bool reply = 1;
+}
+
+message ChatsLoadRequest {
+    string uuidUser = 1;
+}
+
+message ChatsLoadReply {
+    repeated ChatsInfo chatsInfo = 1;
+}
+
+message CheckOnlineUserRequest {
+    string ip = 1;
+}
+
+message CheckOnlineUserReply {
+    string uuidUser = 1;
+}
+
+message LoadUsersOnlineStatusRequest {
+    repeated string uuidsUsers = 1;
+}
+
+message LoadUsersOnlineStatusReply {
+    enum StatusOnline {
+        Error = 0;
+        Offline = 1;
+        Online = 2;
+    }
+    map<string, StatusOnline> mapStatusOnline = 1;
+    map<string, string> mapLastOnlineTime = 2;
+}
+
+message TextMessageSendUserToServer {
+    TextMessageInfo textMessageInfo = 1;
+}
+
+message TextMessageSendUserToServerVerification {
+    bool reply = 1;
+}
+
+message TextMessagesChangingStatusFromServer {
+    enum StatusMessage {
+            Error = 0;
+            Sent = 1;
+            Delivered = 2;
+            Read = 3;
+    }
+    map<string, StatusMessage> mapStatusMessages = 1;
+}
+
+message TextMessagesChangingStatusFromServerVerification {
+    bool reply = 1;
+}
+
+message TextMessagesChangingStatusFromUser {
+    enum StatusMessage {
+            Error = 0;
+            Sent = 1;
+            Delivered = 2;
+            Read = 3;
+    }
+    map<string, StatusMessage> mapStatusMessages = 1;
+}
+
+message TextMessagesChangingStatusFromUserVerification {
+    bool reply = 1;
+}
+
+message TextMessageRedirectServerToUser {
+    TextMessageInfo textMessageInfo = 1;
+}
+
+message TextMessageRedirectServerToUserVerification {
+    bool reply = 1;
+}
+
+message MessagesLoadRequest {
+    string uuidChat = 1;
+    uint32 quantityMessages = 2;
+}
+
+message MessagesLoadReply {
+    repeated TextMessageInfo textMessageInfo = 1;
+}
+
+// Helpers
+
+message ChatsInfo {
+    enum TypeStatusMessage {
+            Error = 0;
+            Sent = 1;
+            Delivered = 2;
+            Read = 3;
+    }
+    string login = 1;
+    string uuidUser = 2;
+    string lastMessageText = 3;
+    string uuidChat = 4;
+    string uuidMessage = 5;
+    bool isLoginSentLastMessage = 6;
+    TypeStatusMessage statusMessage = 7;
+    string dateTimeLastMessage = 8;
+}
+
+message TextMessageInfo {
+    string uuidUserSender = 1;
+    string uuidUserReceiver = 2;
+    string uuidMessage = 3;
+    uint32 statusMessage = 4;
+    string text = 5;
+    string timestamp = 6;
+}

@@ -13,7 +13,7 @@ function check_root {
 }
 
 function run {
-    bash $DIR"/pre_inst_db.sh" -i -p
+    bash $DIR"/pre_inst_db.sh" -i -c
     EXIT_CODE=$?
     if [[ $EXIT_CODE -ne 0 ]]; then
         echo -e "\\r[ $CROSS_MARK ] . Fail pre_inst_db.sh..."
