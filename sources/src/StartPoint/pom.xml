@@ -15,7 +15,7 @@
     <name>StartPoint</name>
 
     <properties>
-        <mainClass>org.foomaa.jvchat.startpoint.JvMainStartPoint</mainClass>
+        <mainClass>org.foomaa.jvchat.startpoint.MainStartPoint</mainClass>
         <exec.skip>false</exec.skip>
     </properties>
 

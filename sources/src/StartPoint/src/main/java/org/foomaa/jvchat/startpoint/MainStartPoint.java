@@ -17,9 +17,9 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
 @EnableAsync
-public class JvMainStartPoint implements ApplicationRunner {
+public class MainStartPoint implements ApplicationRunner {
     public static void main(String[] args) {
-        SpringApplication.run( JvMainStartPoint.class, args );
+        SpringApplication.run( MainStartPoint.class, args );
     }
 
     @Override
@@ -31,7 +31,7 @@ public class JvMainStartPoint implements ApplicationRunner {
 
     private void workingArgs(ApplicationArguments args) {
         try {
-            JvGetterTools.getInstance().getBeanMainTools().setProfileSetting(JvMainStartPoint.class);
+            JvGetterTools.getInstance().getBeanMainTools().setProfileSetting(MainStartPoint.class);
 //            NOTE(VAD): Set profile by spring.
 //            JvGetterTools.getInstance().getBeanMainTools().setProfileSettingSpring();
         } catch (IOException | URISyntaxException exception) {

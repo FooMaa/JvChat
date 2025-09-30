@@ -53,7 +53,7 @@ tasks {
     }
 
     bootRun {
-        mainClass.set("org.foomaa.jvchat.startpoint.JvMainStartPoint")
+        mainClass.set("org.foomaa.jvchat.startpoint.MainStartPoint")
     }
 }
 
