@@ -27,7 +27,7 @@
         <module>sources/lib/JvEvents</module>
         <module>sources/lib/JvModels</module>
         <module>sources/lib/JvStructObjects</module>
-        <module>sources/src/JvStartPoint</module>
+        <module>sources/src/StartPoint</module>
         <module>sources/src/JvUILinks</module>
         <module>sources/src/JvDbWorker</module>
         <module>sources/src/JvControls</module>

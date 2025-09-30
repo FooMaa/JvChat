@@ -9,10 +9,10 @@
     </parent>
 
     <groupId>org.foomaa.jvchat.startpoint</groupId>
-    <artifactId>JvStartPoint</artifactId>
+    <artifactId>StartPoint</artifactId>
     <packaging>jar</packaging>
 
-    <name>JvStartPoint</name>
+    <name>StartPoint</name>
 
     <properties>
         <mainClass>org.foomaa.jvchat.startpoint.JvMainStartPoint</mainClass>
