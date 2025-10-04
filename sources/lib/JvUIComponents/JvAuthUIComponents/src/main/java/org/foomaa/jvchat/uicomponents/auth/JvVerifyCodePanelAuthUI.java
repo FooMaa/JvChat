@@ -5,8 +5,8 @@ import java.awt.*;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-import org.foomaa.jvchat.ctrl.JvGetterControls;
-import org.foomaa.jvchat.ctrl.JvMessagesDefinesCtrl;
+import org.foomaa.jvchat.ctrl.GetterControls;
+import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.events.JvGetterEvents;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
@@ -125,11 +125,11 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
         bSet.addActionListener(event -> {
             if (checkFields()) {
                 if (regime == RegimeWork.ResetPassword) {
-                    JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(JvDefinesMessages.TypeMessage.VerifyFamousEmailRequest,
+                    GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(JvDefinesMessages.TypeMessage.VerifyFamousEmailRequest,
                             email, tCode.getInputText());
                     waitRepeatServerResetPassword();
                 } else if (regime == RegimeWork.Registration) {
-                    JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(JvDefinesMessages.TypeMessage.VerifyRegistrationEmailRequest,
+                    GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(JvDefinesMessages.TypeMessage.VerifyRegistrationEmailRequest,
                             login, email, password, tCode.getInputText());
                     waitRepeatServerRegistration();
                 }
@@ -194,20 +194,20 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
 
     private void waitRepeatServerResetPassword() {
         setEnabled(false);
-        while (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyFamousEmailRequestFlag() ==
-                JvMessagesDefinesCtrl.TypeFlags.DEFAULT) {
+        while (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyFamousEmailRequestFlag() ==
+                MessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
                 JvLog.write(JvLog.TypeLog.Error, "Failed to wait.");
             }
         }
-        if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyFamousEmailRequestFlag() ==
-                JvMessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyFamousEmailRequestFlag() ==
+                MessagesDefinesCtrl.TypeFlags.TRUE) {
             changeRegimeNext();
             setEnabled(true);
-        } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyFamousEmailRequestFlag() ==
-                JvMessagesDefinesCtrl.TypeFlags.FALSE) {
+        } else if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyFamousEmailRequestFlag() ==
+                MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             JvGetterAuthUIComponents.getInstance()
                     .getBeanOptionPaneAuthUI("The code is not correct. Enter the code you received by mail again.\n" +
@@ -217,27 +217,27 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
 
     private void waitRepeatServerRegistration() {
         setEnabled(false);
-        while (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyRegistrationEmailRequestFlag() ==
-                JvMessagesDefinesCtrl.TypeFlags.DEFAULT) {
+        while (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyRegistrationEmailRequestFlag() ==
+                MessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
                 JvLog.write(JvLog.TypeLog.Error, "Failed to wait.");
             }
         }
-        if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyRegistrationEmailRequestFlag() ==
-                JvMessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyRegistrationEmailRequestFlag() ==
+                MessagesDefinesCtrl.TypeFlags.TRUE) {
             changeRegimeNext();
             setEnabled(true);
-        } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyRegistrationEmailRequestFlag() ==
-                JvMessagesDefinesCtrl.TypeFlags.FALSE) {
+        } else if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyRegistrationEmailRequestFlag() ==
+                MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             openErrorPane();
         }
     }
 
     private void openErrorPane() {
-        switch (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getErrorVerifyRegEmailFlag()) {
+        switch (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getErrorVerifyRegEmailFlag()) {
             case NoError -> JvGetterAuthUIComponents.getInstance()
                     .getBeanOptionPaneAuthUI("The error is not clear.", JvOptionPaneAuthUI.TypeDlg.ERROR);
             case EmailSending -> JvGetterAuthUIComponents.getInstance()

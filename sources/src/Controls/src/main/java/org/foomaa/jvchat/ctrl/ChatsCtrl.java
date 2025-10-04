@@ -16,10 +16,10 @@ import org.foomaa.jvchat.structobjects.JvUserStructObject;
 import org.foomaa.jvchat.tools.JvGetterTools;
 
 
-public class JvChatsCtrl {
+public class ChatsCtrl {
     private final JvChatsModel chatsModel;
 
-    JvChatsCtrl() {
+    ChatsCtrl() {
         chatsModel = JvGetterModels.getInstance().getBeanChatsModel();
     }
 

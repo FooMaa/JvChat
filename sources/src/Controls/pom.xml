@@ -9,10 +9,10 @@
     </parent>
 
     <groupId>org.foomaa.jvchat.ctrl</groupId>
-    <artifactId>JvControls</artifactId>
+    <artifactId>Controls</artifactId>
     <packaging>jar</packaging>
 
-    <name>JvControls</name>
+    <name>Controls</name>
 
     <dependencies>
         <dependency>

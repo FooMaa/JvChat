@@ -17,18 +17,18 @@ import org.foomaa.jvchat.structobjects.JvSocketRunnableCtrlStructObject;
 import org.foomaa.jvchat.structobjects.JvUserStructObject;
 
 
-public class JvOnlineServersCtrl {
+public class OnlineServersCtrl {
     private final int intervalMilliSecondsAfterLastSending;
     private final int intervalMilliSecondsAfterLastUpdate;
     private final JvCheckersOnlineModel checkersOnlineModel;
 
-    JvOnlineServersCtrl() {
+    OnlineServersCtrl() {
         checkersOnlineModel = JvGetterModels.getInstance().getBeanCheckersOnlineModel();
         intervalMilliSecondsAfterLastSending = 10000;
         intervalMilliSecondsAfterLastUpdate = 30000;
     }
 
-    private boolean isRunnableInListCheckerOnline(JvSocketRunnableCtrl socketRunnableCtrl) {
+    private boolean isRunnableInListCheckerOnline(SocketRunnableCtrl socketRunnableCtrl) {
         List<JvCheckerOnlineStructObject> listCheckersOnline = checkersOnlineModel.getAllCheckersOnline();
 
         for (JvCheckerOnlineStructObject checkerOnline : listCheckersOnline) {
@@ -47,7 +47,7 @@ public class JvOnlineServersCtrl {
         return false;
     }
 
-    private JvCheckerOnlineStructObject getCheckerOnlineByRunnable(JvSocketRunnableCtrl socketRunnableCtrl) {
+    private JvCheckerOnlineStructObject getCheckerOnlineByRunnable(SocketRunnableCtrl socketRunnableCtrl) {
         List<JvCheckerOnlineStructObject> listCheckersOnline = checkersOnlineModel.getAllCheckersOnline();
 
         for (JvCheckerOnlineStructObject checkerOnline : listCheckersOnline) {
@@ -99,9 +99,9 @@ public class JvOnlineServersCtrl {
     }
 
     public void loadDataOnlineUsers() {
-        List<Map<JvDbGlobalDefines.LineKeys, String>> dataFromDb = JvGetterControls.getInstance()
+        List<Map<JvDbGlobalDefines.LineKeys, String>> dataFromDb = GetterControls.getInstance()
                 .getBeanDbCtrl().getMultipleInfoFromDb(
-                        JvDbCtrl.TypeExecutionGetMultiple.OnlineUsers);
+                        DbCtrl.TypeExecutionGetMultiple.OnlineUsers);
 
         if (dataFromDb == null) {
             runningRunnableListenOnline();
@@ -132,8 +132,8 @@ public class JvOnlineServersCtrl {
     public void addUsersOnline(UUID uuidUser, Runnable runnableFrom) {
         JvCheckerOnlineStructObject onlineUser;
 
-        if (isRunnableInListCheckerOnline((JvSocketRunnableCtrl) runnableFrom)) {
-            onlineUser = getCheckerOnlineByRunnable((JvSocketRunnableCtrl) runnableFrom);
+        if (isRunnableInListCheckerOnline((SocketRunnableCtrl) runnableFrom)) {
+            onlineUser = getCheckerOnlineByRunnable((SocketRunnableCtrl) runnableFrom);
         } else if (isUuidUserInListCheckerOnline(uuidUser)) {
             onlineUser = getCheckerOnlineByUuidUser(uuidUser);
         } else {
@@ -168,9 +168,9 @@ public class JvOnlineServersCtrl {
     private void saveStatusOnline(UUID uuidUser, JvMainChatsGlobalDefines.TypeStatusOnline statusOnline) {
         int onlineStatusInteger = statusOnline.getValue();
         String onlineStatusString = String.valueOf(onlineStatusInteger);
-        JvGetterControls.getInstance()
+        GetterControls.getInstance()
                 .getBeanDbCtrl().insertQueryToDB(
-                        JvDbCtrl.TypeExecutionInsert.OnlineUsersInfo,
+                        DbCtrl.TypeExecutionInsert.OnlineUsersInfo,
                         uuidUser.toString(),
                         onlineStatusString);
     }
@@ -189,14 +189,14 @@ public class JvOnlineServersCtrl {
         List<JvSocketRunnableCtrlStructObject> connectionList = socketRunnableCtrlModel.getAllSocketRunnableCtrlStructObject();
 
         for (JvSocketRunnableCtrlStructObject socketRunnableCtrlStructObject : connectionList) {
-            JvSocketRunnableCtrl socketRunnableCtrl = (JvSocketRunnableCtrl) socketRunnableCtrlStructObject.getSocketRunnableCtrl();
+            SocketRunnableCtrl socketRunnableCtrl = (SocketRunnableCtrl) socketRunnableCtrlStructObject.getSocketRunnableCtrl();
             if (socketRunnableCtrl == null) {
                 JvLog.write(JvLog.TypeLog.Error, "socketRunnableCtrl turned out to be null.");
                 continue;
             }
 
             preSendingTasks(socketRunnableCtrl);
-            JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+            GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                     JvDefinesMessages.TypeMessage.CheckOnlineUserRequest,
                     JvGetterSettings.getInstance().getBeanServersInfoSettings().getIp(),
                     socketRunnableCtrl);
@@ -218,7 +218,7 @@ public class JvOnlineServersCtrl {
         updateListeningStructure();
     }
 
-    private void preSendingTasks(JvSocketRunnableCtrl socketRunnableCtrl) {
+    private void preSendingTasks(SocketRunnableCtrl socketRunnableCtrl) {
         if (isRunnableInListCheckerOnline(socketRunnableCtrl)) {
             JvCheckerOnlineStructObject onlineUser = getCheckerOnlineByRunnable(socketRunnableCtrl);
             if (onlineUser == null) {
@@ -282,8 +282,8 @@ public class JvOnlineServersCtrl {
         for (UUID uuidUser : uuidsUsers) {
             boolean isUserOnline = isUuidUserInListCheckerOnline(uuidUser);
             if (!isUserOnline) {
-                String lastOnlineTime = JvGetterControls.getInstance().getBeanDbCtrl()
-                        .getSingleDataFromDb(JvDbCtrl.TypeExecutionGetSingle.LastOnlineTimeUser, uuidUser.toString());
+                String lastOnlineTime = GetterControls.getInstance().getBeanDbCtrl()
+                        .getSingleDataFromDb(DbCtrl.TypeExecutionGetSingle.LastOnlineTimeUser, uuidUser.toString());
                 resultMap.put(uuidUser, lastOnlineTime);
             }
         }

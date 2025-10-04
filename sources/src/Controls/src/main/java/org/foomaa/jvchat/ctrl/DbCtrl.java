@@ -17,7 +17,7 @@ import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 
 
-public class JvDbCtrl {
+public class DbCtrl {
     private DbWorker db;
     private DbRequests dbRequests;
 
@@ -53,7 +53,7 @@ public class JvDbCtrl {
         MessagesLoad,
     }
 
-    JvDbCtrl() {}
+    DbCtrl() {}
 
     @Autowired(required = false)
     @Qualifier("beanDbWorker")

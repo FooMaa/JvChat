@@ -5,7 +5,7 @@ import java.awt.*;
 import java.util.Objects;
 import java.util.UUID;
 
-import org.foomaa.jvchat.ctrl.JvGetterControls;
+import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 
@@ -59,7 +59,7 @@ public class JvPanelSendingMessageMainChatUI extends JPanel {
         }
 
         if (!Objects.equals(text, "")) {
-            JvMessageStructObject messageObj = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().createAndSendMessage(text);
+            JvMessageStructObject messageObj = GetterControls.getInstance().getBeanMessagesDialogCtrl().createAndSendMessage(text);
             if (messageObj == null) {
                 JvLog.write(JvLog.TypeLog.Error, "Не создано сообщение для отправки, не отправлено...");
                 return;
@@ -69,8 +69,8 @@ public class JvPanelSendingMessageMainChatUI extends JPanel {
     }
 
     private void updateComponentsAfterSending() {
-        UUID selectedUuid = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().getCurrentActiveChatUuid();
-        JvMessageStructObject message = JvGetterControls.getInstance().getBeanChatsCtrl().getMessageObjectByUuidChat(selectedUuid);
+        UUID selectedUuid = GetterControls.getInstance().getBeanMessagesDialogCtrl().getCurrentActiveChatUuid();
+        JvMessageStructObject message = GetterControls.getInstance().getBeanChatsCtrl().getMessageObjectByUuidChat(selectedUuid);
 
         Box boxComponents = JvGetterMainChatUIComponents.getInstance().getBeanScrollPanelChatsMainChatUI().getBoxComponents();
 

@@ -3,7 +3,7 @@ package org.foomaa.jvchat.ctrl;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
 
 
-public class JvMessagesDefinesCtrl {
+public class MessagesDefinesCtrl {
     public enum TypeFlags {
         TRUE,
         FALSE,
@@ -29,7 +29,7 @@ public class JvMessagesDefinesCtrl {
     private TypeFlags TextMessagesChangingStatusFromUserFlag = TypeFlags.DEFAULT;
     private TypeFlags TextMessageRedirectServerToUserVerificationFlag = TypeFlags.DEFAULT;
 
-    JvMessagesDefinesCtrl() {}
+    MessagesDefinesCtrl() {}
 
     public void setEntryRequestFlag(TypeFlags newFlag) {
         if (EntryRequestFlag != newFlag) {

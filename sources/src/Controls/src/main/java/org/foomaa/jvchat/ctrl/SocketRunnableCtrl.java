@@ -15,13 +15,13 @@ import org.foomaa.jvchat.models.JvGetterModels;
  * which contains a Runnable field. This field is the object
  * of this JvSocketRunnableCtrl class.
  */
-public class JvSocketRunnableCtrl implements Runnable {
+public class SocketRunnableCtrl implements Runnable {
     private DataOutputStream sendStream;
     private DataInputStream readStream;
     private final int limitErrorsConnection;
     private int errorsConnection;
 
-    JvSocketRunnableCtrl(Socket socket) {
+    SocketRunnableCtrl(Socket socket) {
         JvGetterModels.getInstance().getBeanSocketRunnableCtrlModel().createSocketRunnableCtrlStructObject(this);
 
         try {
@@ -44,7 +44,7 @@ public class JvSocketRunnableCtrl implements Runnable {
                 if (length > 0) {
                     byte[] message = new byte[length];
                     readStream.readFully(message, 0, message.length);
-                    JvGetterControls.getInstance().getBeanNetworkCtrl().takeMessage(message, this);
+                    GetterControls.getInstance().getBeanNetworkCtrl().takeMessage(message, this);
                 }
             }
         } catch (IOException exception) {

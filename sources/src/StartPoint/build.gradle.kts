@@ -8,7 +8,7 @@ version = "1.0-SNAPSHOT"
 var PROFILE = ""
 
 dependencies {
-    implementation(project(":JvControls"))
+    implementation(project(":Controls"))
     implementation(project(":UILinks"))
     implementation(project(":JvTools"))
     implementation(project(":JvSettings"))

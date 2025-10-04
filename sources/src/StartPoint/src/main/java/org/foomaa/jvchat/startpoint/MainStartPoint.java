@@ -10,7 +10,7 @@ import java.net.URISyntaxException;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.tools.JvGetterTools;
 import org.foomaa.jvchat.uilinks.GetterUILinks;
-import org.foomaa.jvchat.ctrl.JvGetterControls;
+import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.settings.JvMainSettings;
 import org.springframework.scheduling.annotation.EnableAsync;
 
@@ -74,10 +74,10 @@ public class MainStartPoint implements ApplicationRunner {
     }
 
     private void launchApplication() {
-        JvGetterControls.getInstance();
+        GetterControls.getInstance();
 
         try {
-            JvGetterControls.getInstance().getBeanNetworkCtrl().startNetwork();
+            GetterControls.getInstance().getBeanNetworkCtrl().startNetwork();
         } catch (IOException exception) {
             GetterUILinks.getInstance().getBeanErrorStartUILink(
                     "Failed to connect to the server.\nCheck your network availability and try again!");

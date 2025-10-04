@@ -16,10 +16,10 @@ import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.tools.JvGetterTools;
 
 
-public class JvTakeMessagesCtrl {
+public class TakeMessagesCtrl {
     private Runnable runnableCtrlFrom;
 
-    JvTakeMessagesCtrl() {}
+    TakeMessagesCtrl() {}
 
     public void takeMessage(byte[] data) {
         JvDefinesMessages.TypeMessage type = JvGetterMessages.getInstance().getBeanDeserializatorDataMessages().getTypeMessage(data);
@@ -79,17 +79,17 @@ public class JvTakeMessagesCtrl {
         String hashPassword = JvGetterCryptography.getInstance()
                 .getBeanHashCryptography().getHash(password);
 
-        boolean requestDB = JvGetterControls.getInstance()
-                .getBeanDbCtrl().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.UserPassword,
+        boolean requestDB = GetterControls.getInstance()
+                .getBeanDbCtrl().checkQueryToDB(DbCtrl.TypeExecutionCheck.UserPassword,
                         login,
                         hashPassword);
 
-        String uuidUserStr = JvGetterControls.getInstance()
-                .getBeanDbCtrl().getSingleDataFromDb(JvDbCtrl.TypeExecutionGetSingle.UuidUserByLogin,
+        String uuidUserStr = GetterControls.getInstance()
+                .getBeanDbCtrl().getSingleDataFromDb(DbCtrl.TypeExecutionGetSingle.UuidUserByLogin,
                         login);
         UUID uuidUser = UUID.fromString(uuidUserStr);
 
-        JvGetterControls.getInstance().getBeanSendMessagesCtrl()
+        GetterControls.getInstance().getBeanSendMessagesCtrl()
                 .sendMessage(JvDefinesMessages.TypeMessage.EntryReply, requestDB, uuidUser);
     }
 
@@ -98,22 +98,22 @@ public class JvTakeMessagesCtrl {
         JvGetterSettings.getInstance().getBeanUsersInfoSettings().setUuid(uuidUser);
 
         if ((Boolean) map.get(JvDefinesMessages.TypeData.BoolReply)) {
-            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                    .setEntryRequestFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
+            GetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                    .setEntryRequestFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
         } else {
-            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                    .setEntryRequestFlag(JvMessagesDefinesCtrl.TypeFlags.FALSE);
+            GetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                    .setEntryRequestFlag(MessagesDefinesCtrl.TypeFlags.FALSE);
         }
     }
 
     private void workRegistrationRequestMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         boolean requestDB = false;
         JvDefinesMessages.TypeErrorRegistration typeError = JvDefinesMessages.TypeErrorRegistration.NoError;
-        boolean checkLogin =  JvGetterControls.getInstance()
-                .getBeanDbCtrl().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.Login,
+        boolean checkLogin =  GetterControls.getInstance()
+                .getBeanDbCtrl().checkQueryToDB(DbCtrl.TypeExecutionCheck.Login,
                         (String) map.get(JvDefinesMessages.TypeData.Login));
-        boolean checkEmail =  JvGetterControls.getInstance()
-                .getBeanDbCtrl().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.Email,
+        boolean checkEmail =  GetterControls.getInstance()
+                .getBeanDbCtrl().checkQueryToDB(DbCtrl.TypeExecutionCheck.Email,
                         (String) map.get(JvDefinesMessages.TypeData.Email));
         if (checkLogin) {
             typeError = JvDefinesMessages.TypeErrorRegistration.Login;
@@ -125,29 +125,29 @@ public class JvTakeMessagesCtrl {
             typeError = JvDefinesMessages.TypeErrorRegistration.LoginAndEmail;
         }
         if (typeError == JvDefinesMessages.TypeErrorRegistration.NoError) {
-            requestDB = JvGetterControls.getInstance()
+            requestDB = GetterControls.getInstance()
                     .getBeanEmailCtrl().startVerifyRegEmail((String) map.get(JvDefinesMessages.TypeData.Email));
             typeError = JvDefinesMessages.TypeErrorRegistration.EmailSending;
         }
-        JvGetterControls.getInstance().getBeanSendMessagesCtrl()
+        GetterControls.getInstance().getBeanSendMessagesCtrl()
                 .sendMessage(JvDefinesMessages.TypeMessage.RegistrationReply, requestDB, typeError);
     }
 
     private void workRegistrationReplyMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(JvDefinesMessages.TypeData.BoolReply)) {
-            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                    .setRegistrationRequestFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
+            GetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                    .setRegistrationRequestFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
         } else {
-            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                    .setRegistrationRequestFlag(JvMessagesDefinesCtrl.TypeFlags.FALSE);
+            GetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                    .setRegistrationRequestFlag(MessagesDefinesCtrl.TypeFlags.FALSE);
         }
-        JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+        GetterControls.getInstance().getBeanMessagesDefinesCtrl()
                 .setErrorRegistrationFlag((JvDefinesMessages.TypeErrorRegistration) map.get(JvDefinesMessages.TypeData.ErrorReg));
     }
 
     private void workVerifyRegistrationEmailRequestMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
-        boolean checkCode = JvGetterControls.getInstance()
-                .getBeanDbCtrl().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.VerifyRegistrationEmail,
+        boolean checkCode = GetterControls.getInstance()
+                .getBeanDbCtrl().checkQueryToDB(DbCtrl.TypeExecutionCheck.VerifyRegistrationEmail,
                         (String) map.get(JvDefinesMessages.TypeData.Email),
                         (String) map.get(JvDefinesMessages.TypeData.VerifyCode));
         if (checkCode) {
@@ -159,19 +159,19 @@ public class JvTakeMessagesCtrl {
                     .getBeanHashCryptography().getHash(password);
             UUID uuidUser = UUID.randomUUID();
 
-            boolean requestDB = JvGetterControls.getInstance()
-                    .getBeanDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.RegisterForm,
+            boolean requestDB = GetterControls.getInstance()
+                    .getBeanDbCtrl().insertQueryToDB(DbCtrl.TypeExecutionInsert.RegisterForm,
                             login,
                             email,
                             hashPassword,
                             uuidUser.toString());
             JvDefinesMessages.TypeErrorRegistration typeError = JvDefinesMessages.TypeErrorRegistration.NoError;
             if (!requestDB) {
-                boolean checkLogin = JvGetterControls.getInstance()
-                        .getBeanDbCtrl().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.Login,
+                boolean checkLogin = GetterControls.getInstance()
+                        .getBeanDbCtrl().checkQueryToDB(DbCtrl.TypeExecutionCheck.Login,
                                 (String) map.get(JvDefinesMessages.TypeData.Login));
-                boolean checkEmail = JvGetterControls.getInstance()
-                        .getBeanDbCtrl().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.Email,
+                boolean checkEmail = GetterControls.getInstance()
+                        .getBeanDbCtrl().checkQueryToDB(DbCtrl.TypeExecutionCheck.Email,
                                 (String) map.get(JvDefinesMessages.TypeData.Email));
                 if (checkLogin) {
                     typeError = JvDefinesMessages.TypeErrorRegistration.Login;
@@ -183,66 +183,66 @@ public class JvTakeMessagesCtrl {
                     typeError = JvDefinesMessages.TypeErrorRegistration.LoginAndEmail;
                 }
             }
-            JvGetterControls.getInstance().getBeanSendMessagesCtrl()
+            GetterControls.getInstance().getBeanSendMessagesCtrl()
                     .sendMessage(JvDefinesMessages.TypeMessage.VerifyRegistrationEmailReply, requestDB, typeError);
         } else {
-            JvGetterControls.getInstance().getBeanSendMessagesCtrl()
+            GetterControls.getInstance().getBeanSendMessagesCtrl()
                     .sendMessage(JvDefinesMessages.TypeMessage.VerifyRegistrationEmailReply, false, JvDefinesMessages.TypeErrorRegistration.Code);
         }
     }
 
     private void workVerifyRegistrationEmailReplyMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(JvDefinesMessages.TypeData.BoolReply)) {
-            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().
-                    setVerifyRegistrationEmailRequestFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
+            GetterControls.getInstance().getBeanMessagesDefinesCtrl().
+                    setVerifyRegistrationEmailRequestFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
         } else {
-            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().
-                    setVerifyRegistrationEmailRequestFlag(JvMessagesDefinesCtrl.TypeFlags.FALSE);
+            GetterControls.getInstance().getBeanMessagesDefinesCtrl().
+                    setVerifyRegistrationEmailRequestFlag(MessagesDefinesCtrl.TypeFlags.FALSE);
         }
-        JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
+        GetterControls.getInstance().getBeanMessagesDefinesCtrl()
                 .setErrorVerifyRegEmailFlag((JvDefinesMessages.TypeErrorRegistration) map.get(JvDefinesMessages.TypeData.ErrorReg));
     }
 
     private void workResetPasswordRequestMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         String email = (String) map.get(JvDefinesMessages.TypeData.Email);
-        boolean checkEmail = JvGetterControls.getInstance()
-                .getBeanDbCtrl().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.Email,
+        boolean checkEmail = GetterControls.getInstance()
+                .getBeanDbCtrl().checkQueryToDB(DbCtrl.TypeExecutionCheck.Email,
                         email);
         boolean reply = false;
         if (checkEmail) {
-            reply = JvGetterControls.getInstance()
+            reply = GetterControls.getInstance()
                     .getBeanEmailCtrl().startVerifyFamousEmail(email);
         }
-        JvGetterControls.getInstance().getBeanSendMessagesCtrl()
+        GetterControls.getInstance().getBeanSendMessagesCtrl()
                 .sendMessage(JvDefinesMessages.TypeMessage.ResetPasswordReply, reply);
     }
 
     private void workResetPasswordReplyMessage( HashMap<JvDefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(JvDefinesMessages.TypeData.BoolReply)) {
-            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().
-                    setResetPasswordRequestFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
+            GetterControls.getInstance().getBeanMessagesDefinesCtrl().
+                    setResetPasswordRequestFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
         } else {
-            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                    .setResetPasswordRequestFlag(JvMessagesDefinesCtrl.TypeFlags.FALSE);
+            GetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                    .setResetPasswordRequestFlag(MessagesDefinesCtrl.TypeFlags.FALSE);
         }
     }
 
     private void workVerifyFamousEmailRequestMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
-        boolean requestDB = JvGetterControls.getInstance()
-                .getBeanDbCtrl().checkQueryToDB(JvDbCtrl.TypeExecutionCheck.VerifyFamousEmailCode,
+        boolean requestDB = GetterControls.getInstance()
+                .getBeanDbCtrl().checkQueryToDB(DbCtrl.TypeExecutionCheck.VerifyFamousEmailCode,
                         (String) map.get(JvDefinesMessages.TypeData.Email),
                         (String) map.get(JvDefinesMessages.TypeData.VerifyCode));
-        JvGetterControls.getInstance().getBeanSendMessagesCtrl()
+        GetterControls.getInstance().getBeanSendMessagesCtrl()
                 .sendMessage(JvDefinesMessages.TypeMessage.VerifyFamousEmailReply, requestDB);
     }
 
     private void workVerifyFamousEmailReplyMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(JvDefinesMessages.TypeData.BoolReply)) {
-            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().
-                    setVerifyFamousEmailRequestFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
+            GetterControls.getInstance().getBeanMessagesDefinesCtrl().
+                    setVerifyFamousEmailRequestFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
         } else {
-            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().
-                    setVerifyFamousEmailRequestFlag(JvMessagesDefinesCtrl.TypeFlags.FALSE);
+            GetterControls.getInstance().getBeanMessagesDefinesCtrl().
+                    setVerifyFamousEmailRequestFlag(MessagesDefinesCtrl.TypeFlags.FALSE);
         }
     }
 
@@ -253,29 +253,29 @@ public class JvTakeMessagesCtrl {
         String hashPassword = JvGetterCryptography.getInstance()
                 .getBeanHashCryptography().getHash(password);
 
-        boolean requestDB = JvGetterControls.getInstance()
-                .getBeanDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.ChangePassword,
+        boolean requestDB = GetterControls.getInstance()
+                .getBeanDbCtrl().insertQueryToDB(DbCtrl.TypeExecutionInsert.ChangePassword,
                         email,
                         hashPassword);
-        JvGetterControls.getInstance().getBeanSendMessagesCtrl()
+        GetterControls.getInstance().getBeanSendMessagesCtrl()
                 .sendMessage(JvDefinesMessages.TypeMessage.ChangePasswordReply, requestDB);
     }
 
     private void workChangePasswordReplyMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(JvDefinesMessages.TypeData.BoolReply)) {
-            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().
-                    setChangePasswordRequest(JvMessagesDefinesCtrl.TypeFlags.TRUE);
+            GetterControls.getInstance().getBeanMessagesDefinesCtrl().
+                    setChangePasswordRequest(MessagesDefinesCtrl.TypeFlags.TRUE);
         } else {
-            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                    .setChangePasswordRequest(JvMessagesDefinesCtrl.TypeFlags.FALSE);
+            GetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                    .setChangePasswordRequest(MessagesDefinesCtrl.TypeFlags.FALSE);
         }
     }
 
     private void workChatsLoadRequestMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         String uuidUserStr = map.get(JvDefinesMessages.TypeData.UuidUser).toString();
-        List<Map<JvDbGlobalDefines.LineKeys, String>> requestDB = JvGetterControls.getInstance()
-                .getBeanDbCtrl().getMultipleInfoFromDb(JvDbCtrl.TypeExecutionGetMultiple.ChatsLoad, uuidUserStr);
-        JvGetterControls.getInstance().getBeanSendMessagesCtrl().
+        List<Map<JvDbGlobalDefines.LineKeys, String>> requestDB = GetterControls.getInstance()
+                .getBeanDbCtrl().getMultipleInfoFromDb(DbCtrl.TypeExecutionGetMultiple.ChatsLoad, uuidUserStr);
+        GetterControls.getInstance().getBeanSendMessagesCtrl().
                 sendMessage(JvDefinesMessages.TypeMessage.ChatsLoadReply, requestDB);
     }
 
@@ -285,9 +285,9 @@ public class JvTakeMessagesCtrl {
                 JvGetterTools.getInstance().getBeanStructTools()
                     .objectInListMaps(objectFromMap, JvDefinesMessages.TypeData.class, Object.class);
 
-        JvGetterControls.getInstance().getBeanChatsCtrl().createChatsObjects(chatsInfo);
-        JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                .setChatsLoadReplyFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
+        GetterControls.getInstance().getBeanChatsCtrl().createChatsObjects(chatsInfo);
+        GetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                .setChatsLoadReplyFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
     }
 
     private void workCheckOnlineUserRequestMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
@@ -300,23 +300,23 @@ public class JvTakeMessagesCtrl {
             return;
         }
 
-        JvGetterControls.getInstance().getBeanSendMessagesCtrl()
+        GetterControls.getInstance().getBeanSendMessagesCtrl()
                 .sendMessage(JvDefinesMessages.TypeMessage.CheckOnlineUserReply, uuidUser);
     }
 
     private void workCheckOnlineUserReplyMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         UUID uuidUser = (UUID) map.get(JvDefinesMessages.TypeData.UuidUser);
-        JvGetterControls.getInstance().getBeanOnlineServersCtrl().addUsersOnline(uuidUser, runnableCtrlFrom);
+        GetterControls.getInstance().getBeanOnlineServersCtrl().addUsersOnline(uuidUser, runnableCtrlFrom);
     }
 
     private void workLoadUsersOnlineStatusRequestMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         Object objectList = map.get(JvDefinesMessages.TypeData.UuidsUsersList);
         List<UUID> uuidsUsers = JvGetterTools.getInstance().getBeanStructTools().checkedCastList(objectList, UUID.class);
         Map<UUID, JvMainChatsGlobalDefines.TypeStatusOnline> statusesUsers =
-                JvGetterControls.getInstance().getBeanOnlineServersCtrl().getStatusesUsers(uuidsUsers);
+                GetterControls.getInstance().getBeanOnlineServersCtrl().getStatusesUsers(uuidsUsers);
         Map<UUID, String> lastOnlineTimeUsers =
-                JvGetterControls.getInstance().getBeanOnlineServersCtrl().getLastOnlineTimeUsers(uuidsUsers);
-        JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+                GetterControls.getInstance().getBeanOnlineServersCtrl().getLastOnlineTimeUsers(uuidsUsers);
+        GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 JvDefinesMessages.TypeMessage.LoadUsersOnlineStatusReply, statusesUsers, lastOnlineTimeUsers);
     }
 
@@ -331,11 +331,11 @@ public class JvTakeMessagesCtrl {
                 JvGetterTools.getInstance().getBeanStructTools().objectInMap(objectMapLastOnlineTimeUsers, UUID.class,
                         String.class);
 
-        JvGetterControls.getInstance().getBeanChatsCtrl().setOnlineStatusesUsers(mapStatusesUsers);
-        JvGetterControls.getInstance().getBeanChatsCtrl().setLastOnlineTimeUsersByStrings(mapLastOnlineTimeUsers);
+        GetterControls.getInstance().getBeanChatsCtrl().setOnlineStatusesUsers(mapStatusesUsers);
+        GetterControls.getInstance().getBeanChatsCtrl().setLastOnlineTimeUsersByStrings(mapLastOnlineTimeUsers);
 
-        JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                .setLoadUsersOnlineReplyFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
+        GetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                .setLoadUsersOnlineReplyFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
     }
 
     private void workTextMessageSendUserToServerMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
@@ -354,26 +354,26 @@ public class JvTakeMessagesCtrl {
                 .stringToLocalDateTime(timestampStr, normaliseTimestampCount);
 
         // записываем в первую очередь в БД
-        JvGetterControls.getInstance().getBeanDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.ChatMessagesSentMessage,
+        GetterControls.getInstance().getBeanDbCtrl().insertQueryToDB(DbCtrl.TypeExecutionInsert.ChatMessagesSentMessage,
                 uuidUserSender.toString(), uuidUserReceiver.toString(), uuidMessage.toString(), statusString, text, timestampStr);
         // отправляем статус "доставлено"
-        JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+        GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 JvDefinesMessages.TypeMessage.TextMessagesChangingStatusFromServer, mapStatusMessages);
         // отправляем пользователю, если он в сети
-        JvGetterControls.getInstance().getBeanMessagesDialogCtrl().redirectMessageToOnlineUser(
+        GetterControls.getInstance().getBeanMessagesDialogCtrl().redirectMessageToOnlineUser(
                 uuidUserSender, uuidUserReceiver, uuidMessage, status, text, timestamp);
         // отправляем квиток о доставке
-        JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+        GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 JvDefinesMessages.TypeMessage.TextMessageSendUserToServerVerification, true );
     }
 
     private void workTextMessageSendUserToServerVerificationMessage( HashMap<JvDefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(JvDefinesMessages.TypeData.BoolReply)) {
-            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                    .setTextMessageSendUserToServerFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
+            GetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                    .setTextMessageSendUserToServerFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
         } else {
-            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                    .setTextMessageSendUserToServerFlag(JvMessagesDefinesCtrl.TypeFlags.FALSE);
+            GetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                    .setTextMessageSendUserToServerFlag(MessagesDefinesCtrl.TypeFlags.FALSE);
         }
     }
 
@@ -382,9 +382,9 @@ public class JvTakeMessagesCtrl {
         Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = JvGetterTools.getInstance()
                 .getBeanStructTools().objectInMap(statusesMap, UUID.class, JvMainChatsGlobalDefines.TypeStatusMessage.class);
 
-        JvGetterControls.getInstance().getBeanMessagesDialogCtrl().setDirtyStatusToMessage(mapStatusesMessages);
+        GetterControls.getInstance().getBeanMessagesDialogCtrl().setDirtyStatusToMessage(mapStatusesMessages);
 
-        JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+        GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 JvDefinesMessages.TypeMessage.TextMessagesChangingStatusFromServerVerification, true );
     }
 
@@ -403,11 +403,11 @@ public class JvTakeMessagesCtrl {
 
         for (UUID uuidMessage : mapStatusesMessages.keySet()) {
             String statusByUuid = String.valueOf(mapStatusesMessages.get(uuidMessage).getValue());
-            JvGetterControls.getInstance().getBeanDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.ChatsMessageStatusChange,
+            GetterControls.getInstance().getBeanDbCtrl().insertQueryToDB(DbCtrl.TypeExecutionInsert.ChatsMessageStatusChange,
                     uuidMessage.toString(), statusByUuid);
         }
 
-        JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+        GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 JvDefinesMessages.TypeMessage.TextMessagesChangingStatusFromUserVerification, true );
     }
 
@@ -431,22 +431,22 @@ public class JvTakeMessagesCtrl {
         LocalDateTime timestamp = JvGetterTools.getInstance().getBeanFormatTools()
                 .stringToLocalDateTime(timestampStr, normaliseTimestampCount);
 
-        JvGetterControls.getInstance().getBeanMessagesDialogCtrl().addRedirectMessageToModel(
+        GetterControls.getInstance().getBeanMessagesDialogCtrl().addRedirectMessageToModel(
                 uuidUserSender, uuidUserReceiver, uuidMessage, status, text, timestamp);
-        JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                .setTextMessageRedirectServerToUserFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
+        GetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                .setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
 
-        JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+        GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 JvDefinesMessages.TypeMessage.TextMessageRedirectServerToUserVerification, true );
     }
 
     private void workTextMessageRedirectServerToUserVerificationMessage( HashMap<JvDefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(JvDefinesMessages.TypeData.BoolReply)) {
-            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                    .setTextMessageRedirectServerToUserFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
+            GetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                    .setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
         } else {
-            JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                    .setTextMessageRedirectServerToUserFlag(JvMessagesDefinesCtrl.TypeFlags.FALSE);
+            GetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                    .setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.FALSE);
         }
     }
 
@@ -454,10 +454,10 @@ public class JvTakeMessagesCtrl {
         UUID uuidChat = (UUID) map.get(JvDefinesMessages.TypeData.UuidChat);
         int quantityMessages = (Integer) map.get(JvDefinesMessages.TypeData.QuantityMessages);
 
-        List<Map<JvDbGlobalDefines.LineKeys, String>> requestDB = JvGetterControls.getInstance()
-                .getBeanDbCtrl().getMultipleInfoFromDb(JvDbCtrl.TypeExecutionGetMultiple.MessagesLoad,
+        List<Map<JvDbGlobalDefines.LineKeys, String>> requestDB = GetterControls.getInstance()
+                .getBeanDbCtrl().getMultipleInfoFromDb(DbCtrl.TypeExecutionGetMultiple.MessagesLoad,
                         uuidChat.toString(), String.valueOf(quantityMessages));
-        JvGetterControls.getInstance().getBeanSendMessagesCtrl().
+        GetterControls.getInstance().getBeanSendMessagesCtrl().
                 sendMessage(JvDefinesMessages.TypeMessage.MessagesLoadReply, requestDB);
     }
 
@@ -467,8 +467,8 @@ public class JvTakeMessagesCtrl {
                 JvGetterTools.getInstance().getBeanStructTools()
                         .objectInListMaps(objectFromMap, JvDefinesMessages.TypeData.class, Object.class);
 
-        JvGetterControls.getInstance().getBeanMessagesDialogCtrl().createMessagesObjects(msgInfo);
-        JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                .setTextMessagesLoadReplyFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
+        GetterControls.getInstance().getBeanMessagesDialogCtrl().createMessagesObjects(msgInfo);
+        GetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                .setTextMessagesLoadReplyFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
     }
 }

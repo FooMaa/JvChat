@@ -6,8 +6,8 @@ import java.util.Objects;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
-import org.foomaa.jvchat.ctrl.JvGetterControls;
-import org.foomaa.jvchat.ctrl.JvMessagesDefinesCtrl;
+import org.foomaa.jvchat.ctrl.GetterControls;
+import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.events.JvGetterEvents;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
@@ -133,7 +133,7 @@ public class JvRegistrationPanelAuthUI extends JPanel {
     private void addListenerToElements() {
         bRegister.addActionListener(event -> {
             if (checkFields()) {
-                JvGetterControls.getInstance()
+                GetterControls.getInstance()
                         .getBeanSendMessagesCtrl().sendMessage(JvDefinesMessages.TypeMessage.RegistrationRequest,
                         tLogin.getInputText(), tEmail.getInputText(), tPassword.getInputText());
                 waitRepeatServer();
@@ -227,27 +227,27 @@ public class JvRegistrationPanelAuthUI extends JPanel {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getRegistrationRequestFlag() ==
-                JvMessagesDefinesCtrl.TypeFlags.DEFAULT) {
+        while (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getRegistrationRequestFlag() ==
+                MessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
                 JvLog.write(JvLog.TypeLog.Error, "Couldn't wait.");
             }
         }
-        if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getRegistrationRequestFlag() ==
-                JvMessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getRegistrationRequestFlag() ==
+                MessagesDefinesCtrl.TypeFlags.TRUE) {
             changeRegimeNext();
             setEnabled(true);
-        } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getRegistrationRequestFlag() ==
-                JvMessagesDefinesCtrl.TypeFlags.FALSE) {
+        } else if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getRegistrationRequestFlag() ==
+                MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             openErrorPane();
         }
     }
 
     private void openErrorPane() {
-        switch (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getErrorRegistrationFlag()) {
+        switch (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getErrorRegistrationFlag()) {
             case NoError -> JvGetterAuthUIComponents.getInstance()
                     .getBeanOptionPaneAuthUI("The error is not clear.", JvOptionPaneAuthUI.TypeDlg.ERROR);
             case EmailSending -> JvGetterAuthUIComponents.getInstance()

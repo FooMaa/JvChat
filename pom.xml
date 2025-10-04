@@ -30,7 +30,7 @@
         <module>sources/src/StartPoint</module>
         <module>sources/src/UILinks</module>
         <module>sources/src/DbWorker</module>
-        <module>sources/src/JvControls</module>
+        <module>sources/src/Controls</module>
         <module>sources/src/Network</module>
     </modules>
 

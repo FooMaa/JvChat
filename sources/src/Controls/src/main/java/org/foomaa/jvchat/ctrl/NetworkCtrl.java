@@ -18,12 +18,12 @@ import org.foomaa.jvchat.network.ServersSocket;
 import org.foomaa.jvchat.structobjects.JvSocketRunnableCtrlStructObject;
 
 
-public class JvNetworkCtrl {
+public class NetworkCtrl {
     private ServersSocket serversSocket;
     private UsersSocket usersSocket;
-    private JvSocketRunnableCtrl currentSocketRunnableCtrl;
+    private SocketRunnableCtrl currentSocketRunnableCtrl;
 
-    JvNetworkCtrl() {}
+    NetworkCtrl() {}
 
     public void startNetwork() throws IOException {
         if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
@@ -36,19 +36,19 @@ public class JvNetworkCtrl {
     @SuppressWarnings("InfiniteLoopStatement")
     private void startServersNetwork() throws IOException {
         ServerSocket socketServer = serversSocket.getSocketServers();
-        JvGetterControls.getInstance().getBeanOnlineServersCtrl().loadDataOnlineUsers();
+        GetterControls.getInstance().getBeanOnlineServersCtrl().loadDataOnlineUsers();
         runningErrorsControlSockets();
         while (true) {
             Socket fromSocketServer = socketServer.accept();
-            JvSocketRunnableCtrl socketRunnableCtrl =
-                    JvGetterControls.getInstance().getBeanSocketRunnableCtrl(fromSocketServer);
+            SocketRunnableCtrl socketRunnableCtrl =
+                    GetterControls.getInstance().getBeanSocketRunnableCtrl(fromSocketServer);
             Thread threadServers = new Thread(socketRunnableCtrl);
             threadServers.start();
         }
     }
 
     private void startUsersNetwork() throws IOException {
-        currentSocketRunnableCtrl = JvGetterControls.getInstance().getBeanSocketRunnableCtrl(usersSocket.getCurrentSocket());
+        currentSocketRunnableCtrl = GetterControls.getInstance().getBeanSocketRunnableCtrl(usersSocket.getCurrentSocket());
         if (!usersSocket.getCurrentSocket().isConnected()) {
             throw new IOException();
         }
@@ -76,12 +76,12 @@ public class JvNetworkCtrl {
         }
     }
 
-    public void takeMessage(byte[] message, JvSocketRunnableCtrl runnableCtrl) {
+    public void takeMessage(byte[] message, SocketRunnableCtrl runnableCtrl) {
         if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
             currentSocketRunnableCtrl = runnableCtrl;
-            JvGetterControls.getInstance().getBeanTakeMessagesCtrl().setRunnableCtrlFromConnection(currentSocketRunnableCtrl);
+            GetterControls.getInstance().getBeanTakeMessagesCtrl().setRunnableCtrlFromConnection(currentSocketRunnableCtrl);
         }
-        JvGetterControls.getInstance().getBeanTakeMessagesCtrl().takeMessage(message);
+        GetterControls.getInstance().getBeanTakeMessagesCtrl().takeMessage(message);
     }
 
     public void sendMessage(byte[] message) {
@@ -90,7 +90,7 @@ public class JvNetworkCtrl {
 
     public void sendMessageByRunnableCtrl(byte[] message, Runnable runnable) {
         if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
-            JvSocketRunnableCtrl srvRunnable = (JvSocketRunnableCtrl) runnable;
+            SocketRunnableCtrl srvRunnable = (SocketRunnableCtrl) runnable;
             srvRunnable.send(message);
         }
     }
@@ -116,7 +116,7 @@ public class JvNetworkCtrl {
         int milliSecondsSleepAfterOperation = 10000;
 
         for (JvSocketRunnableCtrlStructObject socketCtrl : listAllConnections) {
-            JvSocketRunnableCtrl socketRunnableCtrl = (JvSocketRunnableCtrl) socketCtrl.getSocketRunnableCtrl();
+            SocketRunnableCtrl socketRunnableCtrl = (SocketRunnableCtrl) socketCtrl.getSocketRunnableCtrl();
 
             if (socketRunnableCtrl != null && socketRunnableCtrl.isErrorsExceedsLimit()) {
                 JvLog.write(JvLog.TypeLog.Warn, "We clean up a thread that has not responded for a long time.");

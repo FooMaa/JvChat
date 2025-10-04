@@ -8,7 +8,7 @@ import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import org.foomaa.jvchat.ctrl.JvGetterControls;
+import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.structobjects.JvMessageStructObject;
@@ -57,7 +57,7 @@ public class JvRectMessageMainChatUI extends JTextArea {
             g2.fillOval(xRoundSecond, yRound, diameter, diameter);
         }
 
-        String time = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().getTimeFormattedMessage(timestamp);
+        String time = GetterControls.getInstance().getBeanMessagesDialogCtrl().getTimeFormattedMessage(timestamp);
         Font font = new Font("Times", Font.BOLD,
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.010));
         g2.setFont(font);

@@ -9,7 +9,7 @@ import java.net.Socket;
     @ComponentScan("org.foomaa.jvchat.dbworker"),
     @ComponentScan("org.foomaa.jvchat.network")
 })
-class JvControlsSpringConfig {
+class ControlsSpringConfig {
     public enum NameBeans {
         BeanDbCtrl("beanDbCtrl"),
         BeanEmailCtrl("beanEmailCtrl"),
@@ -37,74 +37,74 @@ class JvControlsSpringConfig {
     @Scope("singleton")
     @Profile("servers")
     @SuppressWarnings("unused")
-    public JvDbCtrl beanDbCtrl() {
-        return new JvDbCtrl();
+    public DbCtrl beanDbCtrl() {
+        return new DbCtrl();
     }
 
     @Bean(name = "beanEmailCtrl")
     @Scope("singleton")
     @Profile("servers")
     @SuppressWarnings("unused")
-    public JvEmailCtrl beanEmailCtrl() {
-        return new JvEmailCtrl();
+    public EmailCtrl beanEmailCtrl() {
+        return new EmailCtrl();
     }
 
     @Bean(name = "beanMessagesDefinesCtrl")
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvMessagesDefinesCtrl beanMessagesDefinesCtrl() {
-        return new JvMessagesDefinesCtrl();
+    public MessagesDefinesCtrl beanMessagesDefinesCtrl() {
+        return new MessagesDefinesCtrl();
     }
 
     @Bean(name = "beanSendMessagesCtrl")
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvSendMessagesCtrl beanSendMessagesCtrl() {
-        return new JvSendMessagesCtrl();
+    public SendMessagesCtrl beanSendMessagesCtrl() {
+        return new SendMessagesCtrl();
     }
 
     @Bean(name = "beanTakeMessagesCtrl")
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvTakeMessagesCtrl beanTakeMessagesCtrl() {
-        return new JvTakeMessagesCtrl();
+    public TakeMessagesCtrl beanTakeMessagesCtrl() {
+        return new TakeMessagesCtrl();
     }
 
     @Bean(name = "beanNetworkCtrl")
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvNetworkCtrl beanNetworkCtrl() {
-        return new JvNetworkCtrl();
+    public NetworkCtrl beanNetworkCtrl() {
+        return new NetworkCtrl();
     }
 
     @Bean(name = "beanSocketRunnableCtrl")
     @Lazy
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvSocketRunnableCtrl beanSocketRunnableCtrl(Socket socket) {
-        return new JvSocketRunnableCtrl(socket);
+    public SocketRunnableCtrl beanSocketRunnableCtrl(Socket socket) {
+        return new SocketRunnableCtrl(socket);
     }
 
     @Bean(name = "beanChatsCtrl")
     @Scope("singleton")
     @Profile("users")
     @SuppressWarnings("unused")
-    public JvChatsCtrl beanChatsCtrl() {
-        return new JvChatsCtrl();
+    public ChatsCtrl beanChatsCtrl() {
+        return new ChatsCtrl();
     }
 
     @Bean(name = "beanMessagesDialogCtrl")
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvMessagesDialogCtrl beanMessagesDialogCtrl() {
-        return new JvMessagesDialogCtrl();
+    public MessagesDialogCtrl beanMessagesDialogCtrl() {
+        return new MessagesDialogCtrl();
     }
 
     @Bean(name = "beanOnlineServersCtrl")
     @Scope("singleton")
     @Profile("servers")
     @SuppressWarnings("unused")
-    public JvOnlineServersCtrl beanOnlineServersCtrl() {
-        return new JvOnlineServersCtrl();
+    public OnlineServersCtrl beanOnlineServersCtrl() {
+        return new OnlineServersCtrl();
     }
 }

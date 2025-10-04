@@ -5,8 +5,8 @@ import java.awt.*;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-import org.foomaa.jvchat.ctrl.JvGetterControls;
-import org.foomaa.jvchat.ctrl.JvMessagesDefinesCtrl;
+import org.foomaa.jvchat.ctrl.GetterControls;
+import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.events.JvGetterEvents;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
@@ -104,7 +104,7 @@ public class JvResetPasswordPanelAuthUI extends JPanel {
     private void addListenerToElements() {
         bSet.addActionListener(event -> {
             if (checkFields()) {
-                JvGetterControls.getInstance()
+                GetterControls.getInstance()
                         .getBeanSendMessagesCtrl().sendMessage(JvDefinesMessages.TypeMessage.ResetPasswordRequest,
                         tEmail.getInputText());
                 waitRepeatServer();
@@ -155,20 +155,20 @@ public class JvResetPasswordPanelAuthUI extends JPanel {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getResetPasswordRequestFlag() ==
-                JvMessagesDefinesCtrl.TypeFlags.DEFAULT) {
+        while (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getResetPasswordRequestFlag() ==
+                MessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
                 JvLog.write(JvLog.TypeLog.Error, "Couldn't wait.");
             }
         }
-        if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getResetPasswordRequestFlag() ==
-                JvMessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getResetPasswordRequestFlag() ==
+                MessagesDefinesCtrl.TypeFlags.TRUE) {
             changeRegimeNext();
             setEnabled(true);
-        } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getResetPasswordRequestFlag() ==
-                JvMessagesDefinesCtrl.TypeFlags.FALSE) {
+        } else if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getResetPasswordRequestFlag() ==
+                MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             JvGetterAuthUIComponents.getInstance()
                     .getBeanOptionPaneAuthUI("This email is not registered.", JvOptionPaneAuthUI.TypeDlg.ERROR);

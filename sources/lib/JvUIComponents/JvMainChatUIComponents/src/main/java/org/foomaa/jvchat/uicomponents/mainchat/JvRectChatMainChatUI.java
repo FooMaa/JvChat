@@ -7,7 +7,7 @@ import java.awt.event.MouseEvent;
 import java.util.Objects;
 import java.util.UUID;
 
-import org.foomaa.jvchat.ctrl.JvGetterControls;
+import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
@@ -35,7 +35,7 @@ public class JvRectChatMainChatUI extends JPanel {
         nickName = chatObject.getUserChat().getLogin();
         shortLastMessage = chatObject.getLastMessage().getText();
         lastMessageSender = chatObject.getLastMessage().getUuidUserSender();
-        timeLastMessage = JvGetterControls.getInstance().getBeanChatsCtrl()
+        timeLastMessage = GetterControls.getInstance().getBeanChatsCtrl()
                 .getTimeFormattedLastMessage(chatObject.getLastMessage().getTimestamp());
         statusMessage = chatObject.getLastMessage().getStatusMessage();
         uuidChat = chatObject.getUuid();
@@ -238,7 +238,7 @@ public class JvRectChatMainChatUI extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JvGetterControls.getInstance().getBeanMessagesDialogCtrl()
+                GetterControls.getInstance().getBeanMessagesDialogCtrl()
                         .setCurrentActiveChatUuid(uuidChat);
             }
         });
@@ -258,7 +258,7 @@ public class JvRectChatMainChatUI extends JPanel {
 
     public void updateLastMessage(JvMessageStructObject message) {
         shortLastMessage = message.getText();
-        timeLastMessage = JvGetterControls.getInstance().getBeanChatsCtrl()
+        timeLastMessage = GetterControls.getInstance().getBeanChatsCtrl()
                 .getTimeFormattedLastMessage(message.getTimestamp());
         lastMessageSender = message.getUuidUserSender();
         statusMessage = message.getStatusMessage();

@@ -8,8 +8,8 @@ import java.util.UUID;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
-import org.foomaa.jvchat.ctrl.JvGetterControls;
-import org.foomaa.jvchat.ctrl.JvMessagesDefinesCtrl;
+import org.foomaa.jvchat.ctrl.GetterControls;
+import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.events.JvGetterEvents;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
@@ -116,7 +116,7 @@ public class JvEntryPanelAuthUI extends JPanel {
     private void addListenerToElements() {
         bEnter.addActionListener(event -> {
             if (checkFields()) {
-                JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(JvDefinesMessages.TypeMessage.EntryRequest,
+                GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(JvDefinesMessages.TypeMessage.EntryRequest,
                         tLogin.getInputText(), tPassword.getInputText());
                 waitRepeatServer();
             }
@@ -183,19 +183,19 @@ public class JvEntryPanelAuthUI extends JPanel {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getEntryRequestFlag() ==
-                JvMessagesDefinesCtrl.TypeFlags.DEFAULT) {
+        while (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getEntryRequestFlag() ==
+                MessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
                 JvLog.write(JvLog.TypeLog.Error, "Couldn't wait.");
             }
         }
-        if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getEntryRequestFlag() ==
-                JvMessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getEntryRequestFlag() ==
+                MessagesDefinesCtrl.TypeFlags.TRUE) {
             openMainPage();
-        } else if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getEntryRequestFlag() ==
-                JvMessagesDefinesCtrl.TypeFlags.FALSE) {
+        } else if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getEntryRequestFlag() ==
+                MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             JvGetterAuthUIComponents.getInstance()
                     .getBeanOptionPaneAuthUI("Login failed, data is incorrect.", JvOptionPaneAuthUI.TypeDlg.ERROR);
@@ -206,7 +206,7 @@ public class JvEntryPanelAuthUI extends JPanel {
         JvGetterSettings.getInstance().getBeanUsersInfoSettings().setLogin(tLogin.getInputText());
 
         UUID uuidUser = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
-        JvGetterControls.getInstance().getBeanSendMessagesCtrl()
+        GetterControls.getInstance().getBeanSendMessagesCtrl()
                 .sendMessage(JvDefinesMessages.TypeMessage.CheckOnlineUserReply, uuidUser);
 
         closeFrameWindow();

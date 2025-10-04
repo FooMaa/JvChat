@@ -14,8 +14,8 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import org.foomaa.jvchat.ctrl.JvGetterControls;
-import org.foomaa.jvchat.ctrl.JvMessagesDefinesCtrl;
+import org.foomaa.jvchat.ctrl.GetterControls;
+import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvGetterSettings;
@@ -173,29 +173,29 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
         UUID uuidChat = selectedElement.getUuidChat();
         int quantityMessages = JvGetterSettings.getInstance().getBeanUISettings().getQuantityMessagesLoad();
 
-        JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+        GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 JvDefinesMessages.TypeMessage.MessagesLoadRequest, uuidChat, quantityMessages);
     }
 
     private void setRequestChatsToServer() {
         UUID uuidUser = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
-        JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+        GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 JvDefinesMessages.TypeMessage.ChatsLoadRequest, uuidUser);
     }
 
     private List<JvChatStructObject> getChatsObjects() {
         List<JvChatStructObject> chatsStructObjectsList = new ArrayList<>();
-        while (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getChatsLoadReplyFlag() ==
-                JvMessagesDefinesCtrl.TypeFlags.DEFAULT) {
+        while (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getChatsLoadReplyFlag() ==
+                MessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
                 JvLog.write(JvLog.TypeLog.Error, "Не удалось ждать");
             }
 
-            if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getChatsLoadReplyFlag() ==
-                    JvMessagesDefinesCtrl.TypeFlags.TRUE) {
-                chatsStructObjectsList = JvGetterControls.getInstance().getBeanChatsCtrl().getChatsObjects();
+            if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getChatsLoadReplyFlag() ==
+                    MessagesDefinesCtrl.TypeFlags.TRUE) {
+                chatsStructObjectsList = GetterControls.getInstance().getBeanChatsCtrl().getChatsObjects();
             }
         }
 
@@ -217,8 +217,8 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
     private void processUpdatingOnline() {
         sendingUpdateOnlinePackage();
 
-        while (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getLoadUsersOnlineReplyFlag() ==
-                JvMessagesDefinesCtrl.TypeFlags.DEFAULT) {
+        while (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getLoadUsersOnlineReplyFlag() ==
+                MessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(intervalSecondsWaitLoopUpdate);
             } catch (InterruptedException exception) {
@@ -236,8 +236,8 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
     }
 
     private void sendingUpdateOnlinePackage() {
-        List<UUID> uuidsUsersChats = JvGetterControls.getInstance().getBeanChatsCtrl().getUuidsUsersChats();
-        JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+        List<UUID> uuidsUsersChats = GetterControls.getInstance().getBeanChatsCtrl().getUuidsUsersChats();
+        GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 JvDefinesMessages.TypeMessage.LoadUsersOnlineStatusRequest,
                 uuidsUsersChats);
     }
@@ -248,8 +248,8 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
 
             UUID uuidUser = rectChatMainChatUI.getUuidUser();
 
-            JvUserStructObject user = JvGetterControls.getInstance().getBeanChatsCtrl().getUserObjectsByUuidUser(uuidUser);
-            String lastOnlineString = JvGetterControls.getInstance().getBeanChatsCtrl().getTimeFormattedLastOnline(user.getTimestampLastOnline());
+            JvUserStructObject user = GetterControls.getInstance().getBeanChatsCtrl().getUserObjectsByUuidUser(uuidUser);
+            String lastOnlineString = GetterControls.getInstance().getBeanChatsCtrl().getTimeFormattedLastOnline(user.getTimestampLastOnline());
 
             rectChatMainChatUI.setLastOnlineDateTime(lastOnlineString);
             rectChatMainChatUI.setStatusOnline(user.getStatusOnline());

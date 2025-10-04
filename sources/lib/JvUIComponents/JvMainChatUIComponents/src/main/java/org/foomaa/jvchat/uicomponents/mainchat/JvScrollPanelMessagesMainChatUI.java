@@ -1,7 +1,7 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import org.foomaa.jvchat.ctrl.JvGetterControls;
-import org.foomaa.jvchat.ctrl.JvMessagesDefinesCtrl;
+import org.foomaa.jvchat.ctrl.GetterControls;
+import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 
@@ -115,7 +115,7 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
     }
 
     public void addMessage(JvMessageStructObject messageObject) {
-        String constraints = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().isCurrentUserSender(messageObject) ?
+        String constraints = GetterControls.getInstance().getBeanMessagesDialogCtrl().isCurrentUserSender(messageObject) ?
                 BorderLayout.EAST : BorderLayout.WEST;
         createPanelMessage(messageObject, constraints);
         updatePanelMessages();
@@ -134,16 +134,16 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
     }
 
     private void processUpdatingMessages() {
-        if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getTextMessagesLoadReplyFlag() ==
-                JvMessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getTextMessagesLoadReplyFlag() ==
+                MessagesDefinesCtrl.TypeFlags.TRUE) {
             changeAllMessages();
         }
-        if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getTextMessageRedirectServerToUserFlag() ==
-                JvMessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getTextMessageRedirectServerToUserFlag() ==
+                MessagesDefinesCtrl.TypeFlags.TRUE) {
             addRedirectMessage();
         }
-        if (JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().getTextMessagesChangingStatusFromServerFlag() ==
-                JvMessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getTextMessagesChangingStatusFromServerFlag() ==
+                MessagesDefinesCtrl.TypeFlags.TRUE) {
             changeStatusMessage();
         }
 
@@ -157,20 +157,20 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
     private void changeAllMessages() {
         panel.removeAll();
 
-        List<JvMessageStructObject> allMessagesObjSorted = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().getAllSortedMessages();
+        List<JvMessageStructObject> allMessagesObjSorted = GetterControls.getInstance().getBeanMessagesDialogCtrl().getAllSortedMessages();
         for (JvMessageStructObject messageStructObject : allMessagesObjSorted) {
             addMessage(messageStructObject);
         }
 
-        JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().setTextMessagesLoadReplyFlag(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
+        GetterControls.getInstance().getBeanMessagesDefinesCtrl().setTextMessagesLoadReplyFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
     }
 
     private void addRedirectMessage() {
-        List<JvMessageStructObject> allMessagesObjSorted = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().getAllSortedMessages();
-        UUID currentPanelUuid = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().getCurrentActiveChatUuid();
+        List<JvMessageStructObject> allMessagesObjSorted = GetterControls.getInstance().getBeanMessagesDialogCtrl().getAllSortedMessages();
+        UUID currentPanelUuid = GetterControls.getInstance().getBeanMessagesDialogCtrl().getCurrentActiveChatUuid();
 
         for (JvMessageStructObject messageStructObject : allMessagesObjSorted) {
-            UUID uuidChat = JvGetterControls.getInstance().getBeanMessagesDialogCtrl()
+            UUID uuidChat = GetterControls.getInstance().getBeanMessagesDialogCtrl()
                     .findUuidChatByUuidUser(messageStructObject.getUuidUserSender());
             if (findRectMessageByUuid(panel, messageStructObject.getUuid()) == null &&
                     uuidChat != null &&
@@ -179,7 +179,7 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
             }
         }
 
-        JvGetterControls.getInstance().getBeanMessagesDefinesCtrl().setTextMessageRedirectServerToUserFlag(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
+        GetterControls.getInstance().getBeanMessagesDefinesCtrl().setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
     }
 
     private JvRectMessageMainChatUI findRectMessageByUuid(JPanel panelMsg, UUID uuid) {
@@ -202,7 +202,7 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
     }
 
     private void changeStatusMessage() {
-        List<JvMessageStructObject> allMessagesObjSorted = JvGetterControls.getInstance().getBeanMessagesDialogCtrl().getAllSortedMessages();
+        List<JvMessageStructObject> allMessagesObjSorted = GetterControls.getInstance().getBeanMessagesDialogCtrl().getAllSortedMessages();
 
         for (JvMessageStructObject messageStructObject : allMessagesObjSorted) {
             JvRectMessageMainChatUI rectMessage = findRectMessageByUuid(panel, messageStructObject.getUuid());
@@ -211,7 +211,7 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
             }
         }
 
-        JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                .setTextMessagesChangingStatusFromServerFlag(JvMessagesDefinesCtrl.TypeFlags.DEFAULT);
+        GetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                .setTextMessagesChangingStatusFromServerFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
     }
 }

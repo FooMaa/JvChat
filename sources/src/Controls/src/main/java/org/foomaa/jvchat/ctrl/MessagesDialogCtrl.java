@@ -17,11 +17,11 @@ import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 import org.foomaa.jvchat.tools.JvGetterTools;
 
 
-public class JvMessagesDialogCtrl {
+public class MessagesDialogCtrl {
     private final JvMessagesModel messagesModel;
     private final JvChatsModel chatsModel;
 
-    JvMessagesDialogCtrl() {
+    MessagesDialogCtrl() {
         messagesModel = JvGetterModels.getInstance().getBeanMessagesModel();
         chatsModel = JvGetterModels.getInstance().getBeanChatsModel();
     }
@@ -98,14 +98,14 @@ public class JvMessagesDialogCtrl {
     }
 
     private void setLastMessageInChatCtrl(JvMessageStructObject message) {
-        JvGetterControls.getInstance().getBeanChatsCtrl().changeLastMessage(message);
+        GetterControls.getInstance().getBeanChatsCtrl().changeLastMessage(message);
     }
 
     private void sendNewMessage(JvMessageStructObject message) {
         String timestampNewMessage = JvGetterTools.getInstance().getBeanFormatTools()
                 .localDateTimeToString(message.getTimestamp());
 
-        JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+        GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 JvDefinesMessages.TypeMessage.TextMessageSendUserToServer,
                 message.getUuidUserSender(),
                 message.getUuidUserReceiver(),
@@ -121,8 +121,8 @@ public class JvMessagesDialogCtrl {
                 message.setStatusMessage(mapStatusesMessages.get(uuid));
             }
         }
-        JvGetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                .setTextMessagesChangingStatusFromServerFlag(JvMessagesDefinesCtrl.TypeFlags.TRUE);
+        GetterControls.getInstance().getBeanMessagesDefinesCtrl()
+                .setTextMessagesChangingStatusFromServerFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
     }
 
     public JvMessageStructObject findMessage(UUID uuid) {
@@ -149,7 +149,7 @@ public class JvMessagesDialogCtrl {
                                             LocalDateTime timestamp) {
         JvMessageStructObject messageStructObject = createMessageByData(
                 uuidUserSender, uuidUserReceiver, uuidMessage, statusMessage, text, timestamp);
-        JvOnlineServersCtrl onlineServersCtrl =  JvGetterControls.getInstance().getBeanOnlineServersCtrl();
+        OnlineServersCtrl onlineServersCtrl =  GetterControls.getInstance().getBeanOnlineServersCtrl();
 
         boolean isUserOnline = onlineServersCtrl.isUuidUserInListCheckerOnline(messageStructObject.getUuidUserReceiver());
         if (!isUserOnline) {
@@ -165,7 +165,7 @@ public class JvMessagesDialogCtrl {
         String timestampMessage = JvGetterTools.getInstance().getBeanFormatTools()
                 .localDateTimeToString(messageStructObject.getTimestamp());
 
-        JvGetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+        GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 JvDefinesMessages.TypeMessage.TextMessageRedirectServerToUser,
                 messageStructObject.getUuidUserSender(),
                 messageStructObject.getUuidUserReceiver(),

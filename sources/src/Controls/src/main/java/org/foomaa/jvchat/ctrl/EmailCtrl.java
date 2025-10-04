@@ -7,10 +7,10 @@ import org.springframework.context.annotation.Profile;
 import org.foomaa.jvchat.network.EmailProcessor;
 
 
-public class JvEmailCtrl {
+public class EmailCtrl {
     private EmailProcessor emailProcessor;
 
-    JvEmailCtrl() {}
+    EmailCtrl() {}
 
     @Autowired(required = false)
     @Qualifier("beanEmailProcessor")
@@ -26,8 +26,8 @@ public class JvEmailCtrl {
         int code = (int) ((Math.random() * (999999 - 100000) ) + 100000);
         String message =  createVerifyFamousEmailMessage(code, email);
         if (emailProcessor.sendEmail(email, message)) {
-            return JvGetterControls.getInstance()
-                    .getBeanDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.VerifyFamousEmail,
+            return GetterControls.getInstance()
+                    .getBeanDbCtrl().insertQueryToDB(DbCtrl.TypeExecutionInsert.VerifyFamousEmail,
                     email, String.valueOf(code));
         }
         return false;
@@ -40,16 +40,16 @@ public class JvEmailCtrl {
                         "Don't tell or send the code to anyone. " +
                         "If it was not you, contact support by email avodichenkov@gmail.com.",
                 code,
-                JvGetterControls.getInstance().getBeanDbCtrl().
-                        getSingleDataFromDb(JvDbCtrl.TypeExecutionGetSingle.LoginByEmail, email));
+                GetterControls.getInstance().getBeanDbCtrl().
+                        getSingleDataFromDb(DbCtrl.TypeExecutionGetSingle.LoginByEmail, email));
     }
 
     public boolean startVerifyRegEmail(String email) {
         int code = (int) ((Math.random() * (999999 - 100000) ) + 100000);
         String message =  createVerifyRegEmailMessage(code);
         if (emailProcessor.sendEmail(email, message)) {
-            return JvGetterControls.getInstance()
-                    .getBeanDbCtrl().insertQueryToDB(JvDbCtrl.TypeExecutionInsert.VerifyRegistrationEmail,
+            return GetterControls.getInstance()
+                    .getBeanDbCtrl().insertQueryToDB(DbCtrl.TypeExecutionInsert.VerifyRegistrationEmail,
                     email, String.valueOf(code));
         }
         return false;
