@@ -11,16 +11,16 @@ import java.util.List;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.models.JvGetterModels;
 import org.foomaa.jvchat.models.JvSocketRunnableCtrlModel;
-import org.foomaa.jvchat.network.JvUsersSocket;
+import org.foomaa.jvchat.network.UsersSocket;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.settings.JvMainSettings;
-import org.foomaa.jvchat.network.JvServersSocket;
+import org.foomaa.jvchat.network.ServersSocket;
 import org.foomaa.jvchat.structobjects.JvSocketRunnableCtrlStructObject;
 
 
 public class JvNetworkCtrl {
-    private JvServersSocket serversSocket;
-    private JvUsersSocket usersSocket;
+    private ServersSocket serversSocket;
+    private UsersSocket usersSocket;
     private JvSocketRunnableCtrl currentSocketRunnableCtrl;
 
     JvNetworkCtrl() {}
@@ -60,7 +60,7 @@ public class JvNetworkCtrl {
     @Qualifier("beanServersSocket")
     @Profile("servers")
     @SuppressWarnings("unused")
-    private void setServersSocket(JvServersSocket newServersSocket) {
+    private void setServersSocket(ServersSocket newServersSocket) {
         if ( serversSocket !=  newServersSocket ) {
             serversSocket = newServersSocket;
         }
@@ -70,7 +70,7 @@ public class JvNetworkCtrl {
     @Qualifier("beanUsersSocket")
     @Profile("users")
     @SuppressWarnings("unused")
-    private void setUsersSocket(JvUsersSocket newUsersSocket) {
+    private void setUsersSocket(UsersSocket newUsersSocket) {
         if (usersSocket != newUsersSocket) {
             usersSocket = newUsersSocket;
         }

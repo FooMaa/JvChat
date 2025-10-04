@@ -11,15 +11,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.foomaa.jvchat.dbworker.JvDbRequests;
-import org.foomaa.jvchat.dbworker.JvDbWorker;
+import org.foomaa.jvchat.dbworker.DbRequests;
+import org.foomaa.jvchat.dbworker.DbWorker;
 import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 
 
 public class JvDbCtrl {
-    private JvDbWorker db;
-    private JvDbRequests dbRequests;
+    private DbWorker db;
+    private DbRequests dbRequests;
 
     public enum TypeExecutionInsert {
         RegisterForm,
@@ -59,7 +59,7 @@ public class JvDbCtrl {
     @Qualifier("beanDbWorker")
     @Profile("servers")
     @SuppressWarnings("unused")
-    private void setDb(JvDbWorker newDb) {
+    private void setDb(DbWorker newDb) {
         if (db != newDb) {
             db = newDb;
         }
@@ -69,7 +69,7 @@ public class JvDbCtrl {
     @Qualifier("beanDbRequests")
     @Profile("servers")
     @SuppressWarnings("unused")
-    private void setDbRequests(JvDbRequests newDbRequests) {
+    private void setDbRequests(DbRequests newDbRequests) {
         if (dbRequests != newDbRequests) {
             dbRequests = newDbRequests;
         }

@@ -4,11 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
 
-import org.foomaa.jvchat.network.JvEmailProcessor;
+import org.foomaa.jvchat.network.EmailProcessor;
 
 
 public class JvEmailCtrl {
-    private JvEmailProcessor emailProcessor;
+    private EmailProcessor emailProcessor;
 
     JvEmailCtrl() {}
 
@@ -16,7 +16,7 @@ public class JvEmailCtrl {
     @Qualifier("beanEmailProcessor")
     @Profile("servers")
     @SuppressWarnings("unused")
-    private void setEmailProcessor(JvEmailProcessor newEmailProcessor) {
+    private void setEmailProcessor(EmailProcessor newEmailProcessor) {
         if (emailProcessor != newEmailProcessor) {
             emailProcessor = newEmailProcessor;
         }

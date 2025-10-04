@@ -1,0 +1,72 @@
+package org.foomaa.jvchat.dbworker;
+
+import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+import java.sql.DriverManager;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.ResultSet;
+
+import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.settings.JvGetterSettings;
+
+
+@Component("beanDbWorker")
+@Scope("singleton")
+@Profile("servers")
+public class DbWorker {
+    private static Connection connection;
+
+    private DbWorker() {
+        getConnection();
+    }
+
+    public void getConnection() {
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            JvLog.write(JvLog.TypeLog.Error, "Error in connect to DB.");
+            return;
+        }
+
+        connection = null;
+
+        try {
+            connection = DriverManager.getConnection(JvGetterSettings.getInstance().getBeanServersInfoSettings().getDbUrl(),
+                    JvGetterSettings.getInstance().getBeanServersInfoSettings().getDbUser(),
+                    JvGetterSettings.getInstance().getBeanServersInfoSettings().getMagicStringDb());
+        } catch (SQLException e) {
+            JvLog.write(JvLog.TypeLog.Error, "Error in connect to DB.");
+            return;
+        }
+
+        assert connection != null;
+    }
+
+    public void closeResultSet(ResultSet rs) {
+        try {
+            rs.close();
+        } catch (SQLException exception) {
+            JvLog.write(JvLog.TypeLog.Error, "Error closing ResultSet.");
+        }
+    }
+
+    public void endConnection() throws SQLException {
+        connection.close();
+    }
+
+    public ResultSet makeExecution(String execution) {
+        ResultSet resultSet = null;
+        try {
+            Statement stmt = connection.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY);
+            resultSet = stmt.executeQuery(execution);
+        } catch (SQLException exception) {
+            JvLog.write(JvLog.TypeLog.Error, "The database returned an error, the request cannot be executed.");
+        }
+        return resultSet;
+    }
+}

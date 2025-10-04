@@ -29,13 +29,13 @@
 
         <dependency>
             <groupId>org.foomaa.jvchat.network</groupId>
-            <artifactId>JvNetwork</artifactId>
+            <artifactId>Network</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <dependency>
             <groupId>org.foomaa.jvchat.dbworker</groupId>
-            <artifactId>JvDbWorker</artifactId>
+            <artifactId>DbWorker</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 

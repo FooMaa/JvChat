@@ -28,10 +28,10 @@
         <module>sources/lib/JvModels</module>
         <module>sources/lib/JvStructObjects</module>
         <module>sources/src/StartPoint</module>
-        <module>sources/src/JvUILinks</module>
-        <module>sources/src/JvDbWorker</module>
+        <module>sources/src/UILinks</module>
+        <module>sources/src/DbWorker</module>
         <module>sources/src/JvControls</module>
-        <module>sources/src/JvNetwork</module>
+        <module>sources/src/Network</module>
     </modules>
 
     <properties>

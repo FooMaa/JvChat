@@ -9,7 +9,7 @@ import java.net.URISyntaxException;
 
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.tools.JvGetterTools;
-import org.foomaa.jvchat.uilinks.JvGetterUILinks;
+import org.foomaa.jvchat.uilinks.GetterUILinks;
 import org.foomaa.jvchat.ctrl.JvGetterControls;
 import org.foomaa.jvchat.settings.JvMainSettings;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -35,7 +35,7 @@ public class MainStartPoint implements ApplicationRunner {
 //            NOTE(VAD): Set profile by spring.
 //            JvGetterTools.getInstance().getBeanMainTools().setProfileSettingSpring();
         } catch (IOException | URISyntaxException exception) {
-            JvGetterUILinks.getInstance().getBeanErrorStartUILink(
+            GetterUILinks.getInstance().getBeanErrorStartUILink(
                     "Failed to set the correct profile for the application!");
         }
 
@@ -45,7 +45,7 @@ public class MainStartPoint implements ApplicationRunner {
         }
         if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.USERS) {
             if (args.getOptionValues("ipServer") == null) {
-                JvGetterUILinks.getInstance().getBeanErrorStartUILink(
+                GetterUILinks.getInstance().getBeanErrorStartUILink(
                         "Enter the server IP address in the parameter!");
             }
 
@@ -53,7 +53,7 @@ public class MainStartPoint implements ApplicationRunner {
             if (JvGetterTools.getInstance().getBeanMainTools().validateInputIp(argsIp)) {
                 JvGetterSettings.getInstance().getBeanUsersInfoSettings().setIpRemoteServer(argsIp);
             } else {
-                JvGetterUILinks.getInstance().getBeanErrorStartUILink(
+                GetterUILinks.getInstance().getBeanErrorStartUILink(
                         "The startup parameter contains the wrong IP!");
             }
 
@@ -67,7 +67,7 @@ public class MainStartPoint implements ApplicationRunner {
             if (JvGetterTools.getInstance().getBeanMainTools().validateInputPort(argsPort)) {
                 JvGetterSettings.getInstance().getBeanUsersInfoSettings().setPortRemoteServer(Integer.parseInt(argsPort));
             } else {
-                JvGetterUILinks.getInstance().getBeanErrorStartUILink(
+                GetterUILinks.getInstance().getBeanErrorStartUILink(
                         "The PORT in the launch parameter is not correct!");
             }
         }
@@ -79,12 +79,12 @@ public class MainStartPoint implements ApplicationRunner {
         try {
             JvGetterControls.getInstance().getBeanNetworkCtrl().startNetwork();
         } catch (IOException exception) {
-            JvGetterUILinks.getInstance().getBeanErrorStartUILink(
+            GetterUILinks.getInstance().getBeanErrorStartUILink(
                     "Failed to connect to the server.\nCheck your network availability and try again!");
         }
 
         if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.USERS) {
-            JvGetterUILinks.getInstance().getBeanStartAuthenticationUILink();
+            GetterUILinks.getInstance().getBeanStartAuthenticationUILink();
         }
     }
 }

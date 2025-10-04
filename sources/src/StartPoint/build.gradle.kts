@@ -9,7 +9,7 @@ var PROFILE = ""
 
 dependencies {
     implementation(project(":JvControls"))
-    implementation(project(":JvUILinks"))
+    implementation(project(":UILinks"))
     implementation(project(":JvTools"))
     implementation(project(":JvSettings"))
 }
