@@ -3,7 +3,7 @@ package org.foomaa.jvchat.models;
 import java.time.LocalDateTime;
 import java.util.*;
 
-import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
+import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.structobjects.*;
@@ -34,7 +34,7 @@ public class JvChatsModel extends JvBaseModel {
                               UUID uuidChat,
                               UUID uuidLastMessage,
                               Boolean isLoginSentLastMessage,
-                              JvMainChatsGlobalDefines.TypeStatusMessage statusMessage,
+                              MainChatsGlobalDefines.TypeStatusMessage statusMessage,
                               LocalDateTime timestampLastMessage) {
         JvUserStructObject userChat = JvGetterStructObjects.getInstance().getBeanUserStructObject();
         userChat.setLogin(login);
@@ -60,7 +60,7 @@ public class JvChatsModel extends JvBaseModel {
         addItem(chat, getRootObject());
     }
 
-    public void setOnlineStatusToUser(UUID uuidUser, JvMainChatsGlobalDefines.TypeStatusOnline statusOnline) {
+    public void setOnlineStatusToUser(UUID uuidUser, MainChatsGlobalDefines.TypeStatusOnline statusOnline) {
         JvChatStructObject chat = findByUuidUser(uuidUser);
         if (chat == null) {
             JvLog.write(JvLog.TypeLog.Error, "This includes a chat object, which is null.");

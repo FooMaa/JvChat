@@ -3,7 +3,7 @@ package org.foomaa.jvchat.messages;
 import java.util.*;
 
 import com.google.protobuf.InvalidProtocolBufferException;
-import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
+import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 
 
@@ -238,8 +238,8 @@ public class JvDeserializatorDataMessages {
                 UUID uuidChat = UUID.fromString(chatsLoadReplyMsg.getChatsInfo(i).getUuidChat());
                 UUID uuidMessage = UUID.fromString(chatsLoadReplyMsg.getChatsInfo(i).getUuidMessage());
                 Boolean isLoginSentLastMessage = chatsLoadReplyMsg.getChatsInfo(i).getIsLoginSentLastMessage();
-                JvMainChatsGlobalDefines.TypeStatusMessage statusMessage =
-                        JvMainChatsGlobalDefines.TypeStatusMessage.getTypeStatusMessage(
+                MainChatsGlobalDefines.TypeStatusMessage statusMessage =
+                        MainChatsGlobalDefines.TypeStatusMessage.getTypeStatusMessage(
                                 chatsLoadReplyMsg.getChatsInfo(i).getStatusMessage().getNumber());
                 String dateTimeLastMessage = chatsLoadReplyMsg.getChatsInfo(i).getDateTimeLastMessage();
 
@@ -315,11 +315,11 @@ public class JvDeserializatorDataMessages {
                     loadUsersOnlineStatusReply.getMapStatusOnlineMap();
             Map<String, String> mapLastOnlineTimeUsers = loadUsersOnlineStatusReply.getMapLastOnlineTimeMap();
 
-            Map<UUID, JvMainChatsGlobalDefines.TypeStatusOnline> newMapStatusesUsers = new HashMap<>();
+            Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> newMapStatusesUsers = new HashMap<>();
             for (String key : mapStatusesUsers.keySet()) {
                 int integerStatus = mapStatusesUsers.get(key).getNumber();
-                JvMainChatsGlobalDefines.TypeStatusOnline statusMsg =
-                        JvMainChatsGlobalDefines.TypeStatusOnline.getTypeStatusOnline(integerStatus);
+                MainChatsGlobalDefines.TypeStatusOnline statusMsg =
+                        MainChatsGlobalDefines.TypeStatusOnline.getTypeStatusOnline(integerStatus);
 
                 newMapStatusesUsers.put(UUID.fromString(key), statusMsg);
             }
@@ -376,13 +376,13 @@ public class JvDeserializatorDataMessages {
 
             Map<String, JvClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServer.StatusMessage> mapStatusesMessages =
                     msgData.getMapStatusMessagesMap();
-            Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> newMapStatusesMessages = new HashMap<>();
+            Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> newMapStatusesMessages = new HashMap<>();
 
             for (String key : mapStatusesMessages.keySet()) {
                 JvClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServer.StatusMessage statusTmp =
                         mapStatusesMessages.get(key);
-                JvMainChatsGlobalDefines.TypeStatusMessage statusMsg =
-                        JvMainChatsGlobalDefines.TypeStatusMessage.getTypeStatusMessage(statusTmp.getNumber());
+                MainChatsGlobalDefines.TypeStatusMessage statusMsg =
+                        MainChatsGlobalDefines.TypeStatusMessage.getTypeStatusMessage(statusTmp.getNumber());
                 newMapStatusesMessages.put(UUID.fromString(key), statusMsg);
             }
 
@@ -413,13 +413,13 @@ public class JvDeserializatorDataMessages {
 
             Map<String, JvClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromUser.StatusMessage> mapStatusesMessages =
                     msgData.getMapStatusMessagesMap();
-            Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> newMapStatusesMessages = new HashMap<>();
+            Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> newMapStatusesMessages = new HashMap<>();
 
             for (String key : mapStatusesMessages.keySet()) {
                 JvClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromUser.StatusMessage statusTmp =
                         mapStatusesMessages.get(key);
-                JvMainChatsGlobalDefines.TypeStatusMessage statusMsg =
-                        JvMainChatsGlobalDefines.TypeStatusMessage.getTypeStatusMessage(statusTmp.getNumber());
+                MainChatsGlobalDefines.TypeStatusMessage statusMsg =
+                        MainChatsGlobalDefines.TypeStatusMessage.getTypeStatusMessage(statusTmp.getNumber());
                 newMapStatusesMessages.put(UUID.fromString(key), statusMsg);
             }
 

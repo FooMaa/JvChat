@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
-import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
+import org.foomaa.jvchat.globaldefines.DbGlobalDefines;
+import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.messages.JvGetterMessages;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvGetterSettings;
@@ -155,9 +155,9 @@ public class SendMessagesCtrl {
             case ChatsLoadReply -> {
                 if (parameters.length == 1) {
                     Object chatsInfoObj = parameters[0];
-                    List<Map<JvDbGlobalDefines.LineKeys, String>> chatsInfo =
+                    List<Map<DbGlobalDefines.LineKeys, String>> chatsInfo =
                             JvGetterTools.getInstance().getBeanStructTools()
-                            .objectInListMaps(chatsInfoObj, JvDbGlobalDefines.LineKeys.class, String.class);
+                            .objectInListMaps(chatsInfoObj, DbGlobalDefines.LineKeys.class, String.class);
                     byte[] bodyMessageChatsLoadReply = createBodyChatsLoadReplyMessage(type, chatsInfo);
                     sendReadyMessageNetwork(bodyMessageChatsLoadReply);
                     sendMessage(JvDefinesMessages.TypeMessage.CheckOnlineUserRequest,
@@ -194,8 +194,8 @@ public class SendMessagesCtrl {
                 if (parameters.length == 2) {
                     Object statusesUsersObj = parameters[0];
                     Object lastOnlineTimeUsersObj = parameters[1];
-                    Map<UUID, JvMainChatsGlobalDefines.TypeStatusOnline> statusesUsersMap = JvGetterTools.getInstance()
-                            .getBeanStructTools().objectInMap(statusesUsersObj, UUID.class, JvMainChatsGlobalDefines.TypeStatusOnline.class);
+                    Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> statusesUsersMap = JvGetterTools.getInstance()
+                            .getBeanStructTools().objectInMap(statusesUsersObj, UUID.class, MainChatsGlobalDefines.TypeStatusOnline.class);
                     Map<UUID, String> lastOnlineTimeUsers = JvGetterTools.getInstance()
                             .getBeanStructTools().objectInMap(lastOnlineTimeUsersObj, UUID.class, String.class);
                     byte[] bodyMessage = createBodyLoadUsersOnlineStatusReplyMessage(type, statusesUsersMap, lastOnlineTimeUsers);
@@ -226,8 +226,8 @@ public class SendMessagesCtrl {
             case TextMessagesChangingStatusFromServer -> {
                 if (parameters.length == 1) {
                     Object mapUuidStatus = parameters[0];
-                    Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = JvGetterTools.getInstance()
-                            .getBeanStructTools().objectInMap(mapUuidStatus, UUID.class, JvMainChatsGlobalDefines.TypeStatusMessage.class);
+                    Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = JvGetterTools.getInstance()
+                            .getBeanStructTools().objectInMap(mapUuidStatus, UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
                     byte[] bodyMessage = createBodyTextMessagesChangingStatusFromServerMessage(type, mapStatusesMessages);
                     sendReadyMessageNetwork(bodyMessage);
                 }
@@ -242,8 +242,8 @@ public class SendMessagesCtrl {
             case TextMessagesChangingStatusFromUser -> {
                 if (parameters.length == 1) {
                     Object mapUuidStatus = parameters[0];
-                    Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = JvGetterTools.getInstance()
-                            .getBeanStructTools().objectInMap(mapUuidStatus, UUID.class, JvMainChatsGlobalDefines.TypeStatusMessage.class);
+                    Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = JvGetterTools.getInstance()
+                            .getBeanStructTools().objectInMap(mapUuidStatus, UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
                     byte[] bodyMessage = createBodyTextMessagesChangingStatusFromUserMessage(type, mapStatusesMessages);
                     sendReadyMessageNetwork(bodyMessage);
                 }
@@ -288,9 +288,9 @@ public class SendMessagesCtrl {
             case MessagesLoadReply -> {
                 if (parameters.length == 1) {
                     Object msgInfoObj = parameters[0];
-                    List<Map<JvDbGlobalDefines.LineKeys, String>> msgInfo =
+                    List<Map<DbGlobalDefines.LineKeys, String>> msgInfo =
                             JvGetterTools.getInstance().getBeanStructTools()
-                                    .objectInListMaps(msgInfoObj, JvDbGlobalDefines.LineKeys.class, String.class);
+                                    .objectInListMaps(msgInfoObj, DbGlobalDefines.LineKeys.class, String.class);
                     byte[] bodyMessageChatsLoadReply = createBodyMessagesLoadReplyMessage(type, msgInfo);
                     sendReadyMessageNetwork(bodyMessageChatsLoadReply);
                 }
@@ -358,7 +358,7 @@ public class SendMessagesCtrl {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, uuidUser);
     }
 
-    private byte[] createBodyChatsLoadReplyMessage(JvDefinesMessages.TypeMessage type, List<Map<JvDbGlobalDefines.LineKeys, String>> reply) {
+    private byte[] createBodyChatsLoadReplyMessage(JvDefinesMessages.TypeMessage type, List<Map<DbGlobalDefines.LineKeys, String>> reply) {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
     }
 
@@ -375,7 +375,7 @@ public class SendMessagesCtrl {
     }
 
     private byte[] createBodyLoadUsersOnlineStatusReplyMessage(JvDefinesMessages.TypeMessage type,
-                                                               Map<UUID, JvMainChatsGlobalDefines.TypeStatusOnline> statusesUsers,
+                                                               Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> statusesUsers,
                                                                Map<UUID, String> lastOnlineTimeUsers) {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, statusesUsers, lastOnlineTimeUsers);
     }
@@ -392,7 +392,7 @@ public class SendMessagesCtrl {
     }
 
     private byte[] createBodyTextMessagesChangingStatusFromServerMessage(JvDefinesMessages.TypeMessage type,
-                                                                         Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
+                                                                         Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, mapStatusMessages);
     }
 
@@ -401,7 +401,7 @@ public class SendMessagesCtrl {
     }
 
     private byte[] createBodyTextMessagesChangingStatusFromUserMessage(JvDefinesMessages.TypeMessage type,
-                                                                         Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
+                                                                         Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, mapStatusMessages);
     }
 
@@ -424,7 +424,7 @@ public class SendMessagesCtrl {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, uuidChat, quantityMessages);
     }
 
-    private byte[] createBodyMessagesLoadReplyMessage(JvDefinesMessages.TypeMessage type, List<Map<JvDbGlobalDefines.LineKeys, String>> reply) {
+    private byte[] createBodyMessagesLoadReplyMessage(JvDefinesMessages.TypeMessage type, List<Map<DbGlobalDefines.LineKeys, String>> reply) {
         return JvGetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
     }
 }

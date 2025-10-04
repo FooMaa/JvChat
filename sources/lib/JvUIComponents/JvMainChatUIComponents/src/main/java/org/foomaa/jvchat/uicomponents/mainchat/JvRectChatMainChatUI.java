@@ -10,7 +10,7 @@ import java.util.UUID;
 import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.settings.JvGetterSettings;
-import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
+import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.structobjects.JvChatStructObject;
 import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 
@@ -20,8 +20,8 @@ public class JvRectChatMainChatUI extends JPanel {
     private String shortLastMessage;
     private UUID lastMessageSender;
     private String timeLastMessage;
-    private JvMainChatsGlobalDefines.TypeStatusMessage statusMessage;
-    private JvMainChatsGlobalDefines.TypeStatusOnline statusOnline;
+    private MainChatsGlobalDefines.TypeStatusMessage statusMessage;
+    private MainChatsGlobalDefines.TypeStatusOnline statusOnline;
     private final UUID uuidChat;
     private final UUID uuidUser;
     private String lastOnlineDateTime;
@@ -40,7 +40,7 @@ public class JvRectChatMainChatUI extends JPanel {
         statusMessage = chatObject.getLastMessage().getStatusMessage();
         uuidChat = chatObject.getUuid();
         uuidUser = chatObject.getUserChat().getUuid();
-        statusOnline = JvMainChatsGlobalDefines.TypeStatusOnline.Offline;
+        statusOnline = MainChatsGlobalDefines.TypeStatusOnline.Offline;
         lastOnlineDateTime = "";
         nameForLabelOnline = "onlineLabel";
         nameForLabelLastMessage = "lastMessageLabel";
@@ -142,7 +142,7 @@ public class JvRectChatMainChatUI extends JPanel {
             return false;
         }
 
-        return statusMessage != JvMainChatsGlobalDefines.TypeStatusMessage.Read;
+        return statusMessage != MainChatsGlobalDefines.TypeStatusMessage.Read;
     }
 
     private String createLastMessageString() {
@@ -155,7 +155,7 @@ public class JvRectChatMainChatUI extends JPanel {
         return shortLastMessage;
     }
 
-    public void setStatusOnline(JvMainChatsGlobalDefines.TypeStatusOnline newStatusOnline) {
+    public void setStatusOnline(MainChatsGlobalDefines.TypeStatusOnline newStatusOnline) {
         if (statusOnline != newStatusOnline) {
             statusOnline = newStatusOnline;
         }

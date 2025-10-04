@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
+import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.structobjects.JvBaseStructObject;
 import org.foomaa.jvchat.structobjects.JvGetterStructObjects;
 import org.foomaa.jvchat.structobjects.JvMessageStructObject;
@@ -20,7 +20,7 @@ public class JvMessagesModel extends JvBaseModel {
     public JvMessageStructObject createNewMessage(UUID uuidUserSender,
                                                   UUID uuidUserReceiver,
                                                   UUID uuidMessage,
-                                                  JvMainChatsGlobalDefines.TypeStatusMessage statusMessage,
+                                                  MainChatsGlobalDefines.TypeStatusMessage statusMessage,
                                                   String text,
                                                   LocalDateTime timestamp) {
         JvMessageStructObject messageObj = JvGetterStructObjects.getInstance().getBeanMessageStructObject();

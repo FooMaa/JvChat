@@ -1,6 +1,6 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import org.foomaa.jvchat.events.JvCheckerEventsAnnotation;
+import org.foomaa.jvchat.events.CheckerEventsAnnotation;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import javax.imageio.ImageIO;
@@ -13,8 +13,8 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
 
-import org.foomaa.jvchat.events.JvBaseEvent;
-import org.foomaa.jvchat.events.JvGetterEvents;
+import org.foomaa.jvchat.events.BaseEvent;
+import org.foomaa.jvchat.events.GetterEvents;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
@@ -59,37 +59,37 @@ public class JvMainFrameAuthUI extends JFrame {
 
     private void createConnections() {
         uuidSignalCloseWindow =
-                JvGetterEvents.getInstance().getBeanMakerEvents().addConnect(
+                GetterEvents.getInstance().getBeanMakerEvents().addConnect(
                         JvGetterAuthUIComponents.getInstance().getBeanEntryPanelAuthUI(),
                         this,
                         "closeWindow",
                         JvGetterAuthUIComponents.getInstance().getContext());
         uuidSignalChangeRegimeWorkEntry =
-                JvGetterEvents.getInstance().getBeanMakerEvents().addConnect(
+                GetterEvents.getInstance().getBeanMakerEvents().addConnect(
                         JvGetterAuthUIComponents.getInstance().getBeanEntryPanelAuthUI(),
                         this,
                         "changeRegimeWork",
                         JvGetterAuthUIComponents.getInstance().getContext());
         uuidSignalChangeRegimeWorkRegistration =
-                JvGetterEvents.getInstance().getBeanMakerEvents().addConnect(
+                GetterEvents.getInstance().getBeanMakerEvents().addConnect(
                         JvGetterAuthUIComponents.getInstance().getBeanRegistrationPanelAuthUI(),
                         this,
                         "changeRegimeWork",
                         JvGetterAuthUIComponents.getInstance().getContext());
         uuidSignalChangeRegimeWorkVerifyCode =
-                JvGetterEvents.getInstance().getBeanMakerEvents().addConnect(
+                GetterEvents.getInstance().getBeanMakerEvents().addConnect(
                         JvGetterAuthUIComponents.getInstance().getBeanVerifyCodePanelAuthUI(),
                         this,
                         "changeRegimeWork",
                         JvGetterAuthUIComponents.getInstance().getContext());
         uuidSignalChangeRegimeWorkResetPassword =
-                JvGetterEvents.getInstance().getBeanMakerEvents().addConnect(
+                GetterEvents.getInstance().getBeanMakerEvents().addConnect(
                         JvGetterAuthUIComponents.getInstance().getBeanResetPasswordPanelAuthUI(),
                         this,
                         "changeRegimeWork",
                         JvGetterAuthUIComponents.getInstance().getContext());
         uuidSignalChangeRegimeWorkNewPassword =
-                JvGetterEvents.getInstance().getBeanMakerEvents().addConnect(
+                GetterEvents.getInstance().getBeanMakerEvents().addConnect(
                         JvGetterAuthUIComponents.getInstance().getBeanNewPasswordPanelAuthUI(),
                         this,
                         "changeRegimeWork",
@@ -209,16 +209,16 @@ public class JvMainFrameAuthUI extends JFrame {
         titlePanel.getMinimizeButton().addActionListener(event -> minimizeWindow());
     }
 
-    @JvCheckerEventsAnnotation(connectionUuid = "uuidSignalCloseWindow")
+    @CheckerEventsAnnotation(connectionUuid = "uuidSignalCloseWindow")
     @EventListener
     @Async
     @SuppressWarnings("unused")
-    public void closeWindow(JvBaseEvent event) {
+    public void closeWindow(BaseEvent event) {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(false);
     }
 
-    @JvCheckerEventsAnnotation(connectionUuid = {
+    @CheckerEventsAnnotation(connectionUuid = {
             "uuidSignalChangeRegimeWorkEntry",
             "uuidSignalChangeRegimeWorkRegistration",
             "uuidSignalChangeRegimeWorkVerifyCode",
@@ -227,7 +227,7 @@ public class JvMainFrameAuthUI extends JFrame {
     @EventListener
     @Async
     @SuppressWarnings("unused")
-    public void changeRegimeWork(JvBaseEvent event) {
+    public void changeRegimeWork(BaseEvent event) {
         regimeWorkMainFrame = (JvDefinesAuthUI.RegimeWorkMainFrame) event.getData()[0];
         setPanelSettings(event.getData());
     }

@@ -4,13 +4,13 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
-import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
+import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 
 
 public class JvMessageStructObject extends JvBaseStructObject {
     private UUID uuidUserSender;
     private UUID uuidUserReceiver;
-    private JvMainChatsGlobalDefines.TypeStatusMessage statusMessage;
+    private MainChatsGlobalDefines.TypeStatusMessage statusMessage;
     private String text;
     private LocalDateTime timestamp;
 
@@ -38,7 +38,7 @@ public class JvMessageStructObject extends JvBaseStructObject {
         }
     }
 
-    public void setStatusMessage(JvMainChatsGlobalDefines.TypeStatusMessage newStatusMessage) {
+    public void setStatusMessage(MainChatsGlobalDefines.TypeStatusMessage newStatusMessage) {
         if (statusMessage != newStatusMessage) {
             statusMessage = newStatusMessage;
             commitProperties();
@@ -59,7 +59,7 @@ public class JvMessageStructObject extends JvBaseStructObject {
         }
     }
 
-    public JvMainChatsGlobalDefines.TypeStatusMessage getStatusMessage() {
+    public MainChatsGlobalDefines.TypeStatusMessage getStatusMessage() {
         return statusMessage;
     }
 

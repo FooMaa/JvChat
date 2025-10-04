@@ -9,13 +9,13 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.foomaa.jvchat.ctrl.GetterControls;
-import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
+import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 
 
 public class JvRectMessageMainChatUI extends JTextArea {
-    private JvMainChatsGlobalDefines.TypeStatusMessage statusMessage;
+    private MainChatsGlobalDefines.TypeStatusMessage statusMessage;
     private final String textMessage;
     private final LocalDateTime timestamp;
     private final UUID uuidMessage;
@@ -49,11 +49,11 @@ public class JvRectMessageMainChatUI extends JTextArea {
         int xRoundSecond = xRound - diameter - 1;
 
         // Рисуем кружки доставки
-        if (statusMessage == JvMainChatsGlobalDefines.TypeStatusMessage.Delivered ||
-                statusMessage == JvMainChatsGlobalDefines.TypeStatusMessage.Read) {
+        if (statusMessage == MainChatsGlobalDefines.TypeStatusMessage.Delivered ||
+                statusMessage == MainChatsGlobalDefines.TypeStatusMessage.Read) {
             g2.fillOval(xRound, yRound, diameter, diameter);
         }
-        if (statusMessage == JvMainChatsGlobalDefines.TypeStatusMessage.Read) {
+        if (statusMessage == MainChatsGlobalDefines.TypeStatusMessage.Read) {
             g2.fillOval(xRoundSecond, yRound, diameter, diameter);
         }
 
@@ -132,7 +132,7 @@ public class JvRectMessageMainChatUI extends JTextArea {
         return uuidMessage;
     }
 
-    public void changeStatusMessage(JvMainChatsGlobalDefines.TypeStatusMessage newStatusMessage) {
+    public void changeStatusMessage(MainChatsGlobalDefines.TypeStatusMessage newStatusMessage) {
         if (statusMessage != newStatusMessage) {
             statusMessage = newStatusMessage;
             updateComponent();

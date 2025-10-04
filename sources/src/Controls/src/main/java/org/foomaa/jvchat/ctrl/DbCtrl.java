@@ -13,7 +13,7 @@ import java.util.Map;
 
 import org.foomaa.jvchat.dbworker.DbRequests;
 import org.foomaa.jvchat.dbworker.DbWorker;
-import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
+import org.foomaa.jvchat.globaldefines.DbGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 
 
@@ -338,13 +338,13 @@ public class DbCtrl {
         return null;
     }
 
-    public List<Map<JvDbGlobalDefines.LineKeys, String>> getMultipleInfoFromDb(TypeExecutionGetMultiple type, String... parameters) {
+    public List<Map<DbGlobalDefines.LineKeys, String>> getMultipleInfoFromDb(TypeExecutionGetMultiple type, String... parameters) {
         switch (type) {
             case ChatsLoad -> {
                 if (parameters.length == 1) {
                     String userLogin = parameters[0];
                     ResultSet resultSet = db.makeExecution(dbRequests.getChats(userLogin));
-                    List<Map<JvDbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
+                    List<Map<DbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
 
                     db.closeResultSet(resultSet);
 
@@ -358,7 +358,7 @@ public class DbCtrl {
                 if (parameters.length == 1) {
                     String uuidUser = parameters[0];
                     ResultSet resultSet = db.makeExecution(dbRequests.getStatusOnlineTimeUser(uuidUser));
-                    List<Map<JvDbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
+                    List<Map<DbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
 
                     db.closeResultSet(resultSet);
 
@@ -371,7 +371,7 @@ public class DbCtrl {
             case OnlineUsers -> {
                 if (parameters.length == 0) {
                     ResultSet resultSet = db.makeExecution(dbRequests.getOnlineUsers());
-                    List<Map<JvDbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
+                    List<Map<DbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
 
                     db.closeResultSet(resultSet);
 
@@ -387,7 +387,7 @@ public class DbCtrl {
                     String quantityMessages = parameters[1];
 
                     ResultSet resultSet = db.makeExecution(dbRequests.getQuantityMessagesByUuids(uuidChat, quantityMessages));
-                    List<Map<JvDbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
+                    List<Map<DbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
 
                     db.closeResultSet(resultSet);
 
@@ -401,20 +401,20 @@ public class DbCtrl {
         return null;
     }
 
-    public List<Map<JvDbGlobalDefines.LineKeys, String>> multipleDataFromResultSet(ResultSet resultSet) {
-        List<Map<JvDbGlobalDefines.LineKeys, String>> result = new ArrayList<>();
+    public List<Map<DbGlobalDefines.LineKeys, String>> multipleDataFromResultSet(ResultSet resultSet) {
+        List<Map<DbGlobalDefines.LineKeys, String>> result = new ArrayList<>();
 
         try {
             ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
             int columnCount = resultSetMetaData.getColumnCount();
 
             while (resultSet.next()) {
-                Map<JvDbGlobalDefines.LineKeys, String> row = new HashMap<>();
+                Map<DbGlobalDefines.LineKeys, String> row = new HashMap<>();
 
                 for (int i = 1; i <= columnCount; i++) {
                     String columnName = resultSetMetaData.getColumnName(i);
                     String value = resultSet.getObject(i).toString();
-                    row.put(JvDbGlobalDefines.LineKeys.getTypeLineKey(columnName), value);
+                    row.put(DbGlobalDefines.LineKeys.getTypeLineKey(columnName), value);
                 }
 
                 result.add(row);

@@ -7,7 +7,7 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.util.Objects;
 
-import org.foomaa.jvchat.globaldefines.JvGetterGlobalDefines;
+import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.settings.JvGetterSettings;
@@ -166,7 +166,7 @@ public class JvTextFieldAuthUI extends JPanel {
     private void setFont() {
         try {
             int size = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.015);
-            Font steticaFont = JvGetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
+            Font steticaFont = GetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
                     .createMainSteticaFont(Font.BOLD, size);
             textField.setFont(steticaFont);
         } catch (IOException | FontFormatException exception) {

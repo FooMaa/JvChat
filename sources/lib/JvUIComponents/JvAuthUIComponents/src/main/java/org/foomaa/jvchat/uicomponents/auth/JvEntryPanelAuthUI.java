@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
-import org.foomaa.jvchat.events.JvGetterEvents;
+import org.foomaa.jvchat.events.GetterEvents;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
@@ -138,13 +138,13 @@ public class JvEntryPanelAuthUI extends JPanel {
     }
 
     private void closeFrameWindow() {
-        JvGetterEvents.getInstance().getBeanMakerEvents().event(this, "closeWindow");
+        GetterEvents.getInstance().getBeanMakerEvents().event(this, "closeWindow");
         tLogin.setUnfocusFieldOnClose(true);
         tPassword.setUnfocusFieldOnClose(true);
     }
 
     private void changeRegime(JvDefinesAuthUI.RegimeWorkMainFrame regime) {
-        JvGetterEvents.getInstance().getBeanMakerEvents().event(this, "changeRegimeWork", regime);
+        GetterEvents.getInstance().getBeanMakerEvents().event(this, "changeRegimeWork", regime);
         tLogin.setUnfocusFieldOnClose(true);
         tPassword.setUnfocusFieldOnClose(true);
     }

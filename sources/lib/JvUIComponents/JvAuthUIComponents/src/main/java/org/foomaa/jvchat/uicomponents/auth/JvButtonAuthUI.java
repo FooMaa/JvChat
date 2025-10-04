@@ -1,6 +1,6 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import org.foomaa.jvchat.globaldefines.JvGetterGlobalDefines;
+import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
@@ -78,7 +78,7 @@ public class JvButtonAuthUI extends JButton {
     private void setFont() {
         try {
             int size = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFont(0.008);
-            Font steticaFont = JvGetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
+            Font steticaFont = GetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
                     .createMainSteticaFont(Font.PLAIN, size);
             setFont(steticaFont);
         } catch (IOException | FontFormatException exception) {

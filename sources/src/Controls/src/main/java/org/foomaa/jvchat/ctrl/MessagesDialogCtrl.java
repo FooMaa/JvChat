@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
+import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.models.JvChatsModel;
@@ -57,7 +57,7 @@ public class MessagesDialogCtrl {
         UUID uuidReceiver = chat.getUserChat().getUuid();
         UUID uuidMessage = UUID.randomUUID();
         LocalDateTime timestamp = LocalDateTime.now();
-        JvMainChatsGlobalDefines.TypeStatusMessage status = JvMainChatsGlobalDefines.TypeStatusMessage.Sent;
+        MainChatsGlobalDefines.TypeStatusMessage status = MainChatsGlobalDefines.TypeStatusMessage.Sent;
 
         JvMessageStructObject messageStructObject = messagesModel.createNewMessage(
                 uuidSender, uuidReceiver, uuidMessage, status, text, timestamp);
@@ -77,7 +77,7 @@ public class MessagesDialogCtrl {
             UUID uuidUserReceiver = (UUID) msg.get(JvDefinesMessages.TypeData.UuidUserReceiver);
             UUID uuidMessage = (UUID) msg.get(JvDefinesMessages.TypeData.UuidMessage);
             String text = (String) msg.get(JvDefinesMessages.TypeData.TextMessage);
-            JvMainChatsGlobalDefines.TypeStatusMessage statusMessage = JvMainChatsGlobalDefines.TypeStatusMessage
+            MainChatsGlobalDefines.TypeStatusMessage statusMessage = MainChatsGlobalDefines.TypeStatusMessage
                     .getTypeStatusMessage((Integer) msg.get(JvDefinesMessages.TypeData.StatusMessage));
             LocalDateTime timestampMessage = JvGetterTools.getInstance()
                     .getBeanFormatTools().stringToLocalDateTime(
@@ -114,7 +114,7 @@ public class MessagesDialogCtrl {
                 timestampNewMessage);
     }
 
-    public void setDirtyStatusToMessage(Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages) {
+    public void setDirtyStatusToMessage(Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages) {
         for (UUID uuid : mapStatusesMessages.keySet()) {
             JvMessageStructObject message = findMessage(uuid);
             if (message != null) {
@@ -144,7 +144,7 @@ public class MessagesDialogCtrl {
     public void redirectMessageToOnlineUser(UUID uuidUserSender,
                                             UUID uuidUserReceiver,
                                             UUID uuidMessage,
-                                            JvMainChatsGlobalDefines.TypeStatusMessage statusMessage,
+                                            MainChatsGlobalDefines.TypeStatusMessage statusMessage,
                                             String text,
                                             LocalDateTime timestamp) {
         JvMessageStructObject messageStructObject = createMessageByData(
@@ -178,7 +178,7 @@ public class MessagesDialogCtrl {
     private JvMessageStructObject createMessageByData(UUID uuidUserSender,
                                                       UUID uuidUserReceiver,
                                                       UUID uuidMessage,
-                                                      JvMainChatsGlobalDefines.TypeStatusMessage statusMessage,
+                                                      MainChatsGlobalDefines.TypeStatusMessage statusMessage,
                                                       String text,
                                                       LocalDateTime timestamp) {
         JvMessageStructObject messageObj = JvGetterStructObjects.getInstance().getBeanMessageStructObject();
@@ -206,7 +206,7 @@ public class MessagesDialogCtrl {
     public void addRedirectMessageToModel(UUID uuidUserSender,
                                           UUID uuidUserReceiver,
                                           UUID uuidMessage,
-                                          JvMainChatsGlobalDefines.TypeStatusMessage statusMessage,
+                                          MainChatsGlobalDefines.TypeStatusMessage statusMessage,
                                           String text,
                                           LocalDateTime timestamp) {
         JvMessageStructObject messageStructObject = createMessageByData(

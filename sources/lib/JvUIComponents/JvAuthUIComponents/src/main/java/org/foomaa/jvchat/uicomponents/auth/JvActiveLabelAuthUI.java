@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.foomaa.jvchat.globaldefines.JvGetterGlobalDefines;
+import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
@@ -38,7 +38,7 @@ public class JvActiveLabelAuthUI extends JLabel {
     private void setFont(boolean isEnteredMouse) {
         try {
             int size = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.011);
-            Font steticaFont = JvGetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
+            Font steticaFont = GetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
                     .createMainSteticaFont(isEnteredMouse ? Font.BOLD : Font.PLAIN, size);
             Map<TextAttribute, Object> attributes = new HashMap<>(steticaFont.getAttributes());
             attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_LOW_DOTTED);

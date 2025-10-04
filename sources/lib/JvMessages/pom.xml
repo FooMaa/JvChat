@@ -108,7 +108,7 @@
 
         <dependency>
             <groupId>org.foomaa.jvchat.globaldefines</groupId>
-            <artifactId>JvGlobalDefines</artifactId>
+            <artifactId>GlobalDefines</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 

@@ -3,12 +3,12 @@ package org.foomaa.jvchat.structobjects;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
+import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 
 
 public class JvUserStructObject extends JvBaseStructObject {
     private String login;
-    private JvMainChatsGlobalDefines.TypeStatusOnline statusOnline;
+    private MainChatsGlobalDefines.TypeStatusOnline statusOnline;
     private LocalDateTime timestampLastOnline;
 
     JvUserStructObject() {
@@ -25,7 +25,7 @@ public class JvUserStructObject extends JvBaseStructObject {
         }
     }
 
-    public void setStatusOnline(JvMainChatsGlobalDefines.TypeStatusOnline newStatusOnline) {
+    public void setStatusOnline(MainChatsGlobalDefines.TypeStatusOnline newStatusOnline) {
         if (statusOnline != newStatusOnline) {
             statusOnline = newStatusOnline;
              commitProperties();
@@ -43,7 +43,7 @@ public class JvUserStructObject extends JvBaseStructObject {
         return login;
     }
 
-    public JvMainChatsGlobalDefines.TypeStatusOnline getStatusOnline() {
+    public MainChatsGlobalDefines.TypeStatusOnline getStatusOnline() {
         return statusOnline;
     }
 

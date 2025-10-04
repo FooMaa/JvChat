@@ -1,6 +1,6 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import org.foomaa.jvchat.globaldefines.JvGetterGlobalDefines;
+import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
@@ -107,7 +107,7 @@ public class JvTitlePanelMainChatUI extends JPanel {
         titleLabel.setForeground(Color.LIGHT_GRAY);
         try {
             int size = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFont(0.0093);
-            Font steticaFont = JvGetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
+            Font steticaFont = GetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
                     .createMainSteticaFont(Font.BOLD, size);
             titleLabel.setFont(steticaFont);
         } catch (IOException | FontFormatException exception) {

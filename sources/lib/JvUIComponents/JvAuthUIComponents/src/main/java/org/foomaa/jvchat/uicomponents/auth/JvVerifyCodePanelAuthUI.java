@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
-import org.foomaa.jvchat.events.JvGetterEvents;
+import org.foomaa.jvchat.events.GetterEvents;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
@@ -159,12 +159,12 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
 
     private void changeRegimeBack() {
         if (regime == RegimeWork.Registration) {
-            JvGetterEvents.getInstance().getBeanMakerEvents().event(
+            GetterEvents.getInstance().getBeanMakerEvents().event(
                     this,
                     "changeRegimeWork",
                     JvDefinesAuthUI.RegimeWorkMainFrame.Registration);
         } else if (regime == RegimeWork.ResetPassword) {
-            JvGetterEvents.getInstance().getBeanMakerEvents().event(
+            GetterEvents.getInstance().getBeanMakerEvents().event(
                     this,
                     "changeRegimeWork",
                     JvDefinesAuthUI.RegimeWorkMainFrame.ResetPassword);
@@ -174,12 +174,12 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
 
     private void changeRegimeNext() {
         if (regime == RegimeWork.Registration) {
-            JvGetterEvents.getInstance().getBeanMakerEvents().event(
+            GetterEvents.getInstance().getBeanMakerEvents().event(
                     this,
                     "changeRegimeWork",
                     JvDefinesAuthUI.RegimeWorkMainFrame.Auth);
         } else if (regime == RegimeWork.ResetPassword) {
-            JvGetterEvents.getInstance().getBeanMakerEvents().event(
+            GetterEvents.getInstance().getBeanMakerEvents().event(
                     this,
                     "changeRegimeWork",
                     JvDefinesAuthUI.RegimeWorkMainFrame.NewPassword,

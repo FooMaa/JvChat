@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
+import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.models.JvChatsModel;
@@ -34,8 +34,8 @@ public class ChatsCtrl {
             UUID uuidChat = (UUID) chat.get(JvDefinesMessages.TypeData.UuidChat);
             UUID uuidLastMessage = (UUID) chat.get(JvDefinesMessages.TypeData.UuidMessage);
             Boolean isLoginSentLastMessage = (Boolean) chat.get(JvDefinesMessages.TypeData.IsLoginSentLastMessage);
-            JvMainChatsGlobalDefines.TypeStatusMessage statusMessage =
-                    (JvMainChatsGlobalDefines.TypeStatusMessage) chat.get(JvDefinesMessages.TypeData.StatusMessage);
+            MainChatsGlobalDefines.TypeStatusMessage statusMessage =
+                    (MainChatsGlobalDefines.TypeStatusMessage) chat.get(JvDefinesMessages.TypeData.StatusMessage);
             LocalDateTime timestampLastMessage = JvGetterTools.getInstance().getBeanFormatTools()
                     .stringToLocalDateTime((String) chat.get(JvDefinesMessages.TypeData.Timestamp), normalizeTimestampCount);
 
@@ -48,7 +48,7 @@ public class ChatsCtrl {
         }
     }
 
-    public void setOnlineStatusesUsers(Map<UUID, JvMainChatsGlobalDefines.TypeStatusOnline> onlineStatusesUsers) {
+    public void setOnlineStatusesUsers(Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> onlineStatusesUsers) {
         for (UUID uuidUser : onlineStatusesUsers.keySet()) {
             chatsModel.setOnlineStatusToUser(uuidUser, onlineStatusesUsers.get(uuidUser));
         }

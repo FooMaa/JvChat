@@ -12,7 +12,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Objects;
 
-import org.foomaa.jvchat.globaldefines.JvGetterGlobalDefines;
+import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.settings.JvGetterSettings;
@@ -267,7 +267,7 @@ public class JvPasswordFieldAuthUI extends JPanel {
     private void setFont() {
         try {
             int size = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.015);
-            Font steticaFont = JvGetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
+            Font steticaFont = GetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
                     .createMainSteticaFont(Font.BOLD, size);
             passwordField.setFont(steticaFont);
         } catch (IOException | FontFormatException exception) {

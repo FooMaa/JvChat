@@ -9,7 +9,7 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.foomaa.jvchat.globaldefines.JvGetterGlobalDefines;
+import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
 
 
 public class JvLog {
@@ -91,7 +91,7 @@ public class JvLog {
     }
 
     private static Path getProjectDirectory() {
-        String nameProject = JvGetterGlobalDefines.getInstance().getBeanMainGlobalDefines().NAME_PROJECT;
+        String nameProject = GetterGlobalDefines.getInstance().getBeanMainGlobalDefines().NAME_PROJECT;
         String pathString = System.getProperty("user.dir");
 
         Pattern patternPathForUnix = Pattern.compile("^(.*[\\\\/]" + nameProject + ")(?:[\\\\/].*)?$");

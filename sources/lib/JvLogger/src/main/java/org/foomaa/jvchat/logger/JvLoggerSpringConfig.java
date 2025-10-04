@@ -7,7 +7,7 @@ import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.ConsoleAppender;
 import ch.qos.logback.core.util.StatusPrinter;
-import org.foomaa.jvchat.globaldefines.JvGetterGlobalDefines;
+import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -81,17 +81,17 @@ class JvLoggerSpringConfig {
 
         switch (type) {
             case Debug -> context.putProperty(namePropertyColorStart,
-                    JvGetterGlobalDefines.getInstance().getBeanColorsAnsiGlobalDefines().BLUE);
+                    GetterGlobalDefines.getInstance().getBeanColorsAnsiGlobalDefines().BLUE);
             case Info, Trace -> context.putProperty(namePropertyColorStart,
-                    JvGetterGlobalDefines.getInstance().getBeanColorsAnsiGlobalDefines().GREEN);
+                    GetterGlobalDefines.getInstance().getBeanColorsAnsiGlobalDefines().GREEN);
             case Warn -> context.putProperty(namePropertyColorStart,
-                    JvGetterGlobalDefines.getInstance().getBeanColorsAnsiGlobalDefines().YELLOW);
+                    GetterGlobalDefines.getInstance().getBeanColorsAnsiGlobalDefines().YELLOW);
             case Error -> context.putProperty(namePropertyColorStart,
-                    JvGetterGlobalDefines.getInstance().getBeanColorsAnsiGlobalDefines().RED);
+                    GetterGlobalDefines.getInstance().getBeanColorsAnsiGlobalDefines().RED);
         }
 
         context.putProperty(namePropertyColorEnd,
-                JvGetterGlobalDefines.getInstance().getBeanColorsAnsiGlobalDefines().RESET);
+                GetterGlobalDefines.getInstance().getBeanColorsAnsiGlobalDefines().RESET);
     }
 
     @Bean(name = "beanMainLogger")

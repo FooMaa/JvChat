@@ -4,8 +4,8 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
 
-import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
-import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
+import org.foomaa.jvchat.globaldefines.DbGlobalDefines;
+import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.models.JvCheckersOnlineModel;
@@ -99,7 +99,7 @@ public class OnlineServersCtrl {
     }
 
     public void loadDataOnlineUsers() {
-        List<Map<JvDbGlobalDefines.LineKeys, String>> dataFromDb = GetterControls.getInstance()
+        List<Map<DbGlobalDefines.LineKeys, String>> dataFromDb = GetterControls.getInstance()
                 .getBeanDbCtrl().getMultipleInfoFromDb(
                         DbCtrl.TypeExecutionGetMultiple.OnlineUsers);
 
@@ -108,7 +108,7 @@ public class OnlineServersCtrl {
             return;
         }
 
-        for (Map<JvDbGlobalDefines.LineKeys, String> map : dataFromDb) {
+        for (Map<DbGlobalDefines.LineKeys, String> map : dataFromDb) {
             for (String uuidUser : map.values()) {
                 checkersOnlineModel.createNewCheckersOnline(UUID.fromString(uuidUser), LocalDateTime.now());
             }
@@ -162,10 +162,10 @@ public class OnlineServersCtrl {
         onlineUser.setDateTimeUpdating(LocalDateTime.now());
         onlineUser.setDateTimeSending(LocalDateTime.now());
 
-        saveStatusOnline(uuidUser, JvMainChatsGlobalDefines.TypeStatusOnline.Online);
+        saveStatusOnline(uuidUser, MainChatsGlobalDefines.TypeStatusOnline.Online);
     }
 
-    private void saveStatusOnline(UUID uuidUser, JvMainChatsGlobalDefines.TypeStatusOnline statusOnline) {
+    private void saveStatusOnline(UUID uuidUser, MainChatsGlobalDefines.TypeStatusOnline statusOnline) {
         int onlineStatusInteger = statusOnline.getValue();
         String onlineStatusString = String.valueOf(onlineStatusInteger);
         GetterControls.getInstance()
@@ -259,19 +259,19 @@ public class OnlineServersCtrl {
                     continue;
                 }
 
-                saveStatusOnline(onlineUser.getUser().getUuid(), JvMainChatsGlobalDefines.TypeStatusOnline.Offline);
+                saveStatusOnline(onlineUser.getUser().getUuid(), MainChatsGlobalDefines.TypeStatusOnline.Offline);
             }
         }
     }
 
-    public Map<UUID, JvMainChatsGlobalDefines.TypeStatusOnline> getStatusesUsers(List<UUID> uuidsUsers) {
-        Map<UUID, JvMainChatsGlobalDefines.TypeStatusOnline> resultMap = new HashMap<>();
+    public Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> getStatusesUsers(List<UUID> uuidsUsers) {
+        Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> resultMap = new HashMap<>();
         for (UUID uuidUser : uuidsUsers) {
             boolean isUserOnline = isUuidUserInListCheckerOnline(uuidUser);
             if (isUserOnline) {
-                resultMap.put(uuidUser, JvMainChatsGlobalDefines.TypeStatusOnline.Online);
+                resultMap.put(uuidUser, MainChatsGlobalDefines.TypeStatusOnline.Online);
             } else {
-                resultMap.put(uuidUser, JvMainChatsGlobalDefines.TypeStatusOnline.Offline);
+                resultMap.put(uuidUser, MainChatsGlobalDefines.TypeStatusOnline.Offline);
             }
         }
         return resultMap;

@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
-import org.foomaa.jvchat.events.JvGetterEvents;
+import org.foomaa.jvchat.events.GetterEvents;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
@@ -200,7 +200,7 @@ public class JvRegistrationPanelAuthUI extends JPanel {
     }
 
     private void changeRegimeBack() {
-        JvGetterEvents.getInstance().getBeanMakerEvents().event(
+        GetterEvents.getInstance().getBeanMakerEvents().event(
                 this,
                 "changeRegimeWork",
                 JvDefinesAuthUI.RegimeWorkMainFrame.Auth);
@@ -208,7 +208,7 @@ public class JvRegistrationPanelAuthUI extends JPanel {
     }
 
     private void changeRegimeNext() {
-        JvGetterEvents.getInstance().getBeanMakerEvents().event(
+        GetterEvents.getInstance().getBeanMakerEvents().event(
                 this,
                 "changeRegimeWork",
                 JvDefinesAuthUI.RegimeWorkMainFrame.VerifyCodeRegistration,

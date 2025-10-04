@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.foomaa.jvchat.cryptography.JvGetterCryptography;
-import org.foomaa.jvchat.globaldefines.JvDbGlobalDefines;
-import org.foomaa.jvchat.globaldefines.JvMainChatsGlobalDefines;
+import org.foomaa.jvchat.cryptography.GetterCryptography;
+import org.foomaa.jvchat.globaldefines.DbGlobalDefines;
+import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.JvLog;
 import org.foomaa.jvchat.messages.JvGetterMessages;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
@@ -76,7 +76,7 @@ public class TakeMessagesCtrl {
         String login = (String) map.get(JvDefinesMessages.TypeData.Login);
         String password = (String) map.get(JvDefinesMessages.TypeData.Password);
 
-        String hashPassword = JvGetterCryptography.getInstance()
+        String hashPassword = GetterCryptography.getInstance()
                 .getBeanHashCryptography().getHash(password);
 
         boolean requestDB = GetterControls.getInstance()
@@ -155,7 +155,7 @@ public class TakeMessagesCtrl {
             String email = (String) map.get(JvDefinesMessages.TypeData.Email);
             String password = (String) map.get(JvDefinesMessages.TypeData.Password);
 
-            String hashPassword = JvGetterCryptography.getInstance()
+            String hashPassword = GetterCryptography.getInstance()
                     .getBeanHashCryptography().getHash(password);
             UUID uuidUser = UUID.randomUUID();
 
@@ -250,7 +250,7 @@ public class TakeMessagesCtrl {
         String email = (String) map.get(JvDefinesMessages.TypeData.Email);
         String password = (String) map.get(JvDefinesMessages.TypeData.Password);
 
-        String hashPassword = JvGetterCryptography.getInstance()
+        String hashPassword = GetterCryptography.getInstance()
                 .getBeanHashCryptography().getHash(password);
 
         boolean requestDB = GetterControls.getInstance()
@@ -273,7 +273,7 @@ public class TakeMessagesCtrl {
 
     private void workChatsLoadRequestMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         String uuidUserStr = map.get(JvDefinesMessages.TypeData.UuidUser).toString();
-        List<Map<JvDbGlobalDefines.LineKeys, String>> requestDB = GetterControls.getInstance()
+        List<Map<DbGlobalDefines.LineKeys, String>> requestDB = GetterControls.getInstance()
                 .getBeanDbCtrl().getMultipleInfoFromDb(DbCtrl.TypeExecutionGetMultiple.ChatsLoad, uuidUserStr);
         GetterControls.getInstance().getBeanSendMessagesCtrl().
                 sendMessage(JvDefinesMessages.TypeMessage.ChatsLoadReply, requestDB);
@@ -312,7 +312,7 @@ public class TakeMessagesCtrl {
     private void workLoadUsersOnlineStatusRequestMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         Object objectList = map.get(JvDefinesMessages.TypeData.UuidsUsersList);
         List<UUID> uuidsUsers = JvGetterTools.getInstance().getBeanStructTools().checkedCastList(objectList, UUID.class);
-        Map<UUID, JvMainChatsGlobalDefines.TypeStatusOnline> statusesUsers =
+        Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> statusesUsers =
                 GetterControls.getInstance().getBeanOnlineServersCtrl().getStatusesUsers(uuidsUsers);
         Map<UUID, String> lastOnlineTimeUsers =
                 GetterControls.getInstance().getBeanOnlineServersCtrl().getLastOnlineTimeUsers(uuidsUsers);
@@ -324,9 +324,9 @@ public class TakeMessagesCtrl {
         Object objectMapStatusesUsers = map.get(JvDefinesMessages.TypeData.UsersOnlineInfoList);
         Object objectMapLastOnlineTimeUsers = map.get(JvDefinesMessages.TypeData.Timestamp);
 
-        Map<UUID, JvMainChatsGlobalDefines.TypeStatusOnline> mapStatusesUsers =
+        Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> mapStatusesUsers =
                 JvGetterTools.getInstance().getBeanStructTools().objectInMap(objectMapStatusesUsers, UUID.class,
-                        JvMainChatsGlobalDefines.TypeStatusOnline.class);
+                        MainChatsGlobalDefines.TypeStatusOnline.class);
         Map<UUID, String> mapLastOnlineTimeUsers =
                 JvGetterTools.getInstance().getBeanStructTools().objectInMap(objectMapLastOnlineTimeUsers, UUID.class,
                         String.class);
@@ -345,9 +345,9 @@ public class TakeMessagesCtrl {
         String text = (String) map.get(JvDefinesMessages.TypeData.TextMessage);
         String timestampStr = (String) map.get(JvDefinesMessages.TypeData.Timestamp);
 
-        JvMainChatsGlobalDefines.TypeStatusMessage status = JvMainChatsGlobalDefines.TypeStatusMessage.Delivered;
+        MainChatsGlobalDefines.TypeStatusMessage status = MainChatsGlobalDefines.TypeStatusMessage.Delivered;
         String statusString = status.toString();
-        Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages = new HashMap<>();
+        Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages = new HashMap<>();
         mapStatusMessages.put(uuidMessage, status);
         int normaliseTimestampCount = 3;
         LocalDateTime timestamp = JvGetterTools.getInstance().getBeanFormatTools()
@@ -379,8 +379,8 @@ public class TakeMessagesCtrl {
 
     private void workTextMessagesChangingStatusFromServerMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         Object statusesMap = map.get(JvDefinesMessages.TypeData.StatusMessagesMap);
-        Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = JvGetterTools.getInstance()
-                .getBeanStructTools().objectInMap(statusesMap, UUID.class, JvMainChatsGlobalDefines.TypeStatusMessage.class);
+        Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = JvGetterTools.getInstance()
+                .getBeanStructTools().objectInMap(statusesMap, UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
 
         GetterControls.getInstance().getBeanMessagesDialogCtrl().setDirtyStatusToMessage(mapStatusesMessages);
 
@@ -398,8 +398,8 @@ public class TakeMessagesCtrl {
 
     private void workTextMessagesChangingStatusFromUserMessage(HashMap<JvDefinesMessages.TypeData, ?> map) {
         Object statusesMap = map.get(JvDefinesMessages.TypeData.StatusMessagesMap);
-        Map<UUID, JvMainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = JvGetterTools.getInstance()
-                .getBeanStructTools().objectInMap(statusesMap, UUID.class, JvMainChatsGlobalDefines.TypeStatusMessage.class);
+        Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = JvGetterTools.getInstance()
+                .getBeanStructTools().objectInMap(statusesMap, UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
 
         for (UUID uuidMessage : mapStatusesMessages.keySet()) {
             String statusByUuid = String.valueOf(mapStatusesMessages.get(uuidMessage).getValue());
@@ -426,7 +426,7 @@ public class TakeMessagesCtrl {
         String text = (String) map.get(JvDefinesMessages.TypeData.TextMessage);
         String timestampStr = (String) map.get(JvDefinesMessages.TypeData.Timestamp);
 
-        JvMainChatsGlobalDefines.TypeStatusMessage status = JvMainChatsGlobalDefines.TypeStatusMessage.Delivered;
+        MainChatsGlobalDefines.TypeStatusMessage status = MainChatsGlobalDefines.TypeStatusMessage.Delivered;
         int normaliseTimestampCount = 3;
         LocalDateTime timestamp = JvGetterTools.getInstance().getBeanFormatTools()
                 .stringToLocalDateTime(timestampStr, normaliseTimestampCount);
@@ -454,7 +454,7 @@ public class TakeMessagesCtrl {
         UUID uuidChat = (UUID) map.get(JvDefinesMessages.TypeData.UuidChat);
         int quantityMessages = (Integer) map.get(JvDefinesMessages.TypeData.QuantityMessages);
 
-        List<Map<JvDbGlobalDefines.LineKeys, String>> requestDB = GetterControls.getInstance()
+        List<Map<DbGlobalDefines.LineKeys, String>> requestDB = GetterControls.getInstance()
                 .getBeanDbCtrl().getMultipleInfoFromDb(DbCtrl.TypeExecutionGetMultiple.MessagesLoad,
                         uuidChat.toString(), String.valueOf(quantityMessages));
         GetterControls.getInstance().getBeanSendMessagesCtrl().
