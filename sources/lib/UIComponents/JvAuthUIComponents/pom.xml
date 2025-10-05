@@ -3,24 +3,30 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.foomaa.jvchat.uicomponents</groupId>
-        <artifactId>JvUIComponents</artifactId>
+        <artifactId>UIComponents</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.foomaa.jvchat.uicomponents.mainchat</groupId>
-    <artifactId>JvMainChatUIComponents</artifactId>
+    <groupId>org.foomaa.jvchat.uicomponents.auth</groupId>
+    <artifactId>JvAuthUIComponents</artifactId>
     <packaging>jar</packaging>
 
-    <name>JvMainChatUIComponents</name>
+    <name>JvAuthUIComponents</name>
 
     <build>
         <resources>
             <resource>
-                <directory>../../../res/JvMainChatUIComponents/icons/</directory>
+                <directory>../../../res/JvAuthUIComponents/icons/</directory>
             </resource>
             <resource>
                 <directory>../../../res/AllDefaultsRes/icons/</directory>
+            </resource>
+            <resource>
+                <directory>../../../res/AllDefaultsRes/gifs/</directory>
+            </resource>
+            <resource>
+                <directory>../../../res/JvAuthUIComponents/backgrounds/</directory>
             </resource>
         </resources>
     </build>
@@ -63,8 +69,14 @@
         </dependency>
 
         <dependency>
-            <groupId>org.foomaa.jvchat.structobjects</groupId>
-            <artifactId>StructObjects</artifactId>
+            <groupId>org.foomaa.jvchat.uicomponents.mainchat</groupId>
+            <artifactId>JvMainChatUIComponents</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.foomaa.jvchat.events</groupId>
+            <artifactId>Events</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

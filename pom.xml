@@ -18,7 +18,7 @@
 
     <modules>
         <module>sources/lib/Settings</module>
-        <module>sources/lib/JvUIComponents</module>
+        <module>sources/lib/UIComponents</module>
         <module>sources/lib/Tools</module>
         <module>sources/lib/Cryptography</module>
         <module>sources/lib/Logger</module>
