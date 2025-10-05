@@ -1,12 +1,12 @@
 package org.foomaa.jvchat.uilinks;
 
-import org.foomaa.jvchat.uicomponents.auth.JvOptionPaneAuthUI;
-import org.foomaa.jvchat.uicomponents.auth.JvGetterAuthUIComponents;
+import org.foomaa.jvchat.uicomponents.auth.OptionPaneAuthUI;
+import org.foomaa.jvchat.uicomponents.auth.GetterAuthUIComponents;
 
 
 public class ErrorStartUILink {
     ErrorStartUILink(String msg) {
-        JvGetterAuthUIComponents.getInstance().getBeanOptionPaneAuthUI(msg, JvOptionPaneAuthUI.TypeDlg.ERROR);
+        GetterAuthUIComponents.getInstance().getBeanOptionPaneAuthUI(msg, OptionPaneAuthUI.TypeDlg.ERROR);
         System.exit(1);
     }
 }

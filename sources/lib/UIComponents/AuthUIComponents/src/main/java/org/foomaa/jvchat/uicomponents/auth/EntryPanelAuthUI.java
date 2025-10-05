@@ -18,21 +18,21 @@ import org.foomaa.jvchat.settings.GetterSettings;
 import org.foomaa.jvchat.uicomponents.mainchat.JvGetterMainChatUIComponents;
 
 
-public class JvEntryPanelAuthUI extends JPanel {
-    private final JvTextFieldAuthUI tLogin;
-    private final JvErrorLabelAuthUI tErrorHelpInfo;
-    private final JvPasswordFieldAuthUI tPassword;
-    private final JvButtonAuthUI bEnter;
-    private final JvActiveLabelAuthUI activeRegisterLabel;
-    private final JvActiveLabelAuthUI activeMissLabel;
+public class EntryPanelAuthUI extends JPanel {
+    private final TextFieldAuthUI tLogin;
+    private final ErrorLabelAuthUI tErrorHelpInfo;
+    private final PasswordFieldAuthUI tPassword;
+    private final ButtonAuthUI bEnter;
+    private final ActiveLabelAuthUI activeRegisterLabel;
+    private final ActiveLabelAuthUI activeMissLabel;
 
-    JvEntryPanelAuthUI() {
-        tLogin = JvGetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Login");
-        tErrorHelpInfo = JvGetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
-        tPassword = JvGetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Password");
-        bEnter = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("Next");
-        activeMissLabel = JvGetterAuthUIComponents.getInstance().getBeanActiveLabelAuthUI("Reset password");
-        activeRegisterLabel = JvGetterAuthUIComponents.getInstance().getBeanActiveLabelAuthUI("Registration");
+    EntryPanelAuthUI() {
+        tLogin = GetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Login");
+        tErrorHelpInfo = GetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
+        tPassword = GetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Password");
+        bEnter = GetterAuthUIComponents.getInstance().getBeanButtonAuthUI("Next");
+        activeMissLabel = GetterAuthUIComponents.getInstance().getBeanActiveLabelAuthUI("Reset password");
+        activeRegisterLabel = GetterAuthUIComponents.getInstance().getBeanActiveLabelAuthUI("Registration");
 
         settingComponents();
         makePanelSetting();
@@ -125,14 +125,14 @@ public class JvEntryPanelAuthUI extends JPanel {
         activeMissLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                changeRegime(JvDefinesAuthUI.RegimeWorkMainFrame.ResetPassword);
+                changeRegime(DefinesAuthUI.RegimeWorkMainFrame.ResetPassword);
             }
         });
 
         activeRegisterLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                changeRegime(JvDefinesAuthUI.RegimeWorkMainFrame.Registration);
+                changeRegime(DefinesAuthUI.RegimeWorkMainFrame.Registration);
             }
         });
     }
@@ -143,7 +143,7 @@ public class JvEntryPanelAuthUI extends JPanel {
         tPassword.setUnfocusFieldOnClose(true);
     }
 
-    private void changeRegime(JvDefinesAuthUI.RegimeWorkMainFrame regime) {
+    private void changeRegime(DefinesAuthUI.RegimeWorkMainFrame regime) {
         GetterEvents.getInstance().getBeanMakerEvents().event(this, "changeRegimeWork", regime);
         tLogin.setUnfocusFieldOnClose(true);
         tPassword.setUnfocusFieldOnClose(true);
@@ -197,8 +197,8 @@ public class JvEntryPanelAuthUI extends JPanel {
         } else if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getEntryRequestFlag() ==
                 MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            JvGetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("Login failed, data is incorrect.", JvOptionPaneAuthUI.TypeDlg.ERROR);
+            GetterAuthUIComponents.getInstance()
+                    .getBeanOptionPaneAuthUI("Login failed, data is incorrect.", OptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 
@@ -217,7 +217,7 @@ public class JvEntryPanelAuthUI extends JPanel {
         Log.write(Log.TypeLog.Info, "Login done.");
     }
 
-    public JvButtonAuthUI getDefaultButton() {
+    public ButtonAuthUI getDefaultButton() {
         return bEnter;
     }
 }

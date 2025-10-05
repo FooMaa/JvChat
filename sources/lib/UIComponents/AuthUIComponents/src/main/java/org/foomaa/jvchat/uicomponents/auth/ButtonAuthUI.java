@@ -10,10 +10,10 @@ import java.awt.geom.RoundRectangle2D;
 import java.io.IOException;
 
 
-public class JvButtonAuthUI extends JButton {
-    private JvToolTipAuthUI toolTip;
+public class ButtonAuthUI extends JButton {
+    private ToolTipAuthUI toolTip;
 
-    JvButtonAuthUI(String text) {
+    ButtonAuthUI(String text) {
         setText(text);
         setBackground(Color.WHITE);
         setFocusable(false);
@@ -22,7 +22,7 @@ public class JvButtonAuthUI extends JButton {
     }
 
     public void setToolTip(String text) {
-        toolTip = JvGetterAuthUIComponents.getInstance().getBeanToolTipAuthUI();
+        toolTip = GetterAuthUIComponents.getInstance().getBeanToolTipAuthUI();
         createToolTip();
         setToolTipText(text);
     }

@@ -13,14 +13,14 @@ import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.settings.GetterSettings;
 
 
-public class JvTextFieldAuthUI extends JPanel {
+public class TextFieldAuthUI extends JPanel {
     private JTextField textField;
-    private JvToolTipAuthUI toolTip;
+    private ToolTipAuthUI toolTip;
     private final String defaultText;
     private boolean isErrorBorderActive;
     private final int borderSize;
 
-    JvTextFieldAuthUI(String text) {
+    TextFieldAuthUI(String text) {
         defaultText = text;
         borderSize = 2;
         isErrorBorderActive = false;
@@ -50,7 +50,7 @@ public class JvTextFieldAuthUI extends JPanel {
     }
 
     public void setToolTip(String text) {
-        toolTip = JvGetterAuthUIComponents.getInstance().getBeanToolTipAuthUI();
+        toolTip = GetterAuthUIComponents.getInstance().getBeanToolTipAuthUI();
         createToolTip();
         setToolTipText(text);
 

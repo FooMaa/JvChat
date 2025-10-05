@@ -14,10 +14,10 @@ import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.settings.GetterSettings;
 
 
-public class JvActiveLabelAuthUI extends JLabel {
-    private JvToolTipAuthUI toolTip;
+public class ActiveLabelAuthUI extends JLabel {
+    private ToolTipAuthUI toolTip;
 
-    JvActiveLabelAuthUI(String text) {
+    ActiveLabelAuthUI(String text) {
         setText(text);
         setFont(false);
         setForeground(Color.WHITE);
@@ -25,7 +25,7 @@ public class JvActiveLabelAuthUI extends JLabel {
     }
 
     public void setToolTip(String text) {
-        toolTip = JvGetterAuthUIComponents.getInstance().getBeanToolTipAuthUI();
+        toolTip = GetterAuthUIComponents.getInstance().getBeanToolTipAuthUI();
         createToolTip();
         setToolTipText(text);
     }

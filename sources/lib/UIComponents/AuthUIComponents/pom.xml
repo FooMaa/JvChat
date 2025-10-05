@@ -9,15 +9,15 @@
     </parent>
 
     <groupId>org.foomaa.jvchat.uicomponents.auth</groupId>
-    <artifactId>JvAuthUIComponents</artifactId>
+    <artifactId>AuthUIComponents</artifactId>
     <packaging>jar</packaging>
 
-    <name>JvAuthUIComponents</name>
+    <name>AuthUIComponents</name>
 
     <build>
         <resources>
             <resource>
-                <directory>../../../res/JvAuthUIComponents/icons/</directory>
+                <directory>../../../res/AuthUIComponents/icons/</directory>
             </resource>
             <resource>
                 <directory>../../../res/AllDefaultsRes/icons/</directory>
@@ -26,7 +26,7 @@
                 <directory>../../../res/AllDefaultsRes/gifs/</directory>
             </resource>
             <resource>
-                <directory>../../../res/JvAuthUIComponents/backgrounds/</directory>
+                <directory>../../../res/AuthUIComponents/backgrounds/</directory>
             </resource>
         </resources>
     </build>

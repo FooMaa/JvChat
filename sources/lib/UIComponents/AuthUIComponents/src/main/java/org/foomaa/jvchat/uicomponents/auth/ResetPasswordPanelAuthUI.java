@@ -15,18 +15,18 @@ import org.foomaa.jvchat.settings.GetterSettings;
 import org.foomaa.jvchat.tools.GetterTools;
 
 
-public class JvResetPasswordPanelAuthUI extends JPanel {
-    private final JvTextFieldAuthUI tEmail;
-    private final JvErrorLabelAuthUI tErrorHelpInfo;
-    private final JvButtonAuthUI bSet;
-    private final JvButtonAuthUI bBack;
+public class ResetPasswordPanelAuthUI extends JPanel {
+    private final TextFieldAuthUI tEmail;
+    private final ErrorLabelAuthUI tErrorHelpInfo;
+    private final ButtonAuthUI bSet;
+    private final ButtonAuthUI bBack;
 
-    JvResetPasswordPanelAuthUI() {
-        tEmail = JvGetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Почта");
-        tErrorHelpInfo = JvGetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
+    ResetPasswordPanelAuthUI() {
+        tEmail = GetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Почта");
+        tErrorHelpInfo = GetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
         tErrorHelpInfo.settingToError();
-        bSet = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("Send");
-        bBack = JvGetterAuthUIComponents.getInstance().getBeanButtonAuthUI("Back");
+        bSet = GetterAuthUIComponents.getInstance().getBeanButtonAuthUI("Send");
+        bBack = GetterAuthUIComponents.getInstance().getBeanButtonAuthUI("Back");
 
         settingComponents();
         makePanelSetting();
@@ -128,7 +128,7 @@ public class JvResetPasswordPanelAuthUI extends JPanel {
         return true;
     }
 
-    public JvButtonAuthUI getDefaultButton() {
+    public ButtonAuthUI getDefaultButton() {
         return bSet;
     }
 
@@ -136,7 +136,7 @@ public class JvResetPasswordPanelAuthUI extends JPanel {
         GetterEvents.getInstance().getBeanMakerEvents().event(
                 this,
                 "changeRegimeWork",
-                JvDefinesAuthUI.RegimeWorkMainFrame.Auth);
+                DefinesAuthUI.RegimeWorkMainFrame.Auth);
         settingUnfocusFieldsOnChangeRegime();
     }
 
@@ -144,7 +144,7 @@ public class JvResetPasswordPanelAuthUI extends JPanel {
         GetterEvents.getInstance().getBeanMakerEvents().event(
                 this,
                 "changeRegimeWork",
-                JvDefinesAuthUI.RegimeWorkMainFrame.VerifyCodeResetPassword,
+                DefinesAuthUI.RegimeWorkMainFrame.VerifyCodeResetPassword,
                 tEmail.getInputText());
         settingUnfocusFieldsOnChangeRegime();
     }
@@ -170,8 +170,8 @@ public class JvResetPasswordPanelAuthUI extends JPanel {
         } else if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getResetPasswordRequestFlag() ==
                 MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            JvGetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("This email is not registered.", JvOptionPaneAuthUI.TypeDlg.ERROR);
+            GetterAuthUIComponents.getInstance()
+                    .getBeanOptionPaneAuthUI("This email is not registered.", OptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 }

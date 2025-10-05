@@ -18,21 +18,21 @@ import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.settings.GetterSettings;
 
 
-public class JvPasswordFieldAuthUI extends JPanel {
+public class PasswordFieldAuthUI extends JPanel {
     private final BufferedImage visibleImage;
     private final BufferedImage invisibleImage;
     private boolean flagEye;
     private boolean unLockPass;
     private JPasswordField passwordField;
     private JButton button;
-    private JvToolTipAuthUI toolTip;
+    private ToolTipAuthUI toolTip;
     private final String textButtonHide;
     private final String textButtonShow;
     private final String defaultText;
     private final int borderSize;
     private boolean isErrorBorderActive;
 
-    JvPasswordFieldAuthUI(String text) {
+    PasswordFieldAuthUI(String text) {
         visibleImage = setIcon("/Eye.png");
         invisibleImage = setIcon("/Eye-close.png");
         defaultText = text;
@@ -68,7 +68,7 @@ public class JvPasswordFieldAuthUI extends JPanel {
     }
 
     public void setToolTip(String text) {
-        toolTip = JvGetterAuthUIComponents.getInstance().getBeanToolTipAuthUI();
+        toolTip = GetterAuthUIComponents.getInstance().getBeanToolTipAuthUI();
         createToolTip();
         setToolTipText(text);
 

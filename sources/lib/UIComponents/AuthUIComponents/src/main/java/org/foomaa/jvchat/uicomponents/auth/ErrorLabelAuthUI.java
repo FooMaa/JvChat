@@ -11,10 +11,10 @@ import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.settings.GetterSettings;
 
 
-public class JvErrorLabelAuthUI extends JLabel {
+public class ErrorLabelAuthUI extends JLabel {
     private final Timer timerVisible;
 
-    JvErrorLabelAuthUI(String text) {
+    ErrorLabelAuthUI(String text) {
         timerVisible = new Timer(5000, actionEvent -> setText(""));
         timerVisible.setRepeats(false);
 

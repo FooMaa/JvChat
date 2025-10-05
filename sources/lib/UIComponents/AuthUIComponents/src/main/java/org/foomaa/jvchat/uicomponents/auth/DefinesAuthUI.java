@@ -1,7 +1,7 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-public class JvDefinesAuthUI {
-    JvDefinesAuthUI() {}
+public class DefinesAuthUI {
+    DefinesAuthUI() {}
 
     public enum RegimeWorkMainFrame {
         Auth,

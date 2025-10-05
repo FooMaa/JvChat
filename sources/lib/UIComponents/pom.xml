@@ -15,7 +15,7 @@
     <name>UIComponents</name>
 
     <modules>
-        <module>JvAuthUIComponents</module>
+        <module>AuthUIComponents</module>
         <module>JvMainChatUIComponents</module>
     </modules>
 </project>

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.*;
 @ComponentScans({
         @ComponentScan("org.foomaa.jvchat.events"),
 })
-class JvAuthUIComponentsSpringConfig {
+class AuthUIComponentsSpringConfig {
     public enum NameBeans {
         BeanActiveLabelAuthUI("beanActiveLabelAuthUI"),
         BeanButtonAuthUI("beanButtonAuthUI"),
@@ -39,114 +39,114 @@ class JvAuthUIComponentsSpringConfig {
     @Bean(name = "beanActiveLabelAuthUI")
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvActiveLabelAuthUI beanActiveLabelAuthUI(String text) {
-        return new JvActiveLabelAuthUI(text);
+    public ActiveLabelAuthUI beanActiveLabelAuthUI(String text) {
+        return new ActiveLabelAuthUI(text);
     }
 
     @Bean(name = "beanButtonAuthUI")
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvButtonAuthUI beanButtonAuthUI(String text) {
-        return new JvButtonAuthUI(text);
+    public ButtonAuthUI beanButtonAuthUI(String text) {
+        return new ButtonAuthUI(text);
     }
 
     @Bean(name = "beanErrorLabelAuthUI")
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvErrorLabelAuthUI beanErrorLabelAuthUI(String text) {
-        return new JvErrorLabelAuthUI(text);
+    public ErrorLabelAuthUI beanErrorLabelAuthUI(String text) {
+        return new ErrorLabelAuthUI(text);
     }
 
     @Bean(name = "beanOptionPaneAuthUI")
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvOptionPaneAuthUI beanOptionPaneAuthUI(String msg, JvOptionPaneAuthUI.TypeDlg type) {
-        return new JvOptionPaneAuthUI(msg, type);
+    public OptionPaneAuthUI beanOptionPaneAuthUI(String msg, OptionPaneAuthUI.TypeDlg type) {
+        return new OptionPaneAuthUI(msg, type);
     }
 
     @Bean(name = "beanPasswordFieldAuthUI")
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvPasswordFieldAuthUI beanPasswordFieldAuthUI(String text) {
-        return new JvPasswordFieldAuthUI(text);
+    public PasswordFieldAuthUI beanPasswordFieldAuthUI(String text) {
+        return new PasswordFieldAuthUI(text);
     }
 
     @Bean(name = "beanTextFieldAuthUI")
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvTextFieldAuthUI beanTextFieldAuthUI(String text) {
-        return new JvTextFieldAuthUI(text);
+    public TextFieldAuthUI beanTextFieldAuthUI(String text) {
+        return new TextFieldAuthUI(text);
     }
 
     @Bean(name = "beanToolTipAuthUI")
     @Lazy
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvToolTipAuthUI beanToolTipAuthUI() {
-        return new JvToolTipAuthUI();
+    public ToolTipAuthUI beanToolTipAuthUI() {
+        return new ToolTipAuthUI();
     }
 
     @Bean(name = "beanMainFrameAuthUI")
     @Lazy
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvMainFrameAuthUI beanMainFrameAuthUI() {
-        return new JvMainFrameAuthUI();
+    public MainFrameAuthUI beanMainFrameAuthUI() {
+        return new MainFrameAuthUI();
     }
 
     @Bean(name = "beanEntryPanelAuthUI")
     @Lazy
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvEntryPanelAuthUI beanEntryPanelAuthUI() {
-        return new JvEntryPanelAuthUI();
+    public EntryPanelAuthUI beanEntryPanelAuthUI() {
+        return new EntryPanelAuthUI();
     }
 
     @Bean(name = "beanNewPasswordPanelAuthUI")
     @Lazy
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvNewPasswordPanelAuthUI beanNewPasswordPanelAuthUI() {
-        return new JvNewPasswordPanelAuthUI();
+    public NewPasswordPanelAuthUI beanNewPasswordPanelAuthUI() {
+        return new NewPasswordPanelAuthUI();
     }
 
     @Bean(name = "beanRegistrationPanelAuthUI")
     @Lazy
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvRegistrationPanelAuthUI beanRegistrationPanelAuthUI() {
-        return new JvRegistrationPanelAuthUI();
+    public RegistrationPanelAuthUI beanRegistrationPanelAuthUI() {
+        return new RegistrationPanelAuthUI();
     }
 
     @Bean(name = "beanResetPasswordPanelAuthUI")
     @Lazy
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvResetPasswordPanelAuthUI beanResetPasswordPanelAuthUI() {
-        return new JvResetPasswordPanelAuthUI();
+    public ResetPasswordPanelAuthUI beanResetPasswordPanelAuthUI() {
+        return new ResetPasswordPanelAuthUI();
     }
 
     @Bean(name = "beanVerifyCodePanelAuthUI")
     @Lazy
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvVerifyCodePanelAuthUI beanVerifyCodePanelAuthUI() {
-        return new JvVerifyCodePanelAuthUI();
+    public VerifyCodePanelAuthUI beanVerifyCodePanelAuthUI() {
+        return new VerifyCodePanelAuthUI();
     }
 
     @Bean(name = "beanTitlePanelAuthUI")
     @Lazy
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvTitlePanelAuthUI beanTitlePanelAuthUI() {
-        return new JvTitlePanelAuthUI();
+    public TitlePanelAuthUI beanTitlePanelAuthUI() {
+        return new TitlePanelAuthUI();
     }
 
     @Bean(name = "beanDefinesAuthUI")
     @Lazy
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvDefinesAuthUI beanDefinesAuthUI() {
-        return new JvDefinesAuthUI();
+    public DefinesAuthUI beanDefinesAuthUI() {
+        return new DefinesAuthUI();
     }
 }
