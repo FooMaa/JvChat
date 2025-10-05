@@ -10,10 +10,10 @@ import org.foomaa.jvchat.models.GetterModels;
 
 
 /* NOTE(VAD): here it is done so that the tasks of the server and the user
- * solved by one class. There is a model of all connections JvSocketRunnableCtrlModel.
- * The main element of the model is JvSocketRunnableCtrlStructObject,
+ * solved by one class. There is a model of all connections SocketRunnableCtrlModel.
+ * The main element of the model is SocketRunnableCtrlStructObject,
  * which contains a Runnable field. This field is the object
- * of this JvSocketRunnableCtrl class.
+ * of this SocketRunnableCtrl class.
  */
 public class SocketRunnableCtrl implements Runnable {
     private DataOutputStream sendStream;
