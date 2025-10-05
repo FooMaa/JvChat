@@ -6,7 +6,7 @@ dependencies {
     implementation(project(":JvMessages"))
     implementation(project(":Network"))
     implementation(project(":DbWorker"))
-    implementation(project(":JvLogger"))
+    implementation(project(":Logger"))
     implementation(project(":Events"))
     implementation(project(":GlobalDefines"))
     implementation(project(":JvTools"))

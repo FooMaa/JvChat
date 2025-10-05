@@ -12,7 +12,7 @@ dependencies {
     implementation("com.google.protobuf:protobuf-java:3.16.3")
     implementation("io.grpc:grpc-stub:1.15.1")
     implementation("io.grpc:grpc-protobuf:1.15.1")
-    implementation(project(":JvLogger"))
+    implementation(project(":Logger"))
     implementation(project(":GlobalDefines"))
     implementation(project(":JvTools"))
 }

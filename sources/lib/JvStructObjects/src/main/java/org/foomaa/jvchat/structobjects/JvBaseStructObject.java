@@ -3,7 +3,7 @@ package org.foomaa.jvchat.structobjects;
 import java.lang.reflect.Field;
 import java.util.*;
 
-import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.logger.Log;
 
 
 public abstract class JvBaseStructObject {
@@ -64,7 +64,7 @@ public abstract class JvBaseStructObject {
                 try {
                     properties.put(field.getName(), field.get(this));
                 } catch (IllegalAccessException exception) {
-                    JvLog.write(JvLog.TypeLog.Error,"There's a permissions problem here.");
+                    Log.write(Log.TypeLog.Error,"There's a permissions problem here.");
                 }
             }
 

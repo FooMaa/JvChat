@@ -3,7 +3,7 @@ package org.foomaa.jvchat.cryptography;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.logger.Log;
 
 
 public class HashCryptography {
@@ -25,7 +25,7 @@ public class HashCryptography {
             }
             result = hexString.toString();
         } catch (NoSuchAlgorithmException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Error when taking string hash.");
+            Log.write(Log.TypeLog.Error, "Error when taking string hash.");
         }
         return result;
     }

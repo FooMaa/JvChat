@@ -4,7 +4,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import java.net.Socket;
 import java.util.Arrays;
 
-import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.logger.Log;
 
 
 public class GetterControls {
@@ -14,7 +14,7 @@ public class GetterControls {
     private GetterControls() {
         context = new AnnotationConfigApplicationContext(
                 ControlsSpringConfig.class);
-        JvLog.write(JvLog.TypeLog.Info, Arrays.toString(context.getEnvironment().getActiveProfiles()));
+        Log.write(Log.TypeLog.Info, Arrays.toString(context.getEnvironment().getActiveProfiles()));
     }
 
     public static GetterControls getInstance() {

@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import org.foomaa.jvchat.ctrl.GetterControls;
-import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 
 
@@ -54,14 +54,14 @@ public class JvPanelSendingMessageMainChatUI extends JPanel {
     private void sendMessageToServer() {
         String text = sendingTextAreaScroll.getText();
         if (text == null) {
-            JvLog.write(JvLog.TypeLog.Error, "sendingTextAreaScroll.getText() вернул null");
+            Log.write(Log.TypeLog.Error, "sendingTextAreaScroll.getText() вернул null");
             return;
         }
 
         if (!Objects.equals(text, "")) {
             JvMessageStructObject messageObj = GetterControls.getInstance().getBeanMessagesDialogCtrl().createAndSendMessage(text);
             if (messageObj == null) {
-                JvLog.write(JvLog.TypeLog.Error, "Не создано сообщение для отправки, не отправлено...");
+                Log.write(Log.TypeLog.Error, "Не создано сообщение для отправки, не отправлено...");
                 return;
             }
             JvGetterMainChatUIComponents.getInstance().getBeanScrollPanelMessagesMainChatUI().addMessage(messageObj);

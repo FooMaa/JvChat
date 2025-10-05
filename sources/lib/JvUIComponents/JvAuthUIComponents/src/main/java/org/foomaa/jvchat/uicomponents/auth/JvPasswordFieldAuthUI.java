@@ -13,7 +13,7 @@ import java.awt.event.MouseEvent;
 import java.util.Objects;
 
 import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
-import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
@@ -88,7 +88,7 @@ public class JvPasswordFieldAuthUI extends JPanel {
         try {
             return ImageIO.read(Objects.requireNonNull(getClass().getResource(path)));
         } catch (IOException ex) {
-            JvLog.write(JvLog.TypeLog.Error, "No icon found.");
+            Log.write(Log.TypeLog.Error, "No icon found.");
         }
         return null;
     }
@@ -271,7 +271,7 @@ public class JvPasswordFieldAuthUI extends JPanel {
                     .createMainSteticaFont(Font.BOLD, size);
             passwordField.setFont(steticaFont);
         } catch (IOException | FontFormatException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "SteticaFont not created here.");
+            Log.write(Log.TypeLog.Error, "SteticaFont not created here.");
         }
     }
 

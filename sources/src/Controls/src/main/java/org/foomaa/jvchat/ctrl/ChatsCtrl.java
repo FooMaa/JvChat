@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
-import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.models.JvChatsModel;
 import org.foomaa.jvchat.models.JvGetterModels;
@@ -40,7 +40,7 @@ public class ChatsCtrl {
                     .stringToLocalDateTime((String) chat.get(JvDefinesMessages.TypeData.Timestamp), normalizeTimestampCount);
 
             if (timestampLastMessage == null) {
-                JvLog.write(JvLog.TypeLog.Warn, "It was not possible to normalize the date and time to the required format.");
+                Log.write(Log.TypeLog.Warn, "It was not possible to normalize the date and time to the required format.");
             }
 
             chatsModel.createNewChat(login, uuidUser, lastMessageText, uuidChat, uuidLastMessage,
@@ -65,7 +65,7 @@ public class ChatsCtrl {
 
     public String getTimeFormattedLastOnline(LocalDateTime lastOnlineDateTime) {
         if (lastOnlineDateTime == null) {
-            JvLog.write(JvLog.TypeLog.Warn, "Here lastOnlineDateTime turned out to be null (Maybe for those who are online).");
+            Log.write(Log.TypeLog.Warn, "Here lastOnlineDateTime turned out to be null (Maybe for those who are online).");
             return "";
         }
 
@@ -115,7 +115,7 @@ public class ChatsCtrl {
 
     public String getTimeFormattedLastMessage(LocalDateTime timestamp) {
         if (timestamp == null) {
-            JvLog.write(JvLog.TypeLog.Error, "Here the timestamp turned out to be null.");
+            Log.write(Log.TypeLog.Error, "Here the timestamp turned out to be null.");
             return "";
         }
 

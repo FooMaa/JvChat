@@ -1,7 +1,7 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
 import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
-import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
 import javax.swing.*;
@@ -30,7 +30,7 @@ public class JvToolTipMainChatUI extends JToolTip {
                     .createMainSteticaFont(Font.PLAIN, size);
             setFont(steticaFont);
         } catch (IOException | FontFormatException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "steticaFont not created here.");
+            Log.write(Log.TypeLog.Error, "steticaFont not created here.");
         }
     }
 }

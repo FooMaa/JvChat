@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.events.GetterEvents;
-import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.settings.JvGetterSettings;
@@ -188,7 +188,7 @@ public class JvEntryPanelAuthUI extends JPanel {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
-                JvLog.write(JvLog.TypeLog.Error, "Couldn't wait.");
+                Log.write(Log.TypeLog.Error, "Couldn't wait.");
             }
         }
         if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getEntryRequestFlag() ==
@@ -214,7 +214,7 @@ public class JvEntryPanelAuthUI extends JPanel {
 
         JvGetterMainChatUIComponents.getInstance().getBeanMainFrameMainChatUI().openWindow();
 
-        JvLog.write(JvLog.TypeLog.Info, "Login done.");
+        Log.write(Log.TypeLog.Info, "Login done.");
     }
 
     public JvButtonAuthUI getDefaultButton() {

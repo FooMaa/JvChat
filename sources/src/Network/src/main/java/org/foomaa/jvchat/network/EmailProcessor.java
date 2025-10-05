@@ -11,7 +11,7 @@ import javax.mail.internet.*;
 import java.util.Date;
 import java.util.Properties;
 
-import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
 
@@ -58,7 +58,7 @@ public class EmailProcessor {
             transport.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
             transport.close();
         } catch (MessagingException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Error sending email.");
+            Log.write(Log.TypeLog.Error, "Error sending email.");
             exception.printStackTrace();
             return false;
         }

@@ -4,11 +4,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-class JvMainLogger {
+class MainLogger {
     private static Logger logger;
 
-    JvMainLogger() {
-        logger = LoggerFactory.getLogger(JvMainLogger.class);
+    MainLogger() {
+        logger = LoggerFactory.getLogger(MainLogger.class);
     }
 
     public void Debug(String text) {

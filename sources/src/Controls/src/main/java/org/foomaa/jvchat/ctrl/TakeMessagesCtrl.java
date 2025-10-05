@@ -9,7 +9,7 @@ import java.util.UUID;
 import org.foomaa.jvchat.cryptography.GetterCryptography;
 import org.foomaa.jvchat.globaldefines.DbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
-import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.messages.JvGetterMessages;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvGetterSettings;
@@ -296,7 +296,7 @@ public class TakeMessagesCtrl {
         UUID uuidUser = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
 
         if (uuidUser == null) {
-            JvLog.write(JvLog.TypeLog.Warn, "Here uuidUser is not set.");
+            Log.write(Log.TypeLog.Warn, "Here uuidUser is not set.");
             return;
         }
 
@@ -390,9 +390,9 @@ public class TakeMessagesCtrl {
 
     private void workTextMessagesChangingStatusFromServerVerificationMessage( HashMap<JvDefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(JvDefinesMessages.TypeData.BoolReply)) {
-            JvLog.write(JvLog.TypeLog.Info, "Received a message delivery receipt with a status without errors.");
+            Log.write(Log.TypeLog.Info, "Received a message delivery receipt with a status without errors.");
         } else {
-            JvLog.write(JvLog.TypeLog.Info, "A message delivery receipt has arrived with an error status.");
+            Log.write(Log.TypeLog.Info, "A message delivery receipt has arrived with an error status.");
         }
     }
 
@@ -413,9 +413,9 @@ public class TakeMessagesCtrl {
 
     private void workTextMessagesChangingStatusFromUserVerificationMessage( HashMap<JvDefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(JvDefinesMessages.TypeData.BoolReply)) {
-            JvLog.write(JvLog.TypeLog.Info, "Received a message delivery receipt with a status without errors.");
+            Log.write(Log.TypeLog.Info, "Received a message delivery receipt with a status without errors.");
         } else {
-            JvLog.write(JvLog.TypeLog.Info, "A message delivery receipt has arrived with an error status.");
+            Log.write(Log.TypeLog.Info, "A message delivery receipt has arrived with an error status.");
         }
     }
 

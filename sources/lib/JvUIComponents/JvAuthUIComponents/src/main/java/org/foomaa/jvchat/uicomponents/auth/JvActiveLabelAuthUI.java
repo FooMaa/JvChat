@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
-import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
 
@@ -44,7 +44,7 @@ public class JvActiveLabelAuthUI extends JLabel {
             attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_LOW_DOTTED);
             setFont(steticaFont.deriveFont(attributes));
         } catch (IOException | FontFormatException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "steticaFont not created here.");
+            Log.write(Log.TypeLog.Error, "steticaFont not created here.");
         }
     }
 

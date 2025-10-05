@@ -12,10 +12,10 @@ import java.util.regex.Pattern;
 import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
 
 
-public class JvLog {
-    JvLog() {}
+public class Log {
+    Log() {}
 
-    private static JvMainLogger mainLogger;
+    private static MainLogger mainLogger;
 
     public enum TypeLog {
         Debug,
@@ -26,7 +26,7 @@ public class JvLog {
     }
 
     public static void write(TypeLog type, String text) {
-        mainLogger = JvGetterLogger.getInstance().getBeanLogger();
+        mainLogger = GetterLogger.getInstance().getBeanLogger();
 
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
         String resultFile;
@@ -37,8 +37,8 @@ public class JvLog {
             resultFile = "Unknown file";
         }
 
-        JvLoggerSpringConfig.setContextPropertyFileName(resultFile);
-        JvLoggerSpringConfig.setContextPropertyColor(type);
+        LoggerSpringConfig.setContextPropertyFileName(resultFile);
+        LoggerSpringConfig.setContextPropertyColor(type);
         writingText(type, text);
     }
 

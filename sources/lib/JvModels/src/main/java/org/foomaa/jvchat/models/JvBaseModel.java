@@ -1,6 +1,6 @@
 package org.foomaa.jvchat.models;
 
-import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.structobjects.JvBaseStructObject;
 import org.foomaa.jvchat.structobjects.JvRootStructObject;
 
@@ -23,12 +23,12 @@ public abstract class JvBaseModel {
 
     public void removeItem(JvBaseStructObject item) {
         if (rootObject == null) {
-            JvLog.write(JvLog.TypeLog.Error, "Here rootObject turned out to be null.");
+            Log.write(Log.TypeLog.Error, "Here rootObject turned out to be null.");
             return;
         }
 
         if (!removeItemProcess(rootObject, item)) {
-            JvLog.write(JvLog.TypeLog.Error, "There is an error when deleting an element.");
+            Log.write(Log.TypeLog.Error, "There is an error when deleting an element.");
         }
     }
 
@@ -81,7 +81,7 @@ public abstract class JvBaseModel {
     public void clearModel() {
         List<JvBaseStructObject> children = new ArrayList<>(rootObject.getChildren());
         if (children.isEmpty()) {
-            JvLog.write(JvLog.TypeLog.Warn, "Empty children...");
+            Log.write(Log.TypeLog.Warn, "Empty children...");
             return;
         }
 

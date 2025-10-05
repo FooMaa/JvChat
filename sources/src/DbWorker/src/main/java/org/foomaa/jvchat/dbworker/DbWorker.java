@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
-import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
 
@@ -27,7 +27,7 @@ public class DbWorker {
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
-            JvLog.write(JvLog.TypeLog.Error, "Error in connect to DB.");
+            Log.write(Log.TypeLog.Error, "Error in connect to DB.");
             return;
         }
 
@@ -38,7 +38,7 @@ public class DbWorker {
                     JvGetterSettings.getInstance().getBeanServersInfoSettings().getDbUser(),
                     JvGetterSettings.getInstance().getBeanServersInfoSettings().getMagicStringDb());
         } catch (SQLException e) {
-            JvLog.write(JvLog.TypeLog.Error, "Error in connect to DB.");
+            Log.write(Log.TypeLog.Error, "Error in connect to DB.");
             return;
         }
 
@@ -49,7 +49,7 @@ public class DbWorker {
         try {
             rs.close();
         } catch (SQLException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Error closing ResultSet.");
+            Log.write(Log.TypeLog.Error, "Error closing ResultSet.");
         }
     }
 
@@ -65,7 +65,7 @@ public class DbWorker {
                     ResultSet.CONCUR_READ_ONLY);
             resultSet = stmt.executeQuery(execution);
         } catch (SQLException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "The database returned an error, the request cannot be executed.");
+            Log.write(Log.TypeLog.Error, "The database returned an error, the request cannot be executed.");
         }
         return resultSet;
     }

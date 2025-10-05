@@ -8,7 +8,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
 
-import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.models.JvGetterModels;
 import org.foomaa.jvchat.models.JvSocketRunnableCtrlModel;
 import org.foomaa.jvchat.network.UsersSocket;
@@ -119,9 +119,9 @@ public class NetworkCtrl {
             SocketRunnableCtrl socketRunnableCtrl = (SocketRunnableCtrl) socketCtrl.getSocketRunnableCtrl();
 
             if (socketRunnableCtrl != null && socketRunnableCtrl.isErrorsExceedsLimit()) {
-                JvLog.write(JvLog.TypeLog.Warn, "We clean up a thread that has not responded for a long time.");
+                Log.write(Log.TypeLog.Warn, "We clean up a thread that has not responded for a long time.");
                 socketRunnableCtrlModel.removeItem(socketCtrl);
-                JvLog.write(JvLog.TypeLog.Warn, "Number of active connections after cleaning: " +
+                Log.write(Log.TypeLog.Warn, "Number of active connections after cleaning: " +
                         socketRunnableCtrlModel.getCountConnections());
             }
         }
@@ -129,7 +129,7 @@ public class NetworkCtrl {
         try {
             Thread.sleep(milliSecondsSleepAfterOperation);
         } catch (InterruptedException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Sleep() failed to running here.");
+            Log.write(Log.TypeLog.Error, "Sleep() failed to running here.");
         }
     }
 }

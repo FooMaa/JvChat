@@ -7,7 +7,7 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.InetAddress;
 
-import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
 
@@ -27,13 +27,13 @@ public class ServersSocket {
                         InetAddress.getByName(JvGetterSettings.getInstance().getBeanServersInfoSettings().getIp()));
             }
 
-            JvLog.write(JvLog.TypeLog.Info, "IP: " + socketServers.getInetAddress().toString() + ".");
-            JvLog.write(JvLog.TypeLog.Info, "PORT: " + String.valueOf(socketServers.getLocalPort()) + ".");
+            Log.write(Log.TypeLog.Info, "IP: " + socketServers.getInetAddress().toString() + ".");
+            Log.write(Log.TypeLog.Info, "PORT: " + String.valueOf(socketServers.getLocalPort()) + ".");
 
-            JvLog.write(JvLog.TypeLog.Info, "Server is started.");
+            Log.write(Log.TypeLog.Info, "Server is started.");
             closeSocketWhenKill();
         } catch (IOException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Error creating server socket.");
+            Log.write(Log.TypeLog.Error, "Error creating server socket.");
         }
     }
 

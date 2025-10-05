@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
-import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.models.JvChatsModel;
 import org.foomaa.jvchat.models.JvGetterModels;
@@ -48,7 +48,7 @@ public class MessagesDialogCtrl {
 
     public JvMessageStructObject createAndSendMessage(String text) {
         if (getCurrentActiveChatUuid() == null) {
-            JvLog.write(JvLog.TypeLog.Error, "Не выбран диалог, отправка не выполнена");
+            Log.write(Log.TypeLog.Error, "Не выбран диалог, отправка не выполнена");
             return null;
         }
 
@@ -84,7 +84,7 @@ public class MessagesDialogCtrl {
                             (String) msg.get(JvDefinesMessages.TypeData.Timestamp), normalizeCountTimestamp);
 
             if (timestampMessage == null) {
-                JvLog.write(JvLog.TypeLog.Warn, "It was not possible to normalize the date and time to the required format.");
+                Log.write(Log.TypeLog.Warn, "It was not possible to normalize the date and time to the required format.");
             }
 
             messagesModel.createNewMessage(
@@ -158,7 +158,7 @@ public class MessagesDialogCtrl {
 
         Runnable runnableUserCtrl = onlineServersCtrl.getRunnableByUuidUser(messageStructObject.getUuidUserReceiver());
         if (runnableUserCtrl == null) {
-            JvLog.write(JvLog.TypeLog.Error, "Here runnableUserCtrl turned out to be null.");
+            Log.write(Log.TypeLog.Error, "Here runnableUserCtrl turned out to be null.");
             return;
         }
 
@@ -195,7 +195,7 @@ public class MessagesDialogCtrl {
 
     public String getTimeFormattedMessage(LocalDateTime timestamp) {
         if (timestamp == null) {
-            JvLog.write(JvLog.TypeLog.Error, "Here the timestamp turned out to be null.");
+            Log.write(Log.TypeLog.Error, "Here the timestamp turned out to be null.");
             return "";
         }
 

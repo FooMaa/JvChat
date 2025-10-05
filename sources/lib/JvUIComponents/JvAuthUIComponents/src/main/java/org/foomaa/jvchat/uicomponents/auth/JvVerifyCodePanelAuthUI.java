@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.events.GetterEvents;
-import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.settings.JvGetterSettings;
@@ -199,7 +199,7 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
-                JvLog.write(JvLog.TypeLog.Error, "Failed to wait.");
+                Log.write(Log.TypeLog.Error, "Failed to wait.");
             }
         }
         if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyFamousEmailRequestFlag() ==
@@ -222,7 +222,7 @@ public class JvVerifyCodePanelAuthUI extends JPanel {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
-                JvLog.write(JvLog.TypeLog.Error, "Failed to wait.");
+                Log.write(Log.TypeLog.Error, "Failed to wait.");
             }
         }
         if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyRegistrationEmailRequestFlag() ==

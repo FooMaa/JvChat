@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
-import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
 
@@ -24,7 +24,7 @@ public class UsersSocket {
                     JvGetterSettings.getInstance().getBeanUsersInfoSettings().getPortRemoteServer()), 4000);
             closeSocketWhenKill();
         } catch (IOException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "No connection.");
+            Log.write(Log.TypeLog.Error, "No connection.");
         }
     }
 

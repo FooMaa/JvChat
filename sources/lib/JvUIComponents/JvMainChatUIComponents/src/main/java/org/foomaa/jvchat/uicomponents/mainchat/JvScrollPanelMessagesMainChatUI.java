@@ -2,7 +2,7 @@ package org.foomaa.jvchat.uicomponents.mainchat;
 
 import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
-import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 
 import javax.swing.*;
@@ -150,7 +150,7 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
         try {
             Thread.sleep(intervalMilliSecondsSleepUpdating);
         } catch (InterruptedException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Здесь не удалось выполнить sleep()");
+            Log.write(Log.TypeLog.Error, "Здесь не удалось выполнить sleep()");
         }
     }
 

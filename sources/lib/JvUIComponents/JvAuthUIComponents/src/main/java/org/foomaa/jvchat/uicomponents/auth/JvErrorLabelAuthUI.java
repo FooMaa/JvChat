@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
-import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
@@ -43,7 +43,7 @@ public class JvErrorLabelAuthUI extends JLabel {
                     .createMainSteticaFont(Font.BOLD, size);
             setFont(steticaFont);
         } catch (IOException | FontFormatException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "SteticaFont not created here");
+            Log.write(Log.TypeLog.Error, "SteticaFont not created here");
         }
     }
 

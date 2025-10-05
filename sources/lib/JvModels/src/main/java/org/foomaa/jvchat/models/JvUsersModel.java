@@ -1,6 +1,6 @@
 package org.foomaa.jvchat.models;
 
-import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.structobjects.JvBaseStructObject;
 import org.foomaa.jvchat.structobjects.JvGetterStructObjects;
 import org.foomaa.jvchat.structobjects.JvUserStructObject;
@@ -39,7 +39,7 @@ public class JvUsersModel extends JvBaseModel {
         JvUserStructObject userStructObject = findUserStructObjectByUuidUser(uuidUser);
 
         if (userStructObject == null) {
-            JvLog.write(JvLog.TypeLog.Warn, "There is no userStructObject with uuid created here, creating...");
+            Log.write(Log.TypeLog.Warn, "There is no userStructObject with uuid created here, creating...");
             JvUserStructObject userChat = JvGetterStructObjects.getInstance().getBeanUserStructObject();
             userChat.setUuid(uuidUser);
             addItem(userChat, getRootObject());

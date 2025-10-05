@@ -5,7 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.models.JvGetterModels;
 
 
@@ -28,7 +28,7 @@ public class SocketRunnableCtrl implements Runnable {
             sendStream = new DataOutputStream(socket.getOutputStream());
             readStream = new DataInputStream(socket.getInputStream());
         } catch (IOException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Error in creating threads for sending and receiving messages.");
+            Log.write(Log.TypeLog.Error, "Error in creating threads for sending and receiving messages.");
         }
 
         errorsConnection = 0;
@@ -49,7 +49,7 @@ public class SocketRunnableCtrl implements Runnable {
             }
         } catch (IOException exception) {
             errorsConnection++;
-            JvLog.write(JvLog.TypeLog.Error, "Error in network.");
+            Log.write(Log.TypeLog.Error, "Error in network.");
         }
     }
 
@@ -60,7 +60,7 @@ public class SocketRunnableCtrl implements Runnable {
             sendStream.flush();
         } catch (IOException exception) {
             errorsConnection++;
-            JvLog.write(JvLog.TypeLog.Error, "Error in network.");
+            Log.write(Log.TypeLog.Error, "Error in network.");
         }
     }
 

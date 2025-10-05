@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 
-import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
@@ -32,7 +32,7 @@ public class JvFindTextFieldMainChatUI extends JPanel {
         try {
             return ImageIO.read(Objects.requireNonNull(getClass().getResource("/Magnifier.png")));
         } catch (IOException ex) {
-            JvLog.write(JvLog.TypeLog.Error, "Нет иконки глазка");
+            Log.write(Log.TypeLog.Error, "Нет иконки глазка");
         }
         return null;
     }

@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
-import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.messages.JvDefinesMessages;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.structobjects.JvChatStructObject;
@@ -190,7 +190,7 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
-                JvLog.write(JvLog.TypeLog.Error, "Не удалось ждать");
+                Log.write(Log.TypeLog.Error, "Не удалось ждать");
             }
 
             if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getChatsLoadReplyFlag() ==
@@ -222,7 +222,7 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
             try {
                 TimeUnit.SECONDS.sleep(intervalSecondsWaitLoopUpdate);
             } catch (InterruptedException exception) {
-                JvLog.write(JvLog.TypeLog.Error, "Здесь не удалось выполнить sleep()");
+                Log.write(Log.TypeLog.Error, "Здесь не удалось выполнить sleep()");
             }
         }
 
@@ -231,7 +231,7 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
         try {
             Thread.sleep(intervalMilliSecondsSleepUpdating);
         } catch (InterruptedException exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Здесь не удалось выполнить sleep()");
+            Log.write(Log.TypeLog.Error, "Здесь не удалось выполнить sleep()");
         }
     }
 

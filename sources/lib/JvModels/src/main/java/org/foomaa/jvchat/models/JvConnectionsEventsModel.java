@@ -1,6 +1,6 @@
 package org.foomaa.jvchat.models;
 
-import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.structobjects.JvBaseStructObject;
 import org.foomaa.jvchat.structobjects.JvConnectionEventStructObject;
 import org.foomaa.jvchat.structobjects.JvGetterStructObjects;
@@ -41,7 +41,7 @@ public class JvConnectionsEventsModel extends JvBaseModel {
         for (JvBaseStructObject baseStructObject : getRootObject().getChildren()) {
             JvConnectionEventStructObject connectionEventStructObject = (JvConnectionEventStructObject) baseStructObject;
             if (connectionEventStructObject == null) {
-                JvLog.write(JvLog.TypeLog.Error, "This includes the chatStructObject object, which is null.");
+                Log.write(Log.TypeLog.Error, "This includes the chatStructObject object, which is null.");
                 continue;
             }
             if (connectionEventStructObject.getObjectSender() == objectSender &&

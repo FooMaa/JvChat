@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
-import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.structobjects.*;
 
@@ -63,7 +63,7 @@ public class JvChatsModel extends JvBaseModel {
     public void setOnlineStatusToUser(UUID uuidUser, MainChatsGlobalDefines.TypeStatusOnline statusOnline) {
         JvChatStructObject chat = findByUuidUser(uuidUser);
         if (chat == null) {
-            JvLog.write(JvLog.TypeLog.Error, "This includes a chat object, which is null.");
+            Log.write(Log.TypeLog.Error, "This includes a chat object, which is null.");
             return;
         }
         chat.getUserChat().setStatusOnline(statusOnline);
@@ -72,7 +72,7 @@ public class JvChatsModel extends JvBaseModel {
     public void setTimestampLastOnlineToUser(UUID uuidUser, LocalDateTime timestamp) {
         JvChatStructObject chat = findByUuidUser(uuidUser);
         if (chat == null) {
-            JvLog.write(JvLog.TypeLog.Error, "This includes a chat object, which is null.");
+            Log.write(Log.TypeLog.Error, "This includes a chat object, which is null.");
             return;
         }
         chat.getUserChat().setTimestampLastOnline(timestamp);
@@ -82,7 +82,7 @@ public class JvChatsModel extends JvBaseModel {
         for (JvBaseStructObject baseStructObject : getRootObject().getChildren()) {
             JvChatStructObject chatStructObject = (JvChatStructObject) baseStructObject;
             if (chatStructObject == null) {
-                JvLog.write(JvLog.TypeLog.Error, "This includes a chat object, which is null.");
+                Log.write(Log.TypeLog.Error, "This includes a chat object, which is null.");
                 continue;
             }
             UUID uuidObj = chatStructObject.getUserChat().getUuid();
@@ -100,7 +100,7 @@ public class JvChatsModel extends JvBaseModel {
         for (JvBaseStructObject baseStructObject : getRootObject().getChildren()) {
             JvChatStructObject chatStructObject = (JvChatStructObject) baseStructObject;
             if (chatStructObject == null) {
-                JvLog.write(JvLog.TypeLog.Error, "This includes the chatStructObject object, which is null.");
+                Log.write(Log.TypeLog.Error, "This includes the chatStructObject object, which is null.");
                 continue;
             }
             resultList.add(chatStructObject);
@@ -115,7 +115,7 @@ public class JvChatsModel extends JvBaseModel {
 
         for (JvChatStructObject chatObject : chatsList) {
             if (chatObject == null) {
-                JvLog.write(JvLog.TypeLog.Error, "This includes the chatStructObject object, which is null.");
+                Log.write(Log.TypeLog.Error, "This includes the chatStructObject object, which is null.");
                 continue;
             }
             resultList.add(chatObject.getUserChat());

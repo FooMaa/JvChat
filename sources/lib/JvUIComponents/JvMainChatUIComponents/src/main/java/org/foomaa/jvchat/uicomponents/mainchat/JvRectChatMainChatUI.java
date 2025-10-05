@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import org.foomaa.jvchat.ctrl.GetterControls;
-import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.structobjects.JvChatStructObject;
@@ -166,7 +166,7 @@ public class JvRectChatMainChatUI extends JPanel {
         JLabel statusOnlineLabel = (JLabel) findComponentStatusOnline();
 
         if (statusOnlineLabel == null) {
-            JvLog.write(JvLog.TypeLog.Error, "Здесь nickNameLabel оказался null");
+            Log.write(Log.TypeLog.Error, "Здесь nickNameLabel оказался null");
             return;
         }
 

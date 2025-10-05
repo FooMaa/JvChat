@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Lazy;
 
 
 @Configuration
-class JvLoggerSpringConfig {
+class LoggerSpringConfig {
     private static LoggerContext context;
 
     public enum NameBeans {
@@ -75,7 +75,7 @@ class JvLoggerSpringConfig {
         context.putProperty(namePropertyFileName, fullFileName);
     }
 
-    public static void setContextPropertyColor(JvLog.TypeLog type) {
+    public static void setContextPropertyColor(Log.TypeLog type) {
         String namePropertyColorStart = "colorCodeStart";
         String namePropertyColorEnd = "colorCodeEnd";
 
@@ -98,7 +98,7 @@ class JvLoggerSpringConfig {
     @Lazy
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvMainLogger beanMainLogger() {
-        return new JvMainLogger();
+    public MainLogger beanMainLogger() {
+        return new MainLogger();
     }
 }

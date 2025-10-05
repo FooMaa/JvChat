@@ -6,7 +6,7 @@ dependencies {
     implementation(project(":JvSettings"))
     implementation(project(":JvMessages"))
     implementation(project(":JvTools"))
-    implementation(project(":JvLogger"))
+    implementation(project(":Logger"))
     implementation(project(":Events"))
     implementation(project(":GlobalDefines"))
     implementation(project(":JvMainChatUIComponents"))

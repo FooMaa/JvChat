@@ -9,10 +9,10 @@
     </parent>
 
     <groupId>org.foomaa.jvchat.logger</groupId>
-    <artifactId>JvLogger</artifactId>
+    <artifactId>Logger</artifactId>
     <packaging>jar</packaging>
 
-    <name>JvTools</name>
+    <name>Logger</name>
 
     <dependencies>
         <dependency>

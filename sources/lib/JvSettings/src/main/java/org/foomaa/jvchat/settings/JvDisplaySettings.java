@@ -2,7 +2,7 @@ package org.foomaa.jvchat.settings;
 
 import java.awt.*;
 
-import org.foomaa.jvchat.logger.JvLog;
+import org.foomaa.jvchat.logger.Log;
 
 
 public class JvDisplaySettings {
@@ -12,7 +12,7 @@ public class JvDisplaySettings {
             heightScreen = screenSize.height;
             widthScreen = screenSize.width;
         } catch (Throwable exception) {
-            JvLog.write(JvLog.TypeLog.Error, "Failed to get display size.");
+            Log.write(Log.TypeLog.Error, "Failed to get display size.");
         }
     }
 
