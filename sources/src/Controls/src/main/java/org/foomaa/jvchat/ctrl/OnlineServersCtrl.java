@@ -7,7 +7,7 @@ import java.util.*;
 import org.foomaa.jvchat.globaldefines.DbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.messages.JvDefinesMessages;
+import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.models.JvCheckersOnlineModel;
 import org.foomaa.jvchat.models.JvGetterModels;
 import org.foomaa.jvchat.models.JvSocketRunnableCtrlModel;
@@ -197,7 +197,7 @@ public class OnlineServersCtrl {
 
             preSendingTasks(socketRunnableCtrl);
             GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
-                    JvDefinesMessages.TypeMessage.CheckOnlineUserRequest,
+                    DefinesMessages.TypeMessage.CheckOnlineUserRequest,
                     JvGetterSettings.getInstance().getBeanServersInfoSettings().getIp(),
                     socketRunnableCtrl);
 

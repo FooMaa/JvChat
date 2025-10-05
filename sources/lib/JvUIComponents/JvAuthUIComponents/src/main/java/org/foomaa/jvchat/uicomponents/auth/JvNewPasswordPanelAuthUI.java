@@ -10,7 +10,7 @@ import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.events.GetterEvents;
 import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.messages.JvDefinesMessages;
+import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 
@@ -120,7 +120,7 @@ public class JvNewPasswordPanelAuthUI extends JPanel {
     private void addListenerToElements() {
         bAccept.addActionListener(event -> {
             if (checkFields()) {
-                GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(JvDefinesMessages.TypeMessage.ChangePasswordRequest,
+                GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(DefinesMessages.TypeMessage.ChangePasswordRequest,
                         email, tPassword.getInputText());
                 waitRepeatServer();
             }

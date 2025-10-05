@@ -3,7 +3,7 @@ version = "1.0-SNAPSHOT"
 
 dependencies {
     implementation(project(":JvSettings"))
-    implementation(project(":JvMessages"))
+    implementation(project(":Messages"))
     implementation(project(":Network"))
     implementation(project(":DbWorker"))
     implementation(project(":Logger"))

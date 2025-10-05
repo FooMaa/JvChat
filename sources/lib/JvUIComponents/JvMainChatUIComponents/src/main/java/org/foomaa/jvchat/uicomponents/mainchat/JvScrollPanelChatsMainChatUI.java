@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.messages.JvDefinesMessages;
+import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.structobjects.JvChatStructObject;
 import org.foomaa.jvchat.structobjects.JvUserStructObject;
@@ -174,13 +174,13 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
         int quantityMessages = JvGetterSettings.getInstance().getBeanUISettings().getQuantityMessagesLoad();
 
         GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
-                JvDefinesMessages.TypeMessage.MessagesLoadRequest, uuidChat, quantityMessages);
+                DefinesMessages.TypeMessage.MessagesLoadRequest, uuidChat, quantityMessages);
     }
 
     private void setRequestChatsToServer() {
         UUID uuidUser = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
         GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
-                JvDefinesMessages.TypeMessage.ChatsLoadRequest, uuidUser);
+                DefinesMessages.TypeMessage.ChatsLoadRequest, uuidUser);
     }
 
     private List<JvChatStructObject> getChatsObjects() {
@@ -238,7 +238,7 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
     private void sendingUpdateOnlinePackage() {
         List<UUID> uuidsUsersChats = GetterControls.getInstance().getBeanChatsCtrl().getUuidsUsersChats();
         GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
-                JvDefinesMessages.TypeMessage.LoadUsersOnlineStatusRequest,
+                DefinesMessages.TypeMessage.LoadUsersOnlineStatusRequest,
                 uuidsUsersChats);
     }
 

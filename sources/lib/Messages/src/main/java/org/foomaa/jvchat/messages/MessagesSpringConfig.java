@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Scope;
 
 
 @Configuration
-class JvMessagesSpringConfig {
+class MessagesSpringConfig {
     public enum NameBeans {
         BeanDefinesMessages("beanDefinesMessages"),
         BeanSerializatorDataMessages("beanSerializatorDataMessages"),
@@ -26,14 +26,14 @@ class JvMessagesSpringConfig {
     @Bean(name = "beanSerializatorDataMessages")
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvSerializatorDataMessages beanSerializatorDataMessages() {
-        return new JvSerializatorDataMessages();
+    public SerializatorDataMessages beanSerializatorDataMessages() {
+        return new SerializatorDataMessages();
     }
 
     @Bean(name = "beanDeserializatorDataMessages")
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvDeserializatorDataMessages beanDeserializatorDataMessages() {
-        return new JvDeserializatorDataMessages();
+    public DeserializatorDataMessages beanDeserializatorDataMessages() {
+        return new DeserializatorDataMessages();
     }
 }

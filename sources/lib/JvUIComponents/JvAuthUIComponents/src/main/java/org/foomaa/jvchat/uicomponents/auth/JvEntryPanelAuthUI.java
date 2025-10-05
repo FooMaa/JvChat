@@ -12,7 +12,7 @@ import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.events.GetterEvents;
 import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.messages.JvDefinesMessages;
+import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.JvDisplaySettings;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.uicomponents.mainchat.JvGetterMainChatUIComponents;
@@ -116,7 +116,7 @@ public class JvEntryPanelAuthUI extends JPanel {
     private void addListenerToElements() {
         bEnter.addActionListener(event -> {
             if (checkFields()) {
-                GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(JvDefinesMessages.TypeMessage.EntryRequest,
+                GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(DefinesMessages.TypeMessage.EntryRequest,
                         tLogin.getInputText(), tPassword.getInputText());
                 waitRepeatServer();
             }
@@ -207,7 +207,7 @@ public class JvEntryPanelAuthUI extends JPanel {
 
         UUID uuidUser = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
         GetterControls.getInstance().getBeanSendMessagesCtrl()
-                .sendMessage(JvDefinesMessages.TypeMessage.CheckOnlineUserReply, uuidUser);
+                .sendMessage(DefinesMessages.TypeMessage.CheckOnlineUserReply, uuidUser);
 
         closeFrameWindow();
         setEnabled(true);

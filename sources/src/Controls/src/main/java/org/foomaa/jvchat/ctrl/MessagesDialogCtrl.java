@@ -6,7 +6,7 @@ import java.util.*;
 
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.messages.JvDefinesMessages;
+import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.models.JvChatsModel;
 import org.foomaa.jvchat.models.JvGetterModels;
 import org.foomaa.jvchat.models.JvMessagesModel;
@@ -68,20 +68,20 @@ public class MessagesDialogCtrl {
         return messageStructObject;
     }
 
-    public void createMessagesObjects(List<Map<JvDefinesMessages.TypeData, Object>> msgInfo) {
+    public void createMessagesObjects(List<Map<DefinesMessages.TypeData, Object>> msgInfo) {
         messagesModel.clearModel();
         int normalizeCountTimestamp = 3;
 
-        for (Map<JvDefinesMessages.TypeData, Object> msg : msgInfo) {
-            UUID uuidUserSender = (UUID) msg.get(JvDefinesMessages.TypeData.UuidUserSender);
-            UUID uuidUserReceiver = (UUID) msg.get(JvDefinesMessages.TypeData.UuidUserReceiver);
-            UUID uuidMessage = (UUID) msg.get(JvDefinesMessages.TypeData.UuidMessage);
-            String text = (String) msg.get(JvDefinesMessages.TypeData.TextMessage);
+        for (Map<DefinesMessages.TypeData, Object> msg : msgInfo) {
+            UUID uuidUserSender = (UUID) msg.get(DefinesMessages.TypeData.UuidUserSender);
+            UUID uuidUserReceiver = (UUID) msg.get(DefinesMessages.TypeData.UuidUserReceiver);
+            UUID uuidMessage = (UUID) msg.get(DefinesMessages.TypeData.UuidMessage);
+            String text = (String) msg.get(DefinesMessages.TypeData.TextMessage);
             MainChatsGlobalDefines.TypeStatusMessage statusMessage = MainChatsGlobalDefines.TypeStatusMessage
-                    .getTypeStatusMessage((Integer) msg.get(JvDefinesMessages.TypeData.StatusMessage));
+                    .getTypeStatusMessage((Integer) msg.get(DefinesMessages.TypeData.StatusMessage));
             LocalDateTime timestampMessage = JvGetterTools.getInstance()
                     .getBeanFormatTools().stringToLocalDateTime(
-                            (String) msg.get(JvDefinesMessages.TypeData.Timestamp), normalizeCountTimestamp);
+                            (String) msg.get(DefinesMessages.TypeData.Timestamp), normalizeCountTimestamp);
 
             if (timestampMessage == null) {
                 Log.write(Log.TypeLog.Warn, "It was not possible to normalize the date and time to the required format.");
@@ -106,7 +106,7 @@ public class MessagesDialogCtrl {
                 .localDateTimeToString(message.getTimestamp());
 
         GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
-                JvDefinesMessages.TypeMessage.TextMessageSendUserToServer,
+                DefinesMessages.TypeMessage.TextMessageSendUserToServer,
                 message.getUuidUserSender(),
                 message.getUuidUserReceiver(),
                 message.getUuid(),
@@ -166,7 +166,7 @@ public class MessagesDialogCtrl {
                 .localDateTimeToString(messageStructObject.getTimestamp());
 
         GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
-                JvDefinesMessages.TypeMessage.TextMessageRedirectServerToUser,
+                DefinesMessages.TypeMessage.TextMessageRedirectServerToUser,
                 messageStructObject.getUuidUserSender(),
                 messageStructObject.getUuidUserReceiver(),
                 messageStructObject.getUuid(),

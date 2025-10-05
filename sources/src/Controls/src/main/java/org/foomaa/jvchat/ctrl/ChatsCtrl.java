@@ -7,7 +7,7 @@ import java.util.*;
 
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.messages.JvDefinesMessages;
+import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.models.JvChatsModel;
 import org.foomaa.jvchat.models.JvGetterModels;
 import org.foomaa.jvchat.structobjects.JvChatStructObject;
@@ -23,21 +23,21 @@ public class ChatsCtrl {
         chatsModel = JvGetterModels.getInstance().getBeanChatsModel();
     }
 
-    public void createChatsObjects(List<Map<JvDefinesMessages.TypeData, Object>> chatsInfo) {
+    public void createChatsObjects(List<Map<DefinesMessages.TypeData, Object>> chatsInfo) {
         chatsModel.clearModel();
 
         int normalizeTimestampCount = 3;
-        for (Map<JvDefinesMessages.TypeData, Object> chat : chatsInfo) {
-            String login = (String) chat.get(JvDefinesMessages.TypeData.Login);
-            UUID uuidUser = (UUID) chat.get(JvDefinesMessages.TypeData.UuidUser);
-            String lastMessageText = (String) chat.get(JvDefinesMessages.TypeData.TextMessage);
-            UUID uuidChat = (UUID) chat.get(JvDefinesMessages.TypeData.UuidChat);
-            UUID uuidLastMessage = (UUID) chat.get(JvDefinesMessages.TypeData.UuidMessage);
-            Boolean isLoginSentLastMessage = (Boolean) chat.get(JvDefinesMessages.TypeData.IsLoginSentLastMessage);
+        for (Map<DefinesMessages.TypeData, Object> chat : chatsInfo) {
+            String login = (String) chat.get(DefinesMessages.TypeData.Login);
+            UUID uuidUser = (UUID) chat.get(DefinesMessages.TypeData.UuidUser);
+            String lastMessageText = (String) chat.get(DefinesMessages.TypeData.TextMessage);
+            UUID uuidChat = (UUID) chat.get(DefinesMessages.TypeData.UuidChat);
+            UUID uuidLastMessage = (UUID) chat.get(DefinesMessages.TypeData.UuidMessage);
+            Boolean isLoginSentLastMessage = (Boolean) chat.get(DefinesMessages.TypeData.IsLoginSentLastMessage);
             MainChatsGlobalDefines.TypeStatusMessage statusMessage =
-                    (MainChatsGlobalDefines.TypeStatusMessage) chat.get(JvDefinesMessages.TypeData.StatusMessage);
+                    (MainChatsGlobalDefines.TypeStatusMessage) chat.get(DefinesMessages.TypeData.StatusMessage);
             LocalDateTime timestampLastMessage = JvGetterTools.getInstance().getBeanFormatTools()
-                    .stringToLocalDateTime((String) chat.get(JvDefinesMessages.TypeData.Timestamp), normalizeTimestampCount);
+                    .stringToLocalDateTime((String) chat.get(DefinesMessages.TypeData.Timestamp), normalizeTimestampCount);
 
             if (timestampLastMessage == null) {
                 Log.write(Log.TypeLog.Warn, "It was not possible to normalize the date and time to the required format.");

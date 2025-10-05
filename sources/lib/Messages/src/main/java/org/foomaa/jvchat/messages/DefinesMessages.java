@@ -1,8 +1,8 @@
 package org.foomaa.jvchat.messages;
 
 
-public class JvDefinesMessages {
-    JvDefinesMessages() {}
+public class DefinesMessages {
+    DefinesMessages() {}
 
     public enum TypeMessage {
         EntryRequest(0),
@@ -88,12 +88,12 @@ public class JvDefinesMessages {
     }
 
     public enum TypeErrorRegistration {
-        Login(JvClientServerSerializeProtocolMessage_pb.RegistrationReply.Error.Login_VALUE),
-        Email(JvClientServerSerializeProtocolMessage_pb.RegistrationReply.Error.Email_VALUE),
-        LoginAndEmail(JvClientServerSerializeProtocolMessage_pb.RegistrationReply.Error.LoginAndEmail_VALUE),
-        EmailSending(JvClientServerSerializeProtocolMessage_pb.RegistrationReply.Error.EmailSending_VALUE),
-        Code(JvClientServerSerializeProtocolMessage_pb.VerifyRegistrationEmailReply.Error.Code_VALUE),
-        NoError(JvClientServerSerializeProtocolMessage_pb.RegistrationReply.Error.NoError_VALUE);
+        Login(ClientServerSerializeProtocolMessage_pb.RegistrationReply.Error.Login_VALUE),
+        Email(ClientServerSerializeProtocolMessage_pb.RegistrationReply.Error.Email_VALUE),
+        LoginAndEmail(ClientServerSerializeProtocolMessage_pb.RegistrationReply.Error.LoginAndEmail_VALUE),
+        EmailSending(ClientServerSerializeProtocolMessage_pb.RegistrationReply.Error.EmailSending_VALUE),
+        Code(ClientServerSerializeProtocolMessage_pb.VerifyRegistrationEmailReply.Error.Code_VALUE),
+        NoError(ClientServerSerializeProtocolMessage_pb.RegistrationReply.Error.NoError_VALUE);
 
         private final int value;
 

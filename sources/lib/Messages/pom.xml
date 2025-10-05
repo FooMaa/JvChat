@@ -9,10 +9,10 @@
     </parent>
 
     <groupId>org.foomaa.jvchat.messages</groupId>
-    <artifactId>JvMessages</artifactId>
+    <artifactId>Messages</artifactId>
     <packaging>jar</packaging>
 
-    <name>JvMessages</name>
+    <name>Messages</name>
 
     <build>
         <extensions>

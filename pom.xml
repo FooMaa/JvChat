@@ -23,7 +23,7 @@
         <module>sources/lib/Cryptography</module>
         <module>sources/lib/Logger</module>
         <module>sources/lib/GlobalDefines</module>
-        <module>sources/lib/JvMessages</module>
+        <module>sources/lib/Messages</module>
         <module>sources/lib/Events</module>
         <module>sources/lib/JvModels</module>
         <module>sources/lib/JvStructObjects</module>

@@ -4,7 +4,7 @@ version = "1.0-SNAPSHOT"
 dependencies {
     implementation(project(":Controls"))
     implementation(project(":JvSettings"))
-    implementation(project(":JvMessages"))
+    implementation(project(":Messages"))
     implementation(project(":JvTools"))
     implementation(project(":Logger"))
     implementation(project(":Events"))
