@@ -15,8 +15,8 @@ import org.foomaa.jvchat.settings.MainSettings;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 
-public class JvMainTools {
-    JvMainTools() {}
+public class MainTools {
+    MainTools() {}
 
     private String getProfileFromBuildDir(Class<?> mainClass) throws IOException, URISyntaxException {
         Path buildPath = Paths.get(Objects.requireNonNull(
@@ -56,7 +56,7 @@ public class JvMainTools {
     @SuppressWarnings("unused")
     public void setProfileSettingSpring() {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
-                JvToolsSpringConfig.class);
+                ToolsSpringConfig.class);
         final String profile = context.getEnvironment().getActiveProfiles()[0];
 
         if (Objects.equals(profile, MainSettings.TypeProfiles.TESTS.toString())) {

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 
 
 @Configuration
-class JvToolsSpringConfig {
+class ToolsSpringConfig {
     public enum NameBeans {
         BeanMainTools("beanMainTools"),
         BeanStructTools("beanStructTools"),
@@ -29,37 +29,37 @@ class JvToolsSpringConfig {
     @Bean(name = "beanMainTools")
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvMainTools beanMainTools() {
-        return new JvMainTools();
+    public MainTools beanMainTools() {
+        return new MainTools();
     }
 
     @Bean(name = "beanStructTools")
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvStructTools beanStructTools() {
-        return new JvStructTools();
+    public StructTools beanStructTools() {
+        return new StructTools();
     }
 
     @Bean(name = "beanServersTools")
     @Profile("servers")
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvServersTools beanServersTools() {
-        return new JvServersTools();
+    public ServersTools beanServersTools() {
+        return new ServersTools();
     }
 
     @Bean(name = "beanUsersTools")
     @Profile("users")
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvUsersTools beanUsersTools() {
-        return new JvUsersTools();
+    public UsersTools beanUsersTools() {
+        return new UsersTools();
     }
 
     @Bean(name = "beanFormatTools")
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvFormatTools beanFormatTools() {
-        return new JvFormatTools();
+    public FormatTools beanFormatTools() {
+        return new FormatTools();
     }
 }

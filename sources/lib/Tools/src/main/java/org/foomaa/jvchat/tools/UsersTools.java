@@ -3,8 +3,8 @@ package org.foomaa.jvchat.tools;
 import java.util.regex.Pattern;
 
 
-public class JvUsersTools {
-    JvUsersTools() {}
+public class UsersTools {
+    UsersTools() {}
 
     public boolean validateInputEmail(String param) {
         Pattern regex = Pattern.compile(

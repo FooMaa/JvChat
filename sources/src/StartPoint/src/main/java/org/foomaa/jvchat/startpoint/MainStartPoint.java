@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import org.foomaa.jvchat.settings.GetterSettings;
-import org.foomaa.jvchat.tools.JvGetterTools;
+import org.foomaa.jvchat.tools.GetterTools;
 import org.foomaa.jvchat.uilinks.GetterUILinks;
 import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.settings.MainSettings;
@@ -31,7 +31,7 @@ public class MainStartPoint implements ApplicationRunner {
 
     private void workingArgs(ApplicationArguments args) {
         try {
-            JvGetterTools.getInstance().getBeanMainTools().setProfileSetting(MainStartPoint.class);
+            GetterTools.getInstance().getBeanMainTools().setProfileSetting(MainStartPoint.class);
 //            NOTE(VAD): Set profile by spring.
 //            JvGetterTools.getInstance().getBeanMainTools().setProfileSettingSpring();
         } catch (IOException | URISyntaxException exception) {
@@ -40,7 +40,7 @@ public class MainStartPoint implements ApplicationRunner {
         }
 
         if (GetterSettings.getInstance().getBeanMainSettings().getProfile() == MainSettings.TypeProfiles.SERVERS) {
-            JvGetterTools.getInstance().getBeanServersTools().initServersParameters();
+            GetterTools.getInstance().getBeanServersTools().initServersParameters();
             return;
         }
         if (GetterSettings.getInstance().getBeanMainSettings().getProfile() == MainSettings.TypeProfiles.USERS) {
@@ -50,7 +50,7 @@ public class MainStartPoint implements ApplicationRunner {
             }
 
             String argsIp = args.getOptionValues("ipServer").get(0);
-            if (JvGetterTools.getInstance().getBeanMainTools().validateInputIp(argsIp)) {
+            if (GetterTools.getInstance().getBeanMainTools().validateInputIp(argsIp)) {
                 GetterSettings.getInstance().getBeanUsersInfoSettings().setIpRemoteServer(argsIp);
             } else {
                 GetterUILinks.getInstance().getBeanErrorStartUILink(
@@ -64,7 +64,7 @@ public class MainStartPoint implements ApplicationRunner {
                 return;
             }
 
-            if (JvGetterTools.getInstance().getBeanMainTools().validateInputPort(argsPort)) {
+            if (GetterTools.getInstance().getBeanMainTools().validateInputPort(argsPort)) {
                 GetterSettings.getInstance().getBeanUsersInfoSettings().setPortRemoteServer(Integer.parseInt(argsPort));
             } else {
                 GetterUILinks.getInstance().getBeanErrorStartUILink(

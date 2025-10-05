@@ -14,7 +14,7 @@ dependencies {
     implementation("io.grpc:grpc-protobuf:1.15.1")
     implementation(project(":Logger"))
     implementation(project(":GlobalDefines"))
-    implementation(project(":JvTools"))
+    implementation(project(":Tools"))
 }
 
 protobuf {

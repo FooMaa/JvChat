@@ -9,7 +9,7 @@ dependencies {
     implementation(project(":Logger"))
     implementation(project(":Events"))
     implementation(project(":GlobalDefines"))
-    implementation(project(":JvTools"))
+    implementation(project(":Tools"))
     implementation(project(":Cryptography"))
     implementation(project(":Models"))
     implementation(project(":StructObjects"))

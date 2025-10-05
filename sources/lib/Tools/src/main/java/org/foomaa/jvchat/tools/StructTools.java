@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 
-public class JvStructTools {
-    JvStructTools() {}
+public class StructTools {
+    StructTools() {}
 
     public <TYPE_KEY, TYPE_VALUE> List<Map<TYPE_KEY, TYPE_VALUE>> objectInListMaps(Object object,
                                                                                    Class<TYPE_KEY> clazzKey,

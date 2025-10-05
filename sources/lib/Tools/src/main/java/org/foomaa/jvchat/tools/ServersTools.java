@@ -10,8 +10,8 @@ import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.settings.GetterSettings;
 
 
-public class JvServersTools {
-    JvServersTools() {}
+public class ServersTools {
+    ServersTools() {}
 
     public void initServersParameters() {
         Scanner in = new Scanner(System.in);
@@ -19,7 +19,7 @@ public class JvServersTools {
         Log.write(Log.TypeLog.Info, "Set the IP-address or push \"Enter\" for default value (default value \"auto\"): ");
         while (true) {
             String ip = in.nextLine();
-            if (JvGetterTools.getInstance().getBeanMainTools().validateInputIp(ip)) {
+            if (GetterTools.getInstance().getBeanMainTools().validateInputIp(ip)) {
                 setIpToSettings(ip);
                 break;
             } else {
@@ -30,7 +30,7 @@ public class JvServersTools {
         Log.write(Log.TypeLog.Info, "Set the port or push \"Enter\" for default value (default value \"4004\"): ");
         while (true) {
             String port = in.nextLine();
-            if (JvGetterTools.getInstance().getBeanMainTools().validateInputPort(port)) {
+            if (GetterTools.getInstance().getBeanMainTools().validateInputPort(port)) {
                 if (!port.isEmpty()) {
                     GetterSettings.getInstance().getBeanServersInfoSettings().setPort(Integer.parseInt(port));
                 }

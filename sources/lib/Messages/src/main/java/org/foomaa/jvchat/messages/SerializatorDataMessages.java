@@ -7,7 +7,7 @@ import java.util.UUID;
 
 import org.foomaa.jvchat.globaldefines.DbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
-import org.foomaa.jvchat.tools.JvGetterTools;
+import org.foomaa.jvchat.tools.GetterTools;
 
 
 public class SerializatorDataMessages {
@@ -113,7 +113,7 @@ public class SerializatorDataMessages {
                 if (parameters.length == 1) {
                     Object chatsInfoObj = parameters[0];
                     List<Map<DbGlobalDefines.LineKeys, String>> chatsInfo =
-                            JvGetterTools.getInstance().getBeanStructTools()
+                            GetterTools.getInstance().getBeanStructTools()
                                     .objectInListMaps(chatsInfoObj, DbGlobalDefines.LineKeys.class, String.class);
                     return createChatsLoadReplyMessage(type, chatsInfo);
                 }
@@ -133,7 +133,7 @@ public class SerializatorDataMessages {
             case LoadUsersOnlineStatusRequest -> {
                 if (parameters.length == 1) {
                     Object uuidsObject = parameters[0];
-                    List<UUID> uuidsUsers = JvGetterTools.getInstance()
+                    List<UUID> uuidsUsers = GetterTools.getInstance()
                             .getBeanStructTools().checkedCastList(uuidsObject, UUID.class);
                     return createLoadUsersOnlineStatusRequestMessage(type, uuidsUsers);
                 }
@@ -142,9 +142,9 @@ public class SerializatorDataMessages {
                 if (parameters.length == 2) {
                     Object statusesUsersObj = parameters[0];
                     Object lastOnlineTimeUsersObj = parameters[1];
-                    Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> statusesUsersMap = JvGetterTools.getInstance()
+                    Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> statusesUsersMap = GetterTools.getInstance()
                             .getBeanStructTools().objectInMap(statusesUsersObj, UUID.class, MainChatsGlobalDefines.TypeStatusOnline.class);
-                    Map<UUID, String> lastOnlineTimeUsers = JvGetterTools.getInstance()
+                    Map<UUID, String> lastOnlineTimeUsers = GetterTools.getInstance()
                             .getBeanStructTools().objectInMap(lastOnlineTimeUsersObj, UUID.class, String.class);
                     return createLoadUsersOnlineStatusReplyMessage(type, statusesUsersMap, lastOnlineTimeUsers);
                 }
@@ -169,7 +169,7 @@ public class SerializatorDataMessages {
             case TextMessagesChangingStatusFromServer -> {
                 if (parameters.length == 1) {
                     Object mapUuidStatus = parameters[0];
-                    Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = JvGetterTools.getInstance()
+                    Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = GetterTools.getInstance()
                             .getBeanStructTools().objectInMap(mapUuidStatus, UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
                     return createTextMessageChangingStatusFromServerMessage(type, mapStatusesMessages);
                 }
@@ -183,7 +183,7 @@ public class SerializatorDataMessages {
             case TextMessagesChangingStatusFromUser -> {
                 if (parameters.length == 1) {
                     Object mapUuidStatus = parameters[0];
-                    Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = JvGetterTools.getInstance()
+                    Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = GetterTools.getInstance()
                             .getBeanStructTools().objectInMap(mapUuidStatus, UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
                     return createTextMessageChangingStatusFromUserMessage(type, mapStatusesMessages);
                 }
@@ -222,7 +222,7 @@ public class SerializatorDataMessages {
                 if (parameters.length == 1) {
                     Object messagesInfoObj = parameters[0];
                     List<Map<DbGlobalDefines.LineKeys, String>> messagesInfo =
-                            JvGetterTools.getInstance().getBeanStructTools()
+                            GetterTools.getInstance().getBeanStructTools()
                                     .objectInListMaps(messagesInfoObj, DbGlobalDefines.LineKeys.class, String.class);
                     return createMessagesLoadReplyMessage(type, messagesInfo);
                 }

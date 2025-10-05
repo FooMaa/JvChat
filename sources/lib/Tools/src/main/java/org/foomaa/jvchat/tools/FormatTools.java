@@ -9,8 +9,8 @@ import java.util.regex.Pattern;
 import org.foomaa.jvchat.logger.Log;
 
 
-public class JvFormatTools {
-    JvFormatTools() {}
+public class FormatTools {
+    FormatTools() {}
 
     private String normalizeMillisecond(String timestamp, int normalizeCount) {
         String resultTimestamp;
@@ -63,7 +63,7 @@ public class JvFormatTools {
         }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
-        String timestampString = JvGetterTools.getInstance().getBeanFormatTools()
+        String timestampString = GetterTools.getInstance().getBeanFormatTools()
                 .normalizeMillisecond(timestampStr, normalizeCount);
 
         if (timestampString == null) {

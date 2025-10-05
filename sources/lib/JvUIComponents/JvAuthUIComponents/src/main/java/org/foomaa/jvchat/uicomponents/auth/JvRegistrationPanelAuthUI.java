@@ -13,7 +13,7 @@ import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.settings.GetterSettings;
-import org.foomaa.jvchat.tools.JvGetterTools;
+import org.foomaa.jvchat.tools.GetterTools;
 
 
 public class JvRegistrationPanelAuthUI extends JPanel {
@@ -157,7 +157,7 @@ public class JvRegistrationPanelAuthUI extends JPanel {
             fields.add("\"Login\"");
         }
         if (Objects.equals(tEmail.getInputText(), "") ||
-                !JvGetterTools.getInstance().getBeanUsersTools().validateInputEmail(tEmail.getInputText())) {
+                !GetterTools.getInstance().getBeanUsersTools().validateInputEmail(tEmail.getInputText())) {
             tEmail.setErrorBorder(true);
             fields.add("\"Email\"");
         }

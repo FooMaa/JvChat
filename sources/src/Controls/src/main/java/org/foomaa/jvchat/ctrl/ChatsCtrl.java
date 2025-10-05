@@ -13,7 +13,7 @@ import org.foomaa.jvchat.models.GetterModels;
 import org.foomaa.jvchat.structobjects.ChatStructObject;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
 import org.foomaa.jvchat.structobjects.UserStructObject;
-import org.foomaa.jvchat.tools.JvGetterTools;
+import org.foomaa.jvchat.tools.GetterTools;
 
 
 public class ChatsCtrl {
@@ -36,7 +36,7 @@ public class ChatsCtrl {
             Boolean isLoginSentLastMessage = (Boolean) chat.get(DefinesMessages.TypeData.IsLoginSentLastMessage);
             MainChatsGlobalDefines.TypeStatusMessage statusMessage =
                     (MainChatsGlobalDefines.TypeStatusMessage) chat.get(DefinesMessages.TypeData.StatusMessage);
-            LocalDateTime timestampLastMessage = JvGetterTools.getInstance().getBeanFormatTools()
+            LocalDateTime timestampLastMessage = GetterTools.getInstance().getBeanFormatTools()
                     .stringToLocalDateTime((String) chat.get(DefinesMessages.TypeData.Timestamp), normalizeTimestampCount);
 
             if (timestampLastMessage == null) {
@@ -57,7 +57,7 @@ public class ChatsCtrl {
     public void setLastOnlineTimeUsersByStrings(Map<UUID, String> lastOnlineTimeUsers) {
         int normalizeTimestampCount = 3;
         for (UUID uuidUser : lastOnlineTimeUsers.keySet()) {
-            LocalDateTime timestamp = JvGetterTools.getInstance().getBeanFormatTools()
+            LocalDateTime timestamp = GetterTools.getInstance().getBeanFormatTools()
                     .stringToLocalDateTime(lastOnlineTimeUsers.get(uuidUser), normalizeTimestampCount);
             chatsModel.setTimestampLastOnlineToUser(uuidUser, timestamp);
         }

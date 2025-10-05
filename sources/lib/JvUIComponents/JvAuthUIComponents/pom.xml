@@ -46,7 +46,7 @@
 
         <dependency>
             <groupId>org.foomaa.jvchat.tools</groupId>
-            <artifactId>JvTools</artifactId>
+            <artifactId>Tools</artifactId>
             <version>${project.version}</version>
         </dependency>
 

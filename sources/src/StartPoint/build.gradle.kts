@@ -10,7 +10,7 @@ var PROFILE = ""
 dependencies {
     implementation(project(":Controls"))
     implementation(project(":UILinks"))
-    implementation(project(":JvTools"))
+    implementation(project(":Tools"))
     implementation(project(":Settings"))
 }
 

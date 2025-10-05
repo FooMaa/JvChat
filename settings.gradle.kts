@@ -4,8 +4,8 @@ rootProject.name = "JvChat"
 
 include("Settings")
 project(":Settings").projectDir = File("sources/lib/Settings")
-include("JvTools")
-project(":JvTools").projectDir = File("sources/lib/JvTools")
+include("Tools")
+project(":Tools").projectDir = File("sources/lib/Tools")
 include("Cryptography")
 project(":Cryptography").projectDir = File("sources/lib/Cryptography")
 include("Logger")

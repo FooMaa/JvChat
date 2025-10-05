@@ -12,7 +12,7 @@ import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.settings.GetterSettings;
-import org.foomaa.jvchat.tools.JvGetterTools;
+import org.foomaa.jvchat.tools.GetterTools;
 
 
 public class JvResetPasswordPanelAuthUI extends JPanel {
@@ -119,7 +119,7 @@ public class JvResetPasswordPanelAuthUI extends JPanel {
         tErrorHelpInfo.setText("");
 
         if (Objects.equals(tEmail.getInputText(), "") ||
-                !JvGetterTools.getInstance().getBeanUsersTools().validateInputEmail(tEmail.getInputText())) {
+                !GetterTools.getInstance().getBeanUsersTools().validateInputEmail(tEmail.getInputText())) {
             tEmail.setErrorBorder(true);
             tErrorHelpInfo.setText("The \"Email\" field must be completed or corrected");
             return false;

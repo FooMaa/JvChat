@@ -5,7 +5,7 @@ dependencies {
     implementation(project(":Controls"))
     implementation(project(":Settings"))
     implementation(project(":Messages"))
-    implementation(project(":JvTools"))
+    implementation(project(":Tools"))
     implementation(project(":Logger"))
     implementation(project(":Events"))
     implementation(project(":GlobalDefines"))

@@ -14,7 +14,7 @@ import org.foomaa.jvchat.settings.GetterSettings;
 import org.foomaa.jvchat.structobjects.ChatStructObject;
 import org.foomaa.jvchat.structobjects.GetterStructObjects;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
-import org.foomaa.jvchat.tools.JvGetterTools;
+import org.foomaa.jvchat.tools.GetterTools;
 
 
 public class MessagesDialogCtrl {
@@ -79,7 +79,7 @@ public class MessagesDialogCtrl {
             String text = (String) msg.get(DefinesMessages.TypeData.TextMessage);
             MainChatsGlobalDefines.TypeStatusMessage statusMessage = MainChatsGlobalDefines.TypeStatusMessage
                     .getTypeStatusMessage((Integer) msg.get(DefinesMessages.TypeData.StatusMessage));
-            LocalDateTime timestampMessage = JvGetterTools.getInstance()
+            LocalDateTime timestampMessage = GetterTools.getInstance()
                     .getBeanFormatTools().stringToLocalDateTime(
                             (String) msg.get(DefinesMessages.TypeData.Timestamp), normalizeCountTimestamp);
 
@@ -102,7 +102,7 @@ public class MessagesDialogCtrl {
     }
 
     private void sendNewMessage(MessageStructObject message) {
-        String timestampNewMessage = JvGetterTools.getInstance().getBeanFormatTools()
+        String timestampNewMessage = GetterTools.getInstance().getBeanFormatTools()
                 .localDateTimeToString(message.getTimestamp());
 
         GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
@@ -162,7 +162,7 @@ public class MessagesDialogCtrl {
             return;
         }
 
-        String timestampMessage = JvGetterTools.getInstance().getBeanFormatTools()
+        String timestampMessage = GetterTools.getInstance().getBeanFormatTools()
                 .localDateTimeToString(messageStructObject.getTimestamp());
 
         GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
