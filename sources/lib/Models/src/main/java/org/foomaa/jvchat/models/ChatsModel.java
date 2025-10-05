@@ -9,10 +9,10 @@ import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.structobjects.*;
 
 
-public class JvChatsModel extends JvBaseModel {
+public class ChatsModel extends BaseModel {
     private UUID currentActiveChatUuid;
 
-    JvChatsModel() {
+    ChatsModel() {
         setRootObject(JvGetterStructObjects.getInstance()
                 .getBeanRootStructObject(getNameModel()));
         currentActiveChatUuid = null;
@@ -39,7 +39,7 @@ public class JvChatsModel extends JvBaseModel {
         JvUserStructObject userChat = JvGetterStructObjects.getInstance().getBeanUserStructObject();
         userChat.setLogin(login);
         userChat.setUuid(uuidUser);
-        JvGetterModels.getInstance().getBeanUsersModel().addCreatedUser(userChat);
+        GetterModels.getInstance().getBeanUsersModel().addCreatedUser(userChat);
 
         UUID uuidSender = isLoginSentLastMessage ? uuidUser : JvGetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
         UUID uuidReceiver = isLoginSentLastMessage ? JvGetterSettings.getInstance().getBeanUsersInfoSettings().getUuid() : uuidUser;

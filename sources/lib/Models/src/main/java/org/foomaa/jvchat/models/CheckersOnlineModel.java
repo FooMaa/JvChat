@@ -8,8 +8,8 @@ import java.util.UUID;
 import org.foomaa.jvchat.structobjects.*;
 
 
-public class JvCheckersOnlineModel extends JvBaseModel {
-    JvCheckersOnlineModel() {
+public class CheckersOnlineModel extends BaseModel {
+    CheckersOnlineModel() {
         setRootObject(JvGetterStructObjects.getInstance()
                 .getBeanRootStructObject(getNameModel()));
     }
@@ -19,7 +19,7 @@ public class JvCheckersOnlineModel extends JvBaseModel {
                 JvGetterStructObjects.getInstance().getBeanCheckerOnlineStructObject();
 
         JvUserStructObject userStructObject =
-                JvGetterModels.getInstance().getBeanUsersModel().findCreateUserStructObjectByUuidUser(uuidUser);
+                GetterModels.getInstance().getBeanUsersModel().findCreateUserStructObjectByUuidUser(uuidUser);
 
         checkerOnlineStructObject.setUser(userStructObject);
         checkerOnlineStructObject.setDateTimeUpdating(dateTimeUpdating);
@@ -32,7 +32,7 @@ public class JvCheckersOnlineModel extends JvBaseModel {
                 JvGetterStructObjects.getInstance().getBeanCheckerOnlineStructObject();
 
         JvSocketRunnableCtrlStructObject socketRunnableCtrlStructObject =
-                JvGetterModels.getInstance().getBeanSocketRunnableCtrlModel().findCreateSocketRunnableCtrlStructObjectByRunnable(runnable);
+                GetterModels.getInstance().getBeanSocketRunnableCtrlModel().findCreateSocketRunnableCtrlStructObjectByRunnable(runnable);
 
         checkerOnlineStructObject.setSocketRunnableCtrlStructObject(socketRunnableCtrlStructObject);
         checkerOnlineStructObject.setIsSending(isSending);
@@ -47,9 +47,9 @@ public class JvCheckersOnlineModel extends JvBaseModel {
                 JvGetterStructObjects.getInstance().getBeanCheckerOnlineStructObject();
 
         JvUserStructObject userStructObject =
-                JvGetterModels.getInstance().getBeanUsersModel().findCreateUserStructObjectByUuidUser(uuidUser);
+                GetterModels.getInstance().getBeanUsersModel().findCreateUserStructObjectByUuidUser(uuidUser);
         JvSocketRunnableCtrlStructObject socketRunnableCtrlStructObject =
-                JvGetterModels.getInstance().getBeanSocketRunnableCtrlModel().findCreateSocketRunnableCtrlStructObjectByRunnable(runnable);
+                GetterModels.getInstance().getBeanSocketRunnableCtrlModel().findCreateSocketRunnableCtrlStructObjectByRunnable(runnable);
         
         checkerOnlineStructObject.setUser(userStructObject);
         checkerOnlineStructObject.setSocketRunnableCtrlStructObject(socketRunnableCtrlStructObject);

@@ -8,8 +8,8 @@ import org.foomaa.jvchat.structobjects.JvUserStructObject;
 import java.util.UUID;
 
 
-public class JvUsersModel extends JvBaseModel {
-    JvUsersModel() {
+public class UsersModel extends BaseModel {
+    UsersModel() {
         setRootObject(JvGetterStructObjects.getInstance()
                 .getBeanRootStructObject(getNameModel()));
     }

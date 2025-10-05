@@ -9,10 +9,10 @@
     </parent>
 
     <groupId>org.foomaa.jvchat.models</groupId>
-    <artifactId>JvModels</artifactId>
+    <artifactId>Models</artifactId>
     <packaging>jar</packaging>
 
-    <name>JvModels</name>
+    <name>Models</name>
 
     <dependencies>
         <dependency>

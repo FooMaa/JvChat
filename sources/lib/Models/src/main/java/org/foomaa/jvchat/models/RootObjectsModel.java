@@ -3,8 +3,8 @@ package org.foomaa.jvchat.models;
 import org.foomaa.jvchat.structobjects.JvGetterStructObjects;
 
 
-public class JvRootObjectsModel extends JvBaseModel {
-    JvRootObjectsModel() {
+public class RootObjectsModel extends BaseModel {
+    RootObjectsModel() {
         setRootObject(JvGetterStructObjects.getInstance()
                 .getBeanRootStructObject(getNameModel()));
     }

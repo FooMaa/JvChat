@@ -12,8 +12,8 @@ import java.util.Objects;
 import java.util.UUID;
 
 
-public class JvConnectionsEventsModel extends JvBaseModel {
-    JvConnectionsEventsModel() {
+public class ConnectionsEventsModel extends BaseModel {
+    ConnectionsEventsModel() {
         setRootObject(JvGetterStructObjects.getInstance()
                 .getBeanRootStructObject(getNameModel()));
     }

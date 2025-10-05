@@ -25,7 +25,7 @@
         <module>sources/lib/GlobalDefines</module>
         <module>sources/lib/Messages</module>
         <module>sources/lib/Events</module>
-        <module>sources/lib/JvModels</module>
+        <module>sources/lib/Models</module>
         <module>sources/lib/JvStructObjects</module>
         <module>sources/src/StartPoint</module>
         <module>sources/src/UILinks</module>

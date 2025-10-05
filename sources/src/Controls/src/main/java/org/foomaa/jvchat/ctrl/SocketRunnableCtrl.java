@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.net.Socket;
 
 import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.models.JvGetterModels;
+import org.foomaa.jvchat.models.GetterModels;
 
 
 /* NOTE(VAD): here it is done so that the tasks of the server and the user
@@ -22,7 +22,7 @@ public class SocketRunnableCtrl implements Runnable {
     private int errorsConnection;
 
     SocketRunnableCtrl(Socket socket) {
-        JvGetterModels.getInstance().getBeanSocketRunnableCtrlModel().createSocketRunnableCtrlStructObject(this);
+        GetterModels.getInstance().getBeanSocketRunnableCtrlModel().createSocketRunnableCtrlStructObject(this);
 
         try {
             sendStream = new DataOutputStream(socket.getOutputStream());

@@ -1,7 +1,7 @@
 package org.foomaa.jvchat.events;
 
-import org.foomaa.jvchat.models.JvConnectionsEventsModel;
-import org.foomaa.jvchat.models.JvGetterModels;
+import org.foomaa.jvchat.models.ConnectionsEventsModel;
+import org.foomaa.jvchat.models.GetterModels;
 import org.foomaa.jvchat.structobjects.JvConnectionEventStructObject;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -9,10 +9,10 @@ import java.util.*;
 
 
 public class MakerEvents {
-    private final JvConnectionsEventsModel connectionsEventsModel;
+    private final ConnectionsEventsModel connectionsEventsModel;
 
     MakerEvents() {
-        connectionsEventsModel = JvGetterModels.getInstance().getBeanConnectionsEventsModel();
+        connectionsEventsModel = GetterModels.getInstance().getBeanConnectionsEventsModel();
     }
 
     public void event(Object objectSender, String customNameEvent, Object... data) {

@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public abstract class JvBaseModel {
+public abstract class BaseModel {
     private JvRootStructObject rootObject;
     private final String nameModel;
 
-    JvBaseModel() {
+    BaseModel() {
         nameModel = getClass().getSimpleName();
         rootObject = null;
     }
@@ -62,15 +62,15 @@ public abstract class JvBaseModel {
     }
 
     private void updateRootObjectsModel() {
-        if (getClass() == JvRootObjectsModel.class) {
+        if (getClass() == RootObjectsModel.class) {
             return;
         }
 
         JvRootStructObject rootStructObjectRootModel =
-                (JvRootStructObject) JvGetterModels.getInstance().getBeanRootObjectsModel().getRootObject();
+                (JvRootStructObject) GetterModels.getInstance().getBeanRootObjectsModel().getRootObject();
 
         if (rootObject != null &&  rootObject != rootStructObjectRootModel) {
-            JvGetterModels.getInstance().getBeanRootObjectsModel().addItem(rootObject, rootStructObjectRootModel);
+            GetterModels.getInstance().getBeanRootObjectsModel().addItem(rootObject, rootStructObjectRootModel);
         }
     }
 

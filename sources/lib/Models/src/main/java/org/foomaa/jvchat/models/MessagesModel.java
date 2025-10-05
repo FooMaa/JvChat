@@ -11,8 +11,8 @@ import org.foomaa.jvchat.structobjects.JvGetterStructObjects;
 import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 
 
-public class JvMessagesModel extends JvBaseModel {
-    JvMessagesModel() {
+public class MessagesModel extends BaseModel {
+    MessagesModel() {
         setRootObject(JvGetterStructObjects.getInstance()
                 .getBeanRootStructObject(getNameModel()));
     }

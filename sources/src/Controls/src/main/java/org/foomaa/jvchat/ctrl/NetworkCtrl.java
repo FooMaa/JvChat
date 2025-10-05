@@ -9,8 +9,8 @@ import java.net.Socket;
 import java.util.List;
 
 import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.models.JvGetterModels;
-import org.foomaa.jvchat.models.JvSocketRunnableCtrlModel;
+import org.foomaa.jvchat.models.GetterModels;
+import org.foomaa.jvchat.models.SocketRunnableCtrlModel;
 import org.foomaa.jvchat.network.UsersSocket;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.settings.JvMainSettings;
@@ -108,8 +108,8 @@ public class NetworkCtrl {
     }
 
     private void controlErrorConnectionSocket() {
-        JvSocketRunnableCtrlModel socketRunnableCtrlModel =
-                JvGetterModels.getInstance().getBeanSocketRunnableCtrlModel();
+        SocketRunnableCtrlModel socketRunnableCtrlModel =
+                GetterModels.getInstance().getBeanSocketRunnableCtrlModel();
         List<JvSocketRunnableCtrlStructObject> listAllConnections =
                 socketRunnableCtrlModel.getAllSocketRunnableCtrlStructObject();
 

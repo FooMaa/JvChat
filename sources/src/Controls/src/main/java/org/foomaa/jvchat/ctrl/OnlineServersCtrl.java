@@ -8,9 +8,9 @@ import org.foomaa.jvchat.globaldefines.DbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.messages.DefinesMessages;
-import org.foomaa.jvchat.models.JvCheckersOnlineModel;
-import org.foomaa.jvchat.models.JvGetterModels;
-import org.foomaa.jvchat.models.JvSocketRunnableCtrlModel;
+import org.foomaa.jvchat.models.CheckersOnlineModel;
+import org.foomaa.jvchat.models.GetterModels;
+import org.foomaa.jvchat.models.SocketRunnableCtrlModel;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.structobjects.JvCheckerOnlineStructObject;
 import org.foomaa.jvchat.structobjects.JvSocketRunnableCtrlStructObject;
@@ -20,10 +20,10 @@ import org.foomaa.jvchat.structobjects.JvUserStructObject;
 public class OnlineServersCtrl {
     private final int intervalMilliSecondsAfterLastSending;
     private final int intervalMilliSecondsAfterLastUpdate;
-    private final JvCheckersOnlineModel checkersOnlineModel;
+    private final CheckersOnlineModel checkersOnlineModel;
 
     OnlineServersCtrl() {
-        checkersOnlineModel = JvGetterModels.getInstance().getBeanCheckersOnlineModel();
+        checkersOnlineModel = GetterModels.getInstance().getBeanCheckersOnlineModel();
         intervalMilliSecondsAfterLastSending = 10000;
         intervalMilliSecondsAfterLastUpdate = 30000;
     }
@@ -152,9 +152,9 @@ public class OnlineServersCtrl {
         }
 
         JvUserStructObject userStructObject =
-                JvGetterModels.getInstance().getBeanUsersModel().findCreateUserStructObjectByUuidUser(uuidUser);
+                GetterModels.getInstance().getBeanUsersModel().findCreateUserStructObjectByUuidUser(uuidUser);
         JvSocketRunnableCtrlStructObject socketRunnableCtrlStructObject =
-                JvGetterModels.getInstance().getBeanSocketRunnableCtrlModel().findCreateSocketRunnableCtrlStructObjectByRunnable(runnableFrom);
+                GetterModels.getInstance().getBeanSocketRunnableCtrlModel().findCreateSocketRunnableCtrlStructObjectByRunnable(runnableFrom);
 
         onlineUser.setUser(userStructObject);
         onlineUser.setSocketRunnableCtrlStructObject(socketRunnableCtrlStructObject);
@@ -176,7 +176,7 @@ public class OnlineServersCtrl {
     }
 
     private void listeningPackage() {
-        JvSocketRunnableCtrlModel socketRunnableCtrlModel = JvGetterModels.getInstance().getBeanSocketRunnableCtrlModel();
+        SocketRunnableCtrlModel socketRunnableCtrlModel = GetterModels.getInstance().getBeanSocketRunnableCtrlModel();
         if (socketRunnableCtrlModel.isEmpty()) {
             try {
                 Thread.sleep(intervalMilliSecondsAfterLastSending);

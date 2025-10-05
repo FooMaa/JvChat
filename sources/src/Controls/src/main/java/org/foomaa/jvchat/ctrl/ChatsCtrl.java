@@ -8,8 +8,8 @@ import java.util.*;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.messages.DefinesMessages;
-import org.foomaa.jvchat.models.JvChatsModel;
-import org.foomaa.jvchat.models.JvGetterModels;
+import org.foomaa.jvchat.models.ChatsModel;
+import org.foomaa.jvchat.models.GetterModels;
 import org.foomaa.jvchat.structobjects.JvChatStructObject;
 import org.foomaa.jvchat.structobjects.JvMessageStructObject;
 import org.foomaa.jvchat.structobjects.JvUserStructObject;
@@ -17,10 +17,10 @@ import org.foomaa.jvchat.tools.JvGetterTools;
 
 
 public class ChatsCtrl {
-    private final JvChatsModel chatsModel;
+    private final ChatsModel chatsModel;
 
     ChatsCtrl() {
-        chatsModel = JvGetterModels.getInstance().getBeanChatsModel();
+        chatsModel = GetterModels.getInstance().getBeanChatsModel();
     }
 
     public void createChatsObjects(List<Map<DefinesMessages.TypeData, Object>> chatsInfo) {

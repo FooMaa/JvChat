@@ -8,7 +8,7 @@ import org.springframework.context.annotation.*;
  * which are used to save all root models.
  */
 @Configuration
-class JvModelsSpringConfig {
+class ModelsSpringConfig {
     public enum NameBeans {
         BeanRootObjectsModel("beanRootObjectsModel"),
         BeanMessagesModel("beanMessagesModel"),
@@ -32,55 +32,55 @@ class JvModelsSpringConfig {
     @Bean(name = "beanRootObjectsModel")
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvRootObjectsModel beanRootObjectsModel() {
-        return new JvRootObjectsModel();
+    public RootObjectsModel beanRootObjectsModel() {
+        return new RootObjectsModel();
     }
 
     @Bean(name = "beanMessagesModel")
     @Lazy
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvMessagesModel beanMessagesModel() {
-        return new JvMessagesModel();
+    public MessagesModel beanMessagesModel() {
+        return new MessagesModel();
     }
 
     @Bean(name = "beanChatsModel")
     @Lazy
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvChatsModel beanChatsModel() {
-        return new JvChatsModel();
+    public ChatsModel beanChatsModel() {
+        return new ChatsModel();
     }
 
     @Bean(name = "beanCheckersOnlineModel")
     @Lazy
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvCheckersOnlineModel beanCheckersOnlineModel() {
-        return new JvCheckersOnlineModel();
+    public CheckersOnlineModel beanCheckersOnlineModel() {
+        return new CheckersOnlineModel();
     }
 
     @Bean(name = "beanSocketRunnableCtrlModel")
     @Lazy
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvSocketRunnableCtrlModel beanSocketRunnableCtrlModel() {
-        return new JvSocketRunnableCtrlModel();
+    public SocketRunnableCtrlModel beanSocketRunnableCtrlModel() {
+        return new SocketRunnableCtrlModel();
     }
 
     @Bean(name = "beanUsersModel")
     @Lazy
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvUsersModel beanUsersModel() {
-        return new JvUsersModel();
+    public UsersModel beanUsersModel() {
+        return new UsersModel();
     }
 
     @Bean(name = "beanConnectionsEventsModel")
     @Lazy
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvConnectionsEventsModel beanConnectionsEventsModel() {
-        return new JvConnectionsEventsModel();
+    public ConnectionsEventsModel beanConnectionsEventsModel() {
+        return new ConnectionsEventsModel();
     }
 }

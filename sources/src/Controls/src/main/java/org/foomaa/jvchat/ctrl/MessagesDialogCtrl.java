@@ -7,9 +7,9 @@ import java.util.*;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.messages.DefinesMessages;
-import org.foomaa.jvchat.models.JvChatsModel;
-import org.foomaa.jvchat.models.JvGetterModels;
-import org.foomaa.jvchat.models.JvMessagesModel;
+import org.foomaa.jvchat.models.ChatsModel;
+import org.foomaa.jvchat.models.GetterModels;
+import org.foomaa.jvchat.models.MessagesModel;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.structobjects.JvChatStructObject;
 import org.foomaa.jvchat.structobjects.JvGetterStructObjects;
@@ -18,12 +18,12 @@ import org.foomaa.jvchat.tools.JvGetterTools;
 
 
 public class MessagesDialogCtrl {
-    private final JvMessagesModel messagesModel;
-    private final JvChatsModel chatsModel;
+    private final MessagesModel messagesModel;
+    private final ChatsModel chatsModel;
 
     MessagesDialogCtrl() {
-        messagesModel = JvGetterModels.getInstance().getBeanMessagesModel();
-        chatsModel = JvGetterModels.getInstance().getBeanChatsModel();
+        messagesModel = GetterModels.getInstance().getBeanMessagesModel();
+        chatsModel = GetterModels.getInstance().getBeanChatsModel();
     }
 
     public void setCurrentActiveChatUuid(UUID newUuidChat) {

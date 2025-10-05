@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class JvSocketRunnableCtrlModel extends JvBaseModel {
-    JvSocketRunnableCtrlModel() {
+public class SocketRunnableCtrlModel extends BaseModel {
+    SocketRunnableCtrlModel() {
         setRootObject(JvGetterStructObjects.getInstance()
                 .getBeanRootStructObject(getNameModel()));
     }
