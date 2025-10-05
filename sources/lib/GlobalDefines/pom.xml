@@ -12,7 +12,7 @@
     <artifactId>GlobalDefines</artifactId>
     <packaging>jar</packaging>
 
-    <name>JvGlobalDefines</name>
+    <name>GlobalDefines</name>
 
     <build>
         <resources>
