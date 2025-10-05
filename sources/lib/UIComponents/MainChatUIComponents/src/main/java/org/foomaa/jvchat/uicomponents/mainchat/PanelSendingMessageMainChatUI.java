@@ -10,13 +10,13 @@ import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
 
 
-public class JvPanelSendingMessageMainChatUI extends JPanel {
-    private final JvSendingTextAreaScrollMainChatUI sendingTextAreaScroll;
+public class PanelSendingMessageMainChatUI extends JPanel {
+    private final SendingTextAreaScrollMainChatUI sendingTextAreaScroll;
     private final JButton sendButton;
 
-    JvPanelSendingMessageMainChatUI() {
-        sendingTextAreaScroll = JvGetterMainChatUIComponents.getInstance().getBeanSendingTextAreaScrollMainChatUI();
-        sendButton = JvGetterMainChatUIComponents.getInstance().getBeanSendButtonMainChatUI("Отправить");
+    PanelSendingMessageMainChatUI() {
+        sendingTextAreaScroll = GetterMainChatUIComponents.getInstance().getBeanSendingTextAreaScrollMainChatUI();
+        sendButton = GetterMainChatUIComponents.getInstance().getBeanSendButtonMainChatUI("Отправить");
 
         settingPanel();
         addListenerToElements();
@@ -64,7 +64,7 @@ public class JvPanelSendingMessageMainChatUI extends JPanel {
                 Log.write(Log.TypeLog.Error, "Не создано сообщение для отправки, не отправлено...");
                 return;
             }
-            JvGetterMainChatUIComponents.getInstance().getBeanScrollPanelMessagesMainChatUI().addMessage(messageObj);
+            GetterMainChatUIComponents.getInstance().getBeanScrollPanelMessagesMainChatUI().addMessage(messageObj);
         }
     }
 
@@ -72,10 +72,10 @@ public class JvPanelSendingMessageMainChatUI extends JPanel {
         UUID selectedUuid = GetterControls.getInstance().getBeanMessagesDialogCtrl().getCurrentActiveChatUuid();
         MessageStructObject message = GetterControls.getInstance().getBeanChatsCtrl().getMessageObjectByUuidChat(selectedUuid);
 
-        Box boxComponents = JvGetterMainChatUIComponents.getInstance().getBeanScrollPanelChatsMainChatUI().getBoxComponents();
+        Box boxComponents = GetterMainChatUIComponents.getInstance().getBeanScrollPanelChatsMainChatUI().getBoxComponents();
 
         for (Component component : boxComponents.getComponents()) {
-            JvRectChatMainChatUI rectChatMainChatUI = (JvRectChatMainChatUI) component;
+            RectChatMainChatUI rectChatMainChatUI = (RectChatMainChatUI) component;
             UUID uuid = rectChatMainChatUI.getUuidChat();
             if (uuid.equals(selectedUuid)) {
                 boxComponents.remove(rectChatMainChatUI);

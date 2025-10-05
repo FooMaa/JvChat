@@ -13,12 +13,12 @@ import java.util.List;
 import java.util.UUID;
 
 
-public class JvScrollPanelMessagesMainChatUI extends JPanel {
+public class ScrollPanelMessagesMainChatUI extends JPanel {
     private final int intervalMilliSecondsSleepUpdating;
     private JScrollPane scrollPane;
     private JPanel panel;
 
-    JvScrollPanelMessagesMainChatUI() {
+    ScrollPanelMessagesMainChatUI() {
         intervalMilliSecondsSleepUpdating = 500;
 
         makePanel();
@@ -93,7 +93,7 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
 
         // NOTE(VAD): надо для того, чтоб компоненты не растягивались
         JPanel tmpPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-        tmpPanel.add(JvGetterMainChatUIComponents.getInstance().getBeanRectMessageMainChatUI(messageObject));
+        tmpPanel.add(GetterMainChatUIComponents.getInstance().getBeanRectMessageMainChatUI(messageObject));
 
         rowPanel.add(tmpPanel, constraints);
 
@@ -182,16 +182,16 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
         GetterControls.getInstance().getBeanMessagesDefinesCtrl().setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
     }
 
-    private JvRectMessageMainChatUI findRectMessageByUuid(JPanel panelMsg, UUID uuid) {
+    private RectMessageMainChatUI findRectMessageByUuid(JPanel panelMsg, UUID uuid) {
         Component[] components = panelMsg.getComponents();
 
         for (Component component : components) {
-            if (component instanceof JvRectMessageMainChatUI rectMessage) {
+            if (component instanceof RectMessageMainChatUI rectMessage) {
                 if (rectMessage.getUuid().equals(uuid)) {
                     return rectMessage;
                 }
             } else if (component instanceof JPanel tmpPanel) {
-                JvRectMessageMainChatUI rectMsg = findRectMessageByUuid(tmpPanel, uuid);
+                RectMessageMainChatUI rectMsg = findRectMessageByUuid(tmpPanel, uuid);
                 if (rectMsg != null) {
                     return rectMsg;
                 }
@@ -205,7 +205,7 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
         List<MessageStructObject> allMessagesObjSorted = GetterControls.getInstance().getBeanMessagesDialogCtrl().getAllSortedMessages();
 
         for (MessageStructObject messageStructObject : allMessagesObjSorted) {
-            JvRectMessageMainChatUI rectMessage = findRectMessageByUuid(panel, messageStructObject.getUuid());
+            RectMessageMainChatUI rectMessage = findRectMessageByUuid(panel, messageStructObject.getUuid());
             if (rectMessage != null) {
                 rectMessage.changeStatusMessage(messageStructObject.getStatusMessage());
             }

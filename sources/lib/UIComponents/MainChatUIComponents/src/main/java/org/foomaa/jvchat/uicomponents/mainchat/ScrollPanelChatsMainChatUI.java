@@ -23,16 +23,16 @@ import org.foomaa.jvchat.structobjects.ChatStructObject;
 import org.foomaa.jvchat.structobjects.UserStructObject;
 
 
-public class JvScrollPanelChatsMainChatUI extends JPanel {
+public class ScrollPanelChatsMainChatUI extends JPanel {
     private final int intervalMilliSecondsSleepUpdating;
     private final int intervalSecondsWaitLoopUpdate;
     private Box boxComponents;
     private final String backgroundPath;
     private final String loadGifPath;
     private JLabel loadGifLabel;
-    private JvRectChatMainChatUI selectedElement;
+    private RectChatMainChatUI selectedElement;
 
-    JvScrollPanelChatsMainChatUI() {
+    ScrollPanelChatsMainChatUI() {
         intervalMilliSecondsSleepUpdating = 30000;
         intervalSecondsWaitLoopUpdate = 5;
         backgroundPath = "/MainChatMainBackground.png";
@@ -145,13 +145,13 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
         List<ChatStructObject> chatsObjects = getChatsObjects();
 
         for (ChatStructObject chat : chatsObjects) {
-            JvRectChatMainChatUI component = JvGetterMainChatUIComponents.getInstance().getBeanRectChatMainChatUI(chat);
+            RectChatMainChatUI component = GetterMainChatUIComponents.getInstance().getBeanRectChatMainChatUI(chat);
             boxComponents.add(component);
             connectSelectingElement(component);
         }
     }
 
-    private void connectSelectingElement(JvRectChatMainChatUI component) {
+    private void connectSelectingElement(RectChatMainChatUI component) {
         component.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -161,7 +161,7 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
         });
     }
 
-    private void changeSelectElement(JvRectChatMainChatUI component) {
+    private void changeSelectElement(RectChatMainChatUI component) {
         if (selectedElement != null) {
             selectedElement.setFlagSelect(false);
         }
@@ -244,7 +244,7 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
 
     private void installingUpdatingDataInRectChats() {
         for (Component component : boxComponents.getComponents()) {
-            JvRectChatMainChatUI rectChatMainChatUI = (JvRectChatMainChatUI) component;
+            RectChatMainChatUI rectChatMainChatUI = (RectChatMainChatUI) component;
 
             UUID uuidUser = rectChatMainChatUI.getUuidUser();
 

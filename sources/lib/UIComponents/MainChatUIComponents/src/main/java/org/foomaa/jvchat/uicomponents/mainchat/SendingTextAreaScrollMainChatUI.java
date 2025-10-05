@@ -3,10 +3,10 @@ package org.foomaa.jvchat.uicomponents.mainchat;
 import javax.swing.*;
 
 
-public class JvSendingTextAreaScrollMainChatUI extends JScrollPane {
+public class SendingTextAreaScrollMainChatUI extends JScrollPane {
     private final JTextArea textArea;
 
-    JvSendingTextAreaScrollMainChatUI() {
+    SendingTextAreaScrollMainChatUI() {
         textArea = new JTextArea();
         settingPane();
     }

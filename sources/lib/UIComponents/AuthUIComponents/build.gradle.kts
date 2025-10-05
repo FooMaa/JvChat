@@ -9,7 +9,7 @@ dependencies {
     implementation(project(":Logger"))
     implementation(project(":Events"))
     implementation(project(":GlobalDefines"))
-    implementation(project(":JvMainChatUIComponents"))
+    implementation(project(":MainChatUIComponents"))
 }
 
 tasks.withType<ProcessResources> {

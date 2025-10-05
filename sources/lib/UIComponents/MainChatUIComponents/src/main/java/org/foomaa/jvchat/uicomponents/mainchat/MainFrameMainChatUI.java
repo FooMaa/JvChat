@@ -13,19 +13,19 @@ import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.settings.GetterSettings;
 
 
-public class JvMainFrameMainChatUI extends JFrame {
+public class MainFrameMainChatUI extends JFrame {
     private final String backgroundPath;
     private final String loadGifPath;
     private JPanel backgroundPanel;
     private JLabel loadGifLabel;
-    private final JvTitlePanelMainChatUI titlePanel;
-    private final JvMainPanelMainChatUI mainPanel;
+    private final TitlePanelMainChatUI titlePanel;
+    private final MainPanelMainChatUI mainPanel;
 
-    JvMainFrameMainChatUI() {
+    MainFrameMainChatUI() {
         super("MainChatWindow");
 
-        mainPanel = JvGetterMainChatUIComponents.getInstance().getBeanMainPanelMainChatUI();
-        titlePanel = JvGetterMainChatUIComponents.getInstance().getBeanTitlePanelMainChatUI();
+        mainPanel = GetterMainChatUIComponents.getInstance().getBeanMainPanelMainChatUI();
+        titlePanel = GetterMainChatUIComponents.getInstance().getBeanTitlePanelMainChatUI();
         backgroundPath = "/MainChatMainBackground.png";
         loadGifPath = "/Load.gif";
 

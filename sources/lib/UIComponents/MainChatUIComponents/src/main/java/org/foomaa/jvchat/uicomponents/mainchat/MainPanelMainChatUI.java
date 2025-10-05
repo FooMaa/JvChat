@@ -4,17 +4,17 @@ import javax.swing.*;
 import java.awt.*;
 
 
-public class JvMainPanelMainChatUI extends JPanel {
-    private final JvFindTextFieldMainChatUI findTextField;
-    private final JvScrollPanelChatsMainChatUI scrollPanelChats;
-    private final JvScrollPanelMessagesMainChatUI scrollPanelMessages;
-    private final JvPanelSendingMessageMainChatUI panelSendingMessage;
+public class MainPanelMainChatUI extends JPanel {
+    private final FindTextFieldMainChatUI findTextField;
+    private final ScrollPanelChatsMainChatUI scrollPanelChats;
+    private final ScrollPanelMessagesMainChatUI scrollPanelMessages;
+    private final PanelSendingMessageMainChatUI panelSendingMessage;
 
-    JvMainPanelMainChatUI() {
-        findTextField = JvGetterMainChatUIComponents.getInstance().getBeanFindTextFieldMainChatUI("Поиск по логину");
-        scrollPanelChats = JvGetterMainChatUIComponents.getInstance().getBeanScrollPanelChatsMainChatUI();
-        scrollPanelMessages = JvGetterMainChatUIComponents.getInstance().getBeanScrollPanelMessagesMainChatUI();
-        panelSendingMessage = JvGetterMainChatUIComponents.getInstance().getBeanPanelSendingMessageMainChatUI();
+    MainPanelMainChatUI() {
+        findTextField = GetterMainChatUIComponents.getInstance().getBeanFindTextFieldMainChatUI("Поиск по логину");
+        scrollPanelChats = GetterMainChatUIComponents.getInstance().getBeanScrollPanelChatsMainChatUI();
+        scrollPanelMessages = GetterMainChatUIComponents.getInstance().getBeanScrollPanelMessagesMainChatUI();
+        panelSendingMessage = GetterMainChatUIComponents.getInstance().getBeanPanelSendingMessageMainChatUI();
 
         makePanelSetting();
         makePanelTransparent();

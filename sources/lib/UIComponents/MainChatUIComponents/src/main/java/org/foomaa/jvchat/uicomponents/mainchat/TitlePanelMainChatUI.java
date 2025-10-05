@@ -15,14 +15,14 @@ import java.io.IOException;
 import java.util.Objects;
 
 
-public class JvTitlePanelMainChatUI extends JPanel {
+public class TitlePanelMainChatUI extends JPanel {
     private final JButton closeButton;
     private final JButton minimizeButton;
     private final JLabel titleLabel;
-    private JvToolTipMainChatUI toolTipClose;
-    private JvToolTipMainChatUI toolTipMinimize;
+    private ToolTipMainChatUI toolTipClose;
+    private ToolTipMainChatUI toolTipMinimize;
 
-    JvTitlePanelMainChatUI() {
+    TitlePanelMainChatUI() {
         closeButton = new JButton() {
             @Override
             public JToolTip createToolTip() {
@@ -55,11 +55,11 @@ public class JvTitlePanelMainChatUI extends JPanel {
     }
 
     private void setToolTips() {
-        toolTipClose = JvGetterMainChatUIComponents.getInstance().getBeanToolTipMainChatUI();
+        toolTipClose = GetterMainChatUIComponents.getInstance().getBeanToolTipMainChatUI();
         closeButton.createToolTip();
         closeButton.setToolTipText("Close");
 
-        toolTipMinimize = JvGetterMainChatUIComponents.getInstance().getBeanToolTipMainChatUI();
+        toolTipMinimize = GetterMainChatUIComponents.getInstance().getBeanToolTipMainChatUI();
         minimizeButton.createToolTip();
         minimizeButton.setToolTipText("Minimize");
     }

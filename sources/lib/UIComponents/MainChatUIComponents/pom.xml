@@ -9,15 +9,15 @@
     </parent>
 
     <groupId>org.foomaa.jvchat.uicomponents.mainchat</groupId>
-    <artifactId>JvMainChatUIComponents</artifactId>
+    <artifactId>MainChatUIComponents</artifactId>
     <packaging>jar</packaging>
 
-    <name>JvMainChatUIComponents</name>
+    <name>MainChatUIComponents</name>
 
     <build>
         <resources>
             <resource>
-                <directory>../../../res/JvMainChatUIComponents/icons/</directory>
+                <directory>../../../res/MainChatUIComponents/icons/</directory>
             </resource>
             <resource>
                 <directory>../../../res/AllDefaultsRes/icons/</directory>

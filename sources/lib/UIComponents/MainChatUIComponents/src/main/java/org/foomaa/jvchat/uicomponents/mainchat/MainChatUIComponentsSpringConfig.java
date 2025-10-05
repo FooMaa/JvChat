@@ -7,7 +7,7 @@ import org.foomaa.jvchat.structobjects.ChatStructObject;
 
 
 @Configuration
-class JvMainChatUIComponentsSpringConfig {
+class MainChatUIComponentsSpringConfig {
     public enum NameBeans {
         BeanMainFrameMainChatUI("beanMainFrameMainChatUI"),
         BeanScrollPanelChatsMainChatUI("beanScrollPanelChatsMainChatUI"),
@@ -37,95 +37,95 @@ class JvMainChatUIComponentsSpringConfig {
     @Lazy
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvMainFrameMainChatUI beanMainFrameMainChatUI() {
-        return new JvMainFrameMainChatUI();
+    public MainFrameMainChatUI beanMainFrameMainChatUI() {
+        return new MainFrameMainChatUI();
     }
 
     @Bean(name = "beanScrollPanelChatsMainChatUI")
     @Lazy
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvScrollPanelChatsMainChatUI beanScrollPanelChatsMainChatUI() {
-        return new JvScrollPanelChatsMainChatUI();
+    public ScrollPanelChatsMainChatUI beanScrollPanelChatsMainChatUI() {
+        return new ScrollPanelChatsMainChatUI();
     }
 
     @Bean(name = "beanScrollPanelMessagesMainChatUI")
     @Lazy
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvScrollPanelMessagesMainChatUI beanScrollPanelMessagesMainChatUI() {
-        return new JvScrollPanelMessagesMainChatUI();
+    public ScrollPanelMessagesMainChatUI beanScrollPanelMessagesMainChatUI() {
+        return new ScrollPanelMessagesMainChatUI();
     }
 
     @Bean(name = "beanTitlePanelMainChatUI")
     @Lazy
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvTitlePanelMainChatUI beanTitlePanelMainChatUI() {
-        return new JvTitlePanelMainChatUI();
+    public TitlePanelMainChatUI beanTitlePanelMainChatUI() {
+        return new TitlePanelMainChatUI();
     }
 
     @Bean(name = "beanMainPanelMainChatUI")
     @Lazy
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvMainPanelMainChatUI beanMainPanelMainChatUI() {
-        return new JvMainPanelMainChatUI();
+    public MainPanelMainChatUI beanMainPanelMainChatUI() {
+        return new MainPanelMainChatUI();
     }
 
     @Bean(name = "beanRectMessageMainChatUI")
     @Lazy
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvRectMessageMainChatUI beanRectMessageMainChatUI(MessageStructObject messageObject) {
-        return new JvRectMessageMainChatUI(messageObject);
+    public RectMessageMainChatUI beanRectMessageMainChatUI(MessageStructObject messageObject) {
+        return new RectMessageMainChatUI(messageObject);
     }
 
     @Bean(name = "beanRectChatMainChatUI")
     @Lazy
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvRectChatMainChatUI beanRectChatMainChatUI(ChatStructObject chatObject) {
-        return new JvRectChatMainChatUI(chatObject);
+    public RectChatMainChatUI beanRectChatMainChatUI(ChatStructObject chatObject) {
+        return new RectChatMainChatUI(chatObject);
     }
 
     @Bean(name = "beanSendButtonMainChatUI")
     @Lazy
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvSendButtonMainChatUI beanSendButtonMainChatUI(String text) {
-        return new JvSendButtonMainChatUI(text);
+    public SendButtonMainChatUI beanSendButtonMainChatUI(String text) {
+        return new SendButtonMainChatUI(text);
     }
 
     @Bean(name = "beanSendingTextAreaScrollMainChatUI")
     @Lazy
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvSendingTextAreaScrollMainChatUI beanSendingTextAreaScrollMainChatUI() {
-        return new JvSendingTextAreaScrollMainChatUI();
+    public SendingTextAreaScrollMainChatUI beanSendingTextAreaScrollMainChatUI() {
+        return new SendingTextAreaScrollMainChatUI();
     }
 
     @Bean(name = "beanPanelSendingMessageMainChatUI")
     @Lazy
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvPanelSendingMessageMainChatUI beanPanelSendingMessageMainChatUI() {
-        return new JvPanelSendingMessageMainChatUI();
+    public PanelSendingMessageMainChatUI beanPanelSendingMessageMainChatUI() {
+        return new PanelSendingMessageMainChatUI();
     }
 
     @Bean(name = "beanFindTextFieldMainChatUI")
     @Lazy
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvFindTextFieldMainChatUI beanFindTextFieldMainChatUI(String text) {
-        return new JvFindTextFieldMainChatUI(text);
+    public FindTextFieldMainChatUI beanFindTextFieldMainChatUI(String text) {
+        return new FindTextFieldMainChatUI(text);
     }
 
     @Bean(name = "beanToolTipMainChatUI")
     @Lazy
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvToolTipMainChatUI beanToolTipMainChatUI() {
-        return new JvToolTipMainChatUI();
+    public ToolTipMainChatUI beanToolTipMainChatUI() {
+        return new ToolTipMainChatUI();
     }
 }

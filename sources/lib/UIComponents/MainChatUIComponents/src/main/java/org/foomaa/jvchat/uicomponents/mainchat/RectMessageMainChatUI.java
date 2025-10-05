@@ -14,13 +14,13 @@ import org.foomaa.jvchat.settings.GetterSettings;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
 
 
-public class JvRectMessageMainChatUI extends JTextArea {
+public class RectMessageMainChatUI extends JTextArea {
     private MainChatsGlobalDefines.TypeStatusMessage statusMessage;
     private final String textMessage;
     private final LocalDateTime timestamp;
     private final UUID uuidMessage;
 
-    JvRectMessageMainChatUI(MessageStructObject messageObject) {
+    RectMessageMainChatUI(MessageStructObject messageObject) {
         textMessage = messageObject.getText();
         statusMessage = messageObject.getStatusMessage();
         timestamp = messageObject.getTimestamp();
@@ -89,7 +89,7 @@ public class JvRectMessageMainChatUI extends JTextArea {
 
     private void resizeComponentLabel() {
         int amendment = 20;
-        int width = (JvGetterMainChatUIComponents.getInstance()
+        int width = (GetterMainChatUIComponents.getInstance()
                 .getBeanScrollPanelMessagesMainChatUI().getWidth() - amendment) / 2;
         setSize(new Dimension(width,  getMinimumSize().height));
     }

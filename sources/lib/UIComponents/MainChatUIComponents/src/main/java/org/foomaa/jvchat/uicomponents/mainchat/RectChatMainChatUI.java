@@ -15,7 +15,7 @@ import org.foomaa.jvchat.structobjects.ChatStructObject;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
 
 
-public class JvRectChatMainChatUI extends JPanel {
+public class RectChatMainChatUI extends JPanel {
     private final String nickName;
     private String shortLastMessage;
     private UUID lastMessageSender;
@@ -31,7 +31,7 @@ public class JvRectChatMainChatUI extends JPanel {
 
     private boolean flagSelect;
 
-    JvRectChatMainChatUI(ChatStructObject chatObject) {
+    RectChatMainChatUI(ChatStructObject chatObject) {
         nickName = chatObject.getUserChat().getLogin();
         shortLastMessage = chatObject.getLastMessage().getText();
         lastMessageSender = chatObject.getLastMessage().getUuidUserSender();

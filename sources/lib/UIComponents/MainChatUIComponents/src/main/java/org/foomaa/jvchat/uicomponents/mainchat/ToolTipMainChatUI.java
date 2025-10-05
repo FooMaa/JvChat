@@ -9,8 +9,8 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.io.IOException;
 
-public class JvToolTipMainChatUI extends JToolTip {
-    JvToolTipMainChatUI() {
+public class ToolTipMainChatUI extends JToolTip {
+    ToolTipMainChatUI() {
         setGeneralSettings();
     }
 

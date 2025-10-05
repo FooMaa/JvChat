@@ -70,7 +70,7 @@
 
         <dependency>
             <groupId>org.foomaa.jvchat.uicomponents.mainchat</groupId>
-            <artifactId>JvMainChatUIComponents</artifactId>
+            <artifactId>MainChatUIComponents</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 

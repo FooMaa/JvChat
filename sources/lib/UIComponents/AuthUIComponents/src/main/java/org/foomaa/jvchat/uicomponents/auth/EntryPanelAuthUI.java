@@ -15,7 +15,7 @@ import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.settings.GetterSettings;
-import org.foomaa.jvchat.uicomponents.mainchat.JvGetterMainChatUIComponents;
+import org.foomaa.jvchat.uicomponents.mainchat.GetterMainChatUIComponents;
 
 
 public class EntryPanelAuthUI extends JPanel {
@@ -212,7 +212,7 @@ public class EntryPanelAuthUI extends JPanel {
         closeFrameWindow();
         setEnabled(true);
 
-        JvGetterMainChatUIComponents.getInstance().getBeanMainFrameMainChatUI().openWindow();
+        GetterMainChatUIComponents.getInstance().getBeanMainFrameMainChatUI().openWindow();
 
         Log.write(Log.TypeLog.Info, "Login done.");
     }

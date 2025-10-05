@@ -13,14 +13,14 @@ import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.settings.GetterSettings;
 
 
-public class JvFindTextFieldMainChatUI extends JPanel {
+public class FindTextFieldMainChatUI extends JPanel {
     private final BufferedImage image;
     private JTextField textField;
     private JButton button;
     private final String defaultText;
     private final int borderSize = 1;
 
-    JvFindTextFieldMainChatUI(String text) {
+    FindTextFieldMainChatUI(String text) {
         image = setIcon();
         defaultText = text;
 
