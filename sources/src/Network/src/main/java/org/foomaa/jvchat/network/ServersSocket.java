@@ -8,7 +8,7 @@ import java.net.ServerSocket;
 import java.net.InetAddress;
 
 import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.settings.GetterSettings;
 
 
 @Component("beanServersSocket")
@@ -19,12 +19,12 @@ public class ServersSocket {
 
     private ServersSocket() {
         try {
-            if (JvGetterSettings.getInstance().getBeanServersInfoSettings().getIp().isEmpty()) {
-                socketServers = new ServerSocket(JvGetterSettings.getInstance().getBeanServersInfoSettings().getPort());
+            if (GetterSettings.getInstance().getBeanServersInfoSettings().getIp().isEmpty()) {
+                socketServers = new ServerSocket(GetterSettings.getInstance().getBeanServersInfoSettings().getPort());
             } else {
-                socketServers = new ServerSocket(JvGetterSettings.getInstance().getBeanServersInfoSettings().getPort(),
-                        JvGetterSettings.getInstance().getBeanServersInfoSettings().getQuantityConnections(),
-                        InetAddress.getByName(JvGetterSettings.getInstance().getBeanServersInfoSettings().getIp()));
+                socketServers = new ServerSocket(GetterSettings.getInstance().getBeanServersInfoSettings().getPort(),
+                        GetterSettings.getInstance().getBeanServersInfoSettings().getQuantityConnections(),
+                        InetAddress.getByName(GetterSettings.getInstance().getBeanServersInfoSettings().getIp()));
             }
 
             Log.write(Log.TypeLog.Info, "IP: " + socketServers.getInetAddress().toString() + ".");

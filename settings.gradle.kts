@@ -2,8 +2,8 @@ import java.io.File
 
 rootProject.name = "JvChat"
 
-include("JvSettings")
-project(":JvSettings").projectDir = File("sources/lib/JvSettings")
+include("Settings")
+project(":Settings").projectDir = File("sources/lib/Settings")
 include("JvTools")
 project(":JvTools").projectDir = File("sources/lib/JvTools")
 include("Cryptography")

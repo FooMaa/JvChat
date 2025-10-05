@@ -12,8 +12,8 @@ import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.models.GetterModels;
 import org.foomaa.jvchat.models.SocketRunnableCtrlModel;
 import org.foomaa.jvchat.network.UsersSocket;
-import org.foomaa.jvchat.settings.JvGetterSettings;
-import org.foomaa.jvchat.settings.JvMainSettings;
+import org.foomaa.jvchat.settings.GetterSettings;
+import org.foomaa.jvchat.settings.MainSettings;
 import org.foomaa.jvchat.network.ServersSocket;
 import org.foomaa.jvchat.structobjects.SocketRunnableCtrlStructObject;
 
@@ -26,9 +26,9 @@ public class NetworkCtrl {
     NetworkCtrl() {}
 
     public void startNetwork() throws IOException {
-        if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
+        if (GetterSettings.getInstance().getBeanMainSettings().getProfile() == MainSettings.TypeProfiles.SERVERS) {
             startServersNetwork();
-        } else if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.USERS) {
+        } else if (GetterSettings.getInstance().getBeanMainSettings().getProfile() == MainSettings.TypeProfiles.USERS) {
             startUsersNetwork();
         }
     }
@@ -77,7 +77,7 @@ public class NetworkCtrl {
     }
 
     public void takeMessage(byte[] message, SocketRunnableCtrl runnableCtrl) {
-        if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
+        if (GetterSettings.getInstance().getBeanMainSettings().getProfile() == MainSettings.TypeProfiles.SERVERS) {
             currentSocketRunnableCtrl = runnableCtrl;
             GetterControls.getInstance().getBeanTakeMessagesCtrl().setRunnableCtrlFromConnection(currentSocketRunnableCtrl);
         }
@@ -89,7 +89,7 @@ public class NetworkCtrl {
     }
 
     public void sendMessageByRunnableCtrl(byte[] message, Runnable runnable) {
-        if (JvGetterSettings.getInstance().getBeanMainSettings().getProfile() == JvMainSettings.TypeProfiles.SERVERS) {
+        if (GetterSettings.getInstance().getBeanMainSettings().getProfile() == MainSettings.TypeProfiles.SERVERS) {
             SocketRunnableCtrl srvRunnable = (SocketRunnableCtrl) runnable;
             srvRunnable.send(message);
         }

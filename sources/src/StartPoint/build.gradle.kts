@@ -11,7 +11,7 @@ dependencies {
     implementation(project(":Controls"))
     implementation(project(":UILinks"))
     implementation(project(":JvTools"))
-    implementation(project(":JvSettings"))
+    implementation(project(":Settings"))
 }
 
 tasks {

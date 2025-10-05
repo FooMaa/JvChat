@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 
 import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.settings.GetterSettings;
 
 
 @Component("beanDbWorker")
@@ -34,9 +34,9 @@ public class DbWorker {
         connection = null;
 
         try {
-            connection = DriverManager.getConnection(JvGetterSettings.getInstance().getBeanServersInfoSettings().getDbUrl(),
-                    JvGetterSettings.getInstance().getBeanServersInfoSettings().getDbUser(),
-                    JvGetterSettings.getInstance().getBeanServersInfoSettings().getMagicStringDb());
+            connection = DriverManager.getConnection(GetterSettings.getInstance().getBeanServersInfoSettings().getDbUrl(),
+                    GetterSettings.getInstance().getBeanServersInfoSettings().getDbUser(),
+                    GetterSettings.getInstance().getBeanServersInfoSettings().getMagicStringDb());
         } catch (SQLException e) {
             Log.write(Log.TypeLog.Error, "Error in connect to DB.");
             return;

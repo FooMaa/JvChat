@@ -2,7 +2,7 @@ package org.foomaa.jvchat.uicomponents.auth;
 
 import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
 import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.settings.GetterSettings;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -25,7 +25,7 @@ public class JvToolTipAuthUI extends JToolTip {
 
     private void setFont() {
         try {
-            int size = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFont(0.008);
+            int size = GetterSettings.getInstance().getBeanDisplaySettings().getResizeFont(0.008);
             Font steticaFont = GetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
                     .createMainSteticaFont(Font.PLAIN, size);
             setFont(steticaFont);

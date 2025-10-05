@@ -4,8 +4,8 @@ import java.util.Base64;
 import java.util.Objects;
 
 
-public class JvServersInfoSettings {
-    JvServersInfoSettings() {}
+public class ServersInfoSettings {
+    ServersInfoSettings() {}
 
     // NETWORK
     private int port = 4004;

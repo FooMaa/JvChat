@@ -9,10 +9,10 @@
     </parent>
 
     <groupId>org.foomaa.jvchat.settings</groupId>
-    <artifactId>JvSettings</artifactId>
+    <artifactId>Settings</artifactId>
     <packaging>jar</packaging>
 
-    <name>JvSettings</name>
+    <name>Settings</name>
 
     <dependencies>
         <dependency>

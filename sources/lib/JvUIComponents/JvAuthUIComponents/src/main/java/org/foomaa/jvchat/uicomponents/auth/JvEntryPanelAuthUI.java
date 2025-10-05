@@ -13,8 +13,8 @@ import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.events.GetterEvents;
 import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.messages.DefinesMessages;
-import org.foomaa.jvchat.settings.JvDisplaySettings;
-import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.settings.DisplaySettings;
+import org.foomaa.jvchat.settings.GetterSettings;
 import org.foomaa.jvchat.uicomponents.mainchat.JvGetterMainChatUIComponents;
 
 
@@ -59,23 +59,23 @@ public class JvEntryPanelAuthUI extends JPanel {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        int insX = JvGetterSettings.getInstance().getBeanDisplaySettings().
-                getResizeFromDisplay(0.025, JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
+        int insX = GetterSettings.getInstance().getBeanDisplaySettings().
+                getResizeFromDisplay(0.025, DisplaySettings.TypeOfDisplayBorder.WIDTH);
         int gridyNum = 0;
 
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.075), insX,
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.004), insX);
+        gbc.insets = new Insets(GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.075), insX,
+                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.004), insX);
         gbc.gridy = gridyNum;
         add(tLogin, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX, JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.01), insX);
+        gbc.insets = new Insets(0, insX, GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.01), insX);
         gbc.gridy = gridyNum;
         add(tPassword, gbc);
         gridyNum++;
@@ -89,14 +89,14 @@ public class JvEntryPanelAuthUI extends JPanel {
 
         gbc.anchor = GridBagConstraints.NORTH;
         gbc.insets = new Insets(0, 0,
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.002), 0);
+                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.002), 0);
         gbc.gridy = gridyNum;
         add(activeRegisterLabel, gbc);
         gridyNum++;
 
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(0, insX,
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0084), insX);
+                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0084), insX);
         gbc.gridy = gridyNum;
         add(tErrorHelpInfo, gbc);
         gridyNum++;
@@ -104,11 +104,11 @@ public class JvEntryPanelAuthUI extends JPanel {
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.SOUTH;
         gbc.insets = new Insets(0, 0,
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017), 0);
-        gbc.ipadx = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.015,
-                JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
-        gbc.ipady = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.004,
-                JvDisplaySettings.TypeOfDisplayBorder.HEIGHT);
+                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017), 0);
+        gbc.ipadx = GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.015,
+                DisplaySettings.TypeOfDisplayBorder.WIDTH);
+        gbc.ipady = GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.004,
+                DisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
         add(bEnter, gbc);
     }
@@ -203,9 +203,9 @@ public class JvEntryPanelAuthUI extends JPanel {
     }
 
     private void openMainPage() {
-        JvGetterSettings.getInstance().getBeanUsersInfoSettings().setLogin(tLogin.getInputText());
+        GetterSettings.getInstance().getBeanUsersInfoSettings().setLogin(tLogin.getInputText());
 
-        UUID uuidUser = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
+        UUID uuidUser = GetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
         GetterControls.getInstance().getBeanSendMessagesCtrl()
                 .sendMessage(DefinesMessages.TypeMessage.CheckOnlineUserReply, uuidUser);
 

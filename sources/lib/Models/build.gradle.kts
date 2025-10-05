@@ -5,5 +5,5 @@ dependencies {
     implementation(project(":StructObjects"))
     implementation(project(":Logger"))
     implementation(project(":GlobalDefines"))
-    implementation(project(":JvSettings"))
+    implementation(project(":Settings"))
 }

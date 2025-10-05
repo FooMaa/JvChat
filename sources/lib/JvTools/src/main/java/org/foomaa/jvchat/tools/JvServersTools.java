@@ -7,7 +7,7 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.settings.GetterSettings;
 
 
 public class JvServersTools {
@@ -32,7 +32,7 @@ public class JvServersTools {
             String port = in.nextLine();
             if (JvGetterTools.getInstance().getBeanMainTools().validateInputPort(port)) {
                 if (!port.isEmpty()) {
-                    JvGetterSettings.getInstance().getBeanServersInfoSettings().setPort(Integer.parseInt(port));
+                    GetterSettings.getInstance().getBeanServersInfoSettings().setPort(Integer.parseInt(port));
                 }
                 break;
             } else {
@@ -45,7 +45,7 @@ public class JvServersTools {
             String limitConnection = in.nextLine();
             if (validateInputLimitConnections(limitConnection)) {
                 if (!limitConnection.isEmpty()) {
-                    JvGetterSettings.getInstance().getBeanServersInfoSettings().setQuantityConnections(Integer.parseInt(limitConnection));
+                    GetterSettings.getInstance().getBeanServersInfoSettings().setQuantityConnections(Integer.parseInt(limitConnection));
                 }
                 break;
             } else {
@@ -65,12 +65,12 @@ public class JvServersTools {
 
     private void setIpToSettings(String ip) {
         if (!ip.isEmpty()) {
-            JvGetterSettings.getInstance().getBeanServersInfoSettings().setIp(ip);
+            GetterSettings.getInstance().getBeanServersInfoSettings().setIp(ip);
         } else {
             Log.write(Log.TypeLog.Info, "Wait! Searching for IP-address...");
             try (Socket socket = new Socket()) {
                 socket.connect(new InetSocketAddress("google.com", 80));
-                JvGetterSettings.getInstance().getBeanServersInfoSettings().setIp(socket.getLocalAddress().getHostAddress());
+                GetterSettings.getInstance().getBeanServersInfoSettings().setIp(socket.getLocalAddress().getHostAddress());
             } catch (IOException exception) {
                 Log.write(Log.TypeLog.Error, "Couldn't get online, check your connection and try again!");
                 System.exit(1);

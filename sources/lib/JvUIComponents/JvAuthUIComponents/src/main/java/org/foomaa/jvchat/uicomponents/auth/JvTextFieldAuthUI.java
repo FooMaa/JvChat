@@ -9,8 +9,8 @@ import java.util.Objects;
 
 import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
 import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.settings.JvDisplaySettings;
-import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.settings.DisplaySettings;
+import org.foomaa.jvchat.settings.GetterSettings;
 
 
 public class JvTextFieldAuthUI extends JPanel {
@@ -103,11 +103,11 @@ public class JvTextFieldAuthUI extends JPanel {
     }
 
     private void settingTextPanel() {
-        Dimension dim = new Dimension(JvGetterSettings.getInstance().getBeanDisplaySettings().
+        Dimension dim = new Dimension(GetterSettings.getInstance().getBeanDisplaySettings().
                 getResizeFromDisplay(0.23,
-                        JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.03,
-                        JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
+                        DisplaySettings.TypeOfDisplayBorder.WIDTH),
+                GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.03,
+                        DisplaySettings.TypeOfDisplayBorder.HEIGHT));
         settingTextField(dim);
         addElements();
         setBackground(textField.getBackground());
@@ -165,7 +165,7 @@ public class JvTextFieldAuthUI extends JPanel {
 
     private void setFont() {
         try {
-            int size = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.015);
+            int size = GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.015);
             Font steticaFont = GetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
                     .createMainSteticaFont(Font.BOLD, size);
             textField.setFont(steticaFont);

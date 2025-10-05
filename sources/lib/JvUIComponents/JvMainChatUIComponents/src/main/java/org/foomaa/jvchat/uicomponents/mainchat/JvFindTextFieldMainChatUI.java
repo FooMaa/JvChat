@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.util.Objects;
 
 import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.settings.JvDisplaySettings;
-import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.settings.DisplaySettings;
+import org.foomaa.jvchat.settings.GetterSettings;
 
 
 public class JvFindTextFieldMainChatUI extends JPanel {
@@ -95,10 +95,10 @@ public class JvFindTextFieldMainChatUI extends JPanel {
     }
 
     private void settingTextAndButtonPanel() {
-        Dimension dim = new Dimension(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.23,
-                JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.03,
-                        JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
+        Dimension dim = new Dimension(GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.23,
+                DisplaySettings.TypeOfDisplayBorder.WIDTH),
+                GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.03,
+                        DisplaySettings.TypeOfDisplayBorder.HEIGHT));
         settingButtonImage();
         settingTextField(dim);
         addElements();
@@ -136,7 +136,7 @@ public class JvFindTextFieldMainChatUI extends JPanel {
         textField.setBorder(null);
         textField.setText(defaultText);
         textField.setFont(new Font("Times", Font.BOLD,
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.012)));
+                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.012)));
         textField.setForeground(Color.lightGray);
         textField.setFocusable(false);
     }

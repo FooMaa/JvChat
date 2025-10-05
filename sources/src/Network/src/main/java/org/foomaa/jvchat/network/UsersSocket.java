@@ -8,7 +8,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 
 import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.settings.GetterSettings;
 
 
 @Component("beanUsersSocket")
@@ -20,8 +20,8 @@ public class UsersSocket {
     private UsersSocket() {
         try {
             socketUsers = new Socket();
-            socketUsers.connect(new InetSocketAddress(JvGetterSettings.getInstance().getBeanUsersInfoSettings().getIpRemoteServer(),
-                    JvGetterSettings.getInstance().getBeanUsersInfoSettings().getPortRemoteServer()), 4000);
+            socketUsers.connect(new InetSocketAddress(GetterSettings.getInstance().getBeanUsersInfoSettings().getIpRemoteServer(),
+                    GetterSettings.getInstance().getBeanUsersInfoSettings().getPortRemoteServer()), 4000);
             closeSocketWhenKill();
         } catch (IOException exception) {
             Log.write(Log.TypeLog.Error, "No connection.");

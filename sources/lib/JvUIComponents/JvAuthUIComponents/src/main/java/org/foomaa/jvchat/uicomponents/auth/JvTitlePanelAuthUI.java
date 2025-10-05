@@ -2,7 +2,7 @@ package org.foomaa.jvchat.uicomponents.auth;
 
 import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
 import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.settings.GetterSettings;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -106,7 +106,7 @@ public class JvTitlePanelAuthUI extends JPanel {
     private void settingTitleLabel() {
         titleLabel.setForeground(Color.LIGHT_GRAY);
         try {
-            int size = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFont(0.0093);
+            int size = GetterSettings.getInstance().getBeanDisplaySettings().getResizeFont(0.0093);
             Font steticaFont = GetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
                     .createMainSteticaFont(Font.BOLD, size);
             titleLabel.setFont(steticaFont);

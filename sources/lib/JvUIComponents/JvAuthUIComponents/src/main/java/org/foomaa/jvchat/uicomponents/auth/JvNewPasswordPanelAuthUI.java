@@ -11,8 +11,8 @@ import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.events.GetterEvents;
 import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.messages.DefinesMessages;
-import org.foomaa.jvchat.settings.JvDisplaySettings;
-import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.settings.DisplaySettings;
+import org.foomaa.jvchat.settings.GetterSettings;
 
 
 public class JvNewPasswordPanelAuthUI extends JPanel {
@@ -61,9 +61,9 @@ public class JvNewPasswordPanelAuthUI extends JPanel {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        int insX = JvGetterSettings.getInstance().getBeanDisplaySettings().
+        int insX = GetterSettings.getInstance().getBeanDisplaySettings().
                 getResizeFromDisplay(0.025,
-                        JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
+                        DisplaySettings.TypeOfDisplayBorder.WIDTH);
         int gridyNum = 0;
 
         gbc.weightx = 1.0;
@@ -71,8 +71,8 @@ public class JvNewPasswordPanelAuthUI extends JPanel {
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.085), insX,
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.004), insX);
+        gbc.insets = new Insets(GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.085), insX,
+                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.004), insX);
         gbc.gridy = gridyNum;
         add(tPassword, gbc);
         gridyNum++;
@@ -87,7 +87,7 @@ public class JvNewPasswordPanelAuthUI extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.insets = new Insets(0, insX,
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0104), insX);
+                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0104), insX);
         gbc.gridy = gridyNum;
         add(tErrorHelpInfo, gbc);
         gridyNum++;
@@ -95,24 +95,24 @@ public class JvNewPasswordPanelAuthUI extends JPanel {
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.NORTHWEST;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.026),
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017), 0);
-        gbc.ipadx = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.015,
-                JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
-        gbc.ipady = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.004,
-                JvDisplaySettings.TypeOfDisplayBorder.HEIGHT);
+        gbc.insets = new Insets(0, GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.026),
+                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017), 0);
+        gbc.ipadx = GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.015,
+                DisplaySettings.TypeOfDisplayBorder.WIDTH);
+        gbc.ipady = GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.004,
+                DisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
         add(bBack, gbc);
 
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.NORTHEAST;
         gbc.insets = new Insets(0, 0,
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017), JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.026));
+                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017), GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.026));
 
-        gbc.ipadx = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.015,
-                JvDisplaySettings.TypeOfDisplayBorder.WIDTH);
-        gbc.ipady = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.004,
-                JvDisplaySettings.TypeOfDisplayBorder.HEIGHT);
+        gbc.ipadx = GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.015,
+                DisplaySettings.TypeOfDisplayBorder.WIDTH);
+        gbc.ipady = GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.004,
+                DisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
         add(bAccept, gbc);
     }

@@ -5,8 +5,8 @@ import java.awt.*;
 import org.foomaa.jvchat.logger.Log;
 
 
-public class JvDisplaySettings {
-    JvDisplaySettings() {
+public class DisplaySettings {
+    DisplaySettings() {
         try {
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             heightScreen = screenSize.height;

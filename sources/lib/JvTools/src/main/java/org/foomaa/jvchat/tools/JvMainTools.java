@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import org.foomaa.jvchat.settings.JvGetterSettings;
-import org.foomaa.jvchat.settings.JvMainSettings;
+import org.foomaa.jvchat.settings.GetterSettings;
+import org.foomaa.jvchat.settings.MainSettings;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 
@@ -44,12 +44,12 @@ public class JvMainTools {
     public void setProfileSetting(Class<?> mainClass) throws IOException, URISyntaxException {
         final String profile = getProfileFromBuildDir(mainClass);
 
-        if (Objects.equals(profile, JvMainSettings.TypeProfiles.TESTS.toString())) {
-            JvGetterSettings.getInstance().getBeanMainSettings().setProfile(JvMainSettings.TypeProfiles.TESTS);
-        } else if (Objects.equals(profile, JvMainSettings.TypeProfiles.USERS.toString())) {
-            JvGetterSettings.getInstance().getBeanMainSettings().setProfile(JvMainSettings.TypeProfiles.USERS);
-        } else if (Objects.equals(profile, JvMainSettings.TypeProfiles.SERVERS.toString())) {
-            JvGetterSettings.getInstance().getBeanMainSettings().setProfile(JvMainSettings.TypeProfiles.SERVERS);
+        if (Objects.equals(profile, MainSettings.TypeProfiles.TESTS.toString())) {
+            GetterSettings.getInstance().getBeanMainSettings().setProfile(MainSettings.TypeProfiles.TESTS);
+        } else if (Objects.equals(profile, MainSettings.TypeProfiles.USERS.toString())) {
+            GetterSettings.getInstance().getBeanMainSettings().setProfile(MainSettings.TypeProfiles.USERS);
+        } else if (Objects.equals(profile, MainSettings.TypeProfiles.SERVERS.toString())) {
+            GetterSettings.getInstance().getBeanMainSettings().setProfile(MainSettings.TypeProfiles.SERVERS);
         }
     }
 
@@ -59,12 +59,12 @@ public class JvMainTools {
                 JvToolsSpringConfig.class);
         final String profile = context.getEnvironment().getActiveProfiles()[0];
 
-        if (Objects.equals(profile, JvMainSettings.TypeProfiles.TESTS.toString())) {
-            JvGetterSettings.getInstance().getBeanMainSettings().setProfile(JvMainSettings.TypeProfiles.TESTS);
-        } else if (Objects.equals(profile, JvMainSettings.TypeProfiles.USERS.toString())) {
-            JvGetterSettings.getInstance().getBeanMainSettings().setProfile(JvMainSettings.TypeProfiles.USERS);
-        } else if (Objects.equals(profile, JvMainSettings.TypeProfiles.SERVERS.toString())) {
-            JvGetterSettings.getInstance().getBeanMainSettings().setProfile(JvMainSettings.TypeProfiles.SERVERS);
+        if (Objects.equals(profile, MainSettings.TypeProfiles.TESTS.toString())) {
+            GetterSettings.getInstance().getBeanMainSettings().setProfile(MainSettings.TypeProfiles.TESTS);
+        } else if (Objects.equals(profile, MainSettings.TypeProfiles.USERS.toString())) {
+            GetterSettings.getInstance().getBeanMainSettings().setProfile(MainSettings.TypeProfiles.USERS);
+        } else if (Objects.equals(profile, MainSettings.TypeProfiles.SERVERS.toString())) {
+            GetterSettings.getInstance().getBeanMainSettings().setProfile(MainSettings.TypeProfiles.SERVERS);
         }
     }
 

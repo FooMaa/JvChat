@@ -2,7 +2,7 @@ group = "org.foomaa.jvchat.ctrl"
 version = "1.0-SNAPSHOT"
 
 dependencies {
-    implementation(project(":JvSettings"))
+    implementation(project(":Settings"))
     implementation(project(":Messages"))
     implementation(project(":Network"))
     implementation(project(":DbWorker"))

@@ -7,8 +7,8 @@ import java.util.Objects;
 
 import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
 import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.settings.JvDisplaySettings;
-import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.settings.DisplaySettings;
+import org.foomaa.jvchat.settings.GetterSettings;
 
 
 public class JvErrorLabelAuthUI extends JLabel {
@@ -20,15 +20,15 @@ public class JvErrorLabelAuthUI extends JLabel {
 
         setText(text);
         setFont(new Font("Times", Font.PLAIN,
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017)));
+                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017)));
     }
 
     public void settingToError() {
-        Dimension dim = new Dimension(JvGetterSettings.getInstance().getBeanDisplaySettings().
+        Dimension dim = new Dimension(GetterSettings.getInstance().getBeanDisplaySettings().
                 getResizeFromDisplay(0.23,
-                        JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.03,
-                        JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
+                        DisplaySettings.TypeOfDisplayBorder.WIDTH),
+                GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.03,
+                        DisplaySettings.TypeOfDisplayBorder.HEIGHT));
         setFont();
         setForeground(Color.RED);
         setPreferredSize(dim);
@@ -38,7 +38,7 @@ public class JvErrorLabelAuthUI extends JLabel {
 
     private void setFont() {
         try {
-            int size = JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFont(0.0064);
+            int size = GetterSettings.getInstance().getBeanDisplaySettings().getResizeFont(0.0064);
             Font steticaFont = GetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
                     .createMainSteticaFont(Font.BOLD, size);
             setFont(steticaFont);

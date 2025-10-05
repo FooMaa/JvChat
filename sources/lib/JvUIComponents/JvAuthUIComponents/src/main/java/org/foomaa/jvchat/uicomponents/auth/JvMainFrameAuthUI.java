@@ -15,8 +15,8 @@ import java.util.UUID;
 
 import org.foomaa.jvchat.events.BaseEvent;
 import org.foomaa.jvchat.events.GetterEvents;
-import org.foomaa.jvchat.settings.JvDisplaySettings;
-import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.settings.DisplaySettings;
+import org.foomaa.jvchat.settings.GetterSettings;
 
 
 public class JvMainFrameAuthUI extends JFrame {
@@ -244,10 +244,10 @@ public class JvMainFrameAuthUI extends JFrame {
         setUndecorated(true);
         pack();
 
-        setSize(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.3,
-                        JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.31,
-                        JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
+        setSize(GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.3,
+                        DisplaySettings.TypeOfDisplayBorder.WIDTH),
+                GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.31,
+                        DisplaySettings.TypeOfDisplayBorder.HEIGHT));
 
         setResizable(false);
         setLocationRelativeTo(null);

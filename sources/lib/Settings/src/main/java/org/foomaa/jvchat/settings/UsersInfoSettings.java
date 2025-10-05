@@ -4,8 +4,8 @@ import java.util.Objects;
 import java.util.UUID;
 
 
-public class JvUsersInfoSettings {
-    JvUsersInfoSettings() {}
+public class UsersInfoSettings {
+    UsersInfoSettings() {}
 
     private String login = "";
     private UUID uuid = null;

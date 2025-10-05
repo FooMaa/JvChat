@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Scope;
 
 
 @Configuration
-class JvSettingsSpringConfig {
+class SettingsSpringConfig {
     public enum NameBeans {
         BeanMainSettings("beanMainSettings"),
         BeanDisplaySettings("beanDisplaySettings"),
@@ -29,38 +29,38 @@ class JvSettingsSpringConfig {
     @Bean(name = "beanMainSettings")
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvMainSettings beanMainSettings() {
-        return new JvMainSettings();
+    public MainSettings beanMainSettings() {
+        return new MainSettings();
     }
 
     @Bean(name = "beanDisplaySettings")
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvDisplaySettings beanDisplaySettings() {
-        return new JvDisplaySettings();
+    public DisplaySettings beanDisplaySettings() {
+        return new DisplaySettings();
     }
 
     @Bean(name = "beanUsersInfoSettings")
     @Profile("users")
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvUsersInfoSettings beanUsersInfoSettings() {
-        return new JvUsersInfoSettings();
+    public UsersInfoSettings beanUsersInfoSettings() {
+        return new UsersInfoSettings();
     }
 
     @Bean(name = "beanServersInfoSettings")
     @Profile("servers")
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvServersInfoSettings beanServersInfoSettings() {
-        return new JvServersInfoSettings();
+    public ServersInfoSettings beanServersInfoSettings() {
+        return new ServersInfoSettings();
     }
 
     @Bean(name = "beanUISettings")
     @Profile("users")
     @Scope("singleton")
     @SuppressWarnings("unused")
-    public JvUISettings beanUISettings() {
-        return new JvUISettings();
+    public UISettings beanUISettings() {
+        return new UISettings();
     }
 }

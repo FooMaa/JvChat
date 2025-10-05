@@ -10,7 +10,7 @@ import java.util.UUID;
 
 import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
-import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.settings.GetterSettings;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
 
 
@@ -59,7 +59,7 @@ public class JvRectMessageMainChatUI extends JTextArea {
 
         String time = GetterControls.getInstance().getBeanMessagesDialogCtrl().getTimeFormattedMessage(timestamp);
         Font font = new Font("Times", Font.BOLD,
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.010));
+                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.010));
         g2.setFont(font);
         FontMetrics fontMetrics = g2.getFontMetrics(font);
 
@@ -80,7 +80,7 @@ public class JvRectMessageMainChatUI extends JTextArea {
         setForeground(Color.BLACK);
         setBorder(new EmptyBorder(borderSize, borderSize, borderSize, borderSize));
         setFont(new Font("Times", Font.PLAIN,
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
+                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
         setLineWrap(true);
         setWrapStyleWord(true);
 

@@ -225,7 +225,7 @@
 
         <dependency>
             <groupId>org.foomaa.jvchat.settings</groupId>
-            <artifactId>JvSettings</artifactId>
+            <artifactId>Settings</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

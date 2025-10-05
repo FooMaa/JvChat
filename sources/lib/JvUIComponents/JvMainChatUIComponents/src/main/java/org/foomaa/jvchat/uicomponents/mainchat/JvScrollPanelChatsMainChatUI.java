@@ -18,7 +18,7 @@ import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.messages.DefinesMessages;
-import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.settings.GetterSettings;
 import org.foomaa.jvchat.structobjects.ChatStructObject;
 import org.foomaa.jvchat.structobjects.UserStructObject;
 
@@ -171,14 +171,14 @@ public class JvScrollPanelChatsMainChatUI extends JPanel {
 
     private void requestMessagesFromServer() {
         UUID uuidChat = selectedElement.getUuidChat();
-        int quantityMessages = JvGetterSettings.getInstance().getBeanUISettings().getQuantityMessagesLoad();
+        int quantityMessages = GetterSettings.getInstance().getBeanUISettings().getQuantityMessagesLoad();
 
         GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 DefinesMessages.TypeMessage.MessagesLoadRequest, uuidChat, quantityMessages);
     }
 
     private void setRequestChatsToServer() {
-        UUID uuidUser = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
+        UUID uuidUser = GetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
         GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 DefinesMessages.TypeMessage.ChatsLoadRequest, uuidUser);
     }

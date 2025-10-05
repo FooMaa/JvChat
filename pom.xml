@@ -17,7 +17,7 @@
     <url>http://maven.apache.org</url>
 
     <modules>
-        <module>sources/lib/JvSettings</module>
+        <module>sources/lib/Settings</module>
         <module>sources/lib/JvUIComponents</module>
         <module>sources/lib/JvTools</module>
         <module>sources/lib/Cryptography</module>

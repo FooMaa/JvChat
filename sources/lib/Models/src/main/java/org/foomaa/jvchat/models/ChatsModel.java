@@ -5,7 +5,7 @@ import java.util.*;
 
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.settings.GetterSettings;
 import org.foomaa.jvchat.structobjects.*;
 
 
@@ -41,8 +41,8 @@ public class ChatsModel extends BaseModel {
         userChat.setUuid(uuidUser);
         GetterModels.getInstance().getBeanUsersModel().addCreatedUser(userChat);
 
-        UUID uuidSender = isLoginSentLastMessage ? uuidUser : JvGetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
-        UUID uuidReceiver = isLoginSentLastMessage ? JvGetterSettings.getInstance().getBeanUsersInfoSettings().getUuid() : uuidUser;
+        UUID uuidSender = isLoginSentLastMessage ? uuidUser : GetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
+        UUID uuidReceiver = isLoginSentLastMessage ? GetterSettings.getInstance().getBeanUsersInfoSettings().getUuid() : uuidUser;
 
         MessageStructObject lastMessage = GetterStructObjects.getInstance().getBeanMessageStructObject();
         lastMessage.setUuidUserSender(uuidSender);

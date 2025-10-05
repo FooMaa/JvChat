@@ -9,8 +9,8 @@ import java.awt.geom.RoundRectangle2D;
 import java.io.IOException;
 import java.util.Objects;
 
-import org.foomaa.jvchat.settings.JvDisplaySettings;
-import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.settings.DisplaySettings;
+import org.foomaa.jvchat.settings.GetterSettings;
 
 
 public class JvMainFrameMainChatUI extends JFrame {
@@ -113,14 +113,14 @@ public class JvMainFrameMainChatUI extends JFrame {
         setUndecorated(true);
         pack();
 
-        setSize(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.585,
-                        JvDisplaySettings.TypeOfDisplayBorder.WIDTH),
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.5625,
-                        JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
+        setSize(GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.585,
+                        DisplaySettings.TypeOfDisplayBorder.WIDTH),
+                GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.5625,
+                        DisplaySettings.TypeOfDisplayBorder.HEIGHT));
 
-        Dimension minSiseDimension = new Dimension(JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.43,
-                JvDisplaySettings.TypeOfDisplayBorder.WIDTH), JvGetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.28,
-                JvDisplaySettings.TypeOfDisplayBorder.HEIGHT));
+        Dimension minSiseDimension = new Dimension(GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.43,
+                DisplaySettings.TypeOfDisplayBorder.WIDTH), GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.28,
+                DisplaySettings.TypeOfDisplayBorder.HEIGHT));
         setMinimumSize(minSiseDimension);
 
         setResizable(true);

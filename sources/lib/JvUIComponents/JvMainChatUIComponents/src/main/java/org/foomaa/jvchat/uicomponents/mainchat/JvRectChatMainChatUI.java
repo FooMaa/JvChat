@@ -9,7 +9,7 @@ import java.util.UUID;
 
 import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.settings.GetterSettings;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.structobjects.ChatStructObject;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
@@ -68,7 +68,7 @@ public class JvRectChatMainChatUI extends JPanel {
 
         JLabel loginLabel = new JLabel(nickName);
         loginLabel.setFont(new Font("Times", Font.BOLD,
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017)));
+                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017)));
 
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
@@ -81,7 +81,7 @@ public class JvRectChatMainChatUI extends JPanel {
         JLabel statusOnlineLabel = new JLabel(getStatusOnlineText());
         statusOnlineLabel.setName(nameForLabelOnline);
         statusOnlineLabel.setFont(new Font("Times", Font.PLAIN,
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
+                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
         statusOnlineLabel.setForeground(getStatusOnlineColor());
 
         gbc.weightx = 1.0;
@@ -98,7 +98,7 @@ public class JvRectChatMainChatUI extends JPanel {
         JLabel lastMessageLabel = new JLabel(createLastMessageString());
         lastMessageLabel.setName(nameForLabelLastMessage);
         lastMessageLabel.setFont(new Font("Times", (isBoldMessage ? Font.BOLD : Font.PLAIN),
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
+                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
 
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
@@ -111,7 +111,7 @@ public class JvRectChatMainChatUI extends JPanel {
         JLabel timeLastMessageLabel = new JLabel(timeLastMessage);
         timeLastMessageLabel.setName(nameForLabelTimeLastMessage);
         timeLastMessageLabel.setFont(new Font("Times", (isBoldMessage ? Font.BOLD : Font.PLAIN),
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
+                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
 
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
@@ -136,7 +136,7 @@ public class JvRectChatMainChatUI extends JPanel {
     }
 
     private boolean isBoldMessageByStatus() {
-        UUID currentUuid = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
+        UUID currentUuid = GetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
 
         if (lastMessageSender.equals(currentUuid)) {
             return false;
@@ -146,7 +146,7 @@ public class JvRectChatMainChatUI extends JPanel {
     }
 
     private String createLastMessageString() {
-        UUID currentUuid = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
+        UUID currentUuid = GetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
 
         if (lastMessageSender.equals(currentUuid)) {
             return "Вы: " + shortLastMessage;
@@ -253,7 +253,7 @@ public class JvRectChatMainChatUI extends JPanel {
 
     private void setBoldToLabelConditionally(JLabel label, boolean isBold) {
         label.setFont(new Font("Times", (isBold ? Font.BOLD : Font.PLAIN),
-                JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
+                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
     }
 
     public void updateLastMessage(MessageStructObject message) {

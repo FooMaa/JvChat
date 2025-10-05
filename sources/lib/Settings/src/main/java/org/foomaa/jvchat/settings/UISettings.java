@@ -1,8 +1,8 @@
 package org.foomaa.jvchat.settings;
 
 
-public class JvUISettings {
-    JvUISettings() {
+public class UISettings {
+    UISettings() {
         quantityMessagesLoad = 30;
     }
 

@@ -12,7 +12,7 @@ import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.messages.GetterMessages;
 import org.foomaa.jvchat.messages.DefinesMessages;
-import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.settings.GetterSettings;
 import org.foomaa.jvchat.tools.JvGetterTools;
 
 
@@ -95,7 +95,7 @@ public class TakeMessagesCtrl {
 
     private void workEntryReplyMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         UUID uuidUser = (UUID) map.get(DefinesMessages.TypeData.UuidUser);
-        JvGetterSettings.getInstance().getBeanUsersInfoSettings().setUuid(uuidUser);
+        GetterSettings.getInstance().getBeanUsersInfoSettings().setUuid(uuidUser);
 
         if ((Boolean) map.get(DefinesMessages.TypeData.BoolReply)) {
             GetterControls.getInstance().getBeanMessagesDefinesCtrl()
@@ -293,7 +293,7 @@ public class TakeMessagesCtrl {
     private void workCheckOnlineUserRequestMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         @SuppressWarnings("unused")
         String ip = (String) map.get(DefinesMessages.TypeData.IP);
-        UUID uuidUser = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
+        UUID uuidUser = GetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
 
         if (uuidUser == null) {
             Log.write(Log.TypeLog.Warn, "Here uuidUser is not set.");

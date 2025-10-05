@@ -1,8 +1,8 @@
 package org.foomaa.jvchat.settings;
 
 
-public class JvMainSettings {
-    JvMainSettings() {}
+public class MainSettings {
+    MainSettings() {}
 
     public enum TypeProfiles {
         TESTS("tests"),

@@ -10,7 +10,7 @@ import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.models.ChatsModel;
 import org.foomaa.jvchat.models.GetterModels;
 import org.foomaa.jvchat.models.MessagesModel;
-import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.settings.GetterSettings;
 import org.foomaa.jvchat.structobjects.ChatStructObject;
 import org.foomaa.jvchat.structobjects.GetterStructObjects;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
@@ -52,7 +52,7 @@ public class MessagesDialogCtrl {
             return null;
         }
 
-        UUID uuidSender = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
+        UUID uuidSender = GetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
         ChatStructObject chat = findChatByUuid(getCurrentActiveChatUuid());
         UUID uuidReceiver = chat.getUserChat().getUuid();
         UUID uuidMessage = UUID.randomUUID();
@@ -137,7 +137,7 @@ public class MessagesDialogCtrl {
     }
 
     public boolean isCurrentUserSender(MessageStructObject messageStructObject) {
-        UUID currentUuid = JvGetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
+        UUID currentUuid = GetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
         return Objects.equals(currentUuid, messageStructObject.getUuidUserSender());
     }
 

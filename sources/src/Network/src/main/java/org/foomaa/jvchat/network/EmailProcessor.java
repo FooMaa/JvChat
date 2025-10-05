@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.Properties;
 
 import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.settings.GetterSettings;
 
 
 @Component("beanEmailProcessor")
@@ -27,8 +27,8 @@ public class EmailProcessor {
 
     private EmailProcessor() {
         host = "smtp.mail.ru";
-        userLogin = JvGetterSettings.getInstance().getBeanServersInfoSettings().getEmailAddress();
-        userPassword = JvGetterSettings.getInstance().getBeanServersInfoSettings().getMagicStringEmail();
+        userLogin = GetterSettings.getInstance().getBeanServersInfoSettings().getEmailAddress();
+        userPassword = GetterSettings.getInstance().getBeanServersInfoSettings().getMagicStringEmail();
 
         Properties props = new Properties();
 

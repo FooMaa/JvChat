@@ -28,7 +28,7 @@
     <dependencies>
         <dependency>
             <groupId>org.foomaa.jvchat.settings</groupId>
-            <artifactId>JvSettings</artifactId>
+            <artifactId>Settings</artifactId>
             <version>${project.version}</version>
         </dependency>
 

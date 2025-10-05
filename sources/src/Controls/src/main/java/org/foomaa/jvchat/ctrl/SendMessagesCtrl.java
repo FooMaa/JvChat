@@ -8,7 +8,7 @@ import org.foomaa.jvchat.globaldefines.DbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.messages.GetterMessages;
 import org.foomaa.jvchat.messages.DefinesMessages;
-import org.foomaa.jvchat.settings.JvGetterSettings;
+import org.foomaa.jvchat.settings.GetterSettings;
 import org.foomaa.jvchat.tools.JvGetterTools;
 
 
@@ -161,7 +161,7 @@ public class SendMessagesCtrl {
                     byte[] bodyMessageChatsLoadReply = createBodyChatsLoadReplyMessage(type, chatsInfo);
                     sendReadyMessageNetwork(bodyMessageChatsLoadReply);
                     sendMessage(DefinesMessages.TypeMessage.CheckOnlineUserRequest,
-                            JvGetterSettings.getInstance().getBeanServersInfoSettings().getIp());
+                            GetterSettings.getInstance().getBeanServersInfoSettings().getIp());
                 }
             }
             case CheckOnlineUserRequest -> {
