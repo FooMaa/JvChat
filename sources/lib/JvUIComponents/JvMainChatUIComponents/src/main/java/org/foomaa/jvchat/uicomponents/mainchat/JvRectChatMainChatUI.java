@@ -11,8 +11,8 @@ import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
-import org.foomaa.jvchat.structobjects.JvChatStructObject;
-import org.foomaa.jvchat.structobjects.JvMessageStructObject;
+import org.foomaa.jvchat.structobjects.ChatStructObject;
+import org.foomaa.jvchat.structobjects.MessageStructObject;
 
 
 public class JvRectChatMainChatUI extends JPanel {
@@ -31,7 +31,7 @@ public class JvRectChatMainChatUI extends JPanel {
 
     private boolean flagSelect;
 
-    JvRectChatMainChatUI(JvChatStructObject chatObject) {
+    JvRectChatMainChatUI(ChatStructObject chatObject) {
         nickName = chatObject.getUserChat().getLogin();
         shortLastMessage = chatObject.getLastMessage().getText();
         lastMessageSender = chatObject.getLastMessage().getUuidUserSender();
@@ -256,7 +256,7 @@ public class JvRectChatMainChatUI extends JPanel {
                 JvGetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
     }
 
-    public void updateLastMessage(JvMessageStructObject message) {
+    public void updateLastMessage(MessageStructObject message) {
         shortLastMessage = message.getText();
         timeLastMessage = GetterControls.getInstance().getBeanChatsCtrl()
                 .getTimeFormattedLastMessage(message.getTimestamp());

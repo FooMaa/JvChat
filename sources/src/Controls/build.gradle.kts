@@ -12,5 +12,5 @@ dependencies {
     implementation(project(":JvTools"))
     implementation(project(":Cryptography"))
     implementation(project(":Models"))
-    implementation(project(":JvStructObjects"))
+    implementation(project(":StructObjects"))
 }

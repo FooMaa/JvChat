@@ -1,11 +1,11 @@
 package org.foomaa.jvchat.models;
 
-import org.foomaa.jvchat.structobjects.JvGetterStructObjects;
+import org.foomaa.jvchat.structobjects.GetterStructObjects;
 
 
 public class RootObjectsModel extends BaseModel {
     RootObjectsModel() {
-        setRootObject(JvGetterStructObjects.getInstance()
+        setRootObject(GetterStructObjects.getInstance()
                 .getBeanRootStructObject(getNameModel()));
     }
 }

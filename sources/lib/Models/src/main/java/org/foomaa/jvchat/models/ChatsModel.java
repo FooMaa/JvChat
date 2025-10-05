@@ -13,7 +13,7 @@ public class ChatsModel extends BaseModel {
     private UUID currentActiveChatUuid;
 
     ChatsModel() {
-        setRootObject(JvGetterStructObjects.getInstance()
+        setRootObject(GetterStructObjects.getInstance()
                 .getBeanRootStructObject(getNameModel()));
         currentActiveChatUuid = null;
     }
@@ -36,7 +36,7 @@ public class ChatsModel extends BaseModel {
                               Boolean isLoginSentLastMessage,
                               MainChatsGlobalDefines.TypeStatusMessage statusMessage,
                               LocalDateTime timestampLastMessage) {
-        JvUserStructObject userChat = JvGetterStructObjects.getInstance().getBeanUserStructObject();
+        UserStructObject userChat = GetterStructObjects.getInstance().getBeanUserStructObject();
         userChat.setLogin(login);
         userChat.setUuid(uuidUser);
         GetterModels.getInstance().getBeanUsersModel().addCreatedUser(userChat);
@@ -44,7 +44,7 @@ public class ChatsModel extends BaseModel {
         UUID uuidSender = isLoginSentLastMessage ? uuidUser : JvGetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
         UUID uuidReceiver = isLoginSentLastMessage ? JvGetterSettings.getInstance().getBeanUsersInfoSettings().getUuid() : uuidUser;
 
-        JvMessageStructObject lastMessage = JvGetterStructObjects.getInstance().getBeanMessageStructObject();
+        MessageStructObject lastMessage = GetterStructObjects.getInstance().getBeanMessageStructObject();
         lastMessage.setUuidUserSender(uuidSender);
         lastMessage.setUuidUserReceiver(uuidReceiver);
         lastMessage.setText(lastMessageText);
@@ -52,7 +52,7 @@ public class ChatsModel extends BaseModel {
         lastMessage.setUuid(uuidLastMessage);
         lastMessage.setTimestamp(timestampLastMessage);
 
-        JvChatStructObject chat = JvGetterStructObjects.getInstance().getBeanChatStructObject();
+        ChatStructObject chat = GetterStructObjects.getInstance().getBeanChatStructObject();
         chat.setUserChat(userChat);
         chat.setLastMessage(lastMessage);
         chat.setUuid(uuidChat);
@@ -61,7 +61,7 @@ public class ChatsModel extends BaseModel {
     }
 
     public void setOnlineStatusToUser(UUID uuidUser, MainChatsGlobalDefines.TypeStatusOnline statusOnline) {
-        JvChatStructObject chat = findByUuidUser(uuidUser);
+        ChatStructObject chat = findByUuidUser(uuidUser);
         if (chat == null) {
             Log.write(Log.TypeLog.Error, "This includes a chat object, which is null.");
             return;
@@ -70,7 +70,7 @@ public class ChatsModel extends BaseModel {
     }
 
     public void setTimestampLastOnlineToUser(UUID uuidUser, LocalDateTime timestamp) {
-        JvChatStructObject chat = findByUuidUser(uuidUser);
+        ChatStructObject chat = findByUuidUser(uuidUser);
         if (chat == null) {
             Log.write(Log.TypeLog.Error, "This includes a chat object, which is null.");
             return;
@@ -78,9 +78,9 @@ public class ChatsModel extends BaseModel {
         chat.getUserChat().setTimestampLastOnline(timestamp);
     }
 
-    private JvChatStructObject findByUuidUser(UUID uuidUser) {
-        for (JvBaseStructObject baseStructObject : getRootObject().getChildren()) {
-            JvChatStructObject chatStructObject = (JvChatStructObject) baseStructObject;
+    private ChatStructObject findByUuidUser(UUID uuidUser) {
+        for (BaseStructObject baseStructObject : getRootObject().getChildren()) {
+            ChatStructObject chatStructObject = (ChatStructObject) baseStructObject;
             if (chatStructObject == null) {
                 Log.write(Log.TypeLog.Error, "This includes a chat object, which is null.");
                 continue;
@@ -94,11 +94,11 @@ public class ChatsModel extends BaseModel {
         return null;
     }
 
-    public List<JvChatStructObject> getAllChatsObjects() {
-        List<JvChatStructObject> resultList = new ArrayList<>();
+    public List<ChatStructObject> getAllChatsObjects() {
+        List<ChatStructObject> resultList = new ArrayList<>();
 
-        for (JvBaseStructObject baseStructObject : getRootObject().getChildren()) {
-            JvChatStructObject chatStructObject = (JvChatStructObject) baseStructObject;
+        for (BaseStructObject baseStructObject : getRootObject().getChildren()) {
+            ChatStructObject chatStructObject = (ChatStructObject) baseStructObject;
             if (chatStructObject == null) {
                 Log.write(Log.TypeLog.Error, "This includes the chatStructObject object, which is null.");
                 continue;
@@ -109,11 +109,11 @@ public class ChatsModel extends BaseModel {
         return resultList;
     }
 
-    public List<JvUserStructObject> getAllUsersObjects() {
-        List<JvChatStructObject> chatsList = getAllChatsObjects();
-        List<JvUserStructObject> resultList = new ArrayList<>();
+    public List<UserStructObject> getAllUsersObjects() {
+        List<ChatStructObject> chatsList = getAllChatsObjects();
+        List<UserStructObject> resultList = new ArrayList<>();
 
-        for (JvChatStructObject chatObject : chatsList) {
+        for (ChatStructObject chatObject : chatsList) {
             if (chatObject == null) {
                 Log.write(Log.TypeLog.Error, "This includes the chatStructObject object, which is null.");
                 continue;
@@ -124,8 +124,8 @@ public class ChatsModel extends BaseModel {
         return resultList;
     }
 
-    public List<JvChatStructObject> getSortedChatsObjects() {
-        List<JvChatStructObject> list = getAllChatsObjects();
+    public List<ChatStructObject> getSortedChatsObjects() {
+        List<ChatStructObject> list = getAllChatsObjects();
 
         list.sort((chatObj1, chatObj2) -> {
             LocalDateTime chatObj2Date = chatObj2.getLastMessage().getTimestamp();

@@ -6,12 +6,12 @@ import java.util.Objects;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 
 
-public class JvUserStructObject extends JvBaseStructObject {
+public class UserStructObject extends BaseStructObject {
     private String login;
     private MainChatsGlobalDefines.TypeStatusOnline statusOnline;
     private LocalDateTime timestampLastOnline;
 
-    JvUserStructObject() {
+    UserStructObject() {
         login = null;
         statusOnline = null;
 

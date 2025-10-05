@@ -10,9 +10,9 @@ import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.models.ChatsModel;
 import org.foomaa.jvchat.models.GetterModels;
-import org.foomaa.jvchat.structobjects.JvChatStructObject;
-import org.foomaa.jvchat.structobjects.JvMessageStructObject;
-import org.foomaa.jvchat.structobjects.JvUserStructObject;
+import org.foomaa.jvchat.structobjects.ChatStructObject;
+import org.foomaa.jvchat.structobjects.MessageStructObject;
+import org.foomaa.jvchat.structobjects.UserStructObject;
 import org.foomaa.jvchat.tools.JvGetterTools;
 
 
@@ -88,24 +88,24 @@ public class ChatsCtrl {
     }
 
     public List<UUID> getUuidsUsersChats() {
-        List<JvUserStructObject> listUsers = chatsModel.getAllUsersObjects();
+        List<UserStructObject> listUsers = chatsModel.getAllUsersObjects();
         List<UUID> resultList = new ArrayList<>();
 
-        for (JvUserStructObject user : listUsers) {
+        for (UserStructObject user : listUsers) {
             resultList.add(user.getUuid());
         }
 
         return resultList;
     }
 
-    public List<JvChatStructObject> getChatsObjects() {
+    public List<ChatStructObject> getChatsObjects() {
         return chatsModel.getSortedChatsObjects();
     }
 
-    public JvUserStructObject getUserObjectsByUuidUser(UUID uuidUser) {
-        List<JvUserStructObject> usersList = chatsModel.getAllUsersObjects();
+    public UserStructObject getUserObjectsByUuidUser(UUID uuidUser) {
+        List<UserStructObject> usersList = chatsModel.getAllUsersObjects();
 
-        for (JvUserStructObject user : usersList) {
+        for (UserStructObject user : usersList) {
             if (user.getUuid().equals(uuidUser)) {
                 return user;
             }
@@ -137,11 +137,11 @@ public class ChatsCtrl {
         return result;
     }
 
-    public void changeLastMessage(JvMessageStructObject message) {
-        List<JvChatStructObject> chatsList = chatsModel.getAllChatsObjects();
+    public void changeLastMessage(MessageStructObject message) {
+        List<ChatStructObject> chatsList = chatsModel.getAllChatsObjects();
 
-        for (JvChatStructObject chat : chatsList) {
-            JvMessageStructObject lastMessageObj = chat.getLastMessage();
+        for (ChatStructObject chat : chatsList) {
+            MessageStructObject lastMessageObj = chat.getLastMessage();
             UUID uuidUserSender = lastMessageObj.getUuidUserSender();
             UUID uuidUserReceiver = lastMessageObj.getUuidUserReceiver();
             if ((uuidUserSender.equals(message.getUuidUserSender()) && uuidUserReceiver.equals(message.getUuidUserReceiver())) ||
@@ -152,10 +152,10 @@ public class ChatsCtrl {
         }
     }
 
-    public JvMessageStructObject getMessageObjectByUuidChat(UUID uuidChat) {
-        List<JvChatStructObject> chatsList = chatsModel.getAllChatsObjects();
+    public MessageStructObject getMessageObjectByUuidChat(UUID uuidChat) {
+        List<ChatStructObject> chatsList = chatsModel.getAllChatsObjects();
 
-        for (JvChatStructObject chat : chatsList) {
+        for (ChatStructObject chat : chatsList) {
             if (chat.getUuid().equals(uuidChat)) {
                 return chat.getLastMessage();
             }

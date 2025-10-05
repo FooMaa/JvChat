@@ -1,9 +1,9 @@
 package org.foomaa.jvchat.models;
 
 import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.structobjects.JvBaseStructObject;
-import org.foomaa.jvchat.structobjects.JvConnectionEventStructObject;
-import org.foomaa.jvchat.structobjects.JvGetterStructObjects;
+import org.foomaa.jvchat.structobjects.BaseStructObject;
+import org.foomaa.jvchat.structobjects.ConnectionEventStructObject;
+import org.foomaa.jvchat.structobjects.GetterStructObjects;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.UUID;
 
 public class ConnectionsEventsModel extends BaseModel {
     ConnectionsEventsModel() {
-        setRootObject(JvGetterStructObjects.getInstance()
+        setRootObject(GetterStructObjects.getInstance()
                 .getBeanRootStructObject(getNameModel()));
     }
 
@@ -22,8 +22,8 @@ public class ConnectionsEventsModel extends BaseModel {
                                     Object objectReceiver,
                                     String customNameEvent,
                                     AnnotationConfigApplicationContext context) {
-        JvConnectionEventStructObject connectionObject =
-                JvGetterStructObjects.getInstance().getBeanConnectionEventStructObject();
+        ConnectionEventStructObject connectionObject =
+                GetterStructObjects.getInstance().getBeanConnectionEventStructObject();
 
         connectionObject.setObjectSender(objectSender);
         connectionObject.setCustomNameEvent(customNameEvent);
@@ -35,11 +35,11 @@ public class ConnectionsEventsModel extends BaseModel {
         return connectionObject.getUuid();
     }
 
-    public List<JvConnectionEventStructObject> findConnections(Object objectSender, String customNameEvent) {
-        List<JvConnectionEventStructObject> resList = new ArrayList<>();
+    public List<ConnectionEventStructObject> findConnections(Object objectSender, String customNameEvent) {
+        List<ConnectionEventStructObject> resList = new ArrayList<>();
 
-        for (JvBaseStructObject baseStructObject : getRootObject().getChildren()) {
-            JvConnectionEventStructObject connectionEventStructObject = (JvConnectionEventStructObject) baseStructObject;
+        for (BaseStructObject baseStructObject : getRootObject().getChildren()) {
+            ConnectionEventStructObject connectionEventStructObject = (ConnectionEventStructObject) baseStructObject;
             if (connectionEventStructObject == null) {
                 Log.write(Log.TypeLog.Error, "This includes the chatStructObject object, which is null.");
                 continue;

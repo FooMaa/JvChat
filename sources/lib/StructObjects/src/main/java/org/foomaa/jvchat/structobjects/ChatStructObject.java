@@ -1,35 +1,35 @@
 package org.foomaa.jvchat.structobjects;
 
 
-public class JvChatStructObject extends JvBaseStructObject {
-    private JvMessageStructObject lastMessage;
-    private JvUserStructObject userChat;
+public class ChatStructObject extends BaseStructObject {
+    private MessageStructObject lastMessage;
+    private UserStructObject userChat;
 
-    JvChatStructObject() {
+    ChatStructObject() {
         lastMessage = null;
         userChat = null;
         commitProperties();
     }
 
-    public void setLastMessage(JvMessageStructObject newLastMessage) {
+    public void setLastMessage(MessageStructObject newLastMessage) {
         if (lastMessage != newLastMessage) {
             lastMessage = newLastMessage;
             commitProperties();
         }
     }
 
-    public void setUserChat(JvUserStructObject newUserChat) {
+    public void setUserChat(UserStructObject newUserChat) {
         if (userChat != newUserChat) {
             userChat = newUserChat;
             commitProperties();
         }
     }
 
-    public JvMessageStructObject getLastMessage() {
+    public MessageStructObject getLastMessage() {
         return lastMessage;
     }
 
-    public JvUserStructObject getUserChat() {
+    public UserStructObject getUserChat() {
         return userChat;
     }
 }

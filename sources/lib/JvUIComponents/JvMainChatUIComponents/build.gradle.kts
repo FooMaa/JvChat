@@ -8,7 +8,7 @@ dependencies {
     implementation(project(":JvTools"))
     implementation(project(":Logger"))
     implementation(project(":GlobalDefines"))
-    implementation(project(":JvStructObjects"))
+    implementation(project(":StructObjects"))
 }
 
 tasks.withType<ProcessResources> {

@@ -1,15 +1,15 @@
 package org.foomaa.jvchat.models;
 
 import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.structobjects.JvBaseStructObject;
-import org.foomaa.jvchat.structobjects.JvRootStructObject;
+import org.foomaa.jvchat.structobjects.BaseStructObject;
+import org.foomaa.jvchat.structobjects.RootStructObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public abstract class BaseModel {
-    private JvRootStructObject rootObject;
+    private RootStructObject rootObject;
     private final String nameModel;
 
     BaseModel() {
@@ -17,11 +17,11 @@ public abstract class BaseModel {
         rootObject = null;
     }
 
-    public void addItem(JvBaseStructObject item, JvBaseStructObject parent) {
+    public void addItem(BaseStructObject item, BaseStructObject parent) {
         parent.addChild(item);
     }
 
-    public void removeItem(JvBaseStructObject item) {
+    public void removeItem(BaseStructObject item) {
         if (rootObject == null) {
             Log.write(Log.TypeLog.Error, "Here rootObject turned out to be null.");
             return;
@@ -32,10 +32,10 @@ public abstract class BaseModel {
         }
     }
 
-    private boolean removeItemProcess(JvBaseStructObject parent, JvBaseStructObject item) {
-        List<JvBaseStructObject> baseStructObjects = new ArrayList<>(parent.getChildren());
+    private boolean removeItemProcess(BaseStructObject parent, BaseStructObject item) {
+        List<BaseStructObject> baseStructObjects = new ArrayList<>(parent.getChildren());
 
-        for (JvBaseStructObject child : baseStructObjects) {
+        for (BaseStructObject child : baseStructObjects) {
             if (child == item) {
                 parent.removeChild(item);
                 return true;
@@ -50,14 +50,14 @@ public abstract class BaseModel {
         return false;
     }
 
-    protected void setRootObject(JvRootStructObject newRootObject) {
+    protected void setRootObject(RootStructObject newRootObject) {
         if (rootObject != newRootObject) {
             rootObject = newRootObject;
             updateRootObjectsModel();
         }
     }
 
-    protected JvBaseStructObject getRootObject() {
+    protected BaseStructObject getRootObject() {
         return rootObject;
     }
 
@@ -66,8 +66,8 @@ public abstract class BaseModel {
             return;
         }
 
-        JvRootStructObject rootStructObjectRootModel =
-                (JvRootStructObject) GetterModels.getInstance().getBeanRootObjectsModel().getRootObject();
+        RootStructObject rootStructObjectRootModel =
+                (RootStructObject) GetterModels.getInstance().getBeanRootObjectsModel().getRootObject();
 
         if (rootObject != null &&  rootObject != rootStructObjectRootModel) {
             GetterModels.getInstance().getBeanRootObjectsModel().addItem(rootObject, rootStructObjectRootModel);
@@ -79,13 +79,13 @@ public abstract class BaseModel {
     }
 
     public void clearModel() {
-        List<JvBaseStructObject> children = new ArrayList<>(rootObject.getChildren());
+        List<BaseStructObject> children = new ArrayList<>(rootObject.getChildren());
         if (children.isEmpty()) {
             Log.write(Log.TypeLog.Warn, "Empty children...");
             return;
         }
 
-        for (JvBaseStructObject child : children) {
+        for (BaseStructObject child : children) {
             rootObject.removeChild(child);
         }
     }

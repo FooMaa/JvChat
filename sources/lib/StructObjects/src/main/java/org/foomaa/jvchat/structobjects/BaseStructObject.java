@@ -6,13 +6,13 @@ import java.util.*;
 import org.foomaa.jvchat.logger.Log;
 
 
-public abstract class JvBaseStructObject {
-    private JvBaseStructObject parent;
-    private List<JvBaseStructObject> children;
+public abstract class BaseStructObject {
+    private BaseStructObject parent;
+    private List<BaseStructObject> children;
     private final HashMap<String, Object> properties;
     private UUID uuid;
 
-    JvBaseStructObject() {
+    BaseStructObject() {
         properties = new HashMap<>();
         children = new ArrayList<>();
         parent = null;
@@ -23,32 +23,32 @@ public abstract class JvBaseStructObject {
         return properties.get(name);
     }
 
-    public JvBaseStructObject getParent() {
+    public BaseStructObject getParent() {
         return parent;
     }
 
-    public void setParent(JvBaseStructObject newParent) {
+    public void setParent(BaseStructObject newParent) {
         if (parent != newParent) {
             parent = newParent;
         }
     }
 
-    public void addChild(JvBaseStructObject child) {
+    public void addChild(BaseStructObject child) {
         child.setParent(this);
         children.add(child);
     }
 
-    public void removeChild(JvBaseStructObject child) {
+    public void removeChild(BaseStructObject child) {
         children.remove(child);
     }
 
-    public List<JvBaseStructObject> getChildren() {
+    public List<BaseStructObject> getChildren() {
         return children;
     }
 
     @Deprecated
     @SuppressWarnings("unused")
-    public void setChildren(List<JvBaseStructObject> newChildren) {
+    public void setChildren(List<BaseStructObject> newChildren) {
         if (children != newChildren) {
             children = newChildren;
         }

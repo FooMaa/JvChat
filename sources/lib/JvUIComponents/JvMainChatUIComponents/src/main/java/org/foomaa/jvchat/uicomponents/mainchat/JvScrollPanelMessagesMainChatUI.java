@@ -3,7 +3,7 @@ package org.foomaa.jvchat.uicomponents.mainchat;
 import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.structobjects.JvMessageStructObject;
+import org.foomaa.jvchat.structobjects.MessageStructObject;
 
 import javax.swing.*;
 import java.awt.*;
@@ -87,7 +87,7 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
         repaint();
     }
 
-    private void createPanelMessage(JvMessageStructObject messageObject, String constraints) {
+    private void createPanelMessage(MessageStructObject messageObject, String constraints) {
         JPanel rowPanel = new JPanel();
         rowPanel.setLayout(new BorderLayout());
 
@@ -114,7 +114,7 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
         }
     }
 
-    public void addMessage(JvMessageStructObject messageObject) {
+    public void addMessage(MessageStructObject messageObject) {
         String constraints = GetterControls.getInstance().getBeanMessagesDialogCtrl().isCurrentUserSender(messageObject) ?
                 BorderLayout.EAST : BorderLayout.WEST;
         createPanelMessage(messageObject, constraints);
@@ -157,8 +157,8 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
     private void changeAllMessages() {
         panel.removeAll();
 
-        List<JvMessageStructObject> allMessagesObjSorted = GetterControls.getInstance().getBeanMessagesDialogCtrl().getAllSortedMessages();
-        for (JvMessageStructObject messageStructObject : allMessagesObjSorted) {
+        List<MessageStructObject> allMessagesObjSorted = GetterControls.getInstance().getBeanMessagesDialogCtrl().getAllSortedMessages();
+        for (MessageStructObject messageStructObject : allMessagesObjSorted) {
             addMessage(messageStructObject);
         }
 
@@ -166,10 +166,10 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
     }
 
     private void addRedirectMessage() {
-        List<JvMessageStructObject> allMessagesObjSorted = GetterControls.getInstance().getBeanMessagesDialogCtrl().getAllSortedMessages();
+        List<MessageStructObject> allMessagesObjSorted = GetterControls.getInstance().getBeanMessagesDialogCtrl().getAllSortedMessages();
         UUID currentPanelUuid = GetterControls.getInstance().getBeanMessagesDialogCtrl().getCurrentActiveChatUuid();
 
-        for (JvMessageStructObject messageStructObject : allMessagesObjSorted) {
+        for (MessageStructObject messageStructObject : allMessagesObjSorted) {
             UUID uuidChat = GetterControls.getInstance().getBeanMessagesDialogCtrl()
                     .findUuidChatByUuidUser(messageStructObject.getUuidUserSender());
             if (findRectMessageByUuid(panel, messageStructObject.getUuid()) == null &&
@@ -202,9 +202,9 @@ public class JvScrollPanelMessagesMainChatUI extends JPanel {
     }
 
     private void changeStatusMessage() {
-        List<JvMessageStructObject> allMessagesObjSorted = GetterControls.getInstance().getBeanMessagesDialogCtrl().getAllSortedMessages();
+        List<MessageStructObject> allMessagesObjSorted = GetterControls.getInstance().getBeanMessagesDialogCtrl().getAllSortedMessages();
 
-        for (JvMessageStructObject messageStructObject : allMessagesObjSorted) {
+        for (MessageStructObject messageStructObject : allMessagesObjSorted) {
             JvRectMessageMainChatUI rectMessage = findRectMessageByUuid(panel, messageStructObject.getUuid());
             if (rectMessage != null) {
                 rectMessage.changeStatusMessage(messageStructObject.getStatusMessage());

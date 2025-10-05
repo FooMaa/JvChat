@@ -15,7 +15,7 @@ import org.foomaa.jvchat.network.UsersSocket;
 import org.foomaa.jvchat.settings.JvGetterSettings;
 import org.foomaa.jvchat.settings.JvMainSettings;
 import org.foomaa.jvchat.network.ServersSocket;
-import org.foomaa.jvchat.structobjects.JvSocketRunnableCtrlStructObject;
+import org.foomaa.jvchat.structobjects.SocketRunnableCtrlStructObject;
 
 
 public class NetworkCtrl {
@@ -110,12 +110,12 @@ public class NetworkCtrl {
     private void controlErrorConnectionSocket() {
         SocketRunnableCtrlModel socketRunnableCtrlModel =
                 GetterModels.getInstance().getBeanSocketRunnableCtrlModel();
-        List<JvSocketRunnableCtrlStructObject> listAllConnections =
+        List<SocketRunnableCtrlStructObject> listAllConnections =
                 socketRunnableCtrlModel.getAllSocketRunnableCtrlStructObject();
 
         int milliSecondsSleepAfterOperation = 10000;
 
-        for (JvSocketRunnableCtrlStructObject socketCtrl : listAllConnections) {
+        for (SocketRunnableCtrlStructObject socketCtrl : listAllConnections) {
             SocketRunnableCtrl socketRunnableCtrl = (SocketRunnableCtrl) socketCtrl.getSocketRunnableCtrl();
 
             if (socketRunnableCtrl != null && socketRunnableCtrl.isErrorsExceedsLimit()) {

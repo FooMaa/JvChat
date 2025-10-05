@@ -4,7 +4,7 @@ import org.springframework.context.annotation.*;
 
 
 @Configuration
-class JvStructObjectsSpringConfig {
+class StructObjectsSpringConfig {
     public enum NameBeans {
         BeanMessageStructObject("beanMessageStructObject"),
         BeanRootStructObject("beanRootStructObject"),
@@ -29,32 +29,32 @@ class JvStructObjectsSpringConfig {
     @Lazy
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvMessageStructObject beanBaseStructObject() {
-        return new JvMessageStructObject();
+    public MessageStructObject beanBaseStructObject() {
+        return new MessageStructObject();
     }
 
     @Bean(name = "beanRootStructObject")
     @Lazy
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvRootStructObject beanRootStructObject(String nameModel) {
-        return new JvRootStructObject(nameModel);
+    public RootStructObject beanRootStructObject(String nameModel) {
+        return new RootStructObject(nameModel);
     }
 
     @Bean(name = "beanChatStructObject")
     @Lazy
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvChatStructObject beanChatStructObject() {
-        return new JvChatStructObject();
+    public ChatStructObject beanChatStructObject() {
+        return new ChatStructObject();
     }
 
     @Bean(name = "beanUserStructObject")
     @Lazy
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvUserStructObject beanUserStructObject() {
-        return new JvUserStructObject();
+    public UserStructObject beanUserStructObject() {
+        return new UserStructObject();
     }
 
     @Bean(name = "beanCheckerOnlineStructObject")
@@ -62,23 +62,23 @@ class JvStructObjectsSpringConfig {
     @Profile("servers")
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvCheckerOnlineStructObject beanCheckerOnlineStructObject() {
-        return new JvCheckerOnlineStructObject();
+    public CheckerOnlineStructObject beanCheckerOnlineStructObject() {
+        return new CheckerOnlineStructObject();
     }
 
     @Bean(name = "beanSocketRunnableCtrlStructObject")
     @Lazy
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvSocketRunnableCtrlStructObject beanSocketRunnableCtrlStructObject() {
-        return new JvSocketRunnableCtrlStructObject();
+    public SocketRunnableCtrlStructObject beanSocketRunnableCtrlStructObject() {
+        return new SocketRunnableCtrlStructObject();
     }
 
     @Bean(name = "beanConnectionEventStructObject")
     @Lazy
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvConnectionEventStructObject beanConnectionEventStructObject() {
-        return new JvConnectionEventStructObject();
+    public ConnectionEventStructObject beanConnectionEventStructObject() {
+        return new ConnectionEventStructObject();
     }
 }

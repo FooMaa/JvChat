@@ -2,7 +2,7 @@ package org.foomaa.jvchat.events;
 
 import org.foomaa.jvchat.models.ConnectionsEventsModel;
 import org.foomaa.jvchat.models.GetterModels;
-import org.foomaa.jvchat.structobjects.JvConnectionEventStructObject;
+import org.foomaa.jvchat.structobjects.ConnectionEventStructObject;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.*;
@@ -16,9 +16,9 @@ public class MakerEvents {
     }
 
     public void event(Object objectSender, String customNameEvent, Object... data) {
-        List<JvConnectionEventStructObject> connections =
+        List<ConnectionEventStructObject> connections =
                 connectionsEventsModel.findConnections(objectSender, customNameEvent);
-        for (JvConnectionEventStructObject connection : connections) {
+        for (ConnectionEventStructObject connection : connections) {
             UUID uuidKey = connection.getUuid();
             BaseEvent baseEvent = GetterEvents.getInstance().getBeanBaseEvent(objectSender, connection.getObjectReceiver(), uuidKey, data);
             publishEvent(baseEvent, connection.getContext());

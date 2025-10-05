@@ -1,10 +1,10 @@
 package org.foomaa.jvchat.structobjects;
 
 
-public class JvRootStructObject extends JvBaseStructObject {
+public class RootStructObject extends BaseStructObject {
     private final String nameModel;
 
-    JvRootStructObject(String newNameModel) {
+    RootStructObject(String newNameModel) {
         nameModel = newNameModel;
         commitProperties();
     }

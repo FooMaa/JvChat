@@ -5,6 +5,6 @@ dependencies {
     implementation("net.bytebuddy:byte-buddy:1.16.1")
     implementation("org.aspectj:aspectjweaver:1.9.22.1")
     implementation(project(":Models"))
-    implementation(project(":JvStructObjects"))
+    implementation(project(":StructObjects"))
     implementation(project(":Logger"))
 }

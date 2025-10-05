@@ -1,10 +1,10 @@
 package org.foomaa.jvchat.structobjects;
 
 
-public class JvSocketRunnableCtrlStructObject extends JvBaseStructObject {
+public class SocketRunnableCtrlStructObject extends BaseStructObject {
     private Runnable socketRunnableCtrl;
 
-    JvSocketRunnableCtrlStructObject() {
+    SocketRunnableCtrlStructObject() {
         socketRunnableCtrl = null;
         commitProperties();
     }

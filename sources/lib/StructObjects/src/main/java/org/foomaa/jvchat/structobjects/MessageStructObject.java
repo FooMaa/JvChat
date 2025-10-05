@@ -7,14 +7,14 @@ import java.util.UUID;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 
 
-public class JvMessageStructObject extends JvBaseStructObject {
+public class MessageStructObject extends BaseStructObject {
     private UUID uuidUserSender;
     private UUID uuidUserReceiver;
     private MainChatsGlobalDefines.TypeStatusMessage statusMessage;
     private String text;
     private LocalDateTime timestamp;
 
-    JvMessageStructObject() {
+    MessageStructObject() {
         uuidUserSender = null;
         uuidUserReceiver = null;
         statusMessage = null;

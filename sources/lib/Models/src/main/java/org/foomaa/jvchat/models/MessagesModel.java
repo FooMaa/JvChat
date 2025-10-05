@@ -6,24 +6,24 @@ import java.util.List;
 import java.util.UUID;
 
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
-import org.foomaa.jvchat.structobjects.JvBaseStructObject;
-import org.foomaa.jvchat.structobjects.JvGetterStructObjects;
-import org.foomaa.jvchat.structobjects.JvMessageStructObject;
+import org.foomaa.jvchat.structobjects.BaseStructObject;
+import org.foomaa.jvchat.structobjects.GetterStructObjects;
+import org.foomaa.jvchat.structobjects.MessageStructObject;
 
 
 public class MessagesModel extends BaseModel {
     MessagesModel() {
-        setRootObject(JvGetterStructObjects.getInstance()
+        setRootObject(GetterStructObjects.getInstance()
                 .getBeanRootStructObject(getNameModel()));
     }
 
-    public JvMessageStructObject createNewMessage(UUID uuidUserSender,
-                                                  UUID uuidUserReceiver,
-                                                  UUID uuidMessage,
-                                                  MainChatsGlobalDefines.TypeStatusMessage statusMessage,
-                                                  String text,
-                                                  LocalDateTime timestamp) {
-        JvMessageStructObject messageObj = JvGetterStructObjects.getInstance().getBeanMessageStructObject();
+    public MessageStructObject createNewMessage(UUID uuidUserSender,
+                                                UUID uuidUserReceiver,
+                                                UUID uuidMessage,
+                                                MainChatsGlobalDefines.TypeStatusMessage statusMessage,
+                                                String text,
+                                                LocalDateTime timestamp) {
+        MessageStructObject messageObj = GetterStructObjects.getInstance().getBeanMessageStructObject();
 
         messageObj.setUuidUserSender(uuidUserSender);
         messageObj.setUuidUserReceiver(uuidUserReceiver);
@@ -37,11 +37,11 @@ public class MessagesModel extends BaseModel {
         return messageObj;
     }
 
-    public List<JvMessageStructObject> getAllMessages() {
-        List<JvMessageStructObject> resultList = new ArrayList<>();
+    public List<MessageStructObject> getAllMessages() {
+        List<MessageStructObject> resultList = new ArrayList<>();
 
-        for (JvBaseStructObject baseStructObject : getRootObject().getChildren()) {
-            JvMessageStructObject messageStructObject = (JvMessageStructObject) baseStructObject;
+        for (BaseStructObject baseStructObject : getRootObject().getChildren()) {
+            MessageStructObject messageStructObject = (MessageStructObject) baseStructObject;
             if (messageStructObject != null) {
                 resultList.add(messageStructObject);
             }
@@ -50,8 +50,8 @@ public class MessagesModel extends BaseModel {
         return resultList;
     }
 
-    public List<JvMessageStructObject> getSortedMessagesObjects() {
-        List<JvMessageStructObject> list = getAllMessages();
+    public List<MessageStructObject> getSortedMessagesObjects() {
+        List<MessageStructObject> list = getAllMessages();
 
         list.sort((msgObj1, msgObj2) -> {
             LocalDateTime msgObj2Date = msgObj2.getTimestamp();
@@ -62,7 +62,7 @@ public class MessagesModel extends BaseModel {
         return list;
     }
 
-    public void addMessageStructObject(JvMessageStructObject messageStructObject) {
+    public void addMessageStructObject(MessageStructObject messageStructObject) {
         addItem(messageStructObject, getRootObject());
     }
 }

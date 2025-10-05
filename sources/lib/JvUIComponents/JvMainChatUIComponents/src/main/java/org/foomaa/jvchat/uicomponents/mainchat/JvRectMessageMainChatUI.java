@@ -11,7 +11,7 @@ import java.util.UUID;
 import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.settings.JvGetterSettings;
-import org.foomaa.jvchat.structobjects.JvMessageStructObject;
+import org.foomaa.jvchat.structobjects.MessageStructObject;
 
 
 public class JvRectMessageMainChatUI extends JTextArea {
@@ -20,7 +20,7 @@ public class JvRectMessageMainChatUI extends JTextArea {
     private final LocalDateTime timestamp;
     private final UUID uuidMessage;
 
-    JvRectMessageMainChatUI(JvMessageStructObject messageObject) {
+    JvRectMessageMainChatUI(MessageStructObject messageObject) {
         textMessage = messageObject.getText();
         statusMessage = messageObject.getStatusMessage();
         timestamp = messageObject.getTimestamp();

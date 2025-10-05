@@ -9,10 +9,10 @@
     </parent>
 
     <groupId>org.foomaa.jvchat.structobjects</groupId>
-    <artifactId>JvStructObjects</artifactId>
+    <artifactId>StructObjects</artifactId>
     <packaging>jar</packaging>
 
-    <name>JvStructObjects</name>
+    <name>StructObjects</name>
 
     <dependencies>
         <dependency>

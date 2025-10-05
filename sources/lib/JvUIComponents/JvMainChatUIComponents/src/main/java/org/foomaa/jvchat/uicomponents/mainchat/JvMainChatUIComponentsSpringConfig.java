@@ -1,9 +1,9 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import org.foomaa.jvchat.structobjects.JvMessageStructObject;
+import org.foomaa.jvchat.structobjects.MessageStructObject;
 import org.springframework.context.annotation.*;
 
-import org.foomaa.jvchat.structobjects.JvChatStructObject;
+import org.foomaa.jvchat.structobjects.ChatStructObject;
 
 
 @Configuration
@@ -77,7 +77,7 @@ class JvMainChatUIComponentsSpringConfig {
     @Lazy
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvRectMessageMainChatUI beanRectMessageMainChatUI(JvMessageStructObject messageObject) {
+    public JvRectMessageMainChatUI beanRectMessageMainChatUI(MessageStructObject messageObject) {
         return new JvRectMessageMainChatUI(messageObject);
     }
 
@@ -85,7 +85,7 @@ class JvMainChatUIComponentsSpringConfig {
     @Lazy
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public JvRectChatMainChatUI beanRectChatMainChatUI(JvChatStructObject chatObject) {
+    public JvRectChatMainChatUI beanRectChatMainChatUI(ChatStructObject chatObject) {
         return new JvRectChatMainChatUI(chatObject);
     }
 

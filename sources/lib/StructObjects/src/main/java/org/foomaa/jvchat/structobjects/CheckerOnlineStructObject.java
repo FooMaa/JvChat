@@ -4,14 +4,14 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 
-public class JvCheckerOnlineStructObject extends JvBaseStructObject {
-    private JvUserStructObject user;
-    private JvSocketRunnableCtrlStructObject socketRunnableCtrlStructObject;
+public class CheckerOnlineStructObject extends BaseStructObject {
+    private UserStructObject user;
+    private SocketRunnableCtrlStructObject socketRunnableCtrlStructObject;
     private boolean isSending;
     private LocalDateTime dateTimeSending;
     private LocalDateTime dateTimeUpdating;
 
-    JvCheckerOnlineStructObject() {
+    CheckerOnlineStructObject() {
         user = null;
         isSending = false;
         dateTimeSending = null;
@@ -21,7 +21,7 @@ public class JvCheckerOnlineStructObject extends JvBaseStructObject {
         commitProperties();
     }
 
-    public void setUser(JvUserStructObject newUser) {
+    public void setUser(UserStructObject newUser) {
         if (user != newUser) {
             user = newUser;
             commitProperties();
@@ -49,14 +49,14 @@ public class JvCheckerOnlineStructObject extends JvBaseStructObject {
         }
     }
 
-    public void setSocketRunnableCtrlStructObject(JvSocketRunnableCtrlStructObject newRunnableCtrlStructObject) {
+    public void setSocketRunnableCtrlStructObject(SocketRunnableCtrlStructObject newRunnableCtrlStructObject) {
         if (socketRunnableCtrlStructObject != newRunnableCtrlStructObject) {
             socketRunnableCtrlStructObject = newRunnableCtrlStructObject;
             commitProperties();
         }
     }
 
-    public JvUserStructObject getUser() {
+    public UserStructObject getUser() {
         return user;
     }
 
@@ -72,7 +72,7 @@ public class JvCheckerOnlineStructObject extends JvBaseStructObject {
         return dateTimeUpdating;
     }
 
-    public JvSocketRunnableCtrlStructObject getSocketRunnableCtrlStructObject() {
+    public SocketRunnableCtrlStructObject getSocketRunnableCtrlStructObject() {
         return socketRunnableCtrlStructObject;
     }
 }

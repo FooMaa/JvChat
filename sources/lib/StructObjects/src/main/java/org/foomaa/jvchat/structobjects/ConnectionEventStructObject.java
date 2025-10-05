@@ -5,14 +5,14 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import java.util.Objects;
 
 
-public class JvConnectionEventStructObject extends JvBaseStructObject {
+public class ConnectionEventStructObject extends BaseStructObject {
     private Object objectSender;
     private Object objectReceiver;
     private String customNameEvent;
 
     private AnnotationConfigApplicationContext context;
 
-    JvConnectionEventStructObject() {
+    ConnectionEventStructObject() {
         objectSender = null;
         objectReceiver = null;
         context = null;
