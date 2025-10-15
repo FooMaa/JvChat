@@ -1,0 +1,428 @@
+package org.foomaa.jvchat.ctrl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Profile;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.foomaa.jvchat.dbworker.DbRequests;
+import org.foomaa.jvchat.dbworker.DbWorker;
+import org.foomaa.jvchat.globaldefines.DbGlobalDefines;
+import org.foomaa.jvchat.logger.Log;
+
+
+public class DbCtrl {
+    private DbWorker db;
+    private DbRequests dbRequests;
+
+    public enum TypeExecutionInsert {
+        RegisterForm,
+        ChangePassword,
+        VerifyFamousEmail,
+        VerifyRegistrationEmail,
+        OnlineUsersInfo,
+        ChatMessagesSentMessage,
+        ChatsMessageStatusChange,
+    }
+
+    public enum TypeExecutionCheck {
+        UserPassword,
+        Login,
+        Email,
+        VerifyFamousEmailCode,
+        VerifyRegistrationEmail,
+    }
+
+    public enum TypeExecutionGetSingle {
+        LoginByEmail,
+        UuidUserByEmail,
+        UuidUserByLogin,
+        LastOnlineTimeUser,
+    }
+
+    public enum TypeExecutionGetMultiple {
+        ChatsLoad,
+        StatusOnlineTimeUser,
+        OnlineUsers,
+        MessagesLoad,
+    }
+
+    DbCtrl() {}
+
+    @Autowired(required = false)
+    @Qualifier("beanDbWorker")
+    @Profile("servers")
+    @SuppressWarnings("unused")
+    private void setDb(DbWorker newDb) {
+        if (db != newDb) {
+            db = newDb;
+        }
+    }
+
+    @Autowired(required = false)
+    @Qualifier("beanDbRequests")
+    @Profile("servers")
+    @SuppressWarnings("unused")
+    private void setDbRequests(DbRequests newDbRequests) {
+        if (dbRequests != newDbRequests) {
+            dbRequests = newDbRequests;
+        }
+    }
+
+    public List<String> getStrDataAtRow(ResultSet resultSet, int row) {
+        // в БД нумерация рядов и столбцов не с 0, а с 1
+        ResultSetMetaData metadata;
+        int columnCount = 0;
+        try {
+            metadata = resultSet.getMetaData();
+            columnCount = metadata.getColumnCount();
+        } catch (SQLException exception) {
+            Log.write(Log.TypeLog.Error, "It is not possible to get column data and metadata.");
+        }
+
+        List<String> result = new ArrayList<>(columnCount);
+
+        try {
+            resultSet.absolute(row);
+
+            for (int i = 1; i <= columnCount; i++) {
+                result.add(resultSet.getString(i));
+            }
+        } catch (SQLException exception) {
+            Log.write(Log.TypeLog.Error, "It was not possible to obtain data for the series.");
+        }
+
+        return result;
+    }
+
+    @Deprecated
+    public boolean ifExistsLineInTable(ResultSet resultSet) {
+        boolean res = false;
+        try {
+            res = resultSet.next();
+        } catch (SQLException exception) {
+            Log.write(Log.TypeLog.Error, "The database returned an exception when checking, something is wrong.");
+        }
+        return res;
+    }
+
+    public boolean insertQueryToDB(TypeExecutionInsert type, String... parameters) {
+        switch (type) {
+            case RegisterForm -> {
+                if (parameters.length == 4) {
+                    String login = parameters[0];
+                    String email = parameters[1];
+                    String hashPassword = parameters[2];
+                    String uuidUser = parameters[3];
+                    if (!checkQueryToDB(TypeExecutionCheck.Login, login) &&
+                            !checkQueryToDB(TypeExecutionCheck.Email, email)) {
+                        ResultSet rs = db.makeExecution(dbRequests.insertToRegForm(login, email, hashPassword, uuidUser));
+                        db.closeResultSet(rs);
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+                return false;
+            }
+            case ChangePassword -> {
+                if (parameters.length == 2) {
+                    String email = parameters[0];
+                    String hashPassword = parameters[1];
+                    ResultSet rs = db.makeExecution(dbRequests.insertChangePassword(email, hashPassword));
+                    db.closeResultSet(rs);
+                    return true;
+                }
+                return false;
+            }
+            case VerifyFamousEmail -> {
+                if (parameters.length == 2) {
+                    String email = parameters[0];
+                    String code = parameters[1];
+                    String userUuid;
+                    if (checkQueryToDB(TypeExecutionCheck.Email, email)) {
+                        userUuid = getSingleDataFromDb(TypeExecutionGetSingle.UuidUserByEmail, email);
+                        ResultSet rs = db.makeExecution(dbRequests.insertCodeVerifyFamousEmail(userUuid, code));
+                        db.closeResultSet(rs);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            case VerifyRegistrationEmail -> {
+                if (parameters.length == 2) {
+                    String email = parameters[0];
+                    String code = parameters[1];
+                    ResultSet rs = db.makeExecution(dbRequests.insertVerifyRegistrationEmail(email, code));
+                    db.closeResultSet(rs);
+                    return true;
+                }
+                return false;
+            }
+            case OnlineUsersInfo -> {
+                if (parameters.length == 2) {
+                    String login = parameters[0];
+                    String status = parameters[1];
+                    ResultSet rs = db.makeExecution(dbRequests.insertOnlineUsersInfo(login, status));
+                    db.closeResultSet(rs);
+                    return true;
+                }
+                return false;
+            }
+            case ChatMessagesSentMessage -> {
+                if (parameters.length == 6) {
+                    String uuidUserSender = parameters[0];
+                    String uuidUserReceiver = parameters[1];
+                    String uuidMessage = parameters[2];
+                    String status = parameters[3];
+                    String text = parameters[4];
+                    String timestamp = parameters[5];
+                    ResultSet rs = db.makeExecution(dbRequests.insertChatsSentMessage(
+                            uuidUserSender, uuidUserReceiver, uuidMessage, status, text, timestamp));
+                    db.closeResultSet(rs);
+                    return true;
+                }
+                return false;
+            }
+            case ChatsMessageStatusChange -> {
+                if (parameters.length == 2) {
+                    String uuidMessage = parameters[0];
+                    String status = parameters[1];
+                    ResultSet rs = db.makeExecution(dbRequests
+                            .insertChatsMessageStatusChange(uuidMessage, status));
+                    db.closeResultSet(rs);
+                    return true;
+                }
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkQueryToDB(TypeExecutionCheck type, String... parameters) {
+        switch (type) {
+            case UserPassword -> {
+                if (parameters.length == 2) {
+                    String login = parameters[0];
+                    String hashPassword = parameters[1];
+                    ResultSet rs = db.makeExecution(dbRequests.checkUserPassword(login, hashPassword));
+                    try {
+                        boolean result = rs.next();
+                        db.closeResultSet(rs);
+                        return result;
+                    } catch (SQLException exception) {
+                        Log.write(Log.TypeLog.Error, "Error checking database query.");
+                    }
+                }
+                return false;
+            }
+            case Login -> {
+                if (parameters.length == 1) {
+                    String login = parameters[0];
+                    ResultSet rs = db.makeExecution(dbRequests.checkLogin(login));
+                    try {
+                        boolean result = rs.next();
+                        db.closeResultSet(rs);
+                        return result;
+                    } catch (SQLException exception) {
+                        Log.write(Log.TypeLog.Error, "Error checking database query.");
+                    }
+                }
+                return false;
+            }
+            case Email -> {
+                if (parameters.length == 1) {
+                    String email = parameters[0];
+                    ResultSet rs = db.makeExecution(dbRequests.checkEmail(email));
+                    try {
+                        boolean result = rs.next();
+                        db.closeResultSet(rs);
+                        return result;
+                    } catch (SQLException exception) {
+                        Log.write(Log.TypeLog.Error, "Error checking database query.");
+                    }
+                }
+                return false;
+            }
+            case VerifyFamousEmailCode -> {
+                if (parameters.length == 2) {
+                    String email = parameters[0];
+                    String code = parameters[1];
+                    ResultSet rs = db.makeExecution(dbRequests.checkVerifyFamousEmailCode(email, code));
+                    try {
+                        boolean result = rs.next();
+                        db.closeResultSet(rs);
+                        return result;
+                    } catch (SQLException exception) {
+                        Log.write(Log.TypeLog.Error, "Error checking database query.");
+                    }
+                }
+                return false;
+            }
+            case VerifyRegistrationEmail -> {
+                if (parameters.length == 2) {
+                    String email = parameters[0];
+                    String code = parameters[1];
+                    ResultSet rs = db.makeExecution(dbRequests.checkVerifyRegistrationEmail(email, code));
+                    try {
+                        boolean result = rs.next();
+                        db.closeResultSet(rs);
+                        return result;
+                    } catch (SQLException exception) {
+                        Log.write(Log.TypeLog.Error, "Error checking database query.");
+                    }
+                }
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public String getSingleDataFromDb(TypeExecutionGetSingle type, String... parameters) {
+        switch (type) {
+            case LoginByEmail -> {
+                if (parameters.length == 1) {
+                    String email = parameters[0];
+                    ResultSet resultSet = db.makeExecution(dbRequests.getLoginByEmail(email));
+                    List<String> result = getStrDataAtRow(resultSet, 1);
+                    db.closeResultSet(resultSet);
+                    if (!result.isEmpty()) {
+                        return result.stream().findFirst().get();
+                    }
+                }
+                return null;
+            }
+            case UuidUserByEmail -> {
+                if (parameters.length == 1) {
+                    String email = parameters[0];
+                    ResultSet resultSet = db.makeExecution(dbRequests.getUserUuidByEmail(email));
+                    List<String> result = getStrDataAtRow(resultSet, 1);
+                    db.closeResultSet(resultSet);
+                    if (!result.isEmpty()) {
+                        return result.stream().findFirst().get();
+                    }
+                }
+                return null;
+            }
+            case UuidUserByLogin -> {
+                if (parameters.length == 1) {
+                    String login = parameters[0];
+                    ResultSet resultSet = db.makeExecution(dbRequests.getUserUuidByLogin(login));
+                    List<String> result = getStrDataAtRow(resultSet, 1);
+                    db.closeResultSet(resultSet);
+                    if (!result.isEmpty()) {
+                        return result.stream().findFirst().get();
+                    }
+                }
+                return null;
+            }
+            case LastOnlineTimeUser -> {
+                if (parameters.length == 1) {
+                    String uuidUser = parameters[0];
+                    ResultSet resultSet = db.makeExecution(dbRequests.getLastOnlineTimeUser(uuidUser));
+                    List<String> result = getStrDataAtRow(resultSet, 1);
+                    db.closeResultSet(resultSet);
+                    if (!result.isEmpty()) {
+                        return result.stream().findFirst().get();
+                    }
+                }
+                return null;
+            }
+        }
+        return null;
+    }
+
+    public List<Map<DbGlobalDefines.LineKeys, String>> getMultipleInfoFromDb(TypeExecutionGetMultiple type, String... parameters) {
+        switch (type) {
+            case ChatsLoad -> {
+                if (parameters.length == 1) {
+                    String userLogin = parameters[0];
+                    ResultSet resultSet = db.makeExecution(dbRequests.getChats(userLogin));
+                    List<Map<DbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
+
+                    db.closeResultSet(resultSet);
+
+                    if (!result.isEmpty()) {
+                        return result;
+                    }
+                }
+                return null;
+            }
+            case StatusOnlineTimeUser -> {
+                if (parameters.length == 1) {
+                    String uuidUser = parameters[0];
+                    ResultSet resultSet = db.makeExecution(dbRequests.getStatusOnlineTimeUser(uuidUser));
+                    List<Map<DbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
+
+                    db.closeResultSet(resultSet);
+
+                    if (!result.isEmpty()) {
+                        return result;
+                    }
+                }
+                return null;
+            }
+            case OnlineUsers -> {
+                if (parameters.length == 0) {
+                    ResultSet resultSet = db.makeExecution(dbRequests.getOnlineUsers());
+                    List<Map<DbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
+
+                    db.closeResultSet(resultSet);
+
+                    if (!result.isEmpty()) {
+                        return result;
+                    }
+                }
+                return null;
+            }
+            case MessagesLoad -> {
+                if (parameters.length == 2) {
+                    String uuidChat = parameters[0];
+                    String quantityMessages = parameters[1];
+
+                    ResultSet resultSet = db.makeExecution(dbRequests.getQuantityMessagesByUuids(uuidChat, quantityMessages));
+                    List<Map<DbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
+
+                    db.closeResultSet(resultSet);
+
+                    if (!result.isEmpty()) {
+                        return result;
+                    }
+                }
+                return null;
+            }
+        }
+        return null;
+    }
+
+    public List<Map<DbGlobalDefines.LineKeys, String>> multipleDataFromResultSet(ResultSet resultSet) {
+        List<Map<DbGlobalDefines.LineKeys, String>> result = new ArrayList<>();
+
+        try {
+            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+            int columnCount = resultSetMetaData.getColumnCount();
+
+            while (resultSet.next()) {
+                Map<DbGlobalDefines.LineKeys, String> row = new HashMap<>();
+
+                for (int i = 1; i <= columnCount; i++) {
+                    String columnName = resultSetMetaData.getColumnName(i);
+                    String value = resultSet.getObject(i).toString();
+                    row.put(DbGlobalDefines.LineKeys.getTypeLineKey(columnName), value);
+                }
+
+                result.add(row);
+            }
+        } catch (SQLException exception) {
+            Log.write(Log.TypeLog.Error, "Error when working with ResultSet from the database.");
+        }
+
+        return result;
+    }
+}

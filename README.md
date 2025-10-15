@@ -1,6 +1,6 @@
 # JvChat
 Desktop chat in Java
-## Запустить ПО после клонирования с git
+## Run software after git clone
 - Install dependencies if this is an option for users:
 ``` bash
 sudo scripts/dependencies/install_dependencies.sh -a -p users

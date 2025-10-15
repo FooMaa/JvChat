@@ -17,21 +17,21 @@
     <url>http://maven.apache.org</url>
 
     <modules>
-        <module>sources/lib/JvSettings</module>
-        <module>sources/lib/JvUIComponents</module>
-        <module>sources/lib/JvTools</module>
-        <module>sources/lib/JvCryptography</module>
-        <module>sources/lib/JvLogger</module>
-        <module>sources/lib/JvGlobalDefines</module>
-        <module>sources/lib/JvMessages</module>
-        <module>sources/lib/JvEvents</module>
-        <module>sources/lib/JvModels</module>
-        <module>sources/lib/JvStructObjects</module>
-        <module>sources/src/JvStartPoint</module>
-        <module>sources/src/JvUILinks</module>
-        <module>sources/src/JvDbWorker</module>
-        <module>sources/src/JvControls</module>
-        <module>sources/src/JvNetwork</module>
+        <module>sources/lib/Settings</module>
+        <module>sources/lib/UIComponents</module>
+        <module>sources/lib/Tools</module>
+        <module>sources/lib/Cryptography</module>
+        <module>sources/lib/Logger</module>
+        <module>sources/lib/GlobalDefines</module>
+        <module>sources/lib/Messages</module>
+        <module>sources/lib/Events</module>
+        <module>sources/lib/Models</module>
+        <module>sources/lib/StructObjects</module>
+        <module>sources/src/StartPoint</module>
+        <module>sources/src/UILinks</module>
+        <module>sources/src/DbWorker</module>
+        <module>sources/src/Controls</module>
+        <module>sources/src/Network</module>
     </modules>
 
     <properties>

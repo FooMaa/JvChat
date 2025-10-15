@@ -1,0 +1,35 @@
+package org.foomaa.jvchat.settings;
+
+
+public class MainSettings {
+    MainSettings() {}
+
+    public enum TypeProfiles {
+        TESTS("tests"),
+        USERS("users"),
+        SERVERS("servers");
+
+        private final String name;
+
+        TypeProfiles(String newName) {
+            name = newName;
+        }
+
+        @Override
+        public final String toString() {
+            return name;
+        }
+    }
+
+    private TypeProfiles PROFILE;
+
+    public void setProfile(TypeProfiles profile) {
+        if (PROFILE != profile) {
+            PROFILE = profile;
+        }
+    }
+
+    public TypeProfiles getProfile() {
+        return PROFILE;
+    }
+}
