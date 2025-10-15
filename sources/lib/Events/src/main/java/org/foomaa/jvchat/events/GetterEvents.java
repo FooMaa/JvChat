@@ -10,8 +10,7 @@ public class GetterEvents {
     private final AnnotationConfigApplicationContext context;
 
     private GetterEvents() {
-        context = new AnnotationConfigApplicationContext(
-                EventsSpringConfig.class);
+        context = new AnnotationConfigApplicationContext(EventsSpringConfig.class);
     }
 
     public static GetterEvents getInstance() {
