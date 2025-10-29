@@ -6,7 +6,17 @@ group = "org.foomaa.jvchat"
 version = "1.0-SNAPSHOT"
 
 allprojects {
+    repositories {
+        mavenCentral()
+    }
     buildDir = File("jvchat-gradle")
+
+    tasks.withType<JavaCompile> {
+        options.encoding = "UTF-8"
+    }
+    tasks.withType<Javadoc> {
+        options.encoding = "UTF-8"
+    }
 }
 
 subprojects {
@@ -20,34 +30,15 @@ subprojects {
         implementation("org.springframework.boot:spring-boot-starter:3.2.4")
     }
 
-    repositories {
-        mavenCentral()
-    }
-
     tasks.test {
         onlyIf {
             project.hasProperty("tests")
         }
-
         useJUnit()
-
         maxHeapSize = "1G"
         failFast = true
-
         testLogging {
             events("passed", "failed", "skipped")
-        }
-    }
-
-    tasks {
-        javadoc {
-            options.encoding = "UTF-8"
-        }
-        compileJava {
-            options.encoding = "UTF-8"
-        }
-        compileTestJava {
-            options.encoding = "UTF-8"
         }
     }
 }

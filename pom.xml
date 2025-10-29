@@ -50,7 +50,6 @@
             <properties>
                 <spring.profiles.active>tests</spring.profiles.active>
                 <maven.test.skip>false</maven.test.skip>
-                <!-- при тестах пропускаем Boot -->
                 <skip.spring.boot>true</skip.spring.boot>
             </properties>
         </profile>
