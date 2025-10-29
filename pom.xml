@@ -41,42 +41,56 @@
         <version.exec-maven-plugin>3.1.0</version.exec-maven-plugin>
         <maven.test.skip>true</maven.test.skip>
         <buildDir>jvchat-maven</buildDir>
+        <skip.spring.boot>false</skip.spring.boot>
     </properties>
+
+    <profiles>
+        <profile>
+            <id>tests</id>
+            <properties>
+                <spring.profiles.active>tests</spring.profiles.active>
+                <maven.test.skip>false</maven.test.skip>
+                <!-- при тестах пропускаем Boot -->
+                <skip.spring.boot>true</skip.spring.boot>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>users</id>
+            <properties>
+                <spring.profiles.active>users</spring.profiles.active>
+                <maven.test.skip>true</maven.test.skip>
+                <skip.spring.boot>false</skip.spring.boot>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>servers</id>
+            <properties>
+                <spring.profiles.active>servers</spring.profiles.active>
+                <maven.test.skip>true</maven.test.skip>
+                <skip.spring.boot>false</skip.spring.boot>
+            </properties>
+        </profile>
+    </profiles>
 
     <build>
         <directory>${buildDir}</directory>
+
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <mainClass>none</mainClass>
+                    <systemPropertyVariables>
+                        <spring.profiles.active>${spring.profiles.active}</spring.profiles.active>
+                    </systemPropertyVariables>
                     <skip>true</skip>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>tests</id>
-            <properties>
-                <maven.test.skip>false</maven.test.skip>
-            </properties>
-        </profile>
-        <profile>
-            <id>users</id>
-            <properties>
-                <maven.test.skip>true</maven.test.skip>
-            </properties>
-        </profile>
-        <profile>
-            <id>servers</id>
-            <properties>
-                <maven.test.skip>true</maven.test.skip>
-            </properties>
-        </profile>
-    </profiles>
 
     <dependencies>
         <dependency>
