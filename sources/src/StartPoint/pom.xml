@@ -38,21 +38,56 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
                     <mainClass>${mainClass}</mainClass>
                     <systemPropertyVariables>
                         <spring.profiles.active>${spring.profiles.active}</spring.profiles.active>
+                        <skip.spring.boot>${skip.spring.boot}</skip.spring.boot>
                     </systemPropertyVariables>
+                    <skip>${skip.spring.boot}</skip>
                 </configuration>
             </plugin>
-        </plugins>
 
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>generate-profile-properties</id>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <target>
+                                <mkdir dir="${project.build.outputDirectory}" />
+<!--                                <propertyfile file="${project.build.outputDirectory}/profile.properties">-->
+<!--                                    <entry key="profile" value="${spring.profiles.active}" />-->
+<!--                                </propertyfile>-->
+<!--                                 Correct comment -->
+<!--                                <replaceregexp file="${project.build.outputDirectory}/profile.properties"-->
+<!--                                               match="(?m)^#.*[0-9]{4}[\r\n]*|^[ \t]*$[\r\n]*"-->
+<!--                                               replace="#AUTO-GENERATED&#10;"-->
+<!--                                               byline="false"/>-->
+                                <echo file="${project.build.outputDirectory}/profile.properties" append="false"><![CDATA[#AUTO-GENERATED
+profile=${spring.profiles.active}]]></echo>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
     </build>
 
     <dependencies>
