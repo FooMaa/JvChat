@@ -26,7 +26,9 @@ if (activeProfile == null) {
 
 tasks.named<org.springframework.boot.gradle.tasks.run.BootRun>("bootRun") {
     mainClass.set("org.foomaa.jvchat.startpoint.MainStartPoint")
+    onlyIf { activeProfile != "tests" }
 }
+
 
 tasks.test {
     onlyIf { activeProfile == "tests" }
