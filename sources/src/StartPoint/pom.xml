@@ -55,7 +55,29 @@
                 </configuration>
             </plugin>
 
-
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.4.1</version>
+                <executions>
+                    <execution>
+                        <id>require-profile</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireProperty>
+                                    <property>spring.profiles.active</property>
+                                    <message>No profile! Use -Pusers, -Pservers, or -Ptests </message>
+                                </requireProperty>
+                            </rules>
+                            <fail>true</fail>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -68,16 +90,8 @@
                         <configuration>
                             <target>
                                 <mkdir dir="${project.build.outputDirectory}" />
-<!--                                <propertyfile file="${project.build.outputDirectory}/profile.properties">-->
-<!--                                    <entry key="profile" value="${spring.profiles.active}" />-->
-<!--                                </propertyfile>-->
-<!--                                 Correct comment -->
-<!--                                <replaceregexp file="${project.build.outputDirectory}/profile.properties"-->
-<!--                                               match="(?m)^#.*[0-9]{4}[\r\n]*|^[ \t]*$[\r\n]*"-->
-<!--                                               replace="#AUTO-GENERATED&#10;"-->
-<!--                                               byline="false"/>-->
                                 <echo file="${project.build.outputDirectory}/profile.properties" append="false"><![CDATA[#AUTO-GENERATED
-profile=${spring.profiles.active}]]></echo>
+Profile=${spring.profiles.active}]]></echo>
                             </target>
                         </configuration>
                         <goals>
