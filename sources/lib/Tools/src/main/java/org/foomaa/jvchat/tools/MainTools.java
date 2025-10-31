@@ -1,13 +1,9 @@
 package org.foomaa.jvchat.tools;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
+import java.io.InputStream;
 import java.util.Objects;
+import java.util.Properties;
 import java.util.regex.Pattern;
 
 import org.foomaa.jvchat.settings.GetterSettings;
@@ -18,30 +14,20 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class MainTools {
     MainTools() {}
 
-    private String getProfileFromBuildDir(Class<?> mainClass) throws IOException, URISyntaxException {
-        Path buildPath = Paths.get(Objects.requireNonNull(
-                mainClass.getResource("/")).toURI());
-
-        String key = "/classes";
-        if (!buildPath.toString().contains(key)) {
-            key = "\\classes";
+    private String getProfileFromBuildDir(Class<?> mainClass) {
+        try (InputStream in = mainClass.getClassLoader().getResourceAsStream("profile.properties")) {
+            if (in == null) {
+                return null;
+            }
+            Properties props = new Properties();
+            props.load(in);
+            return props.getProperty("Profile", null);
+        } catch (IOException e) {
+            throw new RuntimeException("Cannot load profile.properties", e);
         }
-
-        String dirToProfile = buildPath.toString().substring(0,
-                buildPath.toString().lastIndexOf(key)) + "/profile/profile.txt";
-        List<String> readingFile = Files.readAllLines(Path.of(dirToProfile),
-                StandardCharsets.UTF_8);
-
-        String flag = "target=";
-        String profile = "";
-        for (String element : readingFile) {
-            profile = element.substring(element.lastIndexOf(flag) + flag.length());
-        }
-
-        return profile;
     }
 
-    public void setProfileSetting(Class<?> mainClass) throws IOException, URISyntaxException {
+    public void setProfileSetting(Class<?> mainClass) {
         final String profile = getProfileFromBuildDir(mainClass);
 
         if (Objects.equals(profile, MainSettings.TypeProfiles.TESTS.toString())) {

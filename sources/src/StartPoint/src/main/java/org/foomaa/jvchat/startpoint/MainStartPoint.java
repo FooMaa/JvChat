@@ -5,7 +5,6 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 import org.foomaa.jvchat.settings.GetterSettings;
 import org.foomaa.jvchat.tools.GetterTools;
@@ -28,16 +27,8 @@ public class MainStartPoint implements ApplicationRunner {
         launchApplication();
     }
 
-
     private void workingArgs(ApplicationArguments args) {
-        try {
-            GetterTools.getInstance().getBeanMainTools().setProfileSetting(MainStartPoint.class);
-//            NOTE(VAD): Set profile by spring.
-//            JvGetterTools.getInstance().getBeanMainTools().setProfileSettingSpring();
-        } catch (IOException | URISyntaxException exception) {
-            GetterUILinks.getInstance().getBeanErrorStartUILink(
-                    "Failed to set the correct profile for the application!");
-        }
+        GetterTools.getInstance().getBeanMainTools().setProfileSetting(MainStartPoint.class);
 
         if (GetterSettings.getInstance().getBeanMainSettings().getProfile() == MainSettings.TypeProfiles.SERVERS) {
             GetterTools.getInstance().getBeanServersTools().initServersParameters();
