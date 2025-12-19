@@ -11,6 +11,7 @@ dependencies {
     implementation(project(":UILinks"))
     implementation(project(":Tools"))
     implementation(project(":Settings"))
+    implementation(project(":Logger"))
 }
 
 application {
@@ -28,7 +29,6 @@ tasks.named<org.springframework.boot.gradle.tasks.run.BootRun>("bootRun") {
     mainClass.set("org.foomaa.jvchat.startpoint.MainStartPoint")
     onlyIf { activeProfile != "tests" }
 }
-
 
 tasks.test {
     onlyIf { activeProfile == "tests" }
