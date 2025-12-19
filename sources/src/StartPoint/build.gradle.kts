@@ -5,77 +5,53 @@ plugins {
 
 group = "org.foomaa.jvchat.startpoint"
 version = "1.0-SNAPSHOT"
-var PROFILE = ""
 
 dependencies {
     implementation(project(":Controls"))
     implementation(project(":UILinks"))
     implementation(project(":Tools"))
     implementation(project(":Settings"))
+    implementation(project(":Logger"))
 }
 
-tasks {
-    "run" {
-        onlyIf {
-            project.hasProperty("users") || project.hasProperty("servers")
-        }
-    }
+application {
+    mainClass.set("org.foomaa.jvchat.startpoint.MainStartPoint")
+}
 
-    "build" {
-        doLast {
-            var count = 0
-            if (project.hasProperty("tests")) {
-                count++
-                PROFILE = "tests"
-            }
-            if (project.hasProperty("users")) {
-                count++
-                PROFILE = "users"
-            }
-            if (project.hasProperty("servers")) {
-                count++
-                PROFILE = "servers"
-            }
-            if (count == 0) {
-                throw GradleException("No profile!")
-            }
-            if (count > 1) {
-                throw GradleException("Wrong profile!")
-            }
-            val dirBuild = project.buildDir.toString()
-            delete("$dirBuild/profile")
-            project.file("$dirBuild/profile").mkdir()
-            project.file("$dirBuild/profile/profile.txt").createNewFile()
-            project.file("$dirBuild/profile/profile.txt").writeText("#Properties\ntarget=$PROFILE")
+val activeProfile: String? = listOf("users", "servers", "tests")
+    .firstOrNull { project.hasProperty(it) }
 
-            ext{PROFILE}
-        }
-    }
-
-    bootRun {
-        mainClass.set("org.foomaa.jvchat.startpoint.MainStartPoint")
-    }
+if (activeProfile == null) {
+    throw GradleException("No profile! Use -Pusers, -Pservers, or -Ptests")
 }
 
 tasks.named<org.springframework.boot.gradle.tasks.run.BootRun>("bootRun") {
-    doFirst {
-        val dirBuild = project.buildDir.toString()
-        val properties = project.file("$dirBuild/profile/profile.txt").readLines()
-                .filter {
-                    it.contains("=")
-                }
-                .associate { line ->
-                    val (key, value) = line.split("=", limit = 2)
-                    key to value
-                }
-        PROFILE = properties["target"] ?: "null"
+    mainClass.set("org.foomaa.jvchat.startpoint.MainStartPoint")
+    onlyIf { activeProfile != "tests" }
+}
 
-        args("--spring.profiles.active=$PROFILE")
-        systemProperty("spring.profiles.active", PROFILE)
-        systemProperty("java.awt.headless", "false")
+tasks.test {
+    onlyIf { activeProfile == "tests" }
+}
+
+val generatedResourcesDir = layout.buildDirectory.dir("generated-resources")
+val generateProfile = tasks.register("generateProfile") {
+    val outFile = generatedResourcesDir.map { it.file("profile.properties") }
+    outputs.file(outFile)
+
+    doLast {
+        outFile.get().asFile.parentFile.mkdirs()
+        outFile.get().asFile.writeText("#AUTO-GENERATED\nProfile=$activeProfile")
     }
 }
 
-tasks.withType<JavaExec>() {
-    standardInput = System.`in`
+tasks.processResources {
+    dependsOn(generateProfile)
+    from(generatedResourcesDir)
+}
+
+tasks.withType<Jar>().configureEach {
+    manifest {
+        attributes["Profile"] = activeProfile
+    }
 }

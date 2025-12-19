@@ -1,44 +1,73 @@
 package org.foomaa.jvchat.startpoint;
 
+import org.foomaa.jvchat.logger.Log;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import java.io.IOException;
-import java.net.URISyntaxException;
+import java.io.InputStream;
+import java.util.Properties;
 
 import org.foomaa.jvchat.settings.GetterSettings;
 import org.foomaa.jvchat.tools.GetterTools;
 import org.foomaa.jvchat.uilinks.GetterUILinks;
 import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.settings.MainSettings;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 
 @SpringBootApplication
+@ComponentScan(basePackages = "org.foomaa.jvchat")
 @EnableAsync
 public class MainStartPoint implements ApplicationRunner {
     public static void main(String[] args) {
-        SpringApplication.run( MainStartPoint.class, args );
+        SpringApplication app = new SpringApplication(MainStartPoint.class);
+        installProfile(app);
+        app.run(args);
     }
 
     @Override
     public void run(ApplicationArguments args) {
+        GetterTools.getInstance().getBeanMainTools().setProfileSetting(loadProfile());
         workingArgs(args);
         launchApplication();
     }
 
+    private static String loadProfile() {
+        try (InputStream is = MainStartPoint.class.getClassLoader().getResourceAsStream("profile.properties")) {
+
+            if (is == null) {
+                throw new IllegalStateException("profile.properties not found in classpath");
+            }
+
+            Properties p = new Properties();
+            p.load(is);
+
+            return p.getProperty("Profile");
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to load profile.properties", e);
+        }
+    }
+
+    private static void setProfileSettingSpring(String profile, SpringApplication app) {
+        if (profile != null && !profile.isBlank()) {
+            app.setAdditionalProfiles(profile);
+        } else {
+            Log.write(Log.TypeLog.Error, "Cannot install active profile to SpringApplication");
+        }
+    }
+
+    private static void installProfile(SpringApplication app) {
+        String profile = loadProfile();
+
+        setProfileSettingSpring(profile, app);
+
+        Log.write(Log.TypeLog.Info, String.format("Active profile is %s", profile));
+    }
 
     private void workingArgs(ApplicationArguments args) {
-        try {
-            GetterTools.getInstance().getBeanMainTools().setProfileSetting(MainStartPoint.class);
-//            NOTE(VAD): Set profile by spring.
-//            JvGetterTools.getInstance().getBeanMainTools().setProfileSettingSpring();
-        } catch (IOException | URISyntaxException exception) {
-            GetterUILinks.getInstance().getBeanErrorStartUILink(
-                    "Failed to set the correct profile for the application!");
-        }
-
         if (GetterSettings.getInstance().getBeanMainSettings().getProfile() == MainSettings.TypeProfiles.SERVERS) {
             GetterTools.getInstance().getBeanServersTools().initServersParameters();
             return;

@@ -59,7 +59,6 @@ public class EmailProcessor {
             transport.close();
         } catch (MessagingException exception) {
             Log.write(Log.TypeLog.Error, "Error sending email.");
-            exception.printStackTrace();
             return false;
         }
         return true;

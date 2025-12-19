@@ -20,189 +20,89 @@
     </properties>
 
 
-    <profiles>
-        <profile>
-            <id>tests</id>
-            <properties>
-                <target>tests</target>
-            </properties>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-maven-plugin</artifactId>
-                        <configuration>
-                            <systemPropertyVariables>
-                                <java.awt.headless>false</java.awt.headless>
-                                <spring.profiles.active>${target}</spring.profiles.active>
-                            </systemPropertyVariables>
-                            <mainClass>${mainClass}</mainClass>
-                            <classifier>exec</classifier>
-                            <skip>true</skip>
-                        </configuration>
-                    </plugin>
-
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>properties-maven-plugin</artifactId>
-                        <version>1.2.1</version>
-                        <executions>
-                            <execution>
-                                <phase>generate-resources</phase>
-                                <goals>
-                                    <goal>write-active-profile-properties</goal>
-                                </goals>
-                                <configuration>
-                                    <outputFile>${project.build.directory}/profile/profile.txt</outputFile>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <id>users</id>
-            <properties>
-                <target>users</target>
-            </properties>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-maven-plugin</artifactId>
-                        <configuration>
-                            <systemPropertyVariables>
-                                <java.awt.headless>false</java.awt.headless>
-                                <spring.profiles.active>${target}</spring.profiles.active>
-                            </systemPropertyVariables>
-                            <mainClass>${mainClass}</mainClass>
-                            <classifier>exec</classifier>
-                            <skip>false</skip>
-                        </configuration>
-                    </plugin>
-
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>properties-maven-plugin</artifactId>
-                        <version>1.2.1</version>
-                        <executions>
-                            <execution>
-                                <phase>generate-resources</phase>
-                                <goals>
-                                    <goal>write-active-profile-properties</goal>
-                                </goals>
-                                <configuration>
-                                    <outputFile>${project.build.directory}/profile/profile.txt</outputFile>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <id>servers</id>
-            <properties>
-                <target>servers</target>
-            </properties>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-maven-plugin</artifactId>
-                        <configuration>
-                            <systemPropertyVariables>
-                                <java.awt.headless>false</java.awt.headless>
-                                <spring.profiles.active>${target}</spring.profiles.active>
-                            </systemPropertyVariables>
-                            <mainClass>${mainClass}</mainClass>
-                            <classifier>exec</classifier>
-                            <skip>false</skip>
-                        </configuration>
-                    </plugin>
-
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>properties-maven-plugin</artifactId>
-                        <version>1.2.1</version>
-                        <executions>
-                            <execution>
-                                <phase>generate-resources</phase>
-                                <goals>
-                                    <goal>write-active-profile-properties</goal>
-                                </goals>
-                                <configuration>
-                                    <outputFile>${project.build.directory}/profile/profile.txt</outputFile>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.0</version>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Profile>${spring.profiles.active}</Profile>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>${mainClass}</mainClass>
+                    <systemPropertyVariables>
+                        <spring.profiles.active>${spring.profiles.active}</spring.profiles.active>
+                        <skip.spring.boot>${skip.spring.boot}</skip.spring.boot>
+                    </systemPropertyVariables>
+                    <skip>${skip.spring.boot}</skip>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <version>3.4.1</version>
                 <executions>
                     <execution>
-                        <id>enforce</id>
-                        <configuration>
-                            <rules>
-                                <requireProfileIdsExist/>
-                                <requireActiveProfile>
-                                    <profiles>users,servers,tests</profiles>
-                                    <all>false</all>
-                                </requireActiveProfile>
-                                <evaluateBeanshell>
-                                    <!--suppress UnresolvedMavenProperty -->
-                                    <condition><![CDATA[
-                                        print("Checking if only one profile is active...");
-                                        int count = 0;
-                                        for(s: "${project.activeProfiles}".replaceAll("\\[?\\s?Profile \\{id: (?<profile>\\w+), source: \\w+\\}\\]?", "${profile}").split(",")) {
-                                            print("Active profile: " + s);
-                                            count++;
-                                        }
-                                        print("Count profiles (should 1): " + count);
-                                        return (count == 1);
-                                    ]]></condition>
-                                </evaluateBeanshell>
-                            </rules>
-                            <failFast>true</failFast>
-                        </configuration>
+                        <id>require-profile</id>
+                        <phase>validate</phase>
                         <goals>
                             <goal>enforce</goal>
                         </goals>
+                        <configuration>
+                            <rules>
+                                <requireProperty>
+                                    <property>spring.profiles.active</property>
+                                    <message>No profile! Use -Pusers, -Pservers, or -Ptests </message>
+                                </requireProperty>
+                            </rules>
+                            <fail>true</fail>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
 
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <mainClass>${mainClass}</mainClass>
-                </configuration>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>generate-profile-properties</id>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <target>
+                                <mkdir dir="${project.build.outputDirectory}" />
+                                <echo file="${project.build.outputDirectory}/profile.properties" append="false"><![CDATA[#AUTO-GENERATED
+Profile=${spring.profiles.active}]]></echo>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
+
         </plugins>
     </build>
-
 
     <dependencies>
         <dependency>
@@ -226,6 +126,12 @@
         <dependency>
             <groupId>org.foomaa.jvchat.settings</groupId>
             <artifactId>Settings</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.foomaa.jvchat.logger</groupId>
+            <artifactId>Logger</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
