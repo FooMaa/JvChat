@@ -9,22 +9,7 @@ import org.springframework.context.annotation.Profile;
 
 @Configuration
 class UILinksSpringConfig {
-    public enum NameBeans {
-        BeanErrorStartUILink("beanErrorStartUILink"),
-        BeanStartAuthenticationUILink("beanStartAuthenticationUILink");
-
-        private final String value;
-
-        NameBeans(String newValue) {
-            value = newValue;
-        }
-
-        public String getValue() {
-            return value;
-        }
-    }
-
-    @Bean(name = "beanErrorStartUILink")
+    @Bean
     @Scope("prototype")
     @Lazy
     @Profile("users")
@@ -33,7 +18,7 @@ class UILinksSpringConfig {
         return new ErrorStartUILink(msg);
     }
 
-    @Bean(name = "beanStartAuthenticationUILink")
+    @Bean
     @Scope("singleton")
     @Lazy
     @Profile("users")
