@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.uilinks;
 
+import org.foomaa.jvchat.uicomponents.auth.MainFrameAuthUI;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
@@ -23,7 +24,7 @@ class UILinksSpringConfig {
     @Lazy
     @Profile("users")
     @SuppressWarnings("unused")
-    public StartAuthenticationUILink beanStartAuthenticationUILinks() {
-        return new StartAuthenticationUILink();
+    public StartAuthenticationUILink beanStartAuthenticationUILinks(MainFrameAuthUI mainFrameAuthUI) {
+        return new StartAuthenticationUILink(mainFrameAuthUI);
     }
 }
