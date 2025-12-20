@@ -57,13 +57,6 @@ class AuthUIComponentsSpringConfig {
         return new ErrorLabelAuthUI(text);
     }
 
-    @Bean(name = "beanOptionPaneAuthUI")
-    @Scope("prototype")
-    @SuppressWarnings("unused")
-    public OptionPaneAuthUI beanOptionPaneAuthUI(String msg, OptionPaneAuthUI.TypeDlg type) {
-        return new OptionPaneAuthUI(msg, type);
-    }
-
     @Bean(name = "beanPasswordFieldAuthUI")
     @Scope("prototype")
     @SuppressWarnings("unused")

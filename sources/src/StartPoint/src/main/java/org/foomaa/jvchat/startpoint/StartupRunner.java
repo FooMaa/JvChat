@@ -74,14 +74,14 @@ public class StartupRunner implements ApplicationRunner {
         }
         if (mainSettings.getProfile() == MainSettings.TypeProfiles.USERS) {
             if (args.getOptionValues("ipServer") == null) {
-                errorStartUILinkObjectProvider.getObject("Enter the server IP address in the parameter!");
+                errorStartUILinkObjectProvider.getObject().show("Enter the server IP address in the parameter!");
             }
 
             String argsIp = args.getOptionValues("ipServer").get(0);
             if (mainTools.validateInputIp(argsIp)) {
                 usersInfoSettingsObjectProvider.getObject().setIpRemoteServer(argsIp);
             } else {
-                errorStartUILinkObjectProvider.getObject("The startup parameter contains the wrong IP!");
+                errorStartUILinkObjectProvider.getObject().show("The startup parameter contains the wrong IP!");
             }
 
             String argsPort;
@@ -94,7 +94,7 @@ public class StartupRunner implements ApplicationRunner {
             if (mainTools.validateInputPort(argsPort)) {
                 usersInfoSettingsObjectProvider.getObject().setPortRemoteServer(Integer.parseInt(argsPort));
             } else {
-                errorStartUILinkObjectProvider.getObject("The PORT in the launch parameter is not correct!");
+                errorStartUILinkObjectProvider.getObject().show("The PORT in the launch parameter is not correct!");
             }
         }
     }
@@ -103,7 +103,7 @@ public class StartupRunner implements ApplicationRunner {
         try {
             networkCtrl.startNetwork();
         } catch (IOException exception) {
-            errorStartUILinkObjectProvider.getObject(
+            errorStartUILinkObjectProvider.getObject().show(
                     "Failed to connect to the server.\nCheck your network availability and try again!");
         }
 

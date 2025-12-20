@@ -47,6 +47,6 @@ public class MainStartPoint {
 
         setProfileSettingSpring(profile, app);
 
-        Log.write(Log.TypeLog.Info, String.format("Active profile is %s", profile));
+        Log.write(Log.TypeLog.Info, String.format("Active profile is \"%s\"", profile));
     }
 }

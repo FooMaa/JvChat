@@ -1,15 +1,22 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import javax.swing.*;
 
 
+@Component
+@Scope("prototype")
 public class OptionPaneAuthUI extends JOptionPane {
     public enum TypeDlg {
         ERROR,
         WARNING
     }
 
-    OptionPaneAuthUI(String msg, TypeDlg type) {
+    OptionPaneAuthUI() {}
+
+    public void show(String msg, TypeDlg type) {
         switch (type) {
             case ERROR:
                 JFrame frame = new JFrame();
