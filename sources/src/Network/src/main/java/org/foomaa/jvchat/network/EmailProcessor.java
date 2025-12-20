@@ -1,7 +1,7 @@
 package org.foomaa.jvchat.network;
 
+import org.foomaa.jvchat.settings.ServersInfoSettings;
 import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -12,11 +12,9 @@ import java.util.Date;
 import java.util.Properties;
 
 import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.settings.GetterSettings;
 
 
-@Component("beanEmailProcessor")
-@Scope("singleton")
+@Component
 @Profile("servers")
 public class EmailProcessor {
     private static Session session;
@@ -25,10 +23,10 @@ public class EmailProcessor {
     private final String userPassword;
     private final int port = 465;
 
-    private EmailProcessor() {
+    private EmailProcessor(ServersInfoSettings serversInfoSettings) {
         host = "smtp.mail.ru";
-        userLogin = GetterSettings.getInstance().getBeanServersInfoSettings().getEmailAddress();
-        userPassword = GetterSettings.getInstance().getBeanServersInfoSettings().getMagicStringEmail();
+        userLogin = serversInfoSettings.getEmailAddress();
+        userPassword = serversInfoSettings.getMagicStringEmail();
 
         Properties props = new Properties();
 

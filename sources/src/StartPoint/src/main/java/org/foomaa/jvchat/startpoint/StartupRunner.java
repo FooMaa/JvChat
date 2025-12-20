@@ -26,7 +26,7 @@ public class StartupRunner implements ApplicationRunner {
     private final MainTools mainTools;
     private final MainSettings mainSettings;
     private final ApplicationContext context;
-    private final UsersInfoSettings usersInfoSettings;
+    private final ObjectProvider<UsersInfoSettings> usersInfoSettingsObjectProvider;
     private final NetworkCtrl networkCtrl;
     private final ObjectProvider<StartAuthenticationUILink> startAuthenticationUILinkObjectProvider;
     private final ObjectProvider<ErrorStartUILink> errorStartUILinkObjectProvider;
@@ -35,7 +35,7 @@ public class StartupRunner implements ApplicationRunner {
                           MainTools mainTools,
                           MainSettings mainSettings,
                           ApplicationContext context,
-                          UsersInfoSettings usersInfoSettings,
+                          ObjectProvider<UsersInfoSettings> usersInfoSettingsObjectProvider,
                           NetworkCtrl networkCtrl,
                           ObjectProvider<StartAuthenticationUILink> startAuthenticationUILinkObjectProvider,
                           ObjectProvider<ErrorStartUILink> errorStartUILinkObjectProvider) {
@@ -43,7 +43,7 @@ public class StartupRunner implements ApplicationRunner {
         this.mainTools = mainTools;
         this.mainSettings = mainSettings;
         this.context = context;
-        this.usersInfoSettings = usersInfoSettings;
+        this.usersInfoSettingsObjectProvider = usersInfoSettingsObjectProvider;
         this.networkCtrl = networkCtrl;
         this.startAuthenticationUILinkObjectProvider = startAuthenticationUILinkObjectProvider;
         this.errorStartUILinkObjectProvider = errorStartUILinkObjectProvider;
@@ -79,7 +79,7 @@ public class StartupRunner implements ApplicationRunner {
 
             String argsIp = args.getOptionValues("ipServer").get(0);
             if (mainTools.validateInputIp(argsIp)) {
-                usersInfoSettings.setIpRemoteServer(argsIp);
+                usersInfoSettingsObjectProvider.getObject().setIpRemoteServer(argsIp);
             } else {
                 errorStartUILinkObjectProvider.getObject("The startup parameter contains the wrong IP!");
             }
@@ -92,7 +92,7 @@ public class StartupRunner implements ApplicationRunner {
             }
 
             if (mainTools.validateInputPort(argsPort)) {
-                usersInfoSettings.setPortRemoteServer(Integer.parseInt(argsPort));
+                usersInfoSettingsObjectProvider.getObject().setPortRemoteServer(Integer.parseInt(argsPort));
             } else {
                 errorStartUILinkObjectProvider.getObject("The PORT in the launch parameter is not correct!");
             }

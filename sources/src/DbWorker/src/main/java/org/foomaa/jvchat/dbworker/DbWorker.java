@@ -1,7 +1,6 @@
 package org.foomaa.jvchat.dbworker;
 
 import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import java.sql.DriverManager;
 import java.sql.Connection;
@@ -13,8 +12,7 @@ import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.settings.GetterSettings;
 
 
-@Component("beanDbWorker")
-@Scope("singleton")
+@Component
 @Profile("servers")
 public class DbWorker {
     private static Connection connection;
