@@ -8,12 +8,22 @@ import org.foomaa.jvchat.globaldefines.DbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.messages.GetterMessages;
 import org.foomaa.jvchat.messages.DefinesMessages;
+import org.foomaa.jvchat.messages.SerializatorDataMessages;
 import org.foomaa.jvchat.settings.GetterSettings;
 import org.foomaa.jvchat.tools.GetterTools;
+import org.springframework.stereotype.Component;
 
 
+@Component
 public class SendMessagesCtrl {
-    SendMessagesCtrl() {}
+    private final SerializatorDataMessages serializatorDataMessages;
+    private final MessagesDefinesCtrl messagesDefinesCtrl;
+
+    SendMessagesCtrl(SerializatorDataMessages serializatorDataMessages,
+                     MessagesDefinesCtrl messagesDefinesCtrl) {
+        this.serializatorDataMessages = serializatorDataMessages;
+        this.messagesDefinesCtrl = messagesDefinesCtrl;
+    }
 
     public final void sendMessage(DefinesMessages.TypeMessage type, Object... parameters) {
         switch (type) {
@@ -25,8 +35,7 @@ public class SendMessagesCtrl {
                             (String) login,
                             (String) password);
                     sendReadyMessageNetwork(bodyMessage);
-                    GetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                            .setEntryRequestFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
+                    messagesDefinesCtrl.setEntryRequestFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
                 }
             }
             case EntryReply -> {
@@ -48,8 +57,7 @@ public class SendMessagesCtrl {
                             (String) email,
                             (String) password);
                     sendReadyMessageNetwork(bodyMessage);
-                    GetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                            .setRegistrationRequestFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
+                    messagesDefinesCtrl.setRegistrationRequestFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
                 }
             }
             case RegistrationReply -> {
@@ -73,8 +81,7 @@ public class SendMessagesCtrl {
                             (String) password,
                             (String) code);
                     sendReadyMessageNetwork(bodyMessage);
-                    GetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                            .setVerifyRegistrationEmailRequestFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
+                    messagesDefinesCtrl.setVerifyRegistrationEmailRequestFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
                 }
             }
             case VerifyRegistrationEmailReply -> {
@@ -92,8 +99,7 @@ public class SendMessagesCtrl {
                     byte[] bodyMessage = createBodyResetPasswordRequestMessage(type,
                             (String) email);
                     sendReadyMessageNetwork(bodyMessage);
-                    GetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                            .setResetPasswordRequestFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
+                    messagesDefinesCtrl.setResetPasswordRequestFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
                 }
             }
             case ResetPasswordReply -> {
@@ -111,8 +117,7 @@ public class SendMessagesCtrl {
                     byte[] bodyMessage = createBodyVerifyFamousEmailRequestMessage(type,
                             (String) email, (String) code);
                     sendReadyMessageNetwork(bodyMessage);
-                    GetterControls.getInstance().getBeanMessagesDefinesCtrl().
-                            setVerifyFamousEmailRequestFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
+                    messagesDefinesCtrl.setVerifyFamousEmailRequestFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
                 }
             }
             case VerifyFamousEmailReply -> {
@@ -130,8 +135,7 @@ public class SendMessagesCtrl {
                     byte[] bodyMessage = createBodyChangePasswordRequestMessage(type,
                             (String) email, (String) password);
                     sendReadyMessageNetwork(bodyMessage);
-                    GetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                            .setChangePasswordRequest(MessagesDefinesCtrl.TypeFlags.DEFAULT);
+                    messagesDefinesCtrl.setChangePasswordRequest(MessagesDefinesCtrl.TypeFlags.DEFAULT);
                 }
             }
             case ChangePasswordReply -> {
@@ -148,8 +152,7 @@ public class SendMessagesCtrl {
                     byte[] bodyMessage = createBodyChatsLoadRequestMessage(type,
                             (UUID) uuidUser);
                     sendReadyMessageNetwork(bodyMessage);
-                    GetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                            .setChatsLoadReplyFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
+                    messagesDefinesCtrl.setChatsLoadReplyFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
                 }
             }
             case ChatsLoadReply -> {
@@ -186,8 +189,7 @@ public class SendMessagesCtrl {
                             .getBeanStructTools().checkedCastList(uuidsObject, UUID.class);
                     byte[] bodyMessage = createBodyLoadUsersOnlineStatusRequestMessage(type, uuidsList);
                     sendReadyMessageNetwork(bodyMessage);
-                    GetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                            .setLoadUsersOnlineReplyFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
+                    messagesDefinesCtrl.setLoadUsersOnlineReplyFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
                 }
             }
             case LoadUsersOnlineStatusReply -> {
@@ -219,8 +221,7 @@ public class SendMessagesCtrl {
                     Object reply = parameters[0];
                     byte[] bodyMessage = createBodyTextMessageSendUserToServerVerificationMessage(type, (Boolean) reply);
                     sendReadyMessageNetwork(bodyMessage);
-                    GetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                            .setTextMessageSendUserToServerFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
+                    messagesDefinesCtrl.setTextMessageSendUserToServerFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
                 }
             }
             case TextMessagesChangingStatusFromServer -> {
@@ -307,35 +308,35 @@ public class SendMessagesCtrl {
     }
 
     private byte[] createBodyEntryRequestMessage(DefinesMessages.TypeMessage type, String login, String password) {
-        return GetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, login, password);
+        return serializatorDataMessages.serialiseData(type, login, password);
     }
 
     private byte[] createBodyEntryReplyMessage(DefinesMessages.TypeMessage type, Boolean reply, UUID uuidUser) {
-        return GetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply, uuidUser);
+        return serializatorDataMessages.serialiseData(type, reply, uuidUser);
     }
 
     private byte[] createBodyRegistrationRequestMessage(DefinesMessages.TypeMessage type, String login, String email, String password) {
-        return GetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, login, email, password);
+        return serializatorDataMessages.serialiseData(type, login, email, password);
     }
 
     private byte[] createBodyRegistrationReplyMessage(DefinesMessages.TypeMessage type, Boolean reply, DefinesMessages.TypeErrorRegistration error) {
-        return GetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply, error);
+        return serializatorDataMessages.serialiseData(type, reply, error);
     }
 
     private byte[] createBodyVerifyRegistrationEmailRequestMessage(DefinesMessages.TypeMessage type, String login, String email, String password, String code) {
-        return GetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, login, email, password, code);
+        return serializatorDataMessages.serialiseData(type, login, email, password, code);
     }
 
     private byte[] createBodyVerifyRegistrationEmailReplyMessage(DefinesMessages.TypeMessage type, Boolean reply, DefinesMessages.TypeErrorRegistration error) {
-        return GetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply, error);
+        return serializatorDataMessages.serialiseData(type, reply, error);
     }
 
     private byte[] createBodyResetPasswordRequestMessage(DefinesMessages.TypeMessage type, String email) {
-        return GetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, email);
+        return serializatorDataMessages.serialiseData(type, email);
     }
 
     private byte[] createBodyResetPasswordReplyMessage(DefinesMessages.TypeMessage type, Boolean reply) {
-        return GetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
+        return serializatorDataMessages.serialiseData(type, reply);
     }
 
     private byte[] createBodyVerifyFamousEmailRequestMessage(DefinesMessages.TypeMessage type, String email, String code) {

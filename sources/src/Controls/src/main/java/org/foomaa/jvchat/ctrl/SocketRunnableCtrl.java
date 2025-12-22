@@ -7,6 +7,7 @@ import java.net.Socket;
 
 import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.models.GetterModels;
+import org.springframework.stereotype.Component;
 
 
 /* NOTE(VAD): here it is done so that the tasks of the server and the user

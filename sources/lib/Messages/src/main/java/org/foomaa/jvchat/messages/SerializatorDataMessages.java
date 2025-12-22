@@ -8,8 +8,10 @@ import java.util.UUID;
 import org.foomaa.jvchat.globaldefines.DbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.tools.GetterTools;
+import org.springframework.stereotype.Component;
 
 
+@Component
 public class SerializatorDataMessages {
     SerializatorDataMessages() {}
 

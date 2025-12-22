@@ -23,13 +23,6 @@ class MessagesSpringConfig {
         }
     }
 
-    @Bean(name = "beanSerializatorDataMessages")
-    @Scope("singleton")
-    @SuppressWarnings("unused")
-    public SerializatorDataMessages beanSerializatorDataMessages() {
-        return new SerializatorDataMessages();
-    }
-
     @Bean(name = "beanDeserializatorDataMessages")
     @Scope("singleton")
     @SuppressWarnings("unused")

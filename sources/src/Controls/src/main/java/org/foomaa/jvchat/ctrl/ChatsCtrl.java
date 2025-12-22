@@ -13,8 +13,10 @@ import org.foomaa.jvchat.structobjects.ChatStructObject;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
 import org.foomaa.jvchat.structobjects.UserStructObject;
 import org.foomaa.jvchat.tools.FormatTools;
+import org.springframework.stereotype.Component;
 
 
+@Component
 public class ChatsCtrl {
     private final ChatsModel chatsModel;
     private final FormatTools formatTools;

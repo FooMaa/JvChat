@@ -14,8 +14,10 @@ import org.foomaa.jvchat.messages.GetterMessages;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.GetterSettings;
 import org.foomaa.jvchat.tools.GetterTools;
+import org.springframework.stereotype.Component;
 
 
+@Component
 public class TakeMessagesCtrl {
     private Runnable runnableCtrlFrom;
     private final HashCryptography hashCryptography;

@@ -9,12 +9,12 @@ import org.foomaa.jvchat.logger.Log;
 
 public class GetterControls {
     private static GetterControls instance;
-    private final AnnotationConfigApplicationContext context;
+//    private final AnnotationConfigApplicationContext context;
 
     private GetterControls() {
-        context = new AnnotationConfigApplicationContext(
-                ControlsSpringConfig.class);
-        Log.write(Log.TypeLog.Info, Arrays.toString(context.getEnvironment().getActiveProfiles()));
+//        context = new AnnotationConfigApplicationContext(
+//                ControlsSpringConfig.class);
+//        Log.write(Log.TypeLog.Info, Arrays.toString(context.getEnvironment().getActiveProfiles()));
     }
 
     public static GetterControls getInstance() {
@@ -25,60 +25,43 @@ public class GetterControls {
     }
 
     public NetworkCtrl getBeanNetworkCtrl() {
-        return context.getBean(ControlsSpringConfig.NameBeans.BeanNetworkCtrl.getValue(),
-                NetworkCtrl.class);
+        return null;
     }
 
     public MessagesDefinesCtrl getBeanMessagesDefinesCtrl() {
-        return context.getBean(ControlsSpringConfig.NameBeans.BeanMessagesDefinesCtrl.getValue(),
-                MessagesDefinesCtrl.class);
+        return null;
     }
 
     public SendMessagesCtrl getBeanSendMessagesCtrl() {
-        return context.getBean(ControlsSpringConfig.NameBeans.BeanSendMessagesCtrl.getValue(),
-                SendMessagesCtrl.class);
+
+        return null;
     }
 
     public TakeMessagesCtrl getBeanTakeMessagesCtrl() {
-        return context.getBean(ControlsSpringConfig.NameBeans.BeanTakeMessagesCtrl.getValue(),
-                TakeMessagesCtrl.class);
+        return null;
     }
 
     public DbCtrl getBeanDbCtrl() {
-        if (context.containsBeanDefinition(ControlsSpringConfig.NameBeans.BeanDbCtrl.getValue())) {
-            return context.getBean(
-                    ControlsSpringConfig.NameBeans.BeanDbCtrl.getValue(),
-                    DbCtrl.class);
-        }
         return null;
     }
 
     public EmailCtrl getBeanEmailCtrl() {
-        if (context.containsBeanDefinition(ControlsSpringConfig.NameBeans.BeanEmailCtrl.getValue())) {
-            return context.getBean(
-                    ControlsSpringConfig.NameBeans.BeanEmailCtrl.getValue(),
-                    EmailCtrl.class);
-        }
         return null;
     }
 
     public SocketRunnableCtrl getBeanSocketRunnableCtrl(Socket socket) {
-        return (SocketRunnableCtrl) context.getBean(ControlsSpringConfig.NameBeans.BeanSocketRunnableCtrl.getValue(),
-                socket);
+        return null;
     }
 
     public ChatsCtrl getBeanChatsCtrl() {
-        return context.getBean(ControlsSpringConfig.NameBeans.BeanChatsCtrl.getValue(),
-                ChatsCtrl.class);
+        return null;
     }
 
     public MessagesDialogCtrl getBeanMessagesDialogCtrl() {
-        return context.getBean(ControlsSpringConfig.NameBeans.BeanMessagesDialogCtrl.getValue(),
-                MessagesDialogCtrl.class);
+        return null;
     }
 
     public OnlineServersCtrl getBeanOnlineServersCtrl() {
-        return context.getBean(ControlsSpringConfig.NameBeans.BeanOnlineServersCtrl.getValue(),
-                OnlineServersCtrl.class);
+        return null;
     }
 }
