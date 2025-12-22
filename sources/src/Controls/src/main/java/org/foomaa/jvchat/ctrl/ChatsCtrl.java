@@ -9,18 +9,19 @@ import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.models.ChatsModel;
-import org.foomaa.jvchat.models.GetterModels;
 import org.foomaa.jvchat.structobjects.ChatStructObject;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
 import org.foomaa.jvchat.structobjects.UserStructObject;
-import org.foomaa.jvchat.tools.GetterTools;
+import org.foomaa.jvchat.tools.FormatTools;
 
 
 public class ChatsCtrl {
     private final ChatsModel chatsModel;
+    private final FormatTools formatTools;
 
-    ChatsCtrl() {
-        chatsModel = GetterModels.getInstance().getBeanChatsModel();
+    ChatsCtrl(ChatsModel chatsModel, FormatTools formatTools) {
+        this.chatsModel = chatsModel;
+        this.formatTools = formatTools;
     }
 
     public void createChatsObjects(List<Map<DefinesMessages.TypeData, Object>> chatsInfo) {
@@ -36,8 +37,7 @@ public class ChatsCtrl {
             Boolean isLoginSentLastMessage = (Boolean) chat.get(DefinesMessages.TypeData.IsLoginSentLastMessage);
             MainChatsGlobalDefines.TypeStatusMessage statusMessage =
                     (MainChatsGlobalDefines.TypeStatusMessage) chat.get(DefinesMessages.TypeData.StatusMessage);
-            LocalDateTime timestampLastMessage = GetterTools.getInstance().getBeanFormatTools()
-                    .stringToLocalDateTime((String) chat.get(DefinesMessages.TypeData.Timestamp), normalizeTimestampCount);
+            LocalDateTime timestampLastMessage = formatTools.stringToLocalDateTime((String) chat.get(DefinesMessages.TypeData.Timestamp), normalizeTimestampCount);
 
             if (timestampLastMessage == null) {
                 Log.write(Log.TypeLog.Warn, "It was not possible to normalize the date and time to the required format.");
@@ -57,8 +57,7 @@ public class ChatsCtrl {
     public void setLastOnlineTimeUsersByStrings(Map<UUID, String> lastOnlineTimeUsers) {
         int normalizeTimestampCount = 3;
         for (UUID uuidUser : lastOnlineTimeUsers.keySet()) {
-            LocalDateTime timestamp = GetterTools.getInstance().getBeanFormatTools()
-                    .stringToLocalDateTime(lastOnlineTimeUsers.get(uuidUser), normalizeTimestampCount);
+            LocalDateTime timestamp = formatTools.stringToLocalDateTime(lastOnlineTimeUsers.get(uuidUser), normalizeTimestampCount);
             chatsModel.setTimestampLastOnlineToUser(uuidUser, timestamp);
         }
     }

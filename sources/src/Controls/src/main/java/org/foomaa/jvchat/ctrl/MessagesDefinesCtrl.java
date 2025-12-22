@@ -1,8 +1,10 @@
 package org.foomaa.jvchat.ctrl;
 
 import org.foomaa.jvchat.messages.DefinesMessages;
+import org.springframework.stereotype.Component;
 
 
+@Component
 public class MessagesDefinesCtrl {
     public enum TypeFlags {
         TRUE,

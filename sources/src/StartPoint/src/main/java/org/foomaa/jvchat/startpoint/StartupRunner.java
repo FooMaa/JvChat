@@ -20,7 +20,6 @@ import org.foomaa.jvchat.tools.ServersTools;
 
 
 @Component
-@ComponentScan("org.foomaa.jvchat")
 public class StartupRunner implements ApplicationRunner {
     private final ServersTools serversTools;
     private final MainTools mainTools;

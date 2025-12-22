@@ -7,11 +7,20 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.settings.GetterSettings;
+import org.springframework.stereotype.Component;
+
+import org.foomaa.jvchat.settings.ServersInfoSettings;
 
 
+@Component
 public class ServersTools {
-    ServersTools() {}
+    private final MainTools mainTools;
+    private final ServersInfoSettings serversInfoSettings;
+
+    ServersTools(MainTools mainTools, ServersInfoSettings serversInfoSettings) {
+        this.mainTools = mainTools;
+        this.serversInfoSettings = serversInfoSettings;
+    }
 
     public void initServersParameters() {
         Scanner in = new Scanner(System.in);
@@ -19,7 +28,7 @@ public class ServersTools {
         Log.write(Log.TypeLog.Info, "Set the IP-address or push \"Enter\" for default value (default value \"auto\"): ");
         while (true) {
             String ip = in.nextLine();
-            if (GetterTools.getInstance().getBeanMainTools().validateInputIp(ip)) {
+            if (mainTools.validateInputIp(ip)) {
                 setIpToSettings(ip);
                 break;
             } else {
@@ -30,9 +39,9 @@ public class ServersTools {
         Log.write(Log.TypeLog.Info, "Set the port or push \"Enter\" for default value (default value \"4004\"): ");
         while (true) {
             String port = in.nextLine();
-            if (GetterTools.getInstance().getBeanMainTools().validateInputPort(port)) {
+            if (mainTools.validateInputPort(port)) {
                 if (!port.isEmpty()) {
-                    GetterSettings.getInstance().getBeanServersInfoSettings().setPort(Integer.parseInt(port));
+                    serversInfoSettings.setPort(Integer.parseInt(port));
                 }
                 break;
             } else {
@@ -45,7 +54,7 @@ public class ServersTools {
             String limitConnection = in.nextLine();
             if (validateInputLimitConnections(limitConnection)) {
                 if (!limitConnection.isEmpty()) {
-                    GetterSettings.getInstance().getBeanServersInfoSettings().setQuantityConnections(Integer.parseInt(limitConnection));
+                    serversInfoSettings.setQuantityConnections(Integer.parseInt(limitConnection));
                 }
                 break;
             } else {
@@ -65,12 +74,12 @@ public class ServersTools {
 
     private void setIpToSettings(String ip) {
         if (!ip.isEmpty()) {
-            GetterSettings.getInstance().getBeanServersInfoSettings().setIp(ip);
+            serversInfoSettings.setIp(ip);
         } else {
             Log.write(Log.TypeLog.Info, "Wait! Searching for IP-address...");
             try (Socket socket = new Socket()) {
                 socket.connect(new InetSocketAddress("google.com", 80));
-                GetterSettings.getInstance().getBeanServersInfoSettings().setIp(socket.getLocalAddress().getHostAddress());
+                serversInfoSettings.setIp(socket.getLocalAddress().getHostAddress());
             } catch (IOException exception) {
                 Log.write(Log.TypeLog.Error, "Couldn't get online, check your connection and try again!");
                 System.exit(1);

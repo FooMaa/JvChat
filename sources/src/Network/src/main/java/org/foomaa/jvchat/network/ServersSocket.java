@@ -1,6 +1,7 @@
 package org.foomaa.jvchat.network;
 
 import org.foomaa.jvchat.settings.ServersInfoSettings;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import java.io.*;
@@ -11,6 +12,7 @@ import org.foomaa.jvchat.logger.Log;
 
 
 @Component
+@Lazy
 @Profile("servers")
 public class ServersSocket {
     private static ServerSocket socketServers;

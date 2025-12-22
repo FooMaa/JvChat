@@ -1,6 +1,7 @@
 package org.foomaa.jvchat.network;
 
 import org.foomaa.jvchat.settings.UsersInfoSettings;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import org.foomaa.jvchat.logger.Log;
 
 
 @Component
+@Lazy
 @Profile("users")
 public class UsersSocket {
     private static Socket socketUsers;

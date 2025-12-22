@@ -1,8 +1,5 @@
 package org.foomaa.jvchat.ctrl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Profile;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -20,8 +17,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DbCtrl {
-    private DbWorker db;
-    private DbRequests dbRequests;
+    private final DbWorker db;
+    private final DbRequests dbRequests;
 
     public enum TypeExecutionInsert {
         RegisterForm,

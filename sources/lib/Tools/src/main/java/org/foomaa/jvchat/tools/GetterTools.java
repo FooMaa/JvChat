@@ -19,19 +19,9 @@ public class GetterTools {
         return instance;
     }
 
-    public MainTools getBeanMainTools() {
-        return context.getBean(ToolsSpringConfig.NameBeans.BeanMainTools.getValue(),
-                MainTools.class);
-    }
-
     public StructTools getBeanStructTools() {
         return context.getBean(ToolsSpringConfig.NameBeans.BeanStructTools.getValue(),
                 StructTools.class);
-    }
-
-    public ServersTools getBeanServersTools() {
-        return context.getBean(ToolsSpringConfig.NameBeans.BeanServersTools.getValue(),
-                ServersTools.class);
     }
 
     public UsersTools getBeanUsersTools() {

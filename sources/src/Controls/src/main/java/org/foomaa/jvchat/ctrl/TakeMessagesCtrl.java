@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.foomaa.jvchat.cryptography.GetterCryptography;
+import org.foomaa.jvchat.cryptography.HashCryptography;
 import org.foomaa.jvchat.globaldefines.DbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.Log;
@@ -18,8 +18,11 @@ import org.foomaa.jvchat.tools.GetterTools;
 
 public class TakeMessagesCtrl {
     private Runnable runnableCtrlFrom;
+    private final HashCryptography hashCryptography;
 
-    TakeMessagesCtrl() {}
+    TakeMessagesCtrl(HashCryptography hashCryptography) {
+        this.hashCryptography = hashCryptography;
+    }
 
     public void takeMessage(byte[] data) {
         DefinesMessages.TypeMessage type = GetterMessages.getInstance().getBeanDeserializatorDataMessages().getTypeMessage(data);
@@ -29,8 +32,10 @@ public class TakeMessagesCtrl {
             case EntryReply -> workEntryReplyMessage(getDeserializeMapData(type, data));
             case RegistrationRequest -> workRegistrationRequestMessage(getDeserializeMapData(type, data));
             case RegistrationReply -> workRegistrationReplyMessage(getDeserializeMapData(type, data));
-            case VerifyRegistrationEmailRequest -> workVerifyRegistrationEmailRequestMessage(getDeserializeMapData(type, data));
-            case VerifyRegistrationEmailReply -> workVerifyRegistrationEmailReplyMessage(getDeserializeMapData(type, data));
+            case VerifyRegistrationEmailRequest ->
+                    workVerifyRegistrationEmailRequestMessage(getDeserializeMapData(type, data));
+            case VerifyRegistrationEmailReply ->
+                    workVerifyRegistrationEmailReplyMessage(getDeserializeMapData(type, data));
             case ResetPasswordRequest -> workResetPasswordRequestMessage(getDeserializeMapData(type, data));
             case ResetPasswordReply -> workResetPasswordReplyMessage(getDeserializeMapData(type, data));
             case VerifyFamousEmailRequest -> workVerifyFamousEmailRequestMessage(getDeserializeMapData(type, data));
@@ -41,16 +46,25 @@ public class TakeMessagesCtrl {
             case CheckOnlineUserReply -> workCheckOnlineUserReplyMessage(getDeserializeMapData(type, data));
             case ChatsLoadRequest -> workChatsLoadRequestMessage(getDeserializeMapData(type, data));
             case ChatsLoadReply -> workChatsLoadReplyMessage(getDeserializeMapData(type, data));
-            case LoadUsersOnlineStatusRequest -> workLoadUsersOnlineStatusRequestMessage(getDeserializeMapData(type, data));
+            case LoadUsersOnlineStatusRequest ->
+                    workLoadUsersOnlineStatusRequestMessage(getDeserializeMapData(type, data));
             case LoadUsersOnlineStatusReply -> workLoadUsersOnlineStatusReplyMessage(getDeserializeMapData(type, data));
-            case TextMessageSendUserToServer -> workTextMessageSendUserToServerMessage(getDeserializeMapData(type, data));
-            case TextMessageSendUserToServerVerification -> workTextMessageSendUserToServerVerificationMessage(getDeserializeMapData(type, data));
-            case TextMessagesChangingStatusFromServer -> workTextMessagesChangingStatusFromServerMessage(getDeserializeMapData(type, data));
-            case TextMessagesChangingStatusFromServerVerification -> workTextMessagesChangingStatusFromServerVerificationMessage(getDeserializeMapData(type, data));
-            case TextMessagesChangingStatusFromUser -> workTextMessagesChangingStatusFromUserMessage(getDeserializeMapData(type, data));
-            case TextMessagesChangingStatusFromUserVerification -> workTextMessagesChangingStatusFromUserVerificationMessage(getDeserializeMapData(type, data));
-            case TextMessageRedirectServerToUser -> workTextMessageRedirectServerToUserMessage(getDeserializeMapData(type, data));
-            case TextMessageRedirectServerToUserVerification -> workTextMessageRedirectServerToUserVerificationMessage(getDeserializeMapData(type, data));
+            case TextMessageSendUserToServer ->
+                    workTextMessageSendUserToServerMessage(getDeserializeMapData(type, data));
+            case TextMessageSendUserToServerVerification ->
+                    workTextMessageSendUserToServerVerificationMessage(getDeserializeMapData(type, data));
+            case TextMessagesChangingStatusFromServer ->
+                    workTextMessagesChangingStatusFromServerMessage(getDeserializeMapData(type, data));
+            case TextMessagesChangingStatusFromServerVerification ->
+                    workTextMessagesChangingStatusFromServerVerificationMessage(getDeserializeMapData(type, data));
+            case TextMessagesChangingStatusFromUser ->
+                    workTextMessagesChangingStatusFromUserMessage(getDeserializeMapData(type, data));
+            case TextMessagesChangingStatusFromUserVerification ->
+                    workTextMessagesChangingStatusFromUserVerificationMessage(getDeserializeMapData(type, data));
+            case TextMessageRedirectServerToUser ->
+                    workTextMessageRedirectServerToUserMessage(getDeserializeMapData(type, data));
+            case TextMessageRedirectServerToUserVerification ->
+                    workTextMessageRedirectServerToUserVerificationMessage(getDeserializeMapData(type, data));
             case MessagesLoadRequest -> workMessagesLoadRequestMessage(getDeserializeMapData(type, data));
             case MessagesLoadReply -> workMessagesLoadReplyMessage(getDeserializeMapData(type, data));
         }
@@ -76,8 +90,7 @@ public class TakeMessagesCtrl {
         String login = (String) map.get(DefinesMessages.TypeData.Login);
         String password = (String) map.get(DefinesMessages.TypeData.Password);
 
-        String hashPassword = GetterCryptography.getInstance()
-                .getBeanHashCryptography().getHash(password);
+        String hashPassword = hashCryptography.getHash(password);
 
         boolean requestDB = GetterControls.getInstance()
                 .getBeanDbCtrl().checkQueryToDB(DbCtrl.TypeExecutionCheck.UserPassword,
@@ -109,10 +122,10 @@ public class TakeMessagesCtrl {
     private void workRegistrationRequestMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         boolean requestDB = false;
         DefinesMessages.TypeErrorRegistration typeError = DefinesMessages.TypeErrorRegistration.NoError;
-        boolean checkLogin =  GetterControls.getInstance()
+        boolean checkLogin = GetterControls.getInstance()
                 .getBeanDbCtrl().checkQueryToDB(DbCtrl.TypeExecutionCheck.Login,
                         (String) map.get(DefinesMessages.TypeData.Login));
-        boolean checkEmail =  GetterControls.getInstance()
+        boolean checkEmail = GetterControls.getInstance()
                 .getBeanDbCtrl().checkQueryToDB(DbCtrl.TypeExecutionCheck.Email,
                         (String) map.get(DefinesMessages.TypeData.Email));
         if (checkLogin) {
@@ -155,8 +168,7 @@ public class TakeMessagesCtrl {
             String email = (String) map.get(DefinesMessages.TypeData.Email);
             String password = (String) map.get(DefinesMessages.TypeData.Password);
 
-            String hashPassword = GetterCryptography.getInstance()
-                    .getBeanHashCryptography().getHash(password);
+            String hashPassword = hashCryptography.getHash(password);
             UUID uuidUser = UUID.randomUUID();
 
             boolean requestDB = GetterControls.getInstance()
@@ -217,7 +229,7 @@ public class TakeMessagesCtrl {
                 .sendMessage(DefinesMessages.TypeMessage.ResetPasswordReply, reply);
     }
 
-    private void workResetPasswordReplyMessage( HashMap<DefinesMessages.TypeData, ?> map) {
+    private void workResetPasswordReplyMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(DefinesMessages.TypeData.BoolReply)) {
             GetterControls.getInstance().getBeanMessagesDefinesCtrl().
                     setResetPasswordRequestFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
@@ -250,8 +262,7 @@ public class TakeMessagesCtrl {
         String email = (String) map.get(DefinesMessages.TypeData.Email);
         String password = (String) map.get(DefinesMessages.TypeData.Password);
 
-        String hashPassword = GetterCryptography.getInstance()
-                .getBeanHashCryptography().getHash(password);
+        String hashPassword = hashCryptography.getHash(password);
 
         boolean requestDB = GetterControls.getInstance()
                 .getBeanDbCtrl().insertQueryToDB(DbCtrl.TypeExecutionInsert.ChangePassword,
@@ -283,7 +294,7 @@ public class TakeMessagesCtrl {
         Object objectFromMap = map.get(DefinesMessages.TypeData.ChatsInfoList);
         List<Map<DefinesMessages.TypeData, Object>> chatsInfo =
                 GetterTools.getInstance().getBeanStructTools()
-                    .objectInListMaps(objectFromMap, DefinesMessages.TypeData.class, Object.class);
+                        .objectInListMaps(objectFromMap, DefinesMessages.TypeData.class, Object.class);
 
         GetterControls.getInstance().getBeanChatsCtrl().createChatsObjects(chatsInfo);
         GetterControls.getInstance().getBeanMessagesDefinesCtrl()
@@ -364,10 +375,10 @@ public class TakeMessagesCtrl {
                 uuidUserSender, uuidUserReceiver, uuidMessage, status, text, timestamp);
         // send a delivery receipt
         GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
-                DefinesMessages.TypeMessage.TextMessageSendUserToServerVerification, true );
+                DefinesMessages.TypeMessage.TextMessageSendUserToServerVerification, true);
     }
 
-    private void workTextMessageSendUserToServerVerificationMessage( HashMap<DefinesMessages.TypeData, ?> map) {
+    private void workTextMessageSendUserToServerVerificationMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(DefinesMessages.TypeData.BoolReply)) {
             GetterControls.getInstance().getBeanMessagesDefinesCtrl()
                     .setTextMessageSendUserToServerFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
@@ -385,10 +396,10 @@ public class TakeMessagesCtrl {
         GetterControls.getInstance().getBeanMessagesDialogCtrl().setDirtyStatusToMessage(mapStatusesMessages);
 
         GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
-                DefinesMessages.TypeMessage.TextMessagesChangingStatusFromServerVerification, true );
+                DefinesMessages.TypeMessage.TextMessagesChangingStatusFromServerVerification, true);
     }
 
-    private void workTextMessagesChangingStatusFromServerVerificationMessage( HashMap<DefinesMessages.TypeData, ?> map) {
+    private void workTextMessagesChangingStatusFromServerVerificationMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(DefinesMessages.TypeData.BoolReply)) {
             Log.write(Log.TypeLog.Info, "Received a message delivery receipt with a status without errors.");
         } else {
@@ -408,10 +419,10 @@ public class TakeMessagesCtrl {
         }
 
         GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
-                DefinesMessages.TypeMessage.TextMessagesChangingStatusFromUserVerification, true );
+                DefinesMessages.TypeMessage.TextMessagesChangingStatusFromUserVerification, true);
     }
 
-    private void workTextMessagesChangingStatusFromUserVerificationMessage( HashMap<DefinesMessages.TypeData, ?> map) {
+    private void workTextMessagesChangingStatusFromUserVerificationMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(DefinesMessages.TypeData.BoolReply)) {
             Log.write(Log.TypeLog.Info, "Received a message delivery receipt with a status without errors.");
         } else {
@@ -437,10 +448,10 @@ public class TakeMessagesCtrl {
                 .setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
 
         GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
-                DefinesMessages.TypeMessage.TextMessageRedirectServerToUserVerification, true );
+                DefinesMessages.TypeMessage.TextMessageRedirectServerToUserVerification, true);
     }
 
-    private void workTextMessageRedirectServerToUserVerificationMessage( HashMap<DefinesMessages.TypeData, ?> map) {
+    private void workTextMessageRedirectServerToUserVerificationMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(DefinesMessages.TypeData.BoolReply)) {
             GetterControls.getInstance().getBeanMessagesDefinesCtrl()
                     .setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.TRUE);

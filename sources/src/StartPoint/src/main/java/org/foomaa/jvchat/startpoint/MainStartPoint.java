@@ -2,6 +2,7 @@ package org.foomaa.jvchat.startpoint;
 
 import org.foomaa.jvchat.logger.Log;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.boot.SpringApplication;
 
@@ -10,6 +11,7 @@ import java.util.Properties;
 
 
 @SpringBootApplication
+@ComponentScan("org.foomaa.jvchat")
 @EnableAsync
 public class MainStartPoint {
     public static void main(String[] args) {

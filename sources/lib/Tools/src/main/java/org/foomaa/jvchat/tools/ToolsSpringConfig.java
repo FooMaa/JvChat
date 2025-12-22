@@ -26,26 +26,11 @@ class ToolsSpringConfig {
         }
     }
 
-    @Bean(name = "beanMainTools")
-    @Scope("singleton")
-    @SuppressWarnings("unused")
-    public MainTools beanMainTools() {
-        return new MainTools();
-    }
-
     @Bean(name = "beanStructTools")
     @Scope("singleton")
     @SuppressWarnings("unused")
     public StructTools beanStructTools() {
         return new StructTools();
-    }
-
-    @Bean(name = "beanServersTools")
-    @Profile("servers")
-    @Scope("singleton")
-    @SuppressWarnings("unused")
-    public ServersTools beanServersTools() {
-        return new ServersTools();
     }
 
     @Bean(name = "beanUsersTools")

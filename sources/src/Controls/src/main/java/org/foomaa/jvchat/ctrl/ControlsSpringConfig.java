@@ -33,14 +33,6 @@ class ControlsSpringConfig {
         }
     }
 
-    @Bean(name = "beanEmailCtrl")
-    @Scope("singleton")
-    @Profile("servers")
-    @SuppressWarnings("unused")
-    public EmailCtrl beanEmailCtrl() {
-        return new EmailCtrl();
-    }
-
     @Bean(name = "beanMessagesDefinesCtrl")
     @Scope("singleton")
     @SuppressWarnings("unused")
@@ -55,27 +47,12 @@ class ControlsSpringConfig {
         return new SendMessagesCtrl();
     }
 
-    @Bean(name = "beanTakeMessagesCtrl")
-    @Scope("singleton")
-    @SuppressWarnings("unused")
-    public TakeMessagesCtrl beanTakeMessagesCtrl() {
-        return new TakeMessagesCtrl();
-    }
-
     @Bean(name = "beanSocketRunnableCtrl")
     @Lazy
     @Scope("prototype")
     @SuppressWarnings("unused")
     public SocketRunnableCtrl beanSocketRunnableCtrl(Socket socket) {
         return new SocketRunnableCtrl(socket);
-    }
-
-    @Bean(name = "beanChatsCtrl")
-    @Scope("singleton")
-    @Profile("users")
-    @SuppressWarnings("unused")
-    public ChatsCtrl beanChatsCtrl() {
-        return new ChatsCtrl();
     }
 
     @Bean(name = "beanMessagesDialogCtrl")

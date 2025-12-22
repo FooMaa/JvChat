@@ -1,13 +1,17 @@
 package org.foomaa.jvchat.tools;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
+@Component
 public class StructTools {
-    StructTools() {}
+    StructTools() {
+    }
 
     public <TYPE_KEY, TYPE_VALUE> List<Map<TYPE_KEY, TYPE_VALUE>> objectInListMaps(Object object,
                                                                                    Class<TYPE_KEY> clazzKey,
@@ -17,7 +21,7 @@ public class StructTools {
         if (object instanceof List<?> objectList) {
             for (Object obj : objectList) {
                 Map<TYPE_KEY, TYPE_VALUE> newMap = new HashMap<>();
-                if (obj instanceof Map<?,?> map) {
+                if (obj instanceof Map<?, ?> map) {
                     for (Object key : map.keySet()) {
                         TYPE_KEY keyCast = clazzKey.cast(key);
                         TYPE_VALUE valueCast = clazzValue.cast(map.get(key));
@@ -50,7 +54,7 @@ public class StructTools {
                                                                         Class<TYPE_VALUE> clazzValue) {
         Map<TYPE_KEY, TYPE_VALUE> resultMap = new HashMap<>();
 
-        if (object instanceof Map<?,?> map) {
+        if (object instanceof Map<?, ?> map) {
             for (Object key : map.keySet()) {
                 TYPE_KEY keyCast = clazzKey.cast(key);
                 TYPE_VALUE valueCast = clazzValue.cast(map.get(key));

@@ -5,18 +5,23 @@ import java.util.regex.Pattern;
 
 import org.foomaa.jvchat.settings.GetterSettings;
 import org.foomaa.jvchat.settings.MainSettings;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class MainTools {
-    MainTools() {}
+    private final MainSettings mainSettings;
+
+    MainTools(MainSettings mainSettings) {
+        this.mainSettings = mainSettings;
+    }
 
     public void setProfileSetting(String profile) {
         if (Objects.equals(profile, MainSettings.TypeProfiles.TESTS.toString())) {
-            GetterSettings.getInstance().getBeanMainSettings().setProfile(MainSettings.TypeProfiles.TESTS);
+            mainSettings.setProfile(MainSettings.TypeProfiles.TESTS);
         } else if (Objects.equals(profile, MainSettings.TypeProfiles.USERS.toString())) {
-            GetterSettings.getInstance().getBeanMainSettings().setProfile(MainSettings.TypeProfiles.USERS);
+            mainSettings.setProfile(MainSettings.TypeProfiles.USERS);
         } else if (Objects.equals(profile, MainSettings.TypeProfiles.SERVERS.toString())) {
-            GetterSettings.getInstance().getBeanMainSettings().setProfile(MainSettings.TypeProfiles.SERVERS);
+            mainSettings.setProfile(MainSettings.TypeProfiles.SERVERS);
         }
     }
 
