@@ -15,8 +15,10 @@ import org.foomaa.jvchat.dbworker.DbRequests;
 import org.foomaa.jvchat.dbworker.DbWorker;
 import org.foomaa.jvchat.globaldefines.DbGlobalDefines;
 import org.foomaa.jvchat.logger.Log;
+import org.springframework.stereotype.Component;
 
 
+@Component
 public class DbCtrl {
     private DbWorker db;
     private DbRequests dbRequests;
@@ -53,26 +55,9 @@ public class DbCtrl {
         MessagesLoad,
     }
 
-    DbCtrl() {}
-
-    @Autowired(required = false)
-    @Qualifier("beanDbWorker")
-    @Profile("servers")
-    @SuppressWarnings("unused")
-    private void setDb(DbWorker newDb) {
-        if (db != newDb) {
-            db = newDb;
-        }
-    }
-
-    @Autowired(required = false)
-    @Qualifier("beanDbRequests")
-    @Profile("servers")
-    @SuppressWarnings("unused")
-    private void setDbRequests(DbRequests newDbRequests) {
-        if (dbRequests != newDbRequests) {
-            dbRequests = newDbRequests;
-        }
+    DbCtrl(DbRequests dbRequests, DbWorker dbWorker) {
+        this.dbRequests = dbRequests;
+        this.db = dbWorker;
     }
 
     public List<String> getStrDataAtRow(ResultSet resultSet, int row) {

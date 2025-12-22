@@ -16,14 +16,23 @@ import org.foomaa.jvchat.settings.GetterSettings;
 import org.foomaa.jvchat.settings.MainSettings;
 import org.foomaa.jvchat.network.ServersSocket;
 import org.foomaa.jvchat.structobjects.SocketRunnableCtrlStructObject;
+import org.springframework.stereotype.Component;
 
 
+@Component
 public class NetworkCtrl {
-    private ServersSocket serversSocket;
-    private UsersSocket usersSocket;
+    private final ServersSocket serversSocket;
+    private  final UsersSocket usersSocket;
     private SocketRunnableCtrl currentSocketRunnableCtrl;
+    private final OnlineServersCtrl onlineServersCtrl;
 
-    NetworkCtrl() {}
+    NetworkCtrl(@Autowired(required = false) ServersSocket serversSocket,
+                @Autowired(required = false) UsersSocket usersSocket,
+                @Autowired(required = false) OnlineServersCtrl onlineServersCtrl) {
+        this.serversSocket = serversSocket;
+        this.usersSocket = usersSocket;
+        this.onlineServersCtrl = onlineServersCtrl;
+    }
 
     public void startNetwork() throws IOException {
         if (GetterSettings.getInstance().getBeanMainSettings().getProfile() == MainSettings.TypeProfiles.SERVERS) {
@@ -36,7 +45,7 @@ public class NetworkCtrl {
     @SuppressWarnings("InfiniteLoopStatement")
     private void startServersNetwork() throws IOException {
         ServerSocket socketServer = serversSocket.getSocketServers();
-        GetterControls.getInstance().getBeanOnlineServersCtrl().loadDataOnlineUsers();
+        onlineServersCtrl.loadDataOnlineUsers();
         runningErrorsControlSockets();
         while (true) {
             Socket fromSocketServer = socketServer.accept();
@@ -54,26 +63,6 @@ public class NetworkCtrl {
         }
         Thread threadUsers = new Thread(currentSocketRunnableCtrl);
         threadUsers.start();
-    }
-
-    @Autowired(required = false)
-    @Qualifier("beanServersSocket")
-    @Profile("servers")
-    @SuppressWarnings("unused")
-    private void setServersSocket(ServersSocket newServersSocket) {
-        if ( serversSocket !=  newServersSocket ) {
-            serversSocket = newServersSocket;
-        }
-    }
-
-    @Autowired(required = false)
-    @Qualifier("beanUsersSocket")
-    @Profile("users")
-    @SuppressWarnings("unused")
-    private void setUsersSocket(UsersSocket newUsersSocket) {
-        if (usersSocket != newUsersSocket) {
-            usersSocket = newUsersSocket;
-        }
     }
 
     public void takeMessage(byte[] message, SocketRunnableCtrl runnableCtrl) {

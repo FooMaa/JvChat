@@ -1,7 +1,9 @@
 package org.foomaa.jvchat.dbworker;
 
+import org.foomaa.jvchat.settings.ServersInfoSettings;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -9,7 +11,6 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 
 import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.settings.GetterSettings;
 
 
 @Component
@@ -17,11 +18,11 @@ import org.foomaa.jvchat.settings.GetterSettings;
 public class DbWorker {
     private static Connection connection;
 
-    private DbWorker() {
-        getConnection();
+    private DbWorker(ServersInfoSettings serversInfoSettings) {
+        getConnection(serversInfoSettings);
     }
 
-    public void getConnection() {
+    public void getConnection(ServersInfoSettings serversInfoSettings) {
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
@@ -32,9 +33,9 @@ public class DbWorker {
         connection = null;
 
         try {
-            connection = DriverManager.getConnection(GetterSettings.getInstance().getBeanServersInfoSettings().getDbUrl(),
-                    GetterSettings.getInstance().getBeanServersInfoSettings().getDbUser(),
-                    GetterSettings.getInstance().getBeanServersInfoSettings().getMagicStringDb());
+            connection = DriverManager.getConnection(serversInfoSettings.getDbUrl(),
+                    serversInfoSettings.getDbUser(),
+                    serversInfoSettings.getMagicStringDb());
         } catch (SQLException e) {
             Log.write(Log.TypeLog.Error, "Error in connect to DB.");
             return;

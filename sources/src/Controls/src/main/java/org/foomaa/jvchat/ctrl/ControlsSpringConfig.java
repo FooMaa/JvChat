@@ -33,14 +33,6 @@ class ControlsSpringConfig {
         }
     }
 
-    @Bean(name = "beanDbCtrl")
-    @Scope("singleton")
-    @Profile("servers")
-    @SuppressWarnings("unused")
-    public DbCtrl beanDbCtrl() {
-        return new DbCtrl();
-    }
-
     @Bean(name = "beanEmailCtrl")
     @Scope("singleton")
     @Profile("servers")
@@ -70,13 +62,6 @@ class ControlsSpringConfig {
         return new TakeMessagesCtrl();
     }
 
-    @Bean(name = "beanNetworkCtrl")
-    @Scope("singleton")
-    @SuppressWarnings("unused")
-    public NetworkCtrl beanNetworkCtrl() {
-        return new NetworkCtrl();
-    }
-
     @Bean(name = "beanSocketRunnableCtrl")
     @Lazy
     @Scope("prototype")
@@ -98,13 +83,5 @@ class ControlsSpringConfig {
     @SuppressWarnings("unused")
     public MessagesDialogCtrl beanMessagesDialogCtrl() {
         return new MessagesDialogCtrl();
-    }
-
-    @Bean(name = "beanOnlineServersCtrl")
-    @Scope("singleton")
-    @Profile("servers")
-    @SuppressWarnings("unused")
-    public OnlineServersCtrl beanOnlineServersCtrl() {
-        return new OnlineServersCtrl();
     }
 }

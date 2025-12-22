@@ -15,14 +15,18 @@ import org.foomaa.jvchat.settings.GetterSettings;
 import org.foomaa.jvchat.structobjects.CheckerOnlineStructObject;
 import org.foomaa.jvchat.structobjects.SocketRunnableCtrlStructObject;
 import org.foomaa.jvchat.structobjects.UserStructObject;
+import org.springframework.stereotype.Component;
 
 
+@Component
 public class OnlineServersCtrl {
     private final int intervalMilliSecondsAfterLastSending;
     private final int intervalMilliSecondsAfterLastUpdate;
     private final CheckersOnlineModel checkersOnlineModel;
+    private final DbCtrl dbCtrl;
 
-    OnlineServersCtrl() {
+    OnlineServersCtrl(DbCtrl dbCtrl) {
+        this.dbCtrl = dbCtrl;
         checkersOnlineModel = GetterModels.getInstance().getBeanCheckersOnlineModel();
         intervalMilliSecondsAfterLastSending = 10000;
         intervalMilliSecondsAfterLastUpdate = 30000;
@@ -99,9 +103,8 @@ public class OnlineServersCtrl {
     }
 
     public void loadDataOnlineUsers() {
-        List<Map<DbGlobalDefines.LineKeys, String>> dataFromDb = GetterControls.getInstance()
-                .getBeanDbCtrl().getMultipleInfoFromDb(
-                        DbCtrl.TypeExecutionGetMultiple.OnlineUsers);
+        List<Map<DbGlobalDefines.LineKeys, String>> dataFromDb = dbCtrl.getMultipleInfoFromDb(
+                DbCtrl.TypeExecutionGetMultiple.OnlineUsers);
 
         if (dataFromDb == null) {
             runningRunnableListenOnline();
@@ -168,11 +171,10 @@ public class OnlineServersCtrl {
     private void saveStatusOnline(UUID uuidUser, MainChatsGlobalDefines.TypeStatusOnline statusOnline) {
         int onlineStatusInteger = statusOnline.getValue();
         String onlineStatusString = String.valueOf(onlineStatusInteger);
-        GetterControls.getInstance()
-                .getBeanDbCtrl().insertQueryToDB(
-                        DbCtrl.TypeExecutionInsert.OnlineUsersInfo,
-                        uuidUser.toString(),
-                        onlineStatusString);
+        dbCtrl.insertQueryToDB(
+                DbCtrl.TypeExecutionInsert.OnlineUsersInfo,
+                uuidUser.toString(),
+                onlineStatusString);
     }
 
     private void listeningPackage() {
@@ -230,7 +232,7 @@ public class OnlineServersCtrl {
             LocalDateTime lastSendingDateTime = onlineUser.getDateTimeSending();
 
             Duration duration = Duration.between(lastSendingDateTime, LocalDateTime.now());
-            long milliSecondsAfterLastSending =  duration.toMillis();
+            long milliSecondsAfterLastSending = duration.toMillis();
 
             if (flagSending && milliSecondsAfterLastSending < intervalMilliSecondsAfterLastSending) {
                 try {
@@ -282,8 +284,7 @@ public class OnlineServersCtrl {
         for (UUID uuidUser : uuidsUsers) {
             boolean isUserOnline = isUuidUserInListCheckerOnline(uuidUser);
             if (!isUserOnline) {
-                String lastOnlineTime = GetterControls.getInstance().getBeanDbCtrl()
-                        .getSingleDataFromDb(DbCtrl.TypeExecutionGetSingle.LastOnlineTimeUser, uuidUser.toString());
+                String lastOnlineTime = dbCtrl.getSingleDataFromDb(DbCtrl.TypeExecutionGetSingle.LastOnlineTimeUser, uuidUser.toString());
                 resultMap.put(uuidUser, lastOnlineTime);
             }
         }

@@ -15,6 +15,8 @@ public class MainStartPoint {
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(MainStartPoint.class);
         installProfile(app);
+
+        app.setHeadless(false);
         app.run(args);
     }
 
