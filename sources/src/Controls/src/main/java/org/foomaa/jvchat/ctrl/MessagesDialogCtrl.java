@@ -4,27 +4,41 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
+
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.models.ChatsModel;
 import org.foomaa.jvchat.models.MessagesModel;
 import org.foomaa.jvchat.settings.GetterSettings;
+import org.foomaa.jvchat.settings.UsersInfoSettings;
 import org.foomaa.jvchat.structobjects.ChatStructObject;
 import org.foomaa.jvchat.structobjects.GetterStructObjects;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
-import org.foomaa.jvchat.tools.GetterTools;
-import org.springframework.stereotype.Component;
+import org.foomaa.jvchat.tools.FormatTools;
 
 
 @Component
+@Profile("users")
 public class MessagesDialogCtrl {
     private final MessagesModel messagesModel;
     private final ChatsModel chatsModel;
+    private final ChatsCtrl chatsCtrl;
+    private final FormatTools formatTools;
+    private final UsersInfoSettings usersInfoSettings;
 
-    MessagesDialogCtrl(MessagesModel messagesModel, ChatsModel chatsModel) {
+    MessagesDialogCtrl(MessagesModel messagesModel,
+                       ChatsModel chatsModel,
+                       ChatsCtrl chatsCtrl,
+                       FormatTools formatTools,
+                       UsersInfoSettings usersInfoSettings) {
         this.messagesModel = messagesModel;
         this.chatsModel = chatsModel;
+        this.chatsCtrl = chatsCtrl;
+        this.formatTools = formatTools;
+        this.usersInfoSettings = usersInfoSettings;
     }
 
     public void setCurrentActiveChatUuid(UUID newUuidChat) {
@@ -80,9 +94,8 @@ public class MessagesDialogCtrl {
             String text = (String) msg.get(DefinesMessages.TypeData.TextMessage);
             MainChatsGlobalDefines.TypeStatusMessage statusMessage = MainChatsGlobalDefines.TypeStatusMessage
                     .getTypeStatusMessage((Integer) msg.get(DefinesMessages.TypeData.StatusMessage));
-            LocalDateTime timestampMessage = GetterTools.getInstance()
-                    .getBeanFormatTools().stringToLocalDateTime(
-                            (String) msg.get(DefinesMessages.TypeData.Timestamp), normalizeCountTimestamp);
+            LocalDateTime timestampMessage = formatTools.stringToLocalDateTime(
+                    (String) msg.get(DefinesMessages.TypeData.Timestamp), normalizeCountTimestamp);
 
             if (timestampMessage == null) {
                 Log.write(Log.TypeLog.Warn, "It was not possible to normalize the date and time to the required format.");
@@ -99,12 +112,11 @@ public class MessagesDialogCtrl {
     }
 
     private void setLastMessageInChatCtrl(MessageStructObject message) {
-        GetterControls.getInstance().getBeanChatsCtrl().changeLastMessage(message);
+        chatsCtrl.changeLastMessage(message);
     }
 
     private void sendNewMessage(MessageStructObject message) {
-        String timestampNewMessage = GetterTools.getInstance().getBeanFormatTools()
-                .localDateTimeToString(message.getTimestamp());
+        String timestampNewMessage = formatTools.localDateTimeToString(message.getTimestamp());
 
         GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 DefinesMessages.TypeMessage.TextMessageSendUserToServer,
@@ -138,7 +150,7 @@ public class MessagesDialogCtrl {
     }
 
     public boolean isCurrentUserSender(MessageStructObject messageStructObject) {
-        UUID currentUuid = GetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
+        UUID currentUuid = usersInfoSettings.getUuid();
         return Objects.equals(currentUuid, messageStructObject.getUuidUserSender());
     }
 
@@ -150,7 +162,7 @@ public class MessagesDialogCtrl {
                                             LocalDateTime timestamp) {
         MessageStructObject messageStructObject = createMessageByData(
                 uuidUserSender, uuidUserReceiver, uuidMessage, statusMessage, text, timestamp);
-        OnlineServersCtrl onlineServersCtrl =  GetterControls.getInstance().getBeanOnlineServersCtrl();
+        OnlineServersCtrl onlineServersCtrl = GetterControls.getInstance().getBeanOnlineServersCtrl();
 
         boolean isUserOnline = onlineServersCtrl.isUuidUserInListCheckerOnline(messageStructObject.getUuidUserReceiver());
         if (!isUserOnline) {
@@ -163,8 +175,7 @@ public class MessagesDialogCtrl {
             return;
         }
 
-        String timestampMessage = GetterTools.getInstance().getBeanFormatTools()
-                .localDateTimeToString(messageStructObject.getTimestamp());
+        String timestampMessage = formatTools.localDateTimeToString(messageStructObject.getTimestamp());
 
         GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 DefinesMessages.TypeMessage.TextMessageRedirectServerToUser,

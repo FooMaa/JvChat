@@ -6,11 +6,15 @@ import org.foomaa.jvchat.settings.UsersInfoSettings;
 import org.foomaa.jvchat.tools.MainTools;
 import org.foomaa.jvchat.uilinks.ErrorStartUILink;
 import org.foomaa.jvchat.uilinks.StartAuthenticationUILink;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -21,6 +25,7 @@ import org.foomaa.jvchat.tools.ServersTools;
 
 @Component
 public class StartupRunner implements ApplicationRunner {
+    private static final Logger log = LoggerFactory.getLogger(StartupRunner.class);
     private final ServersTools serversTools;
     private final MainTools mainTools;
     private final MainSettings mainSettings;
@@ -67,6 +72,9 @@ public class StartupRunner implements ApplicationRunner {
     }
 
     private void workingArgs(ApplicationArguments args) {
+        Logger logger = LoggerFactory.getLogger(getClass());
+        logger.info("AOLOL");
+
         if (mainSettings.getProfile() == MainSettings.TypeProfiles.SERVERS) {
             serversTools.initServersParameters();
             return;
