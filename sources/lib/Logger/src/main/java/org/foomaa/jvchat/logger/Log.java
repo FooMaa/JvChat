@@ -26,20 +26,20 @@ public class Log {
     }
 
     public static void write(TypeLog type, String text) {
-        mainLogger = GetterLogger.getInstance().getBeanLogger();
-
-        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-        String resultFile;
-
-        if (stackTrace.length >= 3) {
-            resultFile = buildStringFileLog(stackTrace);
-        } else {
-            resultFile = "Unknown file";
-        }
-
-        LoggerSpringConfig.setContextPropertyFileName(resultFile);
-        LoggerSpringConfig.setContextPropertyColor(type);
-        writingText(type, text);
+//        mainLogger = GetterLogger.getInstance().getBeanLogger();
+//
+//        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+//        String resultFile;
+//
+//        if (stackTrace.length >= 3) {
+//            resultFile = buildStringFileLog(stackTrace);
+//        } else {
+//            resultFile = "Unknown file";
+//        }
+//
+//        LoggerSpringConfig.setContextPropertyFileName(resultFile);
+//        LoggerSpringConfig.setContextPropertyColor(type);
+//        writingText(type, text);
     }
 
     private static void writingText(TypeLog type, String text) {
