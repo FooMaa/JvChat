@@ -73,7 +73,7 @@ public class StartupRunner implements ApplicationRunner {
 
     private void workingArgs(ApplicationArguments args) {
         Logger logger = LoggerFactory.getLogger(getClass());
-        logger.info("AOLOL");
+        logger.trace("AOLOL");
 
         if (mainSettings.getProfile() == MainSettings.TypeProfiles.SERVERS) {
             serversTools.initServersParameters();

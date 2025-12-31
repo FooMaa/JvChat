@@ -1,6 +1,7 @@
 package org.foomaa.jvchat.startpoint;
 
 import org.foomaa.jvchat.logger.Log;
+import org.springframework.boot.Banner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -18,6 +19,7 @@ public class MainStartPoint {
         SpringApplication app = new SpringApplication(MainStartPoint.class);
         installProfile(app);
 
+        app.setBannerMode(Banner.Mode.OFF);
         app.setHeadless(false);
         app.run(args);
     }

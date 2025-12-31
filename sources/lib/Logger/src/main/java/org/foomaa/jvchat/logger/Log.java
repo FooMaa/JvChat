@@ -15,7 +15,7 @@ import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
 public class Log {
     Log() {}
 
-    private static MainLogger mainLogger;
+//    private static MainLogger mainLogger;
 
     public enum TypeLog {
         Debug,
@@ -43,13 +43,13 @@ public class Log {
     }
 
     private static void writingText(TypeLog type, String text) {
-        switch (type) {
-            case Debug -> mainLogger.Debug(text);
-            case Info -> mainLogger.Info(text);
-            case Warn -> mainLogger.Warn(text);
-            case Error -> mainLogger.Error(text);
-            case Trace -> mainLogger.Trace(text);
-        }
+//        switch (type) {
+//            case Debug -> mainLogger.Debug(text);
+//            case Info -> mainLogger.Info(text);
+//            case Warn -> mainLogger.Warn(text);
+//            case Error -> mainLogger.Error(text);
+//            case Trace -> mainLogger.Trace(text);
+//        }
     }
 
     private static String buildStringFileLog(StackTraceElement[] stackTrace) {

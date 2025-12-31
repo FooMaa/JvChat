@@ -1,34 +1,26 @@
 <configuration>
 
-    <!-- Можно использовать Spring Properties -->
     <springProperty name="LOG_FILE" source="logging.file.name"/>
 
-    <!-- Console Appender с цветами -->
+    <conversionRule conversionWord="levelColor" converterClass="org.foomaa.jvchat.logger.LevelColorConverter"/>
+
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>
-                %d{dd-MM-yyyy HH:mm:ss} [%thread] %highlight(%-5level) %logger{36} - %msg%n
-            </pattern>
+            <pattern>%d{dd.MM.yyyy} | %d{HH:mm:ss z} | [%levelColor] | %logger{36}:%line | %msg%n</pattern>
         </encoder>
     </appender>
 
-    <!-- Файловый аппендер -->
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
         <file>${LOG_FILE:-application.log}</file>
         <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
+            <pattern>%d{dd.MM.yyyy} | %d{HH:mm:ss z} | [%-5level] | %logger{36}:%line | %msg%n</pattern>
         </encoder>
     </appender>
 
-    <!-- Логгер для твоего пакета -->
-    <logger name="org.foomaa.jvchat" level="DEBUG" additivity="false">
+    <logger name="org.foomaa.jvchat" level="TRACE" additivity="false">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
     </logger>
 
-    <root level="INFO">
-        <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="FILE"/>
-    </root>
-
+    <root level="OFF"/>
 </configuration>
