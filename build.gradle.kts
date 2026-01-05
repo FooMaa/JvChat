@@ -28,6 +28,11 @@ subprojects {
         implementation("org.springframework:spring-beans")
         implementation("org.springframework:spring-core")
         implementation("org.springframework.boot:spring-boot-starter:3.2.4")
+
+        compileOnly("org.projectlombok:lombok:1.18.30")
+        annotationProcessor("org.projectlombok:lombok:1.18.30")
+        testCompileOnly("org.projectlombok:lombok:1.18.30")
+        testAnnotationProcessor("org.projectlombok:lombok:1.18.30")
     }
 
     tasks.test {
