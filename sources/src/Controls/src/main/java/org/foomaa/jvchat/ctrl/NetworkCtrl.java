@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
-import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.models.GetterModels;
 import org.foomaa.jvchat.models.SocketRunnableCtrlModel;
 import org.foomaa.jvchat.network.UsersSocket;
@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 
 
 @Component
+@Slf4j
 public class NetworkCtrl {
     private final ServersSocket serversSocket;
     private  final UsersSocket usersSocket;
@@ -106,17 +107,16 @@ public class NetworkCtrl {
             SocketRunnableCtrl socketRunnableCtrl = (SocketRunnableCtrl) socketCtrl.getSocketRunnableCtrl();
 
             if (socketRunnableCtrl != null && socketRunnableCtrl.isErrorsExceedsLimit()) {
-                Log.write(Log.TypeLog.Warn, "We clean up a thread that has not responded for a long time.");
+                log.warn("We clean up a thread that has not responded for a long time.");
                 socketRunnableCtrlModel.removeItem(socketCtrl);
-                Log.write(Log.TypeLog.Warn, "Number of active connections after cleaning: " +
-                        socketRunnableCtrlModel.getCountConnections());
+                log.warn("Number of active connections after cleaning: " + socketRunnableCtrlModel.getCountConnections());
             }
         }
 
         try {
             Thread.sleep(milliSecondsSleepAfterOperation);
         } catch (InterruptedException exception) {
-            Log.write(Log.TypeLog.Error, "Sleep() failed to running here.");
+            log.error("Thread.sleep() failed to running here.");
         }
     }
 }

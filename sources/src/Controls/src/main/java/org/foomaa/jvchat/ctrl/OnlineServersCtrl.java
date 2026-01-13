@@ -3,10 +3,10 @@ package org.foomaa.jvchat.ctrl;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
+import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.globaldefines.DbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
-import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.models.CheckersOnlineModel;
 import org.foomaa.jvchat.models.GetterModels;
@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 
 
 @Component
+@Slf4j
 public class OnlineServersCtrl {
     private final int intervalMilliSecondsAfterLastSending;
     private final int intervalMilliSecondsAfterLastUpdate;
@@ -38,7 +39,7 @@ public class OnlineServersCtrl {
         for (CheckerOnlineStructObject checkerOnline : listCheckersOnline) {
             SocketRunnableCtrlStructObject socketRunnableCtrlStructObject = checkerOnline.getSocketRunnableCtrlStructObject();
             if (socketRunnableCtrlStructObject == null) {
-                Log.write(Log.TypeLog.Error, "Here socketRunnableCtrlStructObject is null.");
+                log.error("Here socketRunnableCtrlStructObject is null.");
                 continue;
             }
 
@@ -57,7 +58,7 @@ public class OnlineServersCtrl {
         for (CheckerOnlineStructObject checkerOnline : listCheckersOnline) {
             SocketRunnableCtrlStructObject socketRunnableCtrlStructObject = checkerOnline.getSocketRunnableCtrlStructObject();
             if (socketRunnableCtrlStructObject == null) {
-                Log.write(Log.TypeLog.Error, "Here socketRunnableCtrlStructObject is null.");
+                log.error("Here socketRunnableCtrlStructObject is null.");
                 continue;
             }
 
@@ -76,7 +77,7 @@ public class OnlineServersCtrl {
         for (CheckerOnlineStructObject checkerOnline : listCheckersOnline) {
             UserStructObject userStructObject = checkerOnline.getUser();
             if (userStructObject == null) {
-                Log.write(Log.TypeLog.Error, "Here userStructObject is null.");
+                log.error("Here userStructObject is null.");
                 continue;
             }
 
@@ -150,7 +151,7 @@ public class OnlineServersCtrl {
         }
 
         if (onlineUser == null) {
-            Log.write(Log.TypeLog.Error, "Here onlineUser turned out to be null.");
+            log.error("Here onlineUser turned out to be null.");
             return;
         }
 
@@ -184,7 +185,7 @@ public class OnlineServersCtrl {
                 Thread.sleep(intervalMilliSecondsAfterLastSending);
                 return;
             } catch (InterruptedException exception) {
-                Log.write(Log.TypeLog.Error, "Sleep() failed to running here.");
+                log.error("Thread.sleep() failed to running here.");
             }
         }
 
@@ -193,7 +194,7 @@ public class OnlineServersCtrl {
         for (SocketRunnableCtrlStructObject socketRunnableCtrlStructObject : connectionList) {
             SocketRunnableCtrl socketRunnableCtrl = (SocketRunnableCtrl) socketRunnableCtrlStructObject.getSocketRunnableCtrl();
             if (socketRunnableCtrl == null) {
-                Log.write(Log.TypeLog.Error, "socketRunnableCtrl turned out to be null.");
+                log.error("socketRunnableCtrl turned out to be null.");
                 continue;
             }
 
@@ -210,7 +211,7 @@ public class OnlineServersCtrl {
 
             CheckerOnlineStructObject onlineUser = getCheckerOnlineByRunnable(socketRunnableCtrl);
             if (onlineUser == null) {
-                Log.write(Log.TypeLog.Error, "Here onlineUser turned out to be null.");
+                log.error("Here onlineUser turned out to be null.");
                 continue;
             }
             onlineUser.setIsSending(true);
@@ -224,7 +225,7 @@ public class OnlineServersCtrl {
         if (isRunnableInListCheckerOnline(socketRunnableCtrl)) {
             CheckerOnlineStructObject onlineUser = getCheckerOnlineByRunnable(socketRunnableCtrl);
             if (onlineUser == null) {
-                Log.write(Log.TypeLog.Error, "Here onlineUser turned out to be null");
+                log.error("Here onlineUser turned out to be null");
                 return;
             }
 
@@ -238,7 +239,7 @@ public class OnlineServersCtrl {
                 try {
                     Thread.sleep(intervalMilliSecondsAfterLastSending - milliSecondsAfterLastSending);
                 } catch (InterruptedException exception) {
-                    Log.write(Log.TypeLog.Error, "Sleep() failed to running here.");
+                    log.error("Thread.sleep() failed to running here.");
                 }
             }
         }
@@ -257,7 +258,7 @@ public class OnlineServersCtrl {
 
                 UserStructObject userStructObject = onlineUser.getUser();
                 if (userStructObject == null) {
-                    Log.write(Log.TypeLog.Error, "Here userStructObject is null.");
+                    log.error("Here userStructObject is null.");
                     continue;
                 }
 
@@ -297,7 +298,7 @@ public class OnlineServersCtrl {
         for (CheckerOnlineStructObject checkerOnline : listCheckersOnline) {
             SocketRunnableCtrlStructObject socketRunnableCtrlStructObject = checkerOnline.getSocketRunnableCtrlStructObject();
             if (socketRunnableCtrlStructObject == null) {
-                Log.write(Log.TypeLog.Error, "Here socketRunnableCtrlStructObject is null.");
+                log.error("Here socketRunnableCtrlStructObject is null.");
                 continue;
             }
 

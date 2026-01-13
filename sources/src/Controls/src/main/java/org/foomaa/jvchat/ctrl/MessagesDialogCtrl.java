@@ -3,12 +3,12 @@ package org.foomaa.jvchat.ctrl;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
-import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.models.ChatsModel;
 import org.foomaa.jvchat.models.MessagesModel;
@@ -22,6 +22,7 @@ import org.foomaa.jvchat.tools.FormatTools;
 
 @Component
 @Profile("users")
+@Slf4j
 public class MessagesDialogCtrl {
     private final MessagesModel messagesModel;
     private final ChatsModel chatsModel;
@@ -63,7 +64,7 @@ public class MessagesDialogCtrl {
 
     public MessageStructObject createAndSendMessage(String text) {
         if (getCurrentActiveChatUuid() == null) {
-            Log.write(Log.TypeLog.Error, "Не выбран диалог, отправка не выполнена");
+            log.error("No selected dialog, cannot sending message");
             return null;
         }
 
@@ -98,7 +99,7 @@ public class MessagesDialogCtrl {
                     (String) msg.get(DefinesMessages.TypeData.Timestamp), normalizeCountTimestamp);
 
             if (timestampMessage == null) {
-                Log.write(Log.TypeLog.Warn, "It was not possible to normalize the date and time to the required format.");
+                log.warn("It was not possible to normalize the date and time to the required format.");
             }
 
             messagesModel.createNewMessage(
@@ -171,7 +172,7 @@ public class MessagesDialogCtrl {
 
         Runnable runnableUserCtrl = onlineServersCtrl.getRunnableByUuidUser(messageStructObject.getUuidUserReceiver());
         if (runnableUserCtrl == null) {
-            Log.write(Log.TypeLog.Error, "Here runnableUserCtrl turned out to be null.");
+            log.error("Here runnableUserCtrl turned out to be null.");
             return;
         }
 
@@ -207,7 +208,7 @@ public class MessagesDialogCtrl {
 
     public String getTimeFormattedMessage(LocalDateTime timestamp) {
         if (timestamp == null) {
-            Log.write(Log.TypeLog.Error, "Here the timestamp turned out to be null.");
+            log.error("Here the timestamp turned out to be null.");
             return "";
         }
 

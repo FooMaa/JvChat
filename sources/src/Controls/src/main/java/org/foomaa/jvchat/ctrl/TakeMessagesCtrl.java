@@ -5,11 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.cryptography.HashCryptography;
 import org.foomaa.jvchat.globaldefines.DbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
-import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.messages.GetterMessages;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.GetterSettings;
@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 
 
 @Component
+@Slf4j
 public class TakeMessagesCtrl {
     private Runnable runnableCtrlFrom;
     private final HashCryptography hashCryptography;
@@ -309,7 +310,7 @@ public class TakeMessagesCtrl {
         UUID uuidUser = GetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
 
         if (uuidUser == null) {
-            Log.write(Log.TypeLog.Warn, "Here uuidUser is not set.");
+            log.warn("Here uuidUser is not set.");
             return;
         }
 
@@ -403,9 +404,9 @@ public class TakeMessagesCtrl {
 
     private void workTextMessagesChangingStatusFromServerVerificationMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(DefinesMessages.TypeData.BoolReply)) {
-            Log.write(Log.TypeLog.Info, "Received a message delivery receipt with a status without errors.");
+            log.info("Received a message delivery receipt with a status without errors.");
         } else {
-            Log.write(Log.TypeLog.Info, "A message delivery receipt has arrived with an error status.");
+            log.info("A message delivery receipt has arrived with an error status.");
         }
     }
 
@@ -426,9 +427,9 @@ public class TakeMessagesCtrl {
 
     private void workTextMessagesChangingStatusFromUserVerificationMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(DefinesMessages.TypeData.BoolReply)) {
-            Log.write(Log.TypeLog.Info, "Received a message delivery receipt with a status without errors.");
+            log.info("Received a message delivery receipt with a status without errors.");
         } else {
-            Log.write(Log.TypeLog.Info, "A message delivery receipt has arrived with an error status.");
+            log.info("A message delivery receipt has arrived with an error status.");
         }
     }
 

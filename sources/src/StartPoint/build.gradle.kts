@@ -18,14 +18,22 @@ application {
     mainClass.set("org.foomaa.jvchat.startpoint.MainStartPoint")
 }
 
-val activeProfile: String? = listOf("users", "servers", "tests")
-    .firstOrNull { project.hasProperty(it) }
+val knownProfiles = listOf("users", "servers", "tests")
 
-if (activeProfile == null) {
-    throw GradleException("No profile! Use -Pusers, -Pservers, or -Ptests")
+val activeProfile: String? = knownProfiles.firstOrNull {
+    project.hasProperty(it)
+}
+
+val effectiveProfile = activeProfile ?: "users"
+
+fun requireProfile() {
+    if (activeProfile == null) {
+        throw GradleException("No profile! Error!")
+    }
 }
 
 tasks.named<org.springframework.boot.gradle.tasks.run.BootRun>("bootRun") {
+    doFirst { requireProfile() }
     mainClass.set("org.foomaa.jvchat.startpoint.MainStartPoint")
     onlyIf { activeProfile != "tests" }
 
@@ -54,6 +62,6 @@ tasks.processResources {
 
 tasks.withType<Jar>().configureEach {
     manifest {
-        attributes["Profile"] = activeProfile
+        attributes["Profile"] = effectiveProfile
     }
 }

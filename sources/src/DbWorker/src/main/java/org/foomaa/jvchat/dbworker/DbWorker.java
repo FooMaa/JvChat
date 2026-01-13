@@ -9,12 +9,12 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
-
-import org.foomaa.jvchat.logger.Log;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Component
 @Profile("servers")
+@Slf4j
 public class DbWorker {
     private static Connection connection;
 
@@ -26,7 +26,7 @@ public class DbWorker {
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
-            Log.write(Log.TypeLog.Error, "Error in connect to DB.");
+            log.error("Error in connect to DB.");
             return;
         }
 
@@ -37,7 +37,7 @@ public class DbWorker {
                     serversInfoSettings.getDbUser(),
                     serversInfoSettings.getMagicStringDb());
         } catch (SQLException e) {
-            Log.write(Log.TypeLog.Error, "Error in connect to DB.");
+            log.error("Error in connect to DB.");
             return;
         }
 
@@ -48,7 +48,7 @@ public class DbWorker {
         try {
             rs.close();
         } catch (SQLException exception) {
-            Log.write(Log.TypeLog.Error, "Error closing ResultSet.");
+            log.error("Error closing ResultSet.");
         }
     }
 
@@ -64,7 +64,7 @@ public class DbWorker {
                     ResultSet.CONCUR_READ_ONLY);
             resultSet = stmt.executeQuery(execution);
         } catch (SQLException exception) {
-            Log.write(Log.TypeLog.Error, "The database returned an error, the request cannot be executed.");
+            log.error("The database returned an error, the request cannot be executed.");
         }
         return resultSet;
     }

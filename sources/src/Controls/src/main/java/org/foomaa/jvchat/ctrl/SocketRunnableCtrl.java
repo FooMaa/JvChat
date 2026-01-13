@@ -4,8 +4,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import lombok.extern.slf4j.Slf4j;
 
-import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.models.GetterModels;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
  * which contains a Runnable field. This field is the object
  * of this SocketRunnableCtrl class.
  */
+@Slf4j
 public class SocketRunnableCtrl implements Runnable {
     private DataOutputStream sendStream;
     private DataInputStream readStream;
@@ -29,7 +30,7 @@ public class SocketRunnableCtrl implements Runnable {
             sendStream = new DataOutputStream(socket.getOutputStream());
             readStream = new DataInputStream(socket.getInputStream());
         } catch (IOException exception) {
-            Log.write(Log.TypeLog.Error, "Error in creating threads for sending and receiving messages.");
+            log.error("Error in creating threads for sending and receiving messages.");
         }
 
         errorsConnection = 0;
@@ -50,7 +51,7 @@ public class SocketRunnableCtrl implements Runnable {
             }
         } catch (IOException exception) {
             errorsConnection++;
-            Log.write(Log.TypeLog.Error, "Error in network.");
+            log.error("Error in network.");
         }
     }
 
@@ -61,7 +62,7 @@ public class SocketRunnableCtrl implements Runnable {
             sendStream.flush();
         } catch (IOException exception) {
             errorsConnection++;
-            Log.write(Log.TypeLog.Error, "Error in network.");
+            log.error("Error in network.");
         }
     }
 

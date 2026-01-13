@@ -10,12 +10,12 @@ import javax.mail.Transport;
 import javax.mail.internet.*;
 import java.util.Date;
 import java.util.Properties;
-
-import org.foomaa.jvchat.logger.Log;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Component
 @Profile("servers")
+@Slf4j
 public class EmailProcessor {
     private static Session session;
     private final String host;
@@ -56,7 +56,7 @@ public class EmailProcessor {
             transport.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
             transport.close();
         } catch (MessagingException exception) {
-            Log.write(Log.TypeLog.Error, "Error sending email.");
+            log.error("Error sending email.");
             return false;
         }
         return true;

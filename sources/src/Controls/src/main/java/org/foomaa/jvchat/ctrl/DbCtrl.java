@@ -7,15 +7,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.dbworker.DbRequests;
 import org.foomaa.jvchat.dbworker.DbWorker;
 import org.foomaa.jvchat.globaldefines.DbGlobalDefines;
-import org.foomaa.jvchat.logger.Log;
 import org.springframework.stereotype.Component;
 
 
 @Component
+@Slf4j
 public class DbCtrl {
     private final DbWorker db;
     private final DbRequests dbRequests;
@@ -65,7 +66,7 @@ public class DbCtrl {
             metadata = resultSet.getMetaData();
             columnCount = metadata.getColumnCount();
         } catch (SQLException exception) {
-            Log.write(Log.TypeLog.Error, "It is not possible to get column data and metadata.");
+            log.error("It is not possible to get column data and metadata.");
         }
 
         List<String> result = new ArrayList<>(columnCount);
@@ -77,7 +78,7 @@ public class DbCtrl {
                 result.add(resultSet.getString(i));
             }
         } catch (SQLException exception) {
-            Log.write(Log.TypeLog.Error, "It was not possible to obtain data for the series.");
+            log.error("It was not possible to obtain data for the series.");
         }
 
         return result;
@@ -89,7 +90,7 @@ public class DbCtrl {
         try {
             res = resultSet.next();
         } catch (SQLException exception) {
-            Log.write(Log.TypeLog.Error, "The database returned an exception when checking, something is wrong.");
+            log.error("The database returned an exception when checking, something is wrong.");
         }
         return res;
     }
@@ -199,7 +200,7 @@ public class DbCtrl {
                         db.closeResultSet(rs);
                         return result;
                     } catch (SQLException exception) {
-                        Log.write(Log.TypeLog.Error, "Error checking database query.");
+                        log.error("Error checking database query.");
                     }
                 }
                 return false;
@@ -213,7 +214,7 @@ public class DbCtrl {
                         db.closeResultSet(rs);
                         return result;
                     } catch (SQLException exception) {
-                        Log.write(Log.TypeLog.Error, "Error checking database query.");
+                        log.error("Error checking database query.");
                     }
                 }
                 return false;
@@ -227,7 +228,7 @@ public class DbCtrl {
                         db.closeResultSet(rs);
                         return result;
                     } catch (SQLException exception) {
-                        Log.write(Log.TypeLog.Error, "Error checking database query.");
+                        log.error("Error checking database query.");
                     }
                 }
                 return false;
@@ -242,7 +243,7 @@ public class DbCtrl {
                         db.closeResultSet(rs);
                         return result;
                     } catch (SQLException exception) {
-                        Log.write(Log.TypeLog.Error, "Error checking database query.");
+                        log.error("Error checking database query.");
                     }
                 }
                 return false;
@@ -257,7 +258,7 @@ public class DbCtrl {
                         db.closeResultSet(rs);
                         return result;
                     } catch (SQLException exception) {
-                        Log.write(Log.TypeLog.Error, "Error checking database query.");
+                        log.error("Error checking database query.");
                     }
                 }
                 return false;
@@ -402,7 +403,7 @@ public class DbCtrl {
                 result.add(row);
             }
         } catch (SQLException exception) {
-            Log.write(Log.TypeLog.Error, "Error when working with ResultSet from the database.");
+            log.error("Error when working with ResultSet from the database.");
         }
 
         return result;

@@ -7,13 +7,13 @@ import org.springframework.stereotype.Component;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.InetAddress;
-
-import org.foomaa.jvchat.logger.Log;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Component
 @Lazy
 @Profile("servers")
+@Slf4j
 public class ServersSocket {
     private static ServerSocket socketServers;
 
@@ -27,13 +27,13 @@ public class ServersSocket {
                         InetAddress.getByName(serversInfoSettings.getIp()));
             }
 
-            Log.write(Log.TypeLog.Info, "IP: " + socketServers.getInetAddress().toString() + ".");
-            Log.write(Log.TypeLog.Info, "PORT: " + socketServers.getLocalPort() + ".");
+            log.info("IP: " + socketServers.getInetAddress().toString() + ".");
+            log.info("PORT: " + socketServers.getLocalPort() + ".");
 
-            Log.write(Log.TypeLog.Info, "Server is started.");
+            log.info("Server is started.");
             closeSocketWhenKill();
         } catch (IOException exception) {
-            Log.write(Log.TypeLog.Error, "Error creating server socket.");
+            log.error("Error creating server socket.");
         }
     }
 

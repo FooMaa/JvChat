@@ -7,13 +7,13 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-
-import org.foomaa.jvchat.logger.Log;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Component
 @Lazy
 @Profile("users")
+@Slf4j
 public class UsersSocket {
     private static Socket socketUsers;
 
@@ -24,7 +24,7 @@ public class UsersSocket {
                     usersInfoSettings.getPortRemoteServer()), 4000);
             closeSocketWhenKill();
         } catch (IOException exception) {
-            Log.write(Log.TypeLog.Error, "No connection.");
+            log.error("No connection.");
         }
     }
 

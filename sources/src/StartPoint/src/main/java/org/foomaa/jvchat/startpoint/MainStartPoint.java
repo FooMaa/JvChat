@@ -1,7 +1,7 @@
 package org.foomaa.jvchat.startpoint;
 
-import org.foomaa.jvchat.logger.Log;
 import org.springframework.boot.Banner;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -14,6 +14,7 @@ import java.util.Properties;
 @SpringBootApplication
 @ComponentScan("org.foomaa.jvchat")
 @EnableAsync
+@Slf4j
 public class MainStartPoint {
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(MainStartPoint.class);
@@ -44,7 +45,7 @@ public class MainStartPoint {
         if (profile != null && !profile.isBlank()) {
             app.setAdditionalProfiles(profile);
         } else {
-            Log.write(Log.TypeLog.Error, "Cannot install active profile to SpringApplication");
+            log.error("Cannot install active profile to SpringApplication");
         }
     }
 
@@ -53,6 +54,6 @@ public class MainStartPoint {
 
         setProfileSettingSpring(profile, app);
 
-        Log.write(Log.TypeLog.Info, String.format("Active profile is \"%s\"", profile));
+        log.info(String.format("Active profile is \"%s\"", profile));
     }
 }
