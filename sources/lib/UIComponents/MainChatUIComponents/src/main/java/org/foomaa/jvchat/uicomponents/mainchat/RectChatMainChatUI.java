@@ -6,15 +6,16 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Objects;
 import java.util.UUID;
+import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.ctrl.GetterControls;
-import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.settings.GetterSettings;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.structobjects.ChatStructObject;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
 
 
+@Slf4j
 public class RectChatMainChatUI extends JPanel {
     private final String nickName;
     private String shortLastMessage;
@@ -166,7 +167,7 @@ public class RectChatMainChatUI extends JPanel {
         JLabel statusOnlineLabel = (JLabel) findComponentStatusOnline();
 
         if (statusOnlineLabel == null) {
-            Log.write(Log.TypeLog.Error, "Здесь nickNameLabel оказался null");
+            log.error("Здесь nickNameLabel оказался null");
             return;
         }
 

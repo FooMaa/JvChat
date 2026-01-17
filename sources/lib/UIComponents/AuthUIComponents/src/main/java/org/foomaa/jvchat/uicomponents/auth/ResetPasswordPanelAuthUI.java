@@ -5,16 +5,17 @@ import java.awt.*;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+import lombok.extern.slf4j.Slf4j;
 import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.events.GetterEvents;
-import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.settings.GetterSettings;
 import org.foomaa.jvchat.tools.GetterTools;
 
 
+@Slf4j
 public class ResetPasswordPanelAuthUI extends JPanel {
     private final TextFieldAuthUI tEmail;
     private final ErrorLabelAuthUI tErrorHelpInfo;
@@ -160,7 +161,7 @@ public class ResetPasswordPanelAuthUI extends JPanel {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
-                Log.write(Log.TypeLog.Error, "Couldn't wait.");
+                log.error( "Couldn't wait.");
             }
         }
         if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getResetPasswordRequestFlag() ==

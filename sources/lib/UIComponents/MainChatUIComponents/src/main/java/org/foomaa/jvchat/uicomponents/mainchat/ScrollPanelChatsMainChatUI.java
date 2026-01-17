@@ -13,16 +13,17 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
-import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.GetterSettings;
 import org.foomaa.jvchat.structobjects.ChatStructObject;
 import org.foomaa.jvchat.structobjects.UserStructObject;
 
 
+@Slf4j
 public class ScrollPanelChatsMainChatUI extends JPanel {
     private final int intervalMilliSecondsSleepUpdating;
     private final int intervalSecondsWaitLoopUpdate;
@@ -190,7 +191,7 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
-                Log.write(Log.TypeLog.Error, "Не удалось ждать");
+                log.error("Не удалось ждать");
             }
 
             if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getChatsLoadReplyFlag() ==
@@ -222,7 +223,7 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
             try {
                 TimeUnit.SECONDS.sleep(intervalSecondsWaitLoopUpdate);
             } catch (InterruptedException exception) {
-                Log.write(Log.TypeLog.Error, "Здесь не удалось выполнить sleep()");
+                log.error("Здесь не удалось выполнить sleep()");
             }
         }
 
@@ -231,7 +232,7 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
         try {
             Thread.sleep(intervalMilliSecondsSleepUpdating);
         } catch (InterruptedException exception) {
-            Log.write(Log.TypeLog.Error, "Здесь не удалось выполнить sleep()");
+            log.error("Здесь не удалось выполнить sleep()");
         }
     }
 

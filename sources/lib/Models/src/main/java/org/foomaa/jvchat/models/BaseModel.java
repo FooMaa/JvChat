@@ -1,13 +1,14 @@
 package org.foomaa.jvchat.models;
 
-import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.structobjects.BaseStructObject;
 import org.foomaa.jvchat.structobjects.RootStructObject;
 
+import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.List;
 
 
+@Slf4j
 public abstract class BaseModel {
     private RootStructObject rootObject;
     private final String nameModel;
@@ -23,12 +24,12 @@ public abstract class BaseModel {
 
     public void removeItem(BaseStructObject item) {
         if (rootObject == null) {
-            Log.write(Log.TypeLog.Error, "Here rootObject turned out to be null.");
+            log.error("Here rootObject turned out to be null.");
             return;
         }
 
         if (!removeItemProcess(rootObject, item)) {
-            Log.write(Log.TypeLog.Error, "There is an error when deleting an element.");
+            log.error("There is an error when deleting an element.");
         }
     }
 
@@ -81,7 +82,7 @@ public abstract class BaseModel {
     public void clearModel() {
         List<BaseStructObject> children = new ArrayList<>(rootObject.getChildren());
         if (children.isEmpty()) {
-            Log.write(Log.TypeLog.Warn, "Empty children...");
+            log.warn("Empty children...");
             return;
         }
 

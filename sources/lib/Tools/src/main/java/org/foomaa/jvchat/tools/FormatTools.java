@@ -1,14 +1,14 @@
 package org.foomaa.jvchat.tools;
 
+import lombok.extern.slf4j.Slf4j;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.foomaa.jvchat.logger.Log;
 
-
+@Slf4j
 public class FormatTools {
     FormatTools() {}
 
@@ -29,7 +29,7 @@ public class FormatTools {
 
             resultTimestamp = parts[0] + "." + milliseconds;
         } else {
-            Log.write(Log.TypeLog.Warn, "It is not possible to convert the date and time to the required format. Trying regex...");
+            log.warn("It is not possible to convert the date and time to the required format. Trying regex...");
 
             // Regex format: 'yyyy-MM-dd HH:mm:ss'
             String patternStr = "^(?<year>\\d{4})-(?<month>0[1-9]|1[012])-(?<day>0[1-9]|[12][0-9]|3[01])" +
@@ -43,7 +43,7 @@ public class FormatTools {
                 String addingMs = zeroMs.repeat(normalizeCount);
                 resultTimestamp = timestamp + "." + addingMs;
             } else {
-                Log.write(Log.TypeLog.Error, "Error to convert the date and time to the required format.");
+                log.error("Error to convert the date and time to the required format.");
                 return null;
             }
         }
@@ -58,7 +58,7 @@ public class FormatTools {
 
     public LocalDateTime stringToLocalDateTime(String timestampStr, int normalizeCount) {
         if (timestampStr == null || Objects.equals(timestampStr, "")) {
-            Log.write(Log.TypeLog.Error, "Error getting time. Time is null or empty.");
+            log.error("Error getting time. Time is null or empty.");
             return null;
         }
 
@@ -67,7 +67,7 @@ public class FormatTools {
                 .normalizeMillisecond(timestampStr, normalizeCount);
 
         if (timestampString == null) {
-            Log.write(Log.TypeLog.Error, "Date and time conversion error.");
+            log.error("Date and time conversion error.");
             return null;
         }
 

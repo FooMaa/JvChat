@@ -1,9 +1,9 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
-import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.settings.GetterSettings;
+import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
 
+import lombok.extern.slf4j.Slf4j;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 
+@Slf4j
 public class TitlePanelAuthUI extends JPanel {
     private final JButton closeButton;
     private final JButton minimizeButton;
@@ -87,7 +88,7 @@ public class TitlePanelAuthUI extends JPanel {
                 }
             });
         } catch (IOException ex) {
-            Log.write(Log.TypeLog.Error, "No icon.");
+            log.error("No icon.");
         }
 
         button.setContentAreaFilled(false);
@@ -111,7 +112,7 @@ public class TitlePanelAuthUI extends JPanel {
                     .createMainSteticaFont(Font.BOLD, size);
             titleLabel.setFont(steticaFont);
         } catch (IOException | FontFormatException exception) {
-            Log.write(Log.TypeLog.Error, "steticaFont was not created here.");
+            log.error("steticaFont was not created here.");
         }
     }
 

@@ -1,7 +1,6 @@
 package org.foomaa.jvchat.startpoint;
 
 import org.foomaa.jvchat.ctrl.NetworkCtrl;
-import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.settings.UsersInfoSettings;
 import org.foomaa.jvchat.tools.MainTools;
 import org.foomaa.jvchat.uilinks.ErrorStartUILink;
@@ -12,7 +11,6 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
-
 import java.io.IOException;
 
 import org.foomaa.jvchat.settings.MainSettings;
@@ -60,7 +58,7 @@ public class StartupRunner implements ApplicationRunner {
         String profile = context.getEnvironment().getActiveProfiles()[0];
 
         if (profile.isEmpty()) {
-            Log.write(Log.TypeLog.Error, "Not found profile");
+            log.error("Not found profile");
             return;
         }
 

@@ -2,13 +2,14 @@ package org.foomaa.jvchat.models;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
-import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.settings.GetterSettings;
 import org.foomaa.jvchat.structobjects.*;
 
 
+@Slf4j
 public class ChatsModel extends BaseModel {
     private UUID currentActiveChatUuid;
 
@@ -63,7 +64,7 @@ public class ChatsModel extends BaseModel {
     public void setOnlineStatusToUser(UUID uuidUser, MainChatsGlobalDefines.TypeStatusOnline statusOnline) {
         ChatStructObject chat = findByUuidUser(uuidUser);
         if (chat == null) {
-            Log.write(Log.TypeLog.Error, "This includes a chat object, which is null.");
+            log.error("This includes a chat object, which is null.");
             return;
         }
         chat.getUserChat().setStatusOnline(statusOnline);
@@ -72,7 +73,7 @@ public class ChatsModel extends BaseModel {
     public void setTimestampLastOnlineToUser(UUID uuidUser, LocalDateTime timestamp) {
         ChatStructObject chat = findByUuidUser(uuidUser);
         if (chat == null) {
-            Log.write(Log.TypeLog.Error, "This includes a chat object, which is null.");
+            log.error("This includes a chat object, which is null.");
             return;
         }
         chat.getUserChat().setTimestampLastOnline(timestamp);
@@ -82,7 +83,7 @@ public class ChatsModel extends BaseModel {
         for (BaseStructObject baseStructObject : getRootObject().getChildren()) {
             ChatStructObject chatStructObject = (ChatStructObject) baseStructObject;
             if (chatStructObject == null) {
-                Log.write(Log.TypeLog.Error, "This includes a chat object, which is null.");
+                log.error("This includes a chat object, which is null.");
                 continue;
             }
             UUID uuidObj = chatStructObject.getUserChat().getUuid();
@@ -100,7 +101,7 @@ public class ChatsModel extends BaseModel {
         for (BaseStructObject baseStructObject : getRootObject().getChildren()) {
             ChatStructObject chatStructObject = (ChatStructObject) baseStructObject;
             if (chatStructObject == null) {
-                Log.write(Log.TypeLog.Error, "This includes the chatStructObject object, which is null.");
+                log.error("This includes the chatStructObject object, which is null.");
                 continue;
             }
             resultList.add(chatStructObject);
@@ -115,7 +116,7 @@ public class ChatsModel extends BaseModel {
 
         for (ChatStructObject chatObject : chatsList) {
             if (chatObject == null) {
-                Log.write(Log.TypeLog.Error, "This includes the chatStructObject object, which is null.");
+                log.error("This includes the chatStructObject object, which is null.");
                 continue;
             }
             resultList.add(chatObject.getUserChat());

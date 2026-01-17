@@ -1,7 +1,7 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
+import lombok.extern.slf4j.Slf4j;
 import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
-import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.settings.GetterSettings;
 
 import javax.swing.*;
@@ -9,6 +9,8 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.io.IOException;
 
+
+@Slf4j
 public class ToolTipMainChatUI extends JToolTip {
     ToolTipMainChatUI() {
         setGeneralSettings();
@@ -30,7 +32,7 @@ public class ToolTipMainChatUI extends JToolTip {
                     .createMainSteticaFont(Font.PLAIN, size);
             setFont(steticaFont);
         } catch (IOException | FontFormatException exception) {
-            Log.write(Log.TypeLog.Error, "steticaFont not created here.");
+            log.error("steticaFont not created here.");
         }
     }
 }

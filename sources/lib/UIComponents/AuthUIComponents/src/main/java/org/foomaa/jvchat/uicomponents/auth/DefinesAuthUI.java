@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
+
 public class DefinesAuthUI {
     DefinesAuthUI() {}
 

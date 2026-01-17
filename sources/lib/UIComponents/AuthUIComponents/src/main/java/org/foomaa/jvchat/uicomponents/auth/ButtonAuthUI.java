@@ -1,7 +1,7 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
+import lombok.extern.slf4j.Slf4j;
 import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
-import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.settings.GetterSettings;
 
 import javax.swing.*;
@@ -10,6 +10,7 @@ import java.awt.geom.RoundRectangle2D;
 import java.io.IOException;
 
 
+@Slf4j
 public class ButtonAuthUI extends JButton {
     private ToolTipAuthUI toolTip;
 
@@ -82,7 +83,7 @@ public class ButtonAuthUI extends JButton {
                     .createMainSteticaFont(Font.PLAIN, size);
             setFont(steticaFont);
         } catch (IOException | FontFormatException exception) {
-            Log.write(Log.TypeLog.Error, "SteticaFont not created here.");
+            log.error("SteticaFont not created here.");
         }
     }
 }

@@ -1,6 +1,6 @@
 package org.foomaa.jvchat.models;
 
-import org.foomaa.jvchat.logger.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.foomaa.jvchat.structobjects.BaseStructObject;
 import org.foomaa.jvchat.structobjects.GetterStructObjects;
 import org.foomaa.jvchat.structobjects.UserStructObject;
@@ -8,6 +8,7 @@ import org.foomaa.jvchat.structobjects.UserStructObject;
 import java.util.UUID;
 
 
+@Slf4j
 public class UsersModel extends BaseModel {
     UsersModel() {
         setRootObject(GetterStructObjects.getInstance()
@@ -39,7 +40,7 @@ public class UsersModel extends BaseModel {
         UserStructObject userStructObject = findUserStructObjectByUuidUser(uuidUser);
 
         if (userStructObject == null) {
-            Log.write(Log.TypeLog.Warn, "There is no userStructObject with uuid created here, creating...");
+            log.warn("There is no userStructObject with uuid created here, creating...");
             UserStructObject userChat = GetterStructObjects.getInstance().getBeanUserStructObject();
             userChat.setUuid(uuidUser);
             addItem(userChat, getRootObject());

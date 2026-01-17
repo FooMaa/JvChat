@@ -4,7 +4,6 @@ import org.foomaa.jvchat.models.ConnectionsEventsModel;
 import org.foomaa.jvchat.models.GetterModels;
 import org.foomaa.jvchat.structobjects.ConnectionEventStructObject;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
 import java.util.*;
 
 

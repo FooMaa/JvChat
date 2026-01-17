@@ -5,17 +5,18 @@ import java.awt.*;
 import java.util.Objects;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
+import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.events.GetterEvents;
-import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.settings.GetterSettings;
 import org.foomaa.jvchat.tools.GetterTools;
 
 
+@Slf4j
 public class RegistrationPanelAuthUI extends JPanel {
     private final TextFieldAuthUI tLogin;
     private final TextFieldAuthUI tEmail;
@@ -232,7 +233,7 @@ public class RegistrationPanelAuthUI extends JPanel {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
-                Log.write(Log.TypeLog.Error, "Couldn't wait.");
+                log.error("Couldn't wait.");
             }
         }
         if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getRegistrationRequestFlag() ==

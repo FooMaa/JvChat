@@ -2,12 +2,12 @@ package org.foomaa.jvchat.cryptography;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-import org.foomaa.jvchat.logger.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 
 @Component
+@Slf4j
 public class HashCryptography {
     HashCryptography() {}
 
@@ -27,7 +27,7 @@ public class HashCryptography {
             }
             result = hexString.toString();
         } catch (NoSuchAlgorithmException exception) {
-            Log.write(Log.TypeLog.Error, "Error when taking string hash.");
+            log.error("Error when taking string hash.");
         }
         return result;
     }

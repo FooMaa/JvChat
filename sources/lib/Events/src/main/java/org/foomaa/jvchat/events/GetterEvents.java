@@ -1,7 +1,6 @@
 package org.foomaa.jvchat.events;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
 import java.util.UUID;
 
 

@@ -30,7 +30,6 @@ public class UsersInfoSettings {
         return login;
     }
 
-    
     private String ipRemoteServer;
     private int portRemoteServer = 4004;
 

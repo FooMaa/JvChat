@@ -5,14 +5,14 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.Scanner;
 import java.util.regex.Pattern;
-
-import org.foomaa.jvchat.logger.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import org.foomaa.jvchat.settings.ServersInfoSettings;
 
 
 @Component
+@Slf4j
 public class ServersTools {
     private final MainTools mainTools;
     private final ServersInfoSettings serversInfoSettings;
@@ -25,18 +25,18 @@ public class ServersTools {
     public void initServersParameters() {
         Scanner in = new Scanner(System.in);
 
-        Log.write(Log.TypeLog.Info, "Set the IP-address or push \"Enter\" for default value (default value \"auto\"): ");
+        log.info("Set the IP-address or push \"Enter\" for default value (default value \"auto\"): ");
         while (true) {
             String ip = in.nextLine();
             if (mainTools.validateInputIp(ip)) {
                 setIpToSettings(ip);
                 break;
             } else {
-                Log.write(Log.TypeLog.Error, "Set the IP-address again or push \"Enter\" for default value (default value \"auto\"): ");
+                log.error("Set the IP-address again or push \"Enter\" for default value (default value \"auto\"): ");
             }
         }
 
-        Log.write(Log.TypeLog.Info, "Set the port or push \"Enter\" for default value (default value \"4004\"): ");
+        log.info("Set the port or push \"Enter\" for default value (default value \"4004\"): ");
         while (true) {
             String port = in.nextLine();
             if (mainTools.validateInputPort(port)) {
@@ -45,11 +45,11 @@ public class ServersTools {
                 }
                 break;
             } else {
-                Log.write(Log.TypeLog.Error, "Set the port again or push \"Enter\" for default value (default value \"4004\"): ");
+                log.error("Set the port again or push \"Enter\" for default value (default value \"4004\"): ");
             }
         }
 
-        Log.write(Log.TypeLog.Info, "Set the limit count connections or push \"Enter\" for default value (default value \"1000\"): ");
+        log.info("Set the limit count connections or push \"Enter\" for default value (default value \"1000\"): ");
         while (true) {
             String limitConnection = in.nextLine();
             if (validateInputLimitConnections(limitConnection)) {
@@ -58,7 +58,7 @@ public class ServersTools {
                 }
                 break;
             } else {
-                Log.write(Log.TypeLog.Error, "Set the limit count connections again or push \"Enter\" for default value (default value \"1000\"): ");
+                log.error("Set the limit count connections again or push \"Enter\" for default value (default value \"1000\"): ");
             }
         }
     }
@@ -76,12 +76,12 @@ public class ServersTools {
         if (!ip.isEmpty()) {
             serversInfoSettings.setIp(ip);
         } else {
-            Log.write(Log.TypeLog.Info, "Wait! Searching for IP-address...");
+            log.info("Wait! Searching for IP-address...");
             try (Socket socket = new Socket()) {
                 socket.connect(new InetSocketAddress("google.com", 80));
                 serversInfoSettings.setIp(socket.getLocalAddress().getHostAddress());
             } catch (IOException exception) {
-                Log.write(Log.TypeLog.Error, "Couldn't get online, check your connection and try again!");
+                log.error("Couldn't get online, check your connection and try again!");
                 System.exit(1);
             }
         }

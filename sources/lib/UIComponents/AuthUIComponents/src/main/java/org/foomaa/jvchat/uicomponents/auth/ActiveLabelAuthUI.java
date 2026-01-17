@@ -8,12 +8,13 @@ import java.awt.font.TextAttribute;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
-import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.settings.GetterSettings;
 
 
+@Slf4j
 public class ActiveLabelAuthUI extends JLabel {
     private ToolTipAuthUI toolTip;
 
@@ -44,7 +45,7 @@ public class ActiveLabelAuthUI extends JLabel {
             attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_LOW_DOTTED);
             setFont(steticaFont.deriveFont(attributes));
         } catch (IOException | FontFormatException exception) {
-            Log.write(Log.TypeLog.Error, "steticaFont not created here.");
+            log.error("steticaFont not created here.");
         }
     }
 

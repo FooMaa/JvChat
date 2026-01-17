@@ -1,17 +1,18 @@
 package org.foomaa.jvchat.models;
 
-import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.structobjects.BaseStructObject;
 import org.foomaa.jvchat.structobjects.ConnectionEventStructObject;
 import org.foomaa.jvchat.structobjects.GetterStructObjects;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
 
+@Slf4j
 public class ConnectionsEventsModel extends BaseModel {
     ConnectionsEventsModel() {
         setRootObject(GetterStructObjects.getInstance()
@@ -41,7 +42,7 @@ public class ConnectionsEventsModel extends BaseModel {
         for (BaseStructObject baseStructObject : getRootObject().getChildren()) {
             ConnectionEventStructObject connectionEventStructObject = (ConnectionEventStructObject) baseStructObject;
             if (connectionEventStructObject == null) {
-                Log.write(Log.TypeLog.Error, "This includes the chatStructObject object, which is null.");
+                log.error("This includes the chatStructObject object, which is null.");
                 continue;
             }
             if (connectionEventStructObject.getObjectSender() == objectSender &&

@@ -1,10 +1,10 @@
 package org.foomaa.jvchat.settings;
 
+import lombok.extern.slf4j.Slf4j;
 import java.awt.*;
 
-import org.foomaa.jvchat.logger.Log;
 
-
+@Slf4j
 public class DisplaySettings {
     DisplaySettings() {
         try {
@@ -12,7 +12,7 @@ public class DisplaySettings {
             heightScreen = screenSize.height;
             widthScreen = screenSize.width;
         } catch (Throwable exception) {
-            Log.write(Log.TypeLog.Error, "Failed to get display size.");
+            log.error("Failed to get display size.");
         }
     }
 

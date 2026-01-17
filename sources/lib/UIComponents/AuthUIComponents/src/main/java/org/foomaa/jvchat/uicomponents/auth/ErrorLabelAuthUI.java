@@ -4,13 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.Objects;
+import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
-import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.settings.GetterSettings;
 
 
+@Slf4j
 public class ErrorLabelAuthUI extends JLabel {
     private final Timer timerVisible;
 
@@ -43,7 +44,7 @@ public class ErrorLabelAuthUI extends JLabel {
                     .createMainSteticaFont(Font.BOLD, size);
             setFont(steticaFont);
         } catch (IOException | FontFormatException exception) {
-            Log.write(Log.TypeLog.Error, "SteticaFont not created here");
+            log.error("SteticaFont not created here");
         }
     }
 

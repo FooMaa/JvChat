@@ -1,11 +1,12 @@
 package org.foomaa.jvchat.structobjects;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.lang.reflect.Field;
 import java.util.*;
 
-import org.foomaa.jvchat.logger.Log;
 
-
+@Slf4j
 public abstract class BaseStructObject {
     private BaseStructObject parent;
     private List<BaseStructObject> children;
@@ -64,7 +65,7 @@ public abstract class BaseStructObject {
                 try {
                     properties.put(field.getName(), field.get(this));
                 } catch (IllegalAccessException exception) {
-                    Log.write(Log.TypeLog.Error,"There's a permissions problem here.");
+                    log.error("There's a permissions problem here.");
                 }
             }
 

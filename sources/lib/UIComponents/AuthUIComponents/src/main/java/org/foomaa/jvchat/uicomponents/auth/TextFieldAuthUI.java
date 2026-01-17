@@ -6,13 +6,14 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.Objects;
+import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
-import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.settings.GetterSettings;
 
 
+@Slf4j
 public class TextFieldAuthUI extends JPanel {
     private JTextField textField;
     private ToolTipAuthUI toolTip;
@@ -170,7 +171,7 @@ public class TextFieldAuthUI extends JPanel {
                     .createMainSteticaFont(Font.BOLD, size);
             textField.setFont(steticaFont);
         } catch (IOException | FontFormatException exception) {
-            Log.write(Log.TypeLog.Error, "steticaFont was not created here.");
+            log.error("steticaFont was not created here.");
         }
     }
 

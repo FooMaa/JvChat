@@ -1,12 +1,13 @@
 package org.foomaa.jvchat.messages;
 
 import java.util.*;
-
+import lombok.extern.slf4j.Slf4j;
 import com.google.protobuf.InvalidProtocolBufferException;
+
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
-import org.foomaa.jvchat.logger.Log;
 
 
+@Slf4j
 public class DeserializatorDataMessages {
     DeserializatorDataMessages() {}
 
@@ -49,7 +50,7 @@ public class DeserializatorDataMessages {
             int numberType = ClientServerSerializeProtocolMessage_pb.General.parseFrom(data).getType();
             type = DefinesMessages.TypeMessage.getTypeMsg(numberType);
         } catch (InvalidProtocolBufferException exception) {
-            Log.write(Log.TypeLog.Error, "Error in protobuf deserialised type.");
+            log.error("Error in protobuf deserialised type.");
         }
         return type;
     }
@@ -62,7 +63,7 @@ public class DeserializatorDataMessages {
             result.put(DefinesMessages.TypeData.Password, ClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
                     .getEntryRequest().getPassword());
         } catch (InvalidProtocolBufferException exception) {
-            Log.write(Log.TypeLog.Error, "Error in protobuf deserialised data.");
+            log.error("Error in protobuf deserialised data.");
         }
         return result;
     }
@@ -75,7 +76,7 @@ public class DeserializatorDataMessages {
             result.put(DefinesMessages.TypeData.UuidUser, UUID.fromString(ClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
                     .getEntryReply().getUuidUser()));
         } catch (InvalidProtocolBufferException exception) {
-            Log.write(Log.TypeLog.Error, "Error in protobuf deserialised data.");
+            log.error("Error in protobuf deserialised data.");
         }
         return result;
     }
@@ -90,7 +91,7 @@ public class DeserializatorDataMessages {
             result.put(DefinesMessages.TypeData.Password, ClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
                     getRegistrationRequest().getPassword());
         } catch (InvalidProtocolBufferException exception) {
-            Log.write(Log.TypeLog.Error, "Error in protobuf deserialised data.");
+            log.error("Error in protobuf deserialised data.");
         }
         return result;
     }
@@ -104,7 +105,7 @@ public class DeserializatorDataMessages {
                     ClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
                             getRegistrationReply().getError().getNumber()));
         } catch (InvalidProtocolBufferException exception) {
-            Log.write(Log.TypeLog.Error, "Error in protobuf deserialised data.");
+            log.error("Error in protobuf deserialised data.");
         }
         return result;
     }
@@ -121,7 +122,7 @@ public class DeserializatorDataMessages {
             result.put(DefinesMessages.TypeData.VerifyCode, ClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
                     getVerifyRegistrationEmailRequest().getCode());
         } catch (InvalidProtocolBufferException exception) {
-            Log.write(Log.TypeLog.Error, "Error in protobuf deserialised data.");
+            log.error("Error in protobuf deserialised data.");
         }
         return result;
     }
@@ -135,7 +136,7 @@ public class DeserializatorDataMessages {
                     ClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
                             getVerifyRegistrationEmailReply().getError().getNumber()));
         } catch (InvalidProtocolBufferException exception) {
-            Log.write(Log.TypeLog.Error, "Error in protobuf deserialised data.");
+            log.error("Error in protobuf deserialised data.");
         }
         return result;
     }
@@ -146,7 +147,7 @@ public class DeserializatorDataMessages {
             result.put(DefinesMessages.TypeData.Email, ClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
                     getResetPasswordRequest().getEmail());
         } catch (InvalidProtocolBufferException exception) {
-            Log.write(Log.TypeLog.Error, "Error in protobuf deserialised data.");
+            log.error("Error in protobuf deserialised data.");
         }
         return result;
     }
@@ -157,7 +158,7 @@ public class DeserializatorDataMessages {
             result.put(DefinesMessages.TypeData.BoolReply, ClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
                     .getResetPasswordReply().getReply());
         } catch (InvalidProtocolBufferException exception) {
-            Log.write(Log.TypeLog.Error, "Error in protobuf deserialised data.");
+            log.error("Error in protobuf deserialised data.");
         }
         return result;
     }
@@ -170,7 +171,7 @@ public class DeserializatorDataMessages {
             result.put(DefinesMessages.TypeData.VerifyCode, ClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
                     getVerifyFamousEmailRequest().getCode());
         } catch (InvalidProtocolBufferException exception) {
-            Log.write(Log.TypeLog.Error, "Error in protobuf deserialised data.");
+            log.error("Error in protobuf deserialised data.");
         }
         return result;
     }
@@ -181,7 +182,7 @@ public class DeserializatorDataMessages {
             result.put(DefinesMessages.TypeData.BoolReply, ClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
                     .getVerifyFamousEmailReply().getReply());
         } catch (InvalidProtocolBufferException exception) {
-            Log.write(Log.TypeLog.Error, "Error in protobuf deserialised data.");
+            log.error("Error in protobuf deserialised data.");
         }
         return result;
     }
@@ -194,7 +195,7 @@ public class DeserializatorDataMessages {
             result.put(DefinesMessages.TypeData.Password, ClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
                     getChangePasswordRequest().getPassword());
         } catch (InvalidProtocolBufferException exception) {
-            Log.write(Log.TypeLog.Error, "Error in protobuf deserialised data.");
+            log.error("Error in protobuf deserialised data.");
         }
         return result;
     }
@@ -205,7 +206,7 @@ public class DeserializatorDataMessages {
             result.put(DefinesMessages.TypeData.BoolReply, ClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
                     .getChangePasswordReply().getReply());
         } catch (InvalidProtocolBufferException exception) {
-            Log.write(Log.TypeLog.Error, "Error in protobuf deserialised data.");
+            log.error("Error in protobuf deserialised data.");
         }
         return result;
     }
@@ -219,7 +220,7 @@ public class DeserializatorDataMessages {
 
             result.put(DefinesMessages.TypeData.UuidUser, uuidUser);
         } catch (InvalidProtocolBufferException exception) {
-            Log.write(Log.TypeLog.Error, "Error in protobuf deserialised data.");
+            log.error("Error in protobuf deserialised data.");
         }
         return result;
     }
@@ -259,7 +260,7 @@ public class DeserializatorDataMessages {
 
             result.put(DefinesMessages.TypeData.ChatsInfoList, listMainData);
         } catch (InvalidProtocolBufferException exception) {
-            Log.write(Log.TypeLog.Error, "Error in protobuf deserialised data.");
+            log.error("Error in protobuf deserialised data.");
         }
         return result;
     }
@@ -270,7 +271,7 @@ public class DeserializatorDataMessages {
             result.put(DefinesMessages.TypeData.IP, ClientServerSerializeProtocolMessage_pb.General.parseFrom(data).
                     getCheckOnlineRequest().getIp());
         } catch (InvalidProtocolBufferException exception) {
-            Log.write(Log.TypeLog.Error, "Error in protobuf deserialised data.");
+            log.error("Error in protobuf deserialised data.");
         }
         return result;
     }
@@ -281,7 +282,7 @@ public class DeserializatorDataMessages {
             result.put(DefinesMessages.TypeData.UuidUser, UUID.fromString(ClientServerSerializeProtocolMessage_pb.General
                     .parseFrom(data).getCheckOnlineReply().getUuidUser()));
         } catch (InvalidProtocolBufferException exception) {
-            Log.write(Log.TypeLog.Error, "Error in protobuf deserialised data.");
+            log.error("Error in protobuf deserialised data.");
         }
         return result;
     }
@@ -300,7 +301,7 @@ public class DeserializatorDataMessages {
 
             result.put(DefinesMessages.TypeData.UuidsUsersList, listMainData);
         } catch (InvalidProtocolBufferException exception) {
-            Log.write(Log.TypeLog.Error, "Error in protobuf deserialised data.");
+            log.error("Error in protobuf deserialised data.");
         }
         return result;
     }
@@ -332,7 +333,7 @@ public class DeserializatorDataMessages {
             result.put(DefinesMessages.TypeData.UsersOnlineInfoList, newMapStatusesUsers);
             result.put(DefinesMessages.TypeData.Timestamp, newMapLastOnlineTimes);
         } catch (InvalidProtocolBufferException exception) {
-            Log.write(Log.TypeLog.Error, "Error in protobuf deserialised data.");
+            log.error("Error in protobuf deserialised data.");
         }
         return result;
     }
@@ -351,7 +352,7 @@ public class DeserializatorDataMessages {
             result.put(DefinesMessages.TypeData.TextMessage, messageInfo.getText());
             result.put(DefinesMessages.TypeData.Timestamp, messageInfo.getTimestamp());
         } catch (InvalidProtocolBufferException exception) {
-            Log.write(Log.TypeLog.Error, "Error in protobuf deserialised data.");
+            log.error("Error in protobuf deserialised data.");
         }
         return result;
     }
@@ -362,7 +363,7 @@ public class DeserializatorDataMessages {
             result.put(DefinesMessages.TypeData.BoolReply, ClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
                     .getTextMessageSendUserToServerVerification().getReply());
         } catch (InvalidProtocolBufferException exception) {
-            Log.write(Log.TypeLog.Error, "Error in protobuf deserialised data.");
+            log.error("Error in protobuf deserialised data.");
         }
         return result;
     }
@@ -388,7 +389,7 @@ public class DeserializatorDataMessages {
 
             result.put(DefinesMessages.TypeData.StatusMessagesMap, newMapStatusesMessages);
         } catch (InvalidProtocolBufferException exception) {
-            Log.write(Log.TypeLog.Error, "Error in protobuf deserialised data.");
+            log.error("Error in protobuf deserialised data.");
         }
         return result;
     }
@@ -399,7 +400,7 @@ public class DeserializatorDataMessages {
             result.put(DefinesMessages.TypeData.BoolReply, ClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
                     .getTextMessagesChangingStatusFromServerVerification().getReply());
         } catch (InvalidProtocolBufferException exception) {
-            Log.write(Log.TypeLog.Error, "Error in protobuf deserialised data.");
+            log.error("Error in protobuf deserialised data.");
         }
         return result;
     }
@@ -425,7 +426,7 @@ public class DeserializatorDataMessages {
 
             result.put(DefinesMessages.TypeData.StatusMessagesMap, newMapStatusesMessages);
         } catch (InvalidProtocolBufferException exception) {
-            Log.write(Log.TypeLog.Error, "Error in protobuf deserialised data.");
+            log.error("Error in protobuf deserialised data.");
         }
         return result;
     }
@@ -436,7 +437,7 @@ public class DeserializatorDataMessages {
             result.put(DefinesMessages.TypeData.BoolReply, ClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
                     .getTextMessagesChangingStatusFromUserVerification().getReply());
         } catch (InvalidProtocolBufferException exception) {
-            Log.write(Log.TypeLog.Error, "Error in protobuf deserialised data.");
+            log.error("Error in protobuf deserialised data.");
         }
         return result;
     }
@@ -455,7 +456,7 @@ public class DeserializatorDataMessages {
             result.put(DefinesMessages.TypeData.TextMessage, messageInfo.getText());
             result.put(DefinesMessages.TypeData.Timestamp, messageInfo.getTimestamp());
         } catch (InvalidProtocolBufferException exception) {
-            Log.write(Log.TypeLog.Error, "Error in protobuf deserialised data.");
+            log.error("Error in protobuf deserialised data.");
         }
         return result;
     }
@@ -466,7 +467,7 @@ public class DeserializatorDataMessages {
             result.put(DefinesMessages.TypeData.BoolReply, ClientServerSerializeProtocolMessage_pb.General.parseFrom(data)
                     .getTextMessageRedirectServerToUserVerification().getReply());
         } catch (InvalidProtocolBufferException exception) {
-            Log.write(Log.TypeLog.Error, "Error in protobuf deserialised data.");
+            log.error("Error in protobuf deserialised data.");
         }
         return result;
     }
@@ -481,7 +482,7 @@ public class DeserializatorDataMessages {
             result.put(DefinesMessages.TypeData.UuidChat, UUID.fromString(msgData.getUuidChat()));
             result.put(DefinesMessages.TypeData.QuantityMessages, msgData.getQuantityMessages());
         } catch (InvalidProtocolBufferException exception) {
-            Log.write(Log.TypeLog.Error, "Error in protobuf deserialised data.");
+            log.error("Error in protobuf deserialised data.");
         }
         return result;
     }
@@ -515,7 +516,7 @@ public class DeserializatorDataMessages {
 
             result.put(DefinesMessages.TypeData.MessagesInfoList, listMainData);
         } catch (InvalidProtocolBufferException exception) {
-            Log.write(Log.TypeLog.Error, "Error in protobuf deserialised data.");
+            log.error("Error in protobuf deserialised data.");
         }
         return result;
     }

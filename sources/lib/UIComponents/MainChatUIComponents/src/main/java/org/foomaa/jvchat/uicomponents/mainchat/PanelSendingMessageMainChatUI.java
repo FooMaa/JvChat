@@ -4,12 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 import java.util.UUID;
+import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.ctrl.GetterControls;
-import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
 
 
+@Slf4j
 public class PanelSendingMessageMainChatUI extends JPanel {
     private final SendingTextAreaScrollMainChatUI sendingTextAreaScroll;
     private final JButton sendButton;
@@ -54,14 +55,14 @@ public class PanelSendingMessageMainChatUI extends JPanel {
     private void sendMessageToServer() {
         String text = sendingTextAreaScroll.getText();
         if (text == null) {
-            Log.write(Log.TypeLog.Error, "sendingTextAreaScroll.getText() вернул null");
+            log.error("sendingTextAreaScroll.getText() вернул null");
             return;
         }
 
         if (!Objects.equals(text, "")) {
             MessageStructObject messageObj = GetterControls.getInstance().getBeanMessagesDialogCtrl().createAndSendMessage(text);
             if (messageObj == null) {
-                Log.write(Log.TypeLog.Error, "Не создано сообщение для отправки, не отправлено...");
+                log.error("Не создано сообщение для отправки, не отправлено...");
                 return;
             }
             GetterMainChatUIComponents.getInstance().getBeanScrollPanelMessagesMainChatUI().addMessage(messageObj);

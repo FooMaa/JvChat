@@ -1,8 +1,8 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
+import lombok.extern.slf4j.Slf4j;
 import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
-import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
 
 import javax.swing.*;
@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 
+@Slf4j
 public class ScrollPanelMessagesMainChatUI extends JPanel {
     private final int intervalMilliSecondsSleepUpdating;
     private JScrollPane scrollPane;
@@ -150,7 +151,7 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
         try {
             Thread.sleep(intervalMilliSecondsSleepUpdating);
         } catch (InterruptedException exception) {
-            Log.write(Log.TypeLog.Error, "Здесь не удалось выполнить sleep()");
+            log.error("Здесь не удалось выполнить sleep()");
         }
     }
 

@@ -3,9 +3,9 @@ package org.foomaa.jvchat.tools;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import org.foomaa.jvchat.settings.GetterSettings;
 import org.foomaa.jvchat.settings.MainSettings;
 import org.springframework.stereotype.Component;
+
 
 @Component
 public class MainTools {

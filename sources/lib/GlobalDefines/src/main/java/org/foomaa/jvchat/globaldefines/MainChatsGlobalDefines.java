@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.globaldefines;
 
+
 public class MainChatsGlobalDefines {
     MainChatsGlobalDefines() {}
 
