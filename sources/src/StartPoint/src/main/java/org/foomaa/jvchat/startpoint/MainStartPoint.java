@@ -25,6 +25,13 @@ public class MainStartPoint {
         app.run(args);
     }
 
+    private static void installProfile(SpringApplication app) {
+        String profile = loadProfile();
+        setProfileSettingSpring(profile, app);
+
+        log.info("Active profile is \"{}\"", profile);
+    }
+
     private static String loadProfile() {
         try (InputStream is = MainStartPoint.class.getClassLoader().getResourceAsStream("profile.properties")) {
 
@@ -47,13 +54,5 @@ public class MainStartPoint {
         } else {
             log.error("Cannot install active profile to SpringApplication");
         }
-    }
-
-    private static void installProfile(SpringApplication app) {
-        String profile = loadProfile();
-
-        setProfileSettingSpring(profile, app);
-
-        log.info(String.format("Active profile is \"%s\"", profile));
     }
 }

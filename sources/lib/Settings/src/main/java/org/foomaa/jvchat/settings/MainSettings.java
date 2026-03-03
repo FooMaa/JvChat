@@ -1,6 +1,9 @@
 package org.foomaa.jvchat.settings;
 
+import org.springframework.stereotype.Component;
 
+
+@Component
 public class MainSettings {
     MainSettings() {}
 

@@ -11,7 +11,7 @@ import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.models.CheckersOnlineModel;
 import org.foomaa.jvchat.models.GetterModels;
 import org.foomaa.jvchat.models.SocketRunnableCtrlModel;
-import org.foomaa.jvchat.settings.GetterSettings;
+import org.foomaa.jvchat.settings.ServersInfoSettings;
 import org.foomaa.jvchat.structobjects.CheckerOnlineStructObject;
 import org.foomaa.jvchat.structobjects.SocketRunnableCtrlStructObject;
 import org.foomaa.jvchat.structobjects.UserStructObject;
@@ -25,9 +25,12 @@ public class OnlineServersCtrl {
     private final int intervalMilliSecondsAfterLastUpdate;
     private final CheckersOnlineModel checkersOnlineModel;
     private final DbCtrl dbCtrl;
+    private final ServersInfoSettings serversInfoSettings;
 
-    OnlineServersCtrl(DbCtrl dbCtrl) {
+    OnlineServersCtrl(DbCtrl dbCtrl, ServersInfoSettings serversInfoSettings) {
         this.dbCtrl = dbCtrl;
+        this.serversInfoSettings = serversInfoSettings;
+
         checkersOnlineModel = GetterModels.getInstance().getBeanCheckersOnlineModel();
         intervalMilliSecondsAfterLastSending = 10000;
         intervalMilliSecondsAfterLastUpdate = 30000;
@@ -201,7 +204,7 @@ public class OnlineServersCtrl {
             preSendingTasks(socketRunnableCtrl);
             GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                     DefinesMessages.TypeMessage.CheckOnlineUserRequest,
-                    GetterSettings.getInstance().getBeanServersInfoSettings().getIp(),
+                    serversInfoSettings.getIp(),
                     socketRunnableCtrl);
 
             if (!isRunnableInListCheckerOnline(socketRunnableCtrl)) {

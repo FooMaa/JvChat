@@ -1,9 +1,14 @@
 package org.foomaa.jvchat.settings;
 
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
+
 import java.util.Base64;
 import java.util.Objects;
 
 
+@Component
+@Profile("servers")
 public class ServersInfoSettings {
     ServersInfoSettings() {}
 

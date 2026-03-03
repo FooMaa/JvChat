@@ -66,8 +66,6 @@ public class StartupRunner implements ApplicationRunner {
     }
 
     private void workingArgs(ApplicationArguments args) {
-        log.trace("AOLOL");
-
         if (mainSettings.getProfile() == MainSettings.TypeProfiles.SERVERS) {
             serversTools.initServersParameters();
             return;

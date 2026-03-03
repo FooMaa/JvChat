@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.foomaa.jvchat.models.GetterModels;
 import org.foomaa.jvchat.models.SocketRunnableCtrlModel;
 import org.foomaa.jvchat.network.UsersSocket;
-import org.foomaa.jvchat.settings.GetterSettings;
 import org.foomaa.jvchat.settings.MainSettings;
 import org.foomaa.jvchat.network.ServersSocket;
 import org.foomaa.jvchat.structobjects.SocketRunnableCtrlStructObject;
@@ -24,25 +23,30 @@ public class NetworkCtrl {
     private  final UsersSocket usersSocket;
     private SocketRunnableCtrl currentSocketRunnableCtrl;
     private final OnlineServersCtrl onlineServersCtrl;
+    private final MainSettings mainSettings;
 
-    NetworkCtrl(@Autowired(required = false) ServersSocket serversSocket,
+    NetworkCtrl(MainSettings mainSettings,
+                @Autowired(required = false) ServersSocket serversSocket,
                 @Autowired(required = false) UsersSocket usersSocket,
                 @Autowired(required = false) OnlineServersCtrl onlineServersCtrl) {
+        this.mainSettings = mainSettings;
         this.serversSocket = serversSocket;
         this.usersSocket = usersSocket;
         this.onlineServersCtrl = onlineServersCtrl;
     }
 
     public void startNetwork() throws IOException {
-        if (GetterSettings.getInstance().getBeanMainSettings().getProfile() == MainSettings.TypeProfiles.SERVERS) {
+        if (mainSettings.getProfile() == MainSettings.TypeProfiles.SERVERS) {
             startServersNetwork();
-        } else if (GetterSettings.getInstance().getBeanMainSettings().getProfile() == MainSettings.TypeProfiles.USERS) {
+        } else if (mainSettings.getProfile() == MainSettings.TypeProfiles.USERS) {
             startUsersNetwork();
         }
     }
 
     @SuppressWarnings("InfiniteLoopStatement")
     private void startServersNetwork() throws IOException {
+        serversSocket.start();
+
         ServerSocket socketServer = serversSocket.getSocketServers();
         onlineServersCtrl.loadDataOnlineUsers();
         runningErrorsControlSockets();
@@ -65,7 +69,7 @@ public class NetworkCtrl {
     }
 
     public void takeMessage(byte[] message, SocketRunnableCtrl runnableCtrl) {
-        if (GetterSettings.getInstance().getBeanMainSettings().getProfile() == MainSettings.TypeProfiles.SERVERS) {
+        if (mainSettings.getProfile() == MainSettings.TypeProfiles.SERVERS) {
             currentSocketRunnableCtrl = runnableCtrl;
             GetterControls.getInstance().getBeanTakeMessagesCtrl().setRunnableCtrlFromConnection(currentSocketRunnableCtrl);
         }
@@ -77,7 +81,7 @@ public class NetworkCtrl {
     }
 
     public void sendMessageByRunnableCtrl(byte[] message, Runnable runnable) {
-        if (GetterSettings.getInstance().getBeanMainSettings().getProfile() == MainSettings.TypeProfiles.SERVERS) {
+        if (mainSettings.getProfile() == MainSettings.TypeProfiles.SERVERS) {
             SocketRunnableCtrl srvRunnable = (SocketRunnableCtrl) runnable;
             srvRunnable.send(message);
         }
@@ -109,7 +113,7 @@ public class NetworkCtrl {
             if (socketRunnableCtrl != null && socketRunnableCtrl.isErrorsExceedsLimit()) {
                 log.warn("We clean up a thread that has not responded for a long time.");
                 socketRunnableCtrlModel.removeItem(socketCtrl);
-                log.warn("Number of active connections after cleaning: " + socketRunnableCtrlModel.getCountConnections());
+                log.warn("Number of active connections after cleaning: {}", socketRunnableCtrlModel.getCountConnections());
             }
         }
 

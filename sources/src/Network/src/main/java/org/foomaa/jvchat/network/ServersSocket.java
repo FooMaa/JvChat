@@ -11,13 +11,17 @@ import lombok.extern.slf4j.Slf4j;
 
 
 @Component
-@Lazy
 @Profile("servers")
 @Slf4j
 public class ServersSocket {
     private static ServerSocket socketServers;
+    private final ServersInfoSettings serversInfoSettings;
 
     private ServersSocket(ServersInfoSettings serversInfoSettings) {
+        this.serversInfoSettings = serversInfoSettings;
+    }
+
+    public void start() {
         try {
             if (serversInfoSettings.getIp().isEmpty()) {
                 socketServers = new ServerSocket(serversInfoSettings.getPort());
@@ -27,8 +31,8 @@ public class ServersSocket {
                         InetAddress.getByName(serversInfoSettings.getIp()));
             }
 
-            log.info("IP: " + socketServers.getInetAddress().toString() + ".");
-            log.info("PORT: " + socketServers.getLocalPort() + ".");
+            log.info("IP: {}.", socketServers.getInetAddress().toString());
+            log.info("PORT: {}.", socketServers.getLocalPort());
 
             log.info("Server is started.");
             closeSocketWhenKill();

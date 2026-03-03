@@ -9,7 +9,7 @@ import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.messages.GetterMessages;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.messages.SerializatorDataMessages;
-import org.foomaa.jvchat.settings.GetterSettings;
+import org.foomaa.jvchat.settings.ServersInfoSettings;
 import org.foomaa.jvchat.tools.GetterTools;
 import org.springframework.stereotype.Component;
 
@@ -18,11 +18,14 @@ import org.springframework.stereotype.Component;
 public class SendMessagesCtrl {
     private final SerializatorDataMessages serializatorDataMessages;
     private final MessagesDefinesCtrl messagesDefinesCtrl;
+    private final ServersInfoSettings serversInfoSettings;
 
     SendMessagesCtrl(SerializatorDataMessages serializatorDataMessages,
-                     MessagesDefinesCtrl messagesDefinesCtrl) {
+                     MessagesDefinesCtrl messagesDefinesCtrl,
+                     ServersInfoSettings serversInfoSettings) {
         this.serializatorDataMessages = serializatorDataMessages;
         this.messagesDefinesCtrl = messagesDefinesCtrl;
+        this.serversInfoSettings = serversInfoSettings;
     }
 
     public final void sendMessage(DefinesMessages.TypeMessage type, Object... parameters) {
@@ -163,8 +166,7 @@ public class SendMessagesCtrl {
                             .objectInListMaps(chatsInfoObj, DbGlobalDefines.LineKeys.class, String.class);
                     byte[] bodyMessageChatsLoadReply = createBodyChatsLoadReplyMessage(type, chatsInfo);
                     sendReadyMessageNetwork(bodyMessageChatsLoadReply);
-                    sendMessage(DefinesMessages.TypeMessage.CheckOnlineUserRequest,
-                            GetterSettings.getInstance().getBeanServersInfoSettings().getIp());
+                    sendMessage(DefinesMessages.TypeMessage.CheckOnlineUserRequest, serversInfoSettings.getIp());
                 }
             }
             case CheckOnlineUserRequest -> {

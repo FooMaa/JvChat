@@ -11,13 +11,17 @@ import lombok.extern.slf4j.Slf4j;
 
 
 @Component
-@Lazy
 @Profile("users")
 @Slf4j
 public class UsersSocket {
     private static Socket socketUsers;
+    private final UsersInfoSettings usersInfoSettings;
 
     private UsersSocket(UsersInfoSettings usersInfoSettings) {
+        this.usersInfoSettings = usersInfoSettings;
+    }
+
+    public void start() {
         try {
             socketUsers = new Socket();
             socketUsers.connect(new InetSocketAddress(usersInfoSettings.getIpRemoteServer(),
