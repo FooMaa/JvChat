@@ -12,8 +12,9 @@ import org.foomaa.jvchat.globaldefines.DbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.messages.GetterMessages;
 import org.foomaa.jvchat.messages.DefinesMessages;
-import org.foomaa.jvchat.settings.GetterSettings;
+import org.foomaa.jvchat.settings.UsersInfoSettings;
 import org.foomaa.jvchat.tools.GetterTools;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Component;
 
 
@@ -22,9 +23,11 @@ import org.springframework.stereotype.Component;
 public class TakeMessagesCtrl {
     private Runnable runnableCtrlFrom;
     private final HashCryptography hashCryptography;
+    private final ObjectProvider<UsersInfoSettings> usersInfoSettingsObjectProvider;
 
-    TakeMessagesCtrl(HashCryptography hashCryptography) {
+    TakeMessagesCtrl(HashCryptography hashCryptography, ObjectProvider<UsersInfoSettings> usersInfoSettingsObjectProvider) {
         this.hashCryptography = hashCryptography;
+        this.usersInfoSettingsObjectProvider = usersInfoSettingsObjectProvider;
     }
 
     public void takeMessage(byte[] data) {
@@ -111,7 +114,7 @@ public class TakeMessagesCtrl {
 
     private void workEntryReplyMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         UUID uuidUser = (UUID) map.get(DefinesMessages.TypeData.UuidUser);
-        GetterSettings.getInstance().getBeanUsersInfoSettings().setUuid(uuidUser);
+        usersInfoSettingsObjectProvider.getObject().setUuid(uuidUser);
 
         if ((Boolean) map.get(DefinesMessages.TypeData.BoolReply)) {
             GetterControls.getInstance().getBeanMessagesDefinesCtrl()
@@ -307,7 +310,7 @@ public class TakeMessagesCtrl {
     private void workCheckOnlineUserRequestMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         @SuppressWarnings("unused")
         String ip = (String) map.get(DefinesMessages.TypeData.IP);
-        UUID uuidUser = GetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
+        UUID uuidUser = usersInfoSettingsObjectProvider.getObject().getUuid();
 
         if (uuidUser == null) {
             log.warn("Here uuidUser is not set.");

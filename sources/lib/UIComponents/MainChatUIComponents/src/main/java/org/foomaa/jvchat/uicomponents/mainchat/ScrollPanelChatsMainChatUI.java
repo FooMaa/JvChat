@@ -18,11 +18,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.messages.DefinesMessages;
-import org.foomaa.jvchat.settings.GetterSettings;
+import org.foomaa.jvchat.settings.UISettings;
+import org.foomaa.jvchat.settings.UsersInfoSettings;
 import org.foomaa.jvchat.structobjects.ChatStructObject;
 import org.foomaa.jvchat.structobjects.UserStructObject;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 
 
+@Component
+@Profile("users")
 @Slf4j
 public class ScrollPanelChatsMainChatUI extends JPanel {
     private final int intervalMilliSecondsSleepUpdating;
@@ -32,8 +37,13 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
     private final String loadGifPath;
     private JLabel loadGifLabel;
     private RectChatMainChatUI selectedElement;
+    private final UsersInfoSettings usersInfoSettings;
+    private final UISettings uiSettings;
 
-    ScrollPanelChatsMainChatUI() {
+    ScrollPanelChatsMainChatUI(UsersInfoSettings usersInfoSettings, UISettings uiSettings) {
+        this.usersInfoSettings = usersInfoSettings;
+        this.uiSettings = uiSettings;
+
         intervalMilliSecondsSleepUpdating = 30000;
         intervalSecondsWaitLoopUpdate = 5;
         backgroundPath = "/MainChatMainBackground.png";
@@ -172,14 +182,14 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
 
     private void requestMessagesFromServer() {
         UUID uuidChat = selectedElement.getUuidChat();
-        int quantityMessages = GetterSettings.getInstance().getBeanUISettings().getQuantityMessagesLoad();
+        int quantityMessages = uiSettings.getQuantityMessagesLoad();
 
         GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 DefinesMessages.TypeMessage.MessagesLoadRequest, uuidChat, quantityMessages);
     }
 
     private void setRequestChatsToServer() {
-        UUID uuidUser = GetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
+        UUID uuidUser = usersInfoSettings.getUuid();
         GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
                 DefinesMessages.TypeMessage.ChatsLoadRequest, uuidUser);
     }
@@ -244,7 +254,7 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
     }
 
     private void installingUpdatingDataInRectChats() {
-        for (Component component : boxComponents.getComponents()) {
+        for (java.awt.Component component : boxComponents.getComponents()) {
             RectChatMainChatUI rectChatMainChatUI = (RectChatMainChatUI) component;
 
             UUID uuidUser = rectChatMainChatUI.getUuidUser();

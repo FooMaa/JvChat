@@ -13,10 +13,12 @@ import org.foomaa.jvchat.structobjects.ChatStructObject;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
 import org.foomaa.jvchat.structobjects.UserStructObject;
 import org.foomaa.jvchat.tools.FormatTools;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 
 @Component
+@Profile("users")
 @Slf4j
 public class ChatsCtrl {
     private final ChatsModel chatsModel;

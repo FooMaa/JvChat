@@ -28,8 +28,7 @@ public class GetterMainChatUIComponents {
     }
 
     public ScrollPanelChatsMainChatUI getBeanScrollPanelChatsMainChatUI() {
-        return context.getBean(MainChatUIComponentsSpringConfig.NameBeans.BeanScrollPanelChatsMainChatUI.getValue(),
-                ScrollPanelChatsMainChatUI.class);
+        return null;
     }
 
     public TitlePanelMainChatUI getBeanTitlePanelMainChatUI() {
@@ -53,8 +52,7 @@ public class GetterMainChatUIComponents {
     }
 
     public RectChatMainChatUI getBeanRectChatMainChatUI(ChatStructObject chatObject) {
-        return (RectChatMainChatUI) context.getBean(MainChatUIComponentsSpringConfig.NameBeans.BeanRectChatMainChatUI.getValue(),
-                chatObject);
+        return null;
     }
 
     public SendButtonMainChatUI getBeanSendButtonMainChatUI(String text) {

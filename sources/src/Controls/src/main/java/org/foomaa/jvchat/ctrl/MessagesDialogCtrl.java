@@ -68,7 +68,7 @@ public class MessagesDialogCtrl {
             return null;
         }
 
-        UUID uuidSender = GetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
+        UUID uuidSender = usersInfoSettings.getUuid();
         ChatStructObject chat = findChatByUuid(getCurrentActiveChatUuid());
         UUID uuidReceiver = chat.getUserChat().getUuid();
         UUID uuidMessage = UUID.randomUUID();

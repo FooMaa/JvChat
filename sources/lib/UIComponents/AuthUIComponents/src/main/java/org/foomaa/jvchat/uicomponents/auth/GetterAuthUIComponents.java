@@ -64,8 +64,7 @@ public class GetterAuthUIComponents {
     }
 
     public EntryPanelAuthUI getBeanEntryPanelAuthUI() {
-        return context.getBean(AuthUIComponentsSpringConfig.NameBeans.BeanEntryPanelAuthUI.getValue(),
-                EntryPanelAuthUI.class);
+        return null;
 
     }
 

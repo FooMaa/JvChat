@@ -87,13 +87,13 @@ class AuthUIComponentsSpringConfig {
         return new MainFrameAuthUI();
     }
 
-    @Bean(name = "beanEntryPanelAuthUI")
-    @Lazy
-    @Scope("singleton")
-    @SuppressWarnings("unused")
-    public EntryPanelAuthUI beanEntryPanelAuthUI() {
-        return new EntryPanelAuthUI();
-    }
+//    @Bean(name = "beanEntryPanelAuthUI")
+//    @Lazy
+//    @Scope("singleton")
+//    @SuppressWarnings("unused")
+//    public EntryPanelAuthUI beanEntryPanelAuthUI() {
+//        return new EntryPanelAuthUI();
+//    }
 
     @Bean(name = "beanNewPasswordPanelAuthUI")
     @Lazy

@@ -44,13 +44,13 @@ class ModelsSpringConfig {
         return new MessagesModel();
     }
 
-    @Bean(name = "beanChatsModel")
-    @Lazy
-    @Scope("singleton")
-    @SuppressWarnings("unused")
-    public ChatsModel beanChatsModel() {
-        return new ChatsModel();
-    }
+//    @Bean(name = "beanChatsModel")
+//    @Lazy
+//    @Scope("singleton")
+//    @SuppressWarnings("unused")
+//    public ChatsModel beanChatsModel() {
+//        return new ChatsModel(null);
+//    }
 
     @Bean(name = "beanCheckersOnlineModel")
     @Lazy

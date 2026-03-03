@@ -41,13 +41,13 @@ class MainChatUIComponentsSpringConfig {
         return new MainFrameMainChatUI();
     }
 
-    @Bean(name = "beanScrollPanelChatsMainChatUI")
-    @Lazy
-    @Scope("singleton")
-    @SuppressWarnings("unused")
-    public ScrollPanelChatsMainChatUI beanScrollPanelChatsMainChatUI() {
-        return new ScrollPanelChatsMainChatUI();
-    }
+//    @Bean(name = "beanScrollPanelChatsMainChatUI")
+//    @Lazy
+//    @Scope("singleton")
+//    @SuppressWarnings("unused")
+//    public ScrollPanelChatsMainChatUI beanScrollPanelChatsMainChatUI() {
+//        return new ScrollPanelChatsMainChatUI();
+//    }
 
     @Bean(name = "beanScrollPanelMessagesMainChatUI")
     @Lazy
@@ -81,13 +81,13 @@ class MainChatUIComponentsSpringConfig {
         return new RectMessageMainChatUI(messageObject);
     }
 
-    @Bean(name = "beanRectChatMainChatUI")
-    @Lazy
-    @Scope("prototype")
-    @SuppressWarnings("unused")
-    public RectChatMainChatUI beanRectChatMainChatUI(ChatStructObject chatObject) {
-        return new RectChatMainChatUI(chatObject);
-    }
+//    @Bean(name = "beanRectChatMainChatUI")
+//    @Lazy
+//    @Scope("prototype")
+//    @SuppressWarnings("unused")
+//    public RectChatMainChatUI beanRectChatMainChatUI(ChatStructObject chatObject) {
+//        return new RectChatMainChatUI(chatObject);
+//    }
 
     @Bean(name = "beanSendButtonMainChatUI")
     @Lazy

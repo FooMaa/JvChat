@@ -22,12 +22,4 @@ public class GetterSettings {
     public DisplaySettings getBeanDisplaySettings() {
         return context.getBean(SettingsSpringConfig.NameBeans.BeanDisplaySettings.getValue(), DisplaySettings.class);
     }
-
-    public UsersInfoSettings getBeanUsersInfoSettings() {
-        return context.getBean(SettingsSpringConfig.NameBeans.BeanUsersInfoSettings.getValue(), UsersInfoSettings.class);
-    }
-
-    public UISettings getBeanUISettings() {
-        return context.getBean(SettingsSpringConfig.NameBeans.BeanUISettings.getValue(), UISettings.class);
-    }
 }

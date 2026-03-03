@@ -15,9 +15,14 @@ import org.foomaa.jvchat.events.GetterEvents;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.settings.GetterSettings;
+import org.foomaa.jvchat.settings.UsersInfoSettings;
 import org.foomaa.jvchat.uicomponents.mainchat.GetterMainChatUIComponents;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 
 
+@Component
+@Profile("users")
 @Slf4j
 public class EntryPanelAuthUI extends JPanel {
     private final TextFieldAuthUI tLogin;
@@ -26,8 +31,11 @@ public class EntryPanelAuthUI extends JPanel {
     private final ButtonAuthUI bEnter;
     private final ActiveLabelAuthUI activeRegisterLabel;
     private final ActiveLabelAuthUI activeMissLabel;
+    private final UsersInfoSettings usersInfoSettings;
 
-    EntryPanelAuthUI() {
+    EntryPanelAuthUI(UsersInfoSettings usersInfoSettings) {
+        this.usersInfoSettings = usersInfoSettings;
+
         tLogin = GetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Login");
         tErrorHelpInfo = GetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
         tPassword = GetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Password");
@@ -204,9 +212,9 @@ public class EntryPanelAuthUI extends JPanel {
     }
 
     private void openMainPage() {
-        GetterSettings.getInstance().getBeanUsersInfoSettings().setLogin(tLogin.getInputText());
+        usersInfoSettings.setLogin(tLogin.getInputText());
 
-        UUID uuidUser = GetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
+        UUID uuidUser = usersInfoSettings.getUuid();
         GetterControls.getInstance().getBeanSendMessagesCtrl()
                 .sendMessage(DefinesMessages.TypeMessage.CheckOnlineUserReply, uuidUser);
 

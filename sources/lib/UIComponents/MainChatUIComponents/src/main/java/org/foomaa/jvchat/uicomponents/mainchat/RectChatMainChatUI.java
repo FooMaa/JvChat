@@ -11,10 +11,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.settings.GetterSettings;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
+import org.foomaa.jvchat.settings.UsersInfoSettings;
 import org.foomaa.jvchat.structobjects.ChatStructObject;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 
 
+@Component
+@Profile("users")
 @Slf4j
 public class RectChatMainChatUI extends JPanel {
     private final String nickName;
@@ -30,9 +35,13 @@ public class RectChatMainChatUI extends JPanel {
     private final String nameForLabelLastMessage;
     private final String nameForLabelTimeLastMessage;
 
+    private final UsersInfoSettings usersInfoSettings;
+
     private boolean flagSelect;
 
-    RectChatMainChatUI(ChatStructObject chatObject) {
+    RectChatMainChatUI(ChatStructObject chatObject, UsersInfoSettings usersInfoSettings) {
+        this.usersInfoSettings = usersInfoSettings;
+
         nickName = chatObject.getUserChat().getLogin();
         shortLastMessage = chatObject.getLastMessage().getText();
         lastMessageSender = chatObject.getLastMessage().getUuidUserSender();
@@ -137,7 +146,7 @@ public class RectChatMainChatUI extends JPanel {
     }
 
     private boolean isBoldMessageByStatus() {
-        UUID currentUuid = GetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
+        UUID currentUuid = usersInfoSettings.getUuid();
 
         if (lastMessageSender.equals(currentUuid)) {
             return false;
@@ -147,7 +156,7 @@ public class RectChatMainChatUI extends JPanel {
     }
 
     private String createLastMessageString() {
-        UUID currentUuid = GetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
+        UUID currentUuid = usersInfoSettings.getUuid();
 
         if (lastMessageSender.equals(currentUuid)) {
             return "Вы: " + shortLastMessage;
@@ -175,20 +184,20 @@ public class RectChatMainChatUI extends JPanel {
         statusOnlineLabel.setForeground(getStatusOnlineColor());
     }
 
-    private Component findComponentStatusOnline() {
+    private java.awt.Component findComponentStatusOnline() {
         return findComponentByName(nameForLabelOnline);
     }
 
-    private Component findComponentLastMessage() {
+    private java.awt.Component findComponentLastMessage() {
         return findComponentByName(nameForLabelLastMessage);
     }
 
-    private Component findComponentTimeLastMessage() {
+    private java.awt.Component findComponentTimeLastMessage() {
         return findComponentByName(nameForLabelTimeLastMessage);
     }
 
-    private Component findComponentByName(String nameComponent) {
-        for (Component component : getComponents()) {
+    private java.awt.Component findComponentByName(String nameComponent) {
+        for (java.awt.Component component : getComponents()) {
             if (Objects.equals(component.getName(), nameComponent)) {
                 return component;
             }

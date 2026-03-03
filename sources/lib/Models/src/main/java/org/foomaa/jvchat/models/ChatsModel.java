@@ -5,15 +5,23 @@ import java.util.*;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
-import org.foomaa.jvchat.settings.GetterSettings;
+import org.foomaa.jvchat.settings.UsersInfoSettings;
 import org.foomaa.jvchat.structobjects.*;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 
 
+@Component
+@Profile("users")
 @Slf4j
 public class ChatsModel extends BaseModel {
+    private final UsersInfoSettings usersInfoSettings;
+
     private UUID currentActiveChatUuid;
 
-    ChatsModel() {
+    ChatsModel(UsersInfoSettings usersInfoSettings) {
+        this.usersInfoSettings = usersInfoSettings;
+
         setRootObject(GetterStructObjects.getInstance()
                 .getBeanRootStructObject(getNameModel()));
         currentActiveChatUuid = null;
@@ -42,8 +50,8 @@ public class ChatsModel extends BaseModel {
         userChat.setUuid(uuidUser);
         GetterModels.getInstance().getBeanUsersModel().addCreatedUser(userChat);
 
-        UUID uuidSender = isLoginSentLastMessage ? uuidUser : GetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
-        UUID uuidReceiver = isLoginSentLastMessage ? GetterSettings.getInstance().getBeanUsersInfoSettings().getUuid() : uuidUser;
+        UUID uuidSender = isLoginSentLastMessage ? uuidUser : usersInfoSettings.getUuid();
+        UUID uuidReceiver = isLoginSentLastMessage ? usersInfoSettings.getUuid() : uuidUser;
 
         MessageStructObject lastMessage = GetterStructObjects.getInstance().getBeanMessageStructObject();
         lastMessage.setUuidUserSender(uuidSender);
