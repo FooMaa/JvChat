@@ -14,7 +14,6 @@ import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.events.GetterEvents;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
-import org.foomaa.jvchat.settings.GetterSettings;
 import org.foomaa.jvchat.settings.UsersInfoSettings;
 import org.foomaa.jvchat.uicomponents.mainchat.GetterMainChatUIComponents;
 import org.springframework.context.annotation.Profile;
@@ -32,9 +31,11 @@ public class EntryPanelAuthUI extends JPanel {
     private final ActiveLabelAuthUI activeRegisterLabel;
     private final ActiveLabelAuthUI activeMissLabel;
     private final UsersInfoSettings usersInfoSettings;
+    private final DisplaySettings displaySettings;
 
-    EntryPanelAuthUI(UsersInfoSettings usersInfoSettings) {
+    EntryPanelAuthUI(UsersInfoSettings usersInfoSettings, DisplaySettings displaySettings) {
         this.usersInfoSettings = usersInfoSettings;
+        this.displaySettings = displaySettings;
 
         tLogin = GetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Login");
         tErrorHelpInfo = GetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
@@ -68,23 +69,22 @@ public class EntryPanelAuthUI extends JPanel {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        int insX = GetterSettings.getInstance().getBeanDisplaySettings().
-                getResizeFromDisplay(0.025, DisplaySettings.TypeOfDisplayBorder.WIDTH);
+        int insX = displaySettings.getResizeFromDisplay(0.025, DisplaySettings.TypeOfDisplayBorder.WIDTH);
         int gridyNum = 0;
 
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.075), insX,
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.004), insX);
+        gbc.insets = new Insets(displaySettings.getResizePixel(0.075), insX,
+                displaySettings.getResizePixel(0.004), insX);
         gbc.gridy = gridyNum;
         add(tLogin, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX, GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.01), insX);
+        gbc.insets = new Insets(0, insX, displaySettings.getResizePixel(0.01), insX);
         gbc.gridy = gridyNum;
         add(tPassword, gbc);
         gridyNum++;
@@ -97,27 +97,22 @@ public class EntryPanelAuthUI extends JPanel {
         gridyNum++;
 
         gbc.anchor = GridBagConstraints.NORTH;
-        gbc.insets = new Insets(0, 0,
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.002), 0);
+        gbc.insets = new Insets(0, 0, displaySettings.getResizePixel(0.002), 0);
         gbc.gridy = gridyNum;
         add(activeRegisterLabel, gbc);
         gridyNum++;
 
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX,
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0084), insX);
+        gbc.insets = new Insets(0, insX, displaySettings.getResizePixel(0.0084), insX);
         gbc.gridy = gridyNum;
         add(tErrorHelpInfo, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.SOUTH;
-        gbc.insets = new Insets(0, 0,
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017), 0);
-        gbc.ipadx = GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.015,
-                DisplaySettings.TypeOfDisplayBorder.WIDTH);
-        gbc.ipady = GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.004,
-                DisplaySettings.TypeOfDisplayBorder.HEIGHT);
+        gbc.insets = new Insets(0, 0, displaySettings.getResizePixel(0.017), 0);
+        gbc.ipadx = displaySettings.getResizeFromDisplay(0.015, DisplaySettings.TypeOfDisplayBorder.WIDTH);
+        gbc.ipady = displaySettings.getResizeFromDisplay(0.004, DisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
         add(bEnter, gbc);
     }

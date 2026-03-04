@@ -9,7 +9,7 @@ import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.ctrl.GetterControls;
-import org.foomaa.jvchat.settings.GetterSettings;
+import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.settings.UsersInfoSettings;
 import org.foomaa.jvchat.structobjects.ChatStructObject;
@@ -36,11 +36,15 @@ public class RectChatMainChatUI extends JPanel {
     private final String nameForLabelTimeLastMessage;
 
     private final UsersInfoSettings usersInfoSettings;
+    private final DisplaySettings displaySettings;
 
     private boolean flagSelect;
 
-    RectChatMainChatUI(ChatStructObject chatObject, UsersInfoSettings usersInfoSettings) {
+    RectChatMainChatUI(ChatStructObject chatObject,
+                       UsersInfoSettings usersInfoSettings,
+                       DisplaySettings displaySettings) {
         this.usersInfoSettings = usersInfoSettings;
+        this.displaySettings = displaySettings;
 
         nickName = chatObject.getUserChat().getLogin();
         shortLastMessage = chatObject.getLastMessage().getText();
@@ -77,8 +81,7 @@ public class RectChatMainChatUI extends JPanel {
         int gridyNum = 0;
 
         JLabel loginLabel = new JLabel(nickName);
-        loginLabel.setFont(new Font("Times", Font.BOLD,
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017)));
+        loginLabel.setFont(new Font("Times", Font.BOLD, displaySettings.getResizePixel(0.017)));
 
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
@@ -90,8 +93,7 @@ public class RectChatMainChatUI extends JPanel {
 
         JLabel statusOnlineLabel = new JLabel(getStatusOnlineText());
         statusOnlineLabel.setName(nameForLabelOnline);
-        statusOnlineLabel.setFont(new Font("Times", Font.PLAIN,
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
+        statusOnlineLabel.setFont(new Font("Times", Font.PLAIN, displaySettings.getResizePixel(0.014)));
         statusOnlineLabel.setForeground(getStatusOnlineColor());
 
         gbc.weightx = 1.0;
@@ -108,7 +110,7 @@ public class RectChatMainChatUI extends JPanel {
         JLabel lastMessageLabel = new JLabel(createLastMessageString());
         lastMessageLabel.setName(nameForLabelLastMessage);
         lastMessageLabel.setFont(new Font("Times", (isBoldMessage ? Font.BOLD : Font.PLAIN),
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
+                displaySettings.getResizePixel(0.014)));
 
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
@@ -121,7 +123,7 @@ public class RectChatMainChatUI extends JPanel {
         JLabel timeLastMessageLabel = new JLabel(timeLastMessage);
         timeLastMessageLabel.setName(nameForLabelTimeLastMessage);
         timeLastMessageLabel.setFont(new Font("Times", (isBoldMessage ? Font.BOLD : Font.PLAIN),
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
+                displaySettings.getResizePixel(0.014)));
 
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
@@ -263,7 +265,7 @@ public class RectChatMainChatUI extends JPanel {
 
     private void setBoldToLabelConditionally(JLabel label, boolean isBold) {
         label.setFont(new Font("Times", (isBold ? Font.BOLD : Font.PLAIN),
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
+                displaySettings.getResizePixel(0.014)));
     }
 
     public void updateLastMessage(MessageStructObject message) {

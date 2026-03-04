@@ -95,37 +95,37 @@ class AuthUIComponentsSpringConfig {
 //        return new EntryPanelAuthUI();
 //    }
 
-    @Bean(name = "beanNewPasswordPanelAuthUI")
-    @Lazy
-    @Scope("singleton")
-    @SuppressWarnings("unused")
-    public NewPasswordPanelAuthUI beanNewPasswordPanelAuthUI() {
-        return new NewPasswordPanelAuthUI();
-    }
+//    @Bean(name = "beanNewPasswordPanelAuthUI")
+//    @Lazy
+//    @Scope("singleton")
+//    @SuppressWarnings("unused")
+//    public NewPasswordPanelAuthUI beanNewPasswordPanelAuthUI() {
+//        return new NewPasswordPanelAuthUI();
+//    }
+//
+//    @Bean(name = "beanRegistrationPanelAuthUI")
+//    @Lazy
+//    @Scope("singleton")
+//    @SuppressWarnings("unused")
+//    public RegistrationPanelAuthUI beanRegistrationPanelAuthUI() {
+//        return new RegistrationPanelAuthUI();
+//    }
 
-    @Bean(name = "beanRegistrationPanelAuthUI")
-    @Lazy
-    @Scope("singleton")
-    @SuppressWarnings("unused")
-    public RegistrationPanelAuthUI beanRegistrationPanelAuthUI() {
-        return new RegistrationPanelAuthUI();
-    }
+//    @Bean(name = "beanResetPasswordPanelAuthUI")
+//    @Lazy
+//    @Scope("singleton")
+//    @SuppressWarnings("unused")
+//    public ResetPasswordPanelAuthUI beanResetPasswordPanelAuthUI() {
+//        return new ResetPasswordPanelAuthUI();
+//    }
 
-    @Bean(name = "beanResetPasswordPanelAuthUI")
-    @Lazy
-    @Scope("singleton")
-    @SuppressWarnings("unused")
-    public ResetPasswordPanelAuthUI beanResetPasswordPanelAuthUI() {
-        return new ResetPasswordPanelAuthUI();
-    }
-
-    @Bean(name = "beanVerifyCodePanelAuthUI")
-    @Lazy
-    @Scope("singleton")
-    @SuppressWarnings("unused")
-    public VerifyCodePanelAuthUI beanVerifyCodePanelAuthUI() {
-        return new VerifyCodePanelAuthUI();
-    }
+//    @Bean(name = "beanVerifyCodePanelAuthUI")
+//    @Lazy
+//    @Scope("singleton")
+//    @SuppressWarnings("unused")
+//    public VerifyCodePanelAuthUI beanVerifyCodePanelAuthUI() {
+//        return new VerifyCodePanelAuthUI();
+//    }
 
     @Bean(name = "beanTitlePanelAuthUI")
     @Lazy

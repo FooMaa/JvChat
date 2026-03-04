@@ -75,23 +75,19 @@ public class GetterAuthUIComponents {
     }
 
     public NewPasswordPanelAuthUI getBeanNewPasswordPanelAuthUI() {
-        return context.getBean(AuthUIComponentsSpringConfig.NameBeans.BeanNewPasswordPanelAuthUI.getValue(),
-                NewPasswordPanelAuthUI.class);
+        return null;
     }
 
     public RegistrationPanelAuthUI getBeanRegistrationPanelAuthUI() {
-        return context.getBean(AuthUIComponentsSpringConfig.NameBeans.BeanRegistrationPanelAuthUI.getValue(),
-                RegistrationPanelAuthUI.class);
+        return null;
     }
 
     public ResetPasswordPanelAuthUI getBeanResetPasswordPanelAuthUI() {
-        return context.getBean(AuthUIComponentsSpringConfig.NameBeans.BeanResetPasswordPanelAuthUI.getValue(),
-                ResetPasswordPanelAuthUI.class);
+        return null;
     }
 
     public VerifyCodePanelAuthUI getBeanVerifyCodePanelAuthUI() {
-        return context.getBean(AuthUIComponentsSpringConfig.NameBeans.BeanVerifyCodePanelAuthUI.getValue(),
-                VerifyCodePanelAuthUI.class);
+        return null;
     }
 
     public TitlePanelAuthUI getBeanTitlePanelAuthUI() {
