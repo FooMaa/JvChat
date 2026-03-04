@@ -11,14 +11,23 @@ import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
-import org.foomaa.jvchat.settings.GetterSettings;
+import org.foomaa.jvchat.settings.DisplaySettings;
+import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 
+@Component
+@Scope("prototype")
+@Profile("users")
 @Slf4j
 public class ActiveLabelAuthUI extends JLabel {
     private ToolTipAuthUI toolTip;
+    private final DisplaySettings displaySettings;
 
-    ActiveLabelAuthUI(String text) {
+    ActiveLabelAuthUI(DisplaySettings displaySettings, String text) {
+        this.displaySettings = displaySettings;
+
         setText(text);
         setFont(false);
         setForeground(Color.WHITE);
@@ -38,7 +47,7 @@ public class ActiveLabelAuthUI extends JLabel {
 
     private void setFont(boolean isEnteredMouse) {
         try {
-            int size = GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.011);
+            int size = displaySettings.getResizePixel(0.011);
             Font steticaFont = GetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
                     .createMainSteticaFont(isEnteredMouse ? Font.BOLD : Font.PLAIN, size);
             Map<TextAttribute, Object> attributes = new HashMap<>(steticaFont.getAttributes());

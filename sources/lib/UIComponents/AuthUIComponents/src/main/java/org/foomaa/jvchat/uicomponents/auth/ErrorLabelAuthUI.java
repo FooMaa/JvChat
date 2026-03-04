@@ -8,28 +8,33 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
 import org.foomaa.jvchat.settings.DisplaySettings;
-import org.foomaa.jvchat.settings.GetterSettings;
+import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 
+@Component
+@Scope("prototype")
+@Profile("users")
 @Slf4j
 public class ErrorLabelAuthUI extends JLabel {
     private final Timer timerVisible;
+    private final DisplaySettings displaySettings;
 
-    ErrorLabelAuthUI(String text) {
+    ErrorLabelAuthUI(DisplaySettings displaySettings, String text) {
+        this.displaySettings = displaySettings;
+
         timerVisible = new Timer(5000, actionEvent -> setText(""));
         timerVisible.setRepeats(false);
 
         setText(text);
-        setFont(new Font("Times", Font.PLAIN,
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017)));
+        setFont(new Font("Times", Font.PLAIN, displaySettings.getResizePixel(0.017)));
     }
 
     public void settingToError() {
-        Dimension dim = new Dimension(GetterSettings.getInstance().getBeanDisplaySettings().
-                getResizeFromDisplay(0.23,
-                        DisplaySettings.TypeOfDisplayBorder.WIDTH),
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.03,
-                        DisplaySettings.TypeOfDisplayBorder.HEIGHT));
+        Dimension dim = new Dimension(displaySettings.getResizeFromDisplay(0.23,
+                DisplaySettings.TypeOfDisplayBorder.WIDTH), displaySettings.getResizeFromDisplay(0.03,
+                DisplaySettings.TypeOfDisplayBorder.HEIGHT));
         setFont();
         setForeground(Color.RED);
         setPreferredSize(dim);
@@ -39,7 +44,7 @@ public class ErrorLabelAuthUI extends JLabel {
 
     private void setFont() {
         try {
-            int size = GetterSettings.getInstance().getBeanDisplaySettings().getResizeFont(0.0064);
+            int size = displaySettings.getResizeFont(0.0064);
             Font steticaFont = GetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
                     .createMainSteticaFont(Font.BOLD, size);
             setFont(steticaFont);

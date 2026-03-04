@@ -10,9 +10,12 @@ import java.io.IOException;
 import java.util.Objects;
 
 import org.foomaa.jvchat.settings.DisplaySettings;
-import org.foomaa.jvchat.settings.GetterSettings;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 
 
+@Component
+@Profile("users")
 public class MainFrameMainChatUI extends JFrame {
     private final String backgroundPath;
     private final String loadGifPath;
@@ -21,8 +24,12 @@ public class MainFrameMainChatUI extends JFrame {
     private final TitlePanelMainChatUI titlePanel;
     private final MainPanelMainChatUI mainPanel;
 
-    MainFrameMainChatUI() {
+    private final DisplaySettings displaySettings;
+
+    MainFrameMainChatUI(DisplaySettings displaySettings) {
         super("MainChatWindow");
+
+        this.displaySettings = displaySettings;
 
         mainPanel = GetterMainChatUIComponents.getInstance().getBeanMainPanelMainChatUI();
         titlePanel = GetterMainChatUIComponents.getInstance().getBeanTitlePanelMainChatUI();
@@ -113,13 +120,11 @@ public class MainFrameMainChatUI extends JFrame {
         setUndecorated(true);
         pack();
 
-        setSize(GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.585,
-                        DisplaySettings.TypeOfDisplayBorder.WIDTH),
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.5625,
-                        DisplaySettings.TypeOfDisplayBorder.HEIGHT));
+        setSize(displaySettings.getResizeFromDisplay(0.585, DisplaySettings.TypeOfDisplayBorder.WIDTH),
+                displaySettings.getResizeFromDisplay(0.5625, DisplaySettings.TypeOfDisplayBorder.HEIGHT));
 
-        Dimension minSiseDimension = new Dimension(GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.43,
-                DisplaySettings.TypeOfDisplayBorder.WIDTH), GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.28,
+        Dimension minSiseDimension = new Dimension(displaySettings.getResizeFromDisplay(0.43,
+                DisplaySettings.TypeOfDisplayBorder.WIDTH), displaySettings.getResizeFromDisplay(0.28,
                 DisplaySettings.TypeOfDisplayBorder.HEIGHT));
         setMinimumSize(minSiseDimension);
 

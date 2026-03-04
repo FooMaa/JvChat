@@ -10,9 +10,14 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
 import org.foomaa.jvchat.settings.DisplaySettings;
-import org.foomaa.jvchat.settings.GetterSettings;
+import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 
+@Component
+@Scope("prototype")
+@Profile("users")
 @Slf4j
 public class TextFieldAuthUI extends JPanel {
     private JTextField textField;
@@ -20,8 +25,11 @@ public class TextFieldAuthUI extends JPanel {
     private final String defaultText;
     private boolean isErrorBorderActive;
     private final int borderSize;
+    private final DisplaySettings displaySettings;
 
-    TextFieldAuthUI(String text) {
+    TextFieldAuthUI(DisplaySettings displaySettings, String text) {
+        this.displaySettings = displaySettings;
+
         defaultText = text;
         borderSize = 2;
         isErrorBorderActive = false;
@@ -104,11 +112,9 @@ public class TextFieldAuthUI extends JPanel {
     }
 
     private void settingTextPanel() {
-        Dimension dim = new Dimension(GetterSettings.getInstance().getBeanDisplaySettings().
-                getResizeFromDisplay(0.23,
-                        DisplaySettings.TypeOfDisplayBorder.WIDTH),
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.03,
-                        DisplaySettings.TypeOfDisplayBorder.HEIGHT));
+        Dimension dim = new Dimension(displaySettings.getResizeFromDisplay(0.23,
+                DisplaySettings.TypeOfDisplayBorder.WIDTH), displaySettings.getResizeFromDisplay(0.03,
+                DisplaySettings.TypeOfDisplayBorder.HEIGHT));
         settingTextField(dim);
         addElements();
         setBackground(textField.getBackground());
@@ -166,7 +172,7 @@ public class TextFieldAuthUI extends JPanel {
 
     private void setFont() {
         try {
-            int size = GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.015);
+            int size = displaySettings.getResizePixel(0.015);
             Font steticaFont = GetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
                     .createMainSteticaFont(Font.BOLD, size);
             textField.setFont(steticaFont);

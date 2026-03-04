@@ -10,17 +10,27 @@ import java.util.UUID;
 
 import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
-import org.foomaa.jvchat.settings.GetterSettings;
+import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
+import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 
+@Component
+@Scope("prototype")
+@Profile("users")
 public class RectMessageMainChatUI extends JTextArea {
     private MainChatsGlobalDefines.TypeStatusMessage statusMessage;
     private final String textMessage;
     private final LocalDateTime timestamp;
     private final UUID uuidMessage;
 
-    RectMessageMainChatUI(MessageStructObject messageObject) {
+    private final DisplaySettings displaySettings;
+
+    RectMessageMainChatUI(DisplaySettings displaySettings, MessageStructObject messageObject) {
+        this.displaySettings = displaySettings;
+
         textMessage = messageObject.getText();
         statusMessage = messageObject.getStatusMessage();
         timestamp = messageObject.getTimestamp();
@@ -58,8 +68,7 @@ public class RectMessageMainChatUI extends JTextArea {
         }
 
         String time = GetterControls.getInstance().getBeanMessagesDialogCtrl().getTimeFormattedMessage(timestamp);
-        Font font = new Font("Times", Font.BOLD,
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.010));
+        Font font = new Font("Times", Font.BOLD, displaySettings.getResizePixel(0.010));
         g2.setFont(font);
         FontMetrics fontMetrics = g2.getFontMetrics(font);
 
@@ -79,8 +88,7 @@ public class RectMessageMainChatUI extends JTextArea {
         setBackground(new Color(173, 216, 230));
         setForeground(Color.BLACK);
         setBorder(new EmptyBorder(borderSize, borderSize, borderSize, borderSize));
-        setFont(new Font("Times", Font.PLAIN,
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
+        setFont(new Font("Times", Font.PLAIN, displaySettings.getResizePixel(0.014)));
         setLineWrap(true);
         setWrapStyleWord(true);
 

@@ -23,21 +23,15 @@ public class GetterAuthUIComponents {
     }
 
     public ActiveLabelAuthUI getBeanActiveLabelAuthUI(String text) {
-        return (ActiveLabelAuthUI) context.getBean(
-                AuthUIComponentsSpringConfig.NameBeans.BeanActiveLabelAuthUI.getValue(),
-                text);
+        return null;
     }
 
     public ButtonAuthUI getBeanButtonAuthUI(String text) {
-        return (ButtonAuthUI) context.getBean(
-                AuthUIComponentsSpringConfig.NameBeans.BeanButtonAuthUI.getValue(),
-                text);
+        return null;
     }
 
     public ErrorLabelAuthUI getBeanErrorLabelAuthUI(String text) {
-        return (ErrorLabelAuthUI) context.getBean(
-                AuthUIComponentsSpringConfig.NameBeans.BeanErrorLabelAuthUI.getValue(),
-                text);
+        return null;
     }
 
     public OptionPaneAuthUI getBeanOptionPaneAuthUI(String msg, OptionPaneAuthUI.TypeDlg type) {
@@ -47,20 +41,15 @@ public class GetterAuthUIComponents {
     }
 
     public PasswordFieldAuthUI getBeanPasswordFieldAuthUI(String text) {
-        return (PasswordFieldAuthUI) context.getBean(
-                AuthUIComponentsSpringConfig.NameBeans.BeanPasswordFieldAuthUI.getValue(),
-                text);
+        return null;
     }
 
     public TextFieldAuthUI getBeanTextFieldAuthUI(String text) {
-        return (TextFieldAuthUI) context.getBean(
-                AuthUIComponentsSpringConfig.NameBeans.BeanTextFieldAuthUI.getValue(),
-                text);
+        return null;
     }
 
     public ToolTipAuthUI getBeanToolTipAuthUI() {
-        return context.getBean(AuthUIComponentsSpringConfig.NameBeans.BeanToolTipAuthUI.getValue(),
-                ToolTipAuthUI.class);
+        return null;
     }
 
     public EntryPanelAuthUI getBeanEntryPanelAuthUI() {
@@ -69,8 +58,7 @@ public class GetterAuthUIComponents {
     }
 
     public MainFrameAuthUI getBeanMainFrameAuthUI() {
-        return context.getBean(AuthUIComponentsSpringConfig.NameBeans.BeanMainFrameAuthUI.getValue(),
-                MainFrameAuthUI.class);
+        return null;
 
     }
 
@@ -91,8 +79,7 @@ public class GetterAuthUIComponents {
     }
 
     public TitlePanelAuthUI getBeanTitlePanelAuthUI() {
-        return context.getBean(AuthUIComponentsSpringConfig.NameBeans.BeanTitlePanelAuthUI.getValue(),
-                TitlePanelAuthUI.class);
+        return null;
     }
 
     public DefinesAuthUI getBeanDefinesAuthUI() {

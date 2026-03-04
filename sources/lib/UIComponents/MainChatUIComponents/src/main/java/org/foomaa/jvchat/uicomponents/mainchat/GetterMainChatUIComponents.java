@@ -23,8 +23,7 @@ public class GetterMainChatUIComponents {
     }
 
     public MainFrameMainChatUI getBeanMainFrameMainChatUI() {
-        return context.getBean(MainChatUIComponentsSpringConfig.NameBeans.BeanMainFrameMainChatUI.getValue(),
-                MainFrameMainChatUI.class);
+        return null;
     }
 
     public ScrollPanelChatsMainChatUI getBeanScrollPanelChatsMainChatUI() {
@@ -32,8 +31,7 @@ public class GetterMainChatUIComponents {
     }
 
     public TitlePanelMainChatUI getBeanTitlePanelMainChatUI() {
-        return context.getBean(MainChatUIComponentsSpringConfig.NameBeans.BeanTitlePanelMainChatUI.getValue(),
-                TitlePanelMainChatUI.class);
+        return null;
     }
 
     public MainPanelMainChatUI getBeanMainPanelMainChatUI() {
@@ -47,8 +45,7 @@ public class GetterMainChatUIComponents {
     }
 
     public RectMessageMainChatUI getBeanRectMessageMainChatUI(MessageStructObject messageObject) {
-        return (RectMessageMainChatUI) context.getBean(MainChatUIComponentsSpringConfig.NameBeans.BeanRectMessageMainChatUI.getValue(),
-                messageObject);
+        return null;
     }
 
     public RectChatMainChatUI getBeanRectChatMainChatUI(ChatStructObject chatObject) {
@@ -72,13 +69,10 @@ public class GetterMainChatUIComponents {
     }
 
     public FindTextFieldMainChatUI getBeanFindTextFieldMainChatUI(String text) {
-        return (FindTextFieldMainChatUI) context.getBean(
-                MainChatUIComponentsSpringConfig.NameBeans.BeanFindTextFieldMainChatUI.getValue(),
-                text);
+        return null;
     }
 
     public ToolTipMainChatUI getBeanToolTipMainChatUI() {
-        return context.getBean(MainChatUIComponentsSpringConfig.NameBeans.BeanToolTipMainChatUI.getValue(),
-                ToolTipMainChatUI.class);
+        return null;
     }
 }

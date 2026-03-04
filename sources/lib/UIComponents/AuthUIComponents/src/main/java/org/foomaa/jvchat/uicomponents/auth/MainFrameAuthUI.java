@@ -1,6 +1,7 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
 import org.foomaa.jvchat.events.CheckerEventsAnnotation;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import javax.imageio.ImageIO;
@@ -16,9 +17,11 @@ import java.util.UUID;
 import org.foomaa.jvchat.events.BaseEvent;
 import org.foomaa.jvchat.events.GetterEvents;
 import org.foomaa.jvchat.settings.DisplaySettings;
-import org.foomaa.jvchat.settings.GetterSettings;
+import org.springframework.stereotype.Component;
 
 
+@Component
+@Profile("users")
 public class MainFrameAuthUI extends JFrame {
     private final TitlePanelAuthUI titlePanel;
     private DefinesAuthUI.RegimeWorkMainFrame regimeWorkMainFrame;
@@ -39,8 +42,12 @@ public class MainFrameAuthUI extends JFrame {
     @SuppressWarnings({"unused", "FieldCanBeLocal"})
     private UUID uuidSignalChangeRegimeWorkNewPassword;
 
-    MainFrameAuthUI() {
+    private final DisplaySettings displaySettings;
+
+    MainFrameAuthUI(DisplaySettings displaySettings) {
         super("EntryFrame");
+
+        this.displaySettings = displaySettings;
 
         titlePanel = GetterAuthUIComponents.getInstance().getBeanTitlePanelAuthUI();
         regimeWorkMainFrame = DefinesAuthUI.RegimeWorkMainFrame.Auth;
@@ -244,10 +251,8 @@ public class MainFrameAuthUI extends JFrame {
         setUndecorated(true);
         pack();
 
-        setSize(GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.3,
-                        DisplaySettings.TypeOfDisplayBorder.WIDTH),
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.31,
-                        DisplaySettings.TypeOfDisplayBorder.HEIGHT));
+        setSize(displaySettings.getResizeFromDisplay(0.3, DisplaySettings.TypeOfDisplayBorder.WIDTH),
+                displaySettings.getResizeFromDisplay(0.31, DisplaySettings.TypeOfDisplayBorder.HEIGHT));
 
         setResizable(false);
         setLocationRelativeTo(null);

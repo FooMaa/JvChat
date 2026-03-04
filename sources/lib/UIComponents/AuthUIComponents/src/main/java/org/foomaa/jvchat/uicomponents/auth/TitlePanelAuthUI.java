@@ -1,9 +1,12 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import org.foomaa.jvchat.settings.GetterSettings;
+import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -15,6 +18,8 @@ import java.io.IOException;
 import java.util.Objects;
 
 
+@Component
+@Profile("users")
 @Slf4j
 public class TitlePanelAuthUI extends JPanel {
     private final JButton closeButton;
@@ -23,7 +28,11 @@ public class TitlePanelAuthUI extends JPanel {
     private ToolTipAuthUI toolTipClose;
     private ToolTipAuthUI toolTipMinimize;
 
-    TitlePanelAuthUI() {
+    private final DisplaySettings displaySettings;
+
+    TitlePanelAuthUI(DisplaySettings displaySettings) {
+        this.displaySettings = displaySettings;
+
         closeButton = new JButton() {
             @Override
             public JToolTip createToolTip() {
@@ -107,7 +116,7 @@ public class TitlePanelAuthUI extends JPanel {
     private void settingTitleLabel() {
         titleLabel.setForeground(Color.LIGHT_GRAY);
         try {
-            int size = GetterSettings.getInstance().getBeanDisplaySettings().getResizeFont(0.0093);
+            int size = displaySettings.getResizeFont(0.0093);
             Font steticaFont = GetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
                     .createMainSteticaFont(Font.BOLD, size);
             titleLabel.setFont(steticaFont);

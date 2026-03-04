@@ -15,9 +15,14 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
 import org.foomaa.jvchat.settings.DisplaySettings;
-import org.foomaa.jvchat.settings.GetterSettings;
+import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 
+@Component
+@Scope("prototype")
+@Profile("users")
 @Slf4j
 public class PasswordFieldAuthUI extends JPanel {
     private final BufferedImage visibleImage;
@@ -33,7 +38,11 @@ public class PasswordFieldAuthUI extends JPanel {
     private final int borderSize;
     private boolean isErrorBorderActive;
 
-    PasswordFieldAuthUI(String text) {
+    private final DisplaySettings displaySettings;
+
+    PasswordFieldAuthUI(DisplaySettings displaySettings, String text) {
+        this.displaySettings = displaySettings;
+
         visibleImage = setIcon("/Eye.png");
         invisibleImage = setIcon("/Eye-close.png");
         defaultText = text;
@@ -196,10 +205,9 @@ public class PasswordFieldAuthUI extends JPanel {
     }
 
     private void settingPassAndButtonPanel() {
-        Dimension dim = new Dimension(GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.23,
-                DisplaySettings.TypeOfDisplayBorder.WIDTH),
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.03,
-                        DisplaySettings.TypeOfDisplayBorder.HEIGHT));
+        Dimension dim = new Dimension(displaySettings.getResizeFromDisplay(0.23,
+                DisplaySettings.TypeOfDisplayBorder.WIDTH), displaySettings.getResizeFromDisplay(0.03,
+                DisplaySettings.TypeOfDisplayBorder.HEIGHT));
         settingButtonImage();
         settingPassField(dim);
         addElements();
@@ -267,7 +275,7 @@ public class PasswordFieldAuthUI extends JPanel {
 
     private void setFont() {
         try {
-            int size = GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.015);
+            int size = displaySettings.getResizePixel(0.015);
             Font steticaFont = GetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
                     .createMainSteticaFont(Font.BOLD, size);
             passwordField.setFont(steticaFont);

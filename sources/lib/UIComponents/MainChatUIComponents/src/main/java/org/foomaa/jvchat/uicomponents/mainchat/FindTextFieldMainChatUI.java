@@ -10,9 +10,14 @@ import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.settings.DisplaySettings;
-import org.foomaa.jvchat.settings.GetterSettings;
+import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 
+@Component
+@Scope("prototype")
+@Profile("users")
 @Slf4j
 public class FindTextFieldMainChatUI extends JPanel {
     private final BufferedImage image;
@@ -21,7 +26,11 @@ public class FindTextFieldMainChatUI extends JPanel {
     private final String defaultText;
     private final int borderSize = 1;
 
-    FindTextFieldMainChatUI(String text) {
+    private final DisplaySettings displaySettings;
+
+    FindTextFieldMainChatUI(DisplaySettings displaySettings, String text) {
+        this.displaySettings = displaySettings;
+
         image = setIcon();
         defaultText = text;
 
@@ -96,10 +105,9 @@ public class FindTextFieldMainChatUI extends JPanel {
     }
 
     private void settingTextAndButtonPanel() {
-        Dimension dim = new Dimension(GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.23,
-                DisplaySettings.TypeOfDisplayBorder.WIDTH),
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.03,
-                        DisplaySettings.TypeOfDisplayBorder.HEIGHT));
+        Dimension dim = new Dimension(displaySettings.getResizeFromDisplay(0.23,
+                DisplaySettings.TypeOfDisplayBorder.WIDTH), displaySettings.getResizeFromDisplay(0.03,
+                DisplaySettings.TypeOfDisplayBorder.HEIGHT));
         settingButtonImage();
         settingTextField(dim);
         addElements();
@@ -136,8 +144,7 @@ public class FindTextFieldMainChatUI extends JPanel {
         textField.setPreferredSize(calcNewDim);
         textField.setBorder(null);
         textField.setText(defaultText);
-        textField.setFont(new Font("Times", Font.BOLD,
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.012)));
+        textField.setFont(new Font("Times", Font.BOLD, displaySettings.getResizePixel(0.012)));
         textField.setForeground(Color.lightGray);
         textField.setFocusable(false);
     }

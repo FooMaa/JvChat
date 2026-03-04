@@ -33,13 +33,13 @@ class MainChatUIComponentsSpringConfig {
         }
     }
 
-    @Bean(name = "beanMainFrameMainChatUI")
-    @Lazy
-    @Scope("singleton")
-    @SuppressWarnings("unused")
-    public MainFrameMainChatUI beanMainFrameMainChatUI() {
-        return new MainFrameMainChatUI();
-    }
+//    @Bean(name = "beanMainFrameMainChatUI")
+//    @Lazy
+//    @Scope("singleton")
+//    @SuppressWarnings("unused")
+//    public MainFrameMainChatUI beanMainFrameMainChatUI() {
+//        return new MainFrameMainChatUI();
+//    }
 
 //    @Bean(name = "beanScrollPanelChatsMainChatUI")
 //    @Lazy
@@ -57,13 +57,13 @@ class MainChatUIComponentsSpringConfig {
         return new ScrollPanelMessagesMainChatUI();
     }
 
-    @Bean(name = "beanTitlePanelMainChatUI")
-    @Lazy
-    @Scope("singleton")
-    @SuppressWarnings("unused")
-    public TitlePanelMainChatUI beanTitlePanelMainChatUI() {
-        return new TitlePanelMainChatUI();
-    }
+//    @Bean(name = "beanTitlePanelMainChatUI")
+//    @Lazy
+//    @Scope("singleton")
+//    @SuppressWarnings("unused")
+//    public TitlePanelMainChatUI beanTitlePanelMainChatUI() {
+//        return new TitlePanelMainChatUI();
+//    }
 
     @Bean(name = "beanMainPanelMainChatUI")
     @Lazy
@@ -73,13 +73,13 @@ class MainChatUIComponentsSpringConfig {
         return new MainPanelMainChatUI();
     }
 
-    @Bean(name = "beanRectMessageMainChatUI")
-    @Lazy
-    @Scope("prototype")
-    @SuppressWarnings("unused")
-    public RectMessageMainChatUI beanRectMessageMainChatUI(MessageStructObject messageObject) {
-        return new RectMessageMainChatUI(messageObject);
-    }
+//    @Bean(name = "beanRectMessageMainChatUI")
+//    @Lazy
+//    @Scope("prototype")
+//    @SuppressWarnings("unused")
+//    public RectMessageMainChatUI beanRectMessageMainChatUI(MessageStructObject messageObject) {
+//        return new RectMessageMainChatUI(messageObject);
+//    }
 
 //    @Bean(name = "beanRectChatMainChatUI")
 //    @Lazy
@@ -113,19 +113,19 @@ class MainChatUIComponentsSpringConfig {
         return new PanelSendingMessageMainChatUI();
     }
 
-    @Bean(name = "beanFindTextFieldMainChatUI")
-    @Lazy
-    @Scope("prototype")
-    @SuppressWarnings("unused")
-    public FindTextFieldMainChatUI beanFindTextFieldMainChatUI(String text) {
-        return new FindTextFieldMainChatUI(text);
-    }
+//    @Bean(name = "beanFindTextFieldMainChatUI")
+//    @Lazy
+//    @Scope("prototype")
+//    @SuppressWarnings("unused")
+//    public FindTextFieldMainChatUI beanFindTextFieldMainChatUI(String text) {
+//        return new FindTextFieldMainChatUI(text);
+//    }
 
-    @Bean(name = "beanToolTipMainChatUI")
-    @Lazy
-    @Scope("prototype")
-    @SuppressWarnings("unused")
-    public ToolTipMainChatUI beanToolTipMainChatUI() {
-        return new ToolTipMainChatUI();
-    }
+//    @Bean(name = "beanToolTipMainChatUI")
+//    @Lazy
+//    @Scope("prototype")
+//    @SuppressWarnings("unused")
+//    public ToolTipMainChatUI beanToolTipMainChatUI() {
+//        return new ToolTipMainChatUI();
+//    }
 }

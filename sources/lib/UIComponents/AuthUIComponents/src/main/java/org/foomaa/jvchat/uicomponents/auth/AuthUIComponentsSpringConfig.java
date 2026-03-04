@@ -36,56 +36,56 @@ class AuthUIComponentsSpringConfig {
         }
     }
 
-    @Bean(name = "beanActiveLabelAuthUI")
-    @Scope("prototype")
-    @SuppressWarnings("unused")
-    public ActiveLabelAuthUI beanActiveLabelAuthUI(String text) {
-        return new ActiveLabelAuthUI(text);
-    }
+//    @Bean(name = "beanActiveLabelAuthUI")
+//    @Scope("prototype")
+//    @SuppressWarnings("unused")
+//    public ActiveLabelAuthUI beanActiveLabelAuthUI(String text) {
+//        return new ActiveLabelAuthUI(text);
+//    }
 
-    @Bean(name = "beanButtonAuthUI")
-    @Scope("prototype")
-    @SuppressWarnings("unused")
-    public ButtonAuthUI beanButtonAuthUI(String text) {
-        return new ButtonAuthUI(text);
-    }
+//    @Bean(name = "beanButtonAuthUI")
+//    @Scope("prototype")
+//    @SuppressWarnings("unused")
+//    public ButtonAuthUI beanButtonAuthUI(String text) {
+//        return new ButtonAuthUI(text);
+//    }
 
-    @Bean(name = "beanErrorLabelAuthUI")
-    @Scope("prototype")
-    @SuppressWarnings("unused")
-    public ErrorLabelAuthUI beanErrorLabelAuthUI(String text) {
-        return new ErrorLabelAuthUI(text);
-    }
+//    @Bean(name = "beanErrorLabelAuthUI")
+//    @Scope("prototype")
+//    @SuppressWarnings("unused")
+//    public ErrorLabelAuthUI beanErrorLabelAuthUI(String text) {
+//        return new ErrorLabelAuthUI(text);
+//    }
 
-    @Bean(name = "beanPasswordFieldAuthUI")
-    @Scope("prototype")
-    @SuppressWarnings("unused")
-    public PasswordFieldAuthUI beanPasswordFieldAuthUI(String text) {
-        return new PasswordFieldAuthUI(text);
-    }
+//    @Bean(name = "beanPasswordFieldAuthUI")
+//    @Scope("prototype")
+//    @SuppressWarnings("unused")
+//    public PasswordFieldAuthUI beanPasswordFieldAuthUI(String text) {
+//        return new PasswordFieldAuthUI(text);
+//    }
 
-    @Bean(name = "beanTextFieldAuthUI")
-    @Scope("prototype")
-    @SuppressWarnings("unused")
-    public TextFieldAuthUI beanTextFieldAuthUI(String text) {
-        return new TextFieldAuthUI(text);
-    }
+//    @Bean(name = "beanTextFieldAuthUI")
+//    @Scope("prototype")
+//    @SuppressWarnings("unused")
+//    public TextFieldAuthUI beanTextFieldAuthUI(String text) {
+//        return new TextFieldAuthUI(text);
+//    }
 
-    @Bean(name = "beanToolTipAuthUI")
-    @Lazy
-    @Scope("prototype")
-    @SuppressWarnings("unused")
-    public ToolTipAuthUI beanToolTipAuthUI() {
-        return new ToolTipAuthUI();
-    }
+//    @Bean(name = "beanToolTipAuthUI")
+//    @Lazy
+//    @Scope("prototype")
+//    @SuppressWarnings("unused")
+//    public ToolTipAuthUI beanToolTipAuthUI() {
+//        return new ToolTipAuthUI();
+//    }
 
-    @Bean(name = "beanMainFrameAuthUI")
-    @Lazy
-    @Scope("singleton")
-    @SuppressWarnings("unused")
-    public MainFrameAuthUI beanMainFrameAuthUI() {
-        return new MainFrameAuthUI();
-    }
+//    @Bean(name = "beanMainFrameAuthUI")
+//    @Lazy
+//    @Scope("singleton")
+//    @SuppressWarnings("unused")
+//    public MainFrameAuthUI beanMainFrameAuthUI() {
+//        return new MainFrameAuthUI();
+//    }
 
 //    @Bean(name = "beanEntryPanelAuthUI")
 //    @Lazy
@@ -127,13 +127,13 @@ class AuthUIComponentsSpringConfig {
 //        return new VerifyCodePanelAuthUI();
 //    }
 
-    @Bean(name = "beanTitlePanelAuthUI")
-    @Lazy
-    @Scope("singleton")
-    @SuppressWarnings("unused")
-    public TitlePanelAuthUI beanTitlePanelAuthUI() {
-        return new TitlePanelAuthUI();
-    }
+//    @Bean(name = "beanTitlePanelAuthUI")
+//    @Lazy
+//    @Scope("singleton")
+//    @SuppressWarnings("unused")
+//    public TitlePanelAuthUI beanTitlePanelAuthUI() {
+//        return new TitlePanelAuthUI();
+//    }
 
     @Bean(name = "beanDefinesAuthUI")
     @Lazy

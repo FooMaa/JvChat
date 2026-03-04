@@ -2,7 +2,10 @@ package org.foomaa.jvchat.uicomponents.auth;
 
 import lombok.extern.slf4j.Slf4j;
 import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
-import org.foomaa.jvchat.settings.GetterSettings;
+import org.foomaa.jvchat.settings.DisplaySettings;
+import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -10,9 +13,16 @@ import java.awt.*;
 import java.io.IOException;
 
 
+@Component
+@Scope("prototype")
+@Profile("users")
 @Slf4j
 public class ToolTipAuthUI extends JToolTip {
-    ToolTipAuthUI() {
+    private final DisplaySettings displaySettings;
+
+    ToolTipAuthUI(DisplaySettings displaySettings) {
+        this.displaySettings = displaySettings;
+
         setGeneralSettings();
     }
 
@@ -27,7 +37,7 @@ public class ToolTipAuthUI extends JToolTip {
 
     private void setFont() {
         try {
-            int size = GetterSettings.getInstance().getBeanDisplaySettings().getResizeFont(0.008);
+            int size = displaySettings.getResizeFont(0.008);
             Font steticaFont = GetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
                     .createMainSteticaFont(Font.PLAIN, size);
             setFont(steticaFont);
