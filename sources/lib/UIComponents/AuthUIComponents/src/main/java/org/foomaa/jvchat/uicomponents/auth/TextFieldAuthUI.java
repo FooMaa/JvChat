@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 
-import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
+import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
@@ -26,9 +26,13 @@ public class TextFieldAuthUI extends JPanel {
     private boolean isErrorBorderActive;
     private final int borderSize;
     private final DisplaySettings displaySettings;
+    private final FontsGlobalDefines fontsGlobalDefines;
 
-    TextFieldAuthUI(DisplaySettings displaySettings, String text) {
+    TextFieldAuthUI(DisplaySettings displaySettings,
+                    FontsGlobalDefines fontsGlobalDefines,
+                    String text) {
         this.displaySettings = displaySettings;
+        this.fontsGlobalDefines = fontsGlobalDefines;
 
         defaultText = text;
         borderSize = 2;
@@ -173,8 +177,7 @@ public class TextFieldAuthUI extends JPanel {
     private void setFont() {
         try {
             int size = displaySettings.getResizePixel(0.015);
-            Font steticaFont = GetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
-                    .createMainSteticaFont(Font.BOLD, size);
+            Font steticaFont = fontsGlobalDefines.createMainSteticaFont(Font.BOLD, size);
             textField.setFont(steticaFont);
         } catch (IOException | FontFormatException exception) {
             log.error("steticaFont was not created here.");

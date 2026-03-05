@@ -1,7 +1,7 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
 import lombok.extern.slf4j.Slf4j;
-import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
+import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
@@ -20,9 +20,13 @@ import java.io.IOException;
 public class ButtonAuthUI extends JButton {
     private ToolTipAuthUI toolTip;
     private final DisplaySettings displaySettings;
+    private final FontsGlobalDefines fontsGlobalDefines;
 
-    ButtonAuthUI(DisplaySettings displaySettings, String text) {
+    ButtonAuthUI(DisplaySettings displaySettings,
+                 FontsGlobalDefines fontsGlobalDefines,
+                 String text) {
         this.displaySettings = displaySettings;
+        this.fontsGlobalDefines = fontsGlobalDefines;
 
         setText(text);
         setBackground(Color.WHITE);
@@ -88,8 +92,7 @@ public class ButtonAuthUI extends JButton {
     private void setFont() {
         try {
             int size = displaySettings.getResizeFont(0.008);
-            Font steticaFont = GetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
-                    .createMainSteticaFont(Font.PLAIN, size);
+            Font steticaFont = fontsGlobalDefines.createMainSteticaFont(Font.PLAIN, size);
             setFont(steticaFont);
         } catch (IOException | FontFormatException exception) {
             log.error("SteticaFont not created here.");

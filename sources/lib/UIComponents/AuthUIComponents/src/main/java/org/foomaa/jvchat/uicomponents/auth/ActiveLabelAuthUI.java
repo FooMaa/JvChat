@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 
-import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
+import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
@@ -24,9 +24,13 @@ import org.springframework.stereotype.Component;
 public class ActiveLabelAuthUI extends JLabel {
     private ToolTipAuthUI toolTip;
     private final DisplaySettings displaySettings;
+    private final FontsGlobalDefines fontsGlobalDefines;
 
-    ActiveLabelAuthUI(DisplaySettings displaySettings, String text) {
+    ActiveLabelAuthUI(DisplaySettings displaySettings,
+                      FontsGlobalDefines fontsGlobalDefines,
+                      String text) {
         this.displaySettings = displaySettings;
+        this.fontsGlobalDefines = fontsGlobalDefines;
 
         setText(text);
         setFont(false);
@@ -48,8 +52,7 @@ public class ActiveLabelAuthUI extends JLabel {
     private void setFont(boolean isEnteredMouse) {
         try {
             int size = displaySettings.getResizePixel(0.011);
-            Font steticaFont = GetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
-                    .createMainSteticaFont(isEnteredMouse ? Font.BOLD : Font.PLAIN, size);
+            Font steticaFont = fontsGlobalDefines.createMainSteticaFont(isEnteredMouse ? Font.BOLD : Font.PLAIN, size);
             Map<TextAttribute, Object> attributes = new HashMap<>(steticaFont.getAttributes());
             attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_LOW_DOTTED);
             setFont(steticaFont.deriveFont(attributes));

@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 
-import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
+import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
@@ -20,9 +20,13 @@ import org.springframework.stereotype.Component;
 public class ErrorLabelAuthUI extends JLabel {
     private final Timer timerVisible;
     private final DisplaySettings displaySettings;
+    private final FontsGlobalDefines fontsGlobalDefines;
 
-    ErrorLabelAuthUI(DisplaySettings displaySettings, String text) {
+    ErrorLabelAuthUI(DisplaySettings displaySettings,
+                     FontsGlobalDefines fontsGlobalDefines,
+                     String text) {
         this.displaySettings = displaySettings;
+        this.fontsGlobalDefines = fontsGlobalDefines;
 
         timerVisible = new Timer(5000, actionEvent -> setText(""));
         timerVisible.setRepeats(false);
@@ -45,8 +49,7 @@ public class ErrorLabelAuthUI extends JLabel {
     private void setFont() {
         try {
             int size = displaySettings.getResizeFont(0.0064);
-            Font steticaFont = GetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
-                    .createMainSteticaFont(Font.BOLD, size);
+            Font steticaFont = fontsGlobalDefines.createMainSteticaFont(Font.BOLD, size);
             setFont(steticaFont);
         } catch (IOException | FontFormatException exception) {
             log.error("SteticaFont not created here");

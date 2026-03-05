@@ -1,9 +1,13 @@
 package org.foomaa.jvchat.globaldefines;
 
+import org.springframework.stereotype.Component;
+
 import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 
+
+@Component
 public class FontsGlobalDefines {
     FontsGlobalDefines() {}
 

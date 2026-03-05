@@ -1,7 +1,7 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
+import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
 import org.foomaa.jvchat.settings.DisplaySettings;
-import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
@@ -29,9 +29,11 @@ public class TitlePanelAuthUI extends JPanel {
     private ToolTipAuthUI toolTipMinimize;
 
     private final DisplaySettings displaySettings;
+    private final FontsGlobalDefines fontsGlobalDefines;
 
-    TitlePanelAuthUI(DisplaySettings displaySettings) {
+    TitlePanelAuthUI(DisplaySettings displaySettings, FontsGlobalDefines fontsGlobalDefines) {
         this.displaySettings = displaySettings;
+        this.fontsGlobalDefines = fontsGlobalDefines;
 
         closeButton = new JButton() {
             @Override
@@ -117,8 +119,7 @@ public class TitlePanelAuthUI extends JPanel {
         titleLabel.setForeground(Color.LIGHT_GRAY);
         try {
             int size = displaySettings.getResizeFont(0.0093);
-            Font steticaFont = GetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
-                    .createMainSteticaFont(Font.BOLD, size);
+            Font steticaFont = fontsGlobalDefines.createMainSteticaFont(Font.BOLD, size);
             titleLabel.setFont(steticaFont);
         } catch (IOException | FontFormatException exception) {
             log.error("steticaFont was not created here.");

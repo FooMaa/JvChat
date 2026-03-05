@@ -13,7 +13,7 @@ import java.awt.event.MouseEvent;
 import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 
-import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
+import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
@@ -39,9 +39,13 @@ public class PasswordFieldAuthUI extends JPanel {
     private boolean isErrorBorderActive;
 
     private final DisplaySettings displaySettings;
+    private final FontsGlobalDefines fontsGlobalDefines;
 
-    PasswordFieldAuthUI(DisplaySettings displaySettings, String text) {
+    PasswordFieldAuthUI(DisplaySettings displaySettings,
+                        FontsGlobalDefines fontsGlobalDefines,
+                        String text) {
         this.displaySettings = displaySettings;
+        this.fontsGlobalDefines = fontsGlobalDefines;
 
         visibleImage = setIcon("/Eye.png");
         invisibleImage = setIcon("/Eye-close.png");
@@ -276,8 +280,7 @@ public class PasswordFieldAuthUI extends JPanel {
     private void setFont() {
         try {
             int size = displaySettings.getResizePixel(0.015);
-            Font steticaFont = GetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
-                    .createMainSteticaFont(Font.BOLD, size);
+            Font steticaFont = fontsGlobalDefines.createMainSteticaFont(Font.BOLD, size);
             passwordField.setFont(steticaFont);
         } catch (IOException | FontFormatException exception) {
             log.error("SteticaFont not created here.");

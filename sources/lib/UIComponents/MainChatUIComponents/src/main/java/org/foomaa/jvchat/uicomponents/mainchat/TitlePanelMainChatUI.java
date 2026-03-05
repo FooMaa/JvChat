@@ -1,6 +1,6 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
+import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
 import org.foomaa.jvchat.settings.DisplaySettings;
 
 import lombok.extern.slf4j.Slf4j;
@@ -29,9 +29,11 @@ public class TitlePanelMainChatUI extends JPanel {
     private ToolTipMainChatUI toolTipMinimize;
 
     private final DisplaySettings displaySettings;
+    private final FontsGlobalDefines fontsGlobalDefines;
 
-    TitlePanelMainChatUI(DisplaySettings displaySettings) {
+    TitlePanelMainChatUI(DisplaySettings displaySettings, FontsGlobalDefines fontsGlobalDefines) {
         this.displaySettings = displaySettings;
+        this.fontsGlobalDefines = fontsGlobalDefines;
 
         closeButton = new JButton() {
             @Override
@@ -117,8 +119,7 @@ public class TitlePanelMainChatUI extends JPanel {
         titleLabel.setForeground(Color.LIGHT_GRAY);
         try {
             int size = displaySettings.getResizeFont(0.0093);
-            Font steticaFont = GetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
-                    .createMainSteticaFont(Font.BOLD, size);
+            Font steticaFont = fontsGlobalDefines.createMainSteticaFont(Font.BOLD, size);
             titleLabel.setFont(steticaFont);
         } catch (IOException | FontFormatException exception) {
             log.error("steticaFont was not created here.");

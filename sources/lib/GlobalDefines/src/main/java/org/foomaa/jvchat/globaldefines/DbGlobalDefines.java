@@ -1,8 +1,11 @@
 package org.foomaa.jvchat.globaldefines;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Objects;
 
 
+@Component
 public class DbGlobalDefines {
     DbGlobalDefines() {}
 

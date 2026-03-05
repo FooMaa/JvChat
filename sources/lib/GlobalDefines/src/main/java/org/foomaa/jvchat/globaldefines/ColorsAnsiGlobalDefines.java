@@ -1,6 +1,9 @@
 package org.foomaa.jvchat.globaldefines;
 
+import org.springframework.stereotype.Component;
 
+
+@Component
 @SuppressWarnings("unused")
 public class ColorsAnsiGlobalDefines {
     ColorsAnsiGlobalDefines() {}
