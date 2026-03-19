@@ -4,13 +4,20 @@ import lombok.extern.slf4j.Slf4j;
 import org.foomaa.jvchat.structobjects.BaseStructObject;
 import org.foomaa.jvchat.structobjects.GetterStructObjects;
 import org.foomaa.jvchat.structobjects.UserStructObject;
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 
+@Component
 @Slf4j
 public class UsersModel extends BaseModel {
-    UsersModel() {
+    private final ObjectProvider<UserStructObject> userStructObjectObjectProvider;
+
+    UsersModel(ObjectProvider<UserStructObject> userStructObjectObjectProvider) {
+        this.userStructObjectObjectProvider = userStructObjectObjectProvider;
+
         setRootObject(GetterStructObjects.getInstance()
                 .getBeanRootStructObject(getNameModel()));
     }
@@ -41,7 +48,7 @@ public class UsersModel extends BaseModel {
 
         if (userStructObject == null) {
             log.warn("There is no userStructObject with uuid created here, creating...");
-            UserStructObject userChat = GetterStructObjects.getInstance().getBeanUserStructObject();
+            UserStructObject userChat = userStructObjectObjectProvider.getObject();
             userChat.setUuid(uuidUser);
             addItem(userChat, getRootObject());
             return userChat;

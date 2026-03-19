@@ -5,8 +5,12 @@ import java.util.Objects;
 import java.util.UUID;
 
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 
+@Component
+@Scope("prototype")
 public class MessageStructObject extends BaseStructObject {
     private UUID uuidUserSender;
     private UUID uuidUserReceiver;

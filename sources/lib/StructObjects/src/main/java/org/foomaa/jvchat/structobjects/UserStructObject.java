@@ -4,8 +4,12 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 
+@Component
+@Scope("prototype")
 public class UserStructObject extends BaseStructObject {
     private String login;
     private MainChatsGlobalDefines.TypeStatusOnline statusOnline;

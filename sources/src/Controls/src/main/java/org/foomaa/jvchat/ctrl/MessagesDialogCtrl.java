@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +15,6 @@ import org.foomaa.jvchat.models.ChatsModel;
 import org.foomaa.jvchat.models.MessagesModel;
 import org.foomaa.jvchat.settings.UsersInfoSettings;
 import org.foomaa.jvchat.structobjects.ChatStructObject;
-import org.foomaa.jvchat.structobjects.GetterStructObjects;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
 import org.foomaa.jvchat.tools.FormatTools;
 
@@ -28,17 +28,20 @@ public class MessagesDialogCtrl {
     private final ChatsCtrl chatsCtrl;
     private final FormatTools formatTools;
     private final UsersInfoSettings usersInfoSettings;
+    private final ObjectProvider<MessageStructObject> messageStructObjectObjectProvider;
 
     MessagesDialogCtrl(MessagesModel messagesModel,
                        ChatsModel chatsModel,
                        ChatsCtrl chatsCtrl,
                        FormatTools formatTools,
-                       UsersInfoSettings usersInfoSettings) {
+                       UsersInfoSettings usersInfoSettings,
+                       ObjectProvider<MessageStructObject> messageStructObjectObjectProvider) {
         this.messagesModel = messagesModel;
         this.chatsModel = chatsModel;
         this.chatsCtrl = chatsCtrl;
         this.formatTools = formatTools;
         this.usersInfoSettings = usersInfoSettings;
+        this.messageStructObjectObjectProvider = messageStructObjectObjectProvider;
     }
 
     public void setCurrentActiveChatUuid(UUID newUuidChat) {
@@ -193,7 +196,7 @@ public class MessagesDialogCtrl {
                                                     MainChatsGlobalDefines.TypeStatusMessage statusMessage,
                                                     String text,
                                                     LocalDateTime timestamp) {
-        MessageStructObject messageObj = GetterStructObjects.getInstance().getBeanMessageStructObject();
+        MessageStructObject messageObj = messageStructObjectObjectProvider.getObject();
 
         messageObj.setUuidUserSender(uuidUserSender);
         messageObj.setUuidUserReceiver(uuidUserReceiver);

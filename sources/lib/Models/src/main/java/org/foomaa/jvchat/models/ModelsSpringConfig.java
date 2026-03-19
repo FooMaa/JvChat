@@ -11,11 +11,7 @@ import org.springframework.context.annotation.*;
 class ModelsSpringConfig {
     public enum NameBeans {
         BeanRootObjectsModel("beanRootObjectsModel"),
-        BeanMessagesModel("beanMessagesModel"),
-        BeanChatsModel("beanChatsModel"),
-        BeanCheckersOnlineModel("beanCheckersOnlineModel"),
         BeanSocketRunnableCtrlModel("beanSocketRunnableCtrlModel"),
-        BeanUsersModel("beanUsersModel"),
         BeanConnectionsEventsModel("beanConnectionsEventsModel");
 
         private final String value;
@@ -36,44 +32,12 @@ class ModelsSpringConfig {
         return new RootObjectsModel();
     }
 
-    @Bean(name = "beanMessagesModel")
-    @Lazy
-    @Scope("singleton")
-    @SuppressWarnings("unused")
-    public MessagesModel beanMessagesModel() {
-        return new MessagesModel();
-    }
-
-//    @Bean(name = "beanChatsModel")
-//    @Lazy
-//    @Scope("singleton")
-//    @SuppressWarnings("unused")
-//    public ChatsModel beanChatsModel() {
-//        return new ChatsModel(null);
-//    }
-
-    @Bean(name = "beanCheckersOnlineModel")
-    @Lazy
-    @Scope("singleton")
-    @SuppressWarnings("unused")
-    public CheckersOnlineModel beanCheckersOnlineModel() {
-        return new CheckersOnlineModel();
-    }
-
     @Bean(name = "beanSocketRunnableCtrlModel")
     @Lazy
     @Scope("singleton")
     @SuppressWarnings("unused")
     public SocketRunnableCtrlModel beanSocketRunnableCtrlModel() {
         return new SocketRunnableCtrlModel();
-    }
-
-    @Bean(name = "beanUsersModel")
-    @Lazy
-    @Scope("singleton")
-    @SuppressWarnings("unused")
-    public UsersModel beanUsersModel() {
-        return new UsersModel();
     }
 
     @Bean(name = "beanConnectionsEventsModel")

@@ -18,30 +18,15 @@ public class GetterStructObjects {
         return instance;
     }
 
-    public MessageStructObject getBeanMessageStructObject() {
-        return context.getBean(StructObjectsSpringConfig.NameBeans.BeanMessageStructObject.getValue(),
-                MessageStructObject.class);
-    }
-
     public RootStructObject getBeanRootStructObject(String nameModel) {
         return (RootStructObject) context.getBean(
                 StructObjectsSpringConfig.NameBeans.BeanRootStructObject.getValue(),
                 nameModel);
     }
 
-    public ChatStructObject getBeanChatStructObject() {
-        return context.getBean(StructObjectsSpringConfig.NameBeans.BeanChatStructObject.getValue(),
-                ChatStructObject.class);
-    }
-
     public UserStructObject getBeanUserStructObject() {
         return context.getBean(StructObjectsSpringConfig.NameBeans.BeanUserStructObject.getValue(),
                 UserStructObject.class);
-    }
-
-    public CheckerOnlineStructObject getBeanCheckerOnlineStructObject() {
-        return context.getBean(StructObjectsSpringConfig.NameBeans.BeanCheckerOnlineStructObject.getValue(),
-                CheckerOnlineStructObject.class);
     }
 
     public SocketRunnableCtrlStructObject getBeanSocketRunnableCtrlStructObject() {

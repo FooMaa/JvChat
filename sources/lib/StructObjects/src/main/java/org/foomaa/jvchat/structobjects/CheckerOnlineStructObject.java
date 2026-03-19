@@ -1,9 +1,15 @@
 package org.foomaa.jvchat.structobjects;
 
+import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-
+@Component
+@Scope("prototype")
+@Profile("servers")
 public class CheckerOnlineStructObject extends BaseStructObject {
     private UserStructObject user;
     private SocketRunnableCtrlStructObject socketRunnableCtrlStructObject;

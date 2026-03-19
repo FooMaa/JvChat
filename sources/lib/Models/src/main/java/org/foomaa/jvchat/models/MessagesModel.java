@@ -5,14 +5,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import jdk.jfr.Label;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.structobjects.BaseStructObject;
 import org.foomaa.jvchat.structobjects.GetterStructObjects;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
 
 
+@Component
+@Lazy
 public class MessagesModel extends BaseModel {
-    MessagesModel() {
+    private final ObjectProvider<MessageStructObject> messageStructObjectObjectProvider;
+
+    MessagesModel(ObjectProvider<MessageStructObject> messageStructObjectObjectProvider) {
+        this.messageStructObjectObjectProvider = messageStructObjectObjectProvider;
+
         setRootObject(GetterStructObjects.getInstance()
                 .getBeanRootStructObject(getNameModel()));
     }
@@ -23,7 +33,7 @@ public class MessagesModel extends BaseModel {
                                                 MainChatsGlobalDefines.TypeStatusMessage statusMessage,
                                                 String text,
                                                 LocalDateTime timestamp) {
-        MessageStructObject messageObj = GetterStructObjects.getInstance().getBeanMessageStructObject();
+        MessageStructObject messageObj = messageStructObjectObjectProvider.getObject();
 
         messageObj.setUuidUserSender(uuidUserSender);
         messageObj.setUuidUserReceiver(uuidUserReceiver);

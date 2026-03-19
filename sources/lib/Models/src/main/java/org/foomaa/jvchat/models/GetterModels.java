@@ -23,29 +23,9 @@ public class GetterModels {
                 RootObjectsModel.class);
     }
 
-    public MessagesModel getBeanMessagesModel() {
-        return context.getBean(ModelsSpringConfig.NameBeans.BeanMessagesModel.getValue(),
-                MessagesModel.class);
-    }
-
-    public ChatsModel getBeanChatsModel() {
-        return context.getBean(ModelsSpringConfig.NameBeans.BeanChatsModel.getValue(),
-                ChatsModel.class);
-    }
-
-    public CheckersOnlineModel getBeanCheckersOnlineModel() {
-        return context.getBean(ModelsSpringConfig.NameBeans.BeanCheckersOnlineModel.getValue(),
-                CheckersOnlineModel.class);
-    }
-
     public SocketRunnableCtrlModel getBeanSocketRunnableCtrlModel() {
         return context.getBean(ModelsSpringConfig.NameBeans.BeanSocketRunnableCtrlModel.getValue(),
                 SocketRunnableCtrlModel.class);
-    }
-
-    public UsersModel getBeanUsersModel() {
-        return context.getBean(ModelsSpringConfig.NameBeans.BeanUsersModel.getValue(),
-                UsersModel.class);
     }
 
     public ConnectionsEventsModel getBeanConnectionsEventsModel() {

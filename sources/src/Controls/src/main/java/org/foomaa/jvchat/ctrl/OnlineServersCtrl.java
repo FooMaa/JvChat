@@ -11,6 +11,7 @@ import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.models.CheckersOnlineModel;
 import org.foomaa.jvchat.models.GetterModels;
 import org.foomaa.jvchat.models.SocketRunnableCtrlModel;
+import org.foomaa.jvchat.models.UsersModel;
 import org.foomaa.jvchat.settings.ServersInfoSettings;
 import org.foomaa.jvchat.structobjects.CheckerOnlineStructObject;
 import org.foomaa.jvchat.structobjects.SocketRunnableCtrlStructObject;
@@ -26,12 +27,17 @@ public class OnlineServersCtrl {
     private final CheckersOnlineModel checkersOnlineModel;
     private final DbCtrl dbCtrl;
     private final ServersInfoSettings serversInfoSettings;
+    private final UsersModel usersModel;
 
-    OnlineServersCtrl(DbCtrl dbCtrl, ServersInfoSettings serversInfoSettings) {
+    OnlineServersCtrl(DbCtrl dbCtrl,
+                      ServersInfoSettings serversInfoSettings,
+                      CheckersOnlineModel checkersOnlineModel,
+                      UsersModel usersModel) {
         this.dbCtrl = dbCtrl;
         this.serversInfoSettings = serversInfoSettings;
+        this.usersModel = usersModel;
 
-        checkersOnlineModel = GetterModels.getInstance().getBeanCheckersOnlineModel();
+        this.checkersOnlineModel = checkersOnlineModel;
         intervalMilliSecondsAfterLastSending = 10000;
         intervalMilliSecondsAfterLastUpdate = 30000;
     }
@@ -158,8 +164,7 @@ public class OnlineServersCtrl {
             return;
         }
 
-        UserStructObject userStructObject =
-                GetterModels.getInstance().getBeanUsersModel().findCreateUserStructObjectByUuidUser(uuidUser);
+        UserStructObject userStructObject = usersModel.findCreateUserStructObjectByUuidUser(uuidUser);
         SocketRunnableCtrlStructObject socketRunnableCtrlStructObject =
                 GetterModels.getInstance().getBeanSocketRunnableCtrlModel().findCreateSocketRunnableCtrlStructObjectByRunnable(runnableFrom);
 
