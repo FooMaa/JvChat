@@ -41,12 +41,12 @@ class EventsSpringConfig {
         return new PublisherEvents(context);
     }
 
-    @Bean(name = "beanMakerEvents")
-    @Scope("singleton")
-    @SuppressWarnings("unused")
-    public MakerEvents beanMakerEvents() {
-        return new MakerEvents();
-    }
+//    @Bean(name = "beanMakerEvents")
+//    @Scope("singleton")
+//    @SuppressWarnings("unused")
+//    public MakerEvents beanMakerEvents() {
+//        return new MakerEvents();
+//    }
 
     @Bean(name = "beanAspectCompareEventsUuids")
     @Scope("singleton")

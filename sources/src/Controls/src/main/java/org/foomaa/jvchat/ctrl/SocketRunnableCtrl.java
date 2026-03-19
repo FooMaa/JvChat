@@ -6,9 +6,7 @@ import java.io.IOException;
 import java.net.Socket;
 import lombok.extern.slf4j.Slf4j;
 
-import org.foomaa.jvchat.models.GetterModels;
 import org.foomaa.jvchat.models.SocketRunnableCtrlModel;
-import org.springframework.stereotype.Component;
 
 
 /* NOTE(VAD): here it is done so that the tasks of the server and the user

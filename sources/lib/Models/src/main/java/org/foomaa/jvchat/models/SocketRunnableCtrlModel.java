@@ -1,9 +1,10 @@
 package org.foomaa.jvchat.models;
 
 import org.foomaa.jvchat.structobjects.BaseStructObject;
-import org.foomaa.jvchat.structobjects.GetterStructObjects;
+import org.foomaa.jvchat.structobjects.RootStructObject;
 import org.foomaa.jvchat.structobjects.SocketRunnableCtrlStructObject;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,14 +12,16 @@ import java.util.List;
 
 
 @Component
+@Lazy
 public class SocketRunnableCtrlModel extends BaseModel {
     private final ObjectProvider<SocketRunnableCtrlStructObject> socketRunnableCtrlStructObjectObjectProvider;
 
-    SocketRunnableCtrlModel(ObjectProvider<SocketRunnableCtrlStructObject> socketRunnableCtrlStructObjectObjectProvider) {
-        this.socketRunnableCtrlStructObjectObjectProvider = socketRunnableCtrlStructObjectObjectProvider;
+    SocketRunnableCtrlModel(ObjectProvider<SocketRunnableCtrlStructObject> socketRunnableCtrlStructObjectObjectProvider,
+                            ObjectProvider<RootStructObject> rootStructObjectObjectProvider,
+                            RootObjectsModel rootObjectsModel) {
+        super(rootObjectsModel, rootStructObjectObjectProvider);
 
-        setRootObject(GetterStructObjects.getInstance()
-                .getBeanRootStructObject(getNameModel()));
+        this.socketRunnableCtrlStructObjectObjectProvider = socketRunnableCtrlStructObjectObjectProvider;
     }
 
     public void createSocketRunnableCtrlStructObject(Runnable socketRunnableCtrl) {

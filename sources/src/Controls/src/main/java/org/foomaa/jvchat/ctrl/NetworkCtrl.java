@@ -7,7 +7,6 @@ import java.net.Socket;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 
-import org.foomaa.jvchat.models.GetterModels;
 import org.foomaa.jvchat.models.SocketRunnableCtrlModel;
 import org.foomaa.jvchat.network.UsersSocket;
 import org.foomaa.jvchat.settings.MainSettings;

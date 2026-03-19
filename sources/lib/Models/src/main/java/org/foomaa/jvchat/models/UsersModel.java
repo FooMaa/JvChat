@@ -2,24 +2,27 @@ package org.foomaa.jvchat.models;
 
 import lombok.extern.slf4j.Slf4j;
 import org.foomaa.jvchat.structobjects.BaseStructObject;
-import org.foomaa.jvchat.structobjects.GetterStructObjects;
+import org.foomaa.jvchat.structobjects.RootStructObject;
 import org.foomaa.jvchat.structobjects.UserStructObject;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 
 @Component
+@Lazy
 @Slf4j
 public class UsersModel extends BaseModel {
     private final ObjectProvider<UserStructObject> userStructObjectObjectProvider;
 
-    UsersModel(ObjectProvider<UserStructObject> userStructObjectObjectProvider) {
-        this.userStructObjectObjectProvider = userStructObjectObjectProvider;
+    UsersModel(ObjectProvider<UserStructObject> userStructObjectObjectProvider,
+               ObjectProvider<RootStructObject> rootStructObjectObjectProvider,
+               RootObjectsModel rootObjectsModel) {
+        super(rootObjectsModel, rootStructObjectObjectProvider);
 
-        setRootObject(GetterStructObjects.getInstance()
-                .getBeanRootStructObject(getNameModel()));
+        this.userStructObjectObjectProvider = userStructObjectObjectProvider;
     }
 
     public void addCreatedUser(UserStructObject userStructObject) {

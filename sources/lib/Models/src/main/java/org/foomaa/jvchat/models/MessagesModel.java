@@ -5,11 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import jdk.jfr.Label;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.structobjects.BaseStructObject;
-import org.foomaa.jvchat.structobjects.GetterStructObjects;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
+import org.foomaa.jvchat.structobjects.RootStructObject;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
@@ -20,11 +19,12 @@ import org.springframework.stereotype.Component;
 public class MessagesModel extends BaseModel {
     private final ObjectProvider<MessageStructObject> messageStructObjectObjectProvider;
 
-    MessagesModel(ObjectProvider<MessageStructObject> messageStructObjectObjectProvider) {
-        this.messageStructObjectObjectProvider = messageStructObjectObjectProvider;
+    MessagesModel(ObjectProvider<MessageStructObject> messageStructObjectObjectProvider,
+                  ObjectProvider<RootStructObject> rootStructObjectObjectProvider,
+                  RootObjectsModel rootObjectsModel) {
+        super(rootObjectsModel, rootStructObjectObjectProvider);
 
-        setRootObject(GetterStructObjects.getInstance()
-                .getBeanRootStructObject(getNameModel()));
+        this.messageStructObjectObjectProvider = messageStructObjectObjectProvider;
     }
 
     public MessageStructObject createNewMessage(UUID uuidUserSender,

@@ -9,7 +9,6 @@ import org.foomaa.jvchat.globaldefines.DbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.models.CheckersOnlineModel;
-import org.foomaa.jvchat.models.GetterModels;
 import org.foomaa.jvchat.models.SocketRunnableCtrlModel;
 import org.foomaa.jvchat.models.UsersModel;
 import org.foomaa.jvchat.settings.ServersInfoSettings;

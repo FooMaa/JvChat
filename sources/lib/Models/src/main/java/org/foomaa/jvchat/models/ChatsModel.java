@@ -30,15 +30,17 @@ public class ChatsModel extends BaseModel {
                UsersModel usersModel,
                ObjectProvider<MessageStructObject> messageStructObjectObjectProvider,
                ObjectProvider<ChatStructObject> chatStructObjectObjectProvider,
-               ObjectProvider<UserStructObject> userStructObjectObjectProvider) {
+               ObjectProvider<UserStructObject> userStructObjectObjectProvider,
+               ObjectProvider<RootStructObject> rootStructObjectObjectProvider,
+               RootObjectsModel rootObjectsModel) {
+        super(rootObjectsModel, rootStructObjectObjectProvider);
+
         this.usersInfoSettings = usersInfoSettings;
         this.usersModel = usersModel;
         this.messageStructObjectObjectProvider = messageStructObjectObjectProvider;
         this.chatStructObjectObjectProvider = chatStructObjectObjectProvider;
         this.userStructObjectObjectProvider = userStructObjectObjectProvider;
 
-        setRootObject(GetterStructObjects.getInstance()
-                .getBeanRootStructObject(getNameModel()));
         currentActiveChatUuid = null;
     }
 

@@ -7,9 +7,11 @@ import java.util.UUID;
 
 import org.foomaa.jvchat.structobjects.*;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 @Component
+@Lazy
 public class CheckersOnlineModel extends BaseModel {
     private final UsersModel usersModel;
     private final SocketRunnableCtrlModel socketRunnableCtrlModel;
@@ -17,13 +19,14 @@ public class CheckersOnlineModel extends BaseModel {
 
     CheckersOnlineModel(UsersModel usersModel,
                         SocketRunnableCtrlModel socketRunnableCtrlModel,
-                        ObjectProvider<CheckerOnlineStructObject> checkerOnlineStructObjectObjectProvider) {
+                        ObjectProvider<CheckerOnlineStructObject> checkerOnlineStructObjectObjectProvider,
+                        ObjectProvider<RootStructObject> rootStructObjectObjectProvider,
+                        RootObjectsModel rootObjectsModel) {
+        super(rootObjectsModel, rootStructObjectObjectProvider);
+
         this.usersModel = usersModel;
         this.socketRunnableCtrlModel = socketRunnableCtrlModel;
         this.checkerOnlineStructObjectObjectProvider = checkerOnlineStructObjectObjectProvider;
-
-        setRootObject(GetterStructObjects.getInstance()
-                .getBeanRootStructObject(getNameModel()));
     }
 
     public void createNewCheckersOnline(UUID uuidUser, LocalDateTime dateTimeUpdating) {

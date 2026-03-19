@@ -2,29 +2,38 @@ package org.foomaa.jvchat.models;
 
 import org.foomaa.jvchat.structobjects.BaseStructObject;
 import org.foomaa.jvchat.structobjects.ConnectionEventStructObject;
-import org.foomaa.jvchat.structobjects.GetterStructObjects;
+import org.foomaa.jvchat.structobjects.RootStructObject;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-
+@Component
+@Lazy
 @Slf4j
 public class ConnectionsEventsModel extends BaseModel {
-    ConnectionsEventsModel() {
-        setRootObject(GetterStructObjects.getInstance()
-                .getBeanRootStructObject(getNameModel()));
+    private final ObjectProvider<ConnectionEventStructObject> connectionEventStructObjectObjectProvider;
+
+    ConnectionsEventsModel(ObjectProvider<RootStructObject> rootStructObjectObjectProvider,
+                           RootObjectsModel rootObjectsModel,
+                           ObjectProvider<ConnectionEventStructObject> connectionEventStructObjectObjectProvider) {
+        super(rootObjectsModel, rootStructObjectObjectProvider);
+
+        this.connectionEventStructObjectObjectProvider = connectionEventStructObjectObjectProvider;
     }
 
     public UUID createNewConnection(Object objectSender,
                                     Object objectReceiver,
                                     String customNameEvent,
                                     AnnotationConfigApplicationContext context) {
-        ConnectionEventStructObject connectionObject =
-                GetterStructObjects.getInstance().getBeanConnectionEventStructObject();
+        ConnectionEventStructObject connectionObject = connectionEventStructObjectObjectProvider.getObject();
 
         connectionObject.setObjectSender(objectSender);
         connectionObject.setCustomNameEvent(customNameEvent);

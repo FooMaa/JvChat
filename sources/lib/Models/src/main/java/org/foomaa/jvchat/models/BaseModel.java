@@ -4,6 +4,8 @@ import org.foomaa.jvchat.structobjects.BaseStructObject;
 import org.foomaa.jvchat.structobjects.RootStructObject;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.ObjectProvider;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,10 +14,18 @@ import java.util.List;
 public abstract class BaseModel {
     private RootStructObject rootObject;
     private final String nameModel;
+    private final ObjectProvider<RootStructObject> rootStructObjectObjectProvider;
+    private final BaseModel rootModel;
 
-    BaseModel() {
+    BaseModel(BaseModel rootModel, ObjectProvider<RootStructObject> rootStructObjectObjectProvider) {
+        this.rootStructObjectObjectProvider = rootStructObjectObjectProvider;
+        this.rootModel = rootModel;
+
         nameModel = getClass().getSimpleName();
-        rootObject = null;
+
+        if (rootModel != null && rootStructObjectObjectProvider != null) {
+            installRoot();
+        }
     }
 
     public void addItem(BaseStructObject item, BaseStructObject parent) {
@@ -51,27 +61,23 @@ public abstract class BaseModel {
         return false;
     }
 
-    protected void setRootObject(RootStructObject newRootObject) {
-        if (rootObject != newRootObject) {
-            rootObject = newRootObject;
-            updateRootObjectsModel();
-        }
-    }
-
     protected BaseStructObject getRootObject() {
         return rootObject;
     }
 
-    private void updateRootObjectsModel() {
+    private void installRoot() {
         if (getClass() == RootObjectsModel.class) {
             return;
         }
 
-        RootStructObject rootStructObjectRootModel =
-                (RootStructObject) GetterModels.getInstance().getBeanRootObjectsModel().getRootObject();
+        RootStructObject rootStructObjectRootModel = (RootStructObject) rootModel.getRootObject();
+        RootStructObject creatingRoot = rootStructObjectObjectProvider.getObject(getNameModel());
 
-        if (rootObject != null &&  rootObject != rootStructObjectRootModel) {
-            GetterModels.getInstance().getBeanRootObjectsModel().addItem(rootObject, rootStructObjectRootModel);
+        if (rootStructObjectRootModel != null &&
+                creatingRoot != rootStructObjectRootModel) {
+            rootObject = rootStructObjectRootModel;
+
+            rootModel.addItem(creatingRoot, rootStructObjectRootModel);
         }
     }
 

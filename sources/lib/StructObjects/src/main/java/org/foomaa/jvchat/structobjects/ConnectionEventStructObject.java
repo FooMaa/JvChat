@@ -1,10 +1,14 @@
 package org.foomaa.jvchat.structobjects;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
 
+@Component
+@Scope("prototype")
 public class ConnectionEventStructObject extends BaseStructObject {
     private Object objectSender;
     private Object objectReceiver;
