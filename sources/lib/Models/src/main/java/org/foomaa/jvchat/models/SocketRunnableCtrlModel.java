@@ -3,20 +3,27 @@ package org.foomaa.jvchat.models;
 import org.foomaa.jvchat.structobjects.BaseStructObject;
 import org.foomaa.jvchat.structobjects.GetterStructObjects;
 import org.foomaa.jvchat.structobjects.SocketRunnableCtrlStructObject;
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
+@Component
 public class SocketRunnableCtrlModel extends BaseModel {
-    SocketRunnableCtrlModel() {
+    private final ObjectProvider<SocketRunnableCtrlStructObject> socketRunnableCtrlStructObjectObjectProvider;
+
+    SocketRunnableCtrlModel(ObjectProvider<SocketRunnableCtrlStructObject> socketRunnableCtrlStructObjectObjectProvider) {
+        this.socketRunnableCtrlStructObjectObjectProvider = socketRunnableCtrlStructObjectObjectProvider;
+
         setRootObject(GetterStructObjects.getInstance()
                 .getBeanRootStructObject(getNameModel()));
     }
 
     public void createSocketRunnableCtrlStructObject(Runnable socketRunnableCtrl) {
         SocketRunnableCtrlStructObject socketStreamsStructObject =
-                GetterStructObjects.getInstance().getBeanSocketRunnableCtrlStructObject();
+                socketRunnableCtrlStructObjectObjectProvider.getObject();
         socketStreamsStructObject.setSocketRunnableCtrl(socketRunnableCtrl);
         addItem(socketStreamsStructObject, getRootObject());
     }
@@ -51,7 +58,7 @@ public class SocketRunnableCtrlModel extends BaseModel {
 
         if (socketRunnableCtrlStructObject == null) {
             SocketRunnableCtrlStructObject newSocketRunnableCtrlStructObject =
-                    GetterStructObjects.getInstance().getBeanSocketRunnableCtrlStructObject();
+                    socketRunnableCtrlStructObjectObjectProvider.getObject();
             newSocketRunnableCtrlStructObject.setSocketRunnableCtrl(runnable);
             addItem(newSocketRunnableCtrlStructObject, getRootObject());
             return newSocketRunnableCtrlStructObject;

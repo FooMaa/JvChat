@@ -11,7 +11,6 @@ import org.springframework.context.annotation.*;
 class ModelsSpringConfig {
     public enum NameBeans {
         BeanRootObjectsModel("beanRootObjectsModel"),
-        BeanSocketRunnableCtrlModel("beanSocketRunnableCtrlModel"),
         BeanConnectionsEventsModel("beanConnectionsEventsModel");
 
         private final String value;
@@ -30,14 +29,6 @@ class ModelsSpringConfig {
     @SuppressWarnings("unused")
     public RootObjectsModel beanRootObjectsModel() {
         return new RootObjectsModel();
-    }
-
-    @Bean(name = "beanSocketRunnableCtrlModel")
-    @Lazy
-    @Scope("singleton")
-    @SuppressWarnings("unused")
-    public SocketRunnableCtrlModel beanSocketRunnableCtrlModel() {
-        return new SocketRunnableCtrlModel();
     }
 
     @Bean(name = "beanConnectionsEventsModel")

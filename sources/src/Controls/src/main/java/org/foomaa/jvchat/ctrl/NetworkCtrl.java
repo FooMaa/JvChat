@@ -24,12 +24,15 @@ public class NetworkCtrl {
     private SocketRunnableCtrl currentSocketRunnableCtrl;
     private final OnlineServersCtrl onlineServersCtrl;
     private final MainSettings mainSettings;
+    private final SocketRunnableCtrlModel socketRunnableCtrlModel;
 
     NetworkCtrl(MainSettings mainSettings,
+                SocketRunnableCtrlModel socketRunnableCtrlModel,
                 @Autowired(required = false) ServersSocket serversSocket,
                 @Autowired(required = false) UsersSocket usersSocket,
                 @Autowired(required = false) OnlineServersCtrl onlineServersCtrl) {
         this.mainSettings = mainSettings;
+        this.socketRunnableCtrlModel = socketRunnableCtrlModel;
         this.serversSocket = serversSocket;
         this.usersSocket = usersSocket;
         this.onlineServersCtrl = onlineServersCtrl;
@@ -100,8 +103,6 @@ public class NetworkCtrl {
     }
 
     private void controlErrorConnectionSocket() {
-        SocketRunnableCtrlModel socketRunnableCtrlModel =
-                GetterModels.getInstance().getBeanSocketRunnableCtrlModel();
         List<SocketRunnableCtrlStructObject> listAllConnections =
                 socketRunnableCtrlModel.getAllSocketRunnableCtrlStructObject();
 

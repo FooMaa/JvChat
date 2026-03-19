@@ -7,6 +7,7 @@ import java.net.Socket;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.models.GetterModels;
+import org.foomaa.jvchat.models.SocketRunnableCtrlModel;
 import org.springframework.stereotype.Component;
 
 
@@ -23,8 +24,8 @@ public class SocketRunnableCtrl implements Runnable {
     private final int limitErrorsConnection;
     private int errorsConnection;
 
-    SocketRunnableCtrl(Socket socket) {
-        GetterModels.getInstance().getBeanSocketRunnableCtrlModel().createSocketRunnableCtrlStructObject(this);
+    SocketRunnableCtrl(Socket socket, SocketRunnableCtrlModel socketRunnableCtrlModel) {
+        socketRunnableCtrlModel.createSocketRunnableCtrlStructObject(this);
 
         try {
             sendStream = new DataOutputStream(socket.getOutputStream());

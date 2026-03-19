@@ -28,14 +28,17 @@ public class OnlineServersCtrl {
     private final DbCtrl dbCtrl;
     private final ServersInfoSettings serversInfoSettings;
     private final UsersModel usersModel;
+    private final SocketRunnableCtrlModel socketRunnableCtrlModel;
 
     OnlineServersCtrl(DbCtrl dbCtrl,
                       ServersInfoSettings serversInfoSettings,
                       CheckersOnlineModel checkersOnlineModel,
-                      UsersModel usersModel) {
+                      UsersModel usersModel,
+                      SocketRunnableCtrlModel socketRunnableCtrlModel) {
         this.dbCtrl = dbCtrl;
         this.serversInfoSettings = serversInfoSettings;
         this.usersModel = usersModel;
+        this.socketRunnableCtrlModel = socketRunnableCtrlModel;
 
         this.checkersOnlineModel = checkersOnlineModel;
         intervalMilliSecondsAfterLastSending = 10000;
@@ -166,7 +169,7 @@ public class OnlineServersCtrl {
 
         UserStructObject userStructObject = usersModel.findCreateUserStructObjectByUuidUser(uuidUser);
         SocketRunnableCtrlStructObject socketRunnableCtrlStructObject =
-                GetterModels.getInstance().getBeanSocketRunnableCtrlModel().findCreateSocketRunnableCtrlStructObjectByRunnable(runnableFrom);
+                socketRunnableCtrlModel.findCreateSocketRunnableCtrlStructObjectByRunnable(runnableFrom);
 
         onlineUser.setUser(userStructObject);
         onlineUser.setSocketRunnableCtrlStructObject(socketRunnableCtrlStructObject);
@@ -187,7 +190,6 @@ public class OnlineServersCtrl {
     }
 
     private void listeningPackage() {
-        SocketRunnableCtrlModel socketRunnableCtrlModel = GetterModels.getInstance().getBeanSocketRunnableCtrlModel();
         if (socketRunnableCtrlModel.isEmpty()) {
             try {
                 Thread.sleep(intervalMilliSecondsAfterLastSending);

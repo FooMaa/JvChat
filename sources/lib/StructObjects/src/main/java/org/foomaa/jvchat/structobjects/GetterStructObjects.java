@@ -24,16 +24,6 @@ public class GetterStructObjects {
                 nameModel);
     }
 
-    public UserStructObject getBeanUserStructObject() {
-        return context.getBean(StructObjectsSpringConfig.NameBeans.BeanUserStructObject.getValue(),
-                UserStructObject.class);
-    }
-
-    public SocketRunnableCtrlStructObject getBeanSocketRunnableCtrlStructObject() {
-        return context.getBean(StructObjectsSpringConfig.NameBeans.BeanSocketRunnableCtrlStructObject.getValue(),
-                SocketRunnableCtrlStructObject.class);
-    }
-
     public ConnectionEventStructObject getBeanConnectionEventStructObject() {
         return context.getBean(StructObjectsSpringConfig.NameBeans.BeanConnectionEventStructObject.getValue(),
                 ConnectionEventStructObject.class);

@@ -12,11 +12,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class CheckersOnlineModel extends BaseModel {
     private final UsersModel usersModel;
+    private final SocketRunnableCtrlModel socketRunnableCtrlModel;
     private final ObjectProvider<CheckerOnlineStructObject> checkerOnlineStructObjectObjectProvider;
 
     CheckersOnlineModel(UsersModel usersModel,
+                        SocketRunnableCtrlModel socketRunnableCtrlModel,
                         ObjectProvider<CheckerOnlineStructObject> checkerOnlineStructObjectObjectProvider) {
         this.usersModel = usersModel;
+        this.socketRunnableCtrlModel = socketRunnableCtrlModel;
         this.checkerOnlineStructObjectObjectProvider = checkerOnlineStructObjectObjectProvider;
 
         setRootObject(GetterStructObjects.getInstance()
@@ -38,7 +41,7 @@ public class CheckersOnlineModel extends BaseModel {
         CheckerOnlineStructObject checkerOnlineStructObject = checkerOnlineStructObjectObjectProvider.getObject();
 
         SocketRunnableCtrlStructObject socketRunnableCtrlStructObject =
-                GetterModels.getInstance().getBeanSocketRunnableCtrlModel().findCreateSocketRunnableCtrlStructObjectByRunnable(runnable);
+                socketRunnableCtrlModel.findCreateSocketRunnableCtrlStructObjectByRunnable(runnable);
 
         checkerOnlineStructObject.setSocketRunnableCtrlStructObject(socketRunnableCtrlStructObject);
         checkerOnlineStructObject.setIsSending(isSending);
@@ -53,7 +56,7 @@ public class CheckersOnlineModel extends BaseModel {
 
         UserStructObject userStructObject = usersModel.findCreateUserStructObjectByUuidUser(uuidUser);
         SocketRunnableCtrlStructObject socketRunnableCtrlStructObject =
-                GetterModels.getInstance().getBeanSocketRunnableCtrlModel().findCreateSocketRunnableCtrlStructObjectByRunnable(runnable);
+                socketRunnableCtrlModel.findCreateSocketRunnableCtrlStructObjectByRunnable(runnable);
         
         checkerOnlineStructObject.setUser(userStructObject);
         checkerOnlineStructObject.setSocketRunnableCtrlStructObject(socketRunnableCtrlStructObject);

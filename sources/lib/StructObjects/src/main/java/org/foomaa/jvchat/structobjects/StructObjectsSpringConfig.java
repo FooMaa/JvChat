@@ -7,8 +7,6 @@ import org.springframework.context.annotation.*;
 class StructObjectsSpringConfig {
     public enum NameBeans {
         BeanRootStructObject("beanRootStructObject"),
-        BeanUserStructObject("beanUserStructObject"),
-        BeanSocketRunnableCtrlStructObject("beanSocketRunnableCtrlStructObject"),
         BeanConnectionEventStructObject("beanConnectionEventStructObject");
 
         private final String value;
@@ -28,14 +26,6 @@ class StructObjectsSpringConfig {
     @SuppressWarnings("unused")
     public RootStructObject beanRootStructObject(String nameModel) {
         return new RootStructObject(nameModel);
-    }
-
-    @Bean(name = "beanSocketRunnableCtrlStructObject")
-    @Lazy
-    @Scope("prototype")
-    @SuppressWarnings("unused")
-    public SocketRunnableCtrlStructObject beanSocketRunnableCtrlStructObject() {
-        return new SocketRunnableCtrlStructObject();
     }
 
     @Bean(name = "beanConnectionEventStructObject")

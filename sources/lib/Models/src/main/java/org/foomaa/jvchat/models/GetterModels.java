@@ -23,11 +23,6 @@ public class GetterModels {
                 RootObjectsModel.class);
     }
 
-    public SocketRunnableCtrlModel getBeanSocketRunnableCtrlModel() {
-        return context.getBean(ModelsSpringConfig.NameBeans.BeanSocketRunnableCtrlModel.getValue(),
-                SocketRunnableCtrlModel.class);
-    }
-
     public ConnectionsEventsModel getBeanConnectionsEventsModel() {
         return context.getBean(ModelsSpringConfig.NameBeans.BeanConnectionsEventsModel.getValue(),
                 ConnectionsEventsModel.class);
