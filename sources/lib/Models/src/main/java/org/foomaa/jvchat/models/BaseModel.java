@@ -22,7 +22,7 @@ public abstract class BaseModel {
         this.rootModel = rootModel;
 
         nameModel = getClass().getSimpleName();
-        
+
         if (rootStructObjectObjectProvider != null) {
             installRoot();
         }
