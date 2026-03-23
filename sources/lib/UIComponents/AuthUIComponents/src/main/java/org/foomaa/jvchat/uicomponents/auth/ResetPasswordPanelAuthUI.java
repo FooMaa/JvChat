@@ -11,7 +11,7 @@ import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.events.GetterEvents;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
-import org.foomaa.jvchat.tools.GetterTools;
+import org.foomaa.jvchat.tools.UsersTools;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -27,14 +27,17 @@ public class ResetPasswordPanelAuthUI extends JPanel {
     private final ButtonAuthUI bBack;
 
     private final DisplaySettings displaySettings;
+    private final UsersTools usersTools;
     private final ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider;
 
     ResetPasswordPanelAuthUI(DisplaySettings displaySettings,
+                             UsersTools usersTools,
                              ObjectProvider<ButtonAuthUI> buttonObjectProvider,
                              ObjectProvider<ErrorLabelAuthUI> errorLabelObjectProvider,
                              ObjectProvider<TextFieldAuthUI> textFieldObjectProvider,
                              ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider) {
         this.displaySettings = displaySettings;
+        this.usersTools = usersTools;
         this.optionPaneObjectProvider = optionPaneObjectProvider;
 
         tEmail = textFieldObjectProvider.getObject("Почта");
@@ -128,8 +131,7 @@ public class ResetPasswordPanelAuthUI extends JPanel {
         tEmail.setErrorBorder(false);
         tErrorHelpInfo.setText("");
 
-        if (Objects.equals(tEmail.getInputText(), "") ||
-                !GetterTools.getInstance().getBeanUsersTools().validateInputEmail(tEmail.getInputText())) {
+        if (Objects.equals(tEmail.getInputText(), "") || !usersTools.validateInputEmail(tEmail.getInputText())) {
             tEmail.setErrorBorder(true);
             tErrorHelpInfo.setText("The \"Email\" field must be completed or corrected");
             return false;

@@ -13,7 +13,8 @@ import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.messages.DeserializatorDataMessages;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.UsersInfoSettings;
-import org.foomaa.jvchat.tools.GetterTools;
+import org.foomaa.jvchat.tools.FormatTools;
+import org.foomaa.jvchat.tools.StructTools;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Component;
 
@@ -25,12 +26,18 @@ public class TakeMessagesCtrl {
     private final HashCryptography hashCryptography;
     private final ObjectProvider<UsersInfoSettings> usersInfoSettingsObjectProvider;
     private final DeserializatorDataMessages deserializatorDataMessages;
+    private final StructTools structTools;
+    private final FormatTools formatTools;
 
     TakeMessagesCtrl(HashCryptography hashCryptography,
                      DeserializatorDataMessages deserializatorDataMessages,
+                     StructTools structTools,
+                     FormatTools formatTools,
                      ObjectProvider<UsersInfoSettings> usersInfoSettingsObjectProvider) {
         this.hashCryptography = hashCryptography;
         this.usersInfoSettingsObjectProvider = usersInfoSettingsObjectProvider;
+        this.structTools = structTools;
+        this.formatTools = formatTools;
         this.deserializatorDataMessages = deserializatorDataMessages;
     }
 
@@ -303,8 +310,7 @@ public class TakeMessagesCtrl {
     private void workChatsLoadReplyMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         Object objectFromMap = map.get(DefinesMessages.TypeData.ChatsInfoList);
         List<Map<DefinesMessages.TypeData, Object>> chatsInfo =
-                GetterTools.getInstance().getBeanStructTools()
-                        .objectInListMaps(objectFromMap, DefinesMessages.TypeData.class, Object.class);
+                structTools.objectInListMaps(objectFromMap, DefinesMessages.TypeData.class, Object.class);
 
         GetterControls.getInstance().getBeanChatsCtrl().createChatsObjects(chatsInfo);
         GetterControls.getInstance().getBeanMessagesDefinesCtrl()
@@ -332,7 +338,7 @@ public class TakeMessagesCtrl {
 
     private void workLoadUsersOnlineStatusRequestMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         Object objectList = map.get(DefinesMessages.TypeData.UuidsUsersList);
-        List<UUID> uuidsUsers = GetterTools.getInstance().getBeanStructTools().checkedCastList(objectList, UUID.class);
+        List<UUID> uuidsUsers = structTools.checkedCastList(objectList, UUID.class);
         Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> statusesUsers =
                 GetterControls.getInstance().getBeanOnlineServersCtrl().getStatusesUsers(uuidsUsers);
         Map<UUID, String> lastOnlineTimeUsers =
@@ -346,10 +352,10 @@ public class TakeMessagesCtrl {
         Object objectMapLastOnlineTimeUsers = map.get(DefinesMessages.TypeData.Timestamp);
 
         Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> mapStatusesUsers =
-                GetterTools.getInstance().getBeanStructTools().objectInMap(objectMapStatusesUsers, UUID.class,
+                structTools.objectInMap(objectMapStatusesUsers, UUID.class,
                         MainChatsGlobalDefines.TypeStatusOnline.class);
         Map<UUID, String> mapLastOnlineTimeUsers =
-                GetterTools.getInstance().getBeanStructTools().objectInMap(objectMapLastOnlineTimeUsers, UUID.class,
+                structTools.objectInMap(objectMapLastOnlineTimeUsers, UUID.class,
                         String.class);
 
         GetterControls.getInstance().getBeanChatsCtrl().setOnlineStatusesUsers(mapStatusesUsers);
@@ -371,8 +377,7 @@ public class TakeMessagesCtrl {
         Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages = new HashMap<>();
         mapStatusMessages.put(uuidMessage, status);
         int normaliseTimestampCount = 3;
-        LocalDateTime timestamp = GetterTools.getInstance().getBeanFormatTools()
-                .stringToLocalDateTime(timestampStr, normaliseTimestampCount);
+        LocalDateTime timestamp = formatTools.stringToLocalDateTime(timestampStr, normaliseTimestampCount);
 
         // write to the database first
         GetterControls.getInstance().getBeanDbCtrl().insertQueryToDB(DbCtrl.TypeExecutionInsert.ChatMessagesSentMessage,
@@ -400,8 +405,8 @@ public class TakeMessagesCtrl {
 
     private void workTextMessagesChangingStatusFromServerMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         Object statusesMap = map.get(DefinesMessages.TypeData.StatusMessagesMap);
-        Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = GetterTools.getInstance()
-                .getBeanStructTools().objectInMap(statusesMap, UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
+        Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages =
+                structTools.objectInMap(statusesMap, UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
 
         GetterControls.getInstance().getBeanMessagesDialogCtrl().setDirtyStatusToMessage(mapStatusesMessages);
 
@@ -419,8 +424,8 @@ public class TakeMessagesCtrl {
 
     private void workTextMessagesChangingStatusFromUserMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         Object statusesMap = map.get(DefinesMessages.TypeData.StatusMessagesMap);
-        Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = GetterTools.getInstance()
-                .getBeanStructTools().objectInMap(statusesMap, UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
+        Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages =
+                structTools.objectInMap(statusesMap, UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
 
         for (UUID uuidMessage : mapStatusesMessages.keySet()) {
             String statusByUuid = String.valueOf(mapStatusesMessages.get(uuidMessage).getValue());
@@ -449,8 +454,7 @@ public class TakeMessagesCtrl {
 
         MainChatsGlobalDefines.TypeStatusMessage status = MainChatsGlobalDefines.TypeStatusMessage.Delivered;
         int normaliseTimestampCount = 3;
-        LocalDateTime timestamp = GetterTools.getInstance().getBeanFormatTools()
-                .stringToLocalDateTime(timestampStr, normaliseTimestampCount);
+        LocalDateTime timestamp = formatTools.stringToLocalDateTime(timestampStr, normaliseTimestampCount);
 
         GetterControls.getInstance().getBeanMessagesDialogCtrl().addRedirectMessageToModel(
                 uuidUserSender, uuidUserReceiver, uuidMessage, status, text, timestamp);
@@ -485,8 +489,7 @@ public class TakeMessagesCtrl {
     private void workMessagesLoadReplyMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         Object objectFromMap = map.get(DefinesMessages.TypeData.MessagesInfoList);
         List<Map<DefinesMessages.TypeData, Object>> msgInfo =
-                GetterTools.getInstance().getBeanStructTools()
-                        .objectInListMaps(objectFromMap, DefinesMessages.TypeData.class, Object.class);
+                structTools.objectInListMaps(objectFromMap, DefinesMessages.TypeData.class, Object.class);
 
         GetterControls.getInstance().getBeanMessagesDialogCtrl().createMessagesObjects(msgInfo);
         GetterControls.getInstance().getBeanMessagesDefinesCtrl()

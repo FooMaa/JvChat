@@ -1,8 +1,12 @@
 package org.foomaa.jvchat.tools;
 
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
+
 import java.util.regex.Pattern;
 
-
+@Component
+@Profile("users")
 public class UsersTools {
     UsersTools() {}
 

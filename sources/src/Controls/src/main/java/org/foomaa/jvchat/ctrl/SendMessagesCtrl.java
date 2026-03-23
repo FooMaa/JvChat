@@ -9,7 +9,7 @@ import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.messages.SerializatorDataMessages;
 import org.foomaa.jvchat.settings.ServersInfoSettings;
-import org.foomaa.jvchat.tools.GetterTools;
+import org.foomaa.jvchat.tools.StructTools;
 import org.springframework.stereotype.Component;
 
 
@@ -18,13 +18,16 @@ public class SendMessagesCtrl {
     private final SerializatorDataMessages serializatorDataMessages;
     private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final ServersInfoSettings serversInfoSettings;
+    private final StructTools structTools;
 
     SendMessagesCtrl(SerializatorDataMessages serializatorDataMessages,
                      MessagesDefinesCtrl messagesDefinesCtrl,
-                     ServersInfoSettings serversInfoSettings) {
+                     ServersInfoSettings serversInfoSettings,
+                     StructTools structTools) {
         this.serializatorDataMessages = serializatorDataMessages;
         this.messagesDefinesCtrl = messagesDefinesCtrl;
         this.serversInfoSettings = serversInfoSettings;
+        this.structTools = structTools;
     }
 
     public final void sendMessage(DefinesMessages.TypeMessage type, Object... parameters) {
@@ -161,8 +164,7 @@ public class SendMessagesCtrl {
                 if (parameters.length == 1) {
                     Object chatsInfoObj = parameters[0];
                     List<Map<DbGlobalDefines.LineKeys, String>> chatsInfo =
-                            GetterTools.getInstance().getBeanStructTools()
-                            .objectInListMaps(chatsInfoObj, DbGlobalDefines.LineKeys.class, String.class);
+                            structTools.objectInListMaps(chatsInfoObj, DbGlobalDefines.LineKeys.class, String.class);
                     byte[] bodyMessageChatsLoadReply = createBodyChatsLoadReplyMessage(type, chatsInfo);
                     sendReadyMessageNetwork(bodyMessageChatsLoadReply);
                     sendMessage(DefinesMessages.TypeMessage.CheckOnlineUserRequest, serversInfoSettings.getIp());
@@ -186,8 +188,7 @@ public class SendMessagesCtrl {
             case LoadUsersOnlineStatusRequest -> {
                 if (parameters.length == 1) {
                     Object uuidsObject = parameters[0];
-                    List<UUID> uuidsList = GetterTools.getInstance()
-                            .getBeanStructTools().checkedCastList(uuidsObject, UUID.class);
+                    List<UUID> uuidsList = structTools.checkedCastList(uuidsObject, UUID.class);
                     byte[] bodyMessage = createBodyLoadUsersOnlineStatusRequestMessage(type, uuidsList);
                     sendReadyMessageNetwork(bodyMessage);
                     messagesDefinesCtrl.setLoadUsersOnlineReplyFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
@@ -197,10 +198,9 @@ public class SendMessagesCtrl {
                 if (parameters.length == 2) {
                     Object statusesUsersObj = parameters[0];
                     Object lastOnlineTimeUsersObj = parameters[1];
-                    Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> statusesUsersMap = GetterTools.getInstance()
-                            .getBeanStructTools().objectInMap(statusesUsersObj, UUID.class, MainChatsGlobalDefines.TypeStatusOnline.class);
-                    Map<UUID, String> lastOnlineTimeUsers = GetterTools.getInstance()
-                            .getBeanStructTools().objectInMap(lastOnlineTimeUsersObj, UUID.class, String.class);
+                    Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> statusesUsersMap =
+                            structTools.objectInMap(statusesUsersObj, UUID.class, MainChatsGlobalDefines.TypeStatusOnline.class);
+                    Map<UUID, String> lastOnlineTimeUsers = structTools.objectInMap(lastOnlineTimeUsersObj, UUID.class, String.class);
                     byte[] bodyMessage = createBodyLoadUsersOnlineStatusReplyMessage(type, statusesUsersMap, lastOnlineTimeUsers);
                     sendReadyMessageNetwork(bodyMessage);
                 }
@@ -228,8 +228,8 @@ public class SendMessagesCtrl {
             case TextMessagesChangingStatusFromServer -> {
                 if (parameters.length == 1) {
                     Object mapUuidStatus = parameters[0];
-                    Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = GetterTools.getInstance()
-                            .getBeanStructTools().objectInMap(mapUuidStatus, UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
+                    Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages =
+                            structTools.objectInMap(mapUuidStatus, UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
                     byte[] bodyMessage = createBodyTextMessagesChangingStatusFromServerMessage(type, mapStatusesMessages);
                     sendReadyMessageNetwork(bodyMessage);
                 }
@@ -244,8 +244,8 @@ public class SendMessagesCtrl {
             case TextMessagesChangingStatusFromUser -> {
                 if (parameters.length == 1) {
                     Object mapUuidStatus = parameters[0];
-                    Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = GetterTools.getInstance()
-                            .getBeanStructTools().objectInMap(mapUuidStatus, UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
+                    Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages =
+                            structTools.objectInMap(mapUuidStatus, UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
                     byte[] bodyMessage = createBodyTextMessagesChangingStatusFromUserMessage(type, mapStatusesMessages);
                     sendReadyMessageNetwork(bodyMessage);
                 }
@@ -291,8 +291,7 @@ public class SendMessagesCtrl {
                 if (parameters.length == 1) {
                     Object msgInfoObj = parameters[0];
                     List<Map<DbGlobalDefines.LineKeys, String>> msgInfo =
-                            GetterTools.getInstance().getBeanStructTools()
-                                    .objectInListMaps(msgInfoObj, DbGlobalDefines.LineKeys.class, String.class);
+                            structTools.objectInListMaps(msgInfoObj, DbGlobalDefines.LineKeys.class, String.class);
                     byte[] bodyMessageChatsLoadReply = createBodyMessagesLoadReplyMessage(type, msgInfo);
                     sendReadyMessageNetwork(bodyMessageChatsLoadReply);
                 }

@@ -7,13 +7,17 @@ import java.util.UUID;
 
 import org.foomaa.jvchat.globaldefines.DbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
-import org.foomaa.jvchat.tools.GetterTools;
+import org.foomaa.jvchat.tools.StructTools;
 import org.springframework.stereotype.Component;
 
 
 @Component
 public class SerializatorDataMessages {
-    SerializatorDataMessages() {}
+    private final StructTools structTools;
+
+    SerializatorDataMessages(StructTools structTools) {
+        this.structTools = structTools;
+    }
 
     public byte[] serialiseData(DefinesMessages.TypeMessage type, Object... parameters) {
         switch (type) {
@@ -115,8 +119,7 @@ public class SerializatorDataMessages {
                 if (parameters.length == 1) {
                     Object chatsInfoObj = parameters[0];
                     List<Map<DbGlobalDefines.LineKeys, String>> chatsInfo =
-                            GetterTools.getInstance().getBeanStructTools()
-                                    .objectInListMaps(chatsInfoObj, DbGlobalDefines.LineKeys.class, String.class);
+                            structTools.objectInListMaps(chatsInfoObj, DbGlobalDefines.LineKeys.class, String.class);
                     return createChatsLoadReplyMessage(type, chatsInfo);
                 }
             }
@@ -135,8 +138,7 @@ public class SerializatorDataMessages {
             case LoadUsersOnlineStatusRequest -> {
                 if (parameters.length == 1) {
                     Object uuidsObject = parameters[0];
-                    List<UUID> uuidsUsers = GetterTools.getInstance()
-                            .getBeanStructTools().checkedCastList(uuidsObject, UUID.class);
+                    List<UUID> uuidsUsers = structTools.checkedCastList(uuidsObject, UUID.class);
                     return createLoadUsersOnlineStatusRequestMessage(type, uuidsUsers);
                 }
             }
@@ -144,10 +146,10 @@ public class SerializatorDataMessages {
                 if (parameters.length == 2) {
                     Object statusesUsersObj = parameters[0];
                     Object lastOnlineTimeUsersObj = parameters[1];
-                    Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> statusesUsersMap = GetterTools.getInstance()
-                            .getBeanStructTools().objectInMap(statusesUsersObj, UUID.class, MainChatsGlobalDefines.TypeStatusOnline.class);
-                    Map<UUID, String> lastOnlineTimeUsers = GetterTools.getInstance()
-                            .getBeanStructTools().objectInMap(lastOnlineTimeUsersObj, UUID.class, String.class);
+                    Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> statusesUsersMap =
+                            structTools.objectInMap(statusesUsersObj, UUID.class, MainChatsGlobalDefines.TypeStatusOnline.class);
+                    Map<UUID, String> lastOnlineTimeUsers =
+                            structTools.objectInMap(lastOnlineTimeUsersObj, UUID.class, String.class);
                     return createLoadUsersOnlineStatusReplyMessage(type, statusesUsersMap, lastOnlineTimeUsers);
                 }
             }
@@ -171,8 +173,8 @@ public class SerializatorDataMessages {
             case TextMessagesChangingStatusFromServer -> {
                 if (parameters.length == 1) {
                     Object mapUuidStatus = parameters[0];
-                    Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = GetterTools.getInstance()
-                            .getBeanStructTools().objectInMap(mapUuidStatus, UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
+                    Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages =
+                            structTools.objectInMap(mapUuidStatus, UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
                     return createTextMessageChangingStatusFromServerMessage(type, mapStatusesMessages);
                 }
             }
@@ -185,8 +187,8 @@ public class SerializatorDataMessages {
             case TextMessagesChangingStatusFromUser -> {
                 if (parameters.length == 1) {
                     Object mapUuidStatus = parameters[0];
-                    Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = GetterTools.getInstance()
-                            .getBeanStructTools().objectInMap(mapUuidStatus, UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
+                    Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages =
+                            structTools.objectInMap(mapUuidStatus, UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
                     return createTextMessageChangingStatusFromUserMessage(type, mapStatusesMessages);
                 }
             }
@@ -224,8 +226,7 @@ public class SerializatorDataMessages {
                 if (parameters.length == 1) {
                     Object messagesInfoObj = parameters[0];
                     List<Map<DbGlobalDefines.LineKeys, String>> messagesInfo =
-                            GetterTools.getInstance().getBeanStructTools()
-                                    .objectInListMaps(messagesInfoObj, DbGlobalDefines.LineKeys.class, String.class);
+                            structTools.objectInListMaps(messagesInfoObj, DbGlobalDefines.LineKeys.class, String.class);
                     return createMessagesLoadReplyMessage(type, messagesInfo);
                 }
             }

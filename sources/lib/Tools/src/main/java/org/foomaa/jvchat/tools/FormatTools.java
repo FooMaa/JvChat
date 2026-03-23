@@ -1,13 +1,15 @@
 package org.foomaa.jvchat.tools;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+@Component
 @Slf4j
 public class FormatTools {
     FormatTools() {}
@@ -63,8 +65,7 @@ public class FormatTools {
         }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
-        String timestampString = GetterTools.getInstance().getBeanFormatTools()
-                .normalizeMillisecond(timestampStr, normalizeCount);
+        String timestampString = normalizeMillisecond(timestampStr, normalizeCount);
 
         if (timestampString == null) {
             log.error("Date and time conversion error.");
