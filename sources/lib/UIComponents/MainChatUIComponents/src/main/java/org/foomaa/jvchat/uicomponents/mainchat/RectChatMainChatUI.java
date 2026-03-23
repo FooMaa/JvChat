@@ -15,10 +15,12 @@ import org.foomaa.jvchat.settings.UsersInfoSettings;
 import org.foomaa.jvchat.structobjects.ChatStructObject;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
 import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 
 @Component
+@Scope("prototype")
 @Profile("users")
 @Slf4j
 public class RectChatMainChatUI extends JPanel {

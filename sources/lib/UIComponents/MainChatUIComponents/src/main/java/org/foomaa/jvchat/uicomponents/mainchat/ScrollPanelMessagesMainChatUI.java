@@ -4,6 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,13 +16,19 @@ import java.util.List;
 import java.util.UUID;
 
 
+@Component
+@Profile("users")
 @Slf4j
 public class ScrollPanelMessagesMainChatUI extends JPanel {
     private final int intervalMilliSecondsSleepUpdating;
     private JScrollPane scrollPane;
     private JPanel panel;
 
-    ScrollPanelMessagesMainChatUI() {
+    private final ObjectProvider<RectMessageMainChatUI> rectMessageObjectProvider;
+
+    ScrollPanelMessagesMainChatUI(ObjectProvider<RectMessageMainChatUI> rectMessageObjectProvider) {
+        this.rectMessageObjectProvider = rectMessageObjectProvider;
+
         intervalMilliSecondsSleepUpdating = 500;
 
         makePanel();
@@ -94,7 +103,7 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
 
         // NOTE(VAD): надо для того, чтоб компоненты не растягивались
         JPanel tmpPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-        tmpPanel.add(GetterMainChatUIComponents.getInstance().getBeanRectMessageMainChatUI(messageObject));
+        tmpPanel.add(rectMessageObjectProvider.getObject(messageObject));
 
         rowPanel.add(tmpPanel, constraints);
 
@@ -184,9 +193,9 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
     }
 
     private RectMessageMainChatUI findRectMessageByUuid(JPanel panelMsg, UUID uuid) {
-        Component[] components = panelMsg.getComponents();
+        java.awt.Component[] components = panelMsg.getComponents();
 
-        for (Component component : components) {
+        for (java.awt.Component component : components) {
             if (component instanceof RectMessageMainChatUI rectMessage) {
                 if (rectMessage.getUuid().equals(uuid)) {
                     return rectMessage;

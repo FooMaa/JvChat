@@ -15,7 +15,8 @@ import org.foomaa.jvchat.events.GetterEvents;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.settings.UsersInfoSettings;
-import org.foomaa.jvchat.uicomponents.mainchat.GetterMainChatUIComponents;
+import org.foomaa.jvchat.uicomponents.mainchat.MainFrameMainChatUI;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -32,17 +33,29 @@ public class EntryPanelAuthUI extends JPanel {
     private final ActiveLabelAuthUI activeMissLabel;
     private final UsersInfoSettings usersInfoSettings;
     private final DisplaySettings displaySettings;
+    private final MainFrameMainChatUI mainFrameMainChatUI;
+    private final ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider;
 
-    EntryPanelAuthUI(UsersInfoSettings usersInfoSettings, DisplaySettings displaySettings) {
+    EntryPanelAuthUI(UsersInfoSettings usersInfoSettings,
+                     DisplaySettings displaySettings,
+                     MainFrameMainChatUI mainFrameMainChatUI,
+                     ObjectProvider<ActiveLabelAuthUI> activeLabelObjectProvider,
+                     ObjectProvider<ButtonAuthUI> buttonObjectProvider,
+                     ObjectProvider<ErrorLabelAuthUI> errorLabelObjectProvider,
+                     ObjectProvider<PasswordFieldAuthUI> passwordFieldObjectProvider,
+                     ObjectProvider<TextFieldAuthUI> textFieldObjectProvider,
+                     ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider) {
         this.usersInfoSettings = usersInfoSettings;
         this.displaySettings = displaySettings;
+        this.mainFrameMainChatUI = mainFrameMainChatUI;
+        this.optionPaneObjectProvider = optionPaneObjectProvider;
 
-        tLogin = GetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Login");
-        tErrorHelpInfo = GetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
-        tPassword = GetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Password");
-        bEnter = GetterAuthUIComponents.getInstance().getBeanButtonAuthUI("Next");
-        activeMissLabel = GetterAuthUIComponents.getInstance().getBeanActiveLabelAuthUI("Reset password");
-        activeRegisterLabel = GetterAuthUIComponents.getInstance().getBeanActiveLabelAuthUI("Registration");
+        tLogin = textFieldObjectProvider.getObject("Login");
+        tErrorHelpInfo = errorLabelObjectProvider.getObject("");
+        tPassword = passwordFieldObjectProvider.getObject("Password");
+        bEnter = buttonObjectProvider.getObject("Next");
+        activeMissLabel = activeLabelObjectProvider.getObject("Reset password");
+        activeRegisterLabel = activeLabelObjectProvider.getObject("Registration");
 
         settingComponents();
         makePanelSetting();
@@ -201,8 +214,7 @@ public class EntryPanelAuthUI extends JPanel {
         } else if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getEntryRequestFlag() ==
                 MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            GetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("Login failed, data is incorrect.", OptionPaneAuthUI.TypeDlg.ERROR);
+            optionPaneObjectProvider.getObject("Login failed, data is incorrect.", OptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 
@@ -216,7 +228,7 @@ public class EntryPanelAuthUI extends JPanel {
         closeFrameWindow();
         setEnabled(true);
 
-        GetterMainChatUIComponents.getInstance().getBeanMainFrameMainChatUI().openWindow();
+        mainFrameMainChatUI.openWindow();
 
         log.info("Login done.");
     }

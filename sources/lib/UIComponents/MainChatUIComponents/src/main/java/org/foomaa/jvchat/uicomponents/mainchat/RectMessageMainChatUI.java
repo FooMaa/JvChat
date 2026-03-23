@@ -27,9 +27,13 @@ public class RectMessageMainChatUI extends JTextArea {
     private final UUID uuidMessage;
 
     private final DisplaySettings displaySettings;
+    private final ScrollPanelMessagesMainChatUI scrollPanelMessages;
 
-    RectMessageMainChatUI(DisplaySettings displaySettings, MessageStructObject messageObject) {
+    RectMessageMainChatUI(DisplaySettings displaySettings,
+                          MessageStructObject messageObject,
+                          ScrollPanelMessagesMainChatUI scrollPanelMessages) {
         this.displaySettings = displaySettings;
+        this.scrollPanelMessages = scrollPanelMessages;
 
         textMessage = messageObject.getText();
         statusMessage = messageObject.getStatusMessage();
@@ -97,8 +101,7 @@ public class RectMessageMainChatUI extends JTextArea {
 
     private void resizeComponentLabel() {
         int amendment = 20;
-        int width = (GetterMainChatUIComponents.getInstance()
-                .getBeanScrollPanelMessagesMainChatUI().getWidth() - amendment) / 2;
+        int width = (scrollPanelMessages.getWidth() - amendment) / 2;
         setSize(new Dimension(width,  getMinimumSize().height));
     }
 

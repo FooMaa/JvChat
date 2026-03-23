@@ -8,16 +8,31 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 
+@Component
+@Scope("prototype")
+@Profile("users")
 @Slf4j
 public class PanelSendingMessageMainChatUI extends JPanel {
     private final SendingTextAreaScrollMainChatUI sendingTextAreaScroll;
     private final JButton sendButton;
+    private final ScrollPanelChatsMainChatUI scrollPanelChats;
+    private final ScrollPanelMessagesMainChatUI scrollPanelMessages;
 
-    PanelSendingMessageMainChatUI() {
-        sendingTextAreaScroll = GetterMainChatUIComponents.getInstance().getBeanSendingTextAreaScrollMainChatUI();
-        sendButton = GetterMainChatUIComponents.getInstance().getBeanSendButtonMainChatUI("Отправить");
+    PanelSendingMessageMainChatUI(ScrollPanelChatsMainChatUI scrollPanelChats,
+                                  ScrollPanelMessagesMainChatUI scrollPanelMessages,
+                                  ObjectProvider<SendButtonMainChatUI> sendButtonObjectProvider,
+                                  ObjectProvider<SendingTextAreaScrollMainChatUI> sendingTextAreaScrollObjectProvider) {
+        this.scrollPanelChats = scrollPanelChats;
+        this.scrollPanelMessages = scrollPanelMessages;
+
+        sendingTextAreaScroll = sendingTextAreaScrollObjectProvider.getObject();
+        sendButton = sendButtonObjectProvider.getObject("Отправить");
 
         settingPanel();
         addListenerToElements();
@@ -65,7 +80,7 @@ public class PanelSendingMessageMainChatUI extends JPanel {
                 log.error("Не создано сообщение для отправки, не отправлено...");
                 return;
             }
-            GetterMainChatUIComponents.getInstance().getBeanScrollPanelMessagesMainChatUI().addMessage(messageObj);
+            scrollPanelMessages.addMessage(messageObj);
         }
     }
 
@@ -73,9 +88,9 @@ public class PanelSendingMessageMainChatUI extends JPanel {
         UUID selectedUuid = GetterControls.getInstance().getBeanMessagesDialogCtrl().getCurrentActiveChatUuid();
         MessageStructObject message = GetterControls.getInstance().getBeanChatsCtrl().getMessageObjectByUuidChat(selectedUuid);
 
-        Box boxComponents = GetterMainChatUIComponents.getInstance().getBeanScrollPanelChatsMainChatUI().getBoxComponents();
+        Box boxComponents = scrollPanelChats.getBoxComponents();
 
-        for (Component component : boxComponents.getComponents()) {
+        for (java.awt.Component component : boxComponents.getComponents()) {
             RectChatMainChatUI rectChatMainChatUI = (RectChatMainChatUI) component;
             UUID uuid = rectChatMainChatUI.getUuidChat();
             if (uuid.equals(selectedUuid)) {

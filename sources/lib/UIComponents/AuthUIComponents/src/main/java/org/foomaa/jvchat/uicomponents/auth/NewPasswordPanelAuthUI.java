@@ -12,6 +12,7 @@ import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.events.GetterEvents;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -28,16 +29,22 @@ public class NewPasswordPanelAuthUI extends JPanel {
     private String email;
 
     private final DisplaySettings displaySettings;
+    private final ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider;
 
-    NewPasswordPanelAuthUI(DisplaySettings displaySettings) {
+    NewPasswordPanelAuthUI(DisplaySettings displaySettings,
+                           ObjectProvider<ButtonAuthUI> buttonObjectProvider,
+                           ObjectProvider<ErrorLabelAuthUI> errorLabelObjectProvider,
+                           ObjectProvider<PasswordFieldAuthUI> passwordFieldObjectProvider,
+                           ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider) {
         this.displaySettings = displaySettings;
+        this.optionPaneObjectProvider = optionPaneObjectProvider;
 
-        tErrorHelpInfo = GetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
+        tErrorHelpInfo = errorLabelObjectProvider.getObject("");
         tErrorHelpInfo.settingToError();
-        tPassword = GetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Password");
-        tPasswordConfirm = GetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Confirm password");
-        bAccept = GetterAuthUIComponents.getInstance().getBeanButtonAuthUI("Accept");
-        bBack = GetterAuthUIComponents.getInstance().getBeanButtonAuthUI("Back");
+        tPassword = passwordFieldObjectProvider.getObject("Password");
+        tPasswordConfirm = passwordFieldObjectProvider.getObject("Confirm password");
+        bAccept = buttonObjectProvider.getObject("Accept");
+        bBack = buttonObjectProvider.getObject("Back");
 
         settingComponents();
         makePanelSetting();
@@ -216,7 +223,7 @@ public class NewPasswordPanelAuthUI extends JPanel {
         } else if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getChangePasswordRequest() ==
                 MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            GetterAuthUIComponents.getInstance().getBeanOptionPaneAuthUI("Failed to change password.",
+            optionPaneObjectProvider.getObject("Failed to change password.",
                     OptionPaneAuthUI.TypeDlg.ERROR);
         }
     }

@@ -4,6 +4,7 @@ import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
 import org.foomaa.jvchat.settings.DisplaySettings;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -30,10 +31,14 @@ public class TitlePanelAuthUI extends JPanel {
 
     private final DisplaySettings displaySettings;
     private final FontsGlobalDefines fontsGlobalDefines;
+    private final ObjectProvider<ToolTipAuthUI> toolTipObjectProvider;
 
-    TitlePanelAuthUI(DisplaySettings displaySettings, FontsGlobalDefines fontsGlobalDefines) {
+    TitlePanelAuthUI(DisplaySettings displaySettings,
+                     FontsGlobalDefines fontsGlobalDefines,
+                     ObjectProvider<ToolTipAuthUI> toolTipObjectProvider) {
         this.displaySettings = displaySettings;
         this.fontsGlobalDefines = fontsGlobalDefines;
+        this.toolTipObjectProvider = toolTipObjectProvider;
 
         closeButton = new JButton() {
             @Override
@@ -67,11 +72,11 @@ public class TitlePanelAuthUI extends JPanel {
     }
 
     private void setToolTips() {
-        toolTipClose = GetterAuthUIComponents.getInstance().getBeanToolTipAuthUI();
+        toolTipClose = toolTipObjectProvider.getObject();
         closeButton.createToolTip();
         closeButton.setToolTipText("Close");
 
-        toolTipMinimize = GetterAuthUIComponents.getInstance().getBeanToolTipAuthUI();
+        toolTipMinimize = toolTipObjectProvider.getObject();
         minimizeButton.createToolTip();
         minimizeButton.setToolTipText("Minimize");
     }

@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
 import org.foomaa.jvchat.settings.DisplaySettings;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -27,12 +28,15 @@ public class TextFieldAuthUI extends JPanel {
     private final int borderSize;
     private final DisplaySettings displaySettings;
     private final FontsGlobalDefines fontsGlobalDefines;
+    private final ObjectProvider<ToolTipAuthUI> toolTipObjectProvider;
 
     TextFieldAuthUI(DisplaySettings displaySettings,
                     FontsGlobalDefines fontsGlobalDefines,
+                    ObjectProvider<ToolTipAuthUI> toolTipObjectProvider,
                     String text) {
         this.displaySettings = displaySettings;
         this.fontsGlobalDefines = fontsGlobalDefines;
+        this.toolTipObjectProvider = toolTipObjectProvider;
 
         defaultText = text;
         borderSize = 2;
@@ -63,7 +67,7 @@ public class TextFieldAuthUI extends JPanel {
     }
 
     public void setToolTip(String text) {
-        toolTip = GetterAuthUIComponents.getInstance().getBeanToolTipAuthUI();
+        toolTip = toolTipObjectProvider.getObject();
         createToolTip();
         setToolTipText(text);
 

@@ -13,6 +13,7 @@ import org.foomaa.jvchat.events.GetterEvents;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.tools.GetterTools;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -30,17 +31,24 @@ public class RegistrationPanelAuthUI extends JPanel {
     private final ButtonAuthUI bBack;
 
     private final DisplaySettings displaySettings;
+    private final ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider;
 
-    RegistrationPanelAuthUI(DisplaySettings displaySettings) {
+    RegistrationPanelAuthUI(DisplaySettings displaySettings,
+                            ObjectProvider<ButtonAuthUI> buttonObjectProvider,
+                            ObjectProvider<ErrorLabelAuthUI> errorLabelObjectProvider,
+                            ObjectProvider<PasswordFieldAuthUI> passwordFieldObjectProvider,
+                            ObjectProvider<TextFieldAuthUI> textFieldObjectProvider,
+                            ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider) {
         this.displaySettings = displaySettings;
+        this.optionPaneObjectProvider = optionPaneObjectProvider;
 
-        tLogin = GetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Login");
-        tEmail = GetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Email");
-        tErrorHelpInfo = GetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
-        tPassword = GetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Password");
-        tPasswordConfirm = GetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Confirm password");
-        bRegister = GetterAuthUIComponents.getInstance().getBeanButtonAuthUI("Next");
-        bBack = GetterAuthUIComponents.getInstance().getBeanButtonAuthUI("Back");
+        tLogin = textFieldObjectProvider.getObject("Login");
+        tEmail = textFieldObjectProvider.getObject("Email");
+        tErrorHelpInfo = errorLabelObjectProvider.getObject("");
+        tPassword = passwordFieldObjectProvider.getObject("Password");
+        tPasswordConfirm = passwordFieldObjectProvider.getObject("Confirm password");
+        bRegister = buttonObjectProvider.getObject("Next");
+        bBack = buttonObjectProvider.getObject("Back");
 
         settingComponents();
         makePanelSetting();
@@ -248,17 +256,11 @@ public class RegistrationPanelAuthUI extends JPanel {
 
     private void openErrorPane() {
         switch (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getErrorRegistrationFlag()) {
-            case NoError -> GetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("The error is not clear.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case EmailSending -> GetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("The email may be invalid.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case Login -> GetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("This login is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case Email -> GetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("This email is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case LoginAndEmail ->
-                    GetterAuthUIComponents.getInstance()
-                            .getBeanOptionPaneAuthUI("The email and login data are already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case NoError -> optionPaneObjectProvider.getObject("The error is not clear.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case EmailSending -> optionPaneObjectProvider.getObject("The email may be invalid.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case Login -> optionPaneObjectProvider.getObject("This login is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case Email -> optionPaneObjectProvider.getObject("This email is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case LoginAndEmail -> optionPaneObjectProvider.getObject("The email and login data are already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 }

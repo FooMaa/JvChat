@@ -1,20 +1,30 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
+
 import javax.swing.*;
 import java.awt.*;
 
 
+@Component
+@Profile("users")
 public class MainPanelMainChatUI extends JPanel {
     private final FindTextFieldMainChatUI findTextField;
     private final ScrollPanelChatsMainChatUI scrollPanelChats;
     private final ScrollPanelMessagesMainChatUI scrollPanelMessages;
     private final PanelSendingMessageMainChatUI panelSendingMessage;
 
-    MainPanelMainChatUI() {
-        findTextField = GetterMainChatUIComponents.getInstance().getBeanFindTextFieldMainChatUI("Поиск по логину");
-        scrollPanelChats = GetterMainChatUIComponents.getInstance().getBeanScrollPanelChatsMainChatUI();
-        scrollPanelMessages = GetterMainChatUIComponents.getInstance().getBeanScrollPanelMessagesMainChatUI();
-        panelSendingMessage = GetterMainChatUIComponents.getInstance().getBeanPanelSendingMessageMainChatUI();
+    MainPanelMainChatUI(ScrollPanelChatsMainChatUI scrollPanelChats,
+                        ScrollPanelMessagesMainChatUI scrollPanelMessages,
+                        ObjectProvider<PanelSendingMessageMainChatUI> panelSendingMessageObjectProvider,
+                        ObjectProvider<FindTextFieldMainChatUI> findTextFieldObjectProvider) {
+        this.scrollPanelChats = scrollPanelChats;
+        this.scrollPanelMessages = scrollPanelMessages;
+
+        findTextField = findTextFieldObjectProvider.getObject("Поиск по логину");
+        panelSendingMessage = panelSendingMessageObjectProvider.getObject();
 
         makePanelSetting();
         makePanelTransparent();

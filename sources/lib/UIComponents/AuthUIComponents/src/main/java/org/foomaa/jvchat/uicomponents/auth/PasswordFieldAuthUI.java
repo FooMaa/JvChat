@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
 import org.foomaa.jvchat.settings.DisplaySettings;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -40,12 +41,15 @@ public class PasswordFieldAuthUI extends JPanel {
 
     private final DisplaySettings displaySettings;
     private final FontsGlobalDefines fontsGlobalDefines;
+    private final ObjectProvider<ToolTipAuthUI> toolTipObjectProvider;
 
     PasswordFieldAuthUI(DisplaySettings displaySettings,
                         FontsGlobalDefines fontsGlobalDefines,
+                        ObjectProvider<ToolTipAuthUI> toolTipObjectProvider,
                         String text) {
         this.displaySettings = displaySettings;
         this.fontsGlobalDefines = fontsGlobalDefines;
+        this.toolTipObjectProvider = toolTipObjectProvider;
 
         visibleImage = setIcon("/Eye.png");
         invisibleImage = setIcon("/Eye-close.png");
@@ -82,7 +86,7 @@ public class PasswordFieldAuthUI extends JPanel {
     }
 
     public void setToolTip(String text) {
-        toolTip = GetterAuthUIComponents.getInstance().getBeanToolTipAuthUI();
+        toolTip = toolTipObjectProvider.getObject();
         createToolTip();
         setToolTipText(text);
 

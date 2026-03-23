@@ -1,6 +1,7 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
 import org.foomaa.jvchat.events.CheckerEventsAnnotation;
+import org.foomaa.jvchat.uicomponents.mainchat.TitlePanelMainChatUI;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
@@ -43,13 +44,29 @@ public class MainFrameAuthUI extends JFrame {
     private UUID uuidSignalChangeRegimeWorkNewPassword;
 
     private final DisplaySettings displaySettings;
+    private final EntryPanelAuthUI entryPanelAuthUI;
+    private final NewPasswordPanelAuthUI newPasswordPanelAuthUI;
+    private final RegistrationPanelAuthUI registrationPanelAuthUI;
+    private final ResetPasswordPanelAuthUI resetPasswordPanelAuthUI;
+    private final VerifyCodePanelAuthUI verifyCodePanelAuthUI;
 
-    MainFrameAuthUI(DisplaySettings displaySettings) {
+    MainFrameAuthUI(DisplaySettings displaySettings,
+                    EntryPanelAuthUI entryPanelAuthUI,
+                    NewPasswordPanelAuthUI newPasswordPanelAuthUI,
+                    RegistrationPanelAuthUI registrationPanelAuthUI,
+                    ResetPasswordPanelAuthUI resetPasswordPanelAuthUI,
+                    VerifyCodePanelAuthUI verifyCodePanelAuthUI,
+                    TitlePanelAuthUI titlePanel) {
         super("EntryFrame");
 
         this.displaySettings = displaySettings;
+        this.entryPanelAuthUI = entryPanelAuthUI;
+        this.newPasswordPanelAuthUI = newPasswordPanelAuthUI;
+        this.registrationPanelAuthUI = registrationPanelAuthUI;
+        this.resetPasswordPanelAuthUI = resetPasswordPanelAuthUI;
+        this.verifyCodePanelAuthUI = verifyCodePanelAuthUI;
 
-        titlePanel = GetterAuthUIComponents.getInstance().getBeanTitlePanelAuthUI();
+        this.titlePanel = titlePanel;
         regimeWorkMainFrame = DefinesAuthUI.RegimeWorkMainFrame.Auth;
         backgroundPath = "/AuthMainBackground.png";
         loadGifPath = "/Load.gif";
@@ -67,37 +84,37 @@ public class MainFrameAuthUI extends JFrame {
     private void createConnections() {
         uuidSignalCloseWindow =
                 GetterEvents.getInstance().getBeanMakerEvents().addConnect(
-                        GetterAuthUIComponents.getInstance().getBeanEntryPanelAuthUI(),
+                        entryPanelAuthUI,
                         this,
                         "closeWindow",
                         GetterAuthUIComponents.getInstance().getContext());
         uuidSignalChangeRegimeWorkEntry =
                 GetterEvents.getInstance().getBeanMakerEvents().addConnect(
-                        GetterAuthUIComponents.getInstance().getBeanEntryPanelAuthUI(),
+                        entryPanelAuthUI,
                         this,
                         "changeRegimeWork",
                         GetterAuthUIComponents.getInstance().getContext());
         uuidSignalChangeRegimeWorkRegistration =
                 GetterEvents.getInstance().getBeanMakerEvents().addConnect(
-                        GetterAuthUIComponents.getInstance().getBeanRegistrationPanelAuthUI(),
+                        registrationPanelAuthUI,
                         this,
                         "changeRegimeWork",
                         GetterAuthUIComponents.getInstance().getContext());
         uuidSignalChangeRegimeWorkVerifyCode =
                 GetterEvents.getInstance().getBeanMakerEvents().addConnect(
-                        GetterAuthUIComponents.getInstance().getBeanVerifyCodePanelAuthUI(),
+                        verifyCodePanelAuthUI,
                         this,
                         "changeRegimeWork",
                         GetterAuthUIComponents.getInstance().getContext());
         uuidSignalChangeRegimeWorkResetPassword =
                 GetterEvents.getInstance().getBeanMakerEvents().addConnect(
-                        GetterAuthUIComponents.getInstance().getBeanResetPasswordPanelAuthUI(),
+                        resetPasswordPanelAuthUI,
                         this,
                         "changeRegimeWork",
                         GetterAuthUIComponents.getInstance().getContext());
         uuidSignalChangeRegimeWorkNewPassword =
                 GetterEvents.getInstance().getBeanMakerEvents().addConnect(
-                        GetterAuthUIComponents.getInstance().getBeanNewPasswordPanelAuthUI(),
+                        newPasswordPanelAuthUI,
                         this,
                         "changeRegimeWork",
                         GetterAuthUIComponents.getInstance().getContext());
@@ -125,29 +142,29 @@ public class MainFrameAuthUI extends JFrame {
     private void setPanelSettings(Object... data) {
         switch (regimeWorkMainFrame) {
             case Auth -> {
-                EntryPanelAuthUI entryPanel = GetterAuthUIComponents.getInstance().getBeanEntryPanelAuthUI();
+                EntryPanelAuthUI entryPanel = entryPanelAuthUI;
                 loadGifStart("Entry", entryPanel.getDefaultButton(), entryPanel);
             }
             case Registration -> {
-                RegistrationPanelAuthUI registrationPanel = GetterAuthUIComponents.getInstance().getBeanRegistrationPanelAuthUI();
+                RegistrationPanelAuthUI registrationPanel = registrationPanelAuthUI;
                 loadGifStart("Registration", registrationPanel.getDefaultButton(), registrationPanel);
             }
             case VerifyCodeRegistration -> {
-                VerifyCodePanelAuthUI verifyCodePanel = GetterAuthUIComponents.getInstance().getBeanVerifyCodePanelAuthUI();
+                VerifyCodePanelAuthUI verifyCodePanel = verifyCodePanelAuthUI;
                 loadGifStart("Verify code", verifyCodePanel.getDefaultButton(), verifyCodePanel);
                 verifyCodePanel.setParametersRegistration((String) data[1], (String) data[2], (String) data[3]);
             }
             case VerifyCodeResetPassword -> {
-                VerifyCodePanelAuthUI verifyCodePanel = GetterAuthUIComponents.getInstance().getBeanVerifyCodePanelAuthUI();
+                VerifyCodePanelAuthUI verifyCodePanel = verifyCodePanelAuthUI;
                 loadGifStart("Verify code", verifyCodePanel.getDefaultButton(), verifyCodePanel);
                 verifyCodePanel.setParametersResetPassword((String) data[1]);
             }
             case ResetPassword -> {
-                ResetPasswordPanelAuthUI resetPasswordPanel = GetterAuthUIComponents.getInstance().getBeanResetPasswordPanelAuthUI();
+                ResetPasswordPanelAuthUI resetPasswordPanel = resetPasswordPanelAuthUI;
                 loadGifStart("Reset password", resetPasswordPanel.getDefaultButton(), resetPasswordPanel);
             }
             case NewPassword -> {
-                NewPasswordPanelAuthUI newPasswordPanel = GetterAuthUIComponents.getInstance().getBeanNewPasswordPanelAuthUI();
+                NewPasswordPanelAuthUI newPasswordPanel = newPasswordPanelAuthUI;
                 loadGifStart("New password", newPasswordPanel.getDefaultButton(), newPasswordPanel);
                 newPasswordPanel.setEmail((String) data[1]);
             }

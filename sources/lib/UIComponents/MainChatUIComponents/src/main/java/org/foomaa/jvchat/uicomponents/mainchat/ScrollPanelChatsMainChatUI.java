@@ -22,6 +22,7 @@ import org.foomaa.jvchat.settings.UISettings;
 import org.foomaa.jvchat.settings.UsersInfoSettings;
 import org.foomaa.jvchat.structobjects.ChatStructObject;
 import org.foomaa.jvchat.structobjects.UserStructObject;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -40,9 +41,14 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
     private final UsersInfoSettings usersInfoSettings;
     private final UISettings uiSettings;
 
-    ScrollPanelChatsMainChatUI(UsersInfoSettings usersInfoSettings, UISettings uiSettings) {
+    private final ObjectProvider<RectChatMainChatUI> rectChatObjectProvider;
+
+    ScrollPanelChatsMainChatUI(UsersInfoSettings usersInfoSettings,
+                               UISettings uiSettings,
+                               ObjectProvider<RectChatMainChatUI> rectChatObjectProvider) {
         this.usersInfoSettings = usersInfoSettings;
         this.uiSettings = uiSettings;
+        this.rectChatObjectProvider = rectChatObjectProvider;
 
         intervalMilliSecondsSleepUpdating = 30000;
         intervalSecondsWaitLoopUpdate = 5;
@@ -156,7 +162,7 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
         List<ChatStructObject> chatsObjects = getChatsObjects();
 
         for (ChatStructObject chat : chatsObjects) {
-            RectChatMainChatUI component = GetterMainChatUIComponents.getInstance().getBeanRectChatMainChatUI(chat);
+            RectChatMainChatUI component = rectChatObjectProvider.getObject(chat);
             boxComponents.add(component);
             connectSelectingElement(component);
         }

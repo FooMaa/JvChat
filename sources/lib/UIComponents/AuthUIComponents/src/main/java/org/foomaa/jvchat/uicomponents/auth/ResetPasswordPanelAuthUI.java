@@ -12,6 +12,7 @@ import org.foomaa.jvchat.events.GetterEvents;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.tools.GetterTools;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -26,15 +27,21 @@ public class ResetPasswordPanelAuthUI extends JPanel {
     private final ButtonAuthUI bBack;
 
     private final DisplaySettings displaySettings;
+    private final ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider;
 
-    ResetPasswordPanelAuthUI(DisplaySettings displaySettings) {
+    ResetPasswordPanelAuthUI(DisplaySettings displaySettings,
+                             ObjectProvider<ButtonAuthUI> buttonObjectProvider,
+                             ObjectProvider<ErrorLabelAuthUI> errorLabelObjectProvider,
+                             ObjectProvider<TextFieldAuthUI> textFieldObjectProvider,
+                             ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider) {
         this.displaySettings = displaySettings;
+        this.optionPaneObjectProvider = optionPaneObjectProvider;
 
-        tEmail = GetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Почта");
-        tErrorHelpInfo = GetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
+        tEmail = textFieldObjectProvider.getObject("Почта");
+        tErrorHelpInfo = errorLabelObjectProvider.getObject("");
         tErrorHelpInfo.settingToError();
-        bSet = GetterAuthUIComponents.getInstance().getBeanButtonAuthUI("Send");
-        bBack = GetterAuthUIComponents.getInstance().getBeanButtonAuthUI("Back");
+        bSet = buttonObjectProvider.getObject("Send");
+        bBack = buttonObjectProvider.getObject("Back");
 
         settingComponents();
         makePanelSetting();
@@ -173,8 +180,7 @@ public class ResetPasswordPanelAuthUI extends JPanel {
         } else if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getResetPasswordRequestFlag() ==
                 MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            GetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("This email is not registered.", OptionPaneAuthUI.TypeDlg.ERROR);
+            optionPaneObjectProvider.getObject("This email is not registered.", OptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 }

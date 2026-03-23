@@ -9,9 +9,7 @@ import org.springframework.context.annotation.Scope;
 @Configuration
 class ToolsSpringConfig {
     public enum NameBeans {
-        BeanMainTools("beanMainTools"),
         BeanStructTools("beanStructTools"),
-        BeanServersTools("beanServersTools"),
         BeanUsersTools("beanUsersTools"),
         BeanFormatTools("beanFormatTools");
 

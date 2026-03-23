@@ -11,6 +11,7 @@ import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.events.GetterEvents;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -29,20 +30,26 @@ public class VerifyCodePanelAuthUI extends JPanel {
     private RegimeWork regime;
 
     private final DisplaySettings displaySettings;
+    private final ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider;
 
     public enum RegimeWork {
         Registration,
         ResetPassword
     }
 
-    VerifyCodePanelAuthUI(DisplaySettings displaySettings) {
+    VerifyCodePanelAuthUI(DisplaySettings displaySettings,
+                          ObjectProvider<ButtonAuthUI> buttonObjectProvider,
+                          ObjectProvider<ErrorLabelAuthUI> errorLabelObjectProvider,
+                          ObjectProvider<TextFieldAuthUI> textFieldObjectProvider,
+                          ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider) {
         this.displaySettings = displaySettings;
+        this.optionPaneObjectProvider = optionPaneObjectProvider;
 
-        tCode = GetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Code (valid for 60 sec.)");
-        tErrorHelpInfo = GetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
+        tCode = textFieldObjectProvider.getObject("Code (valid for 60 sec.)");
+        tErrorHelpInfo = errorLabelObjectProvider.getObject("");
         tErrorHelpInfo.settingToError();
-        bSet = GetterAuthUIComponents.getInstance().getBeanButtonAuthUI("Send");
-        bBack = GetterAuthUIComponents.getInstance().getBeanButtonAuthUI("Back");
+        bSet = buttonObjectProvider.getObject("Send");
+        bBack = buttonObjectProvider.getObject("Back");
 
         settingComponents();
         makePanelSetting();
@@ -207,8 +214,7 @@ public class VerifyCodePanelAuthUI extends JPanel {
         } else if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyFamousEmailRequestFlag() ==
                 MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            GetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("The code is not correct. Enter the code you received by mail again.\n" +
+            optionPaneObjectProvider.getObject("The code is not correct. Enter the code you received by mail again.\n" +
                             "The code may have expired, enter your email again and get a new one.", OptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
@@ -236,20 +242,13 @@ public class VerifyCodePanelAuthUI extends JPanel {
 
     private void openErrorPane() {
         switch (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getErrorVerifyRegEmailFlag()) {
-            case NoError -> GetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("The error is not clear.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case EmailSending -> GetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("The email may be invalid.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case Login -> GetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("This login is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case Email -> GetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("This email is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case Code -> GetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("The code is not correct. Enter the code you received by mail again.\n" +
+            case NoError -> optionPaneObjectProvider.getObject("The error is not clear.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case EmailSending -> optionPaneObjectProvider.getObject("The email may be invalid.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case Login -> optionPaneObjectProvider.getObject("This login is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case Email -> optionPaneObjectProvider.getObject("This email is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case Code -> optionPaneObjectProvider.getObject("The code is not correct. Enter the code you received by mail again.\n" +
                     "The code may have expired, enter your email again and get a new one.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case LoginAndEmail ->
-                    GetterAuthUIComponents.getInstance()
-                            .getBeanOptionPaneAuthUI("The email and login data are already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case LoginAndEmail -> optionPaneObjectProvider.getObject("The email and login data are already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 }

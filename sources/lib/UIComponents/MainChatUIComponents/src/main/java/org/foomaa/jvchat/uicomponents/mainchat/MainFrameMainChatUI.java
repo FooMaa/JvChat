@@ -23,16 +23,17 @@ public class MainFrameMainChatUI extends JFrame {
     private JLabel loadGifLabel;
     private final TitlePanelMainChatUI titlePanel;
     private final MainPanelMainChatUI mainPanel;
-
     private final DisplaySettings displaySettings;
 
-    MainFrameMainChatUI(DisplaySettings displaySettings) {
+    MainFrameMainChatUI(DisplaySettings displaySettings,
+                        TitlePanelMainChatUI titlePanel,
+                        MainPanelMainChatUI mainPanel) {
         super("MainChatWindow");
 
         this.displaySettings = displaySettings;
+        this.titlePanel = titlePanel;
+        this.mainPanel = mainPanel;
 
-        mainPanel = GetterMainChatUIComponents.getInstance().getBeanMainPanelMainChatUI();
-        titlePanel = GetterMainChatUIComponents.getInstance().getBeanTitlePanelMainChatUI();
         backgroundPath = "/MainChatMainBackground.png";
         loadGifPath = "/Load.gif";
 
