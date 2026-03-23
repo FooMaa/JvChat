@@ -1,7 +1,7 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
 import org.foomaa.jvchat.events.CheckerEventsAnnotation;
-import org.foomaa.jvchat.uicomponents.mainchat.TitlePanelMainChatUI;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
@@ -56,7 +56,8 @@ public class MainFrameAuthUI extends JFrame {
                     RegistrationPanelAuthUI registrationPanelAuthUI,
                     ResetPasswordPanelAuthUI resetPasswordPanelAuthUI,
                     VerifyCodePanelAuthUI verifyCodePanelAuthUI,
-                    TitlePanelAuthUI titlePanel) {
+                    TitlePanelAuthUI titlePanel,
+                    ApplicationContext context) {
         super("EntryFrame");
 
         this.displaySettings = displaySettings;
@@ -87,37 +88,37 @@ public class MainFrameAuthUI extends JFrame {
                         entryPanelAuthUI,
                         this,
                         "closeWindow",
-                        GetterAuthUIComponents.getInstance().getContext());
+                        null);
         uuidSignalChangeRegimeWorkEntry =
                 GetterEvents.getInstance().getBeanMakerEvents().addConnect(
                         entryPanelAuthUI,
                         this,
                         "changeRegimeWork",
-                        GetterAuthUIComponents.getInstance().getContext());
+                        null);
         uuidSignalChangeRegimeWorkRegistration =
                 GetterEvents.getInstance().getBeanMakerEvents().addConnect(
                         registrationPanelAuthUI,
                         this,
                         "changeRegimeWork",
-                        GetterAuthUIComponents.getInstance().getContext());
+                        null);
         uuidSignalChangeRegimeWorkVerifyCode =
                 GetterEvents.getInstance().getBeanMakerEvents().addConnect(
                         verifyCodePanelAuthUI,
                         this,
                         "changeRegimeWork",
-                        GetterAuthUIComponents.getInstance().getContext());
+                        null);
         uuidSignalChangeRegimeWorkResetPassword =
                 GetterEvents.getInstance().getBeanMakerEvents().addConnect(
                         resetPasswordPanelAuthUI,
                         this,
                         "changeRegimeWork",
-                        GetterAuthUIComponents.getInstance().getContext());
+                        null);
         uuidSignalChangeRegimeWorkNewPassword =
                 GetterEvents.getInstance().getBeanMakerEvents().addConnect(
                         newPasswordPanelAuthUI,
                         this,
                         "changeRegimeWork",
-                        GetterAuthUIComponents.getInstance().getContext());
+                        null);
     }
 
     private void settingBackgroundPanel() {

@@ -5,8 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
+import org.springframework.stereotype.Component;
 
 
+@Component
 @Slf4j
 public class DeserializatorDataMessages {
     DeserializatorDataMessages() {}

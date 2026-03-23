@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.foomaa.jvchat.cryptography.HashCryptography;
 import org.foomaa.jvchat.globaldefines.DbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
-import org.foomaa.jvchat.messages.GetterMessages;
+import org.foomaa.jvchat.messages.DeserializatorDataMessages;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.UsersInfoSettings;
 import org.foomaa.jvchat.tools.GetterTools;
@@ -24,14 +24,18 @@ public class TakeMessagesCtrl {
     private Runnable runnableCtrlFrom;
     private final HashCryptography hashCryptography;
     private final ObjectProvider<UsersInfoSettings> usersInfoSettingsObjectProvider;
+    private final DeserializatorDataMessages deserializatorDataMessages;
 
-    TakeMessagesCtrl(HashCryptography hashCryptography, ObjectProvider<UsersInfoSettings> usersInfoSettingsObjectProvider) {
+    TakeMessagesCtrl(HashCryptography hashCryptography,
+                     DeserializatorDataMessages deserializatorDataMessages,
+                     ObjectProvider<UsersInfoSettings> usersInfoSettingsObjectProvider) {
         this.hashCryptography = hashCryptography;
         this.usersInfoSettingsObjectProvider = usersInfoSettingsObjectProvider;
+        this.deserializatorDataMessages = deserializatorDataMessages;
     }
 
     public void takeMessage(byte[] data) {
-        DefinesMessages.TypeMessage type = GetterMessages.getInstance().getBeanDeserializatorDataMessages().getTypeMessage(data);
+        DefinesMessages.TypeMessage type = deserializatorDataMessages.getTypeMessage(data);
 
         switch (type) {
             case EntryRequest -> workEntryRequestMessage(getDeserializeMapData(type, data));
@@ -79,7 +83,7 @@ public class TakeMessagesCtrl {
     }
 
     private HashMap<DefinesMessages.TypeData, ?> getDeserializeMapData(DefinesMessages.TypeMessage type, byte[] data) {
-        return GetterMessages.getInstance().getBeanDeserializatorDataMessages().deserializeData(type, data);
+        return deserializatorDataMessages.deserializeData(type, data);
     }
 
     public void setRunnableCtrlFromConnection(Runnable runnable) {

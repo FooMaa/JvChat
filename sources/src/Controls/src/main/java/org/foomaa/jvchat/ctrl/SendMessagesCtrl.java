@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import org.foomaa.jvchat.globaldefines.DbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
-import org.foomaa.jvchat.messages.GetterMessages;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.messages.SerializatorDataMessages;
 import org.foomaa.jvchat.settings.ServersInfoSettings;
@@ -342,92 +341,92 @@ public class SendMessagesCtrl {
     }
 
     private byte[] createBodyVerifyFamousEmailRequestMessage(DefinesMessages.TypeMessage type, String email, String code) {
-        return GetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, email, code);
+        return serializatorDataMessages.serialiseData(type, email, code);
     }
 
     private byte[] createBodyVerifyFamousEmailReplyMessage(DefinesMessages.TypeMessage type, Boolean reply) {
-        return GetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
+        return serializatorDataMessages.serialiseData(type, reply);
     }
 
     private byte[] createBodyChangePasswordRequestMessage(DefinesMessages.TypeMessage type, String email, String password) {
-        return GetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, email, password);
+        return serializatorDataMessages.serialiseData(type, email, password);
     }
 
     private byte[] createBodyChangePasswordReplyMessage(DefinesMessages.TypeMessage type, Boolean reply) {
-        return GetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
+        return serializatorDataMessages.serialiseData(type, reply);
     }
 
     private byte[] createBodyChatsLoadRequestMessage(DefinesMessages.TypeMessage type, UUID uuidUser) {
-        return GetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, uuidUser);
+        return serializatorDataMessages.serialiseData(type, uuidUser);
     }
 
     private byte[] createBodyChatsLoadReplyMessage(DefinesMessages.TypeMessage type, List<Map<DbGlobalDefines.LineKeys, String>> reply) {
-        return GetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
+        return serializatorDataMessages.serialiseData(type, reply);
     }
 
     private byte[] createBodyCheckOnlineUserRequestMessage(DefinesMessages.TypeMessage type, String ip) {
-        return GetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, ip);
+        return serializatorDataMessages.serialiseData(type, ip);
     }
 
     private byte[] createBodyCheckOnlineUserReplyMessage(DefinesMessages.TypeMessage type, UUID login) {
-        return GetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, login);
+        return serializatorDataMessages.serialiseData(type, login);
     }
 
     private byte[] createBodyLoadUsersOnlineStatusRequestMessage(DefinesMessages.TypeMessage type, List<UUID> uuids) {
-        return GetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, uuids);
+        return serializatorDataMessages.serialiseData(type, uuids);
     }
 
     private byte[] createBodyLoadUsersOnlineStatusReplyMessage(DefinesMessages.TypeMessage type,
                                                                Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> statusesUsers,
                                                                Map<UUID, String> lastOnlineTimeUsers) {
-        return GetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, statusesUsers, lastOnlineTimeUsers);
+        return serializatorDataMessages.serialiseData(type, statusesUsers, lastOnlineTimeUsers);
     }
 
     private byte[] createBodyTextMessageSendUserToServerMessage(DefinesMessages.TypeMessage type,
                                                                 UUID uuidUserSender, UUID uuidUserReceiver, UUID uuidMessage,
                                                                 String text, String timestamp) {
-        return GetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(
+        return serializatorDataMessages.serialiseData(
                 type, uuidUserSender, uuidUserReceiver, uuidMessage, text, timestamp);
     }
 
     private byte[] createBodyTextMessageSendUserToServerVerificationMessage(DefinesMessages.TypeMessage type, boolean reply) {
-        return GetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
+        return serializatorDataMessages.serialiseData(type, reply);
     }
 
     private byte[] createBodyTextMessagesChangingStatusFromServerMessage(DefinesMessages.TypeMessage type,
                                                                          Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
-        return GetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, mapStatusMessages);
+        return serializatorDataMessages.serialiseData(type, mapStatusMessages);
     }
 
     private byte[] createBodyTextMessagesChangingStatusFromServerVerificationMessage(DefinesMessages.TypeMessage type, boolean reply) {
-        return GetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
+        return serializatorDataMessages.serialiseData(type, reply);
     }
 
     private byte[] createBodyTextMessagesChangingStatusFromUserMessage(DefinesMessages.TypeMessage type,
                                                                          Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
-        return GetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, mapStatusMessages);
+        return serializatorDataMessages.serialiseData(type, mapStatusMessages);
     }
 
     private byte[] createBodyTextMessagesChangingStatusFromUserVerificationMessage(DefinesMessages.TypeMessage type, boolean reply) {
-        return GetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
+        return serializatorDataMessages.serialiseData(type, reply);
     }
 
     private byte[] createBodyTextMessageRedirectServerToUserMessage(DefinesMessages.TypeMessage type,
                                                                     UUID uuidUserSender, UUID uuidUserReceiver, UUID uuidMessage,
                                                                     String text, String timestamp) {
-        return GetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(
+        return serializatorDataMessages.serialiseData(
                 type, uuidUserSender, uuidUserReceiver, uuidMessage, text, timestamp);
     }
 
     private byte[] createBodyTextMessageRedirectServerToUserVerificationMessage(DefinesMessages.TypeMessage type, boolean reply) {
-        return GetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
+        return serializatorDataMessages.serialiseData(type, reply);
     }
 
     private byte[] createMessagesLoadRequestMessage(DefinesMessages.TypeMessage type, UUID uuidChat, int quantityMessages) {
-        return GetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, uuidChat, quantityMessages);
+        return serializatorDataMessages.serialiseData(type, uuidChat, quantityMessages);
     }
 
     private byte[] createBodyMessagesLoadReplyMessage(DefinesMessages.TypeMessage type, List<Map<DbGlobalDefines.LineKeys, String>> reply) {
-        return GetterMessages.getInstance().getBeanSerializatorDataMessages().serialiseData(type, reply);
+        return serializatorDataMessages.serialiseData(type, reply);
     }
 }
