@@ -26,10 +26,6 @@ public class GetterControls {
         return null;
     }
 
-    public MessagesDefinesCtrl getBeanMessagesDefinesCtrl() {
-        return null;
-    }
-
     public SocketRunnableCtrl getBeanSocketRunnableCtrl(Socket socket) {
         return null;
     }

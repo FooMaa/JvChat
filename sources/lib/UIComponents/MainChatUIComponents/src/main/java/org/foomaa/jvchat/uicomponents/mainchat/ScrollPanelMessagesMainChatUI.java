@@ -24,9 +24,12 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
     private JScrollPane scrollPane;
     private JPanel panel;
 
+    private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final ObjectProvider<RectMessageMainChatUI> rectMessageObjectProvider;
 
-    ScrollPanelMessagesMainChatUI(ObjectProvider<RectMessageMainChatUI> rectMessageObjectProvider) {
+    ScrollPanelMessagesMainChatUI(MessagesDefinesCtrl messagesDefinesCtrl,
+                                  ObjectProvider<RectMessageMainChatUI> rectMessageObjectProvider) {
+        this.messagesDefinesCtrl = messagesDefinesCtrl;
         this.rectMessageObjectProvider = rectMessageObjectProvider;
 
         intervalMilliSecondsSleepUpdating = 500;
@@ -144,16 +147,13 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
     }
 
     private void processUpdatingMessages() {
-        if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getTextMessagesLoadReplyFlag() ==
-                MessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (messagesDefinesCtrl.getTextMessagesLoadReplyFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
             changeAllMessages();
         }
-        if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getTextMessageRedirectServerToUserFlag() ==
-                MessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (messagesDefinesCtrl.getTextMessageRedirectServerToUserFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
             addRedirectMessage();
         }
-        if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getTextMessagesChangingStatusFromServerFlag() ==
-                MessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (messagesDefinesCtrl.getTextMessagesChangingStatusFromServerFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
             changeStatusMessage();
         }
 
@@ -172,7 +172,7 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
             addMessage(messageStructObject);
         }
 
-        GetterControls.getInstance().getBeanMessagesDefinesCtrl().setTextMessagesLoadReplyFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
+        messagesDefinesCtrl.setTextMessagesLoadReplyFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
     }
 
     private void addRedirectMessage() {
@@ -189,7 +189,7 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
             }
         }
 
-        GetterControls.getInstance().getBeanMessagesDefinesCtrl().setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
+        messagesDefinesCtrl.setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
     }
 
     private RectMessageMainChatUI findRectMessageByUuid(JPanel panelMsg, UUID uuid) {
@@ -221,7 +221,6 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
             }
         }
 
-        GetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                .setTextMessagesChangingStatusFromServerFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
+        messagesDefinesCtrl.setTextMessagesChangingStatusFromServerFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
     }
 }

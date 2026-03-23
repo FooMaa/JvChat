@@ -6,7 +6,6 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
 
-import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.ctrl.SendMessagesCtrl;
 import org.foomaa.jvchat.events.GetterEvents;
@@ -32,6 +31,7 @@ public class VerifyCodePanelAuthUI extends JPanel {
 
     private final DisplaySettings displaySettings;
     private final SendMessagesCtrl sendMessagesCtrl;
+    private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider;
 
     public enum RegimeWork {
@@ -41,12 +41,14 @@ public class VerifyCodePanelAuthUI extends JPanel {
 
     VerifyCodePanelAuthUI(DisplaySettings displaySettings,
                           SendMessagesCtrl sendMessagesCtrl,
+                          MessagesDefinesCtrl messagesDefinesCtrl,
                           ObjectProvider<ButtonAuthUI> buttonObjectProvider,
                           ObjectProvider<ErrorLabelAuthUI> errorLabelObjectProvider,
                           ObjectProvider<TextFieldAuthUI> textFieldObjectProvider,
                           ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider) {
         this.displaySettings = displaySettings;
         this.sendMessagesCtrl = sendMessagesCtrl;
+        this.messagesDefinesCtrl = messagesDefinesCtrl;
         this.optionPaneObjectProvider = optionPaneObjectProvider;
 
         tCode = textFieldObjectProvider.getObject("Code (valid for 60 sec.)");
@@ -203,7 +205,7 @@ public class VerifyCodePanelAuthUI extends JPanel {
 
     private void waitRepeatServerResetPassword() {
         setEnabled(false);
-        while (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyFamousEmailRequestFlag() ==
+        while (messagesDefinesCtrl.getVerifyFamousEmailRequestFlag() ==
                 MessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
@@ -211,11 +213,11 @@ public class VerifyCodePanelAuthUI extends JPanel {
                 log.error("Failed to wait.");
             }
         }
-        if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyFamousEmailRequestFlag() ==
+        if (messagesDefinesCtrl.getVerifyFamousEmailRequestFlag() ==
                 MessagesDefinesCtrl.TypeFlags.TRUE) {
             changeRegimeNext();
             setEnabled(true);
-        } else if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyFamousEmailRequestFlag() ==
+        } else if (messagesDefinesCtrl.getVerifyFamousEmailRequestFlag() ==
                 MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             optionPaneObjectProvider.getObject("The code is not correct. Enter the code you received by mail again.\n" +
@@ -225,7 +227,7 @@ public class VerifyCodePanelAuthUI extends JPanel {
 
     private void waitRepeatServerRegistration() {
         setEnabled(false);
-        while (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyRegistrationEmailRequestFlag() ==
+        while (messagesDefinesCtrl.getVerifyRegistrationEmailRequestFlag() ==
                 MessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
@@ -233,11 +235,11 @@ public class VerifyCodePanelAuthUI extends JPanel {
                 log.error("Failed to wait.");
             }
         }
-        if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyRegistrationEmailRequestFlag() ==
+        if (messagesDefinesCtrl.getVerifyRegistrationEmailRequestFlag() ==
                 MessagesDefinesCtrl.TypeFlags.TRUE) {
             changeRegimeNext();
             setEnabled(true);
-        } else if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getVerifyRegistrationEmailRequestFlag() ==
+        } else if (messagesDefinesCtrl.getVerifyRegistrationEmailRequestFlag() ==
                 MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             openErrorPane();
@@ -245,7 +247,7 @@ public class VerifyCodePanelAuthUI extends JPanel {
     }
 
     private void openErrorPane() {
-        switch (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getErrorVerifyRegEmailFlag()) {
+        switch (messagesDefinesCtrl.getErrorVerifyRegEmailFlag()) {
             case NoError -> optionPaneObjectProvider.getObject("The error is not clear.", OptionPaneAuthUI.TypeDlg.ERROR);
             case EmailSending -> optionPaneObjectProvider.getObject("The email may be invalid.", OptionPaneAuthUI.TypeDlg.ERROR);
             case Login -> optionPaneObjectProvider.getObject("This login is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);

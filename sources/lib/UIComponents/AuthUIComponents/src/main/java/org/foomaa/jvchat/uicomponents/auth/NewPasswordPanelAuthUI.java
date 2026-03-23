@@ -31,16 +31,19 @@ public class NewPasswordPanelAuthUI extends JPanel {
 
     private final DisplaySettings displaySettings;
     private final SendMessagesCtrl sendMessagesCtrl;
+    private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider;
 
     NewPasswordPanelAuthUI(DisplaySettings displaySettings,
                            SendMessagesCtrl sendMessagesCtrl,
+                           MessagesDefinesCtrl messagesDefinesCtrl,
                            ObjectProvider<ButtonAuthUI> buttonObjectProvider,
                            ObjectProvider<ErrorLabelAuthUI> errorLabelObjectProvider,
                            ObjectProvider<PasswordFieldAuthUI> passwordFieldObjectProvider,
                            ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider) {
         this.displaySettings = displaySettings;
         this.sendMessagesCtrl = sendMessagesCtrl;
+        this.messagesDefinesCtrl = messagesDefinesCtrl;
         this.optionPaneObjectProvider = optionPaneObjectProvider;
 
         tErrorHelpInfo = errorLabelObjectProvider.getObject("");
@@ -214,20 +217,17 @@ public class NewPasswordPanelAuthUI extends JPanel {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getChangePasswordRequest() ==
-                MessagesDefinesCtrl.TypeFlags.DEFAULT) {
+        while (messagesDefinesCtrl.getChangePasswordRequest() == MessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
                 log.error("Couldn't wait.");
             }
         }
-        if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getChangePasswordRequest() ==
-                MessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (messagesDefinesCtrl.getChangePasswordRequest() == MessagesDefinesCtrl.TypeFlags.TRUE) {
             changeRegimeNext();
             setEnabled(true);
-        } else if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getChangePasswordRequest() ==
-                MessagesDefinesCtrl.TypeFlags.FALSE) {
+        } else if (messagesDefinesCtrl.getChangePasswordRequest() == MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             optionPaneObjectProvider.getObject("Failed to change password.",
                     OptionPaneAuthUI.TypeDlg.ERROR);

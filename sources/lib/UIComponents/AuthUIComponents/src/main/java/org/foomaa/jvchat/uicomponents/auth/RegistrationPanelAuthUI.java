@@ -34,11 +34,13 @@ public class RegistrationPanelAuthUI extends JPanel {
     private final DisplaySettings displaySettings;
     private final UsersTools usersTools;
     private final SendMessagesCtrl sendMessagesCtrl;
+    private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider;
 
     RegistrationPanelAuthUI(DisplaySettings displaySettings,
                             UsersTools usersTools,
                             SendMessagesCtrl sendMessagesCtrl,
+                            MessagesDefinesCtrl messagesDefinesCtrl,
                             ObjectProvider<ButtonAuthUI> buttonObjectProvider,
                             ObjectProvider<ErrorLabelAuthUI> errorLabelObjectProvider,
                             ObjectProvider<PasswordFieldAuthUI> passwordFieldObjectProvider,
@@ -47,6 +49,7 @@ public class RegistrationPanelAuthUI extends JPanel {
         this.displaySettings = displaySettings;
         this.usersTools = usersTools;
         this.sendMessagesCtrl = sendMessagesCtrl;
+        this.messagesDefinesCtrl = messagesDefinesCtrl;
         this.optionPaneObjectProvider = optionPaneObjectProvider;
 
         tLogin = textFieldObjectProvider.getObject("Login");
@@ -243,27 +246,24 @@ public class RegistrationPanelAuthUI extends JPanel {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getRegistrationRequestFlag() ==
-                MessagesDefinesCtrl.TypeFlags.DEFAULT) {
+        while (messagesDefinesCtrl.getRegistrationRequestFlag() == MessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
                 log.error("Couldn't wait.");
             }
         }
-        if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getRegistrationRequestFlag() ==
-                MessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (messagesDefinesCtrl.getRegistrationRequestFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
             changeRegimeNext();
             setEnabled(true);
-        } else if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getRegistrationRequestFlag() ==
-                MessagesDefinesCtrl.TypeFlags.FALSE) {
+        } else if (messagesDefinesCtrl.getRegistrationRequestFlag() == MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             openErrorPane();
         }
     }
 
     private void openErrorPane() {
-        switch (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getErrorRegistrationFlag()) {
+        switch (messagesDefinesCtrl.getErrorRegistrationFlag()) {
             case NoError -> optionPaneObjectProvider.getObject("The error is not clear.", OptionPaneAuthUI.TypeDlg.ERROR);
             case EmailSending -> optionPaneObjectProvider.getObject("The email may be invalid.", OptionPaneAuthUI.TypeDlg.ERROR);
             case Login -> optionPaneObjectProvider.getObject("This login is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);

@@ -36,12 +36,14 @@ public class EntryPanelAuthUI extends JPanel {
     private final DisplaySettings displaySettings;
     private final MainFrameMainChatUI mainFrameMainChatUI;
     private final SendMessagesCtrl sendMessagesCtrl;
+    private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider;
 
     EntryPanelAuthUI(UsersInfoSettings usersInfoSettings,
                      DisplaySettings displaySettings,
                      MainFrameMainChatUI mainFrameMainChatUI,
                      SendMessagesCtrl sendMessagesCtrl,
+                     MessagesDefinesCtrl messagesDefinesCtrl,
                      ObjectProvider<ActiveLabelAuthUI> activeLabelObjectProvider,
                      ObjectProvider<ButtonAuthUI> buttonObjectProvider,
                      ObjectProvider<ErrorLabelAuthUI> errorLabelObjectProvider,
@@ -52,6 +54,7 @@ public class EntryPanelAuthUI extends JPanel {
         this.displaySettings = displaySettings;
         this.mainFrameMainChatUI = mainFrameMainChatUI;
         this.sendMessagesCtrl = sendMessagesCtrl;
+        this.messagesDefinesCtrl = messagesDefinesCtrl;
         this.optionPaneObjectProvider = optionPaneObjectProvider;
 
         tLogin = textFieldObjectProvider.getObject("Login");
@@ -204,7 +207,7 @@ public class EntryPanelAuthUI extends JPanel {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getEntryRequestFlag() ==
+        while (messagesDefinesCtrl.getEntryRequestFlag() ==
                 MessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
@@ -212,10 +215,10 @@ public class EntryPanelAuthUI extends JPanel {
                 log.error("Couldn't wait.");
             }
         }
-        if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getEntryRequestFlag() ==
+        if (messagesDefinesCtrl.getEntryRequestFlag() ==
                 MessagesDefinesCtrl.TypeFlags.TRUE) {
             openMainPage();
-        } else if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getEntryRequestFlag() ==
+        } else if (messagesDefinesCtrl.getEntryRequestFlag() ==
                 MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             optionPaneObjectProvider.getObject("Login failed, data is incorrect.", OptionPaneAuthUI.TypeDlg.ERROR);

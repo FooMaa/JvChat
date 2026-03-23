@@ -43,6 +43,7 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
     private final UsersInfoSettings usersInfoSettings;
     private final UISettings uiSettings;
     private final SendMessagesCtrl sendMessagesCtrl;
+    private final MessagesDefinesCtrl messagesDefinesCtrl;
 
     private final ObjectProvider<RectChatMainChatUI> rectChatObjectProvider;
     private final ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider;
@@ -50,11 +51,13 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
     ScrollPanelChatsMainChatUI(UsersInfoSettings usersInfoSettings,
                                UISettings uiSettings,
                                SendMessagesCtrl sendMessagesCtrl,
+                               MessagesDefinesCtrl messagesDefinesCtrl,
                                ObjectProvider<RectChatMainChatUI> rectChatObjectProvider,
                                ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider) {
         this.usersInfoSettings = usersInfoSettings;
         this.uiSettings = uiSettings;
         this.sendMessagesCtrl = sendMessagesCtrl;
+        this.messagesDefinesCtrl = messagesDefinesCtrl;
         this.rectChatObjectProvider = rectChatObjectProvider;
         this.chatsCtrlObjectProvider = chatsCtrlObjectProvider;
 
@@ -208,16 +211,14 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
 
     private List<ChatStructObject> getChatsObjects() {
         List<ChatStructObject> chatsStructObjectsList = new ArrayList<>();
-        while (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getChatsLoadReplyFlag() ==
-                MessagesDefinesCtrl.TypeFlags.DEFAULT) {
+        while (messagesDefinesCtrl.getChatsLoadReplyFlag() == MessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
                 log.error("Не удалось ждать");
             }
 
-            if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getChatsLoadReplyFlag() ==
-                    MessagesDefinesCtrl.TypeFlags.TRUE) {
+            if (messagesDefinesCtrl.getChatsLoadReplyFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
                 ChatsCtrl chatsCtrl = chatsCtrlObjectProvider.getIfAvailable();
                 if (chatsCtrl == null) {
                     log.error("charsCtrl is null");
@@ -246,8 +247,7 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
     private void processUpdatingOnline() {
         sendingUpdateOnlinePackage();
 
-        while (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getLoadUsersOnlineReplyFlag() ==
-                MessagesDefinesCtrl.TypeFlags.DEFAULT) {
+        while (messagesDefinesCtrl.getLoadUsersOnlineReplyFlag() == MessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(intervalSecondsWaitLoopUpdate);
             } catch (InterruptedException exception) {

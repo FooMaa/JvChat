@@ -283,8 +283,7 @@ public class SendMessagesCtrl {
                     Object quantityMessages = parameters[1];
                     byte[] bodyMessage = createMessagesLoadRequestMessage(type, (UUID) uuidChat, (Integer) quantityMessages);
                     sendReadyMessageNetwork(bodyMessage);
-                    GetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                            .setTextMessagesLoadReplyFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
+                    messagesDefinesCtrl.setTextMessagesLoadReplyFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
                 }
             }
             case MessagesLoadReply -> {

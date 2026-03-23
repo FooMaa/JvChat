@@ -29,6 +29,7 @@ public class MessagesDialogCtrl {
     private final FormatTools formatTools;
     private final UsersInfoSettings usersInfoSettings;
     private final SendMessagesCtrl sendMessagesCtrl;
+    private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final ObjectProvider<MessageStructObject> messageStructObjectObjectProvider;
 
     MessagesDialogCtrl(MessagesModel messagesModel,
@@ -37,6 +38,7 @@ public class MessagesDialogCtrl {
                        FormatTools formatTools,
                        UsersInfoSettings usersInfoSettings,
                        SendMessagesCtrl sendMessagesCtrl,
+                       MessagesDefinesCtrl messagesDefinesCtrl,
                        ObjectProvider<MessageStructObject> messageStructObjectObjectProvider) {
         this.messagesModel = messagesModel;
         this.chatsModel = chatsModel;
@@ -44,6 +46,7 @@ public class MessagesDialogCtrl {
         this.formatTools = formatTools;
         this.usersInfoSettings = usersInfoSettings;
         this.sendMessagesCtrl = sendMessagesCtrl;
+        this.messagesDefinesCtrl = messagesDefinesCtrl;
         this.messageStructObjectObjectProvider = messageStructObjectObjectProvider;
     }
 
@@ -140,8 +143,7 @@ public class MessagesDialogCtrl {
                 message.setStatusMessage(mapStatusesMessages.get(uuid));
             }
         }
-        GetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                .setTextMessagesChangingStatusFromServerFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
+        messagesDefinesCtrl.setTextMessagesChangingStatusFromServerFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
     }
 
     public MessageStructObject findMessage(UUID uuid) {

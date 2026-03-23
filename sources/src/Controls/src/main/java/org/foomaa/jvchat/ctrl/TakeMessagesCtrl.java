@@ -29,6 +29,7 @@ public class TakeMessagesCtrl {
     private final StructTools structTools;
     private final FormatTools formatTools;
     private final SendMessagesCtrl sendMessagesCtrl;
+    private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider;
     private final ObjectProvider<EmailCtrl> emailCtrlObjectProvider;
     private final ObjectProvider<DbCtrl> dbCtrlObjectProvider;
@@ -38,6 +39,7 @@ public class TakeMessagesCtrl {
                      StructTools structTools,
                      FormatTools formatTools,
                      SendMessagesCtrl sendMessagesCtrl,
+                     MessagesDefinesCtrl messagesDefinesCtrl,
                      ObjectProvider<UsersInfoSettings> usersInfoSettingsObjectProvider,
                      ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider,
                      ObjectProvider<EmailCtrl> emailCtrlObjectProvider,
@@ -46,6 +48,7 @@ public class TakeMessagesCtrl {
         this.structTools = structTools;
         this.formatTools = formatTools;
         this.sendMessagesCtrl = sendMessagesCtrl;
+        this.messagesDefinesCtrl = messagesDefinesCtrl;
         this.deserializatorDataMessages = deserializatorDataMessages;
         this.usersInfoSettingsObjectProvider = usersInfoSettingsObjectProvider;
         this.chatsCtrlObjectProvider = chatsCtrlObjectProvider;
@@ -143,11 +146,9 @@ public class TakeMessagesCtrl {
         usersInfoSettingsObjectProvider.getObject().setUuid(uuidUser);
 
         if ((Boolean) map.get(DefinesMessages.TypeData.BoolReply)) {
-            GetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                    .setEntryRequestFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
+            messagesDefinesCtrl.setEntryRequestFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
         } else {
-            GetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                    .setEntryRequestFlag(MessagesDefinesCtrl.TypeFlags.FALSE);
+            messagesDefinesCtrl.setEntryRequestFlag(MessagesDefinesCtrl.TypeFlags.FALSE);
         }
     }
 
@@ -189,14 +190,11 @@ public class TakeMessagesCtrl {
 
     private void workRegistrationReplyMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(DefinesMessages.TypeData.BoolReply)) {
-            GetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                    .setRegistrationRequestFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
+            messagesDefinesCtrl.setRegistrationRequestFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
         } else {
-            GetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                    .setRegistrationRequestFlag(MessagesDefinesCtrl.TypeFlags.FALSE);
+            messagesDefinesCtrl.setRegistrationRequestFlag(MessagesDefinesCtrl.TypeFlags.FALSE);
         }
-        GetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                .setErrorRegistrationFlag((DefinesMessages.TypeErrorRegistration) map.get(DefinesMessages.TypeData.ErrorReg));
+        messagesDefinesCtrl.setErrorRegistrationFlag((DefinesMessages.TypeErrorRegistration) map.get(DefinesMessages.TypeData.ErrorReg));
     }
 
     private void workVerifyRegistrationEmailRequestMessage(HashMap<DefinesMessages.TypeData, ?> map) {
@@ -246,14 +244,11 @@ public class TakeMessagesCtrl {
 
     private void workVerifyRegistrationEmailReplyMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(DefinesMessages.TypeData.BoolReply)) {
-            GetterControls.getInstance().getBeanMessagesDefinesCtrl().
-                    setVerifyRegistrationEmailRequestFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
+            messagesDefinesCtrl.setVerifyRegistrationEmailRequestFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
         } else {
-            GetterControls.getInstance().getBeanMessagesDefinesCtrl().
-                    setVerifyRegistrationEmailRequestFlag(MessagesDefinesCtrl.TypeFlags.FALSE);
+            messagesDefinesCtrl.setVerifyRegistrationEmailRequestFlag(MessagesDefinesCtrl.TypeFlags.FALSE);
         }
-        GetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                .setErrorVerifyRegEmailFlag((DefinesMessages.TypeErrorRegistration) map.get(DefinesMessages.TypeData.ErrorReg));
+        messagesDefinesCtrl.setErrorVerifyRegEmailFlag((DefinesMessages.TypeErrorRegistration) map.get(DefinesMessages.TypeData.ErrorReg));
     }
 
     private void workResetPasswordRequestMessage(HashMap<DefinesMessages.TypeData, ?> map) {
@@ -282,11 +277,9 @@ public class TakeMessagesCtrl {
 
     private void workResetPasswordReplyMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(DefinesMessages.TypeData.BoolReply)) {
-            GetterControls.getInstance().getBeanMessagesDefinesCtrl().
-                    setResetPasswordRequestFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
+            messagesDefinesCtrl.setResetPasswordRequestFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
         } else {
-            GetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                    .setResetPasswordRequestFlag(MessagesDefinesCtrl.TypeFlags.FALSE);
+            messagesDefinesCtrl.setResetPasswordRequestFlag(MessagesDefinesCtrl.TypeFlags.FALSE);
         }
     }
 
@@ -305,11 +298,9 @@ public class TakeMessagesCtrl {
 
     private void workVerifyFamousEmailReplyMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(DefinesMessages.TypeData.BoolReply)) {
-            GetterControls.getInstance().getBeanMessagesDefinesCtrl().
-                    setVerifyFamousEmailRequestFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
+            messagesDefinesCtrl.setVerifyFamousEmailRequestFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
         } else {
-            GetterControls.getInstance().getBeanMessagesDefinesCtrl().
-                    setVerifyFamousEmailRequestFlag(MessagesDefinesCtrl.TypeFlags.FALSE);
+            messagesDefinesCtrl.setVerifyFamousEmailRequestFlag(MessagesDefinesCtrl.TypeFlags.FALSE);
         }
     }
 
@@ -333,11 +324,9 @@ public class TakeMessagesCtrl {
 
     private void workChangePasswordReplyMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(DefinesMessages.TypeData.BoolReply)) {
-            GetterControls.getInstance().getBeanMessagesDefinesCtrl().
-                    setChangePasswordRequest(MessagesDefinesCtrl.TypeFlags.TRUE);
+            messagesDefinesCtrl.setChangePasswordRequest(MessagesDefinesCtrl.TypeFlags.TRUE);
         } else {
-            GetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                    .setChangePasswordRequest(MessagesDefinesCtrl.TypeFlags.FALSE);
+            messagesDefinesCtrl.setChangePasswordRequest(MessagesDefinesCtrl.TypeFlags.FALSE);
         }
     }
 
@@ -367,8 +356,7 @@ public class TakeMessagesCtrl {
         }
 
         chatsCtrl.createChatsObjects(chatsInfo);
-        GetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                .setChatsLoadReplyFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
+        messagesDefinesCtrl.setChatsLoadReplyFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
     }
 
     private void workCheckOnlineUserRequestMessage(HashMap<DefinesMessages.TypeData, ?> map) {
@@ -420,8 +408,7 @@ public class TakeMessagesCtrl {
         chatsCtrl.setOnlineStatusesUsers(mapStatusesUsers);
         chatsCtrl.setLastOnlineTimeUsersByStrings(mapLastOnlineTimeUsers);
 
-        GetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                .setLoadUsersOnlineReplyFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
+        messagesDefinesCtrl.setLoadUsersOnlineReplyFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
     }
 
     private void workTextMessageSendUserToServerMessage(HashMap<DefinesMessages.TypeData, ?> map) {
@@ -460,11 +447,9 @@ public class TakeMessagesCtrl {
 
     private void workTextMessageSendUserToServerVerificationMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(DefinesMessages.TypeData.BoolReply)) {
-            GetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                    .setTextMessageSendUserToServerFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
+            messagesDefinesCtrl.setTextMessageSendUserToServerFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
         } else {
-            GetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                    .setTextMessageSendUserToServerFlag(MessagesDefinesCtrl.TypeFlags.FALSE);
+            messagesDefinesCtrl.setTextMessageSendUserToServerFlag(MessagesDefinesCtrl.TypeFlags.FALSE);
         }
     }
 
@@ -532,8 +517,7 @@ public class TakeMessagesCtrl {
 
         GetterControls.getInstance().getBeanMessagesDialogCtrl().addRedirectMessageToModel(
                 uuidUserSender, uuidUserReceiver, uuidMessage, status, text, timestamp);
-        GetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                .setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
+        messagesDefinesCtrl.setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
 
         sendMessagesCtrl.sendMessage(
                 DefinesMessages.TypeMessage.TextMessageRedirectServerToUserVerification, true);
@@ -541,11 +525,9 @@ public class TakeMessagesCtrl {
 
     private void workTextMessageRedirectServerToUserVerificationMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(DefinesMessages.TypeData.BoolReply)) {
-            GetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                    .setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
+            messagesDefinesCtrl.setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
         } else {
-            GetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                    .setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.FALSE);
+            messagesDefinesCtrl.setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.FALSE);
         }
     }
 
@@ -571,7 +553,6 @@ public class TakeMessagesCtrl {
                 structTools.objectInListMaps(objectFromMap, DefinesMessages.TypeData.class, Object.class);
 
         GetterControls.getInstance().getBeanMessagesDialogCtrl().createMessagesObjects(msgInfo);
-        GetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                .setTextMessagesLoadReplyFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
+        messagesDefinesCtrl.setTextMessagesLoadReplyFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
     }
 }

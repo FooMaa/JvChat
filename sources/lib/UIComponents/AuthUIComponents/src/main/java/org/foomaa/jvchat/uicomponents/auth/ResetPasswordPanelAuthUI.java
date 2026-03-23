@@ -30,11 +30,13 @@ public class ResetPasswordPanelAuthUI extends JPanel {
     private final DisplaySettings displaySettings;
     private final UsersTools usersTools;
     private final SendMessagesCtrl sendMessagesCtrl;
+    private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider;
 
     ResetPasswordPanelAuthUI(DisplaySettings displaySettings,
                              UsersTools usersTools,
                              SendMessagesCtrl sendMessagesCtrl,
+                             MessagesDefinesCtrl messagesDefinesCtrl,
                              ObjectProvider<ButtonAuthUI> buttonObjectProvider,
                              ObjectProvider<ErrorLabelAuthUI> errorLabelObjectProvider,
                              ObjectProvider<TextFieldAuthUI> textFieldObjectProvider,
@@ -42,6 +44,7 @@ public class ResetPasswordPanelAuthUI extends JPanel {
         this.displaySettings = displaySettings;
         this.usersTools = usersTools;
         this.sendMessagesCtrl = sendMessagesCtrl;
+        this.messagesDefinesCtrl = messagesDefinesCtrl;
         this.optionPaneObjectProvider = optionPaneObjectProvider;
 
         tEmail = textFieldObjectProvider.getObject("Почта");
@@ -169,20 +172,17 @@ public class ResetPasswordPanelAuthUI extends JPanel {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getResetPasswordRequestFlag() ==
-                MessagesDefinesCtrl.TypeFlags.DEFAULT) {
+        while (messagesDefinesCtrl.getResetPasswordRequestFlag() == MessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
                 log.error( "Couldn't wait.");
             }
         }
-        if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getResetPasswordRequestFlag() ==
-                MessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (messagesDefinesCtrl.getResetPasswordRequestFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
             changeRegimeNext();
             setEnabled(true);
-        } else if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getResetPasswordRequestFlag() ==
-                MessagesDefinesCtrl.TypeFlags.FALSE) {
+        } else if (messagesDefinesCtrl.getResetPasswordRequestFlag() == MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             optionPaneObjectProvider.getObject("This email is not registered.", OptionPaneAuthUI.TypeDlg.ERROR);
         }
