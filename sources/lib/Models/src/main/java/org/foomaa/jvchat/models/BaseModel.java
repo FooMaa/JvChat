@@ -22,8 +22,8 @@ public abstract class BaseModel {
         this.rootModel = rootModel;
 
         nameModel = getClass().getSimpleName();
-
-        if (rootModel != null && rootStructObjectObjectProvider != null) {
+        
+        if (rootStructObjectObjectProvider != null) {
             installRoot();
         }
     }
@@ -66,7 +66,10 @@ public abstract class BaseModel {
     }
 
     private void installRoot() {
-        if (getClass() == RootObjectsModel.class) {
+        if (rootModel == null && getClass() == RootObjectsModel.class) {
+            rootObject = rootStructObjectObjectProvider.getObject(getNameModel());
+            return;
+        } else if (rootModel == null) {
             return;
         }
 
@@ -76,7 +79,6 @@ public abstract class BaseModel {
         if (rootStructObjectRootModel != null &&
                 creatingRoot != rootStructObjectRootModel) {
             rootObject = rootStructObjectRootModel;
-
             rootModel.addItem(creatingRoot, rootStructObjectRootModel);
         }
     }
