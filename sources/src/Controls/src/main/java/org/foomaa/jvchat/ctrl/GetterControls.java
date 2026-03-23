@@ -30,14 +30,6 @@ public class GetterControls {
         return null;
     }
 
-    public TakeMessagesCtrl getBeanTakeMessagesCtrl() {
-        return null;
-    }
-
-    public DbCtrl getBeanDbCtrl() {
-        return null;
-    }
-
     public SocketRunnableCtrl getBeanSocketRunnableCtrl(Socket socket) {
         return null;
     }

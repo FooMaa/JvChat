@@ -31,6 +31,7 @@ public class TakeMessagesCtrl {
     private final SendMessagesCtrl sendMessagesCtrl;
     private final ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider;
     private final ObjectProvider<EmailCtrl> emailCtrlObjectProvider;
+    private final ObjectProvider<DbCtrl> dbCtrlObjectProvider;
 
     TakeMessagesCtrl(HashCryptography hashCryptography,
                      DeserializatorDataMessages deserializatorDataMessages,
@@ -39,7 +40,8 @@ public class TakeMessagesCtrl {
                      SendMessagesCtrl sendMessagesCtrl,
                      ObjectProvider<UsersInfoSettings> usersInfoSettingsObjectProvider,
                      ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider,
-                     ObjectProvider<EmailCtrl> emailCtrlObjectProvider) {
+                     ObjectProvider<EmailCtrl> emailCtrlObjectProvider,
+                     ObjectProvider<DbCtrl> dbCtrlObjectProvider) {
         this.hashCryptography = hashCryptography;
         this.structTools = structTools;
         this.formatTools = formatTools;
@@ -48,6 +50,7 @@ public class TakeMessagesCtrl {
         this.usersInfoSettingsObjectProvider = usersInfoSettingsObjectProvider;
         this.chatsCtrlObjectProvider = chatsCtrlObjectProvider;
         this.emailCtrlObjectProvider = emailCtrlObjectProvider;
+        this.dbCtrlObjectProvider = dbCtrlObjectProvider;
     }
 
     public void takeMessage(byte[] data) {
@@ -118,13 +121,17 @@ public class TakeMessagesCtrl {
 
         String hashPassword = hashCryptography.getHash(password);
 
-        boolean requestDB = GetterControls.getInstance()
-                .getBeanDbCtrl().checkQueryToDB(DbCtrl.TypeExecutionCheck.UserPassword,
+        DbCtrl dbCtrl = dbCtrlObjectProvider.getIfAvailable();
+        if (dbCtrl == null) {
+            log.error("dbCtrl is null");
+            return;
+        }
+
+        boolean requestDB = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.UserPassword,
                         login,
                         hashPassword);
 
-        String uuidUserStr = GetterControls.getInstance()
-                .getBeanDbCtrl().getSingleDataFromDb(DbCtrl.TypeExecutionGetSingle.UuidUserByLogin,
+        String uuidUserStr = dbCtrl.getSingleDataFromDb(DbCtrl.TypeExecutionGetSingle.UuidUserByLogin,
                         login);
         UUID uuidUser = UUID.fromString(uuidUserStr);
 
@@ -147,11 +154,16 @@ public class TakeMessagesCtrl {
     private void workRegistrationRequestMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         boolean requestDB = false;
         DefinesMessages.TypeErrorRegistration typeError = DefinesMessages.TypeErrorRegistration.NoError;
-        boolean checkLogin = GetterControls.getInstance()
-                .getBeanDbCtrl().checkQueryToDB(DbCtrl.TypeExecutionCheck.Login,
+
+        DbCtrl dbCtrl = dbCtrlObjectProvider.getIfAvailable();
+        if (dbCtrl == null) {
+            log.error("dbCtrl is null");
+            return;
+        }
+
+        boolean checkLogin = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.Login,
                         (String) map.get(DefinesMessages.TypeData.Login));
-        boolean checkEmail = GetterControls.getInstance()
-                .getBeanDbCtrl().checkQueryToDB(DbCtrl.TypeExecutionCheck.Email,
+        boolean checkEmail = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.Email,
                         (String) map.get(DefinesMessages.TypeData.Email));
         if (checkLogin) {
             typeError = DefinesMessages.TypeErrorRegistration.Login;
@@ -188,8 +200,13 @@ public class TakeMessagesCtrl {
     }
 
     private void workVerifyRegistrationEmailRequestMessage(HashMap<DefinesMessages.TypeData, ?> map) {
-        boolean checkCode = GetterControls.getInstance()
-                .getBeanDbCtrl().checkQueryToDB(DbCtrl.TypeExecutionCheck.VerifyRegistrationEmail,
+        DbCtrl dbCtrl = dbCtrlObjectProvider.getIfAvailable();
+        if (dbCtrl == null) {
+            log.error("dbCtrl is null");
+            return;
+        }
+
+        boolean checkCode = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.VerifyRegistrationEmail,
                         (String) map.get(DefinesMessages.TypeData.Email),
                         (String) map.get(DefinesMessages.TypeData.VerifyCode));
         if (checkCode) {
@@ -200,19 +217,16 @@ public class TakeMessagesCtrl {
             String hashPassword = hashCryptography.getHash(password);
             UUID uuidUser = UUID.randomUUID();
 
-            boolean requestDB = GetterControls.getInstance()
-                    .getBeanDbCtrl().insertQueryToDB(DbCtrl.TypeExecutionInsert.RegisterForm,
+            boolean requestDB = dbCtrl.insertQueryToDB(DbCtrl.TypeExecutionInsert.RegisterForm,
                             login,
                             email,
                             hashPassword,
                             uuidUser.toString());
             DefinesMessages.TypeErrorRegistration typeError = DefinesMessages.TypeErrorRegistration.NoError;
             if (!requestDB) {
-                boolean checkLogin = GetterControls.getInstance()
-                        .getBeanDbCtrl().checkQueryToDB(DbCtrl.TypeExecutionCheck.Login,
+                boolean checkLogin = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.Login,
                                 (String) map.get(DefinesMessages.TypeData.Login));
-                boolean checkEmail = GetterControls.getInstance()
-                        .getBeanDbCtrl().checkQueryToDB(DbCtrl.TypeExecutionCheck.Email,
+                boolean checkEmail = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.Email,
                                 (String) map.get(DefinesMessages.TypeData.Email));
                 if (checkLogin) {
                     typeError = DefinesMessages.TypeErrorRegistration.Login;
@@ -244,8 +258,14 @@ public class TakeMessagesCtrl {
 
     private void workResetPasswordRequestMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         String email = (String) map.get(DefinesMessages.TypeData.Email);
-        boolean checkEmail = GetterControls.getInstance()
-                .getBeanDbCtrl().checkQueryToDB(DbCtrl.TypeExecutionCheck.Email,
+
+        DbCtrl dbCtrl = dbCtrlObjectProvider.getIfAvailable();
+        if (dbCtrl == null) {
+            log.error("dbCtrl is null");
+            return;
+        }
+
+        boolean checkEmail = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.Email,
                         email);
         boolean reply = false;
         if (checkEmail) {
@@ -271,8 +291,13 @@ public class TakeMessagesCtrl {
     }
 
     private void workVerifyFamousEmailRequestMessage(HashMap<DefinesMessages.TypeData, ?> map) {
-        boolean requestDB = GetterControls.getInstance()
-                .getBeanDbCtrl().checkQueryToDB(DbCtrl.TypeExecutionCheck.VerifyFamousEmailCode,
+        DbCtrl dbCtrl = dbCtrlObjectProvider.getIfAvailable();
+        if (dbCtrl == null) {
+            log.error("dbCtrl is null");
+            return;
+        }
+
+        boolean requestDB = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.VerifyFamousEmailCode,
                         (String) map.get(DefinesMessages.TypeData.Email),
                         (String) map.get(DefinesMessages.TypeData.VerifyCode));
         sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.VerifyFamousEmailReply, requestDB);
@@ -294,8 +319,13 @@ public class TakeMessagesCtrl {
 
         String hashPassword = hashCryptography.getHash(password);
 
-        boolean requestDB = GetterControls.getInstance()
-                .getBeanDbCtrl().insertQueryToDB(DbCtrl.TypeExecutionInsert.ChangePassword,
+        DbCtrl dbCtrl = dbCtrlObjectProvider.getIfAvailable();
+        if (dbCtrl == null) {
+            log.error("dbCtrl is null");
+            return;
+        }
+
+        boolean requestDB = dbCtrl.insertQueryToDB(DbCtrl.TypeExecutionInsert.ChangePassword,
                         email,
                         hashPassword);
         sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.ChangePasswordReply, requestDB);
@@ -313,8 +343,15 @@ public class TakeMessagesCtrl {
 
     private void workChatsLoadRequestMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         String uuidUserStr = map.get(DefinesMessages.TypeData.UuidUser).toString();
-        List<Map<DbGlobalDefines.LineKeys, String>> requestDB = GetterControls.getInstance()
-                .getBeanDbCtrl().getMultipleInfoFromDb(DbCtrl.TypeExecutionGetMultiple.ChatsLoad, uuidUserStr);
+
+        DbCtrl dbCtrl = dbCtrlObjectProvider.getIfAvailable();
+        if (dbCtrl == null) {
+            log.error("dbCtrl is null");
+            return;
+        }
+
+        List<Map<DbGlobalDefines.LineKeys, String>> requestDB =
+                dbCtrl.getMultipleInfoFromDb(DbCtrl.TypeExecutionGetMultiple.ChatsLoad, uuidUserStr);
         sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.ChatsLoadReply, requestDB);
     }
 
@@ -402,7 +439,13 @@ public class TakeMessagesCtrl {
         LocalDateTime timestamp = formatTools.stringToLocalDateTime(timestampStr, normaliseTimestampCount);
 
         // write to the database first
-        GetterControls.getInstance().getBeanDbCtrl().insertQueryToDB(DbCtrl.TypeExecutionInsert.ChatMessagesSentMessage,
+        DbCtrl dbCtrl = dbCtrlObjectProvider.getIfAvailable();
+        if (dbCtrl == null) {
+            log.error("dbCtrl is null");
+            return;
+        }
+
+        dbCtrl.insertQueryToDB(DbCtrl.TypeExecutionInsert.ChatMessagesSentMessage,
                 uuidUserSender.toString(), uuidUserReceiver.toString(), uuidMessage.toString(), statusString, text, timestampStr);
         // send the status "delivered"
         sendMessagesCtrl.sendMessage(
@@ -451,8 +494,17 @@ public class TakeMessagesCtrl {
 
         for (UUID uuidMessage : mapStatusesMessages.keySet()) {
             String statusByUuid = String.valueOf(mapStatusesMessages.get(uuidMessage).getValue());
-            GetterControls.getInstance().getBeanDbCtrl().insertQueryToDB(DbCtrl.TypeExecutionInsert.ChatsMessageStatusChange,
-                    uuidMessage.toString(), statusByUuid);
+
+            DbCtrl dbCtrl = dbCtrlObjectProvider.getIfAvailable();
+            if (dbCtrl == null) {
+                log.error("dbCtrl is null");
+                return;
+            }
+
+            dbCtrl.insertQueryToDB(
+                    DbCtrl.TypeExecutionInsert.ChatsMessageStatusChange,
+                    uuidMessage.toString(),
+                    statusByUuid);
         }
 
         sendMessagesCtrl.sendMessage(
@@ -501,8 +553,14 @@ public class TakeMessagesCtrl {
         UUID uuidChat = (UUID) map.get(DefinesMessages.TypeData.UuidChat);
         int quantityMessages = (Integer) map.get(DefinesMessages.TypeData.QuantityMessages);
 
-        List<Map<DbGlobalDefines.LineKeys, String>> requestDB = GetterControls.getInstance()
-                .getBeanDbCtrl().getMultipleInfoFromDb(DbCtrl.TypeExecutionGetMultiple.MessagesLoad,
+        DbCtrl dbCtrl = dbCtrlObjectProvider.getIfAvailable();
+        if (dbCtrl == null) {
+            log.error("dbCtrl is null");
+            return;
+        }
+
+        List<Map<DbGlobalDefines.LineKeys, String>> requestDB =
+                dbCtrl.getMultipleInfoFromDb(DbCtrl.TypeExecutionGetMultiple.MessagesLoad,
                         uuidChat.toString(), String.valueOf(quantityMessages));
         sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.MessagesLoadReply, requestDB);
     }

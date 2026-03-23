@@ -21,17 +21,20 @@ public class NetworkCtrl {
     private final ServersSocket serversSocket;
     private  final UsersSocket usersSocket;
     private SocketRunnableCtrl currentSocketRunnableCtrl;
+    private final TakeMessagesCtrl takeMessagesCtrl;
     private final OnlineServersCtrl onlineServersCtrl;
     private final MainSettings mainSettings;
     private final SocketRunnableCtrlModel socketRunnableCtrlModel;
 
     NetworkCtrl(MainSettings mainSettings,
                 SocketRunnableCtrlModel socketRunnableCtrlModel,
+                TakeMessagesCtrl takeMessagesCtrl,
                 @Autowired(required = false) ServersSocket serversSocket,
                 @Autowired(required = false) UsersSocket usersSocket,
                 @Autowired(required = false) OnlineServersCtrl onlineServersCtrl) {
         this.mainSettings = mainSettings;
         this.socketRunnableCtrlModel = socketRunnableCtrlModel;
+        this.takeMessagesCtrl = takeMessagesCtrl;
         this.serversSocket = serversSocket;
         this.usersSocket = usersSocket;
         this.onlineServersCtrl = onlineServersCtrl;
@@ -73,9 +76,9 @@ public class NetworkCtrl {
     public void takeMessage(byte[] message, SocketRunnableCtrl runnableCtrl) {
         if (mainSettings.getProfile() == MainSettings.TypeProfiles.SERVERS) {
             currentSocketRunnableCtrl = runnableCtrl;
-            GetterControls.getInstance().getBeanTakeMessagesCtrl().setRunnableCtrlFromConnection(currentSocketRunnableCtrl);
+            takeMessagesCtrl.setRunnableCtrlFromConnection(currentSocketRunnableCtrl);
         }
-        GetterControls.getInstance().getBeanTakeMessagesCtrl().takeMessage(message);
+        takeMessagesCtrl.takeMessage(message);
     }
 
     public void sendMessage(byte[] message) {
