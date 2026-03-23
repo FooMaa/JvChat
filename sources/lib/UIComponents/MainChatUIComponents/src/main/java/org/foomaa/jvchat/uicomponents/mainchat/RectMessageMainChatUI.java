@@ -8,7 +8,7 @@ import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import org.foomaa.jvchat.ctrl.GetterControls;
+import org.foomaa.jvchat.ctrl.MessagesDialogCtrl;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
@@ -27,12 +27,15 @@ public class RectMessageMainChatUI extends JTextArea {
     private final UUID uuidMessage;
 
     private final DisplaySettings displaySettings;
+    private final MessagesDialogCtrl messagesDialogCtrl;
     private final ScrollPanelMessagesMainChatUI scrollPanelMessages;
 
     RectMessageMainChatUI(DisplaySettings displaySettings,
                           MessageStructObject messageObject,
+                          MessagesDialogCtrl messagesDialogCtrl,
                           ScrollPanelMessagesMainChatUI scrollPanelMessages) {
         this.displaySettings = displaySettings;
+        this.messagesDialogCtrl = messagesDialogCtrl;
         this.scrollPanelMessages = scrollPanelMessages;
 
         textMessage = messageObject.getText();
@@ -71,7 +74,7 @@ public class RectMessageMainChatUI extends JTextArea {
             g2.fillOval(xRoundSecond, yRound, diameter, diameter);
         }
 
-        String time = GetterControls.getInstance().getBeanMessagesDialogCtrl().getTimeFormattedMessage(timestamp);
+        String time = messagesDialogCtrl.getTimeFormattedMessage(timestamp);
         Font font = new Font("Times", Font.BOLD, displaySettings.getResizePixel(0.010));
         g2.setFont(font);
         FontMetrics fontMetrics = g2.getFontMetrics(font);

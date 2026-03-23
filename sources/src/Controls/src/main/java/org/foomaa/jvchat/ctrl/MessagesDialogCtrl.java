@@ -6,7 +6,7 @@ import java.util.*;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
@@ -20,33 +20,35 @@ import org.foomaa.jvchat.tools.FormatTools;
 
 
 @Component
-@Profile("users")
 @Slf4j
 public class MessagesDialogCtrl {
     private final MessagesModel messagesModel;
     private final ChatsModel chatsModel;
-    private final ChatsCtrl chatsCtrl;
     private final FormatTools formatTools;
-    private final UsersInfoSettings usersInfoSettings;
     private final SendMessagesCtrl sendMessagesCtrl;
     private final MessagesDefinesCtrl messagesDefinesCtrl;
+    private final ObjectProvider<OnlineServersCtrl> onlineServersCtrlObjectProvider;
+    private final ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider;
+    private final ObjectProvider<UsersInfoSettings> usersInfoSettingsObjectProvider;
     private final ObjectProvider<MessageStructObject> messageStructObjectObjectProvider;
 
-    MessagesDialogCtrl(MessagesModel messagesModel,
-                       ChatsModel chatsModel,
-                       ChatsCtrl chatsCtrl,
+    MessagesDialogCtrl(@Lazy MessagesModel messagesModel,
+                       @Lazy ChatsModel chatsModel,
                        FormatTools formatTools,
-                       UsersInfoSettings usersInfoSettings,
                        SendMessagesCtrl sendMessagesCtrl,
                        MessagesDefinesCtrl messagesDefinesCtrl,
+                       ObjectProvider<OnlineServersCtrl> onlineServersCtrlObjectProvider,
+                       ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider,
+                       ObjectProvider<UsersInfoSettings> usersInfoSettingsObjectProvider,
                        ObjectProvider<MessageStructObject> messageStructObjectObjectProvider) {
         this.messagesModel = messagesModel;
         this.chatsModel = chatsModel;
-        this.chatsCtrl = chatsCtrl;
         this.formatTools = formatTools;
-        this.usersInfoSettings = usersInfoSettings;
         this.sendMessagesCtrl = sendMessagesCtrl;
         this.messagesDefinesCtrl = messagesDefinesCtrl;
+        this.onlineServersCtrlObjectProvider = onlineServersCtrlObjectProvider;
+        this.chatsCtrlObjectProvider = chatsCtrlObjectProvider;
+        this.usersInfoSettingsObjectProvider = usersInfoSettingsObjectProvider;
         this.messageStructObjectObjectProvider = messageStructObjectObjectProvider;
     }
 
@@ -73,6 +75,12 @@ public class MessagesDialogCtrl {
     public MessageStructObject createAndSendMessage(String text) {
         if (getCurrentActiveChatUuid() == null) {
             log.error("No selected dialog, cannot sending message");
+            return null;
+        }
+
+        UsersInfoSettings usersInfoSettings = usersInfoSettingsObjectProvider.getIfAvailable();
+        if (usersInfoSettings == null) {
+            log.error("usersInfoSettings is null");
             return null;
         }
 
@@ -121,6 +129,12 @@ public class MessagesDialogCtrl {
     }
 
     private void setLastMessageInChatCtrl(MessageStructObject message) {
+        ChatsCtrl chatsCtrl = chatsCtrlObjectProvider.getIfAvailable();
+        if (chatsCtrl == null) {
+            log.error("chatsCtrl is null");
+            return;
+        }
+
         chatsCtrl.changeLastMessage(message);
     }
 
@@ -158,6 +172,12 @@ public class MessagesDialogCtrl {
     }
 
     public boolean isCurrentUserSender(MessageStructObject messageStructObject) {
+        UsersInfoSettings usersInfoSettings = usersInfoSettingsObjectProvider.getIfAvailable();
+        if (usersInfoSettings == null) {
+            log.error("usersInfoSettings is null");
+            return false;
+        }
+
         UUID currentUuid = usersInfoSettings.getUuid();
         return Objects.equals(currentUuid, messageStructObject.getUuidUserSender());
     }
@@ -170,7 +190,12 @@ public class MessagesDialogCtrl {
                                             LocalDateTime timestamp) {
         MessageStructObject messageStructObject = createMessageByData(
                 uuidUserSender, uuidUserReceiver, uuidMessage, statusMessage, text, timestamp);
-        OnlineServersCtrl onlineServersCtrl = GetterControls.getInstance().getBeanOnlineServersCtrl();
+
+        OnlineServersCtrl onlineServersCtrl = onlineServersCtrlObjectProvider.getIfAvailable();
+        if (onlineServersCtrl == null) {
+            log.error("onlineServersCtrl is null");
+            return;
+        }
 
         boolean isUserOnline = onlineServersCtrl.isUuidUserInListCheckerOnline(messageStructObject.getUuidUserReceiver());
         if (!isUserOnline) {

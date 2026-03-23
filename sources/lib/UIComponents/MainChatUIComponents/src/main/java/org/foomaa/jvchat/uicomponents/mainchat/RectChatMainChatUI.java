@@ -9,7 +9,7 @@ import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.ctrl.ChatsCtrl;
-import org.foomaa.jvchat.ctrl.GetterControls;
+import org.foomaa.jvchat.ctrl.MessagesDialogCtrl;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.settings.UsersInfoSettings;
@@ -42,14 +42,17 @@ public class RectChatMainChatUI extends JPanel {
 
     private final UsersInfoSettings usersInfoSettings;
     private final DisplaySettings displaySettings;
+    private final MessagesDialogCtrl messagesDialogCtrl;
     private final ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider;
 
     RectChatMainChatUI(ChatStructObject chatObject,
                        UsersInfoSettings usersInfoSettings,
                        DisplaySettings displaySettings,
+                       MessagesDialogCtrl messagesDialogCtrl,
                        ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider) {
         this.usersInfoSettings = usersInfoSettings;
         this.displaySettings = displaySettings;
+        this.messagesDialogCtrl = messagesDialogCtrl;
         this.chatsCtrlObjectProvider = chatsCtrlObjectProvider;
 
         nickName = chatObject.getUserChat().getLogin();
@@ -267,8 +270,7 @@ public class RectChatMainChatUI extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                GetterControls.getInstance().getBeanMessagesDialogCtrl()
-                        .setCurrentActiveChatUuid(uuidChat);
+                messagesDialogCtrl.setCurrentActiveChatUuid(uuidChat);
             }
         });
     }

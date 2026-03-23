@@ -10,6 +10,7 @@ import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.messages.SerializatorDataMessages;
 import org.foomaa.jvchat.settings.ServersInfoSettings;
 import org.foomaa.jvchat.tools.StructTools;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 
@@ -19,15 +20,18 @@ public class SendMessagesCtrl {
     private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final ServersInfoSettings serversInfoSettings;
     private final StructTools structTools;
+    private final NetworkCtrl networkCtrl;
 
     SendMessagesCtrl(SerializatorDataMessages serializatorDataMessages,
                      MessagesDefinesCtrl messagesDefinesCtrl,
                      ServersInfoSettings serversInfoSettings,
-                     StructTools structTools) {
+                     StructTools structTools,
+                     @Lazy NetworkCtrl networkCtrl) {
         this.serializatorDataMessages = serializatorDataMessages;
         this.messagesDefinesCtrl = messagesDefinesCtrl;
         this.serversInfoSettings = serversInfoSettings;
         this.structTools = structTools;
+        this.networkCtrl = networkCtrl;
     }
 
     public final void sendMessage(DefinesMessages.TypeMessage type, Object... parameters) {
@@ -299,11 +303,11 @@ public class SendMessagesCtrl {
     }
 
     private void sendReadyMessageNetwork(byte[] bodyMessage) {
-        GetterControls.getInstance().getBeanNetworkCtrl().sendMessage(bodyMessage);
+        networkCtrl.sendMessage(bodyMessage);
     }
 
     private void sendReadyMessageNetwork(byte[] bodyMessage, Runnable runnableCtrl) {
-        GetterControls.getInstance().getBeanNetworkCtrl().sendMessageByRunnableCtrl(bodyMessage, runnableCtrl);
+        networkCtrl.sendMessageByRunnableCtrl(bodyMessage, runnableCtrl);
     }
 
     private byte[] createBodyEntryRequestMessage(DefinesMessages.TypeMessage type, String login, String password) {

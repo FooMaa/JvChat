@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.cryptography.HashCryptography;
@@ -30,6 +31,8 @@ public class TakeMessagesCtrl {
     private final FormatTools formatTools;
     private final SendMessagesCtrl sendMessagesCtrl;
     private final MessagesDefinesCtrl messagesDefinesCtrl;
+    private final MessagesDialogCtrl messagesDialogCtrl;
+    private final ObjectProvider<OnlineServersCtrl> onlineServersCtrlObjectProvider;
     private final ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider;
     private final ObjectProvider<EmailCtrl> emailCtrlObjectProvider;
     private final ObjectProvider<DbCtrl> dbCtrlObjectProvider;
@@ -40,6 +43,8 @@ public class TakeMessagesCtrl {
                      FormatTools formatTools,
                      SendMessagesCtrl sendMessagesCtrl,
                      MessagesDefinesCtrl messagesDefinesCtrl,
+                     MessagesDialogCtrl messagesDialogCtrl,
+                     ObjectProvider<OnlineServersCtrl> onlineServersCtrlObjectProvider,
                      ObjectProvider<UsersInfoSettings> usersInfoSettingsObjectProvider,
                      ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider,
                      ObjectProvider<EmailCtrl> emailCtrlObjectProvider,
@@ -49,7 +54,9 @@ public class TakeMessagesCtrl {
         this.formatTools = formatTools;
         this.sendMessagesCtrl = sendMessagesCtrl;
         this.messagesDefinesCtrl = messagesDefinesCtrl;
+        this.messagesDialogCtrl = messagesDialogCtrl;
         this.deserializatorDataMessages = deserializatorDataMessages;
+        this.onlineServersCtrlObjectProvider = onlineServersCtrlObjectProvider;
         this.usersInfoSettingsObjectProvider = usersInfoSettingsObjectProvider;
         this.chatsCtrlObjectProvider = chatsCtrlObjectProvider;
         this.emailCtrlObjectProvider = emailCtrlObjectProvider;
@@ -374,16 +381,28 @@ public class TakeMessagesCtrl {
 
     private void workCheckOnlineUserReplyMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         UUID uuidUser = (UUID) map.get(DefinesMessages.TypeData.UuidUser);
-        GetterControls.getInstance().getBeanOnlineServersCtrl().addUsersOnline(uuidUser, runnableCtrlFrom);
+
+        OnlineServersCtrl onlineServersCtrl = onlineServersCtrlObjectProvider.getIfAvailable();
+        if (onlineServersCtrl == null) {
+            log.error("onlineServersCtrl is null");
+            return;
+        }
+
+        onlineServersCtrl.addUsersOnline(uuidUser, runnableCtrlFrom);
     }
 
     private void workLoadUsersOnlineStatusRequestMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         Object objectList = map.get(DefinesMessages.TypeData.UuidsUsersList);
         List<UUID> uuidsUsers = structTools.checkedCastList(objectList, UUID.class);
-        Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> statusesUsers =
-                GetterControls.getInstance().getBeanOnlineServersCtrl().getStatusesUsers(uuidsUsers);
-        Map<UUID, String> lastOnlineTimeUsers =
-                GetterControls.getInstance().getBeanOnlineServersCtrl().getLastOnlineTimeUsers(uuidsUsers);
+
+        OnlineServersCtrl onlineServersCtrl = onlineServersCtrlObjectProvider.getIfAvailable();
+        if (onlineServersCtrl == null) {
+            log.error("onlineServersCtrl is null");
+            return;
+        }
+
+        Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> statusesUsers = onlineServersCtrl.getStatusesUsers(uuidsUsers);
+        Map<UUID, String> lastOnlineTimeUsers = onlineServersCtrl.getLastOnlineTimeUsers(uuidsUsers);
         sendMessagesCtrl.sendMessage(
                 DefinesMessages.TypeMessage.LoadUsersOnlineStatusReply, statusesUsers, lastOnlineTimeUsers);
     }
@@ -438,7 +457,7 @@ public class TakeMessagesCtrl {
         sendMessagesCtrl.sendMessage(
                 DefinesMessages.TypeMessage.TextMessagesChangingStatusFromServer, mapStatusMessages);
         // send to the user if he is online
-        GetterControls.getInstance().getBeanMessagesDialogCtrl().redirectMessageToOnlineUser(
+        messagesDialogCtrl.redirectMessageToOnlineUser(
                 uuidUserSender, uuidUserReceiver, uuidMessage, status, text, timestamp);
         // send a delivery receipt
         sendMessagesCtrl.sendMessage(
@@ -458,7 +477,7 @@ public class TakeMessagesCtrl {
         Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages =
                 structTools.objectInMap(statusesMap, UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
 
-        GetterControls.getInstance().getBeanMessagesDialogCtrl().setDirtyStatusToMessage(mapStatusesMessages);
+        messagesDialogCtrl.setDirtyStatusToMessage(mapStatusesMessages);
 
         sendMessagesCtrl.sendMessage(
                 DefinesMessages.TypeMessage.TextMessagesChangingStatusFromServerVerification, true);
@@ -515,7 +534,7 @@ public class TakeMessagesCtrl {
         int normaliseTimestampCount = 3;
         LocalDateTime timestamp = formatTools.stringToLocalDateTime(timestampStr, normaliseTimestampCount);
 
-        GetterControls.getInstance().getBeanMessagesDialogCtrl().addRedirectMessageToModel(
+        messagesDialogCtrl.addRedirectMessageToModel(
                 uuidUserSender, uuidUserReceiver, uuidMessage, status, text, timestamp);
         messagesDefinesCtrl.setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
 
@@ -552,7 +571,7 @@ public class TakeMessagesCtrl {
         List<Map<DefinesMessages.TypeData, Object>> msgInfo =
                 structTools.objectInListMaps(objectFromMap, DefinesMessages.TypeData.class, Object.class);
 
-        GetterControls.getInstance().getBeanMessagesDialogCtrl().createMessagesObjects(msgInfo);
+        messagesDialogCtrl.createMessagesObjects(msgInfo);
         messagesDefinesCtrl.setTextMessagesLoadReplyFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
     }
 }

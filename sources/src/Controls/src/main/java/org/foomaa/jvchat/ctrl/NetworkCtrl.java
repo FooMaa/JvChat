@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.ctrl;
 
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -12,10 +13,12 @@ import org.foomaa.jvchat.network.UsersSocket;
 import org.foomaa.jvchat.settings.MainSettings;
 import org.foomaa.jvchat.network.ServersSocket;
 import org.foomaa.jvchat.structobjects.SocketRunnableCtrlStructObject;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 
 @Component
+@Lazy
 @Slf4j
 public class NetworkCtrl {
     private final ServersSocket serversSocket;
@@ -25,16 +28,19 @@ public class NetworkCtrl {
     private final OnlineServersCtrl onlineServersCtrl;
     private final MainSettings mainSettings;
     private final SocketRunnableCtrlModel socketRunnableCtrlModel;
+    private final ObjectProvider<SocketRunnableCtrl> socketRunnableCtrlObjectProvider;
 
     NetworkCtrl(MainSettings mainSettings,
                 SocketRunnableCtrlModel socketRunnableCtrlModel,
                 TakeMessagesCtrl takeMessagesCtrl,
                 @Autowired(required = false) ServersSocket serversSocket,
                 @Autowired(required = false) UsersSocket usersSocket,
-                @Autowired(required = false) OnlineServersCtrl onlineServersCtrl) {
+                @Autowired(required = false) OnlineServersCtrl onlineServersCtrl,
+                ObjectProvider<SocketRunnableCtrl> socketRunnableCtrlObjectProvider) {
         this.mainSettings = mainSettings;
         this.socketRunnableCtrlModel = socketRunnableCtrlModel;
         this.takeMessagesCtrl = takeMessagesCtrl;
+        this.socketRunnableCtrlObjectProvider = socketRunnableCtrlObjectProvider;
         this.serversSocket = serversSocket;
         this.usersSocket = usersSocket;
         this.onlineServersCtrl = onlineServersCtrl;
@@ -57,15 +63,14 @@ public class NetworkCtrl {
         runningErrorsControlSockets();
         while (true) {
             Socket fromSocketServer = socketServer.accept();
-            SocketRunnableCtrl socketRunnableCtrl =
-                    GetterControls.getInstance().getBeanSocketRunnableCtrl(fromSocketServer);
+            SocketRunnableCtrl socketRunnableCtrl = socketRunnableCtrlObjectProvider.getObject(fromSocketServer);
             Thread threadServers = new Thread(socketRunnableCtrl);
             threadServers.start();
         }
     }
 
     private void startUsersNetwork() throws IOException {
-        currentSocketRunnableCtrl = GetterControls.getInstance().getBeanSocketRunnableCtrl(usersSocket.getCurrentSocket());
+        currentSocketRunnableCtrl = socketRunnableCtrlObjectProvider.getObject(usersSocket.getCurrentSocket());
         if (!usersSocket.getCurrentSocket().isConnected()) {
             throw new IOException();
         }

@@ -7,6 +7,8 @@ import java.net.Socket;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.models.SocketRunnableCtrlModel;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
 
 
 /* NOTE(VAD): here it is done so that the tasks of the server and the user
@@ -15,14 +17,21 @@ import org.foomaa.jvchat.models.SocketRunnableCtrlModel;
  * which contains a Runnable field. This field is the object
  * of this SocketRunnableCtrl class.
  */
+@Component
+@Lazy
 @Slf4j
 public class SocketRunnableCtrl implements Runnable {
     private DataOutputStream sendStream;
     private DataInputStream readStream;
     private final int limitErrorsConnection;
     private int errorsConnection;
+    private final NetworkCtrl networkCtrl;
 
-    SocketRunnableCtrl(Socket socket, SocketRunnableCtrlModel socketRunnableCtrlModel) {
+    SocketRunnableCtrl(Socket socket,
+                       SocketRunnableCtrlModel socketRunnableCtrlModel,
+                       @Lazy NetworkCtrl networkCtrl) {
+        this.networkCtrl = networkCtrl;
+
         socketRunnableCtrlModel.createSocketRunnableCtrlStructObject(this);
 
         try {
@@ -45,7 +54,7 @@ public class SocketRunnableCtrl implements Runnable {
                 if (length > 0) {
                     byte[] message = new byte[length];
                     readStream.readFully(message, 0, message.length);
-                    GetterControls.getInstance().getBeanNetworkCtrl().takeMessage(message, this);
+                    networkCtrl.takeMessage(message, this);
                 }
             }
         } catch (IOException exception) {

@@ -1,8 +1,8 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
 import lombok.extern.slf4j.Slf4j;
-import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
+import org.foomaa.jvchat.ctrl.MessagesDialogCtrl;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Profile;
@@ -25,11 +25,14 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
     private JPanel panel;
 
     private final MessagesDefinesCtrl messagesDefinesCtrl;
+    private final MessagesDialogCtrl messagesDialogCtrl;
     private final ObjectProvider<RectMessageMainChatUI> rectMessageObjectProvider;
 
     ScrollPanelMessagesMainChatUI(MessagesDefinesCtrl messagesDefinesCtrl,
+                                  MessagesDialogCtrl messagesDialogCtrl,
                                   ObjectProvider<RectMessageMainChatUI> rectMessageObjectProvider) {
         this.messagesDefinesCtrl = messagesDefinesCtrl;
+        this.messagesDialogCtrl = messagesDialogCtrl;
         this.rectMessageObjectProvider = rectMessageObjectProvider;
 
         intervalMilliSecondsSleepUpdating = 500;
@@ -128,8 +131,7 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
     }
 
     public void addMessage(MessageStructObject messageObject) {
-        String constraints = GetterControls.getInstance().getBeanMessagesDialogCtrl().isCurrentUserSender(messageObject) ?
-                BorderLayout.EAST : BorderLayout.WEST;
+        String constraints = messagesDialogCtrl.isCurrentUserSender(messageObject) ? BorderLayout.EAST : BorderLayout.WEST;
         createPanelMessage(messageObject, constraints);
         updatePanelMessages();
     }
@@ -167,7 +169,7 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
     private void changeAllMessages() {
         panel.removeAll();
 
-        List<MessageStructObject> allMessagesObjSorted = GetterControls.getInstance().getBeanMessagesDialogCtrl().getAllSortedMessages();
+        List<MessageStructObject> allMessagesObjSorted = messagesDialogCtrl.getAllSortedMessages();
         for (MessageStructObject messageStructObject : allMessagesObjSorted) {
             addMessage(messageStructObject);
         }
@@ -176,12 +178,11 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
     }
 
     private void addRedirectMessage() {
-        List<MessageStructObject> allMessagesObjSorted = GetterControls.getInstance().getBeanMessagesDialogCtrl().getAllSortedMessages();
-        UUID currentPanelUuid = GetterControls.getInstance().getBeanMessagesDialogCtrl().getCurrentActiveChatUuid();
+        List<MessageStructObject> allMessagesObjSorted = messagesDialogCtrl.getAllSortedMessages();
+        UUID currentPanelUuid = messagesDialogCtrl.getCurrentActiveChatUuid();
 
         for (MessageStructObject messageStructObject : allMessagesObjSorted) {
-            UUID uuidChat = GetterControls.getInstance().getBeanMessagesDialogCtrl()
-                    .findUuidChatByUuidUser(messageStructObject.getUuidUserSender());
+            UUID uuidChat = messagesDialogCtrl.findUuidChatByUuidUser(messageStructObject.getUuidUserSender());
             if (findRectMessageByUuid(panel, messageStructObject.getUuid()) == null &&
                     uuidChat != null &&
                     uuidChat.equals(currentPanelUuid)) {
@@ -212,7 +213,7 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
     }
 
     private void changeStatusMessage() {
-        List<MessageStructObject> allMessagesObjSorted = GetterControls.getInstance().getBeanMessagesDialogCtrl().getAllSortedMessages();
+        List<MessageStructObject> allMessagesObjSorted = messagesDialogCtrl.getAllSortedMessages();
 
         for (MessageStructObject messageStructObject : allMessagesObjSorted) {
             RectMessageMainChatUI rectMessage = findRectMessageByUuid(panel, messageStructObject.getUuid());

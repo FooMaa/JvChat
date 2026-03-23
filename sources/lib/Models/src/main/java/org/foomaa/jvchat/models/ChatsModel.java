@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-@Profile("users")
 @Lazy
 @Slf4j
 public class ChatsModel extends BaseModel {

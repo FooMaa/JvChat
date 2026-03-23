@@ -7,7 +7,7 @@ import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.ctrl.ChatsCtrl;
-import org.foomaa.jvchat.ctrl.GetterControls;
+import org.foomaa.jvchat.ctrl.MessagesDialogCtrl;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Profile;
@@ -24,15 +24,18 @@ public class PanelSendingMessageMainChatUI extends JPanel {
     private final JButton sendButton;
     private final ScrollPanelChatsMainChatUI scrollPanelChats;
     private final ScrollPanelMessagesMainChatUI scrollPanelMessages;
+    private final MessagesDialogCtrl messagesDialogCtrl;
     private final ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider;
 
     PanelSendingMessageMainChatUI(ScrollPanelChatsMainChatUI scrollPanelChats,
                                   ScrollPanelMessagesMainChatUI scrollPanelMessages,
+                                  MessagesDialogCtrl messagesDialogCtrl,
                                   ObjectProvider<SendButtonMainChatUI> sendButtonObjectProvider,
                                   ObjectProvider<SendingTextAreaScrollMainChatUI> sendingTextAreaScrollObjectProvider,
                                   ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider) {
         this.scrollPanelChats = scrollPanelChats;
         this.scrollPanelMessages = scrollPanelMessages;
+        this.messagesDialogCtrl = messagesDialogCtrl;
         this.chatsCtrlObjectProvider = chatsCtrlObjectProvider;
 
         sendingTextAreaScroll = sendingTextAreaScrollObjectProvider.getObject();
@@ -79,7 +82,7 @@ public class PanelSendingMessageMainChatUI extends JPanel {
         }
 
         if (!Objects.equals(text, "")) {
-            MessageStructObject messageObj = GetterControls.getInstance().getBeanMessagesDialogCtrl().createAndSendMessage(text);
+            MessageStructObject messageObj = messagesDialogCtrl.createAndSendMessage(text);
             if (messageObj == null) {
                 log.error("Не создано сообщение для отправки, не отправлено...");
                 return;
@@ -89,7 +92,7 @@ public class PanelSendingMessageMainChatUI extends JPanel {
     }
 
     private void updateComponentsAfterSending() {
-        UUID selectedUuid = GetterControls.getInstance().getBeanMessagesDialogCtrl().getCurrentActiveChatUuid();
+        UUID selectedUuid = messagesDialogCtrl.getCurrentActiveChatUuid();
 
         ChatsCtrl chatsCtrl = chatsCtrlObjectProvider.getIfAvailable();
         if (chatsCtrl == null) {
