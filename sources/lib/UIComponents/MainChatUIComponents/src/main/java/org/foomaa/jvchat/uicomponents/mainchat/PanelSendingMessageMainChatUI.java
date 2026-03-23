@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 
+import org.foomaa.jvchat.ctrl.ChatsCtrl;
 import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
 import org.springframework.beans.factory.ObjectProvider;
@@ -23,13 +24,16 @@ public class PanelSendingMessageMainChatUI extends JPanel {
     private final JButton sendButton;
     private final ScrollPanelChatsMainChatUI scrollPanelChats;
     private final ScrollPanelMessagesMainChatUI scrollPanelMessages;
+    private final ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider;
 
     PanelSendingMessageMainChatUI(ScrollPanelChatsMainChatUI scrollPanelChats,
                                   ScrollPanelMessagesMainChatUI scrollPanelMessages,
                                   ObjectProvider<SendButtonMainChatUI> sendButtonObjectProvider,
-                                  ObjectProvider<SendingTextAreaScrollMainChatUI> sendingTextAreaScrollObjectProvider) {
+                                  ObjectProvider<SendingTextAreaScrollMainChatUI> sendingTextAreaScrollObjectProvider,
+                                  ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider) {
         this.scrollPanelChats = scrollPanelChats;
         this.scrollPanelMessages = scrollPanelMessages;
+        this.chatsCtrlObjectProvider = chatsCtrlObjectProvider;
 
         sendingTextAreaScroll = sendingTextAreaScrollObjectProvider.getObject();
         sendButton = sendButtonObjectProvider.getObject("Отправить");
@@ -86,7 +90,14 @@ public class PanelSendingMessageMainChatUI extends JPanel {
 
     private void updateComponentsAfterSending() {
         UUID selectedUuid = GetterControls.getInstance().getBeanMessagesDialogCtrl().getCurrentActiveChatUuid();
-        MessageStructObject message = GetterControls.getInstance().getBeanChatsCtrl().getMessageObjectByUuidChat(selectedUuid);
+
+        ChatsCtrl chatsCtrl = chatsCtrlObjectProvider.getIfAvailable();
+        if (chatsCtrl == null) {
+            log.error("charsCtrl is null");
+            return;
+        }
+
+        MessageStructObject message = chatsCtrl.getMessageObjectByUuidChat(selectedUuid);
 
         Box boxComponents = scrollPanelChats.getBoxComponents();
 

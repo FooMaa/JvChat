@@ -15,10 +15,12 @@ import org.foomaa.jvchat.settings.ServersInfoSettings;
 import org.foomaa.jvchat.structobjects.CheckerOnlineStructObject;
 import org.foomaa.jvchat.structobjects.SocketRunnableCtrlStructObject;
 import org.foomaa.jvchat.structobjects.UserStructObject;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 
 @Component
+@Profile("servers")
 @Slf4j
 public class OnlineServersCtrl {
     private final int intervalMilliSecondsAfterLastSending;
@@ -28,16 +30,19 @@ public class OnlineServersCtrl {
     private final ServersInfoSettings serversInfoSettings;
     private final UsersModel usersModel;
     private final SocketRunnableCtrlModel socketRunnableCtrlModel;
+    private final SendMessagesCtrl sendMessagesCtrl;
 
     OnlineServersCtrl(DbCtrl dbCtrl,
                       ServersInfoSettings serversInfoSettings,
                       CheckersOnlineModel checkersOnlineModel,
                       UsersModel usersModel,
-                      SocketRunnableCtrlModel socketRunnableCtrlModel) {
+                      SocketRunnableCtrlModel socketRunnableCtrlModel,
+                      SendMessagesCtrl sendMessagesCtrl) {
         this.dbCtrl = dbCtrl;
         this.serversInfoSettings = serversInfoSettings;
         this.usersModel = usersModel;
         this.socketRunnableCtrlModel = socketRunnableCtrlModel;
+        this.sendMessagesCtrl = sendMessagesCtrl;
 
         this.checkersOnlineModel = checkersOnlineModel;
         intervalMilliSecondsAfterLastSending = 10000;
@@ -208,7 +213,7 @@ public class OnlineServersCtrl {
             }
 
             preSendingTasks(socketRunnableCtrl);
-            GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+            sendMessagesCtrl.sendMessage(
                     DefinesMessages.TypeMessage.CheckOnlineUserRequest,
                     serversInfoSettings.getIp(),
                     socketRunnableCtrl);

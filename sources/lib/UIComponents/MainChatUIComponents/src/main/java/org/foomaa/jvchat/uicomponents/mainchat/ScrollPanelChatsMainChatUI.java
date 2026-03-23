@@ -15,8 +15,10 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
 
+import org.foomaa.jvchat.ctrl.ChatsCtrl;
 import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
+import org.foomaa.jvchat.ctrl.SendMessagesCtrl;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.UISettings;
 import org.foomaa.jvchat.settings.UsersInfoSettings;
@@ -40,15 +42,21 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
     private RectChatMainChatUI selectedElement;
     private final UsersInfoSettings usersInfoSettings;
     private final UISettings uiSettings;
+    private final SendMessagesCtrl sendMessagesCtrl;
 
     private final ObjectProvider<RectChatMainChatUI> rectChatObjectProvider;
+    private final ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider;
 
     ScrollPanelChatsMainChatUI(UsersInfoSettings usersInfoSettings,
                                UISettings uiSettings,
-                               ObjectProvider<RectChatMainChatUI> rectChatObjectProvider) {
+                               SendMessagesCtrl sendMessagesCtrl,
+                               ObjectProvider<RectChatMainChatUI> rectChatObjectProvider,
+                               ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider) {
         this.usersInfoSettings = usersInfoSettings;
         this.uiSettings = uiSettings;
+        this.sendMessagesCtrl = sendMessagesCtrl;
         this.rectChatObjectProvider = rectChatObjectProvider;
+        this.chatsCtrlObjectProvider = chatsCtrlObjectProvider;
 
         intervalMilliSecondsSleepUpdating = 30000;
         intervalSecondsWaitLoopUpdate = 5;
@@ -190,14 +198,12 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
         UUID uuidChat = selectedElement.getUuidChat();
         int quantityMessages = uiSettings.getQuantityMessagesLoad();
 
-        GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
-                DefinesMessages.TypeMessage.MessagesLoadRequest, uuidChat, quantityMessages);
+        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.MessagesLoadRequest, uuidChat, quantityMessages);
     }
 
     private void setRequestChatsToServer() {
         UUID uuidUser = usersInfoSettings.getUuid();
-        GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
-                DefinesMessages.TypeMessage.ChatsLoadRequest, uuidUser);
+        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.ChatsLoadRequest, uuidUser);
     }
 
     private List<ChatStructObject> getChatsObjects() {
@@ -212,7 +218,13 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
 
             if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getChatsLoadReplyFlag() ==
                     MessagesDefinesCtrl.TypeFlags.TRUE) {
-                chatsStructObjectsList = GetterControls.getInstance().getBeanChatsCtrl().getChatsObjects();
+                ChatsCtrl chatsCtrl = chatsCtrlObjectProvider.getIfAvailable();
+                if (chatsCtrl == null) {
+                    log.error("charsCtrl is null");
+                    return chatsStructObjectsList;
+                }
+
+                chatsStructObjectsList = chatsCtrl.getChatsObjects();
             }
         }
 
@@ -253,8 +265,14 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
     }
 
     private void sendingUpdateOnlinePackage() {
-        List<UUID> uuidsUsersChats = GetterControls.getInstance().getBeanChatsCtrl().getUuidsUsersChats();
-        GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+        ChatsCtrl chatsCtrl = chatsCtrlObjectProvider.getIfAvailable();
+        if (chatsCtrl == null) {
+            log.error("charsCtrl is null");
+            return;
+        }
+
+        List<UUID> uuidsUsersChats = chatsCtrl.getUuidsUsersChats();
+        sendMessagesCtrl.sendMessage(
                 DefinesMessages.TypeMessage.LoadUsersOnlineStatusRequest,
                 uuidsUsersChats);
     }
@@ -265,8 +283,14 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
 
             UUID uuidUser = rectChatMainChatUI.getUuidUser();
 
-            UserStructObject user = GetterControls.getInstance().getBeanChatsCtrl().getUserObjectsByUuidUser(uuidUser);
-            String lastOnlineString = GetterControls.getInstance().getBeanChatsCtrl().getTimeFormattedLastOnline(user.getTimestampLastOnline());
+            ChatsCtrl chatsCtrl = chatsCtrlObjectProvider.getIfAvailable();
+            if (chatsCtrl == null) {
+                log.error("charsCtrl is null");
+                return;
+            }
+
+            UserStructObject user = chatsCtrl.getUserObjectsByUuidUser(uuidUser);
+            String lastOnlineString = chatsCtrl.getTimeFormattedLastOnline(user.getTimestampLastOnline());
 
             rectChatMainChatUI.setLastOnlineDateTime(lastOnlineString);
             rectChatMainChatUI.setStatusOnline(user.getStatusOnline());

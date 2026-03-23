@@ -28,6 +28,7 @@ public class MessagesDialogCtrl {
     private final ChatsCtrl chatsCtrl;
     private final FormatTools formatTools;
     private final UsersInfoSettings usersInfoSettings;
+    private final SendMessagesCtrl sendMessagesCtrl;
     private final ObjectProvider<MessageStructObject> messageStructObjectObjectProvider;
 
     MessagesDialogCtrl(MessagesModel messagesModel,
@@ -35,12 +36,14 @@ public class MessagesDialogCtrl {
                        ChatsCtrl chatsCtrl,
                        FormatTools formatTools,
                        UsersInfoSettings usersInfoSettings,
+                       SendMessagesCtrl sendMessagesCtrl,
                        ObjectProvider<MessageStructObject> messageStructObjectObjectProvider) {
         this.messagesModel = messagesModel;
         this.chatsModel = chatsModel;
         this.chatsCtrl = chatsCtrl;
         this.formatTools = formatTools;
         this.usersInfoSettings = usersInfoSettings;
+        this.sendMessagesCtrl = sendMessagesCtrl;
         this.messageStructObjectObjectProvider = messageStructObjectObjectProvider;
     }
 
@@ -121,7 +124,7 @@ public class MessagesDialogCtrl {
     private void sendNewMessage(MessageStructObject message) {
         String timestampNewMessage = formatTools.localDateTimeToString(message.getTimestamp());
 
-        GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+        sendMessagesCtrl.sendMessage(
                 DefinesMessages.TypeMessage.TextMessageSendUserToServer,
                 message.getUuidUserSender(),
                 message.getUuidUserReceiver(),
@@ -180,7 +183,7 @@ public class MessagesDialogCtrl {
 
         String timestampMessage = formatTools.localDateTimeToString(messageStructObject.getTimestamp());
 
-        GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+        sendMessagesCtrl.sendMessage(
                 DefinesMessages.TypeMessage.TextMessageRedirectServerToUser,
                 messageStructObject.getUuidUserSender(),
                 messageStructObject.getUuidUserReceiver(),

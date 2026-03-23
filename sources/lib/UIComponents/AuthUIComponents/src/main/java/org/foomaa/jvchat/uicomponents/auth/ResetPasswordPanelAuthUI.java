@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
 import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
+import org.foomaa.jvchat.ctrl.SendMessagesCtrl;
 import org.foomaa.jvchat.events.GetterEvents;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
@@ -28,16 +29,19 @@ public class ResetPasswordPanelAuthUI extends JPanel {
 
     private final DisplaySettings displaySettings;
     private final UsersTools usersTools;
+    private final SendMessagesCtrl sendMessagesCtrl;
     private final ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider;
 
     ResetPasswordPanelAuthUI(DisplaySettings displaySettings,
                              UsersTools usersTools,
+                             SendMessagesCtrl sendMessagesCtrl,
                              ObjectProvider<ButtonAuthUI> buttonObjectProvider,
                              ObjectProvider<ErrorLabelAuthUI> errorLabelObjectProvider,
                              ObjectProvider<TextFieldAuthUI> textFieldObjectProvider,
                              ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider) {
         this.displaySettings = displaySettings;
         this.usersTools = usersTools;
+        this.sendMessagesCtrl = sendMessagesCtrl;
         this.optionPaneObjectProvider = optionPaneObjectProvider;
 
         tEmail = textFieldObjectProvider.getObject("Почта");
@@ -117,9 +121,7 @@ public class ResetPasswordPanelAuthUI extends JPanel {
     private void addListenerToElements() {
         bSet.addActionListener(event -> {
             if (checkFields()) {
-                GetterControls.getInstance()
-                        .getBeanSendMessagesCtrl().sendMessage(DefinesMessages.TypeMessage.ResetPasswordRequest,
-                        tEmail.getInputText());
+                sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.ResetPasswordRequest, tEmail.getInputText());
                 waitRepeatServer();
             }
         });

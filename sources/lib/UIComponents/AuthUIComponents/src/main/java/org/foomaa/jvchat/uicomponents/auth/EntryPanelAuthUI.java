@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
+import org.foomaa.jvchat.ctrl.SendMessagesCtrl;
 import org.foomaa.jvchat.events.GetterEvents;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
@@ -34,11 +35,13 @@ public class EntryPanelAuthUI extends JPanel {
     private final UsersInfoSettings usersInfoSettings;
     private final DisplaySettings displaySettings;
     private final MainFrameMainChatUI mainFrameMainChatUI;
+    private final SendMessagesCtrl sendMessagesCtrl;
     private final ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider;
 
     EntryPanelAuthUI(UsersInfoSettings usersInfoSettings,
                      DisplaySettings displaySettings,
                      MainFrameMainChatUI mainFrameMainChatUI,
+                     SendMessagesCtrl sendMessagesCtrl,
                      ObjectProvider<ActiveLabelAuthUI> activeLabelObjectProvider,
                      ObjectProvider<ButtonAuthUI> buttonObjectProvider,
                      ObjectProvider<ErrorLabelAuthUI> errorLabelObjectProvider,
@@ -48,6 +51,7 @@ public class EntryPanelAuthUI extends JPanel {
         this.usersInfoSettings = usersInfoSettings;
         this.displaySettings = displaySettings;
         this.mainFrameMainChatUI = mainFrameMainChatUI;
+        this.sendMessagesCtrl = sendMessagesCtrl;
         this.optionPaneObjectProvider = optionPaneObjectProvider;
 
         tLogin = textFieldObjectProvider.getObject("Login");
@@ -133,7 +137,7 @@ public class EntryPanelAuthUI extends JPanel {
     private void addListenerToElements() {
         bEnter.addActionListener(event -> {
             if (checkFields()) {
-                GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(DefinesMessages.TypeMessage.EntryRequest,
+                sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.EntryRequest,
                         tLogin.getInputText(), tPassword.getInputText());
                 waitRepeatServer();
             }
@@ -222,8 +226,7 @@ public class EntryPanelAuthUI extends JPanel {
         usersInfoSettings.setLogin(tLogin.getInputText());
 
         UUID uuidUser = usersInfoSettings.getUuid();
-        GetterControls.getInstance().getBeanSendMessagesCtrl()
-                .sendMessage(DefinesMessages.TypeMessage.CheckOnlineUserReply, uuidUser);
+        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.CheckOnlineUserReply, uuidUser);
 
         closeFrameWindow();
         setEnabled(true);

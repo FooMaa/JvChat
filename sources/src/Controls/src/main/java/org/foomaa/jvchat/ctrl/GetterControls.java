@@ -30,11 +30,6 @@ public class GetterControls {
         return null;
     }
 
-    public SendMessagesCtrl getBeanSendMessagesCtrl() {
-
-        return null;
-    }
-
     public TakeMessagesCtrl getBeanTakeMessagesCtrl() {
         return null;
     }
@@ -43,15 +38,7 @@ public class GetterControls {
         return null;
     }
 
-    public EmailCtrl getBeanEmailCtrl() {
-        return null;
-    }
-
     public SocketRunnableCtrl getBeanSocketRunnableCtrl(Socket socket) {
-        return null;
-    }
-
-    public ChatsCtrl getBeanChatsCtrl() {
         return null;
     }
 

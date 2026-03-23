@@ -8,12 +8,14 @@ import java.util.Objects;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 
+import org.foomaa.jvchat.ctrl.ChatsCtrl;
 import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.settings.UsersInfoSettings;
 import org.foomaa.jvchat.structobjects.ChatStructObject;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -36,23 +38,25 @@ public class RectChatMainChatUI extends JPanel {
     private final String nameForLabelOnline;
     private final String nameForLabelLastMessage;
     private final String nameForLabelTimeLastMessage;
+    private boolean flagSelect;
 
     private final UsersInfoSettings usersInfoSettings;
     private final DisplaySettings displaySettings;
-
-    private boolean flagSelect;
+    private final ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider;
 
     RectChatMainChatUI(ChatStructObject chatObject,
                        UsersInfoSettings usersInfoSettings,
-                       DisplaySettings displaySettings) {
+                       DisplaySettings displaySettings,
+                       ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider) {
         this.usersInfoSettings = usersInfoSettings;
         this.displaySettings = displaySettings;
+        this.chatsCtrlObjectProvider = chatsCtrlObjectProvider;
 
         nickName = chatObject.getUserChat().getLogin();
         shortLastMessage = chatObject.getLastMessage().getText();
         lastMessageSender = chatObject.getLastMessage().getUuidUserSender();
-        timeLastMessage = GetterControls.getInstance().getBeanChatsCtrl()
-                .getTimeFormattedLastMessage(chatObject.getLastMessage().getTimestamp());
+
+
         statusMessage = chatObject.getLastMessage().getStatusMessage();
         uuidChat = chatObject.getUuid();
         uuidUser = chatObject.getUserChat().getUuid();
@@ -64,6 +68,7 @@ public class RectChatMainChatUI extends JPanel {
 
         flagSelect = false;
 
+        installTimeLastMessage(chatObject);
         makeChatBox();
         addListenerToElements();
     }
@@ -74,6 +79,16 @@ public class RectChatMainChatUI extends JPanel {
 
     public UUID getUuidChat() {
         return uuidChat;
+    }
+
+    private void installTimeLastMessage(ChatStructObject chatObject) {
+        ChatsCtrl chatsCtrl = chatsCtrlObjectProvider.getIfAvailable();
+        if (chatsCtrl == null) {
+            log.error("charsCtrl is null");
+            return;
+        }
+
+        timeLastMessage = chatsCtrl.getTimeFormattedLastMessage(chatObject.getLastMessage().getTimestamp());
     }
 
     private void makeChatBox() {
@@ -272,8 +287,14 @@ public class RectChatMainChatUI extends JPanel {
 
     public void updateLastMessage(MessageStructObject message) {
         shortLastMessage = message.getText();
-        timeLastMessage = GetterControls.getInstance().getBeanChatsCtrl()
-                .getTimeFormattedLastMessage(message.getTimestamp());
+
+        ChatsCtrl chatsCtrl = chatsCtrlObjectProvider.getIfAvailable();
+        if (chatsCtrl == null) {
+            log.error("charsCtrl is null");
+            return;
+        }
+
+        timeLastMessage = chatsCtrl.getTimeFormattedLastMessage(message.getTimestamp());
         lastMessageSender = message.getUuidUserSender();
         statusMessage = message.getStatusMessage();
 

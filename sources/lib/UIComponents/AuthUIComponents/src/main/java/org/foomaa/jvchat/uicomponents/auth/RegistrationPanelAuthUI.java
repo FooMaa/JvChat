@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
+import org.foomaa.jvchat.ctrl.SendMessagesCtrl;
 import org.foomaa.jvchat.events.GetterEvents;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
@@ -32,10 +33,12 @@ public class RegistrationPanelAuthUI extends JPanel {
 
     private final DisplaySettings displaySettings;
     private final UsersTools usersTools;
+    private final SendMessagesCtrl sendMessagesCtrl;
     private final ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider;
 
     RegistrationPanelAuthUI(DisplaySettings displaySettings,
                             UsersTools usersTools,
+                            SendMessagesCtrl sendMessagesCtrl,
                             ObjectProvider<ButtonAuthUI> buttonObjectProvider,
                             ObjectProvider<ErrorLabelAuthUI> errorLabelObjectProvider,
                             ObjectProvider<PasswordFieldAuthUI> passwordFieldObjectProvider,
@@ -43,6 +46,7 @@ public class RegistrationPanelAuthUI extends JPanel {
                             ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider) {
         this.displaySettings = displaySettings;
         this.usersTools = usersTools;
+        this.sendMessagesCtrl = sendMessagesCtrl;
         this.optionPaneObjectProvider = optionPaneObjectProvider;
 
         tLogin = textFieldObjectProvider.getObject("Login");
@@ -144,9 +148,11 @@ public class RegistrationPanelAuthUI extends JPanel {
     private void addListenerToElements() {
         bRegister.addActionListener(event -> {
             if (checkFields()) {
-                GetterControls.getInstance()
-                        .getBeanSendMessagesCtrl().sendMessage(DefinesMessages.TypeMessage.RegistrationRequest,
-                        tLogin.getInputText(), tEmail.getInputText(), tPassword.getInputText());
+                sendMessagesCtrl.sendMessage(
+                        DefinesMessages.TypeMessage.RegistrationRequest,
+                        tLogin.getInputText(),
+                        tEmail.getInputText(),
+                        tPassword.getInputText());
                 waitRepeatServer();
             }
         });

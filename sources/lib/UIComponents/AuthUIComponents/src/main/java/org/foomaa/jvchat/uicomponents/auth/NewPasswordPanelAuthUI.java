@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.ctrl.GetterControls;
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
+import org.foomaa.jvchat.ctrl.SendMessagesCtrl;
 import org.foomaa.jvchat.events.GetterEvents;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
@@ -29,14 +30,17 @@ public class NewPasswordPanelAuthUI extends JPanel {
     private String email;
 
     private final DisplaySettings displaySettings;
+    private final SendMessagesCtrl sendMessagesCtrl;
     private final ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider;
 
     NewPasswordPanelAuthUI(DisplaySettings displaySettings,
+                           SendMessagesCtrl sendMessagesCtrl,
                            ObjectProvider<ButtonAuthUI> buttonObjectProvider,
                            ObjectProvider<ErrorLabelAuthUI> errorLabelObjectProvider,
                            ObjectProvider<PasswordFieldAuthUI> passwordFieldObjectProvider,
                            ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider) {
         this.displaySettings = displaySettings;
+        this.sendMessagesCtrl = sendMessagesCtrl;
         this.optionPaneObjectProvider = optionPaneObjectProvider;
 
         tErrorHelpInfo = errorLabelObjectProvider.getObject("");
@@ -127,8 +131,10 @@ public class NewPasswordPanelAuthUI extends JPanel {
     private void addListenerToElements() {
         bAccept.addActionListener(event -> {
             if (checkFields()) {
-                GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(DefinesMessages.TypeMessage.ChangePasswordRequest,
-                        email, tPassword.getInputText());
+                sendMessagesCtrl.sendMessage(
+                        DefinesMessages.TypeMessage.ChangePasswordRequest,
+                        email,
+                        tPassword.getInputText());
                 waitRepeatServer();
             }
         });

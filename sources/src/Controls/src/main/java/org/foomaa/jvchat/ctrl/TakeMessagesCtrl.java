@@ -28,17 +28,26 @@ public class TakeMessagesCtrl {
     private final DeserializatorDataMessages deserializatorDataMessages;
     private final StructTools structTools;
     private final FormatTools formatTools;
+    private final SendMessagesCtrl sendMessagesCtrl;
+    private final ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider;
+    private final ObjectProvider<EmailCtrl> emailCtrlObjectProvider;
 
     TakeMessagesCtrl(HashCryptography hashCryptography,
                      DeserializatorDataMessages deserializatorDataMessages,
                      StructTools structTools,
                      FormatTools formatTools,
-                     ObjectProvider<UsersInfoSettings> usersInfoSettingsObjectProvider) {
+                     SendMessagesCtrl sendMessagesCtrl,
+                     ObjectProvider<UsersInfoSettings> usersInfoSettingsObjectProvider,
+                     ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider,
+                     ObjectProvider<EmailCtrl> emailCtrlObjectProvider) {
         this.hashCryptography = hashCryptography;
-        this.usersInfoSettingsObjectProvider = usersInfoSettingsObjectProvider;
         this.structTools = structTools;
         this.formatTools = formatTools;
+        this.sendMessagesCtrl = sendMessagesCtrl;
         this.deserializatorDataMessages = deserializatorDataMessages;
+        this.usersInfoSettingsObjectProvider = usersInfoSettingsObjectProvider;
+        this.chatsCtrlObjectProvider = chatsCtrlObjectProvider;
+        this.emailCtrlObjectProvider = emailCtrlObjectProvider;
     }
 
     public void takeMessage(byte[] data) {
@@ -119,8 +128,7 @@ public class TakeMessagesCtrl {
                         login);
         UUID uuidUser = UUID.fromString(uuidUserStr);
 
-        GetterControls.getInstance().getBeanSendMessagesCtrl()
-                .sendMessage(DefinesMessages.TypeMessage.EntryReply, requestDB, uuidUser);
+       sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.EntryReply, requestDB, uuidUser);
     }
 
     private void workEntryReplyMessage(HashMap<DefinesMessages.TypeData, ?> map) {
@@ -155,12 +163,16 @@ public class TakeMessagesCtrl {
             typeError = DefinesMessages.TypeErrorRegistration.LoginAndEmail;
         }
         if (typeError == DefinesMessages.TypeErrorRegistration.NoError) {
-            requestDB = GetterControls.getInstance()
-                    .getBeanEmailCtrl().startVerifyRegEmail((String) map.get(DefinesMessages.TypeData.Email));
+            EmailCtrl emailCtrl = emailCtrlObjectProvider.getIfAvailable();
+            if (emailCtrl == null) {
+                log.error("emailCtrl is null");
+                return;
+            }
+
+            requestDB = emailCtrl.startVerifyRegEmail((String) map.get(DefinesMessages.TypeData.Email));
             typeError = DefinesMessages.TypeErrorRegistration.EmailSending;
         }
-        GetterControls.getInstance().getBeanSendMessagesCtrl()
-                .sendMessage(DefinesMessages.TypeMessage.RegistrationReply, requestDB, typeError);
+        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.RegistrationReply, requestDB, typeError);
     }
 
     private void workRegistrationReplyMessage(HashMap<DefinesMessages.TypeData, ?> map) {
@@ -212,11 +224,9 @@ public class TakeMessagesCtrl {
                     typeError = DefinesMessages.TypeErrorRegistration.LoginAndEmail;
                 }
             }
-            GetterControls.getInstance().getBeanSendMessagesCtrl()
-                    .sendMessage(DefinesMessages.TypeMessage.VerifyRegistrationEmailReply, requestDB, typeError);
+            sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.VerifyRegistrationEmailReply, requestDB, typeError);
         } else {
-            GetterControls.getInstance().getBeanSendMessagesCtrl()
-                    .sendMessage(DefinesMessages.TypeMessage.VerifyRegistrationEmailReply, false, DefinesMessages.TypeErrorRegistration.Code);
+            sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.VerifyRegistrationEmailReply, false, DefinesMessages.TypeErrorRegistration.Code);
         }
     }
 
@@ -239,11 +249,15 @@ public class TakeMessagesCtrl {
                         email);
         boolean reply = false;
         if (checkEmail) {
-            reply = GetterControls.getInstance()
-                    .getBeanEmailCtrl().startVerifyFamousEmail(email);
+            EmailCtrl emailCtrl = emailCtrlObjectProvider.getIfAvailable();
+            if (emailCtrl == null) {
+                log.error("emailCtrl is null");
+                return;
+            }
+
+            reply = emailCtrl.startVerifyFamousEmail(email);
         }
-        GetterControls.getInstance().getBeanSendMessagesCtrl()
-                .sendMessage(DefinesMessages.TypeMessage.ResetPasswordReply, reply);
+        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.ResetPasswordReply, reply);
     }
 
     private void workResetPasswordReplyMessage(HashMap<DefinesMessages.TypeData, ?> map) {
@@ -261,8 +275,7 @@ public class TakeMessagesCtrl {
                 .getBeanDbCtrl().checkQueryToDB(DbCtrl.TypeExecutionCheck.VerifyFamousEmailCode,
                         (String) map.get(DefinesMessages.TypeData.Email),
                         (String) map.get(DefinesMessages.TypeData.VerifyCode));
-        GetterControls.getInstance().getBeanSendMessagesCtrl()
-                .sendMessage(DefinesMessages.TypeMessage.VerifyFamousEmailReply, requestDB);
+        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.VerifyFamousEmailReply, requestDB);
     }
 
     private void workVerifyFamousEmailReplyMessage(HashMap<DefinesMessages.TypeData, ?> map) {
@@ -285,8 +298,7 @@ public class TakeMessagesCtrl {
                 .getBeanDbCtrl().insertQueryToDB(DbCtrl.TypeExecutionInsert.ChangePassword,
                         email,
                         hashPassword);
-        GetterControls.getInstance().getBeanSendMessagesCtrl()
-                .sendMessage(DefinesMessages.TypeMessage.ChangePasswordReply, requestDB);
+        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.ChangePasswordReply, requestDB);
     }
 
     private void workChangePasswordReplyMessage(HashMap<DefinesMessages.TypeData, ?> map) {
@@ -303,8 +315,7 @@ public class TakeMessagesCtrl {
         String uuidUserStr = map.get(DefinesMessages.TypeData.UuidUser).toString();
         List<Map<DbGlobalDefines.LineKeys, String>> requestDB = GetterControls.getInstance()
                 .getBeanDbCtrl().getMultipleInfoFromDb(DbCtrl.TypeExecutionGetMultiple.ChatsLoad, uuidUserStr);
-        GetterControls.getInstance().getBeanSendMessagesCtrl().
-                sendMessage(DefinesMessages.TypeMessage.ChatsLoadReply, requestDB);
+        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.ChatsLoadReply, requestDB);
     }
 
     private void workChatsLoadReplyMessage(HashMap<DefinesMessages.TypeData, ?> map) {
@@ -312,7 +323,13 @@ public class TakeMessagesCtrl {
         List<Map<DefinesMessages.TypeData, Object>> chatsInfo =
                 structTools.objectInListMaps(objectFromMap, DefinesMessages.TypeData.class, Object.class);
 
-        GetterControls.getInstance().getBeanChatsCtrl().createChatsObjects(chatsInfo);
+        ChatsCtrl chatsCtrl = chatsCtrlObjectProvider.getIfAvailable();
+        if (chatsCtrl == null) {
+            log.error("charsCtrl is null");
+            return;
+        }
+
+        chatsCtrl.createChatsObjects(chatsInfo);
         GetterControls.getInstance().getBeanMessagesDefinesCtrl()
                 .setChatsLoadReplyFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
     }
@@ -327,8 +344,7 @@ public class TakeMessagesCtrl {
             return;
         }
 
-        GetterControls.getInstance().getBeanSendMessagesCtrl()
-                .sendMessage(DefinesMessages.TypeMessage.CheckOnlineUserReply, uuidUser);
+        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.CheckOnlineUserReply, uuidUser);
     }
 
     private void workCheckOnlineUserReplyMessage(HashMap<DefinesMessages.TypeData, ?> map) {
@@ -343,7 +359,7 @@ public class TakeMessagesCtrl {
                 GetterControls.getInstance().getBeanOnlineServersCtrl().getStatusesUsers(uuidsUsers);
         Map<UUID, String> lastOnlineTimeUsers =
                 GetterControls.getInstance().getBeanOnlineServersCtrl().getLastOnlineTimeUsers(uuidsUsers);
-        GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+        sendMessagesCtrl.sendMessage(
                 DefinesMessages.TypeMessage.LoadUsersOnlineStatusReply, statusesUsers, lastOnlineTimeUsers);
     }
 
@@ -358,8 +374,14 @@ public class TakeMessagesCtrl {
                 structTools.objectInMap(objectMapLastOnlineTimeUsers, UUID.class,
                         String.class);
 
-        GetterControls.getInstance().getBeanChatsCtrl().setOnlineStatusesUsers(mapStatusesUsers);
-        GetterControls.getInstance().getBeanChatsCtrl().setLastOnlineTimeUsersByStrings(mapLastOnlineTimeUsers);
+        ChatsCtrl chatsCtrl = chatsCtrlObjectProvider.getIfAvailable();
+        if (chatsCtrl == null) {
+            log.error("charsCtrl is null");
+            return;
+        }
+
+        chatsCtrl.setOnlineStatusesUsers(mapStatusesUsers);
+        chatsCtrl.setLastOnlineTimeUsersByStrings(mapLastOnlineTimeUsers);
 
         GetterControls.getInstance().getBeanMessagesDefinesCtrl()
                 .setLoadUsersOnlineReplyFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
@@ -383,13 +405,13 @@ public class TakeMessagesCtrl {
         GetterControls.getInstance().getBeanDbCtrl().insertQueryToDB(DbCtrl.TypeExecutionInsert.ChatMessagesSentMessage,
                 uuidUserSender.toString(), uuidUserReceiver.toString(), uuidMessage.toString(), statusString, text, timestampStr);
         // send the status "delivered"
-        GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+        sendMessagesCtrl.sendMessage(
                 DefinesMessages.TypeMessage.TextMessagesChangingStatusFromServer, mapStatusMessages);
         // send to the user if he is online
         GetterControls.getInstance().getBeanMessagesDialogCtrl().redirectMessageToOnlineUser(
                 uuidUserSender, uuidUserReceiver, uuidMessage, status, text, timestamp);
         // send a delivery receipt
-        GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+        sendMessagesCtrl.sendMessage(
                 DefinesMessages.TypeMessage.TextMessageSendUserToServerVerification, true);
     }
 
@@ -410,7 +432,7 @@ public class TakeMessagesCtrl {
 
         GetterControls.getInstance().getBeanMessagesDialogCtrl().setDirtyStatusToMessage(mapStatusesMessages);
 
-        GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+        sendMessagesCtrl.sendMessage(
                 DefinesMessages.TypeMessage.TextMessagesChangingStatusFromServerVerification, true);
     }
 
@@ -433,7 +455,7 @@ public class TakeMessagesCtrl {
                     uuidMessage.toString(), statusByUuid);
         }
 
-        GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+        sendMessagesCtrl.sendMessage(
                 DefinesMessages.TypeMessage.TextMessagesChangingStatusFromUserVerification, true);
     }
 
@@ -461,7 +483,7 @@ public class TakeMessagesCtrl {
         GetterControls.getInstance().getBeanMessagesDefinesCtrl()
                 .setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
 
-        GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
+        sendMessagesCtrl.sendMessage(
                 DefinesMessages.TypeMessage.TextMessageRedirectServerToUserVerification, true);
     }
 
@@ -482,8 +504,7 @@ public class TakeMessagesCtrl {
         List<Map<DbGlobalDefines.LineKeys, String>> requestDB = GetterControls.getInstance()
                 .getBeanDbCtrl().getMultipleInfoFromDb(DbCtrl.TypeExecutionGetMultiple.MessagesLoad,
                         uuidChat.toString(), String.valueOf(quantityMessages));
-        GetterControls.getInstance().getBeanSendMessagesCtrl().
-                sendMessage(DefinesMessages.TypeMessage.MessagesLoadReply, requestDB);
+        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.MessagesLoadReply, requestDB);
     }
 
     private void workMessagesLoadReplyMessage(HashMap<DefinesMessages.TypeData, ?> map) {

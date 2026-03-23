@@ -12,10 +12,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.foomaa.jvchat.dbworker.DbRequests;
 import org.foomaa.jvchat.dbworker.DbWorker;
 import org.foomaa.jvchat.globaldefines.DbGlobalDefines;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 
 @Component
+@Profile("servers")
 @Slf4j
 public class DbCtrl {
     private final DbWorker db;
