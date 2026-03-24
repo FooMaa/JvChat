@@ -15,7 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
 import org.foomaa.jvchat.settings.DisplaySettings;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -35,25 +34,24 @@ public class PasswordFieldAuthUI extends JPanel {
     private ToolTipAuthUI toolTip;
     private final String textButtonHide;
     private final String textButtonShow;
-    private final String defaultText;
+    private String defaultText;
     private final int borderSize;
     private boolean isErrorBorderActive;
 
     private final DisplaySettings displaySettings;
     private final FontsGlobalDefines fontsGlobalDefines;
-    private final ObjectProvider<ToolTipAuthUI> toolTipObjectProvider;
+    private final ToolTipAuthUIFactory toolTipAuthUIFactory;
 
     PasswordFieldAuthUI(DisplaySettings displaySettings,
                         FontsGlobalDefines fontsGlobalDefines,
-                        ObjectProvider<ToolTipAuthUI> toolTipObjectProvider,
-                        String text) {
+                        ToolTipAuthUIFactory toolTipAuthUIFactory) {
         this.displaySettings = displaySettings;
         this.fontsGlobalDefines = fontsGlobalDefines;
-        this.toolTipObjectProvider = toolTipObjectProvider;
+        this.toolTipAuthUIFactory = toolTipAuthUIFactory;
 
         visibleImage = setIcon("/Eye.png");
         invisibleImage = setIcon("/Eye-close.png");
-        defaultText = text;
+        defaultText = "";
         textButtonShow = "To show password";
         textButtonHide = "To hide password";
         flagEye = false;
@@ -63,6 +61,10 @@ public class PasswordFieldAuthUI extends JPanel {
 
         settingPassAndButtonPanel();
         addListenerToElem();
+    }
+
+    public void setDefaultText(String defaultText) {
+        this.defaultText = defaultText;
     }
 
     @Override
@@ -86,7 +88,7 @@ public class PasswordFieldAuthUI extends JPanel {
     }
 
     public void setToolTip(String text) {
-        toolTip = toolTipObjectProvider.getObject();
+        toolTip = toolTipAuthUIFactory.create();
         createToolTip();
         setToolTipText(text);
 

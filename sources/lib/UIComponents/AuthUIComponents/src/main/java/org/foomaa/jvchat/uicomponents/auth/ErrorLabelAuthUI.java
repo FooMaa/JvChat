@@ -23,15 +23,13 @@ public class ErrorLabelAuthUI extends JLabel {
     private final FontsGlobalDefines fontsGlobalDefines;
 
     ErrorLabelAuthUI(DisplaySettings displaySettings,
-                     FontsGlobalDefines fontsGlobalDefines,
-                     String text) {
+                     FontsGlobalDefines fontsGlobalDefines) {
         this.displaySettings = displaySettings;
         this.fontsGlobalDefines = fontsGlobalDefines;
 
         timerVisible = new Timer(5000, actionEvent -> setText(""));
         timerVisible.setRepeats(false);
 
-        setText(text);
         setFont(new Font("Times", Font.PLAIN, displaySettings.getResizePixel(0.017)));
     }
 

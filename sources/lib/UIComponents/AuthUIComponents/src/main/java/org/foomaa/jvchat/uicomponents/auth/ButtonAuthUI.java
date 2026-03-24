@@ -3,7 +3,6 @@ package org.foomaa.jvchat.uicomponents.auth;
 import lombok.extern.slf4j.Slf4j;
 import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
 import org.foomaa.jvchat.settings.DisplaySettings;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -22,17 +21,15 @@ public class ButtonAuthUI extends JButton {
     private ToolTipAuthUI toolTip;
     private final DisplaySettings displaySettings;
     private final FontsGlobalDefines fontsGlobalDefines;
-    private final ObjectProvider<ToolTipAuthUI> toolTipObjectProvider;
+    private final ToolTipAuthUIFactory toolTipAuthUIFactory;
 
     ButtonAuthUI(DisplaySettings displaySettings,
                  FontsGlobalDefines fontsGlobalDefines,
-                 ObjectProvider<ToolTipAuthUI> toolTipObjectProvider,
-                 String text) {
+                 ToolTipAuthUIFactory toolTipAuthUIFactory) {
         this.displaySettings = displaySettings;
         this.fontsGlobalDefines = fontsGlobalDefines;
-        this.toolTipObjectProvider = toolTipObjectProvider;
+        this.toolTipAuthUIFactory = toolTipAuthUIFactory;
 
-        setText(text);
         setBackground(Color.WHITE);
         setFocusable(false);
         addListenerToElements();
@@ -40,7 +37,7 @@ public class ButtonAuthUI extends JButton {
     }
 
     public void setToolTip(String text) {
-        toolTip = toolTipObjectProvider.getObject();
+        toolTip = toolTipAuthUIFactory.create();
         createToolTip();
         setToolTipText(text);
     }

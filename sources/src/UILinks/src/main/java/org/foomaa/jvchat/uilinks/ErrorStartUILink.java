@@ -1,7 +1,7 @@
 package org.foomaa.jvchat.uilinks;
 
 import org.foomaa.jvchat.uicomponents.auth.OptionPaneAuthUI;
-import org.springframework.beans.factory.ObjectProvider;
+import org.foomaa.jvchat.uicomponents.auth.OptionPaneAuthUIFactory;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
@@ -9,18 +9,18 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-@Lazy
 @Scope("prototype")
 @Profile("users")
+@Lazy
 public class ErrorStartUILink {
-    private final ObjectProvider<OptionPaneAuthUI> optionPaneAuthUIObjectProvider;
+    private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
-    ErrorStartUILink(ObjectProvider<OptionPaneAuthUI> optionPaneAuthUIObjectProvider) {
-        this.optionPaneAuthUIObjectProvider = optionPaneAuthUIObjectProvider;
+    ErrorStartUILink(OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
+        this.optionPaneAuthUIFactory = optionPaneAuthUIFactory;
         System.exit(1);
     }
 
     public void show(String message) {
-        optionPaneAuthUIObjectProvider.getObject().show(message, OptionPaneAuthUI.TypeDlg.ERROR);
+        optionPaneAuthUIFactory.create().show(message, OptionPaneAuthUI.TypeDlg.ERROR);
     }
 }

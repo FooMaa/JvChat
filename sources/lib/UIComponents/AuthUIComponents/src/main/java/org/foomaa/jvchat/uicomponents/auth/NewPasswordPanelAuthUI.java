@@ -12,7 +12,6 @@ import org.foomaa.jvchat.ctrl.SendMessagesCtrl;
 import org.foomaa.jvchat.events.GetterEvents;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -31,26 +30,26 @@ public class NewPasswordPanelAuthUI extends JPanel {
     private final DisplaySettings displaySettings;
     private final SendMessagesCtrl sendMessagesCtrl;
     private final MessagesDefinesCtrl messagesDefinesCtrl;
-    private final ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider;
+    private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
     NewPasswordPanelAuthUI(DisplaySettings displaySettings,
                            SendMessagesCtrl sendMessagesCtrl,
                            MessagesDefinesCtrl messagesDefinesCtrl,
-                           ObjectProvider<ButtonAuthUI> buttonObjectProvider,
-                           ObjectProvider<ErrorLabelAuthUI> errorLabelObjectProvider,
-                           ObjectProvider<PasswordFieldAuthUI> passwordFieldObjectProvider,
-                           ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider) {
+                           ButtonAuthUIFactory buttonAuthUIFactory,
+                           ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
+                           PasswordFieldAuthUIFactory passwordFieldAuthUIFactory,
+                           OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
         this.displaySettings = displaySettings;
         this.sendMessagesCtrl = sendMessagesCtrl;
         this.messagesDefinesCtrl = messagesDefinesCtrl;
-        this.optionPaneObjectProvider = optionPaneObjectProvider;
+        this.optionPaneAuthUIFactory = optionPaneAuthUIFactory;
 
-        tErrorHelpInfo = errorLabelObjectProvider.getObject("");
+        tErrorHelpInfo = errorLabelAuthUIFactory.create("");
         tErrorHelpInfo.settingToError();
-        tPassword = passwordFieldObjectProvider.getObject("Password");
-        tPasswordConfirm = passwordFieldObjectProvider.getObject("Confirm password");
-        bAccept = buttonObjectProvider.getObject("Accept");
-        bBack = buttonObjectProvider.getObject("Back");
+        tPassword = passwordFieldAuthUIFactory.create("Password");
+        tPasswordConfirm = passwordFieldAuthUIFactory.create("Confirm password");
+        bAccept = buttonAuthUIFactory.create("Accept");
+        bBack = buttonAuthUIFactory.create("Back");
 
         settingComponents();
         makePanelSetting();
@@ -228,7 +227,7 @@ public class NewPasswordPanelAuthUI extends JPanel {
             setEnabled(true);
         } else if (messagesDefinesCtrl.getChangePasswordRequest() == MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            optionPaneObjectProvider.getObject("Failed to change password.",
+            optionPaneAuthUIFactory.create().show("Failed to change password.",
                     OptionPaneAuthUI.TypeDlg.ERROR);
         }
     }

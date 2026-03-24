@@ -11,7 +11,6 @@ import org.foomaa.jvchat.ctrl.SendMessagesCtrl;
 import org.foomaa.jvchat.events.GetterEvents;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -32,7 +31,7 @@ public class VerifyCodePanelAuthUI extends JPanel {
     private final DisplaySettings displaySettings;
     private final SendMessagesCtrl sendMessagesCtrl;
     private final MessagesDefinesCtrl messagesDefinesCtrl;
-    private final ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider;
+    private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
     public enum RegimeWork {
         Registration,
@@ -42,20 +41,20 @@ public class VerifyCodePanelAuthUI extends JPanel {
     VerifyCodePanelAuthUI(DisplaySettings displaySettings,
                           SendMessagesCtrl sendMessagesCtrl,
                           MessagesDefinesCtrl messagesDefinesCtrl,
-                          ObjectProvider<ButtonAuthUI> buttonObjectProvider,
-                          ObjectProvider<ErrorLabelAuthUI> errorLabelObjectProvider,
-                          ObjectProvider<TextFieldAuthUI> textFieldObjectProvider,
-                          ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider) {
+                          ButtonAuthUIFactory buttonAuthUIFactory,
+                          ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
+                          TextFieldAuthUIFactory textFieldAuthUIFactory,
+                          OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
         this.displaySettings = displaySettings;
         this.sendMessagesCtrl = sendMessagesCtrl;
         this.messagesDefinesCtrl = messagesDefinesCtrl;
-        this.optionPaneObjectProvider = optionPaneObjectProvider;
+        this.optionPaneAuthUIFactory = optionPaneAuthUIFactory;
 
-        tCode = textFieldObjectProvider.getObject("Code (valid for 60 sec.)");
-        tErrorHelpInfo = errorLabelObjectProvider.getObject("");
+        tCode = textFieldAuthUIFactory.create("Code (valid for 60 sec.)");
+        tErrorHelpInfo = errorLabelAuthUIFactory.create("");
         tErrorHelpInfo.settingToError();
-        bSet = buttonObjectProvider.getObject("Send");
-        bBack = buttonObjectProvider.getObject("Back");
+        bSet = buttonAuthUIFactory.create("Send");
+        bBack = buttonAuthUIFactory.create("Back");
 
         settingComponents();
         makePanelSetting();
@@ -220,7 +219,7 @@ public class VerifyCodePanelAuthUI extends JPanel {
         } else if (messagesDefinesCtrl.getVerifyFamousEmailRequestFlag() ==
                 MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            optionPaneObjectProvider.getObject("The code is not correct. Enter the code you received by mail again.\n" +
+            optionPaneAuthUIFactory.create().show("The code is not correct. Enter the code you received by mail again.\n" +
                             "The code may have expired, enter your email again and get a new one.", OptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
@@ -248,13 +247,13 @@ public class VerifyCodePanelAuthUI extends JPanel {
 
     private void openErrorPane() {
         switch (messagesDefinesCtrl.getErrorVerifyRegEmailFlag()) {
-            case NoError -> optionPaneObjectProvider.getObject("The error is not clear.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case EmailSending -> optionPaneObjectProvider.getObject("The email may be invalid.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case Login -> optionPaneObjectProvider.getObject("This login is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case Email -> optionPaneObjectProvider.getObject("This email is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case Code -> optionPaneObjectProvider.getObject("The code is not correct. Enter the code you received by mail again.\n" +
+            case NoError -> optionPaneAuthUIFactory.create().show("The error is not clear.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case EmailSending -> optionPaneAuthUIFactory.create().show("The email may be invalid.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case Login -> optionPaneAuthUIFactory.create().show("This login is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case Email -> optionPaneAuthUIFactory.create().show("This email is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case Code -> optionPaneAuthUIFactory.create().show("The code is not correct. Enter the code you received by mail again.\n" +
                     "The code may have expired, enter your email again and get a new one.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case LoginAndEmail -> optionPaneObjectProvider.getObject("The email and login data are already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case LoginAndEmail -> optionPaneAuthUIFactory.create().show("The email and login data are already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 }

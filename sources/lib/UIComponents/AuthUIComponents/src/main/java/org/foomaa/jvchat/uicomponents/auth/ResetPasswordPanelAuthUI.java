@@ -12,7 +12,6 @@ import org.foomaa.jvchat.events.GetterEvents;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.tools.UsersTools;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -30,27 +29,27 @@ public class ResetPasswordPanelAuthUI extends JPanel {
     private final UsersTools usersTools;
     private final SendMessagesCtrl sendMessagesCtrl;
     private final MessagesDefinesCtrl messagesDefinesCtrl;
-    private final ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider;
+    private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
     ResetPasswordPanelAuthUI(DisplaySettings displaySettings,
                              UsersTools usersTools,
                              SendMessagesCtrl sendMessagesCtrl,
                              MessagesDefinesCtrl messagesDefinesCtrl,
-                             ObjectProvider<ButtonAuthUI> buttonObjectProvider,
-                             ObjectProvider<ErrorLabelAuthUI> errorLabelObjectProvider,
-                             ObjectProvider<TextFieldAuthUI> textFieldObjectProvider,
-                             ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider) {
+                             ButtonAuthUIFactory buttonAuthUIFactory,
+                             ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
+                             TextFieldAuthUIFactory textFieldAuthUIFactory,
+                             OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
         this.displaySettings = displaySettings;
         this.usersTools = usersTools;
         this.sendMessagesCtrl = sendMessagesCtrl;
         this.messagesDefinesCtrl = messagesDefinesCtrl;
-        this.optionPaneObjectProvider = optionPaneObjectProvider;
+        this.optionPaneAuthUIFactory = optionPaneAuthUIFactory;
 
-        tEmail = textFieldObjectProvider.getObject("Почта");
-        tErrorHelpInfo = errorLabelObjectProvider.getObject("");
+        tEmail = textFieldAuthUIFactory.create("Email");
+        tErrorHelpInfo = errorLabelAuthUIFactory.create("");
         tErrorHelpInfo.settingToError();
-        bSet = buttonObjectProvider.getObject("Send");
-        bBack = buttonObjectProvider.getObject("Back");
+        bSet = buttonAuthUIFactory.create("Send");
+        bBack = buttonAuthUIFactory.create("Back");
 
         settingComponents();
         makePanelSetting();
@@ -183,7 +182,7 @@ public class ResetPasswordPanelAuthUI extends JPanel {
             setEnabled(true);
         } else if (messagesDefinesCtrl.getResetPasswordRequestFlag() == MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            optionPaneObjectProvider.getObject("This email is not registered.", OptionPaneAuthUI.TypeDlg.ERROR);
+            optionPaneAuthUIFactory.create().show("This email is not registered.", OptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 }

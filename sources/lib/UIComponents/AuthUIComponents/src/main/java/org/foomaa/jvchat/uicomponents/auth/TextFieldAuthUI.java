@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
 import org.foomaa.jvchat.settings.DisplaySettings;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -23,27 +22,30 @@ import org.springframework.stereotype.Component;
 public class TextFieldAuthUI extends JPanel {
     private JTextField textField;
     private ToolTipAuthUI toolTip;
-    private final String defaultText;
+    private String defaultText;
     private boolean isErrorBorderActive;
     private final int borderSize;
     private final DisplaySettings displaySettings;
     private final FontsGlobalDefines fontsGlobalDefines;
-    private final ObjectProvider<ToolTipAuthUI> toolTipObjectProvider;
+    private final ToolTipAuthUIFactory toolTipAuthUIFactory;
 
     TextFieldAuthUI(DisplaySettings displaySettings,
                     FontsGlobalDefines fontsGlobalDefines,
-                    ObjectProvider<ToolTipAuthUI> toolTipObjectProvider,
-                    String text) {
+                    ToolTipAuthUIFactory toolTipAuthUIFactory) {
         this.displaySettings = displaySettings;
         this.fontsGlobalDefines = fontsGlobalDefines;
-        this.toolTipObjectProvider = toolTipObjectProvider;
+        this.toolTipAuthUIFactory = toolTipAuthUIFactory;
 
-        defaultText = text;
+        defaultText = "";
         borderSize = 2;
         isErrorBorderActive = false;
 
         settingTextPanel();
         addListenerToElem();
+    }
+
+    public void setDefaultText(String defaultText) {
+        this.defaultText = defaultText;
     }
 
     @Override
@@ -67,7 +69,7 @@ public class TextFieldAuthUI extends JPanel {
     }
 
     public void setToolTip(String text) {
-        toolTip = toolTipObjectProvider.getObject();
+        toolTip = toolTipAuthUIFactory.create();
         createToolTip();
         setToolTipText(text);
 

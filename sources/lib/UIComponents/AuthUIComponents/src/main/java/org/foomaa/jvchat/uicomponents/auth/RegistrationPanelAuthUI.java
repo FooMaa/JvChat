@@ -13,7 +13,6 @@ import org.foomaa.jvchat.events.GetterEvents;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.tools.UsersTools;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -34,30 +33,31 @@ public class RegistrationPanelAuthUI extends JPanel {
     private final UsersTools usersTools;
     private final SendMessagesCtrl sendMessagesCtrl;
     private final MessagesDefinesCtrl messagesDefinesCtrl;
-    private final ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider;
+    private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
     RegistrationPanelAuthUI(DisplaySettings displaySettings,
                             UsersTools usersTools,
                             SendMessagesCtrl sendMessagesCtrl,
                             MessagesDefinesCtrl messagesDefinesCtrl,
-                            ObjectProvider<ButtonAuthUI> buttonObjectProvider,
-                            ObjectProvider<ErrorLabelAuthUI> errorLabelObjectProvider,
-                            ObjectProvider<PasswordFieldAuthUI> passwordFieldObjectProvider,
-                            ObjectProvider<TextFieldAuthUI> textFieldObjectProvider,
-                            ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider) {
+                            ButtonAuthUIFactory buttonAuthUIFactory,
+                            ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
+                            PasswordFieldAuthUIFactory passwordFieldAuthUIFactory,
+                            TextFieldAuthUIFactory textFieldAuthUIFactory,
+                            OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
         this.displaySettings = displaySettings;
         this.usersTools = usersTools;
         this.sendMessagesCtrl = sendMessagesCtrl;
         this.messagesDefinesCtrl = messagesDefinesCtrl;
-        this.optionPaneObjectProvider = optionPaneObjectProvider;
+        this.optionPaneAuthUIFactory = optionPaneAuthUIFactory;
 
-        tLogin = textFieldObjectProvider.getObject("Login");
-        tEmail = textFieldObjectProvider.getObject("Email");
-        tErrorHelpInfo = errorLabelObjectProvider.getObject("");
-        tPassword = passwordFieldObjectProvider.getObject("Password");
-        tPasswordConfirm = passwordFieldObjectProvider.getObject("Confirm password");
-        bRegister = buttonObjectProvider.getObject("Next");
-        bBack = buttonObjectProvider.getObject("Back");
+        tLogin = textFieldAuthUIFactory.create("Login");
+        tEmail = textFieldAuthUIFactory.create("Email");
+
+        tErrorHelpInfo = errorLabelAuthUIFactory.create("");
+        tPassword = passwordFieldAuthUIFactory.create("Password");
+        tPasswordConfirm = passwordFieldAuthUIFactory.create("Confirm password");
+        bRegister = buttonAuthUIFactory.create("Next");
+        bBack = buttonAuthUIFactory.create("Back");
 
         settingComponents();
         makePanelSetting();
@@ -263,11 +263,11 @@ public class RegistrationPanelAuthUI extends JPanel {
 
     private void openErrorPane() {
         switch (messagesDefinesCtrl.getErrorRegistrationFlag()) {
-            case NoError -> optionPaneObjectProvider.getObject("The error is not clear.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case EmailSending -> optionPaneObjectProvider.getObject("The email may be invalid.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case Login -> optionPaneObjectProvider.getObject("This login is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case Email -> optionPaneObjectProvider.getObject("This email is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case LoginAndEmail -> optionPaneObjectProvider.getObject("The email and login data are already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case NoError -> optionPaneAuthUIFactory.create().show("The error is not clear.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case EmailSending -> optionPaneAuthUIFactory.create().show("The email may be invalid.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case Login -> optionPaneAuthUIFactory.create().show("This login is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case Email -> optionPaneAuthUIFactory.create().show("This email is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case LoginAndEmail -> optionPaneAuthUIFactory.create().show("The email and login data are already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 }

@@ -16,7 +16,6 @@ import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.settings.UsersInfoSettings;
 import org.foomaa.jvchat.uicomponents.mainchat.MainFrameMainChatUI;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -36,32 +35,32 @@ public class EntryPanelAuthUI extends JPanel {
     private final MainFrameMainChatUI mainFrameMainChatUI;
     private final SendMessagesCtrl sendMessagesCtrl;
     private final MessagesDefinesCtrl messagesDefinesCtrl;
-    private final ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider;
+    private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
     EntryPanelAuthUI(UsersInfoSettings usersInfoSettings,
                      DisplaySettings displaySettings,
                      MainFrameMainChatUI mainFrameMainChatUI,
                      SendMessagesCtrl sendMessagesCtrl,
                      MessagesDefinesCtrl messagesDefinesCtrl,
-                     ObjectProvider<ActiveLabelAuthUI> activeLabelObjectProvider,
-                     ObjectProvider<ButtonAuthUI> buttonObjectProvider,
-                     ObjectProvider<ErrorLabelAuthUI> errorLabelObjectProvider,
-                     ObjectProvider<PasswordFieldAuthUI> passwordFieldObjectProvider,
-                     ObjectProvider<TextFieldAuthUI> textFieldObjectProvider,
-                     ObjectProvider<OptionPaneAuthUI> optionPaneObjectProvider) {
+                     ActiveLabelAuthUIFactory activeLabelAuthUIFactory,
+                     ButtonAuthUIFactory buttonAuthUIFactory,
+                     ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
+                     PasswordFieldAuthUIFactory passwordFieldAuthUIFactory,
+                     TextFieldAuthUIFactory textFieldAuthUIFactory,
+                     OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
         this.usersInfoSettings = usersInfoSettings;
         this.displaySettings = displaySettings;
         this.mainFrameMainChatUI = mainFrameMainChatUI;
         this.sendMessagesCtrl = sendMessagesCtrl;
         this.messagesDefinesCtrl = messagesDefinesCtrl;
-        this.optionPaneObjectProvider = optionPaneObjectProvider;
+        this.optionPaneAuthUIFactory = optionPaneAuthUIFactory;
 
-        tLogin = textFieldObjectProvider.getObject("Login");
-        tErrorHelpInfo = errorLabelObjectProvider.getObject("");
-        tPassword = passwordFieldObjectProvider.getObject("Password");
-        bEnter = buttonObjectProvider.getObject("Next");
-        activeMissLabel = activeLabelObjectProvider.getObject("Reset password");
-        activeRegisterLabel = activeLabelObjectProvider.getObject("Registration");
+        tLogin = textFieldAuthUIFactory.create("Login");
+        tErrorHelpInfo = errorLabelAuthUIFactory.create("");
+        tPassword = passwordFieldAuthUIFactory.create("Password");
+        bEnter = buttonAuthUIFactory.create("Next");
+        activeMissLabel = activeLabelAuthUIFactory.create("Reset password");
+        activeRegisterLabel = activeLabelAuthUIFactory.create("Registration");
 
         settingComponents();
         makePanelSetting();
@@ -220,7 +219,7 @@ public class EntryPanelAuthUI extends JPanel {
         } else if (messagesDefinesCtrl.getEntryRequestFlag() ==
                 MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            optionPaneObjectProvider.getObject("Login failed, data is incorrect.", OptionPaneAuthUI.TypeDlg.ERROR);
+            optionPaneAuthUIFactory.create().show("Login failed, data is incorrect.", OptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 

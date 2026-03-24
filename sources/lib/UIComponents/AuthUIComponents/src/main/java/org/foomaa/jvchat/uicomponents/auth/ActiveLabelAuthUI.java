@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
 import org.foomaa.jvchat.settings.DisplaySettings;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -26,24 +25,22 @@ public class ActiveLabelAuthUI extends JLabel {
     private ToolTipAuthUI toolTip;
     private final DisplaySettings displaySettings;
     private final FontsGlobalDefines fontsGlobalDefines;
-    private final ObjectProvider<ToolTipAuthUI> toolTipObjectProvider;
+    private final ToolTipAuthUIFactory toolTipAuthUIFactory;
 
     ActiveLabelAuthUI(DisplaySettings displaySettings,
                       FontsGlobalDefines fontsGlobalDefines,
-                      ObjectProvider<ToolTipAuthUI> toolTipObjectProvider,
-                      String text) {
+                      ToolTipAuthUIFactory toolTipAuthUIFactory) {
         this.displaySettings = displaySettings;
         this.fontsGlobalDefines = fontsGlobalDefines;
-        this.toolTipObjectProvider = toolTipObjectProvider;
+        this.toolTipAuthUIFactory = toolTipAuthUIFactory;
 
-        setText(text);
         setFont(false);
         setForeground(Color.WHITE);
         addCustomListenerToElem();
     }
 
     public void setToolTip(String text) {
-        toolTip = toolTipObjectProvider.getObject();
+        toolTip = toolTipAuthUIFactory.create();
         createToolTip();
         setToolTipText(text);
     }

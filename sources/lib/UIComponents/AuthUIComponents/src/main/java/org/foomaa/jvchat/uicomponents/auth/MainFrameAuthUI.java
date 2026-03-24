@@ -1,7 +1,6 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
 import org.foomaa.jvchat.events.CheckerEventsAnnotation;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
@@ -56,8 +55,7 @@ public class MainFrameAuthUI extends JFrame {
                     RegistrationPanelAuthUI registrationPanelAuthUI,
                     ResetPasswordPanelAuthUI resetPasswordPanelAuthUI,
                     VerifyCodePanelAuthUI verifyCodePanelAuthUI,
-                    TitlePanelAuthUI titlePanel,
-                    ApplicationContext context) {
+                    TitlePanelAuthUI titlePanel) {
         super("EntryFrame");
 
         this.displaySettings = displaySettings;
