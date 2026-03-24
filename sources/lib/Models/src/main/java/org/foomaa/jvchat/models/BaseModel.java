@@ -78,7 +78,7 @@ public abstract class BaseModel {
 
         if (rootStructObjectRootModel != null &&
                 creatingRoot != rootStructObjectRootModel) {
-            rootObject = rootStructObjectRootModel;
+            rootObject = creatingRoot;
             rootModel.addItem(creatingRoot, rootStructObjectRootModel);
         }
     }
