@@ -8,9 +8,11 @@ import java.util.UUID;
 import org.foomaa.jvchat.structobjects.*;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
+@Profile("servers")
 @Lazy
 public class CheckersOnlineModel extends BaseModel {
     private final UsersModel usersModel;

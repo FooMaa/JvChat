@@ -4,32 +4,35 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import lombok.extern.slf4j.Slf4j;
 import org.foomaa.jvchat.globaldefines.DbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.messages.SerializatorDataMessages;
 import org.foomaa.jvchat.settings.ServersInfoSettings;
 import org.foomaa.jvchat.tools.StructTools;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 
 @Component
+@Slf4j
 public class SendMessagesCtrl {
     private final SerializatorDataMessages serializatorDataMessages;
     private final MessagesDefinesCtrl messagesDefinesCtrl;
-    private final ServersInfoSettings serversInfoSettings;
+    private final ObjectProvider<ServersInfoSettings> serversInfoSettingsObjectProvider;
     private final StructTools structTools;
     private final NetworkCtrl networkCtrl;
 
     SendMessagesCtrl(SerializatorDataMessages serializatorDataMessages,
                      MessagesDefinesCtrl messagesDefinesCtrl,
-                     ServersInfoSettings serversInfoSettings,
+                     ObjectProvider<ServersInfoSettings> serversInfoSettingsObjectProvider,
                      StructTools structTools,
                      @Lazy NetworkCtrl networkCtrl) {
         this.serializatorDataMessages = serializatorDataMessages;
         this.messagesDefinesCtrl = messagesDefinesCtrl;
-        this.serversInfoSettings = serversInfoSettings;
+        this.serversInfoSettingsObjectProvider = serversInfoSettingsObjectProvider;
         this.structTools = structTools;
         this.networkCtrl = networkCtrl;
     }
@@ -171,6 +174,13 @@ public class SendMessagesCtrl {
                             structTools.objectInListMaps(chatsInfoObj, DbGlobalDefines.LineKeys.class, String.class);
                     byte[] bodyMessageChatsLoadReply = createBodyChatsLoadReplyMessage(type, chatsInfo);
                     sendReadyMessageNetwork(bodyMessageChatsLoadReply);
+
+                    ServersInfoSettings serversInfoSettings = serversInfoSettingsObjectProvider.getIfAvailable();
+                    if (serversInfoSettings == null) {
+                        log.error("serversInfoSettings is null");
+                        return;
+                    }
+
                     sendMessage(DefinesMessages.TypeMessage.CheckOnlineUserRequest, serversInfoSettings.getIp());
                 }
             }

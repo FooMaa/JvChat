@@ -20,7 +20,7 @@ import org.foomaa.jvchat.tools.ServersTools;
 @Component
 @Slf4j
 public class StartupRunner implements ApplicationRunner {
-    private final ServersTools serversTools;
+    private final ObjectProvider<ServersTools> serversToolsObjectProvider;
     private final MainTools mainTools;
     private final MainSettings mainSettings;
     private final ApplicationContext context;
@@ -29,7 +29,7 @@ public class StartupRunner implements ApplicationRunner {
     private final ObjectProvider<StartAuthenticationUILink> startAuthenticationUILinkObjectProvider;
     private final ObjectProvider<ErrorStartUILink> errorStartUILinkObjectProvider;
 
-    private StartupRunner(ServersTools serversTools,
+    private StartupRunner(ObjectProvider<ServersTools> serversToolsObjectProvider,
                           MainTools mainTools,
                           MainSettings mainSettings,
                           ApplicationContext context,
@@ -37,7 +37,7 @@ public class StartupRunner implements ApplicationRunner {
                           NetworkCtrl networkCtrl,
                           ObjectProvider<StartAuthenticationUILink> startAuthenticationUILinkObjectProvider,
                           ObjectProvider<ErrorStartUILink> errorStartUILinkObjectProvider) {
-        this.serversTools = serversTools;
+        this.serversToolsObjectProvider = serversToolsObjectProvider;
         this.mainTools = mainTools;
         this.mainSettings = mainSettings;
         this.context = context;
@@ -67,6 +67,12 @@ public class StartupRunner implements ApplicationRunner {
 
     private void workingArgs(ApplicationArguments args) {
         if (mainSettings.getProfile() == MainSettings.TypeProfiles.SERVERS) {
+            ServersTools serversTools = serversToolsObjectProvider.getIfAvailable();
+            if (serversTools == null) {
+                log.error("serverTools is null");
+                return;
+            }
+
             serversTools.initServersParameters();
             return;
         }

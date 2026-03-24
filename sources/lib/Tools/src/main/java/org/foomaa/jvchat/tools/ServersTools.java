@@ -6,12 +6,14 @@ import java.net.Socket;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import org.foomaa.jvchat.settings.ServersInfoSettings;
 
 
 @Component
+@Profile("servers")
 @Slf4j
 public class ServersTools {
     private final MainTools mainTools;
