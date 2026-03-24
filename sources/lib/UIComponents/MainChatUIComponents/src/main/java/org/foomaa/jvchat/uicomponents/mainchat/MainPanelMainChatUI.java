@@ -18,13 +18,13 @@ public class MainPanelMainChatUI extends JPanel {
 
     MainPanelMainChatUI(ScrollPanelChatsMainChatUI scrollPanelChats,
                         ScrollPanelMessagesMainChatUI scrollPanelMessages,
-                        ObjectProvider<PanelSendingMessageMainChatUI> panelSendingMessageObjectProvider,
-                        ObjectProvider<FindTextFieldMainChatUI> findTextFieldObjectProvider) {
+                        PanelSendingMessageMainChatUIFactory panelSendingMessageFactory,
+                        FindTextFieldMainChatUIFactory findTextFieldMainChatUIFactory) {
         this.scrollPanelChats = scrollPanelChats;
         this.scrollPanelMessages = scrollPanelMessages;
 
-        findTextField = findTextFieldObjectProvider.getObject("Поиск по логину");
-        panelSendingMessage = panelSendingMessageObjectProvider.getObject();
+        findTextField = findTextFieldMainChatUIFactory.create("Find by login");
+        panelSendingMessage = panelSendingMessageFactory.create();
 
         makePanelSetting();
         makePanelTransparent();

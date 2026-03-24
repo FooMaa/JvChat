@@ -23,19 +23,23 @@ public class FindTextFieldMainChatUI extends JPanel {
     private final BufferedImage image;
     private JTextField textField;
     private JButton button;
-    private final String defaultText;
+    private String defaultText;
     private final int borderSize = 1;
 
     private final DisplaySettings displaySettings;
 
-    FindTextFieldMainChatUI(DisplaySettings displaySettings, String text) {
+    FindTextFieldMainChatUI(DisplaySettings displaySettings) {
         this.displaySettings = displaySettings;
 
         image = setIcon();
-        defaultText = text;
+        defaultText = "";
 
         settingTextAndButtonPanel();
         addListenerToElem();
+    }
+
+    public void setDefaultText(String defaultText) {
+        this.defaultText = defaultText;
     }
 
     private BufferedImage setIcon() {

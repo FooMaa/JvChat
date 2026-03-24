@@ -44,20 +44,20 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
     private final SendMessagesCtrl sendMessagesCtrl;
     private final MessagesDefinesCtrl messagesDefinesCtrl;
 
-    private final ObjectProvider<RectChatMainChatUI> rectChatObjectProvider;
+    private final RectChatMainChatUIFactory rectChatFactory;
     private final ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider;
 
     ScrollPanelChatsMainChatUI(UsersInfoSettings usersInfoSettings,
                                UISettings uiSettings,
                                SendMessagesCtrl sendMessagesCtrl,
                                MessagesDefinesCtrl messagesDefinesCtrl,
-                               ObjectProvider<RectChatMainChatUI> rectChatObjectProvider,
+                               RectChatMainChatUIFactory rectChatFactory,
                                ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider) {
         this.usersInfoSettings = usersInfoSettings;
         this.uiSettings = uiSettings;
         this.sendMessagesCtrl = sendMessagesCtrl;
         this.messagesDefinesCtrl = messagesDefinesCtrl;
-        this.rectChatObjectProvider = rectChatObjectProvider;
+        this.rectChatFactory = rectChatFactory;
         this.chatsCtrlObjectProvider = chatsCtrlObjectProvider;
 
         intervalMilliSecondsSleepUpdating = 30000;
@@ -172,7 +172,7 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
         List<ChatStructObject> chatsObjects = getChatsObjects();
 
         for (ChatStructObject chat : chatsObjects) {
-            RectChatMainChatUI component = rectChatObjectProvider.getObject(chat);
+            RectChatMainChatUI component = rectChatFactory.create(chat);
             boxComponents.add(component);
             connectSelectingElement(component);
         }

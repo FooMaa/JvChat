@@ -26,14 +26,14 @@ import org.springframework.stereotype.Component;
 @Profile("users")
 @Slf4j
 public class RectChatMainChatUI extends JPanel {
-    private final String nickName;
+    private String nickName;
     private String shortLastMessage;
     private UUID lastMessageSender;
     private String timeLastMessage;
     private MainChatsGlobalDefines.TypeStatusMessage statusMessage;
     private MainChatsGlobalDefines.TypeStatusOnline statusOnline;
-    private final UUID uuidChat;
-    private final UUID uuidUser;
+    private UUID uuidChat;
+    private UUID uuidUser;
     private String lastOnlineDateTime;
     private final String nameForLabelOnline;
     private final String nameForLabelLastMessage;
@@ -55,14 +55,13 @@ public class RectChatMainChatUI extends JPanel {
         this.messagesDialogCtrl = messagesDialogCtrl;
         this.chatsCtrlObjectProvider = chatsCtrlObjectProvider;
 
-        nickName = chatObject.getUserChat().getLogin();
-        shortLastMessage = chatObject.getLastMessage().getText();
-        lastMessageSender = chatObject.getLastMessage().getUuidUserSender();
+        nickName = "";
+        shortLastMessage = "";
+        lastMessageSender = null;
 
-
-        statusMessage = chatObject.getLastMessage().getStatusMessage();
-        uuidChat = chatObject.getUuid();
-        uuidUser = chatObject.getUserChat().getUuid();
+        statusMessage = MainChatsGlobalDefines.TypeStatusMessage.Error;
+        uuidChat = null;
+        uuidUser = null;
         statusOnline = MainChatsGlobalDefines.TypeStatusOnline.Offline;
         lastOnlineDateTime = "";
         nameForLabelOnline = "onlineLabel";
@@ -74,6 +73,17 @@ public class RectChatMainChatUI extends JPanel {
         installTimeLastMessage(chatObject);
         makeChatBox();
         addListenerToElements();
+    }
+
+    public void setChatObject(ChatStructObject chatObject) {
+        nickName = chatObject.getUserChat().getLogin();
+        shortLastMessage = chatObject.getLastMessage().getText();
+        lastMessageSender = chatObject.getLastMessage().getUuidUserSender();
+
+
+        statusMessage = chatObject.getLastMessage().getStatusMessage();
+        uuidChat = chatObject.getUuid();
+        uuidUser = chatObject.getUserChat().getUuid();
     }
 
     public UUID getUuidUser() {
