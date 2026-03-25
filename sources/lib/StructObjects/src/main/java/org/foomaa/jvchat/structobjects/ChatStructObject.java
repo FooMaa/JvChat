@@ -1,11 +1,12 @@
 package org.foomaa.jvchat.structobjects;
 
+import lombok.Getter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-
 @Component
 @Scope("prototype")
+@Getter
 public class ChatStructObject extends BaseStructObject {
     private MessageStructObject lastMessage;
     private UserStructObject userChat;
@@ -30,11 +31,4 @@ public class ChatStructObject extends BaseStructObject {
         }
     }
 
-    public MessageStructObject getLastMessage() {
-        return lastMessage;
-    }
-
-    public UserStructObject getUserChat() {
-        return userChat;
-    }
 }

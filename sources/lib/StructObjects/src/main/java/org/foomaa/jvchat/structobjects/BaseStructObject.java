@@ -1,17 +1,20 @@
 package org.foomaa.jvchat.structobjects;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.lang.reflect.Field;
 import java.util.*;
 
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public abstract class BaseStructObject {
+    @Getter
     private BaseStructObject parent;
+    @Getter
     private List<BaseStructObject> children;
-    private final HashMap<String, Object> properties;
+    @Getter
     private UUID uuid;
+    private final HashMap<String, Object> properties;
 
     BaseStructObject() {
         properties = new HashMap<>();
@@ -22,10 +25,6 @@ public abstract class BaseStructObject {
 
     public Object getProperty(String name) {
         return properties.get(name);
-    }
-
-    public BaseStructObject getParent() {
-        return parent;
     }
 
     public void setParent(BaseStructObject newParent) {
@@ -41,10 +40,6 @@ public abstract class BaseStructObject {
 
     public void removeChild(BaseStructObject child) {
         children.remove(child);
-    }
-
-    public List<BaseStructObject> getChildren() {
-        return children;
     }
 
     @Deprecated
@@ -78,9 +73,5 @@ public abstract class BaseStructObject {
             uuid = newUuid;
             commitProperties();
         }
-    }
-
-    public UUID getUuid() {
-        return uuid;
     }
 }

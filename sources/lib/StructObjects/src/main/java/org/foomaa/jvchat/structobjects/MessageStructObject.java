@@ -4,13 +4,15 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
-import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
+import lombok.Getter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 
 @Component
 @Scope("prototype")
+@Getter
 public class MessageStructObject extends BaseStructObject {
     private UUID uuidUserSender;
     private UUID uuidUserReceiver;
@@ -63,23 +65,4 @@ public class MessageStructObject extends BaseStructObject {
         }
     }
 
-    public MainChatsGlobalDefines.TypeStatusMessage getStatusMessage() {
-        return statusMessage;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public LocalDateTime getTimestamp() {
-        return timestamp;
-    }
-
-    public UUID getUuidUserReceiver() {
-        return uuidUserReceiver;
-    }
-
-    public UUID getUuidUserSender() {
-        return uuidUserSender;
-    }
 }

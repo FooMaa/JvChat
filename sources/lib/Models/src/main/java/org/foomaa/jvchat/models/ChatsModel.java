@@ -5,17 +5,13 @@ import java.time.LocalDateTime;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.foomaa.jvchat.structobjects.*;
 import org.springframework.stereotype.Component;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.beans.factory.ObjectProvider;
 
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.settings.UsersInfoSettings;
-import org.foomaa.jvchat.structobjects.MessageStructObject;
-import org.foomaa.jvchat.structobjects.ChatStructObject;
-import org.foomaa.jvchat.structobjects.UserStructObject;
-import org.foomaa.jvchat.structobjects.RootStructObject;
-import org.foomaa.jvchat.structobjects.BaseStructObject;
 
 @Component
 @Lazy
@@ -26,14 +22,14 @@ public class ChatsModel extends BaseModel {
     // DI ↓
     private final UsersInfoSettings usersInfoSettings;
     private final UsersModel usersModel;
-    private final ObjectProvider<MessageStructObject> messageStructObjectObjectProvider;
-    private final ObjectProvider<ChatStructObject> chatStructObjectObjectProvider;
+    private final MessageStructObjectFactory messageStructObjectFactory;
+    private final ChatStructObjectFactory chatStructObjectFactory;
     private final ObjectProvider<UserStructObject> userStructObjectObjectProvider;
 
     ChatsModel(UsersInfoSettings usersInfoSettings,
                UsersModel usersModel,
-               ObjectProvider<MessageStructObject> messageStructObjectObjectProvider,
-               ObjectProvider<ChatStructObject> chatStructObjectObjectProvider,
+               MessageStructObjectFactory messageStructObjectFactory,
+               ChatStructObjectFactory chatStructObjectFactory,
                ObjectProvider<UserStructObject> userStructObjectObjectProvider,
                ObjectProvider<RootStructObject> rootStructObjectObjectProvider,
                RootObjectsModel rootObjectsModel) {
@@ -41,8 +37,8 @@ public class ChatsModel extends BaseModel {
 
         this.usersInfoSettings = usersInfoSettings;
         this.usersModel = usersModel;
-        this.messageStructObjectObjectProvider = messageStructObjectObjectProvider;
-        this.chatStructObjectObjectProvider = chatStructObjectObjectProvider;
+        this.messageStructObjectFactory = messageStructObjectFactory;
+        this.chatStructObjectFactory = chatStructObjectFactory;
         this.userStructObjectObjectProvider = userStructObjectObjectProvider;
 
         currentActiveChatUuid = null;
@@ -70,18 +66,16 @@ public class ChatsModel extends BaseModel {
         UUID uuidSender = isLoginSentLastMessage ? uuidUser : usersInfoSettings.getUuid();
         UUID uuidReceiver = isLoginSentLastMessage ? usersInfoSettings.getUuid() : uuidUser;
 
-        MessageStructObject lastMessage = messageStructObjectObjectProvider.getObject();
-        lastMessage.setUuidUserSender(uuidSender);
-        lastMessage.setUuidUserReceiver(uuidReceiver);
-        lastMessage.setText(lastMessageText);
-        lastMessage.setStatusMessage(statusMessage);
-        lastMessage.setUuid(uuidLastMessage);
-        lastMessage.setTimestamp(timestampLastMessage);
+        MessageStructObject lastMessage =
+                messageStructObjectFactory.create(
+                        uuidSender,
+                        uuidReceiver,
+                        statusMessage,
+                        lastMessageText,
+                        timestampLastMessage,
+                        uuidLastMessage);
 
-        ChatStructObject chat = chatStructObjectObjectProvider.getObject();
-        chat.setUserChat(userChat);
-        chat.setLastMessage(lastMessage);
-        chat.setUuid(uuidChat);
+        ChatStructObject chat = chatStructObjectFactory.create(userChat, lastMessage, uuidChat);
 
         addItem(chat, getRootObject());
     }

@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import lombok.extern.slf4j.Slf4j;
 
+import org.foomaa.jvchat.structobjects.MessageStructObjectFactory;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
@@ -30,7 +31,7 @@ public class MessagesDialogCtrl {
     private final ObjectProvider<OnlineServersCtrl> onlineServersCtrlObjectProvider;
     private final ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider;
     private final ObjectProvider<UsersInfoSettings> usersInfoSettingsObjectProvider;
-    private final ObjectProvider<MessageStructObject> messageStructObjectObjectProvider;
+    private final MessageStructObjectFactory messageStructObjectFactory;
 
     MessagesDialogCtrl(@Lazy MessagesModel messagesModel,
                        @Lazy ChatsModel chatsModel,
@@ -40,7 +41,7 @@ public class MessagesDialogCtrl {
                        ObjectProvider<OnlineServersCtrl> onlineServersCtrlObjectProvider,
                        ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider,
                        ObjectProvider<UsersInfoSettings> usersInfoSettingsObjectProvider,
-                       ObjectProvider<MessageStructObject> messageStructObjectObjectProvider) {
+                       MessageStructObjectFactory messageStructObjectFactory) {
         this.messagesModel = messagesModel;
         this.chatsModel = chatsModel;
         this.formatTools = formatTools;
@@ -49,7 +50,7 @@ public class MessagesDialogCtrl {
         this.onlineServersCtrlObjectProvider = onlineServersCtrlObjectProvider;
         this.chatsCtrlObjectProvider = chatsCtrlObjectProvider;
         this.usersInfoSettingsObjectProvider = usersInfoSettingsObjectProvider;
-        this.messageStructObjectObjectProvider = messageStructObjectObjectProvider;
+        this.messageStructObjectFactory = messageStructObjectFactory;
     }
 
     public void setCurrentActiveChatUuid(UUID newUuidChat) {
@@ -226,16 +227,14 @@ public class MessagesDialogCtrl {
                                                     MainChatsGlobalDefines.TypeStatusMessage statusMessage,
                                                     String text,
                                                     LocalDateTime timestamp) {
-        MessageStructObject messageObj = messageStructObjectObjectProvider.getObject();
 
-        messageObj.setUuidUserSender(uuidUserSender);
-        messageObj.setUuidUserReceiver(uuidUserReceiver);
-        messageObj.setText(text);
-        messageObj.setStatusMessage(statusMessage);
-        messageObj.setUuid(uuidMessage);
-        messageObj.setTimestamp(timestamp);
-
-        return messageObj;
+        return messageStructObjectFactory.create(
+                uuidUserSender,
+                uuidUserReceiver,
+                statusMessage,
+                text,
+                timestamp,
+                uuidMessage);
     }
 
     public String getTimeFormattedMessage(LocalDateTime timestamp) {
