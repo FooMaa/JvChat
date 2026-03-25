@@ -1,5 +1,6 @@
 package org.foomaa.jvchat.events;
 
+import org.foomaa.jvchat.models.ConnectionsEventsModel;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.*;
 import java.util.UUID;
@@ -41,12 +42,12 @@ class EventsSpringConfig {
         return new PublisherEvents(context);
     }
 
-//    @Bean(name = "beanMakerEvents")
-//    @Scope("singleton")
-//    @SuppressWarnings("unused")
-//    public MakerEvents beanMakerEvents() {
-//        return new MakerEvents();
-//    }
+    @Bean(name = "beanMakerEvents")
+    @Scope("singleton")
+    @SuppressWarnings("unused")
+    public MakerEvents beanMakerEvents(ConnectionsEventsModel connectionsEventsModel) {
+        return new MakerEvents(connectionsEventsModel);
+    }
 
     @Bean(name = "beanAspectCompareEventsUuids")
     @Scope("singleton")

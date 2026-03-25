@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.ctrl.MessagesDialogCtrl;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -26,14 +25,14 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
 
     private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final MessagesDialogCtrl messagesDialogCtrl;
-    private final ObjectProvider<RectMessageMainChatUI> rectMessageObjectProvider;
+    private final RectMessageMainChatUIFactory rectMessageMainChatUIFactory;
 
     ScrollPanelMessagesMainChatUI(MessagesDefinesCtrl messagesDefinesCtrl,
                                   MessagesDialogCtrl messagesDialogCtrl,
-                                  ObjectProvider<RectMessageMainChatUI> rectMessageObjectProvider) {
+                                  RectMessageMainChatUIFactory rectMessageMainChatUIFactory) {
         this.messagesDefinesCtrl = messagesDefinesCtrl;
         this.messagesDialogCtrl = messagesDialogCtrl;
-        this.rectMessageObjectProvider = rectMessageObjectProvider;
+        this.rectMessageMainChatUIFactory = rectMessageMainChatUIFactory;
 
         intervalMilliSecondsSleepUpdating = 500;
 
@@ -109,7 +108,7 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
 
         // NOTE(VAD): надо для того, чтоб компоненты не растягивались
         JPanel tmpPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-        tmpPanel.add(rectMessageObjectProvider.getObject(messageObject));
+        tmpPanel.add(rectMessageMainChatUIFactory.create(messageObject));
 
         rowPanel.add(tmpPanel, constraints);
 

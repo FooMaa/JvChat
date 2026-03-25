@@ -16,6 +16,7 @@ import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.settings.UsersInfoSettings;
 import org.foomaa.jvchat.uicomponents.mainchat.MainFrameMainChatUI;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -39,7 +40,7 @@ public class EntryPanelAuthUI extends JPanel {
 
     EntryPanelAuthUI(UsersInfoSettings usersInfoSettings,
                      DisplaySettings displaySettings,
-                     MainFrameMainChatUI mainFrameMainChatUI,
+                     @Lazy MainFrameMainChatUI mainFrameMainChatUI,
                      SendMessagesCtrl sendMessagesCtrl,
                      MessagesDefinesCtrl messagesDefinesCtrl,
                      ActiveLabelAuthUIFactory activeLabelAuthUIFactory,

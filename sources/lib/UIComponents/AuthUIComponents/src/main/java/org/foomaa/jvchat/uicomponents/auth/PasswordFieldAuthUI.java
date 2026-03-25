@@ -65,6 +65,7 @@ public class PasswordFieldAuthUI extends JPanel {
 
     public void setDefaultText(String defaultText) {
         this.defaultText = defaultText;
+        passwordField.setText(defaultText);
     }
 
     @Override

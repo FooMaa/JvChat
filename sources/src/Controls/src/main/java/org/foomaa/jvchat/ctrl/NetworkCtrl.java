@@ -28,7 +28,7 @@ public class NetworkCtrl {
     private final OnlineServersCtrl onlineServersCtrl;
     private final MainSettings mainSettings;
     private final SocketRunnableCtrlModel socketRunnableCtrlModel;
-    private final ObjectProvider<SocketRunnableCtrl> socketRunnableCtrlObjectProvider;
+    private final SocketRunnableCtrlFactory socketRunnableCtrlFactory;
 
     NetworkCtrl(MainSettings mainSettings,
                 SocketRunnableCtrlModel socketRunnableCtrlModel,
@@ -36,11 +36,11 @@ public class NetworkCtrl {
                 @Autowired(required = false) ServersSocket serversSocket,
                 @Autowired(required = false) UsersSocket usersSocket,
                 @Autowired(required = false) OnlineServersCtrl onlineServersCtrl,
-                ObjectProvider<SocketRunnableCtrl> socketRunnableCtrlObjectProvider) {
+                SocketRunnableCtrlFactory socketRunnableCtrlFactory) {
         this.mainSettings = mainSettings;
         this.socketRunnableCtrlModel = socketRunnableCtrlModel;
         this.takeMessagesCtrl = takeMessagesCtrl;
-        this.socketRunnableCtrlObjectProvider = socketRunnableCtrlObjectProvider;
+        this.socketRunnableCtrlFactory = socketRunnableCtrlFactory;
         this.serversSocket = serversSocket;
         this.usersSocket = usersSocket;
         this.onlineServersCtrl = onlineServersCtrl;
@@ -63,14 +63,16 @@ public class NetworkCtrl {
         runningErrorsControlSockets();
         while (true) {
             Socket fromSocketServer = socketServer.accept();
-            SocketRunnableCtrl socketRunnableCtrl = socketRunnableCtrlObjectProvider.getObject(fromSocketServer);
+            SocketRunnableCtrl socketRunnableCtrl = socketRunnableCtrlFactory.create(fromSocketServer);
             Thread threadServers = new Thread(socketRunnableCtrl);
             threadServers.start();
         }
     }
 
     private void startUsersNetwork() throws IOException {
-        currentSocketRunnableCtrl = socketRunnableCtrlObjectProvider.getObject(usersSocket.getCurrentSocket());
+        usersSocket.start();
+
+        currentSocketRunnableCtrl = socketRunnableCtrlFactory.create(usersSocket.getCurrentSocket());
         if (!usersSocket.getCurrentSocket().isConnected()) {
             throw new IOException();
         }

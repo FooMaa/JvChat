@@ -46,6 +46,7 @@ public class TextFieldAuthUI extends JPanel {
 
     public void setDefaultText(String defaultText) {
         this.defaultText = defaultText;
+        textField.setText(defaultText);
     }
 
     @Override

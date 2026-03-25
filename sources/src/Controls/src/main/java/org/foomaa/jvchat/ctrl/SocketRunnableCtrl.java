@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.models.SocketRunnableCtrlModel;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Component;
  * of this SocketRunnableCtrl class.
  */
 @Component
+@Scope("prototype")
 @Lazy
 @Slf4j
 public class SocketRunnableCtrl implements Runnable {
@@ -27,22 +29,27 @@ public class SocketRunnableCtrl implements Runnable {
     private int errorsConnection;
     private final NetworkCtrl networkCtrl;
 
-    SocketRunnableCtrl(Socket socket,
-                       SocketRunnableCtrlModel socketRunnableCtrlModel,
+    SocketRunnableCtrl(SocketRunnableCtrlModel socketRunnableCtrlModel,
                        @Lazy NetworkCtrl networkCtrl) {
         this.networkCtrl = networkCtrl;
 
         socketRunnableCtrlModel.createSocketRunnableCtrlStructObject(this);
 
+        sendStream = null;
+        readStream = null;
+
+
+        errorsConnection = 0;
+        limitErrorsConnection = 3;
+    }
+
+    public void setSocket(Socket socket) {
         try {
             sendStream = new DataOutputStream(socket.getOutputStream());
             readStream = new DataInputStream(socket.getInputStream());
         } catch (IOException exception) {
             log.error("Error in creating threads for sending and receiving messages.");
         }
-
-        errorsConnection = 0;
-        limitErrorsConnection = 3;
     }
 
     @Override

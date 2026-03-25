@@ -31,14 +31,14 @@ public class TitlePanelMainChatUI extends JPanel {
 
     private final DisplaySettings displaySettings;
     private final FontsGlobalDefines fontsGlobalDefines;
-    private final ObjectProvider<ToolTipMainChatUI> toolTipObjectProvider;
+    private final ToolTipMainChatUIFactory toolTipFactory;
 
     TitlePanelMainChatUI(DisplaySettings displaySettings,
                          FontsGlobalDefines fontsGlobalDefines,
-                         ObjectProvider<ToolTipMainChatUI> toolTipObjectProvider) {
+                         ToolTipMainChatUIFactory toolTipFactory) {
         this.displaySettings = displaySettings;
         this.fontsGlobalDefines = fontsGlobalDefines;
-        this.toolTipObjectProvider = toolTipObjectProvider;
+        this.toolTipFactory = toolTipFactory;
 
         closeButton = new JButton() {
             @Override
@@ -72,11 +72,11 @@ public class TitlePanelMainChatUI extends JPanel {
     }
 
     private void setToolTips() {
-        toolTipClose = toolTipObjectProvider.getObject();
+        toolTipClose = toolTipFactory.create();
         closeButton.createToolTip();
         closeButton.setToolTipText("Close");
 
-        toolTipMinimize = toolTipObjectProvider.getObject();
+        toolTipMinimize = toolTipFactory.create();
         minimizeButton.createToolTip();
         minimizeButton.setToolTipText("Minimize");
     }

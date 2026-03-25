@@ -10,12 +10,14 @@ import java.io.IOException;
 import java.util.Objects;
 
 import org.foomaa.jvchat.settings.DisplaySettings;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 
 @Component
 @Profile("users")
+@Lazy
 public class MainFrameMainChatUI extends JFrame {
     private final String backgroundPath;
     private final String loadGifPath;

@@ -11,8 +11,7 @@ import javax.swing.*;
 @Scope("prototype")
 @Profile("users")
 public class SendButtonMainChatUI extends JButton {
-    SendButtonMainChatUI(String text) {
-        setText(text);
+    SendButtonMainChatUI() {
         setFocusable(false);
         addListenerToElements();
     }

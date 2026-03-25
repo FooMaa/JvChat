@@ -22,30 +22,36 @@ import org.springframework.stereotype.Component;
 @Profile("users")
 public class RectMessageMainChatUI extends JTextArea {
     private MainChatsGlobalDefines.TypeStatusMessage statusMessage;
-    private final String textMessage;
-    private final LocalDateTime timestamp;
-    private final UUID uuidMessage;
+    private String textMessage;
+    private LocalDateTime timestamp;
+    private UUID uuidMessage;
 
     private final DisplaySettings displaySettings;
     private final MessagesDialogCtrl messagesDialogCtrl;
     private final ScrollPanelMessagesMainChatUI scrollPanelMessages;
 
     RectMessageMainChatUI(DisplaySettings displaySettings,
-                          MessageStructObject messageObject,
                           MessagesDialogCtrl messagesDialogCtrl,
                           ScrollPanelMessagesMainChatUI scrollPanelMessages) {
         this.displaySettings = displaySettings;
         this.messagesDialogCtrl = messagesDialogCtrl;
         this.scrollPanelMessages = scrollPanelMessages;
 
-        textMessage = messageObject.getText();
-        statusMessage = messageObject.getStatusMessage();
-        timestamp = messageObject.getTimestamp();
-        uuidMessage = messageObject.getUuid();
+        textMessage = "";
+        statusMessage = MainChatsGlobalDefines.TypeStatusMessage.Error;
+        timestamp = null;
+        uuidMessage = null;
 
         settingLabel();
         addListenerToElements();
         setTextMessage();
+    }
+
+    public void setMessageObject(MessageStructObject messageObject) {
+        textMessage = messageObject.getText();
+        statusMessage = messageObject.getStatusMessage();
+        timestamp = messageObject.getTimestamp();
+        uuidMessage = messageObject.getUuid();
     }
 
     @Override

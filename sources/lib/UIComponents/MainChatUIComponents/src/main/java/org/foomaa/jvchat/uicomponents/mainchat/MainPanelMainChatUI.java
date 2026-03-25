@@ -1,6 +1,5 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 

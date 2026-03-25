@@ -81,42 +81,42 @@ public class MainFrameAuthUI extends JFrame {
     }
 
     private void createConnections() {
-        uuidSignalCloseWindow =
-                GetterEvents.getInstance().getBeanMakerEvents().addConnect(
-                        entryPanelAuthUI,
-                        this,
-                        "closeWindow",
-                        null);
-        uuidSignalChangeRegimeWorkEntry =
-                GetterEvents.getInstance().getBeanMakerEvents().addConnect(
-                        entryPanelAuthUI,
-                        this,
-                        "changeRegimeWork",
-                        null);
-        uuidSignalChangeRegimeWorkRegistration =
-                GetterEvents.getInstance().getBeanMakerEvents().addConnect(
-                        registrationPanelAuthUI,
-                        this,
-                        "changeRegimeWork",
-                        null);
-        uuidSignalChangeRegimeWorkVerifyCode =
-                GetterEvents.getInstance().getBeanMakerEvents().addConnect(
-                        verifyCodePanelAuthUI,
-                        this,
-                        "changeRegimeWork",
-                        null);
-        uuidSignalChangeRegimeWorkResetPassword =
-                GetterEvents.getInstance().getBeanMakerEvents().addConnect(
-                        resetPasswordPanelAuthUI,
-                        this,
-                        "changeRegimeWork",
-                        null);
-        uuidSignalChangeRegimeWorkNewPassword =
-                GetterEvents.getInstance().getBeanMakerEvents().addConnect(
-                        newPasswordPanelAuthUI,
-                        this,
-                        "changeRegimeWork",
-                        null);
+//        uuidSignalCloseWindow =
+//                GetterEvents.getInstance().getBeanMakerEvents().addConnect(
+//                        entryPanelAuthUI,
+//                        this,
+//                        "closeWindow",
+//                        null);
+//        uuidSignalChangeRegimeWorkEntry =
+//                GetterEvents.getInstance().getBeanMakerEvents().addConnect(
+//                        entryPanelAuthUI,
+//                        this,
+//                        "changeRegimeWork",
+//                        null);
+//        uuidSignalChangeRegimeWorkRegistration =
+//                GetterEvents.getInstance().getBeanMakerEvents().addConnect(
+//                        registrationPanelAuthUI,
+//                        this,
+//                        "changeRegimeWork",
+//                        null);
+//        uuidSignalChangeRegimeWorkVerifyCode =
+//                GetterEvents.getInstance().getBeanMakerEvents().addConnect(
+//                        verifyCodePanelAuthUI,
+//                        this,
+//                        "changeRegimeWork",
+//                        null);
+//        uuidSignalChangeRegimeWorkResetPassword =
+//                GetterEvents.getInstance().getBeanMakerEvents().addConnect(
+//                        resetPasswordPanelAuthUI,
+//                        this,
+//                        "changeRegimeWork",
+//                        null);
+//        uuidSignalChangeRegimeWorkNewPassword =
+//                GetterEvents.getInstance().getBeanMakerEvents().addConnect(
+//                        newPasswordPanelAuthUI,
+//                        this,
+//                        "changeRegimeWork",
+//                        null);
     }
 
     private void settingBackgroundPanel() {

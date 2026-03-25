@@ -30,16 +30,16 @@ public class PanelSendingMessageMainChatUI extends JPanel {
     PanelSendingMessageMainChatUI(ScrollPanelChatsMainChatUI scrollPanelChats,
                                   ScrollPanelMessagesMainChatUI scrollPanelMessages,
                                   MessagesDialogCtrl messagesDialogCtrl,
-                                  ObjectProvider<SendButtonMainChatUI> sendButtonObjectProvider,
-                                  ObjectProvider<SendingTextAreaScrollMainChatUI> sendingTextAreaScrollObjectProvider,
+                                  SendButtonMainChatUIFactory sendButtonMainChatUIFactory,
+                                  SendingTextAreaScrollMainChatUIFactory sendingTextAreaScrollMainChatUIFactory,
                                   ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider) {
         this.scrollPanelChats = scrollPanelChats;
         this.scrollPanelMessages = scrollPanelMessages;
         this.messagesDialogCtrl = messagesDialogCtrl;
         this.chatsCtrlObjectProvider = chatsCtrlObjectProvider;
 
-        sendingTextAreaScroll = sendingTextAreaScrollObjectProvider.getObject();
-        sendButton = sendButtonObjectProvider.getObject("Отправить");
+        sendingTextAreaScroll = sendingTextAreaScrollMainChatUIFactory.create();
+        sendButton = sendButtonMainChatUIFactory.create("Send");
 
         settingPanel();
         addListenerToElements();
