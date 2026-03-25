@@ -13,6 +13,7 @@ import org.foomaa.jvchat.settings.ServersInfoSettings;
 import org.foomaa.jvchat.tools.StructTools;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 
@@ -320,58 +321,72 @@ public class SendMessagesCtrl {
         networkCtrl.sendMessageByRunnableCtrl(bodyMessage, runnableCtrl);
     }
 
+    @Profile("users")
     private byte[] createBodyEntryRequestMessage(DefinesMessages.TypeMessage type, String login, String password) {
         return serializatorDataMessages.serialiseData(type, login, password);
     }
 
+    @Profile("servers")
     private byte[] createBodyEntryReplyMessage(DefinesMessages.TypeMessage type, Boolean reply, UUID uuidUser) {
         return serializatorDataMessages.serialiseData(type, reply, uuidUser);
     }
 
+    @Profile("users")
     private byte[] createBodyRegistrationRequestMessage(DefinesMessages.TypeMessage type, String login, String email, String password) {
         return serializatorDataMessages.serialiseData(type, login, email, password);
     }
 
+    @Profile("servers")
     private byte[] createBodyRegistrationReplyMessage(DefinesMessages.TypeMessage type, Boolean reply, DefinesMessages.TypeErrorRegistration error) {
         return serializatorDataMessages.serialiseData(type, reply, error);
     }
 
+    @Profile("users")
     private byte[] createBodyVerifyRegistrationEmailRequestMessage(DefinesMessages.TypeMessage type, String login, String email, String password, String code) {
         return serializatorDataMessages.serialiseData(type, login, email, password, code);
     }
 
+    @Profile("servers")
     private byte[] createBodyVerifyRegistrationEmailReplyMessage(DefinesMessages.TypeMessage type, Boolean reply, DefinesMessages.TypeErrorRegistration error) {
         return serializatorDataMessages.serialiseData(type, reply, error);
     }
 
+    @Profile("users")
     private byte[] createBodyResetPasswordRequestMessage(DefinesMessages.TypeMessage type, String email) {
         return serializatorDataMessages.serialiseData(type, email);
     }
 
+    @Profile("servers")
     private byte[] createBodyResetPasswordReplyMessage(DefinesMessages.TypeMessage type, Boolean reply) {
         return serializatorDataMessages.serialiseData(type, reply);
     }
 
+    @Profile("users")
     private byte[] createBodyVerifyFamousEmailRequestMessage(DefinesMessages.TypeMessage type, String email, String code) {
         return serializatorDataMessages.serialiseData(type, email, code);
     }
 
+    @Profile("servers")
     private byte[] createBodyVerifyFamousEmailReplyMessage(DefinesMessages.TypeMessage type, Boolean reply) {
         return serializatorDataMessages.serialiseData(type, reply);
     }
 
+    @Profile("users")
     private byte[] createBodyChangePasswordRequestMessage(DefinesMessages.TypeMessage type, String email, String password) {
         return serializatorDataMessages.serialiseData(type, email, password);
     }
 
+    @Profile("servers")
     private byte[] createBodyChangePasswordReplyMessage(DefinesMessages.TypeMessage type, Boolean reply) {
         return serializatorDataMessages.serialiseData(type, reply);
     }
 
+    @Profile("users")
     private byte[] createBodyChatsLoadRequestMessage(DefinesMessages.TypeMessage type, UUID uuidUser) {
         return serializatorDataMessages.serialiseData(type, uuidUser);
     }
 
+    @Profile("servers")
     private byte[] createBodyChatsLoadReplyMessage(DefinesMessages.TypeMessage type, List<Map<DbGlobalDefines.LineKeys, String>> reply) {
         return serializatorDataMessages.serialiseData(type, reply);
     }
@@ -415,7 +430,7 @@ public class SendMessagesCtrl {
     }
 
     private byte[] createBodyTextMessagesChangingStatusFromUserMessage(DefinesMessages.TypeMessage type,
-                                                                         Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
+                                                                       Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
         return serializatorDataMessages.serialiseData(type, mapStatusMessages);
     }
 

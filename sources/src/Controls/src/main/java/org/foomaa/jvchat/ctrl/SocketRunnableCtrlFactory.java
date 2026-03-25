@@ -1,9 +1,9 @@
 package org.foomaa.jvchat.ctrl;
 
+import java.net.Socket;
+
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Component;
-
-import java.net.Socket;
 
 @Component
 public class SocketRunnableCtrlFactory {
