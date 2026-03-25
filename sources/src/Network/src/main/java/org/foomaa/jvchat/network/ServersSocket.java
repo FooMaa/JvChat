@@ -21,24 +21,20 @@ public class ServersSocket {
         this.serversInfoSettings = serversInfoSettings;
     }
 
-    public void start() {
-        try {
-            if (serversInfoSettings.getIp().isEmpty()) {
-                socketServers = new ServerSocket(serversInfoSettings.getPort());
-            } else {
-                socketServers = new ServerSocket(serversInfoSettings.getPort(),
-                        serversInfoSettings.getQuantityConnections(),
-                        InetAddress.getByName(serversInfoSettings.getIp()));
-            }
-
-            log.info("IP: {}.", socketServers.getInetAddress().toString());
-            log.info("PORT: {}.", socketServers.getLocalPort());
-
-            log.info("Server is started.");
-            closeSocketWhenKill();
-        } catch (IOException exception) {
-            log.error("Error creating server socket.");
+    public void start() throws IOException {
+        if (serversInfoSettings.getIp().isEmpty()) {
+            socketServers = new ServerSocket(serversInfoSettings.getPort());
+        } else {
+            socketServers = new ServerSocket(serversInfoSettings.getPort(),
+                    serversInfoSettings.getQuantityConnections(),
+                    InetAddress.getByName(serversInfoSettings.getIp()));
         }
+
+        log.info("IP: {}.", socketServers.getInetAddress().toString());
+        log.info("PORT: {}.", socketServers.getLocalPort());
+
+        log.info("Server is started.");
+        closeSocketWhenKill();
     }
 
     private void closeSocketWhenKill() {

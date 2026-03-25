@@ -2,14 +2,15 @@ package org.foomaa.jvchat.cryptography;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
+import org.springframework.stereotype.Component;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
 public class HashCryptography {
-    HashCryptography() {}
+    HashCryptography() {
+    }
 
     public String getHash(String inputString) {
         String result = "";

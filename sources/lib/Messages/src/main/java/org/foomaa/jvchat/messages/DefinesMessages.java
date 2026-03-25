@@ -1,8 +1,8 @@
 package org.foomaa.jvchat.messages;
 
-
-public class DefinesMessages {
-    DefinesMessages() {}
+public final class DefinesMessages {
+    DefinesMessages() {
+    }
 
     public enum TypeMessage {
         EntryRequest(0),
@@ -48,8 +48,7 @@ public class DefinesMessages {
             return value == i;
         }
 
-        public static TypeMessage getTypeMsg(int value)
-        {
+        public static TypeMessage getTypeMsg(int value) {
             TypeMessage[] errors = TypeMessage.values();
             for (TypeMessage error : errors) {
                 if (error.compare(value))
@@ -109,8 +108,7 @@ public class DefinesMessages {
             return value == i;
         }
 
-        public static TypeErrorRegistration getTypeError(int value)
-        {
+        public static TypeErrorRegistration getTypeError(int value) {
             TypeErrorRegistration[] errors = TypeErrorRegistration.values();
             for (TypeErrorRegistration error : errors) {
                 if (error.compare(value))

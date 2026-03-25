@@ -9,15 +9,14 @@ import org.springframework.stereotype.Component;
 
 
 @Component
+@Lazy
 @Scope("prototype")
 @Profile("users")
-@Lazy
 public class ErrorStartUILink {
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
     ErrorStartUILink(OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
         this.optionPaneAuthUIFactory = optionPaneAuthUIFactory;
-        System.exit(1);
     }
 
     public void show(String message) {

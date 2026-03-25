@@ -1,25 +1,30 @@
 package org.foomaa.jvchat.models;
 
-import java.time.LocalDateTime;
 import java.util.*;
+import java.time.LocalDateTime;
+
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.beans.factory.ObjectProvider;
 
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.settings.UsersInfoSettings;
-import org.foomaa.jvchat.structobjects.*;
-import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
-
+import org.foomaa.jvchat.structobjects.MessageStructObject;
+import org.foomaa.jvchat.structobjects.ChatStructObject;
+import org.foomaa.jvchat.structobjects.UserStructObject;
+import org.foomaa.jvchat.structobjects.RootStructObject;
+import org.foomaa.jvchat.structobjects.BaseStructObject;
 
 @Component
 @Lazy
 @Slf4j
 public class ChatsModel extends BaseModel {
-    private final UsersInfoSettings usersInfoSettings;
-
+    @Getter
     private UUID currentActiveChatUuid;
+    // DI ↓
+    private final UsersInfoSettings usersInfoSettings;
     private final UsersModel usersModel;
     private final ObjectProvider<MessageStructObject> messageStructObjectObjectProvider;
     private final ObjectProvider<ChatStructObject> chatStructObjectObjectProvider;
@@ -41,10 +46,6 @@ public class ChatsModel extends BaseModel {
         this.userStructObjectObjectProvider = userStructObjectObjectProvider;
 
         currentActiveChatUuid = null;
-    }
-
-    public UUID getCurrentActiveChatUuid() {
-        return currentActiveChatUuid;
     }
 
     public void setCurrentActiveChatUuid(UUID newCurrentActiveChatUuid) {

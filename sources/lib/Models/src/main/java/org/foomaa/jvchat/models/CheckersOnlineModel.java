@@ -5,16 +5,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import org.foomaa.jvchat.structobjects.*;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+import org.foomaa.jvchat.structobjects.CheckerOnlineStructObject;
+import org.foomaa.jvchat.structobjects.UserStructObject;
+import org.foomaa.jvchat.structobjects.RootStructObject;
+import org.foomaa.jvchat.structobjects.SocketRunnableCtrlStructObject;
+import org.foomaa.jvchat.structobjects.BaseStructObject;
+
 @Component
 @Profile("servers")
 @Lazy
 public class CheckersOnlineModel extends BaseModel {
+    // DI ↓
     private final UsersModel usersModel;
     private final SocketRunnableCtrlModel socketRunnableCtrlModel;
     private final ObjectProvider<CheckerOnlineStructObject> checkerOnlineStructObjectObjectProvider;
@@ -62,7 +68,7 @@ public class CheckersOnlineModel extends BaseModel {
         UserStructObject userStructObject = usersModel.findCreateUserStructObjectByUuidUser(uuidUser);
         SocketRunnableCtrlStructObject socketRunnableCtrlStructObject =
                 socketRunnableCtrlModel.findCreateSocketRunnableCtrlStructObjectByRunnable(runnable);
-        
+
         checkerOnlineStructObject.setUser(userStructObject);
         checkerOnlineStructObject.setSocketRunnableCtrlStructObject(socketRunnableCtrlStructObject);
         checkerOnlineStructObject.setIsSending(isSending);

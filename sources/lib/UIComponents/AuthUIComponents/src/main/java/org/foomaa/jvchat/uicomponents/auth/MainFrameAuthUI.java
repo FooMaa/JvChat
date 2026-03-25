@@ -1,6 +1,7 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
 import org.foomaa.jvchat.events.CheckerEventsAnnotation;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Profile("users")
+@Lazy
 public class MainFrameAuthUI extends JFrame {
     private final TitlePanelAuthUI titlePanel;
     private DefinesAuthUI.RegimeWorkMainFrame regimeWorkMainFrame;

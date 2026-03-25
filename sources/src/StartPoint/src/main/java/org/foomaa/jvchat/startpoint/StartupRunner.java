@@ -1,21 +1,21 @@
 package org.foomaa.jvchat.startpoint;
 
-import org.foomaa.jvchat.ctrl.NetworkCtrl;
-import org.foomaa.jvchat.settings.UsersInfoSettings;
-import org.foomaa.jvchat.tools.MainTools;
-import org.foomaa.jvchat.uilinks.ErrorStartUILink;
-import org.foomaa.jvchat.uilinks.StartAuthenticationUILink;
-import lombok.extern.slf4j.Slf4j;
+import java.io.IOException;
+
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.ApplicationContext;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import java.io.IOException;
 
 import org.foomaa.jvchat.settings.MainSettings;
+import org.foomaa.jvchat.settings.UsersInfoSettings;
 import org.foomaa.jvchat.tools.ServersTools;
-
+import org.foomaa.jvchat.tools.MainTools;
+import org.foomaa.jvchat.uilinks.ErrorStartUILinkFactory;
+import org.foomaa.jvchat.uilinks.StartAuthenticationUILink;
+import org.foomaa.jvchat.ctrl.NetworkCtrl;
 
 @Component
 @Slf4j
@@ -27,7 +27,7 @@ public class StartupRunner implements ApplicationRunner {
     private final ObjectProvider<UsersInfoSettings> usersInfoSettingsObjectProvider;
     private final NetworkCtrl networkCtrl;
     private final ObjectProvider<StartAuthenticationUILink> startAuthenticationUILinkObjectProvider;
-    private final ObjectProvider<ErrorStartUILink> errorStartUILinkObjectProvider;
+    private final ObjectProvider<ErrorStartUILinkFactory> errorStartUILinkFactoryObjectProvider;
 
     private StartupRunner(ObjectProvider<ServersTools> serversToolsObjectProvider,
                           MainTools mainTools,
@@ -36,7 +36,7 @@ public class StartupRunner implements ApplicationRunner {
                           ObjectProvider<UsersInfoSettings> usersInfoSettingsObjectProvider,
                           NetworkCtrl networkCtrl,
                           ObjectProvider<StartAuthenticationUILink> startAuthenticationUILinkObjectProvider,
-                          ObjectProvider<ErrorStartUILink> errorStartUILinkObjectProvider) {
+                          ObjectProvider<ErrorStartUILinkFactory> errorStartUILinkFactoryObjectProvider) {
         this.serversToolsObjectProvider = serversToolsObjectProvider;
         this.mainTools = mainTools;
         this.mainSettings = mainSettings;
@@ -44,7 +44,7 @@ public class StartupRunner implements ApplicationRunner {
         this.usersInfoSettingsObjectProvider = usersInfoSettingsObjectProvider;
         this.networkCtrl = networkCtrl;
         this.startAuthenticationUILinkObjectProvider = startAuthenticationUILinkObjectProvider;
-        this.errorStartUILinkObjectProvider = errorStartUILinkObjectProvider;
+        this.errorStartUILinkFactoryObjectProvider = errorStartUILinkFactoryObjectProvider;
     }
 
     @Override
@@ -78,14 +78,14 @@ public class StartupRunner implements ApplicationRunner {
         }
         if (mainSettings.getProfile() == MainSettings.TypeProfiles.USERS) {
             if (args.getOptionValues("ipServer") == null) {
-                errorStartUILinkObjectProvider.getObject().show("Enter the server IP address in the parameter!");
+                errorStartUILinkFactoryObjectProvider.getObject().create("Enter the server IP address in the parameter!");
             }
 
             String argsIp = args.getOptionValues("ipServer").get(0);
             if (mainTools.validateInputIp(argsIp)) {
                 usersInfoSettingsObjectProvider.getObject().setIpRemoteServer(argsIp);
             } else {
-                errorStartUILinkObjectProvider.getObject().show("The startup parameter contains the wrong IP!");
+                errorStartUILinkFactoryObjectProvider.getObject().create("The startup parameter contains the wrong IP!");
             }
 
             String argsPort;
@@ -98,7 +98,7 @@ public class StartupRunner implements ApplicationRunner {
             if (mainTools.validateInputPort(argsPort)) {
                 usersInfoSettingsObjectProvider.getObject().setPortRemoteServer(Integer.parseInt(argsPort));
             } else {
-                errorStartUILinkObjectProvider.getObject().show("The PORT in the launch parameter is not correct!");
+                errorStartUILinkFactoryObjectProvider.getObject().create("The PORT in the launch parameter is not correct!");
             }
         }
     }
@@ -107,8 +107,12 @@ public class StartupRunner implements ApplicationRunner {
         try {
             networkCtrl.startNetwork();
         } catch (IOException exception) {
-            errorStartUILinkObjectProvider.getObject().show(
-                    "Failed to connect to the server.\nCheck your network availability and try again!");
+            log.error("Failed to start network service");
+            if (mainSettings.getProfile() == MainSettings.TypeProfiles.USERS) {
+                errorStartUILinkFactoryObjectProvider.getObject().create(
+                        "Failed to connect to the server.\nCheck your network availability and try again!");
+            }
+            System.exit(1);
         }
 
         if (mainSettings.getProfile() == MainSettings.TypeProfiles.USERS) {

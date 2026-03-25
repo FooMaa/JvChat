@@ -1,6 +1,5 @@
 package org.foomaa.jvchat.ctrl;
 
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.io.IOException;
 import java.net.ServerSocket;

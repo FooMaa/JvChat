@@ -21,15 +21,11 @@ public class UsersSocket {
         this.usersInfoSettings = usersInfoSettings;
     }
 
-    public void start() {
-        try {
-            socketUsers = new Socket();
-            socketUsers.connect(new InetSocketAddress(usersInfoSettings.getIpRemoteServer(),
-                    usersInfoSettings.getPortRemoteServer()), 4000);
-            closeSocketWhenKill();
-        } catch (IOException exception) {
-            log.error("No connection.");
-        }
+    public void start() throws IOException {
+        socketUsers = new Socket();
+        socketUsers.connect(new InetSocketAddress(usersInfoSettings.getIpRemoteServer(),
+                usersInfoSettings.getPortRemoteServer()), 4000);
+        closeSocketWhenKill();
     }
 
     private void closeSocketWhenKill() {

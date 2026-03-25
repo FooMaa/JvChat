@@ -1,17 +1,18 @@
 package org.foomaa.jvchat.messages;
 
 import java.util.*;
-import lombok.extern.slf4j.Slf4j;
+
 import com.google.protobuf.InvalidProtocolBufferException;
+import org.springframework.stereotype.Component;
+import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
-import org.springframework.stereotype.Component;
-
 
 @Component
 @Slf4j
 public class DeserializatorDataMessages {
-    DeserializatorDataMessages() {}
+    DeserializatorDataMessages() {
+    }
 
     public HashMap<DefinesMessages.TypeData, ?> deserializeData(DefinesMessages.TypeMessage type, byte[] data) {
         return switch (type) {
@@ -36,11 +37,14 @@ public class DeserializatorDataMessages {
             case TextMessageSendUserToServer -> takeTextMessageSendUserToServerMessage(data);
             case TextMessageSendUserToServerVerification -> takeTextMessageSendUserToServerVerificationMessage(data);
             case TextMessagesChangingStatusFromServer -> takeTextMessagesChangingStatusFromServerMessage(data);
-            case TextMessagesChangingStatusFromServerVerification -> takeTextMessagesChangingStatusFromServerVerificationMessage(data);
+            case TextMessagesChangingStatusFromServerVerification ->
+                    takeTextMessagesChangingStatusFromServerVerificationMessage(data);
             case TextMessagesChangingStatusFromUser -> takeTextMessagesChangingStatusFromUserMessage(data);
-            case TextMessagesChangingStatusFromUserVerification -> takeTextMessagesChangingStatusFromUserVerificationMessage(data);
+            case TextMessagesChangingStatusFromUserVerification ->
+                    takeTextMessagesChangingStatusFromUserVerificationMessage(data);
             case TextMessageRedirectServerToUser -> takeTextMessageRedirectServerToUserMessage(data);
-            case TextMessageRedirectServerToUserVerification -> takeTextMessageRedirectServerToUserVerificationMessage(data);
+            case TextMessageRedirectServerToUserVerification ->
+                    takeTextMessageRedirectServerToUserVerificationMessage(data);
             case MessagesLoadRequest -> takeMessagesLoadRequestMessage(data);
             case MessagesLoadReply -> takeMessagesLoadReplyMessage(data);
         };

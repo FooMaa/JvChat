@@ -1,21 +1,22 @@
 package org.foomaa.jvchat.models;
 
-import org.foomaa.jvchat.structobjects.BaseStructObject;
-import org.foomaa.jvchat.structobjects.RootStructObject;
-
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.ObjectProvider;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.ObjectProvider;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+
+import org.foomaa.jvchat.structobjects.BaseStructObject;
+import org.foomaa.jvchat.structobjects.RootStructObject;
 
 @Slf4j
 public abstract class BaseModel {
-    private RootStructObject rootObject;
+    @Getter
     private final String nameModel;
-    private final ObjectProvider<RootStructObject> rootStructObjectObjectProvider;
+    private RootStructObject rootObject;
     private final BaseModel rootModel;
+    private final ObjectProvider<RootStructObject> rootStructObjectObjectProvider;
 
     BaseModel(BaseModel rootModel, ObjectProvider<RootStructObject> rootStructObjectObjectProvider) {
         this.rootStructObjectObjectProvider = rootStructObjectObjectProvider;
@@ -81,10 +82,6 @@ public abstract class BaseModel {
             rootObject = creatingRoot;
             rootModel.addItem(creatingRoot, rootStructObjectRootModel);
         }
-    }
-
-    public String getNameModel() {
-        return nameModel;
     }
 
     public void clearModel() {

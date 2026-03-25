@@ -5,14 +5,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.springframework.stereotype.Component;
+
 import org.foomaa.jvchat.globaldefines.DbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.tools.StructTools;
-import org.springframework.stereotype.Component;
-
 
 @Component
 public class SerializatorDataMessages {
+    // DI ↓
     private final StructTools structTools;
 
     SerializatorDataMessages(StructTools structTools) {
@@ -237,167 +238,167 @@ public class SerializatorDataMessages {
     private byte[] createEntryRequestMessage(DefinesMessages.TypeMessage type, String login, String password) {
         ClientServerSerializeProtocolMessage_pb.EntryRequest msgEntryRequest =
                 ClientServerSerializeProtocolMessage_pb.EntryRequest.newBuilder()
-                .setLogin(login)
-                .setPassword(password)
-                .build();
+                        .setLogin(login)
+                        .setPassword(password)
+                        .build();
         ClientServerSerializeProtocolMessage_pb.General resMsg =
                 ClientServerSerializeProtocolMessage_pb.General.newBuilder()
-                .setType(type.getValue())
-                .setEntryRequest(msgEntryRequest)
-                .build();
+                        .setType(type.getValue())
+                        .setEntryRequest(msgEntryRequest)
+                        .build();
         return resMsg.toByteArray();
     }
 
     private byte[] createEntryReplyMessage(DefinesMessages.TypeMessage type, boolean reply, UUID uuidUser) {
         ClientServerSerializeProtocolMessage_pb.EntryReply msgEntryReply =
                 ClientServerSerializeProtocolMessage_pb.EntryReply.newBuilder()
-                .setReply(reply)
-                .setUuidUser(uuidUser.toString())
-                .build();
+                        .setReply(reply)
+                        .setUuidUser(uuidUser.toString())
+                        .build();
         ClientServerSerializeProtocolMessage_pb.General resMsg =
                 ClientServerSerializeProtocolMessage_pb.General.newBuilder()
-                .setType(type.getValue())
-                .setEntryReply(msgEntryReply)
-                .build();
+                        .setType(type.getValue())
+                        .setEntryReply(msgEntryReply)
+                        .build();
         return resMsg.toByteArray();
     }
 
     private byte[] createRegistrationRequestMessage(DefinesMessages.TypeMessage type, String login, String email, String password) {
         ClientServerSerializeProtocolMessage_pb.RegistrationRequest msgRegRequest =
                 ClientServerSerializeProtocolMessage_pb.RegistrationRequest.newBuilder()
-                .setLogin(login)
-                .setEmail(email)
-                .setPassword(password)
-                .build();
+                        .setLogin(login)
+                        .setEmail(email)
+                        .setPassword(password)
+                        .build();
         ClientServerSerializeProtocolMessage_pb.General resMsg =
                 ClientServerSerializeProtocolMessage_pb.General.newBuilder()
-                .setType(type.getValue())
-                .setRegistrationRequest(msgRegRequest)
-                .build();
+                        .setType(type.getValue())
+                        .setRegistrationRequest(msgRegRequest)
+                        .build();
         return resMsg.toByteArray();
     }
 
     private byte[] createRegistrationReplyMessage(DefinesMessages.TypeMessage type, boolean reply, DefinesMessages.TypeErrorRegistration error) {
         ClientServerSerializeProtocolMessage_pb.RegistrationReply msgRegReply =
                 ClientServerSerializeProtocolMessage_pb.RegistrationReply.newBuilder()
-                .setReply(reply)
-                .setError(ClientServerSerializeProtocolMessage_pb.RegistrationReply.Error.forNumber(error.getValue()))
-                .build();
+                        .setReply(reply)
+                        .setError(ClientServerSerializeProtocolMessage_pb.RegistrationReply.Error.forNumber(error.getValue()))
+                        .build();
         ClientServerSerializeProtocolMessage_pb.General resMsg =
                 ClientServerSerializeProtocolMessage_pb.General.newBuilder()
-                .setType(type.getValue())
-                .setRegistrationReply(msgRegReply)
-                .build();
+                        .setType(type.getValue())
+                        .setRegistrationReply(msgRegReply)
+                        .build();
         return resMsg.toByteArray();
     }
 
     private byte[] createVerifyRegistrationEmailRequestMessage(DefinesMessages.TypeMessage type, String login, String email, String password, String code) {
         ClientServerSerializeProtocolMessage_pb.VerifyRegistrationEmailRequest msgVerifyRegRequest =
                 ClientServerSerializeProtocolMessage_pb.VerifyRegistrationEmailRequest.newBuilder()
-                .setLogin(login)
-                .setEmail(email)
-                .setPassword(password)
-                .setCode(code)
-                .build();
+                        .setLogin(login)
+                        .setEmail(email)
+                        .setPassword(password)
+                        .setCode(code)
+                        .build();
         ClientServerSerializeProtocolMessage_pb.General resMsg =
                 ClientServerSerializeProtocolMessage_pb.General.newBuilder()
-                .setType(type.getValue())
-                .setVerifyRegistrationEmailRequest(msgVerifyRegRequest)
-                .build();
+                        .setType(type.getValue())
+                        .setVerifyRegistrationEmailRequest(msgVerifyRegRequest)
+                        .build();
         return resMsg.toByteArray();
     }
 
     private byte[] createVerifyRegistrationEmailReplyMessage(DefinesMessages.TypeMessage type, boolean reply, DefinesMessages.TypeErrorRegistration error) {
         ClientServerSerializeProtocolMessage_pb.VerifyRegistrationEmailReply msgVerifyRegReply =
                 ClientServerSerializeProtocolMessage_pb.VerifyRegistrationEmailReply.newBuilder()
-                .setReply(reply)
-                .setError(ClientServerSerializeProtocolMessage_pb.VerifyRegistrationEmailReply.Error.forNumber(error.getValue()))
-                .build();
+                        .setReply(reply)
+                        .setError(ClientServerSerializeProtocolMessage_pb.VerifyRegistrationEmailReply.Error.forNumber(error.getValue()))
+                        .build();
         ClientServerSerializeProtocolMessage_pb.General resMsg =
                 ClientServerSerializeProtocolMessage_pb.General.newBuilder()
-                .setType(type.getValue())
-                .setVerifyRegistrationEmailReply(msgVerifyRegReply)
-                .build();
+                        .setType(type.getValue())
+                        .setVerifyRegistrationEmailReply(msgVerifyRegReply)
+                        .build();
         return resMsg.toByteArray();
     }
 
     private byte[] createResetPasswordRequestMessage(DefinesMessages.TypeMessage type, String email) {
         ClientServerSerializeProtocolMessage_pb.ResetPasswordRequest msgResetRequest =
                 ClientServerSerializeProtocolMessage_pb.ResetPasswordRequest.newBuilder()
-                .setEmail(email)
-                .build();
+                        .setEmail(email)
+                        .build();
         ClientServerSerializeProtocolMessage_pb.General resMsg =
                 ClientServerSerializeProtocolMessage_pb.General.newBuilder()
-                .setType(type.getValue())
-                .setResetPasswordRequest(msgResetRequest)
-                .build();
+                        .setType(type.getValue())
+                        .setResetPasswordRequest(msgResetRequest)
+                        .build();
         return resMsg.toByteArray();
     }
 
     private byte[] createResetPasswordReplyMessage(DefinesMessages.TypeMessage type, boolean reply) {
         ClientServerSerializeProtocolMessage_pb.ResetPasswordReply msgResetReply =
                 ClientServerSerializeProtocolMessage_pb.ResetPasswordReply.newBuilder()
-                .setReply(reply)
-                .build();
+                        .setReply(reply)
+                        .build();
         ClientServerSerializeProtocolMessage_pb.General resMsg =
                 ClientServerSerializeProtocolMessage_pb.General.newBuilder()
-                .setType(type.getValue())
-                .setResetPasswordReply(msgResetReply)
-                .build();
+                        .setType(type.getValue())
+                        .setResetPasswordReply(msgResetReply)
+                        .build();
         return resMsg.toByteArray();
     }
 
     private byte[] createVerifyFamousEmailRequestMessage(DefinesMessages.TypeMessage type, String email, String code) {
         ClientServerSerializeProtocolMessage_pb.VerifyFamousEmailRequest msgVerifyEmailRequest =
                 ClientServerSerializeProtocolMessage_pb.VerifyFamousEmailRequest.newBuilder()
-                .setEmail(email)
-                .setCode(code)
-                .build();
+                        .setEmail(email)
+                        .setCode(code)
+                        .build();
         ClientServerSerializeProtocolMessage_pb.General resMsg =
                 ClientServerSerializeProtocolMessage_pb.General.newBuilder()
-                .setType(type.getValue())
-                .setVerifyFamousEmailRequest(msgVerifyEmailRequest)
-                .build();
+                        .setType(type.getValue())
+                        .setVerifyFamousEmailRequest(msgVerifyEmailRequest)
+                        .build();
         return resMsg.toByteArray();
     }
 
     private byte[] createVerifyFamousEmailReplyMessage(DefinesMessages.TypeMessage type, boolean reply) {
         ClientServerSerializeProtocolMessage_pb.VerifyFamousEmailReply msgVerifyEmailReply =
                 ClientServerSerializeProtocolMessage_pb.VerifyFamousEmailReply.newBuilder()
-                .setReply(reply)
-                .build();
+                        .setReply(reply)
+                        .build();
         ClientServerSerializeProtocolMessage_pb.General resMsg =
                 ClientServerSerializeProtocolMessage_pb.General.newBuilder()
-                .setType(type.getValue())
-                .setVerifyFamousEmailReply(msgVerifyEmailReply)
-                .build();
+                        .setType(type.getValue())
+                        .setVerifyFamousEmailReply(msgVerifyEmailReply)
+                        .build();
         return resMsg.toByteArray();
     }
 
     private byte[] createChangePasswordRequestMessage(DefinesMessages.TypeMessage type, String email, String password) {
         ClientServerSerializeProtocolMessage_pb.ChangePasswordRequest msgChangePasswordRequest =
                 ClientServerSerializeProtocolMessage_pb.ChangePasswordRequest.newBuilder()
-                .setEmail(email)
-                .setPassword(password)
-                .build();
+                        .setEmail(email)
+                        .setPassword(password)
+                        .build();
         ClientServerSerializeProtocolMessage_pb.General resMsg =
                 ClientServerSerializeProtocolMessage_pb.General.newBuilder()
-                .setType(type.getValue())
-                .setChangePasswordRequest(msgChangePasswordRequest)
-                .build();
+                        .setType(type.getValue())
+                        .setChangePasswordRequest(msgChangePasswordRequest)
+                        .build();
         return resMsg.toByteArray();
     }
 
     private byte[] createChangePasswordReplyMessage(DefinesMessages.TypeMessage type, boolean reply) {
         ClientServerSerializeProtocolMessage_pb.ChangePasswordReply msgChangePasswordReply =
                 ClientServerSerializeProtocolMessage_pb.ChangePasswordReply.newBuilder()
-                .setReply(reply)
-                .build();
+                        .setReply(reply)
+                        .build();
         ClientServerSerializeProtocolMessage_pb.General resMsg =
                 ClientServerSerializeProtocolMessage_pb.General.newBuilder()
-                .setType(type.getValue())
-                .setChangePasswordReply(msgChangePasswordReply)
-                .build();
+                        .setType(type.getValue())
+                        .setChangePasswordReply(msgChangePasswordReply)
+                        .build();
         return resMsg.toByteArray();
     }
 
@@ -495,7 +496,7 @@ public class SerializatorDataMessages {
         Map<String, ClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusReply.StatusOnline> newMapStatusesUsers = new HashMap<>();
 
         for (UUID key : statusesUsers.keySet()) {
-            int integerStatus =  statusesUsers.get(key).getValue();
+            int integerStatus = statusesUsers.get(key).getValue();
             ClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusReply.StatusOnline statusMsg =
                     ClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusReply.StatusOnline.forNumber(integerStatus);
             newMapStatusesUsers.put(key.toString(), statusMsg);

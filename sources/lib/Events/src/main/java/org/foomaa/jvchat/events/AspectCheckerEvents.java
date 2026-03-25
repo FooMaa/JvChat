@@ -11,7 +11,8 @@ import java.lang.reflect.Field;
 @Aspect
 @Slf4j
 public class AspectCheckerEvents {
-    AspectCheckerEvents() {}
+    AspectCheckerEvents() {
+    }
 
     @Around("@annotation(checkerEventsAnnotation)")
     @SuppressWarnings("unused")
