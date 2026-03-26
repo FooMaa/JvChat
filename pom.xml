@@ -123,9 +123,7 @@
                             <spacesPerTab>4</spacesPerTab>
                         </indent>
                         <importOrder>
-                            <order>
-                                java, javax, org, com, lombok, org.foomaa.jvchat
-                            </order>
+                            <order>java,javax,org,com,lombok,org.foomaa.jvchat,</order>
                         </importOrder>
                         <removeUnusedImports/>
                         <trimTrailingWhitespace/>

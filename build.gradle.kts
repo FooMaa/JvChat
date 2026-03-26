@@ -35,7 +35,8 @@ subprojects {
                 "org",
                 "com",
                 "lombok",
-                "org.foomaa.jvchat")
+                "org.foomaa.jvchat",
+                "")
             endWithNewline()
             trimTrailingWhitespace()
             targetExclude("**/*_pb.java")
