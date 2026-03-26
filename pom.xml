@@ -117,6 +117,7 @@
                     <java>
                         <eclipse>
                             <version>4.21.0</version>
+                            <file>${maven.multiModuleProjectDirectory}/config/eclipse-format.xml</file>
                         </eclipse>
                         <indent>
                             <spaces>true</spaces>
