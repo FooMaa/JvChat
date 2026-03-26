@@ -70,6 +70,24 @@ Maven:
 ```
 clean install spring-boot:run -Ptests
 ```
+### Code format check
+Gradle:
+```
+spotlessCheck
+```
+Maven:
+```
+?
+```
+### Code reformat
+Gradle:
+```
+spotlessApply
+```
+Maven:
+```
+?
+```
 ## Scripts and their purpose
 | Path to the script                                     | Purpose                                                                                                                                                             |
 |--------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|

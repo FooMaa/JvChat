@@ -39,6 +39,8 @@ subprojects {
             endWithNewline()
             trimTrailingWhitespace()
         }
+
+        isEnforceCheck = false
     }
 
     dependencies {
@@ -64,6 +66,10 @@ subprojects {
         testLogging {
             events("passed", "failed", "skipped")
         }
+    }
+
+    tasks.named("spotlessJava") {
+        dependsOn(":Messages:copyProtobuf")
     }
 }
 
