@@ -1,18 +1,20 @@
 package org.foomaa.jvchat.tools;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.springframework.stereotype.Component;
+
+import lombok.extern.slf4j.Slf4j;
+
 @Component
 @Slf4j
 public class FormatTools {
-    FormatTools() {}
+    FormatTools() {
+    }
 
     private String normalizeMillisecond(String timestamp, int normalizeCount) {
         String resultTimestamp;
@@ -34,10 +36,10 @@ public class FormatTools {
             log.warn("It is not possible to convert the date and time to the required format. Trying regex...");
 
             // Regex format: 'yyyy-MM-dd HH:mm:ss'
-            String patternStr = "^(?<year>\\d{4})-(?<month>0[1-9]|1[012])-(?<day>0[1-9]|[12][0-9]|3[01])" +
-                    "[T ](?<hour>[01][0-9]|2[0-3]):(?<minute>[0-5][0-9]):(?<second>[0-5][0-9])$";
+            String patternStr = "^(?<year>\\d{4})-(?<month>0[1-9]|1[012])-(?<day>0[1-9]|[12][0-9]|3[01])"
+                    + "[T ](?<hour>[01][0-9]|2[0-3]):(?<minute>[0-5][0-9]):(?<second>[0-5][0-9])$";
 
-            Pattern pattern= Pattern.compile(patternStr);
+            Pattern pattern = Pattern.compile(patternStr);
             Matcher m = pattern.matcher(timestamp);
 
             if (m.matches()) {

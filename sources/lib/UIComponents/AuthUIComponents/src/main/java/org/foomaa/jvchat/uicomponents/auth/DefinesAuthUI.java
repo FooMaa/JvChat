@@ -1,15 +1,10 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-
 public class DefinesAuthUI {
-    DefinesAuthUI() {}
+    DefinesAuthUI() {
+    }
 
     public enum RegimeWorkMainFrame {
-        Auth,
-        Registration,
-        ResetPassword,
-        VerifyCodeRegistration,
-        VerifyCodeResetPassword,
-        NewPassword
+        Auth, Registration, ResetPassword, VerifyCodeRegistration, VerifyCodeResetPassword, NewPassword
     }
 }

@@ -1,17 +1,20 @@
 package org.foomaa.jvchat.network;
 
-import org.foomaa.jvchat.settings.ServersInfoSettings;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
+import java.util.Date;
+import java.util.Properties;
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.*;
-import java.util.Date;
-import java.util.Properties;
+
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
+
 import lombok.extern.slf4j.Slf4j;
 
+import org.foomaa.jvchat.settings.ServersInfoSettings;
 
 @Component
 @Profile("servers")

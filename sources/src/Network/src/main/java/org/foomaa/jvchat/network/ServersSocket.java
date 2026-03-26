@@ -1,14 +1,15 @@
 package org.foomaa.jvchat.network;
 
-import org.foomaa.jvchat.settings.ServersInfoSettings;
-import org.springframework.context.annotation.Lazy;
+import java.io.*;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-import java.io.*;
-import java.net.ServerSocket;
-import java.net.InetAddress;
+
 import lombok.extern.slf4j.Slf4j;
 
+import org.foomaa.jvchat.settings.ServersInfoSettings;
 
 @Component
 @Profile("servers")
@@ -26,8 +27,7 @@ public class ServersSocket {
             socketServers = new ServerSocket(serversInfoSettings.getPort());
         } else {
             socketServers = new ServerSocket(serversInfoSettings.getPort(),
-                    serversInfoSettings.getQuantityConnections(),
-                    InetAddress.getByName(serversInfoSettings.getIp()));
+                    serversInfoSettings.getQuantityConnections(), InetAddress.getByName(serversInfoSettings.getIp()));
         }
 
         log.info("IP: {}.", socketServers.getInetAddress().toString());

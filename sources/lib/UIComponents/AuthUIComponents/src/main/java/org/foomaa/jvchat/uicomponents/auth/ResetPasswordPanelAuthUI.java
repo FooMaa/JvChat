@@ -1,20 +1,22 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+import javax.swing.*;
+
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
+
 import lombok.extern.slf4j.Slf4j;
+
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.ctrl.SendMessagesCtrl;
 import org.foomaa.jvchat.events.GetterEvents;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.tools.UsersTools;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
-
 
 @Component
 @Profile("users")
@@ -31,14 +33,10 @@ public class ResetPasswordPanelAuthUI extends JPanel {
     private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
-    ResetPasswordPanelAuthUI(DisplaySettings displaySettings,
-                             UsersTools usersTools,
-                             SendMessagesCtrl sendMessagesCtrl,
-                             MessagesDefinesCtrl messagesDefinesCtrl,
-                             ButtonAuthUIFactory buttonAuthUIFactory,
-                             ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
-                             TextFieldAuthUIFactory textFieldAuthUIFactory,
-                             OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
+    ResetPasswordPanelAuthUI(DisplaySettings displaySettings, UsersTools usersTools, SendMessagesCtrl sendMessagesCtrl,
+            MessagesDefinesCtrl messagesDefinesCtrl, ButtonAuthUIFactory buttonAuthUIFactory,
+            ErrorLabelAuthUIFactory errorLabelAuthUIFactory, TextFieldAuthUIFactory textFieldAuthUIFactory,
+            OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
         this.displaySettings = displaySettings;
         this.usersTools = usersTools;
         this.sendMessagesCtrl = sendMessagesCtrl;
@@ -82,8 +80,8 @@ public class ResetPasswordPanelAuthUI extends JPanel {
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(displaySettings.getResizePixel(0.115), insX,
-                displaySettings.getResizePixel(0.004), insX);
+        gbc.insets = new Insets(displaySettings.getResizePixel(0.115), insX, displaySettings.getResizePixel(0.004),
+                insX);
         gbc.gridy = gridyNum;
         add(tEmail, gbc);
         gridyNum++;
@@ -98,20 +96,16 @@ public class ResetPasswordPanelAuthUI extends JPanel {
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.NORTHWEST;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(displaySettings.getResizePixel(0.046),
-                displaySettings.getResizePixel(0.026),
+        gbc.insets = new Insets(displaySettings.getResizePixel(0.046), displaySettings.getResizePixel(0.026),
                 displaySettings.getResizePixel(0.017), 0);
-        gbc.ipadx = displaySettings.getResizeFromDisplay(0.015,
-                DisplaySettings.TypeOfDisplayBorder.WIDTH);
-        gbc.ipady = displaySettings.getResizeFromDisplay(0.004,
-                DisplaySettings.TypeOfDisplayBorder.HEIGHT);
+        gbc.ipadx = displaySettings.getResizeFromDisplay(0.015, DisplaySettings.TypeOfDisplayBorder.WIDTH);
+        gbc.ipady = displaySettings.getResizeFromDisplay(0.004, DisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
         add(bBack, gbc);
 
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.NORTHEAST;
-        gbc.insets = new Insets(displaySettings.getResizePixel(0.046), 0,
-                displaySettings.getResizePixel(0.017),
+        gbc.insets = new Insets(displaySettings.getResizePixel(0.046), 0, displaySettings.getResizePixel(0.017),
                 displaySettings.getResizePixel(0.026));
         gbc.ipadx = displaySettings.getResizeFromDisplay(0.015, DisplaySettings.TypeOfDisplayBorder.WIDTH);
         gbc.ipady = displaySettings.getResizeFromDisplay(0.004, DisplaySettings.TypeOfDisplayBorder.HEIGHT);
@@ -148,19 +142,14 @@ public class ResetPasswordPanelAuthUI extends JPanel {
     }
 
     private void changeRegimeBack() {
-        GetterEvents.getInstance().getBeanMakerEvents().event(
-                this,
-                "changeRegimeWork",
+        GetterEvents.getInstance().getBeanMakerEvents().event(this, "changeRegimeWork",
                 DefinesAuthUI.RegimeWorkMainFrame.Auth);
         settingUnfocusFieldsOnChangeRegime();
     }
 
     private void changeRegimeNext() {
-        GetterEvents.getInstance().getBeanMakerEvents().event(
-                this,
-                "changeRegimeWork",
-                DefinesAuthUI.RegimeWorkMainFrame.VerifyCodeResetPassword,
-                tEmail.getInputText());
+        GetterEvents.getInstance().getBeanMakerEvents().event(this, "changeRegimeWork",
+                DefinesAuthUI.RegimeWorkMainFrame.VerifyCodeResetPassword, tEmail.getInputText());
         settingUnfocusFieldsOnChangeRegime();
     }
 
@@ -174,7 +163,7 @@ public class ResetPasswordPanelAuthUI extends JPanel {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
-                log.error( "Couldn't wait.");
+                log.error("Couldn't wait.");
             }
         }
         if (messagesDefinesCtrl.getResetPasswordRequestFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {

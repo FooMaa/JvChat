@@ -4,6 +4,10 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
+
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
@@ -13,9 +17,6 @@ import org.foomaa.jvchat.structobjects.ChatStructObject;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
 import org.foomaa.jvchat.structobjects.UserStructObject;
 import org.foomaa.jvchat.tools.FormatTools;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
-
 
 @Component
 @Profile("users")
@@ -40,9 +41,10 @@ public class ChatsCtrl {
             UUID uuidChat = (UUID) chat.get(DefinesMessages.TypeData.UuidChat);
             UUID uuidLastMessage = (UUID) chat.get(DefinesMessages.TypeData.UuidMessage);
             Boolean isLoginSentLastMessage = (Boolean) chat.get(DefinesMessages.TypeData.IsLoginSentLastMessage);
-            MainChatsGlobalDefines.TypeStatusMessage statusMessage =
-                    (MainChatsGlobalDefines.TypeStatusMessage) chat.get(DefinesMessages.TypeData.StatusMessage);
-            LocalDateTime timestampLastMessage = formatTools.stringToLocalDateTime((String) chat.get(DefinesMessages.TypeData.Timestamp), normalizeTimestampCount);
+            MainChatsGlobalDefines.TypeStatusMessage statusMessage = (MainChatsGlobalDefines.TypeStatusMessage) chat
+                    .get(DefinesMessages.TypeData.StatusMessage);
+            LocalDateTime timestampLastMessage = formatTools.stringToLocalDateTime(
+                    (String) chat.get(DefinesMessages.TypeData.Timestamp), normalizeTimestampCount);
 
             if (timestampLastMessage == null) {
                 log.warn("It was not possible to normalize the date and time to the required format.");
@@ -62,7 +64,8 @@ public class ChatsCtrl {
     public void setLastOnlineTimeUsersByStrings(Map<UUID, String> lastOnlineTimeUsers) {
         int normalizeTimestampCount = 3;
         for (UUID uuidUser : lastOnlineTimeUsers.keySet()) {
-            LocalDateTime timestamp = formatTools.stringToLocalDateTime(lastOnlineTimeUsers.get(uuidUser), normalizeTimestampCount);
+            LocalDateTime timestamp = formatTools.stringToLocalDateTime(lastOnlineTimeUsers.get(uuidUser),
+                    normalizeTimestampCount);
             chatsModel.setTimestampLastOnlineToUser(uuidUser, timestamp);
         }
     }
@@ -148,8 +151,10 @@ public class ChatsCtrl {
             MessageStructObject lastMessageObj = chat.getLastMessage();
             UUID uuidUserSender = lastMessageObj.getUuidUserSender();
             UUID uuidUserReceiver = lastMessageObj.getUuidUserReceiver();
-            if ((uuidUserSender.equals(message.getUuidUserSender()) && uuidUserReceiver.equals(message.getUuidUserReceiver())) ||
-                    (uuidUserSender.equals(message.getUuidUserReceiver()) && uuidUserReceiver.equals(message.getUuidUserReceiver()))) {
+            if ((uuidUserSender.equals(message.getUuidUserSender())
+                    && uuidUserReceiver.equals(message.getUuidUserReceiver()))
+                    || (uuidUserSender.equals(message.getUuidUserReceiver())
+                            && uuidUserReceiver.equals(message.getUuidUserReceiver()))) {
                 chat.setLastMessage(message);
                 return;
             }

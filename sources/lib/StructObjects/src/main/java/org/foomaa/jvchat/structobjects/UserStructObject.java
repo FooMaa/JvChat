@@ -3,13 +3,16 @@ package org.foomaa.jvchat.structobjects;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import lombok.Getter;
+
+import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 
 @Component
 @Scope("prototype")
+@Getter
 public class UserStructObject extends BaseStructObject {
     private String login;
     private MainChatsGlobalDefines.TypeStatusOnline statusOnline;
@@ -32,7 +35,7 @@ public class UserStructObject extends BaseStructObject {
     public void setStatusOnline(MainChatsGlobalDefines.TypeStatusOnline newStatusOnline) {
         if (statusOnline != newStatusOnline) {
             statusOnline = newStatusOnline;
-             commitProperties();
+            commitProperties();
         }
     }
 
@@ -41,17 +44,5 @@ public class UserStructObject extends BaseStructObject {
             timestampLastOnline = newTimestampLastOnline;
             commitProperties();
         }
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public MainChatsGlobalDefines.TypeStatusOnline getStatusOnline() {
-        return statusOnline;
-    }
-
-    public LocalDateTime getTimestampLastOnline() {
-        return timestampLastOnline;
     }
 }

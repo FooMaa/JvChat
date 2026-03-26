@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id("com.diffplug.spotless") version "6.25.0" apply false
 }
 
 group = "org.foomaa.jvchat"
@@ -21,6 +22,24 @@ allprojects {
 
 subprojects {
     apply(plugin = "java")
+    apply(plugin = "com.diffplug.spotless")
+
+    configure<com.diffplug.gradle.spotless.SpotlessExtension> {
+        java {
+            eclipse()
+            indentWithSpaces(4)
+            removeUnusedImports()
+            importOrder(
+                "java",
+                "javax",
+                "org",
+                "com",
+                "lombok",
+                "org.foomaa.jvchat")
+            endWithNewline()
+            trimTrailingWhitespace()
+        }
+    }
 
     dependencies {
         testImplementation("junit:junit:3.8.1")

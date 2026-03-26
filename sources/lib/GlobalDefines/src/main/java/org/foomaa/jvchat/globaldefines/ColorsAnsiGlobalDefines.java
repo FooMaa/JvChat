@@ -2,11 +2,11 @@ package org.foomaa.jvchat.globaldefines;
 
 import org.springframework.stereotype.Component;
 
-
 @Component
 @SuppressWarnings("unused")
 public class ColorsAnsiGlobalDefines {
-    ColorsAnsiGlobalDefines() {}
+    ColorsAnsiGlobalDefines() {
+    }
 
     public final String RESET = "\033[0m";
     public final String BLACK = "\033[0;30m";

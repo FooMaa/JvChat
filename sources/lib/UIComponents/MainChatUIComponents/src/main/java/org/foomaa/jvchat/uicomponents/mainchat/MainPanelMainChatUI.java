@@ -1,11 +1,11 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
-
-import javax.swing.*;
 import java.awt.*;
 
+import javax.swing.*;
+
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 
 @Component
 @Profile("users")
@@ -15,10 +15,9 @@ public class MainPanelMainChatUI extends JPanel {
     private final ScrollPanelMessagesMainChatUI scrollPanelMessages;
     private final PanelSendingMessageMainChatUI panelSendingMessage;
 
-    MainPanelMainChatUI(ScrollPanelChatsMainChatUI scrollPanelChats,
-                        ScrollPanelMessagesMainChatUI scrollPanelMessages,
-                        PanelSendingMessageMainChatUIFactory panelSendingMessageFactory,
-                        FindTextFieldMainChatUIFactory findTextFieldMainChatUIFactory) {
+    MainPanelMainChatUI(ScrollPanelChatsMainChatUI scrollPanelChats, ScrollPanelMessagesMainChatUI scrollPanelMessages,
+            PanelSendingMessageMainChatUIFactory panelSendingMessageFactory,
+            FindTextFieldMainChatUIFactory findTextFieldMainChatUIFactory) {
         this.scrollPanelChats = scrollPanelChats;
         this.scrollPanelMessages = scrollPanelMessages;
 

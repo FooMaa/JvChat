@@ -1,14 +1,16 @@
 package org.foomaa.jvchat.structobjects;
 
+import java.util.Objects;
+
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import java.util.Objects;
-
+import lombok.Getter;
 
 @Component
 @Scope("prototype")
+@Getter
 public class ConnectionEventStructObject extends BaseStructObject {
     private Object objectSender;
     private Object objectReceiver;
@@ -24,6 +26,7 @@ public class ConnectionEventStructObject extends BaseStructObject {
 
         commitProperties();
     }
+
     public void setCustomNameEvent(String newCustomNameEvent) {
         if (!Objects.equals(customNameEvent, newCustomNameEvent)) {
             customNameEvent = newCustomNameEvent;
@@ -50,21 +53,5 @@ public class ConnectionEventStructObject extends BaseStructObject {
             objectSender = newObjectSender;
             commitProperties();
         }
-    }
-
-    public AnnotationConfigApplicationContext getContext() {
-        return context;
-    }
-
-    public Object getObjectReceiver() {
-        return objectReceiver;
-    }
-
-    public Object getObjectSender() {
-        return objectSender;
-    }
-
-    public String getCustomNameEvent() {
-        return customNameEvent;
     }
 }

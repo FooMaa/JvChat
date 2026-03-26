@@ -1,28 +1,25 @@
 package org.foomaa.jvchat.models;
 
-import lombok.extern.slf4j.Slf4j;
-import org.foomaa.jvchat.structobjects.BaseStructObject;
-import org.foomaa.jvchat.structobjects.RootStructObject;
-import org.foomaa.jvchat.structobjects.UserStructObject;
-import org.springframework.beans.factory.ObjectProvider;
+import java.util.UUID;
+
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
+import lombok.extern.slf4j.Slf4j;
 
+import org.foomaa.jvchat.structobjects.*;
 
 @Component
 @Lazy
 @Slf4j
 public class UsersModel extends BaseModel {
-    private final ObjectProvider<UserStructObject> userStructObjectObjectProvider;
+    private final UserStructObjectFactory userStructObjectFactory;
 
-    UsersModel(ObjectProvider<UserStructObject> userStructObjectObjectProvider,
-               ObjectProvider<RootStructObject> rootStructObjectObjectProvider,
-               RootObjectsModel rootObjectsModel) {
-        super(rootObjectsModel, rootStructObjectObjectProvider);
+    UsersModel(UserStructObjectFactory userStructObjectFactory, RootStructObjectFactory rootStructObjectFactory,
+            RootObjectsModel rootObjectsModel) {
+        super(rootObjectsModel, rootStructObjectFactory);
 
-        this.userStructObjectObjectProvider = userStructObjectObjectProvider;
+        this.userStructObjectFactory = userStructObjectFactory;
     }
 
     public void addCreatedUser(UserStructObject userStructObject) {
@@ -36,7 +33,7 @@ public class UsersModel extends BaseModel {
     }
 
     private UserStructObject findUserStructObjectByUuidUser(UUID uuidUser) {
-        for (BaseStructObject baseStructObject: getRootObject().getChildren()) {
+        for (BaseStructObject baseStructObject : getRootObject().getChildren()) {
             UserStructObject userStructObject = (UserStructObject) baseStructObject;
             if (userStructObject != null && userStructObject.getUuid().equals(uuidUser)) {
                 return userStructObject;
@@ -51,7 +48,7 @@ public class UsersModel extends BaseModel {
 
         if (userStructObject == null) {
             log.warn("There is no userStructObject with uuid created here, creating...");
-            UserStructObject userChat = userStructObjectObjectProvider.getObject();
+            UserStructObject userChat = userStructObjectFactory.create();
             userChat.setUuid(uuidUser);
             addItem(userChat, getRootObject());
             return userChat;

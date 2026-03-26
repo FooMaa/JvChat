@@ -1,7 +1,5 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -13,6 +11,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
+
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.ctrl.ChatsCtrl;
@@ -23,11 +29,6 @@ import org.foomaa.jvchat.settings.UISettings;
 import org.foomaa.jvchat.settings.UsersInfoSettings;
 import org.foomaa.jvchat.structobjects.ChatStructObject;
 import org.foomaa.jvchat.structobjects.UserStructObject;
-import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
-
 
 @Component
 @Profile("users")
@@ -48,12 +49,9 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
     private final RectChatMainChatUIFactory rectChatFactory;
     private final ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider;
 
-    ScrollPanelChatsMainChatUI(UsersInfoSettings usersInfoSettings,
-                               UISettings uiSettings,
-                               SendMessagesCtrl sendMessagesCtrl,
-                               MessagesDefinesCtrl messagesDefinesCtrl,
-                               RectChatMainChatUIFactory rectChatFactory,
-                               ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider) {
+    ScrollPanelChatsMainChatUI(UsersInfoSettings usersInfoSettings, UISettings uiSettings,
+            SendMessagesCtrl sendMessagesCtrl, MessagesDefinesCtrl messagesDefinesCtrl,
+            RectChatMainChatUIFactory rectChatFactory, ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider) {
         this.usersInfoSettings = usersInfoSettings;
         this.uiSettings = uiSettings;
         this.sendMessagesCtrl = sendMessagesCtrl;
@@ -74,7 +72,7 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g) ;
+        super.paintComponent(g);
 
         Image img = null;
         try {
@@ -119,7 +117,7 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
     private void makePanel() {
         removeAll();
 
-        setBorder(BorderFactory.createMatteBorder(0,0,0,7, Color.GRAY));
+        setBorder(BorderFactory.createMatteBorder(0, 0, 0, 7, Color.GRAY));
 
         boxComponents = Box.createVerticalBox();
         loadChatsInBox();
@@ -151,7 +149,9 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         gbc.anchor = GridBagConstraints.PAGE_START;
-        gbc.fill = scrollPane.getVerticalScrollBar().isVisible() ? GridBagConstraints.BOTH : GridBagConstraints.HORIZONTAL;
+        gbc.fill = scrollPane.getVerticalScrollBar().isVisible()
+                ? GridBagConstraints.BOTH
+                : GridBagConstraints.HORIZONTAL;
         add(scrollPane, gbc);
 
         revalidate();
@@ -272,9 +272,7 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
         }
 
         List<UUID> uuidsUsersChats = chatsCtrl.getUuidsUsersChats();
-        sendMessagesCtrl.sendMessage(
-                DefinesMessages.TypeMessage.LoadUsersOnlineStatusRequest,
-                uuidsUsersChats);
+        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.LoadUsersOnlineStatusRequest, uuidsUsersChats);
     }
 
     private void installingUpdatingDataInRectChats() {

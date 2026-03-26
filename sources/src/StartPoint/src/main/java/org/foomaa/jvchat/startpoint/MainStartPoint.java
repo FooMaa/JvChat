@@ -1,15 +1,15 @@
 package org.foomaa.jvchat.startpoint;
 
-import org.springframework.boot.Banner;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.boot.SpringApplication;
-
 import java.io.InputStream;
 import java.util.Properties;
 
+import org.springframework.boot.Banner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableAsync;
+
+import lombok.extern.slf4j.Slf4j;
 
 @SpringBootApplication
 @ComponentScan("org.foomaa.jvchat")

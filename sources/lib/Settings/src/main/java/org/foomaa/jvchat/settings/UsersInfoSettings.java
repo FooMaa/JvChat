@@ -1,16 +1,16 @@
 package org.foomaa.jvchat.settings;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
-
 import java.util.Objects;
 import java.util.UUID;
 
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 
 @Component
 @Profile("users")
 public class UsersInfoSettings {
-    UsersInfoSettings() {}
+    UsersInfoSettings() {
+    }
 
     private String login = "";
     private UUID uuid = null;

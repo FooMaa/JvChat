@@ -1,6 +1,5 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -8,14 +7,17 @@ import java.awt.font.TextAttribute;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import lombok.extern.slf4j.Slf4j;
 
-import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
-import org.foomaa.jvchat.settings.DisplaySettings;
+import javax.swing.*;
+
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import lombok.extern.slf4j.Slf4j;
+
+import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
+import org.foomaa.jvchat.settings.DisplaySettings;
 
 @Component
 @Scope("prototype")
@@ -27,9 +29,8 @@ public class ActiveLabelAuthUI extends JLabel {
     private final FontsGlobalDefines fontsGlobalDefines;
     private final ToolTipAuthUIFactory toolTipAuthUIFactory;
 
-    ActiveLabelAuthUI(DisplaySettings displaySettings,
-                      FontsGlobalDefines fontsGlobalDefines,
-                      ToolTipAuthUIFactory toolTipAuthUIFactory) {
+    ActiveLabelAuthUI(DisplaySettings displaySettings, FontsGlobalDefines fontsGlobalDefines,
+            ToolTipAuthUIFactory toolTipAuthUIFactory) {
         this.displaySettings = displaySettings;
         this.fontsGlobalDefines = fontsGlobalDefines;
         this.toolTipAuthUIFactory = toolTipAuthUIFactory;

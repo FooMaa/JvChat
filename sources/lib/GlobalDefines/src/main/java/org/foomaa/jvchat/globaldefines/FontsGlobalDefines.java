@@ -1,15 +1,15 @@
 package org.foomaa.jvchat.globaldefines;
 
-import org.springframework.stereotype.Component;
-
 import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.springframework.stereotype.Component;
 
 @Component
 public class FontsGlobalDefines {
-    FontsGlobalDefines() {}
+    FontsGlobalDefines() {
+    }
 
     public Font createMainSteticaFont(int style, float size) throws IOException, FontFormatException {
         InputStream inputStream = getClass().getResourceAsStream("/MainSteticaFont.otf");

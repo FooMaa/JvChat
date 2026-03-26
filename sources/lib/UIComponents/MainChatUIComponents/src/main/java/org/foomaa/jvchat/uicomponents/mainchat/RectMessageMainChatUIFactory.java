@@ -1,10 +1,10 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import org.foomaa.jvchat.structobjects.MessageStructObject;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+import org.foomaa.jvchat.structobjects.MessageStructObject;
 
 @Component
 @Profile("users")

@@ -1,8 +1,8 @@
 package org.foomaa.jvchat.events;
 
-import org.springframework.context.ApplicationEvent;
 import java.util.UUID;
 
+import org.springframework.context.ApplicationEvent;
 
 public class BaseEvent extends ApplicationEvent {
     private final UUID uuidKey;

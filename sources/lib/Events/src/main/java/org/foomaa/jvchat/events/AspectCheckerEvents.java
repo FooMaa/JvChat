@@ -1,12 +1,12 @@
 package org.foomaa.jvchat.events;
 
-import lombok.extern.slf4j.Slf4j;
+import java.lang.reflect.Field;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 
-import java.lang.reflect.Field;
-
+import lombok.extern.slf4j.Slf4j;
 
 @Aspect
 @Slf4j
@@ -16,7 +16,8 @@ public class AspectCheckerEvents {
 
     @Around("@annotation(checkerEventsAnnotation)")
     @SuppressWarnings("unused")
-    public Object checkFieldMatch(ProceedingJoinPoint joinPoint, CheckerEventsAnnotation checkerEventsAnnotation) throws Throwable {
+    public Object checkFieldMatch(ProceedingJoinPoint joinPoint, CheckerEventsAnnotation checkerEventsAnnotation)
+            throws Throwable {
         Object targetObject = joinPoint.getTarget();
         Object[] methodArgs = joinPoint.getArgs();
         String nameDestination = "destination";

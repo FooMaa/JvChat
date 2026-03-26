@@ -5,12 +5,13 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.Scanner;
 import java.util.regex.Pattern;
-import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import org.foomaa.jvchat.settings.ServersInfoSettings;
+import lombok.extern.slf4j.Slf4j;
 
+import org.foomaa.jvchat.settings.ServersInfoSettings;
 
 @Component
 @Profile("servers")
@@ -60,14 +61,14 @@ public class ServersTools {
                 }
                 break;
             } else {
-                log.error("Set the limit count connections again or push \"Enter\" for default value (default value \"1000\"): ");
+                log.error(
+                        "Set the limit count connections again or push \"Enter\" for default value (default value \"1000\"): ");
             }
         }
     }
 
     public boolean validateInputLimitConnections(String param) {
-        Pattern regex = Pattern.compile(
-                "^\\d+$");
+        Pattern regex = Pattern.compile("^\\d+$");
         if (param.isEmpty()) {
             return true;
         }

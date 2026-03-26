@@ -5,16 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import org.foomaa.jvchat.structobjects.CheckerOnlineStructObject;
-import org.foomaa.jvchat.structobjects.UserStructObject;
-import org.foomaa.jvchat.structobjects.RootStructObject;
-import org.foomaa.jvchat.structobjects.SocketRunnableCtrlStructObject;
-import org.foomaa.jvchat.structobjects.BaseStructObject;
+import org.foomaa.jvchat.structobjects.*;
 
 @Component
 @Profile("servers")
@@ -23,22 +18,20 @@ public class CheckersOnlineModel extends BaseModel {
     // DI ↓
     private final UsersModel usersModel;
     private final SocketRunnableCtrlModel socketRunnableCtrlModel;
-    private final ObjectProvider<CheckerOnlineStructObject> checkerOnlineStructObjectObjectProvider;
+    private final CheckerOnlineStructObjectFactory checkerOnlineStructObjectFactory;
 
-    CheckersOnlineModel(UsersModel usersModel,
-                        SocketRunnableCtrlModel socketRunnableCtrlModel,
-                        ObjectProvider<CheckerOnlineStructObject> checkerOnlineStructObjectObjectProvider,
-                        ObjectProvider<RootStructObject> rootStructObjectObjectProvider,
-                        RootObjectsModel rootObjectsModel) {
-        super(rootObjectsModel, rootStructObjectObjectProvider);
+    CheckersOnlineModel(UsersModel usersModel, SocketRunnableCtrlModel socketRunnableCtrlModel,
+            CheckerOnlineStructObjectFactory checkerOnlineStructObjectFactory,
+            RootStructObjectFactory rootStructObjectFactory, RootObjectsModel rootObjectsModel) {
+        super(rootObjectsModel, rootStructObjectFactory);
 
         this.usersModel = usersModel;
         this.socketRunnableCtrlModel = socketRunnableCtrlModel;
-        this.checkerOnlineStructObjectObjectProvider = checkerOnlineStructObjectObjectProvider;
+        this.checkerOnlineStructObjectFactory = checkerOnlineStructObjectFactory;
     }
 
     public void createNewCheckersOnline(UUID uuidUser, LocalDateTime dateTimeUpdating) {
-        CheckerOnlineStructObject checkerOnlineStructObject = checkerOnlineStructObjectObjectProvider.getObject();
+        CheckerOnlineStructObject checkerOnlineStructObject = checkerOnlineStructObjectFactory.create();
 
         UserStructObject userStructObject = usersModel.findCreateUserStructObjectByUuidUser(uuidUser);
 
@@ -48,11 +41,12 @@ public class CheckersOnlineModel extends BaseModel {
         addItem(checkerOnlineStructObject, getRootObject());
     }
 
-    public void createNewCheckersOnline(Runnable runnable, boolean isSending, LocalDateTime dateTimeSending, LocalDateTime dateTimeUpdating) {
-        CheckerOnlineStructObject checkerOnlineStructObject = checkerOnlineStructObjectObjectProvider.getObject();
+    public void createNewCheckersOnline(Runnable runnable, boolean isSending, LocalDateTime dateTimeSending,
+            LocalDateTime dateTimeUpdating) {
+        CheckerOnlineStructObject checkerOnlineStructObject = checkerOnlineStructObjectFactory.create();
 
-        SocketRunnableCtrlStructObject socketRunnableCtrlStructObject =
-                socketRunnableCtrlModel.findCreateSocketRunnableCtrlStructObjectByRunnable(runnable);
+        SocketRunnableCtrlStructObject socketRunnableCtrlStructObject = socketRunnableCtrlModel
+                .findCreateSocketRunnableCtrlStructObjectByRunnable(runnable);
 
         checkerOnlineStructObject.setSocketRunnableCtrlStructObject(socketRunnableCtrlStructObject);
         checkerOnlineStructObject.setIsSending(isSending);
@@ -62,18 +56,14 @@ public class CheckersOnlineModel extends BaseModel {
         addItem(checkerOnlineStructObject, getRootObject());
     }
 
-    public void createNewCheckersOnline(UUID uuidUser, Runnable runnable, boolean isSending, LocalDateTime dateTimeSending, LocalDateTime dateTimeUpdating) {
-        CheckerOnlineStructObject checkerOnlineStructObject = checkerOnlineStructObjectObjectProvider.getObject();
-
+    public void createNewCheckersOnline(UUID uuidUser, Runnable runnable, boolean isSending,
+            LocalDateTime dateTimeSending, LocalDateTime dateTimeUpdating) {
         UserStructObject userStructObject = usersModel.findCreateUserStructObjectByUuidUser(uuidUser);
-        SocketRunnableCtrlStructObject socketRunnableCtrlStructObject =
-                socketRunnableCtrlModel.findCreateSocketRunnableCtrlStructObjectByRunnable(runnable);
+        SocketRunnableCtrlStructObject socketRunnableCtrlStructObject = socketRunnableCtrlModel
+                .findCreateSocketRunnableCtrlStructObjectByRunnable(runnable);
 
-        checkerOnlineStructObject.setUser(userStructObject);
-        checkerOnlineStructObject.setSocketRunnableCtrlStructObject(socketRunnableCtrlStructObject);
-        checkerOnlineStructObject.setIsSending(isSending);
-        checkerOnlineStructObject.setDateTimeSending(dateTimeSending);
-        checkerOnlineStructObject.setDateTimeUpdating(dateTimeUpdating);
+        CheckerOnlineStructObject checkerOnlineStructObject = checkerOnlineStructObjectFactory.create(userStructObject,
+                isSending, dateTimeSending, dateTimeUpdating, socketRunnableCtrlStructObject);
 
         addItem(checkerOnlineStructObject, getRootObject());
     }
@@ -82,8 +72,7 @@ public class CheckersOnlineModel extends BaseModel {
         List<CheckerOnlineStructObject> resultList = new ArrayList<>();
 
         for (BaseStructObject baseStructObject : getRootObject().getChildren()) {
-            CheckerOnlineStructObject checkerOnlineStructObject =
-                    (CheckerOnlineStructObject) baseStructObject;
+            CheckerOnlineStructObject checkerOnlineStructObject = (CheckerOnlineStructObject) baseStructObject;
             resultList.add(checkerOnlineStructObject);
         }
 

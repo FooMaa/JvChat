@@ -1,25 +1,27 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Objects;
 import java.util.UUID;
-import lombok.extern.slf4j.Slf4j;
 
-import org.foomaa.jvchat.ctrl.ChatsCtrl;
-import org.foomaa.jvchat.ctrl.MessagesDialogCtrl;
-import org.foomaa.jvchat.settings.DisplaySettings;
-import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
-import org.foomaa.jvchat.settings.UsersInfoSettings;
-import org.foomaa.jvchat.structobjects.ChatStructObject;
-import org.foomaa.jvchat.structobjects.MessageStructObject;
+import javax.swing.*;
+
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import lombok.extern.slf4j.Slf4j;
+
+import org.foomaa.jvchat.ctrl.ChatsCtrl;
+import org.foomaa.jvchat.ctrl.MessagesDialogCtrl;
+import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
+import org.foomaa.jvchat.settings.DisplaySettings;
+import org.foomaa.jvchat.settings.UsersInfoSettings;
+import org.foomaa.jvchat.structobjects.ChatStructObject;
+import org.foomaa.jvchat.structobjects.MessageStructObject;
 
 @Component
 @Scope("prototype")
@@ -45,11 +47,9 @@ public class RectChatMainChatUI extends JPanel {
     private final MessagesDialogCtrl messagesDialogCtrl;
     private final ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider;
 
-    RectChatMainChatUI(ChatStructObject chatObject,
-                       UsersInfoSettings usersInfoSettings,
-                       DisplaySettings displaySettings,
-                       MessagesDialogCtrl messagesDialogCtrl,
-                       ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider) {
+    RectChatMainChatUI(ChatStructObject chatObject, UsersInfoSettings usersInfoSettings,
+            DisplaySettings displaySettings, MessagesDialogCtrl messagesDialogCtrl,
+            ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider) {
         this.usersInfoSettings = usersInfoSettings;
         this.displaySettings = displaySettings;
         this.messagesDialogCtrl = messagesDialogCtrl;
@@ -79,7 +79,6 @@ public class RectChatMainChatUI extends JPanel {
         nickName = chatObject.getUserChat().getLogin();
         shortLastMessage = chatObject.getLastMessage().getText();
         lastMessageSender = chatObject.getLastMessage().getUuidUserSender();
-
 
         statusMessage = chatObject.getLastMessage().getStatusMessage();
         uuidChat = chatObject.getUuid();
@@ -139,8 +138,8 @@ public class RectChatMainChatUI extends JPanel {
         boolean isBoldMessage = isBoldMessageByStatus();
         JLabel lastMessageLabel = new JLabel(createLastMessageString());
         lastMessageLabel.setName(nameForLabelLastMessage);
-        lastMessageLabel.setFont(new Font("Times", (isBoldMessage ? Font.BOLD : Font.PLAIN),
-                displaySettings.getResizePixel(0.014)));
+        lastMessageLabel.setFont(
+                new Font("Times", (isBoldMessage ? Font.BOLD : Font.PLAIN), displaySettings.getResizePixel(0.014)));
 
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
@@ -152,8 +151,8 @@ public class RectChatMainChatUI extends JPanel {
 
         JLabel timeLastMessageLabel = new JLabel(timeLastMessage);
         timeLastMessageLabel.setName(nameForLabelTimeLastMessage);
-        timeLastMessageLabel.setFont(new Font("Times", (isBoldMessage ? Font.BOLD : Font.PLAIN),
-                displaySettings.getResizePixel(0.014)));
+        timeLastMessageLabel.setFont(
+                new Font("Times", (isBoldMessage ? Font.BOLD : Font.PLAIN), displaySettings.getResizePixel(0.014)));
 
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
@@ -173,7 +172,7 @@ public class RectChatMainChatUI extends JPanel {
         if (flagSelect) {
             setBackground(new Color(246, 230, 125));
         } else {
-            setBackground(new Color(181,252,250));
+            setBackground(new Color(181, 252, 250));
         }
     }
 
@@ -246,10 +245,10 @@ public class RectChatMainChatUI extends JPanel {
     private Color getStatusOnlineColor() {
         switch (statusOnline) {
             case Error -> {
-                return new Color(254,50,50);
+                return new Color(254, 50, 50);
             }
             case Offline -> {
-                return new Color(0,0,0);
+                return new Color(0, 0, 0);
             }
             case Online -> {
                 return new Color(14, 114, 14);
@@ -293,8 +292,7 @@ public class RectChatMainChatUI extends JPanel {
     }
 
     private void setBoldToLabelConditionally(JLabel label, boolean isBold) {
-        label.setFont(new Font("Times", (isBold ? Font.BOLD : Font.PLAIN),
-                displaySettings.getResizePixel(0.014)));
+        label.setFont(new Font("Times", (isBold ? Font.BOLD : Font.PLAIN), displaySettings.getResizePixel(0.014)));
     }
 
     public void updateLastMessage(MessageStructObject message) {

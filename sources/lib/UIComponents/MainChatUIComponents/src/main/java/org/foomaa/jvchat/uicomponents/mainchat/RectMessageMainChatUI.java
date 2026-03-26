@@ -1,21 +1,22 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
+import java.awt.*;
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import java.awt.*;
-import java.time.LocalDateTime;
-import java.util.UUID;
+
+import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import org.foomaa.jvchat.ctrl.MessagesDialogCtrl;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
-import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
 
 @Component
 @Scope("prototype")
@@ -30,9 +31,8 @@ public class RectMessageMainChatUI extends JTextArea {
     private final MessagesDialogCtrl messagesDialogCtrl;
     private final ScrollPanelMessagesMainChatUI scrollPanelMessages;
 
-    RectMessageMainChatUI(DisplaySettings displaySettings,
-                          MessagesDialogCtrl messagesDialogCtrl,
-                          ScrollPanelMessagesMainChatUI scrollPanelMessages) {
+    RectMessageMainChatUI(DisplaySettings displaySettings, MessagesDialogCtrl messagesDialogCtrl,
+            ScrollPanelMessagesMainChatUI scrollPanelMessages) {
         this.displaySettings = displaySettings;
         this.messagesDialogCtrl = messagesDialogCtrl;
         this.scrollPanelMessages = scrollPanelMessages;
@@ -72,8 +72,8 @@ public class RectMessageMainChatUI extends JTextArea {
         int xRoundSecond = xRound - diameter - 1;
 
         // Рисуем кружки доставки
-        if (statusMessage == MainChatsGlobalDefines.TypeStatusMessage.Delivered ||
-                statusMessage == MainChatsGlobalDefines.TypeStatusMessage.Read) {
+        if (statusMessage == MainChatsGlobalDefines.TypeStatusMessage.Delivered
+                || statusMessage == MainChatsGlobalDefines.TypeStatusMessage.Read) {
             g2.fillOval(xRound, yRound, diameter, diameter);
         }
         if (statusMessage == MainChatsGlobalDefines.TypeStatusMessage.Read) {
@@ -111,7 +111,7 @@ public class RectMessageMainChatUI extends JTextArea {
     private void resizeComponentLabel() {
         int amendment = 20;
         int width = (scrollPanelMessages.getWidth() - amendment) / 2;
-        setSize(new Dimension(width,  getMinimumSize().height));
+        setSize(new Dimension(width, getMinimumSize().height));
     }
 
     private void addListenerToElements() {

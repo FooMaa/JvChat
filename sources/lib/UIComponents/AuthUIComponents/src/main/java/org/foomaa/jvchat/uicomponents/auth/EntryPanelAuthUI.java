@@ -1,12 +1,18 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
+
+import javax.swing.*;
+
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
+
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
@@ -16,10 +22,6 @@ import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.settings.UsersInfoSettings;
 import org.foomaa.jvchat.uicomponents.mainchat.MainFrameMainChatUI;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
-
 
 @Component
 @Profile("users")
@@ -38,17 +40,12 @@ public class EntryPanelAuthUI extends JPanel {
     private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
-    EntryPanelAuthUI(UsersInfoSettings usersInfoSettings,
-                     DisplaySettings displaySettings,
-                     @Lazy MainFrameMainChatUI mainFrameMainChatUI,
-                     SendMessagesCtrl sendMessagesCtrl,
-                     MessagesDefinesCtrl messagesDefinesCtrl,
-                     ActiveLabelAuthUIFactory activeLabelAuthUIFactory,
-                     ButtonAuthUIFactory buttonAuthUIFactory,
-                     ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
-                     PasswordFieldAuthUIFactory passwordFieldAuthUIFactory,
-                     TextFieldAuthUIFactory textFieldAuthUIFactory,
-                     OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
+    EntryPanelAuthUI(UsersInfoSettings usersInfoSettings, DisplaySettings displaySettings,
+            @Lazy MainFrameMainChatUI mainFrameMainChatUI, SendMessagesCtrl sendMessagesCtrl,
+            MessagesDefinesCtrl messagesDefinesCtrl, ActiveLabelAuthUIFactory activeLabelAuthUIFactory,
+            ButtonAuthUIFactory buttonAuthUIFactory, ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
+            PasswordFieldAuthUIFactory passwordFieldAuthUIFactory, TextFieldAuthUIFactory textFieldAuthUIFactory,
+            OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
         this.usersInfoSettings = usersInfoSettings;
         this.displaySettings = displaySettings;
         this.mainFrameMainChatUI = mainFrameMainChatUI;
@@ -95,8 +92,8 @@ public class EntryPanelAuthUI extends JPanel {
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(displaySettings.getResizePixel(0.075), insX,
-                displaySettings.getResizePixel(0.004), insX);
+        gbc.insets = new Insets(displaySettings.getResizePixel(0.075), insX, displaySettings.getResizePixel(0.004),
+                insX);
         gbc.gridy = gridyNum;
         add(tLogin, gbc);
         gridyNum++;
@@ -139,8 +136,8 @@ public class EntryPanelAuthUI extends JPanel {
     private void addListenerToElements() {
         bEnter.addActionListener(event -> {
             if (checkFields()) {
-                sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.EntryRequest,
-                        tLogin.getInputText(), tPassword.getInputText());
+                sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.EntryRequest, tLogin.getInputText(),
+                        tPassword.getInputText());
                 waitRepeatServer();
             }
         });
@@ -206,19 +203,16 @@ public class EntryPanelAuthUI extends JPanel {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (messagesDefinesCtrl.getEntryRequestFlag() ==
-                MessagesDefinesCtrl.TypeFlags.DEFAULT) {
+        while (messagesDefinesCtrl.getEntryRequestFlag() == MessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
                 log.error("Couldn't wait.");
             }
         }
-        if (messagesDefinesCtrl.getEntryRequestFlag() ==
-                MessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (messagesDefinesCtrl.getEntryRequestFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
             openMainPage();
-        } else if (messagesDefinesCtrl.getEntryRequestFlag() ==
-                MessagesDefinesCtrl.TypeFlags.FALSE) {
+        } else if (messagesDefinesCtrl.getEntryRequestFlag() == MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             optionPaneAuthUIFactory.create().show("Login failed, data is incorrect.", OptionPaneAuthUI.TypeDlg.ERROR);
         }

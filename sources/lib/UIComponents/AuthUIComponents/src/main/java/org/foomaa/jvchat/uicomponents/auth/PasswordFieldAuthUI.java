@@ -1,24 +1,26 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Objects;
-import lombok.extern.slf4j.Slf4j;
 
-import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
-import org.foomaa.jvchat.settings.DisplaySettings;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import javax.swing.text.DefaultCaret;
+
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import lombok.extern.slf4j.Slf4j;
+
+import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
+import org.foomaa.jvchat.settings.DisplaySettings;
 
 @Component
 @Scope("prototype")
@@ -42,9 +44,8 @@ public class PasswordFieldAuthUI extends JPanel {
     private final FontsGlobalDefines fontsGlobalDefines;
     private final ToolTipAuthUIFactory toolTipAuthUIFactory;
 
-    PasswordFieldAuthUI(DisplaySettings displaySettings,
-                        FontsGlobalDefines fontsGlobalDefines,
-                        ToolTipAuthUIFactory toolTipAuthUIFactory) {
+    PasswordFieldAuthUI(DisplaySettings displaySettings, FontsGlobalDefines fontsGlobalDefines,
+            ToolTipAuthUIFactory toolTipAuthUIFactory) {
         this.displaySettings = displaySettings;
         this.fontsGlobalDefines = fontsGlobalDefines;
         this.toolTipAuthUIFactory = toolTipAuthUIFactory;
@@ -216,9 +217,9 @@ public class PasswordFieldAuthUI extends JPanel {
     }
 
     private void settingPassAndButtonPanel() {
-        Dimension dim = new Dimension(displaySettings.getResizeFromDisplay(0.23,
-                DisplaySettings.TypeOfDisplayBorder.WIDTH), displaySettings.getResizeFromDisplay(0.03,
-                DisplaySettings.TypeOfDisplayBorder.HEIGHT));
+        Dimension dim = new Dimension(
+                displaySettings.getResizeFromDisplay(0.23, DisplaySettings.TypeOfDisplayBorder.WIDTH),
+                displaySettings.getResizeFromDisplay(0.03, DisplaySettings.TypeOfDisplayBorder.HEIGHT));
         settingButtonImage();
         settingPassField(dim);
         addElements();
@@ -273,8 +274,8 @@ public class PasswordFieldAuthUI extends JPanel {
         caret.setBlinkRate(750);
         passwordField.setCaret(caret);
 
-        Dimension calcNewDim = new Dimension((int) dim.getWidth() -
-                button.getPreferredSize().width, (int) dim.getHeight() - borderSize * 2);
+        Dimension calcNewDim = new Dimension((int) dim.getWidth() - button.getPreferredSize().width,
+                (int) dim.getHeight() - borderSize * 2);
         passwordField.setPreferredSize(calcNewDim);
         passwordField.setBorder(null);
         passwordField.setText(defaultText);

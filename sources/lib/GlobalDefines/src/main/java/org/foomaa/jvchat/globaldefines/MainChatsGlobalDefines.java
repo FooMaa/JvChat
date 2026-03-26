@@ -2,16 +2,13 @@ package org.foomaa.jvchat.globaldefines;
 
 import org.springframework.stereotype.Component;
 
-
 @Component
 public class MainChatsGlobalDefines {
-    MainChatsGlobalDefines() {}
+    MainChatsGlobalDefines() {
+    }
 
     public enum TypeStatusMessage {
-        Error(0),
-        Sent(1),
-        Delivered(2),
-        Read(3);
+        Error(0), Sent(1), Delivered(2), Read(3);
 
         private final int value;
 
@@ -40,9 +37,7 @@ public class MainChatsGlobalDefines {
     }
 
     public enum TypeStatusOnline {
-        Error(0),
-        Offline(1),
-        Online(2);
+        Error(0), Offline(1), Online(2);
 
         private final int value;
 

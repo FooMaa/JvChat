@@ -3,7 +3,6 @@ package org.foomaa.jvchat.settings;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-
 @Component
 @Profile("users")
 public class UISettings {

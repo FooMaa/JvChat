@@ -4,9 +4,10 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
-import lombok.Getter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
+import lombok.Getter;
 
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 
@@ -64,5 +65,4 @@ public class MessageStructObject extends BaseStructObject {
             commitProperties();
         }
     }
-
 }

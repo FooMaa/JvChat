@@ -1,16 +1,16 @@
 package org.foomaa.jvchat.settings;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
-
 import java.util.Base64;
 import java.util.Objects;
 
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 
 @Component
 @Profile("servers")
 public class ServersInfoSettings {
-    ServersInfoSettings() {}
+    ServersInfoSettings() {
+    }
 
     // NETWORK
     private int port = 4004;
@@ -56,7 +56,7 @@ public class ServersInfoSettings {
         return dbUrl;
     }
 
-    public String getDbUser () {
+    public String getDbUser() {
         return dbUser;
     }
 
@@ -66,8 +66,10 @@ public class ServersInfoSettings {
 
     // EMAIL
     private final String emailAddress = "jvchat.foomaa@mail.ru";
-    // To find this password follow the link: https://account.mail.ru/user/2-step-auth/passwords?back_url=https%3A%2F%2Fid.mail.ru%2Fsecurity
-    private final String magicStringEmail =  new String(Base64.getDecoder().decode("THhtZ2lUV0gwYW1ISlRyblI0SjM=".getBytes()));
+    // To find this password follow the link:
+    // https://account.mail.ru/user/2-step-auth/passwords?back_url=https%3A%2F%2Fid.mail.ru%2Fsecurity
+    private final String magicStringEmail = new String(
+            Base64.getDecoder().decode("THhtZ2lUV0gwYW1ISlRyblI0SjM=".getBytes()));
 
     public String getEmailAddress() {
         return emailAddress;

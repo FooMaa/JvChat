@@ -1,10 +1,15 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
+
+import javax.swing.*;
+
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
+
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
@@ -12,9 +17,6 @@ import org.foomaa.jvchat.ctrl.SendMessagesCtrl;
 import org.foomaa.jvchat.events.GetterEvents;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
-
 
 @Component
 @Profile("users")
@@ -32,13 +34,10 @@ public class NewPasswordPanelAuthUI extends JPanel {
     private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
-    NewPasswordPanelAuthUI(DisplaySettings displaySettings,
-                           SendMessagesCtrl sendMessagesCtrl,
-                           MessagesDefinesCtrl messagesDefinesCtrl,
-                           ButtonAuthUIFactory buttonAuthUIFactory,
-                           ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
-                           PasswordFieldAuthUIFactory passwordFieldAuthUIFactory,
-                           OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
+    NewPasswordPanelAuthUI(DisplaySettings displaySettings, SendMessagesCtrl sendMessagesCtrl,
+            MessagesDefinesCtrl messagesDefinesCtrl, ButtonAuthUIFactory buttonAuthUIFactory,
+            ErrorLabelAuthUIFactory errorLabelAuthUIFactory, PasswordFieldAuthUIFactory passwordFieldAuthUIFactory,
+            OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
         this.displaySettings = displaySettings;
         this.sendMessagesCtrl = sendMessagesCtrl;
         this.messagesDefinesCtrl = messagesDefinesCtrl;
@@ -89,8 +88,8 @@ public class NewPasswordPanelAuthUI extends JPanel {
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(displaySettings.getResizePixel(0.085), insX,
-                displaySettings.getResizePixel(0.004), insX);
+        gbc.insets = new Insets(displaySettings.getResizePixel(0.085), insX, displaySettings.getResizePixel(0.004),
+                insX);
         gbc.gridy = gridyNum;
         add(tPassword, gbc);
         gridyNum++;
@@ -120,8 +119,7 @@ public class NewPasswordPanelAuthUI extends JPanel {
 
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.NORTHEAST;
-        gbc.insets = new Insets(0, 0,
-                displaySettings.getResizePixel(0.017), displaySettings.getResizePixel(0.026));
+        gbc.insets = new Insets(0, 0, displaySettings.getResizePixel(0.017), displaySettings.getResizePixel(0.026));
 
         gbc.ipadx = displaySettings.getResizeFromDisplay(0.015, DisplaySettings.TypeOfDisplayBorder.WIDTH);
         gbc.ipady = displaySettings.getResizeFromDisplay(0.004, DisplaySettings.TypeOfDisplayBorder.HEIGHT);
@@ -132,9 +130,7 @@ public class NewPasswordPanelAuthUI extends JPanel {
     private void addListenerToElements() {
         bAccept.addActionListener(event -> {
             if (checkFields()) {
-                sendMessagesCtrl.sendMessage(
-                        DefinesMessages.TypeMessage.ChangePasswordRequest,
-                        email,
+                sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.ChangePasswordRequest, email,
                         tPassword.getInputText());
                 waitRepeatServer();
             }
@@ -159,9 +155,8 @@ public class NewPasswordPanelAuthUI extends JPanel {
             fields.add("\"Confirm password\"");
         }
 
-        if (!Objects.equals(tPassword.getInputText(), "") &&
-                !Objects.equals(tPasswordConfirm.getInputText(), "") &&
-                !Objects.equals(tPassword.getInputText(), tPasswordConfirm.getInputText())) {
+        if (!Objects.equals(tPassword.getInputText(), "") && !Objects.equals(tPasswordConfirm.getInputText(), "")
+                && !Objects.equals(tPassword.getInputText(), tPasswordConfirm.getInputText())) {
             tPassword.setErrorBorder(true);
             tPasswordConfirm.setErrorBorder(true);
             tErrorHelpInfo.setText("The entered passwords must match.");
@@ -189,17 +184,13 @@ public class NewPasswordPanelAuthUI extends JPanel {
     }
 
     private void changeRegimeBack() {
-        GetterEvents.getInstance().getBeanMakerEvents().event(
-                this,
-                "changeRegimeWork",
+        GetterEvents.getInstance().getBeanMakerEvents().event(this, "changeRegimeWork",
                 DefinesAuthUI.RegimeWorkMainFrame.ResetPassword);
         settingUnfocusFieldsOnChangeRegime();
     }
 
     private void changeRegimeNext() {
-        GetterEvents.getInstance().getBeanMakerEvents().event(
-                this,
-                "changeRegimeWork",
+        GetterEvents.getInstance().getBeanMakerEvents().event(this, "changeRegimeWork",
                 DefinesAuthUI.RegimeWorkMainFrame.Auth);
         settingUnfocusFieldsOnChangeRegime();
     }
@@ -227,8 +218,7 @@ public class NewPasswordPanelAuthUI extends JPanel {
             setEnabled(true);
         } else if (messagesDefinesCtrl.getChangePasswordRequest() == MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            optionPaneAuthUIFactory.create().show("Failed to change password.",
-                    OptionPaneAuthUI.TypeDlg.ERROR);
+            optionPaneAuthUIFactory.create().show("Failed to change password.", OptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 }

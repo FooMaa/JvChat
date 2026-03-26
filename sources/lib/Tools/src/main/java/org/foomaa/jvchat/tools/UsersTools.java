@@ -1,19 +1,19 @@
 package org.foomaa.jvchat.tools;
 
+import java.util.regex.Pattern;
+
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-
-import java.util.regex.Pattern;
 
 @Component
 @Profile("users")
 public class UsersTools {
-    UsersTools() {}
+    UsersTools() {
+    }
 
     public boolean validateInputEmail(String param) {
-        Pattern regex = Pattern.compile(
-                "^(?=.{1,64}@)[A-Za-z0-9+_-]+(\\.[A-Za-z0-9+_-]+)*@"
-                        + "[^-][A-Za-z0-9+-]+(\\.[A-Za-z0-9+-]+)*(\\.[A-Za-z]{2,})$");
+        Pattern regex = Pattern.compile("^(?=.{1,64}@)[A-Za-z0-9+_-]+(\\.[A-Za-z0-9+_-]+)*@"
+                + "[^-][A-Za-z0-9+-]+(\\.[A-Za-z0-9+-]+)*(\\.[A-Za-z]{2,})$");
         if (param.isEmpty()) {
             return true;
         }

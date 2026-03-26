@@ -1,10 +1,15 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
+
+import javax.swing.*;
+
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
+
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
@@ -13,9 +18,6 @@ import org.foomaa.jvchat.events.GetterEvents;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.tools.UsersTools;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
-
 
 @Component
 @Profile("users")
@@ -35,15 +37,10 @@ public class RegistrationPanelAuthUI extends JPanel {
     private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
-    RegistrationPanelAuthUI(DisplaySettings displaySettings,
-                            UsersTools usersTools,
-                            SendMessagesCtrl sendMessagesCtrl,
-                            MessagesDefinesCtrl messagesDefinesCtrl,
-                            ButtonAuthUIFactory buttonAuthUIFactory,
-                            ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
-                            PasswordFieldAuthUIFactory passwordFieldAuthUIFactory,
-                            TextFieldAuthUIFactory textFieldAuthUIFactory,
-                            OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
+    RegistrationPanelAuthUI(DisplaySettings displaySettings, UsersTools usersTools, SendMessagesCtrl sendMessagesCtrl,
+            MessagesDefinesCtrl messagesDefinesCtrl, ButtonAuthUIFactory buttonAuthUIFactory,
+            ErrorLabelAuthUIFactory errorLabelAuthUIFactory, PasswordFieldAuthUIFactory passwordFieldAuthUIFactory,
+            TextFieldAuthUIFactory textFieldAuthUIFactory, OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
         this.displaySettings = displaySettings;
         this.usersTools = usersTools;
         this.sendMessagesCtrl = sendMessagesCtrl;
@@ -93,8 +90,8 @@ public class RegistrationPanelAuthUI extends JPanel {
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(displaySettings.getResizePixel(0.03), insX,
-                displaySettings.getResizePixel(0.0045), insX);
+        gbc.insets = new Insets(displaySettings.getResizePixel(0.03), insX, displaySettings.getResizePixel(0.0045),
+                insX);
         gbc.gridy = gridyNum;
         add(tLogin, gbc);
         gridyNum++;
@@ -130,8 +127,7 @@ public class RegistrationPanelAuthUI extends JPanel {
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.NORTHWEST;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, displaySettings.getResizePixel(0.026),
-                displaySettings.getResizePixel(0.017), 0);
+        gbc.insets = new Insets(0, displaySettings.getResizePixel(0.026), displaySettings.getResizePixel(0.017), 0);
         gbc.ipadx = displaySettings.getResizeFromDisplay(0.015, DisplaySettings.TypeOfDisplayBorder.WIDTH);
         gbc.ipady = displaySettings.getResizeFromDisplay(0.004, DisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
@@ -139,8 +135,7 @@ public class RegistrationPanelAuthUI extends JPanel {
 
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.NORTHEAST;
-        gbc.insets = new Insets(0, 0, displaySettings.getResizePixel(0.017),
-                displaySettings.getResizePixel(0.026));
+        gbc.insets = new Insets(0, 0, displaySettings.getResizePixel(0.017), displaySettings.getResizePixel(0.026));
         gbc.ipadx = displaySettings.getResizeFromDisplay(0.015, DisplaySettings.TypeOfDisplayBorder.WIDTH);
         gbc.ipady = displaySettings.getResizeFromDisplay(0.004, DisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
@@ -150,11 +145,8 @@ public class RegistrationPanelAuthUI extends JPanel {
     private void addListenerToElements() {
         bRegister.addActionListener(event -> {
             if (checkFields()) {
-                sendMessagesCtrl.sendMessage(
-                        DefinesMessages.TypeMessage.RegistrationRequest,
-                        tLogin.getInputText(),
-                        tEmail.getInputText(),
-                        tPassword.getInputText());
+                sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.RegistrationRequest, tLogin.getInputText(),
+                        tEmail.getInputText(), tPassword.getInputText());
                 waitRepeatServer();
             }
         });
@@ -188,9 +180,8 @@ public class RegistrationPanelAuthUI extends JPanel {
             fields.add("\"Confirm password\"");
         }
 
-        if (!Objects.equals(tPassword.getInputText(), "") &&
-                !Objects.equals(tPasswordConfirm.getInputText(), "") &&
-                !Objects.equals(tPassword.getInputText(), tPasswordConfirm.getInputText())) {
+        if (!Objects.equals(tPassword.getInputText(), "") && !Objects.equals(tPasswordConfirm.getInputText(), "")
+                && !Objects.equals(tPassword.getInputText(), tPasswordConfirm.getInputText())) {
             tPassword.setErrorBorder(true);
             tPasswordConfirm.setErrorBorder(true);
             tErrorHelpInfo.setText("The entered passwords must match!");
@@ -218,20 +209,14 @@ public class RegistrationPanelAuthUI extends JPanel {
     }
 
     private void changeRegimeBack() {
-        GetterEvents.getInstance().getBeanMakerEvents().event(
-                this,
-                "changeRegimeWork",
+        GetterEvents.getInstance().getBeanMakerEvents().event(this, "changeRegimeWork",
                 DefinesAuthUI.RegimeWorkMainFrame.Auth);
         settingUnfocusFieldsOnChangeRegime();
     }
 
     private void changeRegimeNext() {
-        GetterEvents.getInstance().getBeanMakerEvents().event(
-                this,
-                "changeRegimeWork",
-                DefinesAuthUI.RegimeWorkMainFrame.VerifyCodeRegistration,
-                tLogin.getInputText(),
-                tEmail.getInputText(),
+        GetterEvents.getInstance().getBeanMakerEvents().event(this, "changeRegimeWork",
+                DefinesAuthUI.RegimeWorkMainFrame.VerifyCodeRegistration, tLogin.getInputText(), tEmail.getInputText(),
                 tPassword.getInputText());
         settingUnfocusFieldsOnChangeRegime();
     }
@@ -263,11 +248,16 @@ public class RegistrationPanelAuthUI extends JPanel {
 
     private void openErrorPane() {
         switch (messagesDefinesCtrl.getErrorRegistrationFlag()) {
-            case NoError -> optionPaneAuthUIFactory.create().show("The error is not clear.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case EmailSending -> optionPaneAuthUIFactory.create().show("The email may be invalid.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case Login -> optionPaneAuthUIFactory.create().show("This login is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case Email -> optionPaneAuthUIFactory.create().show("This email is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case LoginAndEmail -> optionPaneAuthUIFactory.create().show("The email and login data are already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case NoError ->
+                optionPaneAuthUIFactory.create().show("The error is not clear.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case EmailSending ->
+                optionPaneAuthUIFactory.create().show("The email may be invalid.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case Login ->
+                optionPaneAuthUIFactory.create().show("This login is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case Email ->
+                optionPaneAuthUIFactory.create().show("This email is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case LoginAndEmail -> optionPaneAuthUIFactory.create().show("The email and login data are already in use.",
+                    OptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 }

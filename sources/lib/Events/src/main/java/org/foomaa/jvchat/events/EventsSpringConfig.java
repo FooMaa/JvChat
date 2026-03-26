@@ -1,20 +1,19 @@
 package org.foomaa.jvchat.events;
 
-import org.foomaa.jvchat.models.ConnectionsEventsModel;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.*;
 import java.util.UUID;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.*;
+
+import org.foomaa.jvchat.models.ConnectionsEventsModel;
 
 @Configuration
 @EnableAspectJAutoProxy
 @EnableAutoConfiguration // Will change it later
 class EventsSpringConfig {
     public enum NameBeans {
-        BeanBaseEvent("beanBaseEvent"),
-        BeanPublisherEvents("beanPublisherEvents"),
-        BeanMakerEvents("beanMakerEvents"),
-        BeanAspectCompareEventsUuids("beanAspectCompareEventsUuids");
+        BeanBaseEvent("beanBaseEvent"), BeanPublisherEvents("beanPublisherEvents"), BeanMakerEvents(
+                "beanMakerEvents"), BeanAspectCompareEventsUuids("beanAspectCompareEventsUuids");
 
         private final String value;
 

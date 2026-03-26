@@ -1,19 +1,21 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 import java.util.UUID;
-import lombok.extern.slf4j.Slf4j;
 
-import org.foomaa.jvchat.ctrl.ChatsCtrl;
-import org.foomaa.jvchat.ctrl.MessagesDialogCtrl;
-import org.foomaa.jvchat.structobjects.MessageStructObject;
+import javax.swing.*;
+
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import lombok.extern.slf4j.Slf4j;
+
+import org.foomaa.jvchat.ctrl.ChatsCtrl;
+import org.foomaa.jvchat.ctrl.MessagesDialogCtrl;
+import org.foomaa.jvchat.structobjects.MessageStructObject;
 
 @Component
 @Scope("prototype")
@@ -28,11 +30,10 @@ public class PanelSendingMessageMainChatUI extends JPanel {
     private final ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider;
 
     PanelSendingMessageMainChatUI(ScrollPanelChatsMainChatUI scrollPanelChats,
-                                  ScrollPanelMessagesMainChatUI scrollPanelMessages,
-                                  MessagesDialogCtrl messagesDialogCtrl,
-                                  SendButtonMainChatUIFactory sendButtonMainChatUIFactory,
-                                  SendingTextAreaScrollMainChatUIFactory sendingTextAreaScrollMainChatUIFactory,
-                                  ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider) {
+            ScrollPanelMessagesMainChatUI scrollPanelMessages, MessagesDialogCtrl messagesDialogCtrl,
+            SendButtonMainChatUIFactory sendButtonMainChatUIFactory,
+            SendingTextAreaScrollMainChatUIFactory sendingTextAreaScrollMainChatUIFactory,
+            ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider) {
         this.scrollPanelChats = scrollPanelChats;
         this.scrollPanelMessages = scrollPanelMessages;
         this.messagesDialogCtrl = messagesDialogCtrl;

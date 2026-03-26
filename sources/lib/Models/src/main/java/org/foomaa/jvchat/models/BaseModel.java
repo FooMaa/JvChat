@@ -3,12 +3,12 @@ package org.foomaa.jvchat.models;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.ObjectProvider;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.structobjects.BaseStructObject;
 import org.foomaa.jvchat.structobjects.RootStructObject;
+import org.foomaa.jvchat.structobjects.RootStructObjectFactory;
 
 @Slf4j
 public abstract class BaseModel {
@@ -16,15 +16,15 @@ public abstract class BaseModel {
     private final String nameModel;
     private RootStructObject rootObject;
     private final BaseModel rootModel;
-    private final ObjectProvider<RootStructObject> rootStructObjectObjectProvider;
+    private final RootStructObjectFactory rootStructObjectFactory;
 
-    BaseModel(BaseModel rootModel, ObjectProvider<RootStructObject> rootStructObjectObjectProvider) {
-        this.rootStructObjectObjectProvider = rootStructObjectObjectProvider;
+    BaseModel(BaseModel rootModel, RootStructObjectFactory rootStructObjectFactory) {
+        this.rootStructObjectFactory = rootStructObjectFactory;
         this.rootModel = rootModel;
 
         nameModel = getClass().getSimpleName();
 
-        if (rootStructObjectObjectProvider != null) {
+        if (rootStructObjectFactory != null) {
             installRoot();
         }
     }
@@ -68,17 +68,16 @@ public abstract class BaseModel {
 
     private void installRoot() {
         if (rootModel == null && getClass() == RootObjectsModel.class) {
-            rootObject = rootStructObjectObjectProvider.getObject(getNameModel());
+            rootObject = rootStructObjectFactory.create(getNameModel());
             return;
         } else if (rootModel == null) {
             return;
         }
 
         RootStructObject rootStructObjectRootModel = (RootStructObject) rootModel.getRootObject();
-        RootStructObject creatingRoot = rootStructObjectObjectProvider.getObject(getNameModel());
+        RootStructObject creatingRoot = rootStructObjectFactory.create(getNameModel());
 
-        if (rootStructObjectRootModel != null &&
-                creatingRoot != rootStructObjectRootModel) {
+        if (rootStructObjectRootModel != null && creatingRoot != rootStructObjectRootModel) {
             rootObject = creatingRoot;
             rootModel.addItem(creatingRoot, rootStructObjectRootModel);
         }

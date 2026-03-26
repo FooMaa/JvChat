@@ -1,19 +1,21 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
-import lombok.extern.slf4j.Slf4j;
 
-import org.foomaa.jvchat.settings.DisplaySettings;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import lombok.extern.slf4j.Slf4j;
+
+import org.foomaa.jvchat.settings.DisplaySettings;
 
 @Component
 @Scope("prototype")
@@ -57,8 +59,7 @@ public class FindTextFieldMainChatUI extends JPanel {
         button.setBorder(null);
         button.setEnabled(false);
         button.setFocusPainted(false);
-        button.setPreferredSize(new Dimension(image.getWidth(),
-                image.getHeight()));
+        button.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
     }
 
     private void addListenerToElem() {
@@ -109,9 +110,9 @@ public class FindTextFieldMainChatUI extends JPanel {
     }
 
     private void settingTextAndButtonPanel() {
-        Dimension dim = new Dimension(displaySettings.getResizeFromDisplay(0.23,
-                DisplaySettings.TypeOfDisplayBorder.WIDTH), displaySettings.getResizeFromDisplay(0.03,
-                DisplaySettings.TypeOfDisplayBorder.HEIGHT));
+        Dimension dim = new Dimension(
+                displaySettings.getResizeFromDisplay(0.23, DisplaySettings.TypeOfDisplayBorder.WIDTH),
+                displaySettings.getResizeFromDisplay(0.03, DisplaySettings.TypeOfDisplayBorder.HEIGHT));
         settingButtonImage();
         settingTextField(dim);
         addElements();
@@ -142,8 +143,7 @@ public class FindTextFieldMainChatUI extends JPanel {
 
     private void settingTextField(Dimension dim) {
         textField = new JTextField();
-        Dimension calcNewDim = new Dimension((int) dim.getWidth() -
-                button.getPreferredSize().width,
+        Dimension calcNewDim = new Dimension((int) dim.getWidth() - button.getPreferredSize().width,
                 (int) dim.getHeight() - borderSize * 2);
         textField.setPreferredSize(calcNewDim);
         textField.setBorder(null);
@@ -161,7 +161,7 @@ public class FindTextFieldMainChatUI extends JPanel {
     }
 
     public void setNormalBorder() {
-        setBorder(BorderFactory.createMatteBorder(borderSize,borderSize,borderSize,7, Color.GRAY));
+        setBorder(BorderFactory.createMatteBorder(borderSize, borderSize, borderSize, 7, Color.GRAY));
     }
 
     public void setUnfocusFieldOnClose(boolean needSaveText) {

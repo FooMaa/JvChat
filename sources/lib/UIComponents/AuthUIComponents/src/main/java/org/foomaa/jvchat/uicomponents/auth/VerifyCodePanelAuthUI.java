@@ -1,9 +1,14 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+
+import javax.swing.*;
+
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
+
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
@@ -11,9 +16,6 @@ import org.foomaa.jvchat.ctrl.SendMessagesCtrl;
 import org.foomaa.jvchat.events.GetterEvents;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
-
 
 @Component
 @Profile("users")
@@ -34,17 +36,13 @@ public class VerifyCodePanelAuthUI extends JPanel {
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
     public enum RegimeWork {
-        Registration,
-        ResetPassword
+        Registration, ResetPassword
     }
 
-    VerifyCodePanelAuthUI(DisplaySettings displaySettings,
-                          SendMessagesCtrl sendMessagesCtrl,
-                          MessagesDefinesCtrl messagesDefinesCtrl,
-                          ButtonAuthUIFactory buttonAuthUIFactory,
-                          ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
-                          TextFieldAuthUIFactory textFieldAuthUIFactory,
-                          OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
+    VerifyCodePanelAuthUI(DisplaySettings displaySettings, SendMessagesCtrl sendMessagesCtrl,
+            MessagesDefinesCtrl messagesDefinesCtrl, ButtonAuthUIFactory buttonAuthUIFactory,
+            ErrorLabelAuthUIFactory errorLabelAuthUIFactory, TextFieldAuthUIFactory textFieldAuthUIFactory,
+            OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
         this.displaySettings = displaySettings;
         this.sendMessagesCtrl = sendMessagesCtrl;
         this.messagesDefinesCtrl = messagesDefinesCtrl;
@@ -99,7 +97,8 @@ public class VerifyCodePanelAuthUI extends JPanel {
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(displaySettings.getResizePixel(0.115), insX, displaySettings.getResizePixel(0.004), insX);
+        gbc.insets = new Insets(displaySettings.getResizePixel(0.115), insX, displaySettings.getResizePixel(0.004),
+                insX);
         gbc.gridy = gridyNum;
         add(tCode, gbc);
         gridyNum++;
@@ -135,12 +134,12 @@ public class VerifyCodePanelAuthUI extends JPanel {
         bSet.addActionListener(event -> {
             if (checkFields()) {
                 if (regime == RegimeWork.ResetPassword) {
-                    sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.VerifyFamousEmailRequest,
-                            email, tCode.getInputText());
+                    sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.VerifyFamousEmailRequest, email,
+                            tCode.getInputText());
                     waitRepeatServerResetPassword();
                 } else if (regime == RegimeWork.Registration) {
-                    sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.VerifyRegistrationEmailRequest,
-                            login, email, password, tCode.getInputText());
+                    sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.VerifyRegistrationEmailRequest, login,
+                            email, password, tCode.getInputText());
                     waitRepeatServerRegistration();
                 }
             }
@@ -153,8 +152,7 @@ public class VerifyCodePanelAuthUI extends JPanel {
         tCode.setErrorBorder(false);
         tErrorHelpInfo.setText("");
 
-        if (Objects.equals(tCode.getInputText(), "") ||
-                (tCode.getInputText().length() != 6 )) {
+        if (Objects.equals(tCode.getInputText(), "") || (tCode.getInputText().length() != 6)) {
             tCode.setErrorBorder(true);
             tErrorHelpInfo.setText("The \"Code\" field must be completed and contain the submitted code");
             return false;
@@ -169,14 +167,10 @@ public class VerifyCodePanelAuthUI extends JPanel {
 
     private void changeRegimeBack() {
         if (regime == RegimeWork.Registration) {
-            GetterEvents.getInstance().getBeanMakerEvents().event(
-                    this,
-                    "changeRegimeWork",
+            GetterEvents.getInstance().getBeanMakerEvents().event(this, "changeRegimeWork",
                     DefinesAuthUI.RegimeWorkMainFrame.Registration);
         } else if (regime == RegimeWork.ResetPassword) {
-            GetterEvents.getInstance().getBeanMakerEvents().event(
-                    this,
-                    "changeRegimeWork",
+            GetterEvents.getInstance().getBeanMakerEvents().event(this, "changeRegimeWork",
                     DefinesAuthUI.RegimeWorkMainFrame.ResetPassword);
         }
         settingUnfocusFieldsOnChangeRegime();
@@ -184,16 +178,11 @@ public class VerifyCodePanelAuthUI extends JPanel {
 
     private void changeRegimeNext() {
         if (regime == RegimeWork.Registration) {
-            GetterEvents.getInstance().getBeanMakerEvents().event(
-                    this,
-                    "changeRegimeWork",
+            GetterEvents.getInstance().getBeanMakerEvents().event(this, "changeRegimeWork",
                     DefinesAuthUI.RegimeWorkMainFrame.Auth);
         } else if (regime == RegimeWork.ResetPassword) {
-            GetterEvents.getInstance().getBeanMakerEvents().event(
-                    this,
-                    "changeRegimeWork",
-                    DefinesAuthUI.RegimeWorkMainFrame.NewPassword,
-                    email);
+            GetterEvents.getInstance().getBeanMakerEvents().event(this, "changeRegimeWork",
+                    DefinesAuthUI.RegimeWorkMainFrame.NewPassword, email);
         }
         settingUnfocusFieldsOnChangeRegime();
     }
@@ -204,42 +193,38 @@ public class VerifyCodePanelAuthUI extends JPanel {
 
     private void waitRepeatServerResetPassword() {
         setEnabled(false);
-        while (messagesDefinesCtrl.getVerifyFamousEmailRequestFlag() ==
-                MessagesDefinesCtrl.TypeFlags.DEFAULT) {
+        while (messagesDefinesCtrl.getVerifyFamousEmailRequestFlag() == MessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
                 log.error("Failed to wait.");
             }
         }
-        if (messagesDefinesCtrl.getVerifyFamousEmailRequestFlag() ==
-                MessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (messagesDefinesCtrl.getVerifyFamousEmailRequestFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
             changeRegimeNext();
             setEnabled(true);
-        } else if (messagesDefinesCtrl.getVerifyFamousEmailRequestFlag() ==
-                MessagesDefinesCtrl.TypeFlags.FALSE) {
+        } else if (messagesDefinesCtrl.getVerifyFamousEmailRequestFlag() == MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            optionPaneAuthUIFactory.create().show("The code is not correct. Enter the code you received by mail again.\n" +
-                            "The code may have expired, enter your email again and get a new one.", OptionPaneAuthUI.TypeDlg.ERROR);
+            optionPaneAuthUIFactory.create()
+                    .show("The code is not correct. Enter the code you received by mail again.\n"
+                            + "The code may have expired, enter your email again and get a new one.",
+                            OptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 
     private void waitRepeatServerRegistration() {
         setEnabled(false);
-        while (messagesDefinesCtrl.getVerifyRegistrationEmailRequestFlag() ==
-                MessagesDefinesCtrl.TypeFlags.DEFAULT) {
+        while (messagesDefinesCtrl.getVerifyRegistrationEmailRequestFlag() == MessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
                 log.error("Failed to wait.");
             }
         }
-        if (messagesDefinesCtrl.getVerifyRegistrationEmailRequestFlag() ==
-                MessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (messagesDefinesCtrl.getVerifyRegistrationEmailRequestFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
             changeRegimeNext();
             setEnabled(true);
-        } else if (messagesDefinesCtrl.getVerifyRegistrationEmailRequestFlag() ==
-                MessagesDefinesCtrl.TypeFlags.FALSE) {
+        } else if (messagesDefinesCtrl.getVerifyRegistrationEmailRequestFlag() == MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             openErrorPane();
         }
@@ -247,13 +232,20 @@ public class VerifyCodePanelAuthUI extends JPanel {
 
     private void openErrorPane() {
         switch (messagesDefinesCtrl.getErrorVerifyRegEmailFlag()) {
-            case NoError -> optionPaneAuthUIFactory.create().show("The error is not clear.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case EmailSending -> optionPaneAuthUIFactory.create().show("The email may be invalid.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case Login -> optionPaneAuthUIFactory.create().show("This login is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case Email -> optionPaneAuthUIFactory.create().show("This email is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case Code -> optionPaneAuthUIFactory.create().show("The code is not correct. Enter the code you received by mail again.\n" +
-                    "The code may have expired, enter your email again and get a new one.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case LoginAndEmail -> optionPaneAuthUIFactory.create().show("The email and login data are already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case NoError ->
+                optionPaneAuthUIFactory.create().show("The error is not clear.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case EmailSending ->
+                optionPaneAuthUIFactory.create().show("The email may be invalid.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case Login ->
+                optionPaneAuthUIFactory.create().show("This login is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case Email ->
+                optionPaneAuthUIFactory.create().show("This email is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case Code -> optionPaneAuthUIFactory.create()
+                    .show("The code is not correct. Enter the code you received by mail again.\n"
+                            + "The code may have expired, enter your email again and get a new one.",
+                            OptionPaneAuthUI.TypeDlg.ERROR);
+            case LoginAndEmail -> optionPaneAuthUIFactory.create().show("The email and login data are already in use.",
+                    OptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 }

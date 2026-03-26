@@ -1,44 +1,35 @@
 package org.foomaa.jvchat.models;
 
-import org.foomaa.jvchat.structobjects.BaseStructObject;
-import org.foomaa.jvchat.structobjects.ConnectionEventStructObject;
-import org.foomaa.jvchat.structobjects.RootStructObject;
-import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
+
+import lombok.extern.slf4j.Slf4j;
+
+import org.foomaa.jvchat.structobjects.*;
+
 @Component
 @Lazy
 @Slf4j
 public class ConnectionsEventsModel extends BaseModel {
-    private final ObjectProvider<ConnectionEventStructObject> connectionEventStructObjectObjectProvider;
+    private final ConnectionEventStructObjectFactory connectionEventStructObjectFactory;
 
-    ConnectionsEventsModel(ObjectProvider<RootStructObject> rootStructObjectObjectProvider,
-                           RootObjectsModel rootObjectsModel,
-                           ObjectProvider<ConnectionEventStructObject> connectionEventStructObjectObjectProvider) {
-        super(rootObjectsModel, rootStructObjectObjectProvider);
+    ConnectionsEventsModel(RootStructObjectFactory rootStructObjectFactory, RootObjectsModel rootObjectsModel,
+            ConnectionEventStructObjectFactory connectionEventStructObjectFactory) {
+        super(rootObjectsModel, rootStructObjectFactory);
 
-        this.connectionEventStructObjectObjectProvider = connectionEventStructObjectObjectProvider;
+        this.connectionEventStructObjectFactory = connectionEventStructObjectFactory;
     }
 
-    public UUID createNewConnection(Object objectSender,
-                                    Object objectReceiver,
-                                    String customNameEvent,
-                                    AnnotationConfigApplicationContext context) {
-        ConnectionEventStructObject connectionObject = connectionEventStructObjectObjectProvider.getObject();
-
-        connectionObject.setObjectSender(objectSender);
-        connectionObject.setCustomNameEvent(customNameEvent);
-        connectionObject.setObjectReceiver(objectReceiver);
-        connectionObject.setContext(context);
+    public UUID createNewConnection(Object objectSender, Object objectReceiver, String customNameEvent,
+            AnnotationConfigApplicationContext context) {
+        ConnectionEventStructObject connectionObject = connectionEventStructObjectFactory.create(customNameEvent,
+                objectReceiver, context, objectSender);
 
         addItem(connectionObject, getRootObject());
 
@@ -54,8 +45,8 @@ public class ConnectionsEventsModel extends BaseModel {
                 log.error("This includes the chatStructObject object, which is null.");
                 continue;
             }
-            if (connectionEventStructObject.getObjectSender() == objectSender &&
-                    Objects.equals(connectionEventStructObject.getCustomNameEvent(), customNameEvent)) {
+            if (connectionEventStructObject.getObjectSender() == objectSender
+                    && Objects.equals(connectionEventStructObject.getCustomNameEvent(), customNameEvent)) {
                 resList.add(connectionEventStructObject);
             }
         }

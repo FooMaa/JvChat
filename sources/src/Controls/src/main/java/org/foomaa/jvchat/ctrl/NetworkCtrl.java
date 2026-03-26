@@ -1,27 +1,28 @@
 package org.foomaa.jvchat.ctrl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
-import lombok.extern.slf4j.Slf4j;
 
-import org.foomaa.jvchat.models.SocketRunnableCtrlModel;
-import org.foomaa.jvchat.network.UsersSocket;
-import org.foomaa.jvchat.settings.MainSettings;
-import org.foomaa.jvchat.network.ServersSocket;
-import org.foomaa.jvchat.structobjects.SocketRunnableCtrlStructObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
+import lombok.extern.slf4j.Slf4j;
+
+import org.foomaa.jvchat.models.SocketRunnableCtrlModel;
+import org.foomaa.jvchat.network.ServersSocket;
+import org.foomaa.jvchat.network.UsersSocket;
+import org.foomaa.jvchat.settings.MainSettings;
+import org.foomaa.jvchat.structobjects.SocketRunnableCtrlStructObject;
 
 @Component
 @Lazy
 @Slf4j
 public class NetworkCtrl {
     private final ServersSocket serversSocket;
-    private  final UsersSocket usersSocket;
+    private final UsersSocket usersSocket;
     private SocketRunnableCtrl currentSocketRunnableCtrl;
     private final TakeMessagesCtrl takeMessagesCtrl;
     private final OnlineServersCtrl onlineServersCtrl;
@@ -29,13 +30,11 @@ public class NetworkCtrl {
     private final SocketRunnableCtrlModel socketRunnableCtrlModel;
     private final SocketRunnableCtrlFactory socketRunnableCtrlFactory;
 
-    NetworkCtrl(MainSettings mainSettings,
-                SocketRunnableCtrlModel socketRunnableCtrlModel,
-                TakeMessagesCtrl takeMessagesCtrl,
-                @Autowired(required = false) ServersSocket serversSocket,
-                @Autowired(required = false) UsersSocket usersSocket,
-                @Autowired(required = false) OnlineServersCtrl onlineServersCtrl,
-                SocketRunnableCtrlFactory socketRunnableCtrlFactory) {
+    NetworkCtrl(MainSettings mainSettings, SocketRunnableCtrlModel socketRunnableCtrlModel,
+            TakeMessagesCtrl takeMessagesCtrl, @Autowired(required = false) ServersSocket serversSocket,
+            @Autowired(required = false) UsersSocket usersSocket,
+            @Autowired(required = false) OnlineServersCtrl onlineServersCtrl,
+            SocketRunnableCtrlFactory socketRunnableCtrlFactory) {
         this.mainSettings = mainSettings;
         this.socketRunnableCtrlModel = socketRunnableCtrlModel;
         this.takeMessagesCtrl = takeMessagesCtrl;
@@ -111,8 +110,8 @@ public class NetworkCtrl {
     }
 
     private void controlErrorConnectionSocket() {
-        List<SocketRunnableCtrlStructObject> listAllConnections =
-                socketRunnableCtrlModel.getAllSocketRunnableCtrlStructObject();
+        List<SocketRunnableCtrlStructObject> listAllConnections = socketRunnableCtrlModel
+                .getAllSocketRunnableCtrlStructObject();
 
         int milliSecondsSleepAfterOperation = 10000;
 
@@ -122,7 +121,8 @@ public class NetworkCtrl {
             if (socketRunnableCtrl != null && socketRunnableCtrl.isErrorsExceedsLimit()) {
                 log.warn("We clean up a thread that has not responded for a long time.");
                 socketRunnableCtrlModel.removeItem(socketCtrl);
-                log.warn("Number of active connections after cleaning: {}", socketRunnableCtrlModel.getCountConnections());
+                log.warn("Number of active connections after cleaning: {}",
+                        socketRunnableCtrlModel.getCountConnections());
             }
         }
 

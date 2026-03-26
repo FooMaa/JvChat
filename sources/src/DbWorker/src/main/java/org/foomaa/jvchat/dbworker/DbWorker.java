@@ -1,16 +1,17 @@
 package org.foomaa.jvchat.dbworker;
 
-import org.foomaa.jvchat.settings.ServersInfoSettings;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import java.sql.DriverManager;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.ResultSet;
 import lombok.extern.slf4j.Slf4j;
 
+import org.foomaa.jvchat.settings.ServersInfoSettings;
 
 @Component
 @Profile("servers")
@@ -33,8 +34,7 @@ public class DbWorker {
         connection = null;
 
         try {
-            connection = DriverManager.getConnection(serversInfoSettings.getDbUrl(),
-                    serversInfoSettings.getDbUser(),
+            connection = DriverManager.getConnection(serversInfoSettings.getDbUrl(), serversInfoSettings.getDbUser(),
                     serversInfoSettings.getMagicStringDb());
         } catch (SQLException e) {
             log.error("Error in connect to DB.");
@@ -59,9 +59,7 @@ public class DbWorker {
     public ResultSet makeExecution(String execution) {
         ResultSet resultSet = null;
         try {
-            Statement stmt = connection.createStatement(
-                    ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY);
+            Statement stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             resultSet = stmt.executeQuery(execution);
         } catch (SQLException exception) {
             log.error("The database returned an error, the request cannot be executed.");

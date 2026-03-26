@@ -1,12 +1,12 @@
 package org.foomaa.jvchat.uilinks;
 
-import org.foomaa.jvchat.uicomponents.auth.OptionPaneAuthUI;
-import org.foomaa.jvchat.uicomponents.auth.OptionPaneAuthUIFactory;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import org.foomaa.jvchat.uicomponents.auth.OptionPaneAuthUI;
+import org.foomaa.jvchat.uicomponents.auth.OptionPaneAuthUIFactory;
 
 @Component
 @Lazy

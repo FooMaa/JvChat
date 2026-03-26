@@ -5,15 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
-import org.foomaa.jvchat.structobjects.BaseStructObject;
-import org.foomaa.jvchat.structobjects.MessageStructObject;
-import org.foomaa.jvchat.structobjects.MessageStructObjectFactory;
-import org.foomaa.jvchat.structobjects.RootStructObject;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
+import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
+import org.foomaa.jvchat.structobjects.*;
 
 @Component
 @Lazy
@@ -21,27 +17,16 @@ public class MessagesModel extends BaseModel {
     private final MessageStructObjectFactory messageStructObjectFactory;
 
     MessagesModel(MessageStructObjectFactory messageStructObjectFactory,
-                  ObjectProvider<RootStructObject> rootStructObjectObjectProvider,
-                  RootObjectsModel rootObjectsModel) {
-        super(rootObjectsModel, rootStructObjectObjectProvider);
+            RootStructObjectFactory rootStructObjectFactory, RootObjectsModel rootObjectsModel) {
+        super(rootObjectsModel, rootStructObjectFactory);
 
         this.messageStructObjectFactory = messageStructObjectFactory;
     }
 
-    public MessageStructObject createNewMessage(UUID uuidUserSender,
-                                                UUID uuidUserReceiver,
-                                                UUID uuidMessage,
-                                                MainChatsGlobalDefines.TypeStatusMessage statusMessage,
-                                                String text,
-                                                LocalDateTime timestamp) {
-        MessageStructObject messageObj =
-                messageStructObjectFactory.create(
-                        uuidUserSender,
-                        uuidUserReceiver,
-                        statusMessage,
-                        text,
-                        timestamp,
-                        uuidMessage);
+    public MessageStructObject createNewMessage(UUID uuidUserSender, UUID uuidUserReceiver, UUID uuidMessage,
+            MainChatsGlobalDefines.TypeStatusMessage statusMessage, String text, LocalDateTime timestamp) {
+        MessageStructObject messageObj = messageStructObjectFactory.create(uuidUserSender, uuidUserReceiver,
+                statusMessage, text, timestamp, uuidMessage);
 
         addItem(messageObj, getRootObject());
 

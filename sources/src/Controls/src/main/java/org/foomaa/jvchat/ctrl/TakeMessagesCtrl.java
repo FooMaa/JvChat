@@ -6,19 +6,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.stereotype.Component;
+
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.cryptography.HashCryptography;
 import org.foomaa.jvchat.globaldefines.DbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
-import org.foomaa.jvchat.messages.DeserializatorDataMessages;
 import org.foomaa.jvchat.messages.DefinesMessages;
+import org.foomaa.jvchat.messages.DeserializatorDataMessages;
 import org.foomaa.jvchat.settings.UsersInfoSettings;
 import org.foomaa.jvchat.tools.FormatTools;
 import org.foomaa.jvchat.tools.StructTools;
-import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.stereotype.Component;
-
 
 @Component
 @Slf4j
@@ -37,18 +37,13 @@ public class TakeMessagesCtrl {
     private final ObjectProvider<EmailCtrl> emailCtrlObjectProvider;
     private final ObjectProvider<DbCtrl> dbCtrlObjectProvider;
 
-    TakeMessagesCtrl(HashCryptography hashCryptography,
-                     DeserializatorDataMessages deserializatorDataMessages,
-                     StructTools structTools,
-                     FormatTools formatTools,
-                     SendMessagesCtrl sendMessagesCtrl,
-                     MessagesDefinesCtrl messagesDefinesCtrl,
-                     MessagesDialogCtrl messagesDialogCtrl,
-                     ObjectProvider<OnlineServersCtrl> onlineServersCtrlObjectProvider,
-                     ObjectProvider<UsersInfoSettings> usersInfoSettingsObjectProvider,
-                     ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider,
-                     ObjectProvider<EmailCtrl> emailCtrlObjectProvider,
-                     ObjectProvider<DbCtrl> dbCtrlObjectProvider) {
+    TakeMessagesCtrl(HashCryptography hashCryptography, DeserializatorDataMessages deserializatorDataMessages,
+            StructTools structTools, FormatTools formatTools, SendMessagesCtrl sendMessagesCtrl,
+            MessagesDefinesCtrl messagesDefinesCtrl, MessagesDialogCtrl messagesDialogCtrl,
+            ObjectProvider<OnlineServersCtrl> onlineServersCtrlObjectProvider,
+            ObjectProvider<UsersInfoSettings> usersInfoSettingsObjectProvider,
+            ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider, ObjectProvider<EmailCtrl> emailCtrlObjectProvider,
+            ObjectProvider<DbCtrl> dbCtrlObjectProvider) {
         this.hashCryptography = hashCryptography;
         this.structTools = structTools;
         this.formatTools = formatTools;
@@ -72,9 +67,9 @@ public class TakeMessagesCtrl {
             case RegistrationRequest -> workRegistrationRequestMessage(getDeserializeMapData(type, data));
             case RegistrationReply -> workRegistrationReplyMessage(getDeserializeMapData(type, data));
             case VerifyRegistrationEmailRequest ->
-                    workVerifyRegistrationEmailRequestMessage(getDeserializeMapData(type, data));
+                workVerifyRegistrationEmailRequestMessage(getDeserializeMapData(type, data));
             case VerifyRegistrationEmailReply ->
-                    workVerifyRegistrationEmailReplyMessage(getDeserializeMapData(type, data));
+                workVerifyRegistrationEmailReplyMessage(getDeserializeMapData(type, data));
             case ResetPasswordRequest -> workResetPasswordRequestMessage(getDeserializeMapData(type, data));
             case ResetPasswordReply -> workResetPasswordReplyMessage(getDeserializeMapData(type, data));
             case VerifyFamousEmailRequest -> workVerifyFamousEmailRequestMessage(getDeserializeMapData(type, data));
@@ -86,24 +81,24 @@ public class TakeMessagesCtrl {
             case ChatsLoadRequest -> workChatsLoadRequestMessage(getDeserializeMapData(type, data));
             case ChatsLoadReply -> workChatsLoadReplyMessage(getDeserializeMapData(type, data));
             case LoadUsersOnlineStatusRequest ->
-                    workLoadUsersOnlineStatusRequestMessage(getDeserializeMapData(type, data));
+                workLoadUsersOnlineStatusRequestMessage(getDeserializeMapData(type, data));
             case LoadUsersOnlineStatusReply -> workLoadUsersOnlineStatusReplyMessage(getDeserializeMapData(type, data));
             case TextMessageSendUserToServer ->
-                    workTextMessageSendUserToServerMessage(getDeserializeMapData(type, data));
+                workTextMessageSendUserToServerMessage(getDeserializeMapData(type, data));
             case TextMessageSendUserToServerVerification ->
-                    workTextMessageSendUserToServerVerificationMessage(getDeserializeMapData(type, data));
+                workTextMessageSendUserToServerVerificationMessage(getDeserializeMapData(type, data));
             case TextMessagesChangingStatusFromServer ->
-                    workTextMessagesChangingStatusFromServerMessage(getDeserializeMapData(type, data));
+                workTextMessagesChangingStatusFromServerMessage(getDeserializeMapData(type, data));
             case TextMessagesChangingStatusFromServerVerification ->
-                    workTextMessagesChangingStatusFromServerVerificationMessage(getDeserializeMapData(type, data));
+                workTextMessagesChangingStatusFromServerVerificationMessage(getDeserializeMapData(type, data));
             case TextMessagesChangingStatusFromUser ->
-                    workTextMessagesChangingStatusFromUserMessage(getDeserializeMapData(type, data));
+                workTextMessagesChangingStatusFromUserMessage(getDeserializeMapData(type, data));
             case TextMessagesChangingStatusFromUserVerification ->
-                    workTextMessagesChangingStatusFromUserVerificationMessage(getDeserializeMapData(type, data));
+                workTextMessagesChangingStatusFromUserVerificationMessage(getDeserializeMapData(type, data));
             case TextMessageRedirectServerToUser ->
-                    workTextMessageRedirectServerToUserMessage(getDeserializeMapData(type, data));
+                workTextMessageRedirectServerToUserMessage(getDeserializeMapData(type, data));
             case TextMessageRedirectServerToUserVerification ->
-                    workTextMessageRedirectServerToUserVerificationMessage(getDeserializeMapData(type, data));
+                workTextMessageRedirectServerToUserVerificationMessage(getDeserializeMapData(type, data));
             case MessagesLoadRequest -> workMessagesLoadRequestMessage(getDeserializeMapData(type, data));
             case MessagesLoadReply -> workMessagesLoadReplyMessage(getDeserializeMapData(type, data));
         }
@@ -137,15 +132,12 @@ public class TakeMessagesCtrl {
             return;
         }
 
-        boolean requestDB = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.UserPassword,
-                        login,
-                        hashPassword);
+        boolean requestDB = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.UserPassword, login, hashPassword);
 
-        String uuidUserStr = dbCtrl.getSingleDataFromDb(DbCtrl.TypeExecutionGetSingle.UuidUserByLogin,
-                        login);
+        String uuidUserStr = dbCtrl.getSingleDataFromDb(DbCtrl.TypeExecutionGetSingle.UuidUserByLogin, login);
         UUID uuidUser = UUID.fromString(uuidUserStr);
 
-       sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.EntryReply, requestDB, uuidUser);
+        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.EntryReply, requestDB, uuidUser);
     }
 
     private void workEntryReplyMessage(HashMap<DefinesMessages.TypeData, ?> map) {
@@ -170,9 +162,9 @@ public class TakeMessagesCtrl {
         }
 
         boolean checkLogin = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.Login,
-                        (String) map.get(DefinesMessages.TypeData.Login));
+                (String) map.get(DefinesMessages.TypeData.Login));
         boolean checkEmail = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.Email,
-                        (String) map.get(DefinesMessages.TypeData.Email));
+                (String) map.get(DefinesMessages.TypeData.Email));
         if (checkLogin) {
             typeError = DefinesMessages.TypeErrorRegistration.Login;
         }
@@ -201,7 +193,8 @@ public class TakeMessagesCtrl {
         } else {
             messagesDefinesCtrl.setRegistrationRequestFlag(MessagesDefinesCtrl.TypeFlags.FALSE);
         }
-        messagesDefinesCtrl.setErrorRegistrationFlag((DefinesMessages.TypeErrorRegistration) map.get(DefinesMessages.TypeData.ErrorReg));
+        messagesDefinesCtrl.setErrorRegistrationFlag(
+                (DefinesMessages.TypeErrorRegistration) map.get(DefinesMessages.TypeData.ErrorReg));
     }
 
     private void workVerifyRegistrationEmailRequestMessage(HashMap<DefinesMessages.TypeData, ?> map) {
@@ -212,8 +205,8 @@ public class TakeMessagesCtrl {
         }
 
         boolean checkCode = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.VerifyRegistrationEmail,
-                        (String) map.get(DefinesMessages.TypeData.Email),
-                        (String) map.get(DefinesMessages.TypeData.VerifyCode));
+                (String) map.get(DefinesMessages.TypeData.Email),
+                (String) map.get(DefinesMessages.TypeData.VerifyCode));
         if (checkCode) {
             String login = (String) map.get(DefinesMessages.TypeData.Login);
             String email = (String) map.get(DefinesMessages.TypeData.Email);
@@ -222,17 +215,14 @@ public class TakeMessagesCtrl {
             String hashPassword = hashCryptography.getHash(password);
             UUID uuidUser = UUID.randomUUID();
 
-            boolean requestDB = dbCtrl.insertQueryToDB(DbCtrl.TypeExecutionInsert.RegisterForm,
-                            login,
-                            email,
-                            hashPassword,
-                            uuidUser.toString());
+            boolean requestDB = dbCtrl.insertQueryToDB(DbCtrl.TypeExecutionInsert.RegisterForm, login, email,
+                    hashPassword, uuidUser.toString());
             DefinesMessages.TypeErrorRegistration typeError = DefinesMessages.TypeErrorRegistration.NoError;
             if (!requestDB) {
                 boolean checkLogin = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.Login,
-                                (String) map.get(DefinesMessages.TypeData.Login));
+                        (String) map.get(DefinesMessages.TypeData.Login));
                 boolean checkEmail = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.Email,
-                                (String) map.get(DefinesMessages.TypeData.Email));
+                        (String) map.get(DefinesMessages.TypeData.Email));
                 if (checkLogin) {
                     typeError = DefinesMessages.TypeErrorRegistration.Login;
                 }
@@ -243,9 +233,11 @@ public class TakeMessagesCtrl {
                     typeError = DefinesMessages.TypeErrorRegistration.LoginAndEmail;
                 }
             }
-            sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.VerifyRegistrationEmailReply, requestDB, typeError);
+            sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.VerifyRegistrationEmailReply, requestDB,
+                    typeError);
         } else {
-            sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.VerifyRegistrationEmailReply, false, DefinesMessages.TypeErrorRegistration.Code);
+            sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.VerifyRegistrationEmailReply, false,
+                    DefinesMessages.TypeErrorRegistration.Code);
         }
     }
 
@@ -255,7 +247,8 @@ public class TakeMessagesCtrl {
         } else {
             messagesDefinesCtrl.setVerifyRegistrationEmailRequestFlag(MessagesDefinesCtrl.TypeFlags.FALSE);
         }
-        messagesDefinesCtrl.setErrorVerifyRegEmailFlag((DefinesMessages.TypeErrorRegistration) map.get(DefinesMessages.TypeData.ErrorReg));
+        messagesDefinesCtrl.setErrorVerifyRegEmailFlag(
+                (DefinesMessages.TypeErrorRegistration) map.get(DefinesMessages.TypeData.ErrorReg));
     }
 
     private void workResetPasswordRequestMessage(HashMap<DefinesMessages.TypeData, ?> map) {
@@ -267,8 +260,7 @@ public class TakeMessagesCtrl {
             return;
         }
 
-        boolean checkEmail = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.Email,
-                        email);
+        boolean checkEmail = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.Email, email);
         boolean reply = false;
         if (checkEmail) {
             EmailCtrl emailCtrl = emailCtrlObjectProvider.getIfAvailable();
@@ -298,8 +290,8 @@ public class TakeMessagesCtrl {
         }
 
         boolean requestDB = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.VerifyFamousEmailCode,
-                        (String) map.get(DefinesMessages.TypeData.Email),
-                        (String) map.get(DefinesMessages.TypeData.VerifyCode));
+                (String) map.get(DefinesMessages.TypeData.Email),
+                (String) map.get(DefinesMessages.TypeData.VerifyCode));
         sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.VerifyFamousEmailReply, requestDB);
     }
 
@@ -323,9 +315,7 @@ public class TakeMessagesCtrl {
             return;
         }
 
-        boolean requestDB = dbCtrl.insertQueryToDB(DbCtrl.TypeExecutionInsert.ChangePassword,
-                        email,
-                        hashPassword);
+        boolean requestDB = dbCtrl.insertQueryToDB(DbCtrl.TypeExecutionInsert.ChangePassword, email, hashPassword);
         sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.ChangePasswordReply, requestDB);
     }
 
@@ -346,15 +336,15 @@ public class TakeMessagesCtrl {
             return;
         }
 
-        List<Map<DbGlobalDefines.LineKeys, String>> requestDB =
-                dbCtrl.getMultipleInfoFromDb(DbCtrl.TypeExecutionGetMultiple.ChatsLoad, uuidUserStr);
+        List<Map<DbGlobalDefines.LineKeys, String>> requestDB = dbCtrl
+                .getMultipleInfoFromDb(DbCtrl.TypeExecutionGetMultiple.ChatsLoad, uuidUserStr);
         sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.ChatsLoadReply, requestDB);
     }
 
     private void workChatsLoadReplyMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         Object objectFromMap = map.get(DefinesMessages.TypeData.ChatsInfoList);
-        List<Map<DefinesMessages.TypeData, Object>> chatsInfo =
-                structTools.objectInListMaps(objectFromMap, DefinesMessages.TypeData.class, Object.class);
+        List<Map<DefinesMessages.TypeData, Object>> chatsInfo = structTools.objectInListMaps(objectFromMap,
+                DefinesMessages.TypeData.class, Object.class);
 
         ChatsCtrl chatsCtrl = chatsCtrlObjectProvider.getIfAvailable();
         if (chatsCtrl == null) {
@@ -401,22 +391,21 @@ public class TakeMessagesCtrl {
             return;
         }
 
-        Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> statusesUsers = onlineServersCtrl.getStatusesUsers(uuidsUsers);
+        Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> statusesUsers = onlineServersCtrl
+                .getStatusesUsers(uuidsUsers);
         Map<UUID, String> lastOnlineTimeUsers = onlineServersCtrl.getLastOnlineTimeUsers(uuidsUsers);
-        sendMessagesCtrl.sendMessage(
-                DefinesMessages.TypeMessage.LoadUsersOnlineStatusReply, statusesUsers, lastOnlineTimeUsers);
+        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.LoadUsersOnlineStatusReply, statusesUsers,
+                lastOnlineTimeUsers);
     }
 
     private void workLoadUsersOnlineStatusReplyMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         Object objectMapStatusesUsers = map.get(DefinesMessages.TypeData.UsersOnlineInfoList);
         Object objectMapLastOnlineTimeUsers = map.get(DefinesMessages.TypeData.Timestamp);
 
-        Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> mapStatusesUsers =
-                structTools.objectInMap(objectMapStatusesUsers, UUID.class,
-                        MainChatsGlobalDefines.TypeStatusOnline.class);
-        Map<UUID, String> mapLastOnlineTimeUsers =
-                structTools.objectInMap(objectMapLastOnlineTimeUsers, UUID.class,
-                        String.class);
+        Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> mapStatusesUsers = structTools
+                .objectInMap(objectMapStatusesUsers, UUID.class, MainChatsGlobalDefines.TypeStatusOnline.class);
+        Map<UUID, String> mapLastOnlineTimeUsers = structTools.objectInMap(objectMapLastOnlineTimeUsers, UUID.class,
+                String.class);
 
         ChatsCtrl chatsCtrl = chatsCtrlObjectProvider.getIfAvailable();
         if (chatsCtrl == null) {
@@ -451,17 +440,16 @@ public class TakeMessagesCtrl {
             return;
         }
 
-        dbCtrl.insertQueryToDB(DbCtrl.TypeExecutionInsert.ChatMessagesSentMessage,
-                uuidUserSender.toString(), uuidUserReceiver.toString(), uuidMessage.toString(), statusString, text, timestampStr);
+        dbCtrl.insertQueryToDB(DbCtrl.TypeExecutionInsert.ChatMessagesSentMessage, uuidUserSender.toString(),
+                uuidUserReceiver.toString(), uuidMessage.toString(), statusString, text, timestampStr);
         // send the status "delivered"
-        sendMessagesCtrl.sendMessage(
-                DefinesMessages.TypeMessage.TextMessagesChangingStatusFromServer, mapStatusMessages);
+        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.TextMessagesChangingStatusFromServer,
+                mapStatusMessages);
         // send to the user if he is online
-        messagesDialogCtrl.redirectMessageToOnlineUser(
-                uuidUserSender, uuidUserReceiver, uuidMessage, status, text, timestamp);
+        messagesDialogCtrl.redirectMessageToOnlineUser(uuidUserSender, uuidUserReceiver, uuidMessage, status, text,
+                timestamp);
         // send a delivery receipt
-        sendMessagesCtrl.sendMessage(
-                DefinesMessages.TypeMessage.TextMessageSendUserToServerVerification, true);
+        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.TextMessageSendUserToServerVerification, true);
     }
 
     private void workTextMessageSendUserToServerVerificationMessage(HashMap<DefinesMessages.TypeData, ?> map) {
@@ -474,13 +462,13 @@ public class TakeMessagesCtrl {
 
     private void workTextMessagesChangingStatusFromServerMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         Object statusesMap = map.get(DefinesMessages.TypeData.StatusMessagesMap);
-        Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages =
-                structTools.objectInMap(statusesMap, UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
+        Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = structTools.objectInMap(statusesMap,
+                UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
 
         messagesDialogCtrl.setDirtyStatusToMessage(mapStatusesMessages);
 
-        sendMessagesCtrl.sendMessage(
-                DefinesMessages.TypeMessage.TextMessagesChangingStatusFromServerVerification, true);
+        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.TextMessagesChangingStatusFromServerVerification,
+                true);
     }
 
     private void workTextMessagesChangingStatusFromServerVerificationMessage(HashMap<DefinesMessages.TypeData, ?> map) {
@@ -493,8 +481,8 @@ public class TakeMessagesCtrl {
 
     private void workTextMessagesChangingStatusFromUserMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         Object statusesMap = map.get(DefinesMessages.TypeData.StatusMessagesMap);
-        Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages =
-                structTools.objectInMap(statusesMap, UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
+        Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = structTools.objectInMap(statusesMap,
+                UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
 
         for (UUID uuidMessage : mapStatusesMessages.keySet()) {
             String statusByUuid = String.valueOf(mapStatusesMessages.get(uuidMessage).getValue());
@@ -505,14 +493,11 @@ public class TakeMessagesCtrl {
                 return;
             }
 
-            dbCtrl.insertQueryToDB(
-                    DbCtrl.TypeExecutionInsert.ChatsMessageStatusChange,
-                    uuidMessage.toString(),
+            dbCtrl.insertQueryToDB(DbCtrl.TypeExecutionInsert.ChatsMessageStatusChange, uuidMessage.toString(),
                     statusByUuid);
         }
 
-        sendMessagesCtrl.sendMessage(
-                DefinesMessages.TypeMessage.TextMessagesChangingStatusFromUserVerification, true);
+        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.TextMessagesChangingStatusFromUserVerification, true);
     }
 
     private void workTextMessagesChangingStatusFromUserVerificationMessage(HashMap<DefinesMessages.TypeData, ?> map) {
@@ -534,12 +519,11 @@ public class TakeMessagesCtrl {
         int normaliseTimestampCount = 3;
         LocalDateTime timestamp = formatTools.stringToLocalDateTime(timestampStr, normaliseTimestampCount);
 
-        messagesDialogCtrl.addRedirectMessageToModel(
-                uuidUserSender, uuidUserReceiver, uuidMessage, status, text, timestamp);
+        messagesDialogCtrl.addRedirectMessageToModel(uuidUserSender, uuidUserReceiver, uuidMessage, status, text,
+                timestamp);
         messagesDefinesCtrl.setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
 
-        sendMessagesCtrl.sendMessage(
-                DefinesMessages.TypeMessage.TextMessageRedirectServerToUserVerification, true);
+        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.TextMessageRedirectServerToUserVerification, true);
     }
 
     private void workTextMessageRedirectServerToUserVerificationMessage(HashMap<DefinesMessages.TypeData, ?> map) {
@@ -560,16 +544,15 @@ public class TakeMessagesCtrl {
             return;
         }
 
-        List<Map<DbGlobalDefines.LineKeys, String>> requestDB =
-                dbCtrl.getMultipleInfoFromDb(DbCtrl.TypeExecutionGetMultiple.MessagesLoad,
-                        uuidChat.toString(), String.valueOf(quantityMessages));
+        List<Map<DbGlobalDefines.LineKeys, String>> requestDB = dbCtrl.getMultipleInfoFromDb(
+                DbCtrl.TypeExecutionGetMultiple.MessagesLoad, uuidChat.toString(), String.valueOf(quantityMessages));
         sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.MessagesLoadReply, requestDB);
     }
 
     private void workMessagesLoadReplyMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         Object objectFromMap = map.get(DefinesMessages.TypeData.MessagesInfoList);
-        List<Map<DefinesMessages.TypeData, Object>> msgInfo =
-                structTools.objectInListMaps(objectFromMap, DefinesMessages.TypeData.class, Object.class);
+        List<Map<DefinesMessages.TypeData, Object>> msgInfo = structTools.objectInListMaps(objectFromMap,
+                DefinesMessages.TypeData.class, Object.class);
 
         messagesDialogCtrl.createMessagesObjects(msgInfo);
         messagesDefinesCtrl.setTextMessagesLoadReplyFlag(MessagesDefinesCtrl.TypeFlags.TRUE);

@@ -1,17 +1,19 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import lombok.extern.slf4j.Slf4j;
-import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
-import org.foomaa.jvchat.settings.DisplaySettings;
-import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
-import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.io.IOException;
 
+import javax.swing.*;
+
+import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+import lombok.extern.slf4j.Slf4j;
+
+import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
+import org.foomaa.jvchat.settings.DisplaySettings;
 
 @Component
 @Scope("prototype")
@@ -23,9 +25,8 @@ public class ButtonAuthUI extends JButton {
     private final FontsGlobalDefines fontsGlobalDefines;
     private final ToolTipAuthUIFactory toolTipAuthUIFactory;
 
-    ButtonAuthUI(DisplaySettings displaySettings,
-                 FontsGlobalDefines fontsGlobalDefines,
-                 ToolTipAuthUIFactory toolTipAuthUIFactory) {
+    ButtonAuthUI(DisplaySettings displaySettings, FontsGlobalDefines fontsGlobalDefines,
+            ToolTipAuthUIFactory toolTipAuthUIFactory) {
         this.displaySettings = displaySettings;
         this.fontsGlobalDefines = fontsGlobalDefines;
         this.toolTipAuthUIFactory = toolTipAuthUIFactory;
@@ -57,8 +58,7 @@ public class ButtonAuthUI extends JButton {
             g.setColor(getBackground());
         }
         Graphics2D g2 = (Graphics2D) g;
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.fill(new RoundRectangle2D.Float(0, 0, getWidth() - 1, getHeight() - 1, 15, 15));
         g2.setColor(getForeground());
         super.paintComponent(g);

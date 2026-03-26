@@ -10,8 +10,8 @@ public class LevelColorConverter extends ClassicConverter {
         return switch (event.getLevel().toString()) {
             case "TRACE" -> "\u001B[36m" + level + "\u001B[0m"; // cyan
             case "DEBUG" -> "\u001B[34m" + level + "\u001B[0m"; // blue
-            case "INFO" -> "\u001B[32m" + level + "\u001B[0m";  // green
-            case "WARN" -> "\u001B[33m" + level + "\u001B[0m";  // yellow
+            case "INFO" -> "\u001B[32m" + level + "\u001B[0m"; // green
+            case "WARN" -> "\u001B[33m" + level + "\u001B[0m"; // yellow
             case "ERROR" -> "\u001B[31m" + level + "\u001B[0m"; // red
             default -> level;
         };

@@ -1,12 +1,11 @@
 package org.foomaa.jvchat.settings;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Lazy;
+import java.awt.*;
+
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import java.awt.*;
-
+import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Profile("users")

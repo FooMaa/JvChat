@@ -4,13 +4,14 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import lombok.extern.slf4j.Slf4j;
 
-import org.foomaa.jvchat.models.SocketRunnableCtrlModel;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import lombok.extern.slf4j.Slf4j;
+
+import org.foomaa.jvchat.models.SocketRunnableCtrlModel;
 
 /* NOTE(VAD): here it is done so that the tasks of the server and the user
  * solved by one class. There is a model of all connections SocketRunnableCtrlModel.
@@ -29,15 +30,13 @@ public class SocketRunnableCtrl implements Runnable {
     private int errorsConnection;
     private final NetworkCtrl networkCtrl;
 
-    SocketRunnableCtrl(SocketRunnableCtrlModel socketRunnableCtrlModel,
-                       @Lazy NetworkCtrl networkCtrl) {
+    SocketRunnableCtrl(SocketRunnableCtrlModel socketRunnableCtrlModel, @Lazy NetworkCtrl networkCtrl) {
         this.networkCtrl = networkCtrl;
 
         socketRunnableCtrlModel.createSocketRunnableCtrlStructObject(this);
 
         sendStream = null;
         readStream = null;
-
 
         errorsConnection = 0;
         limitErrorsConnection = 3;
@@ -80,7 +79,6 @@ public class SocketRunnableCtrl implements Runnable {
             log.error("Error in network.");
         }
     }
-
 
     public boolean isErrorsExceedsLimit() {
         return (errorsConnection >= limitErrorsConnection);

@@ -1,16 +1,5 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
-import org.foomaa.jvchat.settings.DisplaySettings;
-
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -18,6 +7,17 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import javax.swing.border.Border;
+
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
+
+import lombok.extern.slf4j.Slf4j;
+
+import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
+import org.foomaa.jvchat.settings.DisplaySettings;
 
 @Component
 @Profile("users")
@@ -33,9 +33,8 @@ public class TitlePanelMainChatUI extends JPanel {
     private final FontsGlobalDefines fontsGlobalDefines;
     private final ToolTipMainChatUIFactory toolTipFactory;
 
-    TitlePanelMainChatUI(DisplaySettings displaySettings,
-                         FontsGlobalDefines fontsGlobalDefines,
-                         ToolTipMainChatUIFactory toolTipFactory) {
+    TitlePanelMainChatUI(DisplaySettings displaySettings, FontsGlobalDefines fontsGlobalDefines,
+            ToolTipMainChatUIFactory toolTipFactory) {
         this.displaySettings = displaySettings;
         this.fontsGlobalDefines = fontsGlobalDefines;
         this.toolTipFactory = toolTipFactory;
@@ -63,11 +62,14 @@ public class TitlePanelMainChatUI extends JPanel {
     }
 
     public void setTitle(String text) {
-        // It is necessary to give the component the opportunity to first recalculate its size itself
+        // It is necessary to give the component the opportunity to first recalculate
+        // its size itself
         titleLabel.setPreferredSize(null);
         titleLabel.setText(text);
         Dimension currentSize = titleLabel.getPreferredSize();
-        // necessary because the font is custom, and the component may cut the text a little because of this
+        // necessary because the font is custom, and the component may cut the text a
+        // little because of
+        // this
         titleLabel.setPreferredSize(new Dimension(currentSize.width + 2, currentSize.height));
     }
 
@@ -133,8 +135,7 @@ public class TitlePanelMainChatUI extends JPanel {
 
     private void settingPanel() {
         setLayout(new BorderLayout());
-        Border bottomBorder =
-                BorderFactory.createMatteBorder(0, 0, 2, 0, Color.LIGHT_GRAY);
+        Border bottomBorder = BorderFactory.createMatteBorder(0, 0, 2, 0, Color.LIGHT_GRAY);
         setBorder(bottomBorder);
 
         JPanel titlePanel = new JPanel(new GridBagLayout());

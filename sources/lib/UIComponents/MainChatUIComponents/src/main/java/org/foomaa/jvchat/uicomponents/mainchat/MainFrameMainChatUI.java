@@ -1,7 +1,5 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -9,11 +7,14 @@ import java.awt.geom.RoundRectangle2D;
 import java.io.IOException;
 import java.util.Objects;
 
-import org.foomaa.jvchat.settings.DisplaySettings;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+import org.foomaa.jvchat.settings.DisplaySettings;
 
 @Component
 @Profile("users")
@@ -27,9 +28,8 @@ public class MainFrameMainChatUI extends JFrame {
     private final MainPanelMainChatUI mainPanel;
     private final DisplaySettings displaySettings;
 
-    MainFrameMainChatUI(DisplaySettings displaySettings,
-                        TitlePanelMainChatUI titlePanel,
-                        MainPanelMainChatUI mainPanel) {
+    MainFrameMainChatUI(DisplaySettings displaySettings, TitlePanelMainChatUI titlePanel,
+            MainPanelMainChatUI mainPanel) {
         super("MainChatWindow");
 
         this.displaySettings = displaySettings;
@@ -52,7 +52,7 @@ public class MainFrameMainChatUI extends JFrame {
         backgroundPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
-                super.paintComponent(g) ;
+                super.paintComponent(g);
 
                 Image img = null;
                 try {
@@ -126,9 +126,9 @@ public class MainFrameMainChatUI extends JFrame {
         setSize(displaySettings.getResizeFromDisplay(0.585, DisplaySettings.TypeOfDisplayBorder.WIDTH),
                 displaySettings.getResizeFromDisplay(0.5625, DisplaySettings.TypeOfDisplayBorder.HEIGHT));
 
-        Dimension minSiseDimension = new Dimension(displaySettings.getResizeFromDisplay(0.43,
-                DisplaySettings.TypeOfDisplayBorder.WIDTH), displaySettings.getResizeFromDisplay(0.28,
-                DisplaySettings.TypeOfDisplayBorder.HEIGHT));
+        Dimension minSiseDimension = new Dimension(
+                displaySettings.getResizeFromDisplay(0.43, DisplaySettings.TypeOfDisplayBorder.WIDTH),
+                displaySettings.getResizeFromDisplay(0.28, DisplaySettings.TypeOfDisplayBorder.HEIGHT));
         setMinimumSize(minSiseDimension);
 
         setResizable(true);

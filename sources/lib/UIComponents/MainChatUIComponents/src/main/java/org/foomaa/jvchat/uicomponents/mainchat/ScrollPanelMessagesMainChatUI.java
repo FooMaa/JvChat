@@ -1,19 +1,21 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import lombok.extern.slf4j.Slf4j;
-import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
-import org.foomaa.jvchat.ctrl.MessagesDialogCtrl;
-import org.foomaa.jvchat.structobjects.MessageStructObject;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
-
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.List;
 import java.util.UUID;
 
+import javax.swing.*;
+
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
+
+import lombok.extern.slf4j.Slf4j;
+
+import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
+import org.foomaa.jvchat.ctrl.MessagesDialogCtrl;
+import org.foomaa.jvchat.structobjects.MessageStructObject;
 
 @Component
 @Profile("users")
@@ -27,9 +29,8 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
     private final MessagesDialogCtrl messagesDialogCtrl;
     private final RectMessageMainChatUIFactory rectMessageMainChatUIFactory;
 
-    ScrollPanelMessagesMainChatUI(MessagesDefinesCtrl messagesDefinesCtrl,
-                                  MessagesDialogCtrl messagesDialogCtrl,
-                                  RectMessageMainChatUIFactory rectMessageMainChatUIFactory) {
+    ScrollPanelMessagesMainChatUI(MessagesDefinesCtrl messagesDefinesCtrl, MessagesDialogCtrl messagesDialogCtrl,
+            RectMessageMainChatUIFactory rectMessageMainChatUIFactory) {
         this.messagesDefinesCtrl = messagesDefinesCtrl;
         this.messagesDialogCtrl = messagesDialogCtrl;
         this.rectMessageMainChatUIFactory = rectMessageMainChatUIFactory;
@@ -83,7 +84,7 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
             public void componentHidden(ComponentEvent e) {
                 changeScrollPane();
             }
-       });
+        });
     }
 
     private void changeScrollPane() {
@@ -94,7 +95,9 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
         gbc.gridy = 0;
         gbc.weightx = 0.5;
         gbc.weighty = 1.0;
-        gbc.fill = scrollPane.getVerticalScrollBar().isVisible() ? GridBagConstraints.BOTH : GridBagConstraints.HORIZONTAL;
+        gbc.fill = scrollPane.getVerticalScrollBar().isVisible()
+                ? GridBagConstraints.BOTH
+                : GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.SOUTH;
         add(scrollPane, gbc);
 
@@ -130,7 +133,9 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
     }
 
     public void addMessage(MessageStructObject messageObject) {
-        String constraints = messagesDialogCtrl.isCurrentUserSender(messageObject) ? BorderLayout.EAST : BorderLayout.WEST;
+        String constraints = messagesDialogCtrl.isCurrentUserSender(messageObject)
+                ? BorderLayout.EAST
+                : BorderLayout.WEST;
         createPanelMessage(messageObject, constraints);
         updatePanelMessages();
     }
@@ -182,9 +187,8 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
 
         for (MessageStructObject messageStructObject : allMessagesObjSorted) {
             UUID uuidChat = messagesDialogCtrl.findUuidChatByUuidUser(messageStructObject.getUuidUserSender());
-            if (findRectMessageByUuid(panel, messageStructObject.getUuid()) == null &&
-                    uuidChat != null &&
-                    uuidChat.equals(currentPanelUuid)) {
+            if (findRectMessageByUuid(panel, messageStructObject.getUuid()) == null && uuidChat != null
+                    && uuidChat.equals(currentPanelUuid)) {
                 addMessage(messageStructObject);
             }
         }

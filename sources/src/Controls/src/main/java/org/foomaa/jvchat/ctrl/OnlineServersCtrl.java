@@ -3,6 +3,10 @@ package org.foomaa.jvchat.ctrl;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
+
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
+
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.globaldefines.DbGlobalDefines;
@@ -15,9 +19,6 @@ import org.foomaa.jvchat.settings.ServersInfoSettings;
 import org.foomaa.jvchat.structobjects.CheckerOnlineStructObject;
 import org.foomaa.jvchat.structobjects.SocketRunnableCtrlStructObject;
 import org.foomaa.jvchat.structobjects.UserStructObject;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
-
 
 @Component
 @Profile("servers")
@@ -32,12 +33,8 @@ public class OnlineServersCtrl {
     private final SocketRunnableCtrlModel socketRunnableCtrlModel;
     private final SendMessagesCtrl sendMessagesCtrl;
 
-    OnlineServersCtrl(DbCtrl dbCtrl,
-                      ServersInfoSettings serversInfoSettings,
-                      CheckersOnlineModel checkersOnlineModel,
-                      UsersModel usersModel,
-                      SocketRunnableCtrlModel socketRunnableCtrlModel,
-                      SendMessagesCtrl sendMessagesCtrl) {
+    OnlineServersCtrl(DbCtrl dbCtrl, ServersInfoSettings serversInfoSettings, CheckersOnlineModel checkersOnlineModel,
+            UsersModel usersModel, SocketRunnableCtrlModel socketRunnableCtrlModel, SendMessagesCtrl sendMessagesCtrl) {
         this.dbCtrl = dbCtrl;
         this.serversInfoSettings = serversInfoSettings;
         this.usersModel = usersModel;
@@ -53,7 +50,8 @@ public class OnlineServersCtrl {
         List<CheckerOnlineStructObject> listCheckersOnline = checkersOnlineModel.getAllCheckersOnline();
 
         for (CheckerOnlineStructObject checkerOnline : listCheckersOnline) {
-            SocketRunnableCtrlStructObject socketRunnableCtrlStructObject = checkerOnline.getSocketRunnableCtrlStructObject();
+            SocketRunnableCtrlStructObject socketRunnableCtrlStructObject = checkerOnline
+                    .getSocketRunnableCtrlStructObject();
             if (socketRunnableCtrlStructObject == null) {
                 log.error("Here socketRunnableCtrlStructObject is null.");
                 continue;
@@ -72,7 +70,8 @@ public class OnlineServersCtrl {
         List<CheckerOnlineStructObject> listCheckersOnline = checkersOnlineModel.getAllCheckersOnline();
 
         for (CheckerOnlineStructObject checkerOnline : listCheckersOnline) {
-            SocketRunnableCtrlStructObject socketRunnableCtrlStructObject = checkerOnline.getSocketRunnableCtrlStructObject();
+            SocketRunnableCtrlStructObject socketRunnableCtrlStructObject = checkerOnline
+                    .getSocketRunnableCtrlStructObject();
             if (socketRunnableCtrlStructObject == null) {
                 log.error("Here socketRunnableCtrlStructObject is null.");
                 continue;
@@ -120,8 +119,8 @@ public class OnlineServersCtrl {
     }
 
     public void loadDataOnlineUsers() {
-        List<Map<DbGlobalDefines.LineKeys, String>> dataFromDb = dbCtrl.getMultipleInfoFromDb(
-                DbCtrl.TypeExecutionGetMultiple.OnlineUsers);
+        List<Map<DbGlobalDefines.LineKeys, String>> dataFromDb = dbCtrl
+                .getMultipleInfoFromDb(DbCtrl.TypeExecutionGetMultiple.OnlineUsers);
 
         if (dataFromDb == null) {
             runningRunnableListenOnline();
@@ -157,11 +156,7 @@ public class OnlineServersCtrl {
         } else if (isUuidUserInListCheckerOnline(uuidUser)) {
             onlineUser = getCheckerOnlineByUuidUser(uuidUser);
         } else {
-            checkersOnlineModel.createNewCheckersOnline(
-                    uuidUser,
-                    runnableFrom,
-                    false,
-                    LocalDateTime.now(),
+            checkersOnlineModel.createNewCheckersOnline(uuidUser, runnableFrom, false, LocalDateTime.now(),
                     LocalDateTime.now());
             return;
         }
@@ -172,8 +167,8 @@ public class OnlineServersCtrl {
         }
 
         UserStructObject userStructObject = usersModel.findCreateUserStructObjectByUuidUser(uuidUser);
-        SocketRunnableCtrlStructObject socketRunnableCtrlStructObject =
-                socketRunnableCtrlModel.findCreateSocketRunnableCtrlStructObjectByRunnable(runnableFrom);
+        SocketRunnableCtrlStructObject socketRunnableCtrlStructObject = socketRunnableCtrlModel
+                .findCreateSocketRunnableCtrlStructObjectByRunnable(runnableFrom);
 
         onlineUser.setUser(userStructObject);
         onlineUser.setSocketRunnableCtrlStructObject(socketRunnableCtrlStructObject);
@@ -187,10 +182,7 @@ public class OnlineServersCtrl {
     private void saveStatusOnline(UUID uuidUser, MainChatsGlobalDefines.TypeStatusOnline statusOnline) {
         int onlineStatusInteger = statusOnline.getValue();
         String onlineStatusString = String.valueOf(onlineStatusInteger);
-        dbCtrl.insertQueryToDB(
-                DbCtrl.TypeExecutionInsert.OnlineUsersInfo,
-                uuidUser.toString(),
-                onlineStatusString);
+        dbCtrl.insertQueryToDB(DbCtrl.TypeExecutionInsert.OnlineUsersInfo, uuidUser.toString(), onlineStatusString);
     }
 
     private void listeningPackage() {
@@ -203,23 +195,24 @@ public class OnlineServersCtrl {
             }
         }
 
-        List<SocketRunnableCtrlStructObject> connectionList = socketRunnableCtrlModel.getAllSocketRunnableCtrlStructObject();
+        List<SocketRunnableCtrlStructObject> connectionList = socketRunnableCtrlModel
+                .getAllSocketRunnableCtrlStructObject();
 
         for (SocketRunnableCtrlStructObject socketRunnableCtrlStructObject : connectionList) {
-            SocketRunnableCtrl socketRunnableCtrl = (SocketRunnableCtrl) socketRunnableCtrlStructObject.getSocketRunnableCtrl();
+            SocketRunnableCtrl socketRunnableCtrl = (SocketRunnableCtrl) socketRunnableCtrlStructObject
+                    .getSocketRunnableCtrl();
             if (socketRunnableCtrl == null) {
                 log.error("socketRunnableCtrl turned out to be null.");
                 continue;
             }
 
             preSendingTasks(socketRunnableCtrl);
-            sendMessagesCtrl.sendMessage(
-                    DefinesMessages.TypeMessage.CheckOnlineUserRequest,
-                    serversInfoSettings.getIp(),
-                    socketRunnableCtrl);
+            sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.CheckOnlineUserRequest,
+                    serversInfoSettings.getIp(), socketRunnableCtrl);
 
             if (!isRunnableInListCheckerOnline(socketRunnableCtrl)) {
-                checkersOnlineModel.createNewCheckersOnline(socketRunnableCtrl, true, LocalDateTime.now(), LocalDateTime.now());
+                checkersOnlineModel.createNewCheckersOnline(socketRunnableCtrl, true, LocalDateTime.now(),
+                        LocalDateTime.now());
                 continue;
             }
 
@@ -243,7 +236,7 @@ public class OnlineServersCtrl {
                 return;
             }
 
-            boolean flagSending = onlineUser.getIsSending();
+            boolean flagSending = onlineUser.isSending();
             LocalDateTime lastSendingDateTime = onlineUser.getDateTimeSending();
 
             Duration duration = Duration.between(lastSendingDateTime, LocalDateTime.now());
@@ -299,7 +292,8 @@ public class OnlineServersCtrl {
         for (UUID uuidUser : uuidsUsers) {
             boolean isUserOnline = isUuidUserInListCheckerOnline(uuidUser);
             if (!isUserOnline) {
-                String lastOnlineTime = dbCtrl.getSingleDataFromDb(DbCtrl.TypeExecutionGetSingle.LastOnlineTimeUser, uuidUser.toString());
+                String lastOnlineTime = dbCtrl.getSingleDataFromDb(DbCtrl.TypeExecutionGetSingle.LastOnlineTimeUser,
+                        uuidUser.toString());
                 resultMap.put(uuidUser, lastOnlineTime);
             }
         }
@@ -310,7 +304,8 @@ public class OnlineServersCtrl {
         List<CheckerOnlineStructObject> listCheckersOnline = checkersOnlineModel.getAllCheckersOnline();
 
         for (CheckerOnlineStructObject checkerOnline : listCheckersOnline) {
-            SocketRunnableCtrlStructObject socketRunnableCtrlStructObject = checkerOnline.getSocketRunnableCtrlStructObject();
+            SocketRunnableCtrlStructObject socketRunnableCtrlStructObject = checkerOnline
+                    .getSocketRunnableCtrlStructObject();
             if (socketRunnableCtrlStructObject == null) {
                 log.error("Here socketRunnableCtrlStructObject is null.");
                 continue;

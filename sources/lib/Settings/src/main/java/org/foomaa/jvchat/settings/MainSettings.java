@@ -2,15 +2,13 @@ package org.foomaa.jvchat.settings;
 
 import org.springframework.stereotype.Component;
 
-
 @Component
 public class MainSettings {
-    MainSettings() {}
+    MainSettings() {
+    }
 
     public enum TypeProfiles {
-        TESTS("tests"),
-        USERS("users"),
-        SERVERS("servers");
+        TESTS("tests"), USERS("users"), SERVERS("servers");
 
         private final String name;
 

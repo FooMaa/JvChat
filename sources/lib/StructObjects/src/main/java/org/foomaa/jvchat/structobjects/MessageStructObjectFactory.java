@@ -1,11 +1,12 @@
 package org.foomaa.jvchat.structobjects;
 
-import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
+import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 
 @Component
 public class MessageStructObjectFactory {
@@ -19,12 +20,9 @@ public class MessageStructObjectFactory {
         return messageStructObjectObjectProvider.getObject();
     }
 
-    public MessageStructObject create(UUID uuidUserSender,
-                                      UUID uuidUserReceiver,
-                                      MainChatsGlobalDefines.TypeStatusMessage statusMessage,
-                                      String text,
-                                      LocalDateTime timestamp,
-                                      UUID uuidMessage) {
+    public MessageStructObject create(UUID uuidUserSender, UUID uuidUserReceiver,
+            MainChatsGlobalDefines.TypeStatusMessage statusMessage, String text, LocalDateTime timestamp,
+            UUID uuidMessage) {
         MessageStructObject messageStructObject = messageStructObjectObjectProvider.getObject();
 
         messageStructObject.setUuidUserSender(uuidUserSender);

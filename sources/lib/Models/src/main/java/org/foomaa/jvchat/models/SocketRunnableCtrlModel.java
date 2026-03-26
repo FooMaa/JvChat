@@ -1,33 +1,28 @@
 package org.foomaa.jvchat.models;
 
-import org.foomaa.jvchat.structobjects.BaseStructObject;
-import org.foomaa.jvchat.structobjects.RootStructObject;
-import org.foomaa.jvchat.structobjects.SocketRunnableCtrlStructObject;
-import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
+
+import org.foomaa.jvchat.structobjects.*;
 
 @Component
 @Lazy
 public class SocketRunnableCtrlModel extends BaseModel {
-    private final ObjectProvider<SocketRunnableCtrlStructObject> socketRunnableCtrlStructObjectObjectProvider;
+    private final SocketRunnableCtrlStructObjectFactory socketRunnableCtrlStructObjectFactory;
 
-    SocketRunnableCtrlModel(ObjectProvider<SocketRunnableCtrlStructObject> socketRunnableCtrlStructObjectObjectProvider,
-                            ObjectProvider<RootStructObject> rootStructObjectObjectProvider,
-                            RootObjectsModel rootObjectsModel) {
-        super(rootObjectsModel, rootStructObjectObjectProvider);
+    SocketRunnableCtrlModel(SocketRunnableCtrlStructObjectFactory socketRunnableCtrlStructObjectFactory,
+            RootStructObjectFactory rootStructObjectFactory, RootObjectsModel rootObjectsModel) {
+        super(rootObjectsModel, rootStructObjectFactory);
 
-        this.socketRunnableCtrlStructObjectObjectProvider = socketRunnableCtrlStructObjectObjectProvider;
+        this.socketRunnableCtrlStructObjectFactory = socketRunnableCtrlStructObjectFactory;
     }
 
     public void createSocketRunnableCtrlStructObject(Runnable socketRunnableCtrl) {
-        SocketRunnableCtrlStructObject socketStreamsStructObject =
-                socketRunnableCtrlStructObjectObjectProvider.getObject();
-        socketStreamsStructObject.setSocketRunnableCtrl(socketRunnableCtrl);
+        SocketRunnableCtrlStructObject socketStreamsStructObject = socketRunnableCtrlStructObjectFactory
+                .create(socketRunnableCtrl);
         addItem(socketStreamsStructObject, getRootObject());
     }
 
@@ -43,11 +38,10 @@ public class SocketRunnableCtrlModel extends BaseModel {
     }
 
     private SocketRunnableCtrlStructObject findSocketRunnableCtrlStructObjectByRunnable(Runnable runnable) {
-        for (BaseStructObject baseStructObject: getRootObject().getChildren()) {
-            SocketRunnableCtrlStructObject socketRunnableCtrlStructObject =
-                    (SocketRunnableCtrlStructObject) baseStructObject;
-            if (socketRunnableCtrlStructObject != null &&
-                    socketRunnableCtrlStructObject.getSocketRunnableCtrl() == runnable) {
+        for (BaseStructObject baseStructObject : getRootObject().getChildren()) {
+            SocketRunnableCtrlStructObject socketRunnableCtrlStructObject = (SocketRunnableCtrlStructObject) baseStructObject;
+            if (socketRunnableCtrlStructObject != null
+                    && socketRunnableCtrlStructObject.getSocketRunnableCtrl() == runnable) {
                 return socketRunnableCtrlStructObject;
             }
         }
@@ -56,13 +50,12 @@ public class SocketRunnableCtrlModel extends BaseModel {
     }
 
     public SocketRunnableCtrlStructObject findCreateSocketRunnableCtrlStructObjectByRunnable(Runnable runnable) {
-        SocketRunnableCtrlStructObject socketRunnableCtrlStructObject =
-                findSocketRunnableCtrlStructObjectByRunnable(runnable);
+        SocketRunnableCtrlStructObject socketRunnableCtrlStructObject = findSocketRunnableCtrlStructObjectByRunnable(
+                runnable);
 
         if (socketRunnableCtrlStructObject == null) {
-            SocketRunnableCtrlStructObject newSocketRunnableCtrlStructObject =
-                    socketRunnableCtrlStructObjectObjectProvider.getObject();
-            newSocketRunnableCtrlStructObject.setSocketRunnableCtrl(runnable);
+            SocketRunnableCtrlStructObject newSocketRunnableCtrlStructObject = socketRunnableCtrlStructObjectFactory
+                    .create(runnable);
             addItem(newSocketRunnableCtrlStructObject, getRootObject());
             return newSocketRunnableCtrlStructObject;
         }
