@@ -232,14 +232,14 @@ public class VerifyCodePanelAuthUI extends JPanel {
 
     private void openErrorPane() {
         switch (messagesDefinesCtrl.getErrorVerifyRegEmailFlag()) {
-            case NoError ->
-                optionPaneAuthUIFactory.create().show("The error is not clear.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case EmailSending ->
-                optionPaneAuthUIFactory.create().show("The email may be invalid.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case Login ->
-                optionPaneAuthUIFactory.create().show("This login is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case Email ->
-                optionPaneAuthUIFactory.create().show("This email is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case NoError -> optionPaneAuthUIFactory.create().show("The error is not clear.",
+                    OptionPaneAuthUI.TypeDlg.ERROR);
+            case EmailSending -> optionPaneAuthUIFactory.create().show("The email may be invalid.",
+                    OptionPaneAuthUI.TypeDlg.ERROR);
+            case Login -> optionPaneAuthUIFactory.create().show("This login is already in use.",
+                    OptionPaneAuthUI.TypeDlg.ERROR);
+            case Email -> optionPaneAuthUIFactory.create().show("This email is already in use.",
+                    OptionPaneAuthUI.TypeDlg.ERROR);
             case Code -> optionPaneAuthUIFactory.create()
                     .show("The code is not correct. Enter the code you received by mail again.\n"
                             + "The code may have expired, enter your email again and get a new one.",

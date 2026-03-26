@@ -66,10 +66,10 @@ public class TakeMessagesCtrl {
             case EntryReply -> workEntryReplyMessage(getDeserializeMapData(type, data));
             case RegistrationRequest -> workRegistrationRequestMessage(getDeserializeMapData(type, data));
             case RegistrationReply -> workRegistrationReplyMessage(getDeserializeMapData(type, data));
-            case VerifyRegistrationEmailRequest ->
-                workVerifyRegistrationEmailRequestMessage(getDeserializeMapData(type, data));
-            case VerifyRegistrationEmailReply ->
-                workVerifyRegistrationEmailReplyMessage(getDeserializeMapData(type, data));
+            case VerifyRegistrationEmailRequest -> workVerifyRegistrationEmailRequestMessage(
+                    getDeserializeMapData(type, data));
+            case VerifyRegistrationEmailReply -> workVerifyRegistrationEmailReplyMessage(
+                    getDeserializeMapData(type, data));
             case ResetPasswordRequest -> workResetPasswordRequestMessage(getDeserializeMapData(type, data));
             case ResetPasswordReply -> workResetPasswordReplyMessage(getDeserializeMapData(type, data));
             case VerifyFamousEmailRequest -> workVerifyFamousEmailRequestMessage(getDeserializeMapData(type, data));
@@ -80,25 +80,25 @@ public class TakeMessagesCtrl {
             case CheckOnlineUserReply -> workCheckOnlineUserReplyMessage(getDeserializeMapData(type, data));
             case ChatsLoadRequest -> workChatsLoadRequestMessage(getDeserializeMapData(type, data));
             case ChatsLoadReply -> workChatsLoadReplyMessage(getDeserializeMapData(type, data));
-            case LoadUsersOnlineStatusRequest ->
-                workLoadUsersOnlineStatusRequestMessage(getDeserializeMapData(type, data));
+            case LoadUsersOnlineStatusRequest -> workLoadUsersOnlineStatusRequestMessage(
+                    getDeserializeMapData(type, data));
             case LoadUsersOnlineStatusReply -> workLoadUsersOnlineStatusReplyMessage(getDeserializeMapData(type, data));
-            case TextMessageSendUserToServer ->
-                workTextMessageSendUserToServerMessage(getDeserializeMapData(type, data));
-            case TextMessageSendUserToServerVerification ->
-                workTextMessageSendUserToServerVerificationMessage(getDeserializeMapData(type, data));
-            case TextMessagesChangingStatusFromServer ->
-                workTextMessagesChangingStatusFromServerMessage(getDeserializeMapData(type, data));
-            case TextMessagesChangingStatusFromServerVerification ->
-                workTextMessagesChangingStatusFromServerVerificationMessage(getDeserializeMapData(type, data));
-            case TextMessagesChangingStatusFromUser ->
-                workTextMessagesChangingStatusFromUserMessage(getDeserializeMapData(type, data));
-            case TextMessagesChangingStatusFromUserVerification ->
-                workTextMessagesChangingStatusFromUserVerificationMessage(getDeserializeMapData(type, data));
-            case TextMessageRedirectServerToUser ->
-                workTextMessageRedirectServerToUserMessage(getDeserializeMapData(type, data));
-            case TextMessageRedirectServerToUserVerification ->
-                workTextMessageRedirectServerToUserVerificationMessage(getDeserializeMapData(type, data));
+            case TextMessageSendUserToServer -> workTextMessageSendUserToServerMessage(
+                    getDeserializeMapData(type, data));
+            case TextMessageSendUserToServerVerification -> workTextMessageSendUserToServerVerificationMessage(
+                    getDeserializeMapData(type, data));
+            case TextMessagesChangingStatusFromServer -> workTextMessagesChangingStatusFromServerMessage(
+                    getDeserializeMapData(type, data));
+            case TextMessagesChangingStatusFromServerVerification -> workTextMessagesChangingStatusFromServerVerificationMessage(
+                    getDeserializeMapData(type, data));
+            case TextMessagesChangingStatusFromUser -> workTextMessagesChangingStatusFromUserMessage(
+                    getDeserializeMapData(type, data));
+            case TextMessagesChangingStatusFromUserVerification -> workTextMessagesChangingStatusFromUserVerificationMessage(
+                    getDeserializeMapData(type, data));
+            case TextMessageRedirectServerToUser -> workTextMessageRedirectServerToUserMessage(
+                    getDeserializeMapData(type, data));
+            case TextMessageRedirectServerToUserVerification -> workTextMessageRedirectServerToUserVerificationMessage(
+                    getDeserializeMapData(type, data));
             case MessagesLoadRequest -> workMessagesLoadRequestMessage(getDeserializeMapData(type, data));
             case MessagesLoadReply -> workMessagesLoadReplyMessage(getDeserializeMapData(type, data));
         }

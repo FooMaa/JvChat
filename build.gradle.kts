@@ -26,7 +26,7 @@ subprojects {
 
     configure<com.diffplug.gradle.spotless.SpotlessExtension> {
         java {
-            eclipse()
+            eclipse("4.21.0")
             indentWithSpaces(4)
             removeUnusedImports()
             importOrder(
@@ -38,6 +38,7 @@ subprojects {
                 "org.foomaa.jvchat")
             endWithNewline()
             trimTrailingWhitespace()
+            targetExclude("**/*_pb.java")
         }
 
         isEnforceCheck = false
@@ -66,10 +67,6 @@ subprojects {
         testLogging {
             events("passed", "failed", "skipped")
         }
-    }
-
-    tasks.named("spotlessJava") {
-        dependsOn(":Messages:copyProtobuf")
     }
 }
 

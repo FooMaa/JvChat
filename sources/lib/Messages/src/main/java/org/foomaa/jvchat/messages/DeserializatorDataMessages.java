@@ -39,14 +39,14 @@ public class DeserializatorDataMessages {
             case TextMessageSendUserToServer -> takeTextMessageSendUserToServerMessage(data);
             case TextMessageSendUserToServerVerification -> takeTextMessageSendUserToServerVerificationMessage(data);
             case TextMessagesChangingStatusFromServer -> takeTextMessagesChangingStatusFromServerMessage(data);
-            case TextMessagesChangingStatusFromServerVerification ->
-                takeTextMessagesChangingStatusFromServerVerificationMessage(data);
+            case TextMessagesChangingStatusFromServerVerification -> takeTextMessagesChangingStatusFromServerVerificationMessage(
+                    data);
             case TextMessagesChangingStatusFromUser -> takeTextMessagesChangingStatusFromUserMessage(data);
-            case TextMessagesChangingStatusFromUserVerification ->
-                takeTextMessagesChangingStatusFromUserVerificationMessage(data);
+            case TextMessagesChangingStatusFromUserVerification -> takeTextMessagesChangingStatusFromUserVerificationMessage(
+                    data);
             case TextMessageRedirectServerToUser -> takeTextMessageRedirectServerToUserMessage(data);
-            case TextMessageRedirectServerToUserVerification ->
-                takeTextMessageRedirectServerToUserVerificationMessage(data);
+            case TextMessageRedirectServerToUserVerification -> takeTextMessageRedirectServerToUserVerificationMessage(
+                    data);
             case MessagesLoadRequest -> takeMessagesLoadRequestMessage(data);
             case MessagesLoadReply -> takeMessagesLoadReplyMessage(data);
         };

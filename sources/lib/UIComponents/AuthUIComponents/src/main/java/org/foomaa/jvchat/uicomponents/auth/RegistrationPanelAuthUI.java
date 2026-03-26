@@ -248,14 +248,14 @@ public class RegistrationPanelAuthUI extends JPanel {
 
     private void openErrorPane() {
         switch (messagesDefinesCtrl.getErrorRegistrationFlag()) {
-            case NoError ->
-                optionPaneAuthUIFactory.create().show("The error is not clear.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case EmailSending ->
-                optionPaneAuthUIFactory.create().show("The email may be invalid.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case Login ->
-                optionPaneAuthUIFactory.create().show("This login is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case Email ->
-                optionPaneAuthUIFactory.create().show("This email is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case NoError -> optionPaneAuthUIFactory.create().show("The error is not clear.",
+                    OptionPaneAuthUI.TypeDlg.ERROR);
+            case EmailSending -> optionPaneAuthUIFactory.create().show("The email may be invalid.",
+                    OptionPaneAuthUI.TypeDlg.ERROR);
+            case Login -> optionPaneAuthUIFactory.create().show("This login is already in use.",
+                    OptionPaneAuthUI.TypeDlg.ERROR);
+            case Email -> optionPaneAuthUIFactory.create().show("This email is already in use.",
+                    OptionPaneAuthUI.TypeDlg.ERROR);
             case LoginAndEmail -> optionPaneAuthUIFactory.create().show("The email and login data are already in use.",
                     OptionPaneAuthUI.TypeDlg.ERROR);
         }
