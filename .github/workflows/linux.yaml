@@ -42,4 +42,3 @@ jobs:
 
       - name: Build chat maven users
         run: scripts/build/build.sh -m -c -p users
-    

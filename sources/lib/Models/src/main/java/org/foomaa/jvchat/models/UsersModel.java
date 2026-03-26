@@ -48,8 +48,7 @@ public class UsersModel extends BaseModel {
 
         if (userStructObject == null) {
             log.warn("There is no userStructObject with uuid created here, creating...");
-            UserStructObject userChat = userStructObjectFactory.create();
-            userChat.setUuid(uuidUser);
+            UserStructObject userChat = userStructObjectFactory.create(uuidUser);
             addItem(userChat, getRootObject());
             return userChat;
         }

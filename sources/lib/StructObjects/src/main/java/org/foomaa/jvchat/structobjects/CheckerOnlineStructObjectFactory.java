@@ -31,4 +31,25 @@ public class CheckerOnlineStructObjectFactory {
 
         return connectionEventStructObject;
     }
+
+    public CheckerOnlineStructObject create(UserStructObject user, LocalDateTime dateTimeUpdating) {
+        CheckerOnlineStructObject connectionEventStructObject = checkerOnlineObjectProvider.getObject();
+
+        connectionEventStructObject.setUser(user);
+        connectionEventStructObject.setDateTimeUpdating(dateTimeUpdating);
+
+        return connectionEventStructObject;
+    }
+
+    public CheckerOnlineStructObject create(boolean isSending, LocalDateTime dateTimeSending,
+            LocalDateTime dateTimeUpdating, SocketRunnableCtrlStructObject runnableCtrlStructObject) {
+        CheckerOnlineStructObject connectionEventStructObject = checkerOnlineObjectProvider.getObject();
+
+        connectionEventStructObject.setIsSending(isSending);
+        connectionEventStructObject.setDateTimeSending(dateTimeSending);
+        connectionEventStructObject.setDateTimeUpdating(dateTimeUpdating);
+        connectionEventStructObject.setSocketRunnableCtrlStructObject(runnableCtrlStructObject);
+
+        return connectionEventStructObject;
+    }
 }

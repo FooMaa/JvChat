@@ -50,9 +50,7 @@ public class ChatsModel extends BaseModel {
     public void createNewChat(String login, UUID uuidUser, String lastMessageText, UUID uuidChat, UUID uuidLastMessage,
             Boolean isLoginSentLastMessage, MainChatsGlobalDefines.TypeStatusMessage statusMessage,
             LocalDateTime timestampLastMessage) {
-        UserStructObject userChat = userStructObjectFactory.create();
-        userChat.setLogin(login);
-        userChat.setUuid(uuidUser);
+        UserStructObject userChat = userStructObjectFactory.create(login, uuidUser);
         usersModel.addCreatedUser(userChat);
 
         UUID uuidSender = isLoginSentLastMessage ? uuidUser : usersInfoSettings.getUuid();

@@ -31,4 +31,21 @@ public class UserStructObjectFactory {
 
         return structObject;
     }
+
+    public UserStructObject create(String login, UUID uuid) {
+        UserStructObject structObject = userStructObjectObjectProvider.getObject();
+
+        structObject.setLogin(login);
+        structObject.setUuid(uuid);
+
+        return structObject;
+    }
+
+    public UserStructObject create(UUID uuid) {
+        UserStructObject structObject = userStructObjectObjectProvider.getObject();
+
+        structObject.setUuid(uuid);
+
+        return structObject;
+    }
 }
