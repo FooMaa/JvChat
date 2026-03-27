@@ -3,23 +3,21 @@ package org.foomaa.jvchat.network;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.Objects;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
-
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.settings.UsersInfoSettings;
 
-@Component
-@Profile("users")
 @Slf4j
 public class UsersSocket {
     private static Socket socketUsers;
     private final UsersInfoSettings usersInfoSettings;
 
+    @Builder
     private UsersSocket(UsersInfoSettings usersInfoSettings) {
-        this.usersInfoSettings = usersInfoSettings;
+        this.usersInfoSettings = Objects.requireNonNull(usersInfoSettings, "usersInfoSettings is mandatory");
     }
 
     public void start() throws IOException {

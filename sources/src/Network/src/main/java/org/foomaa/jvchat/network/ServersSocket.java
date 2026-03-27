@@ -3,23 +3,21 @@ package org.foomaa.jvchat.network;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.ServerSocket;
+import java.util.Objects;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
-
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.settings.ServersInfoSettings;
 
-@Component
-@Profile("servers")
 @Slf4j
 public class ServersSocket {
     private static ServerSocket socketServers;
     private final ServersInfoSettings serversInfoSettings;
 
+    @Builder
     private ServersSocket(ServersInfoSettings serversInfoSettings) {
-        this.serversInfoSettings = serversInfoSettings;
+        this.serversInfoSettings = Objects.requireNonNull(serversInfoSettings, "serversInfoSettings is mandatory");
     }
 
     public void start() throws IOException {

@@ -1,10 +1,10 @@
 package org.foomaa.jvchat.uilinks;
 
-import org.foomaa.jvchat.uicomponents.auth.OptionPaneAuthUIFactory;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.*;
 
 import org.foomaa.jvchat.uicomponents.auth.MainFrameAuthUI;
+import org.foomaa.jvchat.uicomponents.auth.OptionPaneAuthUIFactory;
 
 @Configuration
 public class UILinksConfig {

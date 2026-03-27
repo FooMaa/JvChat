@@ -1,6 +1,7 @@
 package org.foomaa.jvchat.network;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -9,15 +10,11 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.*;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
-
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.settings.ServersInfoSettings;
 
-@Component
-@Profile("servers")
 @Slf4j
 public class EmailProcessor {
     private static Session session;
@@ -26,7 +23,10 @@ public class EmailProcessor {
     private final String userPassword;
     private final int port = 465;
 
+    @Builder
     private EmailProcessor(ServersInfoSettings serversInfoSettings) {
+        Objects.requireNonNull(serversInfoSettings, "serversInfoSettings is mandatory");
+
         host = "smtp.mail.ru";
         userLogin = serversInfoSettings.getEmailAddress();
         userPassword = serversInfoSettings.getMagicStringEmail();
