@@ -9,12 +9,14 @@ import org.springframework.stereotype.Component;
 public class FindTextFieldMainChatUIFactory {
     private final ObjectProvider<FindTextFieldMainChatUI> findTextFieldMainChatUIObjectProvider;
 
-    FindTextFieldMainChatUIFactory(ObjectProvider<FindTextFieldMainChatUI> findTextFieldMainChatUIObjectProvider) {
+    FindTextFieldMainChatUIFactory(
+            ObjectProvider<FindTextFieldMainChatUI> findTextFieldMainChatUIObjectProvider) {
         this.findTextFieldMainChatUIObjectProvider = findTextFieldMainChatUIObjectProvider;
     }
 
     public FindTextFieldMainChatUI create(String defaultText) {
-        FindTextFieldMainChatUI findTextFieldMainChatUI = findTextFieldMainChatUIObjectProvider.getObject();
+        FindTextFieldMainChatUI findTextFieldMainChatUI = findTextFieldMainChatUIObjectProvider
+                .getObject();
         findTextFieldMainChatUI.setDefaultText(defaultText);
         return findTextFieldMainChatUI;
     }

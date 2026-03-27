@@ -33,7 +33,8 @@ public class FormatTools {
 
             resultTimestamp = parts[0] + "." + milliseconds;
         } else {
-            log.warn("It is not possible to convert the date and time to the required format. Trying regex...");
+            log.warn(
+                    "It is not possible to convert the date and time to the required format. Trying regex...");
 
             // Regex format: 'yyyy-MM-dd HH:mm:ss'
             String patternStr = "^(?<year>\\d{4})-(?<month>0[1-9]|1[012])-(?<day>0[1-9]|[12][0-9]|3[01])"

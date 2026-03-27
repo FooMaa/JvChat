@@ -8,7 +8,8 @@ import org.springframework.stereotype.Component;
 public class ConnectionEventStructObjectFactory {
     private final ObjectProvider<ConnectionEventStructObject> connectionEventsObjectProvider;
 
-    ConnectionEventStructObjectFactory(ObjectProvider<ConnectionEventStructObject> connectionEventsObjectProvider) {
+    ConnectionEventStructObjectFactory(
+            ObjectProvider<ConnectionEventStructObject> connectionEventsObjectProvider) {
         this.connectionEventsObjectProvider = connectionEventsObjectProvider;
     }
 
@@ -18,7 +19,8 @@ public class ConnectionEventStructObjectFactory {
 
     public ConnectionEventStructObject create(String customNameEvent, Object objectReceiver,
             AnnotationConfigApplicationContext context, Object objectSender) {
-        ConnectionEventStructObject connectionEventStructObject = connectionEventsObjectProvider.getObject();
+        ConnectionEventStructObject connectionEventStructObject = connectionEventsObjectProvider
+                .getObject();
 
         connectionEventStructObject.setCustomNameEvent(customNameEvent);
         connectionEventStructObject.setObjectReceiver(objectReceiver);

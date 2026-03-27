@@ -15,7 +15,8 @@ public class MainPanelMainChatUI extends JPanel {
     private final ScrollPanelMessagesMainChatUI scrollPanelMessages;
     private final PanelSendingMessageMainChatUI panelSendingMessage;
 
-    MainPanelMainChatUI(ScrollPanelChatsMainChatUI scrollPanelChats, ScrollPanelMessagesMainChatUI scrollPanelMessages,
+    MainPanelMainChatUI(ScrollPanelChatsMainChatUI scrollPanelChats,
+            ScrollPanelMessagesMainChatUI scrollPanelMessages,
             PanelSendingMessageMainChatUIFactory panelSendingMessageFactory,
             FindTextFieldMainChatUIFactory findTextFieldMainChatUIFactory) {
         this.scrollPanelChats = scrollPanelChats;

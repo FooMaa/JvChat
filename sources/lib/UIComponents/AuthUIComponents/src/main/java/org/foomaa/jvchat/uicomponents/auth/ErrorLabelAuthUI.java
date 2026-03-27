@@ -36,8 +36,10 @@ public class ErrorLabelAuthUI extends JLabel {
 
     public void settingToError() {
         Dimension dim = new Dimension(
-                displaySettings.getResizeFromDisplay(0.23, DisplaySettings.TypeOfDisplayBorder.WIDTH),
-                displaySettings.getResizeFromDisplay(0.03, DisplaySettings.TypeOfDisplayBorder.HEIGHT));
+                displaySettings.getResizeFromDisplay(0.23,
+                        DisplaySettings.TypeOfDisplayBorder.WIDTH),
+                displaySettings.getResizeFromDisplay(0.03,
+                        DisplaySettings.TypeOfDisplayBorder.HEIGHT));
         setFont();
         setForeground(Color.RED);
         setPreferredSize(dim);

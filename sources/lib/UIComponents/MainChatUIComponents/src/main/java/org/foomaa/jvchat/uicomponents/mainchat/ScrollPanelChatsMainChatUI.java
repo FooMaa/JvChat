@@ -51,7 +51,8 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
 
     ScrollPanelChatsMainChatUI(UsersInfoSettings usersInfoSettings, UISettings uiSettings,
             SendMessagesCtrl sendMessagesCtrl, MessagesDefinesCtrl messagesDefinesCtrl,
-            RectChatMainChatUIFactory rectChatFactory, ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider) {
+            RectChatMainChatUIFactory rectChatFactory,
+            ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider) {
         this.usersInfoSettings = usersInfoSettings;
         this.uiSettings = uiSettings;
         this.sendMessagesCtrl = sendMessagesCtrl;
@@ -85,7 +86,8 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
     }
 
     private void settingLoadLabel() {
-        loadGifLabel = new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getResource(loadGifPath))));
+        loadGifLabel = new JLabel(
+                new ImageIcon(Objects.requireNonNull(getClass().getResource(loadGifPath))));
         loadGifLabel.setOpaque(false);
         loadGifLabel.setBackground(new Color(0, 0, 0, 0));
     }
@@ -201,7 +203,8 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
         UUID uuidChat = selectedElement.getUuidChat();
         int quantityMessages = uiSettings.getQuantityMessagesLoad();
 
-        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.MessagesLoadRequest, uuidChat, quantityMessages);
+        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.MessagesLoadRequest, uuidChat,
+                quantityMessages);
     }
 
     private void setRequestChatsToServer() {
@@ -211,7 +214,8 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
 
     private List<ChatStructObject> getChatsObjects() {
         List<ChatStructObject> chatsStructObjectsList = new ArrayList<>();
-        while (messagesDefinesCtrl.getChatsLoadReplyFlag() == MessagesDefinesCtrl.TypeFlags.DEFAULT) {
+        while (messagesDefinesCtrl
+                .getChatsLoadReplyFlag() == MessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
@@ -247,7 +251,8 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
     private void processUpdatingOnline() {
         sendingUpdateOnlinePackage();
 
-        while (messagesDefinesCtrl.getLoadUsersOnlineReplyFlag() == MessagesDefinesCtrl.TypeFlags.DEFAULT) {
+        while (messagesDefinesCtrl
+                .getLoadUsersOnlineReplyFlag() == MessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(intervalSecondsWaitLoopUpdate);
             } catch (InterruptedException exception) {
@@ -272,7 +277,8 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
         }
 
         List<UUID> uuidsUsersChats = chatsCtrl.getUuidsUsersChats();
-        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.LoadUsersOnlineStatusRequest, uuidsUsersChats);
+        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.LoadUsersOnlineStatusRequest,
+                uuidsUsersChats);
     }
 
     private void installingUpdatingDataInRectChats() {
@@ -288,7 +294,8 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
             }
 
             UserStructObject user = chatsCtrl.getUserObjectsByUuidUser(uuidUser);
-            String lastOnlineString = chatsCtrl.getTimeFormattedLastOnline(user.getTimestampLastOnline());
+            String lastOnlineString = chatsCtrl
+                    .getTimeFormattedLastOnline(user.getTimestampLastOnline());
 
             rectChatMainChatUI.setLastOnlineDateTime(lastOnlineString);
             rectChatMainChatUI.setStatusOnline(user.getStatusOnline());

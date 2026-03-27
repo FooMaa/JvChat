@@ -29,7 +29,8 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
     private final MessagesDialogCtrl messagesDialogCtrl;
     private final RectMessageMainChatUIFactory rectMessageMainChatUIFactory;
 
-    ScrollPanelMessagesMainChatUI(MessagesDefinesCtrl messagesDefinesCtrl, MessagesDialogCtrl messagesDialogCtrl,
+    ScrollPanelMessagesMainChatUI(MessagesDefinesCtrl messagesDefinesCtrl,
+            MessagesDialogCtrl messagesDialogCtrl,
             RectMessageMainChatUIFactory rectMessageMainChatUIFactory) {
         this.messagesDefinesCtrl = messagesDefinesCtrl;
         this.messagesDialogCtrl = messagesDialogCtrl;
@@ -128,7 +129,8 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
     private void scrollDownPanel() {
         JScrollBar verticalScrollBar = scrollPane.getVerticalScrollBar();
         if (verticalScrollBar != null) {
-            SwingUtilities.invokeLater(() -> verticalScrollBar.setValue(verticalScrollBar.getMaximum()));
+            SwingUtilities
+                    .invokeLater(() -> verticalScrollBar.setValue(verticalScrollBar.getMaximum()));
         }
     }
 
@@ -153,13 +155,16 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
     }
 
     private void processUpdatingMessages() {
-        if (messagesDefinesCtrl.getTextMessagesLoadReplyFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (messagesDefinesCtrl
+                .getTextMessagesLoadReplyFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
             changeAllMessages();
         }
-        if (messagesDefinesCtrl.getTextMessageRedirectServerToUserFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (messagesDefinesCtrl
+                .getTextMessageRedirectServerToUserFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
             addRedirectMessage();
         }
-        if (messagesDefinesCtrl.getTextMessagesChangingStatusFromServerFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (messagesDefinesCtrl
+                .getTextMessagesChangingStatusFromServerFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
             changeStatusMessage();
         }
 
@@ -186,14 +191,16 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
         UUID currentPanelUuid = messagesDialogCtrl.getCurrentActiveChatUuid();
 
         for (MessageStructObject messageStructObject : allMessagesObjSorted) {
-            UUID uuidChat = messagesDialogCtrl.findUuidChatByUuidUser(messageStructObject.getUuidUserSender());
-            if (findRectMessageByUuid(panel, messageStructObject.getUuid()) == null && uuidChat != null
-                    && uuidChat.equals(currentPanelUuid)) {
+            UUID uuidChat = messagesDialogCtrl
+                    .findUuidChatByUuidUser(messageStructObject.getUuidUserSender());
+            if (findRectMessageByUuid(panel, messageStructObject.getUuid()) == null
+                    && uuidChat != null && uuidChat.equals(currentPanelUuid)) {
                 addMessage(messageStructObject);
             }
         }
 
-        messagesDefinesCtrl.setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
+        messagesDefinesCtrl
+                .setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
     }
 
     private RectMessageMainChatUI findRectMessageByUuid(JPanel panelMsg, UUID uuid) {
@@ -219,12 +226,14 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
         List<MessageStructObject> allMessagesObjSorted = messagesDialogCtrl.getAllSortedMessages();
 
         for (MessageStructObject messageStructObject : allMessagesObjSorted) {
-            RectMessageMainChatUI rectMessage = findRectMessageByUuid(panel, messageStructObject.getUuid());
+            RectMessageMainChatUI rectMessage = findRectMessageByUuid(panel,
+                    messageStructObject.getUuid());
             if (rectMessage != null) {
                 rectMessage.changeStatusMessage(messageStructObject.getStatusMessage());
             }
         }
 
-        messagesDefinesCtrl.setTextMessagesChangingStatusFromServerFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
+        messagesDefinesCtrl
+                .setTextMessagesChangingStatusFromServerFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
     }
 }

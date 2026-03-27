@@ -5,9 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
-
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
@@ -18,16 +16,15 @@ import org.foomaa.jvchat.structobjects.MessageStructObject;
 import org.foomaa.jvchat.structobjects.UserStructObject;
 import org.foomaa.jvchat.tools.FormatTools;
 
-@Component
-@Profile("users")
 @Slf4j
 public class ChatsCtrl {
     private final ChatsModel chatsModel;
     private final FormatTools formatTools;
 
+    @Builder
     ChatsCtrl(ChatsModel chatsModel, FormatTools formatTools) {
-        this.chatsModel = chatsModel;
-        this.formatTools = formatTools;
+        this.chatsModel = Objects.requireNonNull(chatsModel, "chatsModel is mandatory");
+        this.formatTools = Objects.requireNonNull(formatTools, "formatTools is mandatory");
     }
 
     public void createChatsObjects(List<Map<DefinesMessages.TypeData, Object>> chatsInfo) {
@@ -40,14 +37,16 @@ public class ChatsCtrl {
             String lastMessageText = (String) chat.get(DefinesMessages.TypeData.TextMessage);
             UUID uuidChat = (UUID) chat.get(DefinesMessages.TypeData.UuidChat);
             UUID uuidLastMessage = (UUID) chat.get(DefinesMessages.TypeData.UuidMessage);
-            Boolean isLoginSentLastMessage = (Boolean) chat.get(DefinesMessages.TypeData.IsLoginSentLastMessage);
+            Boolean isLoginSentLastMessage = (Boolean) chat
+                    .get(DefinesMessages.TypeData.IsLoginSentLastMessage);
             MainChatsGlobalDefines.TypeStatusMessage statusMessage = (MainChatsGlobalDefines.TypeStatusMessage) chat
                     .get(DefinesMessages.TypeData.StatusMessage);
             LocalDateTime timestampLastMessage = formatTools.stringToLocalDateTime(
                     (String) chat.get(DefinesMessages.TypeData.Timestamp), normalizeTimestampCount);
 
             if (timestampLastMessage == null) {
-                log.warn("It was not possible to normalize the date and time to the required format.");
+                log.warn(
+                        "It was not possible to normalize the date and time to the required format.");
             }
 
             chatsModel.createNewChat(login, uuidUser, lastMessageText, uuidChat, uuidLastMessage,
@@ -55,7 +54,8 @@ public class ChatsCtrl {
         }
     }
 
-    public void setOnlineStatusesUsers(Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> onlineStatusesUsers) {
+    public void setOnlineStatusesUsers(
+            Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> onlineStatusesUsers) {
         for (UUID uuidUser : onlineStatusesUsers.keySet()) {
             chatsModel.setOnlineStatusToUser(uuidUser, onlineStatusesUsers.get(uuidUser));
         }
@@ -64,15 +64,16 @@ public class ChatsCtrl {
     public void setLastOnlineTimeUsersByStrings(Map<UUID, String> lastOnlineTimeUsers) {
         int normalizeTimestampCount = 3;
         for (UUID uuidUser : lastOnlineTimeUsers.keySet()) {
-            LocalDateTime timestamp = formatTools.stringToLocalDateTime(lastOnlineTimeUsers.get(uuidUser),
-                    normalizeTimestampCount);
+            LocalDateTime timestamp = formatTools.stringToLocalDateTime(
+                    lastOnlineTimeUsers.get(uuidUser), normalizeTimestampCount);
             chatsModel.setTimestampLastOnlineToUser(uuidUser, timestamp);
         }
     }
 
     public String getTimeFormattedLastOnline(LocalDateTime lastOnlineDateTime) {
         if (lastOnlineDateTime == null) {
-            log.warn("Here lastOnlineDateTime turned out to be null (Maybe for those who are online).");
+            log.warn(
+                    "Here lastOnlineDateTime turned out to be null (Maybe for those who are online).");
             return "";
         }
 

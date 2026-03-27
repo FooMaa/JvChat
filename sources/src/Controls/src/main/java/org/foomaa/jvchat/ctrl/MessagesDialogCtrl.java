@@ -4,10 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
-
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
@@ -20,7 +17,6 @@ import org.foomaa.jvchat.structobjects.MessageStructObject;
 import org.foomaa.jvchat.structobjects.MessageStructObjectFactory;
 import org.foomaa.jvchat.tools.FormatTools;
 
-@Component
 @Slf4j
 public class MessagesDialogCtrl {
     private final MessagesModel messagesModel;
@@ -28,26 +24,30 @@ public class MessagesDialogCtrl {
     private final FormatTools formatTools;
     private final SendMessagesCtrl sendMessagesCtrl;
     private final MessagesDefinesCtrl messagesDefinesCtrl;
-    private final ObjectProvider<OnlineServersCtrl> onlineServersCtrlObjectProvider;
-    private final ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider;
-    private final ObjectProvider<UsersInfoSettings> usersInfoSettingsObjectProvider;
+    private final OnlineServersCtrl onlineServersCtrl;
+    private final ChatsCtrl chatsCtrl;
+    private final UsersInfoSettings usersInfoSettings;
     private final MessageStructObjectFactory messageStructObjectFactory;
 
-    MessagesDialogCtrl(@Lazy MessagesModel messagesModel, @Lazy ChatsModel chatsModel, FormatTools formatTools,
+    @Builder
+    MessagesDialogCtrl(MessagesModel messagesModel, ChatsModel chatsModel, FormatTools formatTools,
             SendMessagesCtrl sendMessagesCtrl, MessagesDefinesCtrl messagesDefinesCtrl,
-            ObjectProvider<OnlineServersCtrl> onlineServersCtrlObjectProvider,
-            ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider,
-            ObjectProvider<UsersInfoSettings> usersInfoSettingsObjectProvider,
-            MessageStructObjectFactory messageStructObjectFactory) {
-        this.messagesModel = messagesModel;
-        this.chatsModel = chatsModel;
-        this.formatTools = formatTools;
-        this.sendMessagesCtrl = sendMessagesCtrl;
-        this.messagesDefinesCtrl = messagesDefinesCtrl;
-        this.onlineServersCtrlObjectProvider = onlineServersCtrlObjectProvider;
-        this.chatsCtrlObjectProvider = chatsCtrlObjectProvider;
-        this.usersInfoSettingsObjectProvider = usersInfoSettingsObjectProvider;
-        this.messageStructObjectFactory = messageStructObjectFactory;
+            MessageStructObjectFactory messageStructObjectFactory,
+            OnlineServersCtrl onlineServersCtrl, ChatsCtrl chatsCtrl,
+            UsersInfoSettings usersInfoSettings) {
+        this.messagesModel = Objects.requireNonNull(messagesModel, "messagesModel is mandatory");
+        this.chatsModel = Objects.requireNonNull(chatsModel, "chatsModel is mandatory");
+        this.formatTools = Objects.requireNonNull(formatTools, "formatTools is mandatory");
+        this.sendMessagesCtrl = Objects.requireNonNull(sendMessagesCtrl,
+                "sendMessagesCtrl is mandatory");
+        this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl,
+                "messagesDefinesCtrl is mandatory");
+        this.messageStructObjectFactory = Objects.requireNonNull(messageStructObjectFactory,
+                "messageStructObjectFactory is mandatory");
+
+        this.onlineServersCtrl = onlineServersCtrl;
+        this.chatsCtrl = chatsCtrl;
+        this.usersInfoSettings = usersInfoSettings;
     }
 
     public void setCurrentActiveChatUuid(UUID newUuidChat) {
@@ -76,7 +76,6 @@ public class MessagesDialogCtrl {
             return null;
         }
 
-        UsersInfoSettings usersInfoSettings = usersInfoSettingsObjectProvider.getIfAvailable();
         if (usersInfoSettings == null) {
             log.error("usersInfoSettings is null");
             return null;
@@ -89,8 +88,8 @@ public class MessagesDialogCtrl {
         LocalDateTime timestamp = LocalDateTime.now();
         MainChatsGlobalDefines.TypeStatusMessage status = MainChatsGlobalDefines.TypeStatusMessage.Sent;
 
-        MessageStructObject messageStructObject = messagesModel.createNewMessage(uuidSender, uuidReceiver, uuidMessage,
-                status, text, timestamp);
+        MessageStructObject messageStructObject = messagesModel.createNewMessage(uuidSender,
+                uuidReceiver, uuidMessage, status, text, timestamp);
 
         sendNewMessage(messageStructObject);
         setLastMessageInChatCtrl(messageStructObject);
@@ -108,21 +107,22 @@ public class MessagesDialogCtrl {
             UUID uuidMessage = (UUID) msg.get(DefinesMessages.TypeData.UuidMessage);
             String text = (String) msg.get(DefinesMessages.TypeData.TextMessage);
             MainChatsGlobalDefines.TypeStatusMessage statusMessage = MainChatsGlobalDefines.TypeStatusMessage
-                    .getTypeStatusMessage((Integer) msg.get(DefinesMessages.TypeData.StatusMessage));
+                    .getTypeStatusMessage(
+                            (Integer) msg.get(DefinesMessages.TypeData.StatusMessage));
             LocalDateTime timestampMessage = formatTools.stringToLocalDateTime(
                     (String) msg.get(DefinesMessages.TypeData.Timestamp), normalizeCountTimestamp);
 
             if (timestampMessage == null) {
-                log.warn("It was not possible to normalize the date and time to the required format.");
+                log.warn(
+                        "It was not possible to normalize the date and time to the required format.");
             }
 
-            messagesModel.createNewMessage(uuidUserSender, uuidUserReceiver, uuidMessage, statusMessage, text,
-                    timestampMessage);
+            messagesModel.createNewMessage(uuidUserSender, uuidUserReceiver, uuidMessage,
+                    statusMessage, text, timestampMessage);
         }
     }
 
     private void setLastMessageInChatCtrl(MessageStructObject message) {
-        ChatsCtrl chatsCtrl = chatsCtrlObjectProvider.getIfAvailable();
         if (chatsCtrl == null) {
             log.error("chatsCtrl is null");
             return;
@@ -135,18 +135,20 @@ public class MessagesDialogCtrl {
         String timestampNewMessage = formatTools.localDateTimeToString(message.getTimestamp());
 
         sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.TextMessageSendUserToServer,
-                message.getUuidUserSender(), message.getUuidUserReceiver(), message.getUuid(), message.getText(),
-                timestampNewMessage);
+                message.getUuidUserSender(), message.getUuidUserReceiver(), message.getUuid(),
+                message.getText(), timestampNewMessage);
     }
 
-    public void setDirtyStatusToMessage(Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages) {
+    public void setDirtyStatusToMessage(
+            Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages) {
         for (UUID uuid : mapStatusesMessages.keySet()) {
             MessageStructObject message = findMessage(uuid);
             if (message != null) {
                 message.setStatusMessage(mapStatusesMessages.get(uuid));
             }
         }
-        messagesDefinesCtrl.setTextMessagesChangingStatusFromServerFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
+        messagesDefinesCtrl
+                .setTextMessagesChangingStatusFromServerFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
     }
 
     public MessageStructObject findMessage(UUID uuid) {
@@ -161,7 +163,6 @@ public class MessagesDialogCtrl {
     }
 
     public boolean isCurrentUserSender(MessageStructObject messageStructObject) {
-        UsersInfoSettings usersInfoSettings = usersInfoSettingsObjectProvider.getIfAvailable();
         if (usersInfoSettings == null) {
             log.error("usersInfoSettings is null");
             return false;
@@ -171,12 +172,12 @@ public class MessagesDialogCtrl {
         return Objects.equals(currentUuid, messageStructObject.getUuidUserSender());
     }
 
-    public void redirectMessageToOnlineUser(UUID uuidUserSender, UUID uuidUserReceiver, UUID uuidMessage,
-            MainChatsGlobalDefines.TypeStatusMessage statusMessage, String text, LocalDateTime timestamp) {
-        MessageStructObject messageStructObject = createMessageByData(uuidUserSender, uuidUserReceiver, uuidMessage,
-                statusMessage, text, timestamp);
+    public void redirectMessageToOnlineUser(UUID uuidUserSender, UUID uuidUserReceiver,
+            UUID uuidMessage, MainChatsGlobalDefines.TypeStatusMessage statusMessage, String text,
+            LocalDateTime timestamp) {
+        MessageStructObject messageStructObject = createMessageByData(uuidUserSender,
+                uuidUserReceiver, uuidMessage, statusMessage, text, timestamp);
 
-        OnlineServersCtrl onlineServersCtrl = onlineServersCtrlObjectProvider.getIfAvailable();
         if (onlineServersCtrl == null) {
             log.error("onlineServersCtrl is null");
             return;
@@ -188,24 +189,28 @@ public class MessagesDialogCtrl {
             return;
         }
 
-        Runnable runnableUserCtrl = onlineServersCtrl.getRunnableByUuidUser(messageStructObject.getUuidUserReceiver());
+        Runnable runnableUserCtrl = onlineServersCtrl
+                .getRunnableByUuidUser(messageStructObject.getUuidUserReceiver());
         if (runnableUserCtrl == null) {
             log.error("Here runnableUserCtrl turned out to be null.");
             return;
         }
 
-        String timestampMessage = formatTools.localDateTimeToString(messageStructObject.getTimestamp());
+        String timestampMessage = formatTools
+                .localDateTimeToString(messageStructObject.getTimestamp());
 
         sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.TextMessageRedirectServerToUser,
                 messageStructObject.getUuidUserSender(), messageStructObject.getUuidUserReceiver(),
-                messageStructObject.getUuid(), messageStructObject.getText(), timestampMessage, runnableUserCtrl);
+                messageStructObject.getUuid(), messageStructObject.getText(), timestampMessage,
+                runnableUserCtrl);
     }
 
-    private MessageStructObject createMessageByData(UUID uuidUserSender, UUID uuidUserReceiver, UUID uuidMessage,
-            MainChatsGlobalDefines.TypeStatusMessage statusMessage, String text, LocalDateTime timestamp) {
+    private MessageStructObject createMessageByData(UUID uuidUserSender, UUID uuidUserReceiver,
+            UUID uuidMessage, MainChatsGlobalDefines.TypeStatusMessage statusMessage, String text,
+            LocalDateTime timestamp) {
 
-        return messageStructObjectFactory.create(uuidUserSender, uuidUserReceiver, statusMessage, text, timestamp,
-                uuidMessage);
+        return messageStructObjectFactory.create(uuidUserSender, uuidUserReceiver, statusMessage,
+                text, timestamp, uuidMessage);
     }
 
     public String getTimeFormattedMessage(LocalDateTime timestamp) {
@@ -218,10 +223,11 @@ public class MessagesDialogCtrl {
         return timestamp.format(formatter);
     }
 
-    public void addRedirectMessageToModel(UUID uuidUserSender, UUID uuidUserReceiver, UUID uuidMessage,
-            MainChatsGlobalDefines.TypeStatusMessage statusMessage, String text, LocalDateTime timestamp) {
-        MessageStructObject messageStructObject = createMessageByData(uuidUserSender, uuidUserReceiver, uuidMessage,
-                statusMessage, text, timestamp);
+    public void addRedirectMessageToModel(UUID uuidUserSender, UUID uuidUserReceiver,
+            UUID uuidMessage, MainChatsGlobalDefines.TypeStatusMessage statusMessage, String text,
+            LocalDateTime timestamp) {
+        MessageStructObject messageStructObject = createMessageByData(uuidUserSender,
+                uuidUserReceiver, uuidMessage, statusMessage, text, timestamp);
         messagesModel.addMessageStructObject(messageStructObject);
     }
 

@@ -24,10 +24,11 @@ public class MessagesModel extends BaseModel {
         this.messageStructObjectFactory = messageStructObjectFactory;
     }
 
-    public MessageStructObject createNewMessage(UUID uuidUserSender, UUID uuidUserReceiver, UUID uuidMessage,
-            MainChatsGlobalDefines.TypeStatusMessage statusMessage, String text, LocalDateTime timestamp) {
-        MessageStructObject messageObj = messageStructObjectFactory.create(uuidUserSender, uuidUserReceiver,
-                statusMessage, text, timestamp, uuidMessage);
+    public MessageStructObject createNewMessage(UUID uuidUserSender, UUID uuidUserReceiver,
+            UUID uuidMessage, MainChatsGlobalDefines.TypeStatusMessage statusMessage, String text,
+            LocalDateTime timestamp) {
+        MessageStructObject messageObj = messageStructObjectFactory.create(uuidUserSender,
+                uuidUserReceiver, statusMessage, text, timestamp, uuidMessage);
 
         addItem(messageObj, getRootObject());
 

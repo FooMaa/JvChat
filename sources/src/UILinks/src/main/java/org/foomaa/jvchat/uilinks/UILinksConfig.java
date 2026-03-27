@@ -19,13 +19,15 @@ public class UILinksConfig {
     @Profile("users")
     public ErrorStartUILinkFactory beanErrorStartUILinkFactory(
             ObjectProvider<ErrorStartUILink> errorStartUILinkObjectProvider) {
-        return ErrorStartUILinkFactory.builder().errorStartUILinkObjectProvider(errorStartUILinkObjectProvider).build();
+        return ErrorStartUILinkFactory.builder()
+                .errorStartUILinkObjectProvider(errorStartUILinkObjectProvider).build();
     }
 
     @Bean
     @Lazy
     @Profile("users")
-    public StartAuthenticationUILink beanStartAuthenticationUILink(MainFrameAuthUI mainFrameAuthUI) {
+    public StartAuthenticationUILink beanStartAuthenticationUILink(
+            MainFrameAuthUI mainFrameAuthUI) {
         return StartAuthenticationUILink.builder().mainFrameAuthUI(mainFrameAuthUI).build();
     }
 }

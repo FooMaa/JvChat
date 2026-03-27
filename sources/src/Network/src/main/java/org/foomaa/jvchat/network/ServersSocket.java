@@ -17,7 +17,8 @@ public class ServersSocket {
 
     @Builder
     private ServersSocket(ServersInfoSettings serversInfoSettings) {
-        this.serversInfoSettings = Objects.requireNonNull(serversInfoSettings, "serversInfoSettings is mandatory");
+        this.serversInfoSettings = Objects.requireNonNull(serversInfoSettings,
+                "serversInfoSettings is mandatory");
     }
 
     public void start() throws IOException {
@@ -25,7 +26,8 @@ public class ServersSocket {
             socketServers = new ServerSocket(serversInfoSettings.getPort());
         } else {
             socketServers = new ServerSocket(serversInfoSettings.getPort(),
-                    serversInfoSettings.getQuantityConnections(), InetAddress.getByName(serversInfoSettings.getIp()));
+                    serversInfoSettings.getQuantityConnections(),
+                    InetAddress.getByName(serversInfoSettings.getIp()));
         }
 
         log.info("IP: {}.", socketServers.getInetAddress().toString());

@@ -1,5 +1,7 @@
 package org.foomaa.jvchat.uilinks;
 
+import java.util.Objects;
+
 import org.springframework.beans.factory.ObjectProvider;
 
 import lombok.Builder;
@@ -9,12 +11,12 @@ public class ErrorStartUILinkFactory {
 
     @Builder
     ErrorStartUILinkFactory(ObjectProvider<ErrorStartUILink> errorStartUILinkObjectProvider) {
-        this.errorStartUILinkObjectProvider = errorStartUILinkObjectProvider;
+        this.errorStartUILinkObjectProvider = Objects.requireNonNull(errorStartUILinkObjectProvider,
+                "errorStartUILinkObjectProvider is mandatory");;
     }
 
-    public ErrorStartUILink create(String message) {
+    public void create(String message) {
         ErrorStartUILink errorStartUILink = errorStartUILinkObjectProvider.getObject();
         errorStartUILink.show(message);
-        return errorStartUILink;
     }
 }

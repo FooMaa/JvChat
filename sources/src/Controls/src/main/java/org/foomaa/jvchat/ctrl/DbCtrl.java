@@ -3,22 +3,15 @@ package org.foomaa.jvchat.ctrl;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
-
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.dbworker.DbRequests;
 import org.foomaa.jvchat.dbworker.DbWorker;
 import org.foomaa.jvchat.globaldefines.DbGlobalDefines;
 
-@Component
-@Profile("servers")
 @Slf4j
 public class DbCtrl {
     private final DbWorker db;
@@ -40,9 +33,10 @@ public class DbCtrl {
         ChatsLoad, StatusOnlineTimeUser, OnlineUsers, MessagesLoad,
     }
 
+    @Builder
     DbCtrl(DbRequests dbRequests, DbWorker dbWorker) {
-        this.dbRequests = dbRequests;
-        this.db = dbWorker;
+        this.dbRequests = Objects.requireNonNull(dbRequests, "dbRequests is mandatory");
+        this.db = Objects.requireNonNull(dbWorker, "dbWorker is mandatory");;
     }
 
     public List<String> getStrDataAtRow(ResultSet resultSet, int row) {
@@ -92,8 +86,8 @@ public class DbCtrl {
                     String uuidUser = parameters[3];
                     if (!checkQueryToDB(TypeExecutionCheck.Login, login)
                             && !checkQueryToDB(TypeExecutionCheck.Email, email)) {
-                        ResultSet rs = db
-                                .makeExecution(dbRequests.insertToRegForm(login, email, hashPassword, uuidUser));
+                        ResultSet rs = db.makeExecution(
+                                dbRequests.insertToRegForm(login, email, hashPassword, uuidUser));
                         db.closeResultSet(rs);
                         return true;
                     } else {
@@ -106,7 +100,8 @@ public class DbCtrl {
                 if (parameters.length == 2) {
                     String email = parameters[0];
                     String hashPassword = parameters[1];
-                    ResultSet rs = db.makeExecution(dbRequests.insertChangePassword(email, hashPassword));
+                    ResultSet rs = db
+                            .makeExecution(dbRequests.insertChangePassword(email, hashPassword));
                     db.closeResultSet(rs);
                     return true;
                 }
@@ -118,8 +113,10 @@ public class DbCtrl {
                     String code = parameters[1];
                     String userUuid;
                     if (checkQueryToDB(TypeExecutionCheck.Email, email)) {
-                        userUuid = getSingleDataFromDb(TypeExecutionGetSingle.UuidUserByEmail, email);
-                        ResultSet rs = db.makeExecution(dbRequests.insertCodeVerifyFamousEmail(userUuid, code));
+                        userUuid = getSingleDataFromDb(TypeExecutionGetSingle.UuidUserByEmail,
+                                email);
+                        ResultSet rs = db.makeExecution(
+                                dbRequests.insertCodeVerifyFamousEmail(userUuid, code));
                         db.closeResultSet(rs);
                         return true;
                     }
@@ -130,7 +127,8 @@ public class DbCtrl {
                 if (parameters.length == 2) {
                     String email = parameters[0];
                     String code = parameters[1];
-                    ResultSet rs = db.makeExecution(dbRequests.insertVerifyRegistrationEmail(email, code));
+                    ResultSet rs = db
+                            .makeExecution(dbRequests.insertVerifyRegistrationEmail(email, code));
                     db.closeResultSet(rs);
                     return true;
                 }
@@ -140,7 +138,8 @@ public class DbCtrl {
                 if (parameters.length == 2) {
                     String login = parameters[0];
                     String status = parameters[1];
-                    ResultSet rs = db.makeExecution(dbRequests.insertOnlineUsersInfo(login, status));
+                    ResultSet rs = db
+                            .makeExecution(dbRequests.insertOnlineUsersInfo(login, status));
                     db.closeResultSet(rs);
                     return true;
                 }
@@ -154,8 +153,9 @@ public class DbCtrl {
                     String status = parameters[3];
                     String text = parameters[4];
                     String timestamp = parameters[5];
-                    ResultSet rs = db.makeExecution(dbRequests.insertChatsSentMessage(uuidUserSender, uuidUserReceiver,
-                            uuidMessage, status, text, timestamp));
+                    ResultSet rs = db
+                            .makeExecution(dbRequests.insertChatsSentMessage(uuidUserSender,
+                                    uuidUserReceiver, uuidMessage, status, text, timestamp));
                     db.closeResultSet(rs);
                     return true;
                 }
@@ -165,7 +165,8 @@ public class DbCtrl {
                 if (parameters.length == 2) {
                     String uuidMessage = parameters[0];
                     String status = parameters[1];
-                    ResultSet rs = db.makeExecution(dbRequests.insertChatsMessageStatusChange(uuidMessage, status));
+                    ResultSet rs = db.makeExecution(
+                            dbRequests.insertChatsMessageStatusChange(uuidMessage, status));
                     db.closeResultSet(rs);
                     return true;
                 }
@@ -181,7 +182,8 @@ public class DbCtrl {
                 if (parameters.length == 2) {
                     String login = parameters[0];
                     String hashPassword = parameters[1];
-                    ResultSet rs = db.makeExecution(dbRequests.checkUserPassword(login, hashPassword));
+                    ResultSet rs = db
+                            .makeExecution(dbRequests.checkUserPassword(login, hashPassword));
                     try {
                         boolean result = rs.next();
                         db.closeResultSet(rs);
@@ -224,7 +226,8 @@ public class DbCtrl {
                 if (parameters.length == 2) {
                     String email = parameters[0];
                     String code = parameters[1];
-                    ResultSet rs = db.makeExecution(dbRequests.checkVerifyFamousEmailCode(email, code));
+                    ResultSet rs = db
+                            .makeExecution(dbRequests.checkVerifyFamousEmailCode(email, code));
                     try {
                         boolean result = rs.next();
                         db.closeResultSet(rs);
@@ -239,7 +242,8 @@ public class DbCtrl {
                 if (parameters.length == 2) {
                     String email = parameters[0];
                     String code = parameters[1];
-                    ResultSet rs = db.makeExecution(dbRequests.checkVerifyRegistrationEmail(email, code));
+                    ResultSet rs = db
+                            .makeExecution(dbRequests.checkVerifyRegistrationEmail(email, code));
                     try {
                         boolean result = rs.next();
                         db.closeResultSet(rs);
@@ -295,7 +299,8 @@ public class DbCtrl {
             case LastOnlineTimeUser -> {
                 if (parameters.length == 1) {
                     String uuidUser = parameters[0];
-                    ResultSet resultSet = db.makeExecution(dbRequests.getLastOnlineTimeUser(uuidUser));
+                    ResultSet resultSet = db
+                            .makeExecution(dbRequests.getLastOnlineTimeUser(uuidUser));
                     List<String> result = getStrDataAtRow(resultSet, 1);
                     db.closeResultSet(resultSet);
                     if (!result.isEmpty()) {
@@ -308,14 +313,15 @@ public class DbCtrl {
         return null;
     }
 
-    public List<Map<DbGlobalDefines.LineKeys, String>> getMultipleInfoFromDb(TypeExecutionGetMultiple type,
-            String... parameters) {
+    public List<Map<DbGlobalDefines.LineKeys, String>> getMultipleInfoFromDb(
+            TypeExecutionGetMultiple type, String... parameters) {
         switch (type) {
             case ChatsLoad -> {
                 if (parameters.length == 1) {
                     String userLogin = parameters[0];
                     ResultSet resultSet = db.makeExecution(dbRequests.getChats(userLogin));
-                    List<Map<DbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
+                    List<Map<DbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(
+                            resultSet);
 
                     db.closeResultSet(resultSet);
 
@@ -328,8 +334,10 @@ public class DbCtrl {
             case StatusOnlineTimeUser -> {
                 if (parameters.length == 1) {
                     String uuidUser = parameters[0];
-                    ResultSet resultSet = db.makeExecution(dbRequests.getStatusOnlineTimeUser(uuidUser));
-                    List<Map<DbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
+                    ResultSet resultSet = db
+                            .makeExecution(dbRequests.getStatusOnlineTimeUser(uuidUser));
+                    List<Map<DbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(
+                            resultSet);
 
                     db.closeResultSet(resultSet);
 
@@ -342,7 +350,8 @@ public class DbCtrl {
             case OnlineUsers -> {
                 if (parameters.length == 0) {
                     ResultSet resultSet = db.makeExecution(dbRequests.getOnlineUsers());
-                    List<Map<DbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
+                    List<Map<DbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(
+                            resultSet);
 
                     db.closeResultSet(resultSet);
 
@@ -357,9 +366,10 @@ public class DbCtrl {
                     String uuidChat = parameters[0];
                     String quantityMessages = parameters[1];
 
-                    ResultSet resultSet = db
-                            .makeExecution(dbRequests.getQuantityMessagesByUuids(uuidChat, quantityMessages));
-                    List<Map<DbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
+                    ResultSet resultSet = db.makeExecution(
+                            dbRequests.getQuantityMessagesByUuids(uuidChat, quantityMessages));
+                    List<Map<DbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(
+                            resultSet);
 
                     db.closeResultSet(resultSet);
 
@@ -373,7 +383,8 @@ public class DbCtrl {
         return null;
     }
 
-    public List<Map<DbGlobalDefines.LineKeys, String>> multipleDataFromResultSet(ResultSet resultSet) {
+    public List<Map<DbGlobalDefines.LineKeys, String>> multipleDataFromResultSet(
+            ResultSet resultSet) {
         List<Map<DbGlobalDefines.LineKeys, String>> result = new ArrayList<>();
 
         try {

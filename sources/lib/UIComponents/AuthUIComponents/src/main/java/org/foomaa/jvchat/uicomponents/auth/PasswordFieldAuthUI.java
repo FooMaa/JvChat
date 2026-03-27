@@ -126,7 +126,8 @@ public class PasswordFieldAuthUI extends JPanel {
         button.setBorder(null);
         button.setEnabled(false);
         button.setFocusPainted(false);
-        button.setPreferredSize(new Dimension(invisibleImage.getWidth(), invisibleImage.getHeight()));
+        button.setPreferredSize(
+                new Dimension(invisibleImage.getWidth(), invisibleImage.getHeight()));
         updateToolTipButton();
     }
 
@@ -218,8 +219,10 @@ public class PasswordFieldAuthUI extends JPanel {
 
     private void settingPassAndButtonPanel() {
         Dimension dim = new Dimension(
-                displaySettings.getResizeFromDisplay(0.23, DisplaySettings.TypeOfDisplayBorder.WIDTH),
-                displaySettings.getResizeFromDisplay(0.03, DisplaySettings.TypeOfDisplayBorder.HEIGHT));
+                displaySettings.getResizeFromDisplay(0.23,
+                        DisplaySettings.TypeOfDisplayBorder.WIDTH),
+                displaySettings.getResizeFromDisplay(0.03,
+                        DisplaySettings.TypeOfDisplayBorder.HEIGHT));
         settingButtonImage();
         settingPassField(dim);
         addElements();

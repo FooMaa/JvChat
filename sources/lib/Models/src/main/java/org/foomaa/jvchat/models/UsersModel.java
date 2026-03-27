@@ -16,8 +16,8 @@ public class UsersModel extends BaseModel {
     // DI ↓
     private final UserStructObjectFactory userStructObjectFactory;
 
-    UsersModel(UserStructObjectFactory userStructObjectFactory, RootStructObjectFactory rootStructObjectFactory,
-            RootObjectsModel rootObjectsModel) {
+    UsersModel(UserStructObjectFactory userStructObjectFactory,
+            RootStructObjectFactory rootStructObjectFactory, RootObjectsModel rootObjectsModel) {
         super(rootObjectsModel, rootStructObjectFactory);
 
         this.userStructObjectFactory = userStructObjectFactory;

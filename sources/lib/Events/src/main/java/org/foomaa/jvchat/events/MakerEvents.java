@@ -15,8 +15,8 @@ public class MakerEvents {
     }
 
     public void event(Object objectSender, String customNameEvent, Object... data) {
-        List<ConnectionEventStructObject> connections = connectionsEventsModel.findConnections(objectSender,
-                customNameEvent);
+        List<ConnectionEventStructObject> connections = connectionsEventsModel
+                .findConnections(objectSender, customNameEvent);
         for (ConnectionEventStructObject connection : connections) {
             UUID uuidKey = connection.getUuid();
             BaseEvent baseEvent = GetterEvents.getInstance().getBeanBaseEvent(objectSender,
@@ -31,6 +31,7 @@ public class MakerEvents {
 
     public UUID addConnect(Object objectSender, Object objectReceiver, String customNameEvent,
             AnnotationConfigApplicationContext context) {
-        return connectionsEventsModel.createNewConnection(objectSender, objectReceiver, customNameEvent, context);
+        return connectionsEventsModel.createNewConnection(objectSender, objectReceiver,
+                customNameEvent, context);
     }
 }

@@ -111,8 +111,10 @@ public class FindTextFieldMainChatUI extends JPanel {
 
     private void settingTextAndButtonPanel() {
         Dimension dim = new Dimension(
-                displaySettings.getResizeFromDisplay(0.23, DisplaySettings.TypeOfDisplayBorder.WIDTH),
-                displaySettings.getResizeFromDisplay(0.03, DisplaySettings.TypeOfDisplayBorder.HEIGHT));
+                displaySettings.getResizeFromDisplay(0.23,
+                        DisplaySettings.TypeOfDisplayBorder.WIDTH),
+                displaySettings.getResizeFromDisplay(0.03,
+                        DisplaySettings.TypeOfDisplayBorder.HEIGHT));
         settingButtonImage();
         settingTextField(dim);
         addElements();
@@ -161,7 +163,8 @@ public class FindTextFieldMainChatUI extends JPanel {
     }
 
     public void setNormalBorder() {
-        setBorder(BorderFactory.createMatteBorder(borderSize, borderSize, borderSize, 7, Color.GRAY));
+        setBorder(
+                BorderFactory.createMatteBorder(borderSize, borderSize, borderSize, 7, Color.GRAY));
     }
 
     public void setUnfocusFieldOnClose(boolean needSaveText) {

@@ -27,9 +27,10 @@ public class ChatsModel extends BaseModel {
     private final UserStructObjectFactory userStructObjectFactory;
 
     ChatsModel(UsersInfoSettings usersInfoSettings, UsersModel usersModel,
-            MessageStructObjectFactory messageStructObjectFactory, ChatStructObjectFactory chatStructObjectFactory,
-            UserStructObjectFactory userStructObjectFactory, RootStructObjectFactory rootStructObjectFactory,
-            RootObjectsModel rootObjectsModel) {
+            MessageStructObjectFactory messageStructObjectFactory,
+            ChatStructObjectFactory chatStructObjectFactory,
+            UserStructObjectFactory userStructObjectFactory,
+            RootStructObjectFactory rootStructObjectFactory, RootObjectsModel rootObjectsModel) {
         super(rootObjectsModel, rootStructObjectFactory);
 
         this.usersInfoSettings = usersInfoSettings;
@@ -47,8 +48,9 @@ public class ChatsModel extends BaseModel {
         }
     }
 
-    public void createNewChat(String login, UUID uuidUser, String lastMessageText, UUID uuidChat, UUID uuidLastMessage,
-            Boolean isLoginSentLastMessage, MainChatsGlobalDefines.TypeStatusMessage statusMessage,
+    public void createNewChat(String login, UUID uuidUser, String lastMessageText, UUID uuidChat,
+            UUID uuidLastMessage, Boolean isLoginSentLastMessage,
+            MainChatsGlobalDefines.TypeStatusMessage statusMessage,
             LocalDateTime timestampLastMessage) {
         UserStructObject userChat = userStructObjectFactory.create(login, uuidUser);
         usersModel.addCreatedUser(userChat);
@@ -56,15 +58,17 @@ public class ChatsModel extends BaseModel {
         UUID uuidSender = isLoginSentLastMessage ? uuidUser : usersInfoSettings.getUuid();
         UUID uuidReceiver = isLoginSentLastMessage ? usersInfoSettings.getUuid() : uuidUser;
 
-        MessageStructObject lastMessage = messageStructObjectFactory.create(uuidSender, uuidReceiver, statusMessage,
-                lastMessageText, timestampLastMessage, uuidLastMessage);
+        MessageStructObject lastMessage = messageStructObjectFactory.create(uuidSender,
+                uuidReceiver, statusMessage, lastMessageText, timestampLastMessage,
+                uuidLastMessage);
 
         ChatStructObject chat = chatStructObjectFactory.create(userChat, lastMessage, uuidChat);
 
         addItem(chat, getRootObject());
     }
 
-    public void setOnlineStatusToUser(UUID uuidUser, MainChatsGlobalDefines.TypeStatusOnline statusOnline) {
+    public void setOnlineStatusToUser(UUID uuidUser,
+            MainChatsGlobalDefines.TypeStatusOnline statusOnline) {
         ChatStructObject chat = findByUuidUser(uuidUser);
         if (chat == null) {
             log.error("This includes a chat object, which is null.");

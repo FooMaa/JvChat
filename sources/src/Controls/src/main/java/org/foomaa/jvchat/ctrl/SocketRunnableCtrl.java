@@ -4,11 +4,11 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Objects;
 
 import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.models.SocketRunnableCtrlModel;
@@ -19,9 +19,6 @@ import org.foomaa.jvchat.models.SocketRunnableCtrlModel;
  * which contains a Runnable field. This field is the object
  * of this SocketRunnableCtrl class.
  */
-@Component
-@Scope("prototype")
-@Lazy
 @Slf4j
 public class SocketRunnableCtrl implements Runnable {
     private DataOutputStream sendStream;
@@ -30,8 +27,11 @@ public class SocketRunnableCtrl implements Runnable {
     private int errorsConnection;
     private final NetworkCtrl networkCtrl;
 
-    SocketRunnableCtrl(SocketRunnableCtrlModel socketRunnableCtrlModel, @Lazy NetworkCtrl networkCtrl) {
-        this.networkCtrl = networkCtrl;
+    @Builder
+    SocketRunnableCtrl(SocketRunnableCtrlModel socketRunnableCtrlModel,
+            @Lazy NetworkCtrl networkCtrl) {
+        Objects.requireNonNull(socketRunnableCtrlModel, "socketRunnableCtrlModel is mandatory");
+        this.networkCtrl = Objects.requireNonNull(networkCtrl, "networkCtrl is mandatory");
 
         socketRunnableCtrlModel.createSocketRunnableCtrlStructObject(this);
 

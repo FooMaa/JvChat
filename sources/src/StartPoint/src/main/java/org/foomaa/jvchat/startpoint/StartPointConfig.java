@@ -19,20 +19,20 @@ public class StartPointConfig {
     @Bean
     @Profile("users")
     public StartupRunner beanUsersStartupRunner(MainTools mainTools, MainSettings mainSettings,
-            ApplicationContext context, UsersInfoSettings usersInfoSettings, NetworkCtrl networkCtrl,
-            @Lazy StartAuthenticationUILink startAuthenticationUILink,
+            ApplicationContext context, UsersInfoSettings usersInfoSettings,
+            NetworkCtrl networkCtrl, @Lazy StartAuthenticationUILink startAuthenticationUILink,
             ErrorStartUILinkFactory errorStartUILinkFactory) {
-        return StartupRunner.builder().mainTools(mainTools).mainSettings(mainSettings).context(context)
-                .usersInfoSettings(usersInfoSettings).networkCtrl(networkCtrl)
-                .startAuthenticationUILink(startAuthenticationUILink).errorStartUILinkFactory(errorStartUILinkFactory)
-                .build();
+        return StartupRunner.builder().mainTools(mainTools).mainSettings(mainSettings)
+                .context(context).usersInfoSettings(usersInfoSettings).networkCtrl(networkCtrl)
+                .startAuthenticationUILink(startAuthenticationUILink)
+                .errorStartUILinkFactory(errorStartUILinkFactory).build();
     }
 
     @Bean
     @Profile("servers")
     public StartupRunner beanServersStartupRunner(ServersTools serversTools, MainTools mainTools,
             MainSettings mainSettings, ApplicationContext context, NetworkCtrl networkCtrl) {
-        return StartupRunner.builder().serversTools(serversTools).mainTools(mainTools).mainSettings(mainSettings)
-                .context(context).networkCtrl(networkCtrl).build();
+        return StartupRunner.builder().serversTools(serversTools).mainTools(mainTools)
+                .mainSettings(mainSettings).context(context).networkCtrl(networkCtrl).build();
     }
 }

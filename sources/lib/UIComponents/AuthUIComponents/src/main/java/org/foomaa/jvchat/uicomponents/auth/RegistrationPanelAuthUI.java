@@ -37,10 +37,13 @@ public class RegistrationPanelAuthUI extends JPanel {
     private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
-    RegistrationPanelAuthUI(DisplaySettings displaySettings, UsersTools usersTools, SendMessagesCtrl sendMessagesCtrl,
-            MessagesDefinesCtrl messagesDefinesCtrl, ButtonAuthUIFactory buttonAuthUIFactory,
-            ErrorLabelAuthUIFactory errorLabelAuthUIFactory, PasswordFieldAuthUIFactory passwordFieldAuthUIFactory,
-            TextFieldAuthUIFactory textFieldAuthUIFactory, OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
+    RegistrationPanelAuthUI(DisplaySettings displaySettings, UsersTools usersTools,
+            SendMessagesCtrl sendMessagesCtrl, MessagesDefinesCtrl messagesDefinesCtrl,
+            ButtonAuthUIFactory buttonAuthUIFactory,
+            ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
+            PasswordFieldAuthUIFactory passwordFieldAuthUIFactory,
+            TextFieldAuthUIFactory textFieldAuthUIFactory,
+            OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
         this.displaySettings = displaySettings;
         this.usersTools = usersTools;
         this.sendMessagesCtrl = sendMessagesCtrl;
@@ -82,7 +85,8 @@ public class RegistrationPanelAuthUI extends JPanel {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        int insX = displaySettings.getResizeFromDisplay(0.025, DisplaySettings.TypeOfDisplayBorder.WIDTH);
+        int insX = displaySettings.getResizeFromDisplay(0.025,
+                DisplaySettings.TypeOfDisplayBorder.WIDTH);
         int gridyNum = 0;
 
         gbc.weightx = 1.0;
@@ -90,8 +94,8 @@ public class RegistrationPanelAuthUI extends JPanel {
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(displaySettings.getResizePixel(0.03), insX, displaySettings.getResizePixel(0.0045),
-                insX);
+        gbc.insets = new Insets(displaySettings.getResizePixel(0.03), insX,
+                displaySettings.getResizePixel(0.0045), insX);
         gbc.gridy = gridyNum;
         add(tLogin, gbc);
         gridyNum++;
@@ -127,17 +131,23 @@ public class RegistrationPanelAuthUI extends JPanel {
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.NORTHWEST;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, displaySettings.getResizePixel(0.026), displaySettings.getResizePixel(0.017), 0);
-        gbc.ipadx = displaySettings.getResizeFromDisplay(0.015, DisplaySettings.TypeOfDisplayBorder.WIDTH);
-        gbc.ipady = displaySettings.getResizeFromDisplay(0.004, DisplaySettings.TypeOfDisplayBorder.HEIGHT);
+        gbc.insets = new Insets(0, displaySettings.getResizePixel(0.026),
+                displaySettings.getResizePixel(0.017), 0);
+        gbc.ipadx = displaySettings.getResizeFromDisplay(0.015,
+                DisplaySettings.TypeOfDisplayBorder.WIDTH);
+        gbc.ipady = displaySettings.getResizeFromDisplay(0.004,
+                DisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
         add(bBack, gbc);
 
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.NORTHEAST;
-        gbc.insets = new Insets(0, 0, displaySettings.getResizePixel(0.017), displaySettings.getResizePixel(0.026));
-        gbc.ipadx = displaySettings.getResizeFromDisplay(0.015, DisplaySettings.TypeOfDisplayBorder.WIDTH);
-        gbc.ipady = displaySettings.getResizeFromDisplay(0.004, DisplaySettings.TypeOfDisplayBorder.HEIGHT);
+        gbc.insets = new Insets(0, 0, displaySettings.getResizePixel(0.017),
+                displaySettings.getResizePixel(0.026));
+        gbc.ipadx = displaySettings.getResizeFromDisplay(0.015,
+                DisplaySettings.TypeOfDisplayBorder.WIDTH);
+        gbc.ipady = displaySettings.getResizeFromDisplay(0.004,
+                DisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
         add(bRegister, gbc);
     }
@@ -145,8 +155,8 @@ public class RegistrationPanelAuthUI extends JPanel {
     private void addListenerToElements() {
         bRegister.addActionListener(event -> {
             if (checkFields()) {
-                sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.RegistrationRequest, tLogin.getInputText(),
-                        tEmail.getInputText(), tPassword.getInputText());
+                sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.RegistrationRequest,
+                        tLogin.getInputText(), tEmail.getInputText(), tPassword.getInputText());
                 waitRepeatServer();
             }
         });
@@ -167,7 +177,8 @@ public class RegistrationPanelAuthUI extends JPanel {
             tLogin.setErrorBorder(true);
             fields.add("\"Login\"");
         }
-        if (Objects.equals(tEmail.getInputText(), "") || !usersTools.validateInputEmail(tEmail.getInputText())) {
+        if (Objects.equals(tEmail.getInputText(), "")
+                || !usersTools.validateInputEmail(tEmail.getInputText())) {
             tEmail.setErrorBorder(true);
             fields.add("\"Email\"");
         }
@@ -180,7 +191,8 @@ public class RegistrationPanelAuthUI extends JPanel {
             fields.add("\"Confirm password\"");
         }
 
-        if (!Objects.equals(tPassword.getInputText(), "") && !Objects.equals(tPasswordConfirm.getInputText(), "")
+        if (!Objects.equals(tPassword.getInputText(), "")
+                && !Objects.equals(tPasswordConfirm.getInputText(), "")
                 && !Objects.equals(tPassword.getInputText(), tPasswordConfirm.getInputText())) {
             tPassword.setErrorBorder(true);
             tPasswordConfirm.setErrorBorder(true);
@@ -216,8 +228,8 @@ public class RegistrationPanelAuthUI extends JPanel {
 
     private void changeRegimeNext() {
         GetterEvents.getInstance().getBeanMakerEvents().event(this, "changeRegimeWork",
-                DefinesAuthUI.RegimeWorkMainFrame.VerifyCodeRegistration, tLogin.getInputText(), tEmail.getInputText(),
-                tPassword.getInputText());
+                DefinesAuthUI.RegimeWorkMainFrame.VerifyCodeRegistration, tLogin.getInputText(),
+                tEmail.getInputText(), tPassword.getInputText());
         settingUnfocusFieldsOnChangeRegime();
     }
 
@@ -230,17 +242,20 @@ public class RegistrationPanelAuthUI extends JPanel {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (messagesDefinesCtrl.getRegistrationRequestFlag() == MessagesDefinesCtrl.TypeFlags.DEFAULT) {
+        while (messagesDefinesCtrl
+                .getRegistrationRequestFlag() == MessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
                 log.error("Couldn't wait.");
             }
         }
-        if (messagesDefinesCtrl.getRegistrationRequestFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (messagesDefinesCtrl
+                .getRegistrationRequestFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
             changeRegimeNext();
             setEnabled(true);
-        } else if (messagesDefinesCtrl.getRegistrationRequestFlag() == MessagesDefinesCtrl.TypeFlags.FALSE) {
+        } else if (messagesDefinesCtrl
+                .getRegistrationRequestFlag() == MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             openErrorPane();
         }
@@ -256,8 +271,8 @@ public class RegistrationPanelAuthUI extends JPanel {
                     OptionPaneAuthUI.TypeDlg.ERROR);
             case Email -> optionPaneAuthUIFactory.create().show("This email is already in use.",
                     OptionPaneAuthUI.TypeDlg.ERROR);
-            case LoginAndEmail -> optionPaneAuthUIFactory.create().show("The email and login data are already in use.",
-                    OptionPaneAuthUI.TypeDlg.ERROR);
+            case LoginAndEmail -> optionPaneAuthUIFactory.create().show(
+                    "The email and login data are already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 }

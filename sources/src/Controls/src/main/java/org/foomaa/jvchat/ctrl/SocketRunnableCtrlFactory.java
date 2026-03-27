@@ -1,16 +1,19 @@
 package org.foomaa.jvchat.ctrl;
 
 import java.net.Socket;
+import java.util.Objects;
 
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.stereotype.Component;
 
-@Component
+import lombok.Builder;
+
 public class SocketRunnableCtrlFactory {
     private final ObjectProvider<SocketRunnableCtrl> socketRunnableCtrlObjectProvider;
 
+    @Builder
     SocketRunnableCtrlFactory(ObjectProvider<SocketRunnableCtrl> socketRunnableCtrlObjectProvider) {
-        this.socketRunnableCtrlObjectProvider = socketRunnableCtrlObjectProvider;
+        this.socketRunnableCtrlObjectProvider = Objects.requireNonNull(
+                socketRunnableCtrlObjectProvider, "socketRunnableCtrlObjectProvider is mandatory");
     }
 
     public SocketRunnableCtrl create(Socket socket) {

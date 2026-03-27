@@ -54,7 +54,8 @@ public class ActiveLabelAuthUI extends JLabel {
     private void setFont(boolean isEnteredMouse) {
         try {
             int size = displaySettings.getResizePixel(0.011);
-            Font steticaFont = fontsGlobalDefines.createMainSteticaFont(isEnteredMouse ? Font.BOLD : Font.PLAIN, size);
+            Font steticaFont = fontsGlobalDefines
+                    .createMainSteticaFont(isEnteredMouse ? Font.BOLD : Font.PLAIN, size);
             Map<TextAttribute, Object> attributes = new HashMap<>(steticaFont.getAttributes());
             attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_LOW_DOTTED);
             setFont(steticaFont.deriveFont(attributes));

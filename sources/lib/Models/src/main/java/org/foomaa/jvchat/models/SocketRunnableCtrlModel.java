@@ -14,7 +14,8 @@ public class SocketRunnableCtrlModel extends BaseModel {
     // DI ↓
     private final SocketRunnableCtrlStructObjectFactory socketRunnableCtrlStructObjectFactory;
 
-    SocketRunnableCtrlModel(SocketRunnableCtrlStructObjectFactory socketRunnableCtrlStructObjectFactory,
+    SocketRunnableCtrlModel(
+            SocketRunnableCtrlStructObjectFactory socketRunnableCtrlStructObjectFactory,
             RootStructObjectFactory rootStructObjectFactory, RootObjectsModel rootObjectsModel) {
         super(rootObjectsModel, rootStructObjectFactory);
 
@@ -38,7 +39,8 @@ public class SocketRunnableCtrlModel extends BaseModel {
         return resultList;
     }
 
-    private SocketRunnableCtrlStructObject findSocketRunnableCtrlStructObjectByRunnable(Runnable runnable) {
+    private SocketRunnableCtrlStructObject findSocketRunnableCtrlStructObjectByRunnable(
+            Runnable runnable) {
         for (BaseStructObject baseStructObject : getRootObject().getChildren()) {
             SocketRunnableCtrlStructObject socketRunnableCtrlStructObject = (SocketRunnableCtrlStructObject) baseStructObject;
             if (socketRunnableCtrlStructObject != null
@@ -50,7 +52,8 @@ public class SocketRunnableCtrlModel extends BaseModel {
         return null;
     }
 
-    public SocketRunnableCtrlStructObject findCreateSocketRunnableCtrlStructObjectByRunnable(Runnable runnable) {
+    public SocketRunnableCtrlStructObject findCreateSocketRunnableCtrlStructObjectByRunnable(
+            Runnable runnable) {
         SocketRunnableCtrlStructObject socketRunnableCtrlStructObject = findSocketRunnableCtrlStructObjectByRunnable(
                 runnable);
 

@@ -83,16 +83,20 @@ public class TitlePanelAuthUI extends JPanel {
         minimizeButton.setToolTipText("Minimize");
     }
 
-    private void settingButtonImage(JButton button, String imagePathExited, String imagePathEntered) {
+    private void settingButtonImage(JButton button, String imagePathExited,
+            String imagePathEntered) {
         try {
-            BufferedImage imageExited = ImageIO.read(Objects.requireNonNull(getClass().getResource(imagePathExited)));
+            BufferedImage imageExited = ImageIO
+                    .read(Objects.requireNonNull(getClass().getResource(imagePathExited)));
             ImageIcon iconExited = new ImageIcon(imageExited);
 
-            BufferedImage imageEntered = ImageIO.read(Objects.requireNonNull(getClass().getResource(imagePathEntered)));
+            BufferedImage imageEntered = ImageIO
+                    .read(Objects.requireNonNull(getClass().getResource(imagePathEntered)));
             ImageIcon iconEntered = new ImageIcon(imageEntered);
 
             button.setIcon(iconExited);
-            button.setPreferredSize(new Dimension(iconExited.getIconWidth(), iconExited.getIconWidth()));
+            button.setPreferredSize(
+                    new Dimension(iconExited.getIconWidth(), iconExited.getIconWidth()));
 
             button.addMouseListener(new MouseAdapter() {
                 @Override

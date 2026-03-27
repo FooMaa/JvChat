@@ -11,7 +11,8 @@ import org.springframework.stereotype.Component;
 public class CheckerOnlineStructObjectFactory {
     private final ObjectProvider<CheckerOnlineStructObject> checkerOnlineObjectProvider;
 
-    CheckerOnlineStructObjectFactory(ObjectProvider<CheckerOnlineStructObject> checkerOnlineObjectProvider) {
+    CheckerOnlineStructObjectFactory(
+            ObjectProvider<CheckerOnlineStructObject> checkerOnlineObjectProvider) {
         this.checkerOnlineObjectProvider = checkerOnlineObjectProvider;
     }
 
@@ -19,9 +20,11 @@ public class CheckerOnlineStructObjectFactory {
         return checkerOnlineObjectProvider.getObject();
     }
 
-    public CheckerOnlineStructObject create(UserStructObject user, boolean isSending, LocalDateTime dateTimeSending,
-            LocalDateTime dateTimeUpdating, SocketRunnableCtrlStructObject runnableCtrlStructObject) {
-        CheckerOnlineStructObject connectionEventStructObject = checkerOnlineObjectProvider.getObject();
+    public CheckerOnlineStructObject create(UserStructObject user, boolean isSending,
+            LocalDateTime dateTimeSending, LocalDateTime dateTimeUpdating,
+            SocketRunnableCtrlStructObject runnableCtrlStructObject) {
+        CheckerOnlineStructObject connectionEventStructObject = checkerOnlineObjectProvider
+                .getObject();
 
         connectionEventStructObject.setUser(user);
         connectionEventStructObject.setIsSending(isSending);
@@ -33,7 +36,8 @@ public class CheckerOnlineStructObjectFactory {
     }
 
     public CheckerOnlineStructObject create(UserStructObject user, LocalDateTime dateTimeUpdating) {
-        CheckerOnlineStructObject connectionEventStructObject = checkerOnlineObjectProvider.getObject();
+        CheckerOnlineStructObject connectionEventStructObject = checkerOnlineObjectProvider
+                .getObject();
 
         connectionEventStructObject.setUser(user);
         connectionEventStructObject.setDateTimeUpdating(dateTimeUpdating);
@@ -42,8 +46,10 @@ public class CheckerOnlineStructObjectFactory {
     }
 
     public CheckerOnlineStructObject create(boolean isSending, LocalDateTime dateTimeSending,
-            LocalDateTime dateTimeUpdating, SocketRunnableCtrlStructObject runnableCtrlStructObject) {
-        CheckerOnlineStructObject connectionEventStructObject = checkerOnlineObjectProvider.getObject();
+            LocalDateTime dateTimeUpdating,
+            SocketRunnableCtrlStructObject runnableCtrlStructObject) {
+        CheckerOnlineStructObject connectionEventStructObject = checkerOnlineObjectProvider
+                .getObject();
 
         connectionEventStructObject.setIsSending(isSending);
         connectionEventStructObject.setDateTimeSending(dateTimeSending);

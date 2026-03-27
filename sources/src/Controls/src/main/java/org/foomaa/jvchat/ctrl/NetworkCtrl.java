@@ -4,11 +4,9 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
+import java.util.Objects;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
-
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.models.SocketRunnableCtrlModel;
@@ -17,8 +15,6 @@ import org.foomaa.jvchat.network.UsersSocket;
 import org.foomaa.jvchat.settings.MainSettings;
 import org.foomaa.jvchat.structobjects.SocketRunnableCtrlStructObject;
 
-@Component
-@Lazy
 @Slf4j
 public class NetworkCtrl {
     private final ServersSocket serversSocket;
@@ -30,15 +26,19 @@ public class NetworkCtrl {
     private final SocketRunnableCtrlModel socketRunnableCtrlModel;
     private final SocketRunnableCtrlFactory socketRunnableCtrlFactory;
 
+    @Builder
     NetworkCtrl(MainSettings mainSettings, SocketRunnableCtrlModel socketRunnableCtrlModel,
-            TakeMessagesCtrl takeMessagesCtrl, @Autowired(required = false) ServersSocket serversSocket,
-            @Autowired(required = false) UsersSocket usersSocket,
-            @Autowired(required = false) OnlineServersCtrl onlineServersCtrl,
-            SocketRunnableCtrlFactory socketRunnableCtrlFactory) {
-        this.mainSettings = mainSettings;
-        this.socketRunnableCtrlModel = socketRunnableCtrlModel;
-        this.takeMessagesCtrl = takeMessagesCtrl;
-        this.socketRunnableCtrlFactory = socketRunnableCtrlFactory;
+            TakeMessagesCtrl takeMessagesCtrl, SocketRunnableCtrlFactory socketRunnableCtrlFactory,
+            ServersSocket serversSocket, UsersSocket usersSocket,
+            OnlineServersCtrl onlineServersCtrl) {
+        this.mainSettings = Objects.requireNonNull(mainSettings, "mainSettings is mandatory");
+        this.socketRunnableCtrlModel = Objects.requireNonNull(socketRunnableCtrlModel,
+                "socketRunnableCtrlModel is mandatory");
+        this.takeMessagesCtrl = Objects.requireNonNull(takeMessagesCtrl,
+                "takeMessagesCtrl is mandatory");
+        this.socketRunnableCtrlFactory = Objects.requireNonNull(socketRunnableCtrlFactory,
+                "socketRunnableCtrlFactory is mandatory");
+
         this.serversSocket = serversSocket;
         this.usersSocket = usersSocket;
         this.onlineServersCtrl = onlineServersCtrl;
@@ -61,7 +61,8 @@ public class NetworkCtrl {
         runningErrorsControlSockets();
         while (true) {
             Socket fromSocketServer = socketServer.accept();
-            SocketRunnableCtrl socketRunnableCtrl = socketRunnableCtrlFactory.create(fromSocketServer);
+            SocketRunnableCtrl socketRunnableCtrl = socketRunnableCtrlFactory
+                    .create(fromSocketServer);
             Thread threadServers = new Thread(socketRunnableCtrl);
             threadServers.start();
         }
@@ -70,7 +71,8 @@ public class NetworkCtrl {
     private void startUsersNetwork() throws IOException {
         usersSocket.start();
 
-        currentSocketRunnableCtrl = socketRunnableCtrlFactory.create(usersSocket.getCurrentSocket());
+        currentSocketRunnableCtrl = socketRunnableCtrlFactory
+                .create(usersSocket.getCurrentSocket());
         if (!usersSocket.getCurrentSocket().isConnected()) {
             throw new IOException();
         }
@@ -116,7 +118,8 @@ public class NetworkCtrl {
         int milliSecondsSleepAfterOperation = 10000;
 
         for (SocketRunnableCtrlStructObject socketCtrl : listAllConnections) {
-            SocketRunnableCtrl socketRunnableCtrl = (SocketRunnableCtrl) socketCtrl.getSocketRunnableCtrl();
+            SocketRunnableCtrl socketRunnableCtrl = (SocketRunnableCtrl) socketCtrl
+                    .getSocketRunnableCtrl();
 
             if (socketRunnableCtrl != null && socketRunnableCtrl.isErrorsExceedsLimit()) {
                 log.warn("We clean up a thread that has not responded for a long time.");

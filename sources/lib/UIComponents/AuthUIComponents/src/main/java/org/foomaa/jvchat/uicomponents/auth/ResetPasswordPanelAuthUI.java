@@ -33,9 +33,11 @@ public class ResetPasswordPanelAuthUI extends JPanel {
     private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
-    ResetPasswordPanelAuthUI(DisplaySettings displaySettings, UsersTools usersTools, SendMessagesCtrl sendMessagesCtrl,
-            MessagesDefinesCtrl messagesDefinesCtrl, ButtonAuthUIFactory buttonAuthUIFactory,
-            ErrorLabelAuthUIFactory errorLabelAuthUIFactory, TextFieldAuthUIFactory textFieldAuthUIFactory,
+    ResetPasswordPanelAuthUI(DisplaySettings displaySettings, UsersTools usersTools,
+            SendMessagesCtrl sendMessagesCtrl, MessagesDefinesCtrl messagesDefinesCtrl,
+            ButtonAuthUIFactory buttonAuthUIFactory,
+            ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
+            TextFieldAuthUIFactory textFieldAuthUIFactory,
             OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
         this.displaySettings = displaySettings;
         this.usersTools = usersTools;
@@ -72,7 +74,8 @@ public class ResetPasswordPanelAuthUI extends JPanel {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        int insX = displaySettings.getResizeFromDisplay(0.025, DisplaySettings.TypeOfDisplayBorder.WIDTH);
+        int insX = displaySettings.getResizeFromDisplay(0.025,
+                DisplaySettings.TypeOfDisplayBorder.WIDTH);
         int gridyNum = 0;
 
         gbc.weightx = 1.0;
@@ -80,8 +83,8 @@ public class ResetPasswordPanelAuthUI extends JPanel {
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(displaySettings.getResizePixel(0.115), insX, displaySettings.getResizePixel(0.004),
-                insX);
+        gbc.insets = new Insets(displaySettings.getResizePixel(0.115), insX,
+                displaySettings.getResizePixel(0.004), insX);
         gbc.gridy = gridyNum;
         add(tEmail, gbc);
         gridyNum++;
@@ -96,19 +99,23 @@ public class ResetPasswordPanelAuthUI extends JPanel {
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.NORTHWEST;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(displaySettings.getResizePixel(0.046), displaySettings.getResizePixel(0.026),
-                displaySettings.getResizePixel(0.017), 0);
-        gbc.ipadx = displaySettings.getResizeFromDisplay(0.015, DisplaySettings.TypeOfDisplayBorder.WIDTH);
-        gbc.ipady = displaySettings.getResizeFromDisplay(0.004, DisplaySettings.TypeOfDisplayBorder.HEIGHT);
+        gbc.insets = new Insets(displaySettings.getResizePixel(0.046),
+                displaySettings.getResizePixel(0.026), displaySettings.getResizePixel(0.017), 0);
+        gbc.ipadx = displaySettings.getResizeFromDisplay(0.015,
+                DisplaySettings.TypeOfDisplayBorder.WIDTH);
+        gbc.ipady = displaySettings.getResizeFromDisplay(0.004,
+                DisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
         add(bBack, gbc);
 
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.NORTHEAST;
-        gbc.insets = new Insets(displaySettings.getResizePixel(0.046), 0, displaySettings.getResizePixel(0.017),
-                displaySettings.getResizePixel(0.026));
-        gbc.ipadx = displaySettings.getResizeFromDisplay(0.015, DisplaySettings.TypeOfDisplayBorder.WIDTH);
-        gbc.ipady = displaySettings.getResizeFromDisplay(0.004, DisplaySettings.TypeOfDisplayBorder.HEIGHT);
+        gbc.insets = new Insets(displaySettings.getResizePixel(0.046), 0,
+                displaySettings.getResizePixel(0.017), displaySettings.getResizePixel(0.026));
+        gbc.ipadx = displaySettings.getResizeFromDisplay(0.015,
+                DisplaySettings.TypeOfDisplayBorder.WIDTH);
+        gbc.ipady = displaySettings.getResizeFromDisplay(0.004,
+                DisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
         add(bSet, gbc);
     }
@@ -116,7 +123,8 @@ public class ResetPasswordPanelAuthUI extends JPanel {
     private void addListenerToElements() {
         bSet.addActionListener(event -> {
             if (checkFields()) {
-                sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.ResetPasswordRequest, tEmail.getInputText());
+                sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.ResetPasswordRequest,
+                        tEmail.getInputText());
                 waitRepeatServer();
             }
         });
@@ -128,7 +136,8 @@ public class ResetPasswordPanelAuthUI extends JPanel {
         tEmail.setErrorBorder(false);
         tErrorHelpInfo.setText("");
 
-        if (Objects.equals(tEmail.getInputText(), "") || !usersTools.validateInputEmail(tEmail.getInputText())) {
+        if (Objects.equals(tEmail.getInputText(), "")
+                || !usersTools.validateInputEmail(tEmail.getInputText())) {
             tEmail.setErrorBorder(true);
             tErrorHelpInfo.setText("The \"Email\" field must be completed or corrected");
             return false;
@@ -159,19 +168,23 @@ public class ResetPasswordPanelAuthUI extends JPanel {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (messagesDefinesCtrl.getResetPasswordRequestFlag() == MessagesDefinesCtrl.TypeFlags.DEFAULT) {
+        while (messagesDefinesCtrl
+                .getResetPasswordRequestFlag() == MessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
                 log.error("Couldn't wait.");
             }
         }
-        if (messagesDefinesCtrl.getResetPasswordRequestFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (messagesDefinesCtrl
+                .getResetPasswordRequestFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
             changeRegimeNext();
             setEnabled(true);
-        } else if (messagesDefinesCtrl.getResetPasswordRequestFlag() == MessagesDefinesCtrl.TypeFlags.FALSE) {
+        } else if (messagesDefinesCtrl
+                .getResetPasswordRequestFlag() == MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            optionPaneAuthUIFactory.create().show("This email is not registered.", OptionPaneAuthUI.TypeDlg.ERROR);
+            optionPaneAuthUIFactory.create().show("This email is not registered.",
+                    OptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 }

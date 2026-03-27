@@ -31,12 +31,14 @@ public class StartupRunner implements ApplicationRunner {
 
     @Builder
     private StartupRunner(ServersTools serversTools, MainTools mainTools, MainSettings mainSettings,
-            ApplicationContext context, UsersInfoSettings usersInfoSettings, NetworkCtrl networkCtrl,
-            StartAuthenticationUILink startAuthenticationUILink, ErrorStartUILinkFactory errorStartUILinkFactory) {
+            ApplicationContext context, UsersInfoSettings usersInfoSettings,
+            NetworkCtrl networkCtrl, StartAuthenticationUILink startAuthenticationUILink,
+            ErrorStartUILinkFactory errorStartUILinkFactory) {
         this.mainTools = Objects.requireNonNull(mainTools, "mainTool is mandatory");
         this.mainSettings = Objects.requireNonNull(mainSettings, "mainSettings is mandatory");
         this.context = Objects.requireNonNull(context, "context is mandatory");
         this.networkCtrl = Objects.requireNonNull(networkCtrl, "networkCtrl is mandatory");
+
         this.serversTools = serversTools;
         this.usersInfoSettings = usersInfoSettings;
         this.startAuthenticationUILink = startAuthenticationUILink;
@@ -104,8 +106,8 @@ public class StartupRunner implements ApplicationRunner {
         } catch (IOException exception) {
             log.error("Failed to start network service");
             if (mainSettings.getProfile() == MainSettings.TypeProfiles.USERS) {
-                errorStartUILinkFactory
-                        .create("Failed to connect to the server.\nCheck your network availability and try again!");
+                errorStartUILinkFactory.create(
+                        "Failed to connect to the server.\nCheck your network availability and try again!");
             }
             System.exit(1);
         }

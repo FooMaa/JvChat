@@ -9,7 +9,8 @@ import org.springframework.stereotype.Component;
 public class PasswordFieldAuthUIFactory {
     private final ObjectProvider<PasswordFieldAuthUI> passwordFieldAuthUIObjectProvider;
 
-    PasswordFieldAuthUIFactory(ObjectProvider<PasswordFieldAuthUI> passwordFieldAuthUIObjectProvider) {
+    PasswordFieldAuthUIFactory(
+            ObjectProvider<PasswordFieldAuthUI> passwordFieldAuthUIObjectProvider) {
         this.passwordFieldAuthUIObjectProvider = passwordFieldAuthUIObjectProvider;
     }
 

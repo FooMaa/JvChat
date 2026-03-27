@@ -30,7 +30,8 @@ public class PanelSendingMessageMainChatUI extends JPanel {
     private final ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider;
 
     PanelSendingMessageMainChatUI(ScrollPanelChatsMainChatUI scrollPanelChats,
-            ScrollPanelMessagesMainChatUI scrollPanelMessages, MessagesDialogCtrl messagesDialogCtrl,
+            ScrollPanelMessagesMainChatUI scrollPanelMessages,
+            MessagesDialogCtrl messagesDialogCtrl,
             SendButtonMainChatUIFactory sendButtonMainChatUIFactory,
             SendingTextAreaScrollMainChatUIFactory sendingTextAreaScrollMainChatUIFactory,
             ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider) {

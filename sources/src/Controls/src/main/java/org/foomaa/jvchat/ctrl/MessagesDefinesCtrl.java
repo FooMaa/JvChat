@@ -1,10 +1,9 @@
 package org.foomaa.jvchat.ctrl;
 
-import org.springframework.stereotype.Component;
+import lombok.Builder;
 
 import org.foomaa.jvchat.messages.DefinesMessages;
 
-@Component
 public class MessagesDefinesCtrl {
     public enum TypeFlags {
         TRUE, FALSE, DEFAULT
@@ -27,6 +26,7 @@ public class MessagesDefinesCtrl {
     private TypeFlags TextMessagesChangingStatusFromUserFlag = TypeFlags.DEFAULT;
     private TypeFlags TextMessageRedirectServerToUserVerificationFlag = TypeFlags.DEFAULT;
 
+    @Builder
     MessagesDefinesCtrl() {
     }
 

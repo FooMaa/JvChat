@@ -58,7 +58,8 @@ public class CheckerOnlineStructObject extends BaseStructObject {
         }
     }
 
-    public void setSocketRunnableCtrlStructObject(SocketRunnableCtrlStructObject newRunnableCtrlStructObject) {
+    public void setSocketRunnableCtrlStructObject(
+            SocketRunnableCtrlStructObject newRunnableCtrlStructObject) {
         if (socketRunnableCtrlStructObject != newRunnableCtrlStructObject) {
             socketRunnableCtrlStructObject = newRunnableCtrlStructObject;
             commitProperties();

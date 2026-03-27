@@ -12,7 +12,8 @@ import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 public class MessageStructObjectFactory {
     private final ObjectProvider<MessageStructObject> messageStructObjectObjectProvider;
 
-    MessageStructObjectFactory(ObjectProvider<MessageStructObject> messageStructObjectObjectProvider) {
+    MessageStructObjectFactory(
+            ObjectProvider<MessageStructObject> messageStructObjectObjectProvider) {
         this.messageStructObjectObjectProvider = messageStructObjectObjectProvider;
     }
 
@@ -21,8 +22,8 @@ public class MessageStructObjectFactory {
     }
 
     public MessageStructObject create(UUID uuidUserSender, UUID uuidUserReceiver,
-            MainChatsGlobalDefines.TypeStatusMessage statusMessage, String text, LocalDateTime timestamp,
-            UUID uuidMessage) {
+            MainChatsGlobalDefines.TypeStatusMessage statusMessage, String text,
+            LocalDateTime timestamp, UUID uuidMessage) {
         MessageStructObject messageStructObject = messageStructObjectObjectProvider.getObject();
 
         messageStructObject.setUuidUserSender(uuidUserSender);
