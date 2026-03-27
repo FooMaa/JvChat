@@ -14,6 +14,7 @@ import org.foomaa.jvchat.structobjects.*;
 @Component
 @Lazy
 public class MessagesModel extends BaseModel {
+    // DI ↓
     private final MessageStructObjectFactory messageStructObjectFactory;
 
     MessagesModel(MessageStructObjectFactory messageStructObjectFactory,

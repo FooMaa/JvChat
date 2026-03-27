@@ -17,6 +17,7 @@ import org.foomaa.jvchat.structobjects.*;
 @Lazy
 @Slf4j
 public class ConnectionsEventsModel extends BaseModel {
+    // DI ↓
     private final ConnectionEventStructObjectFactory connectionEventStructObjectFactory;
 
     ConnectionsEventsModel(RootStructObjectFactory rootStructObjectFactory, RootObjectsModel rootObjectsModel,

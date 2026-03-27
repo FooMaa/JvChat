@@ -11,6 +11,7 @@ import org.foomaa.jvchat.structobjects.*;
 @Component
 @Lazy
 public class SocketRunnableCtrlModel extends BaseModel {
+    // DI ↓
     private final SocketRunnableCtrlStructObjectFactory socketRunnableCtrlStructObjectFactory;
 
     SocketRunnableCtrlModel(SocketRunnableCtrlStructObjectFactory socketRunnableCtrlStructObjectFactory,

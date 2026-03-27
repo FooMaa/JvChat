@@ -1,22 +1,18 @@
 package org.foomaa.jvchat.uilinks;
 
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import java.util.Objects;
+
+import lombok.Builder;
 
 import org.foomaa.jvchat.uicomponents.auth.OptionPaneAuthUI;
 import org.foomaa.jvchat.uicomponents.auth.OptionPaneAuthUIFactory;
 
-@Component
-@Lazy
-@Scope("prototype")
-@Profile("users")
 public class ErrorStartUILink {
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
+    @Builder
     ErrorStartUILink(OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
-        this.optionPaneAuthUIFactory = optionPaneAuthUIFactory;
+        this.optionPaneAuthUIFactory = Objects.requireNonNull(optionPaneAuthUIFactory, "mainTool is mandatory");
     }
 
     public void show(String message) {

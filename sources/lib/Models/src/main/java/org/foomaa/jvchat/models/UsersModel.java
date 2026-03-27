@@ -13,6 +13,7 @@ import org.foomaa.jvchat.structobjects.*;
 @Lazy
 @Slf4j
 public class UsersModel extends BaseModel {
+    // DI ↓
     private final UserStructObjectFactory userStructObjectFactory;
 
     UsersModel(UserStructObjectFactory userStructObjectFactory, RootStructObjectFactory rootStructObjectFactory,

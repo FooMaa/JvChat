@@ -1,13 +1,13 @@
 package org.foomaa.jvchat.startpoint;
 
 import java.io.IOException;
+import java.util.Objects;
 
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Component;
 
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.ctrl.NetworkCtrl;
@@ -18,31 +18,29 @@ import org.foomaa.jvchat.tools.ServersTools;
 import org.foomaa.jvchat.uilinks.ErrorStartUILinkFactory;
 import org.foomaa.jvchat.uilinks.StartAuthenticationUILink;
 
-@Component
 @Slf4j
 public class StartupRunner implements ApplicationRunner {
-    private final ObjectProvider<ServersTools> serversToolsObjectProvider;
+    private final ServersTools serversTools;
     private final MainTools mainTools;
     private final MainSettings mainSettings;
     private final ApplicationContext context;
-    private final ObjectProvider<UsersInfoSettings> usersInfoSettingsObjectProvider;
+    private final UsersInfoSettings usersInfoSettings;
     private final NetworkCtrl networkCtrl;
-    private final ObjectProvider<StartAuthenticationUILink> startAuthenticationUILinkObjectProvider;
-    private final ObjectProvider<ErrorStartUILinkFactory> errorStartUILinkFactoryObjectProvider;
+    private final StartAuthenticationUILink startAuthenticationUILink;
+    private final ErrorStartUILinkFactory errorStartUILinkFactory;
 
-    private StartupRunner(ObjectProvider<ServersTools> serversToolsObjectProvider, MainTools mainTools,
-            MainSettings mainSettings, ApplicationContext context,
-            ObjectProvider<UsersInfoSettings> usersInfoSettingsObjectProvider, NetworkCtrl networkCtrl,
-            ObjectProvider<StartAuthenticationUILink> startAuthenticationUILinkObjectProvider,
-            ObjectProvider<ErrorStartUILinkFactory> errorStartUILinkFactoryObjectProvider) {
-        this.serversToolsObjectProvider = serversToolsObjectProvider;
-        this.mainTools = mainTools;
-        this.mainSettings = mainSettings;
-        this.context = context;
-        this.usersInfoSettingsObjectProvider = usersInfoSettingsObjectProvider;
-        this.networkCtrl = networkCtrl;
-        this.startAuthenticationUILinkObjectProvider = startAuthenticationUILinkObjectProvider;
-        this.errorStartUILinkFactoryObjectProvider = errorStartUILinkFactoryObjectProvider;
+    @Builder
+    private StartupRunner(ServersTools serversTools, MainTools mainTools, MainSettings mainSettings,
+            ApplicationContext context, UsersInfoSettings usersInfoSettings, NetworkCtrl networkCtrl,
+            StartAuthenticationUILink startAuthenticationUILink, ErrorStartUILinkFactory errorStartUILinkFactory) {
+        this.mainTools = Objects.requireNonNull(mainTools, "mainTool is mandatory");
+        this.mainSettings = Objects.requireNonNull(mainSettings, "mainSettings is mandatory");
+        this.context = Objects.requireNonNull(context, "context is mandatory");
+        this.networkCtrl = Objects.requireNonNull(networkCtrl, "networkCtrl is mandatory");
+        this.serversTools = serversTools;
+        this.usersInfoSettings = usersInfoSettings;
+        this.startAuthenticationUILink = startAuthenticationUILink;
+        this.errorStartUILinkFactory = errorStartUILinkFactory;
     }
 
     @Override
@@ -65,7 +63,6 @@ public class StartupRunner implements ApplicationRunner {
 
     private void workingArgs(ApplicationArguments args) {
         if (mainSettings.getProfile() == MainSettings.TypeProfiles.SERVERS) {
-            ServersTools serversTools = serversToolsObjectProvider.getIfAvailable();
             if (serversTools == null) {
                 log.error("serverTools is null");
                 return;
@@ -76,16 +73,14 @@ public class StartupRunner implements ApplicationRunner {
         }
         if (mainSettings.getProfile() == MainSettings.TypeProfiles.USERS) {
             if (args.getOptionValues("ipServer") == null) {
-                errorStartUILinkFactoryObjectProvider.getObject()
-                        .create("Enter the server IP address in the parameter!");
+                errorStartUILinkFactory.create("Enter the server IP address in the parameter!");
             }
 
             String argsIp = args.getOptionValues("ipServer").get(0);
             if (mainTools.validateInputIp(argsIp)) {
-                usersInfoSettingsObjectProvider.getObject().setIpRemoteServer(argsIp);
+                usersInfoSettings.setIpRemoteServer(argsIp);
             } else {
-                errorStartUILinkFactoryObjectProvider.getObject()
-                        .create("The startup parameter contains the wrong IP!");
+                errorStartUILinkFactory.create("The startup parameter contains the wrong IP!");
             }
 
             String argsPort;
@@ -96,10 +91,9 @@ public class StartupRunner implements ApplicationRunner {
             }
 
             if (mainTools.validateInputPort(argsPort)) {
-                usersInfoSettingsObjectProvider.getObject().setPortRemoteServer(Integer.parseInt(argsPort));
+                usersInfoSettings.setPortRemoteServer(Integer.parseInt(argsPort));
             } else {
-                errorStartUILinkFactoryObjectProvider.getObject()
-                        .create("The PORT in the launch parameter is not correct!");
+                errorStartUILinkFactory.create("The PORT in the launch parameter is not correct!");
             }
         }
     }
@@ -110,14 +104,14 @@ public class StartupRunner implements ApplicationRunner {
         } catch (IOException exception) {
             log.error("Failed to start network service");
             if (mainSettings.getProfile() == MainSettings.TypeProfiles.USERS) {
-                errorStartUILinkFactoryObjectProvider.getObject()
+                errorStartUILinkFactory
                         .create("Failed to connect to the server.\nCheck your network availability and try again!");
             }
             System.exit(1);
         }
 
         if (mainSettings.getProfile() == MainSettings.TypeProfiles.USERS) {
-            startAuthenticationUILinkObjectProvider.getObject();
+            startAuthenticationUILink.openFrame();
         }
     }
 }

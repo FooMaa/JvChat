@@ -1,15 +1,22 @@
 package org.foomaa.jvchat.uilinks;
 
+import java.util.Objects;
+
 import org.springframework.context.annotation.*;
-import org.springframework.stereotype.Component;
+
+import lombok.Builder;
 
 import org.foomaa.jvchat.uicomponents.auth.MainFrameAuthUI;
 
-@Component
-@Lazy
-@Profile("users")
 public class StartAuthenticationUILink {
+    private final MainFrameAuthUI mainFrameAuthUI;
+
+    @Builder
     StartAuthenticationUILink(MainFrameAuthUI mainFrameAuthUI) {
+        this.mainFrameAuthUI = Objects.requireNonNull(mainFrameAuthUI, "mainTool is mandatory");
+    }
+
+    public void openFrame() {
         mainFrameAuthUI.openWindow();
     }
 }

@@ -1,14 +1,13 @@
 package org.foomaa.jvchat.uilinks;
 
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
 
-@Component
-@Profile("users")
+import lombok.Builder;
+
 public class ErrorStartUILinkFactory {
     private final ObjectProvider<ErrorStartUILink> errorStartUILinkObjectProvider;
 
+    @Builder
     ErrorStartUILinkFactory(ObjectProvider<ErrorStartUILink> errorStartUILinkObjectProvider) {
         this.errorStartUILinkObjectProvider = errorStartUILinkObjectProvider;
     }
