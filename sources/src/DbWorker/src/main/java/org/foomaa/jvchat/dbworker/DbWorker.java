@@ -5,21 +5,21 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Objects;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
-
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.settings.ServersInfoSettings;
 
-@Component
-@Profile("servers")
 @Slf4j
 public class DbWorker {
     private static Connection connection;
 
+    @Builder
     private DbWorker(ServersInfoSettings serversInfoSettings) {
+        Objects.requireNonNull(serversInfoSettings, "serversInfoSettings is mandatory");
+
         getConnection(serversInfoSettings);
     }
 

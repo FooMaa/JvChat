@@ -1,11 +1,9 @@
 package org.foomaa.jvchat.dbworker;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
+import lombok.Builder;
 
-@Component
-@Profile("servers")
 public class DbRequests {
+    @Builder
     private DbRequests() {
     }
 
