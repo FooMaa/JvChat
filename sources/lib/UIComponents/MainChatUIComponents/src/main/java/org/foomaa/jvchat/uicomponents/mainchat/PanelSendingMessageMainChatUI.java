@@ -6,20 +6,13 @@ import java.util.UUID;
 
 import javax.swing.*;
 
-import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.ctrl.ChatsCtrl;
 import org.foomaa.jvchat.ctrl.MessagesDialogCtrl;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
 
-@Component
-@Scope("prototype")
-@Profile("users")
 @Slf4j
 public class PanelSendingMessageMainChatUI extends JPanel {
     private final SendingTextAreaScrollMainChatUI sendingTextAreaScroll;
@@ -27,18 +20,27 @@ public class PanelSendingMessageMainChatUI extends JPanel {
     private final ScrollPanelChatsMainChatUI scrollPanelChats;
     private final ScrollPanelMessagesMainChatUI scrollPanelMessages;
     private final MessagesDialogCtrl messagesDialogCtrl;
-    private final ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider;
+    private final ChatsCtrl chatsCtrl;
 
+    @Builder
     PanelSendingMessageMainChatUI(ScrollPanelChatsMainChatUI scrollPanelChats,
             ScrollPanelMessagesMainChatUI scrollPanelMessages,
             MessagesDialogCtrl messagesDialogCtrl,
             SendButtonMainChatUIFactory sendButtonMainChatUIFactory,
             SendingTextAreaScrollMainChatUIFactory sendingTextAreaScrollMainChatUIFactory,
-            ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider) {
-        this.scrollPanelChats = scrollPanelChats;
-        this.scrollPanelMessages = scrollPanelMessages;
-        this.messagesDialogCtrl = messagesDialogCtrl;
-        this.chatsCtrlObjectProvider = chatsCtrlObjectProvider;
+            ChatsCtrl chatsCtrl) {
+        Objects.requireNonNull(sendingTextAreaScrollMainChatUIFactory,
+                "sendingTextAreaScrollMainChatUIFactory is mandatory");
+        Objects.requireNonNull(sendButtonMainChatUIFactory,
+                "sendButtonMainChatUIFactory is mandatory");
+
+        this.scrollPanelChats = Objects.requireNonNull(scrollPanelChats,
+                "scrollPanelChats is mandatory");
+        this.scrollPanelMessages = Objects.requireNonNull(scrollPanelMessages,
+                "scrollPanelMessages is mandatory");
+        this.messagesDialogCtrl = Objects.requireNonNull(messagesDialogCtrl,
+                "messagesDialogCtrl is mandatory");
+        this.chatsCtrl = Objects.requireNonNull(chatsCtrl, "chatsCtrl is mandatory");
 
         sendingTextAreaScroll = sendingTextAreaScrollMainChatUIFactory.create();
         sendButton = sendButtonMainChatUIFactory.create("Send");
@@ -95,15 +97,7 @@ public class PanelSendingMessageMainChatUI extends JPanel {
 
     private void updateComponentsAfterSending() {
         UUID selectedUuid = messagesDialogCtrl.getCurrentActiveChatUuid();
-
-        ChatsCtrl chatsCtrl = chatsCtrlObjectProvider.getIfAvailable();
-        if (chatsCtrl == null) {
-            log.error("charsCtrl is null");
-            return;
-        }
-
         MessageStructObject message = chatsCtrl.getMessageObjectByUuidChat(selectedUuid);
-
         Box boxComponents = scrollPanelChats.getBoxComponents();
 
         for (java.awt.Component component : boxComponents.getComponents()) {

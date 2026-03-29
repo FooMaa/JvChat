@@ -9,17 +9,11 @@ import java.util.Objects;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.settings.DisplaySettings;
 
-@Component
-@Scope("prototype")
-@Profile("users")
 @Slf4j
 public class FindTextFieldMainChatUI extends JPanel {
     private final BufferedImage image;
@@ -30,8 +24,10 @@ public class FindTextFieldMainChatUI extends JPanel {
 
     private final DisplaySettings displaySettings;
 
+    @Builder
     FindTextFieldMainChatUI(DisplaySettings displaySettings) {
-        this.displaySettings = displaySettings;
+        this.displaySettings = Objects.requireNonNull(displaySettings,
+                "displaySettings is mandatory");
 
         image = setIcon();
         defaultText = "";

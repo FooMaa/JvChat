@@ -10,15 +10,10 @@ import java.util.Objects;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
+import lombok.Builder;
 
 import org.foomaa.jvchat.settings.DisplaySettings;
 
-@Component
-@Profile("users")
-@Lazy
 public class MainFrameMainChatUI extends JFrame {
     private final String backgroundPath;
     private final String loadGifPath;
@@ -28,13 +23,15 @@ public class MainFrameMainChatUI extends JFrame {
     private final MainPanelMainChatUI mainPanel;
     private final DisplaySettings displaySettings;
 
+    @Builder
     MainFrameMainChatUI(DisplaySettings displaySettings, TitlePanelMainChatUI titlePanel,
             MainPanelMainChatUI mainPanel) {
         super("MainChatWindow");
 
-        this.displaySettings = displaySettings;
-        this.titlePanel = titlePanel;
-        this.mainPanel = mainPanel;
+        this.displaySettings = Objects.requireNonNull(displaySettings,
+                "displaySettings is mandatory");
+        this.titlePanel = Objects.requireNonNull(titlePanel, "titlePanel is mandatory");
+        this.mainPanel = Objects.requireNonNull(mainPanel, "mainPanel is mandatory");
 
         backgroundPath = "/MainChatMainBackground.png";
         loadGifPath = "/Load.gif";

@@ -1,26 +1,32 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
 import java.awt.*;
+import java.util.Objects;
 
 import javax.swing.*;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
+import lombok.Builder;
 
-@Component
-@Profile("users")
 public class MainPanelMainChatUI extends JPanel {
     private final FindTextFieldMainChatUI findTextField;
     private final ScrollPanelChatsMainChatUI scrollPanelChats;
     private final ScrollPanelMessagesMainChatUI scrollPanelMessages;
     private final PanelSendingMessageMainChatUI panelSendingMessage;
 
+    @Builder
     MainPanelMainChatUI(ScrollPanelChatsMainChatUI scrollPanelChats,
             ScrollPanelMessagesMainChatUI scrollPanelMessages,
             PanelSendingMessageMainChatUIFactory panelSendingMessageFactory,
             FindTextFieldMainChatUIFactory findTextFieldMainChatUIFactory) {
-        this.scrollPanelChats = scrollPanelChats;
-        this.scrollPanelMessages = scrollPanelMessages;
+        Objects.requireNonNull(panelSendingMessageFactory,
+                "panelSendingMessageFactory is mandatory");
+        Objects.requireNonNull(findTextFieldMainChatUIFactory,
+                "findTextFieldMainChatUIFactory is mandatory");
+
+        this.scrollPanelChats = Objects.requireNonNull(scrollPanelChats,
+                "scrollPanelChats is mandatory");
+        this.scrollPanelMessages = Objects.requireNonNull(scrollPanelMessages,
+                "scrollPanelMessages is mandatory");
 
         findTextField = findTextFieldMainChatUIFactory.create("Find by login");
         panelSendingMessage = panelSendingMessageFactory.create();

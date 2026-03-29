@@ -1,17 +1,20 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
+import java.util.Objects;
 
-@Component
-@Profile("users")
+import org.springframework.beans.factory.ObjectProvider;
+
+import lombok.Builder;
+
 public class FindTextFieldMainChatUIFactory {
     private final ObjectProvider<FindTextFieldMainChatUI> findTextFieldMainChatUIObjectProvider;
 
+    @Builder
     FindTextFieldMainChatUIFactory(
             ObjectProvider<FindTextFieldMainChatUI> findTextFieldMainChatUIObjectProvider) {
-        this.findTextFieldMainChatUIObjectProvider = findTextFieldMainChatUIObjectProvider;
+        this.findTextFieldMainChatUIObjectProvider = Objects.requireNonNull(
+                findTextFieldMainChatUIObjectProvider,
+                "findTextFieldMainChatUIObjectProvider is mandatory");
     }
 
     public FindTextFieldMainChatUI create(String defaultText) {
