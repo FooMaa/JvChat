@@ -4,10 +4,12 @@ import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import javax.swing.*;
 
+import lombok.Builder;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -17,8 +19,6 @@ import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.ctrl.MessagesDialogCtrl;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
 
-@Component
-@Profile("users")
 @Slf4j
 public class ScrollPanelMessagesMainChatUI extends JPanel {
     private final int intervalMilliSecondsSleepUpdating;
@@ -29,12 +29,16 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
     private final MessagesDialogCtrl messagesDialogCtrl;
     private final RectMessageMainChatUIFactory rectMessageMainChatUIFactory;
 
+    @Builder
     ScrollPanelMessagesMainChatUI(MessagesDefinesCtrl messagesDefinesCtrl,
             MessagesDialogCtrl messagesDialogCtrl,
             RectMessageMainChatUIFactory rectMessageMainChatUIFactory) {
-        this.messagesDefinesCtrl = messagesDefinesCtrl;
-        this.messagesDialogCtrl = messagesDialogCtrl;
-        this.rectMessageMainChatUIFactory = rectMessageMainChatUIFactory;
+        this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl,
+                "messagesDefinesCtrl is mandatory");
+        this.messagesDialogCtrl = Objects.requireNonNull(messagesDialogCtrl,
+                "messagesDialogCtrl is mandatory");
+        this.rectMessageMainChatUIFactory = Objects.requireNonNull(rectMessageMainChatUIFactory,
+                "rectMessageMainChatUIFactory is mandatory");
 
         intervalMilliSecondsSleepUpdating = 500;
 

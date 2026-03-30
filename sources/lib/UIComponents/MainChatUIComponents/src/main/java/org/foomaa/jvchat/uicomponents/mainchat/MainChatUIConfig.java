@@ -132,20 +132,29 @@ public class MainChatUIConfig {
                 .build();
     }
 
-
-
-
-
-
-
-
-    @Bean(name = "beanScrollPanelMessagesMainChatUI")
-    @Lazy
-    @Scope("singleton")
-    @SuppressWarnings("unused")
-    public ScrollPanelMessagesMainChatUI beanScrollPanelMessagesMainChatUI() {
-        return new ScrollPanelMessagesMainChatUI();
+    @Bean
+    @Profile("users")
+    public ScrollPanelMessagesMainChatUI beanScrollPanelMessagesMainChatUI(MessagesDefinesCtrl messagesDefinesCtrl,
+                                                                           MessagesDialogCtrl messagesDialogCtrl,
+                                                                           RectMessageMainChatUIFactory rectMessageMainChatUIFactory) {
+        return ScrollPanelMessagesMainChatUI.builder().messagesDefinesCtrl(messagesDefinesCtrl).messagesDialogCtrl(messagesDialogCtrl).rectMessageMainChatUIFactory(rectMessageMainChatUIFactory).build();
     }
+
+    @Bean
+    @Scope("prototype")
+    @Profile("users")
+    public SendButtonMainChatUI beanSendButtonMainChatUI() {
+        return SendButtonMainChatUI.builder().build();
+    }
+
+
+
+
+
+
+
+
+
 
     @Bean(name = "beanTitlePanelMainChatUI")
     @Lazy
@@ -153,14 +162,6 @@ public class MainChatUIConfig {
     @SuppressWarnings("unused")
     public TitlePanelMainChatUI beanTitlePanelMainChatUI() {
         return new TitlePanelMainChatUI();
-    }
-
-    @Bean(name = "beanSendButtonMainChatUI")
-    @Lazy
-    @Scope("prototype")
-    @SuppressWarnings("unused")
-    public SendButtonMainChatUI beanSendButtonMainChatUI(String text) {
-        return new SendButtonMainChatUI(text);
     }
 
     @Bean(name = "beanSendingTextAreaScrollMainChatUI")
