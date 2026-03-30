@@ -1,16 +1,17 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
+import lombok.Builder;
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
 
-@Component
-@Profile("users")
+import java.util.Objects;
+
 public class SendButtonMainChatUIFactory {
     private final ObjectProvider<SendButtonMainChatUI> sendButtonObjectProvider;
 
+    @Builder
     SendButtonMainChatUIFactory(ObjectProvider<SendButtonMainChatUI> sendButtonObjectProvider) {
-        this.sendButtonObjectProvider = sendButtonObjectProvider;
+        this.sendButtonObjectProvider = Objects.requireNonNull(sendButtonObjectProvider,
+                "sendButtonObjectProvider is mandatory");
     }
 
     public SendButtonMainChatUI create(String text) {

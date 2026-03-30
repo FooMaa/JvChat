@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+import lombok.Builder;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -19,8 +20,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
 import org.foomaa.jvchat.settings.DisplaySettings;
 
-@Component
-@Profile("users")
 @Slf4j
 public class TitlePanelMainChatUI extends JPanel {
     private final JButton closeButton;
@@ -33,11 +32,15 @@ public class TitlePanelMainChatUI extends JPanel {
     private final FontsGlobalDefines fontsGlobalDefines;
     private final ToolTipMainChatUIFactory toolTipFactory;
 
+    @Builder
     TitlePanelMainChatUI(DisplaySettings displaySettings, FontsGlobalDefines fontsGlobalDefines,
             ToolTipMainChatUIFactory toolTipFactory) {
-        this.displaySettings = displaySettings;
-        this.fontsGlobalDefines = fontsGlobalDefines;
-        this.toolTipFactory = toolTipFactory;
+        this.displaySettings = Objects.requireNonNull(displaySettings,
+                "displaySettings is mandatory");
+        this.fontsGlobalDefines = Objects.requireNonNull(fontsGlobalDefines,
+                "fontsGlobalDefines is mandatory");
+        this.toolTipFactory = Objects.requireNonNull(toolTipFactory,
+                "toolTipFactory is mandatory");
 
         closeButton = new JButton() {
             @Override

@@ -2,6 +2,7 @@ package org.foomaa.jvchat.uicomponents.mainchat;
 
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.ctrl.SendMessagesCtrl;
+import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
 import org.foomaa.jvchat.settings.UISettings;
 import org.foomaa.jvchat.settings.UsersInfoSettings;
 import org.foomaa.jvchat.structobjects.ChatStructObject;
@@ -147,30 +148,41 @@ public class MainChatUIConfig {
         return SendButtonMainChatUI.builder().build();
     }
 
-
-
-
-
-
-
-
-
-
-    @Bean(name = "beanTitlePanelMainChatUI")
-    @Lazy
-    @Scope("singleton")
-    @SuppressWarnings("unused")
-    public TitlePanelMainChatUI beanTitlePanelMainChatUI() {
-        return new TitlePanelMainChatUI();
+    @Bean
+    @Profile("users")
+    public SendButtonMainChatUIFactory beanSendButtonMainChatUIFactory(ObjectProvider<SendButtonMainChatUI> sendButtonObjectProvider) {
+        return SendButtonMainChatUIFactory.builder().sendButtonObjectProvider(sendButtonObjectProvider).build();
     }
 
-    @Bean(name = "beanSendingTextAreaScrollMainChatUI")
-    @Lazy
+    @Bean
     @Scope("prototype")
-    @SuppressWarnings("unused")
+    @Profile("users")
     public SendingTextAreaScrollMainChatUI beanSendingTextAreaScrollMainChatUI() {
-        return new SendingTextAreaScrollMainChatUI();
+        return SendingTextAreaScrollMainChatUI.builder().build();
     }
+
+    @Bean
+    @Profile("users")
+    public SendingTextAreaScrollMainChatUIFactory beanSendingTextAreaScrollMainChatUIFactory(ObjectProvider<SendingTextAreaScrollMainChatUI> sendingTextAreaScrollObjectProvider) {
+        return SendingTextAreaScrollMainChatUIFactory.builder().sendingTextAreaScrollObjectProvider(sendingTextAreaScrollObjectProvider).build();
+    }
+
+    @Bean
+    @Profile("users")
+    public TitlePanelMainChatUI beanTitlePanelMainChatUI(DisplaySettings displaySettings, FontsGlobalDefines fontsGlobalDefines,
+                                                         ToolTipMainChatUIFactory toolTipFactory) {
+        return TitlePanelMainChatUI.builder().displaySettings(displaySettings).fontsGlobalDefines(fontsGlobalDefines).toolTipFactory(toolTipFactory).build();
+    }
+
+
+
+
+
+
+
+
+
+
 
     @Bean(name = "beanPanelSendingMessageMainChatUI")
     @Lazy
