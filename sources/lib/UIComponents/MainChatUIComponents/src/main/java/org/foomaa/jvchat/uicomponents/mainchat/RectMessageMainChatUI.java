@@ -2,6 +2,7 @@ package org.foomaa.jvchat.uicomponents.mainchat;
 
 import java.awt.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 import javax.swing.*;
@@ -9,18 +10,13 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import lombok.Builder;
 
 import org.foomaa.jvchat.ctrl.MessagesDialogCtrl;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
 
-@Component
-@Scope("prototype")
-@Profile("users")
 public class RectMessageMainChatUI extends JTextArea {
     private MainChatsGlobalDefines.TypeStatusMessage statusMessage;
     private String textMessage;
@@ -31,11 +27,15 @@ public class RectMessageMainChatUI extends JTextArea {
     private final MessagesDialogCtrl messagesDialogCtrl;
     private final ScrollPanelMessagesMainChatUI scrollPanelMessages;
 
+    @Builder
     RectMessageMainChatUI(DisplaySettings displaySettings, MessagesDialogCtrl messagesDialogCtrl,
             ScrollPanelMessagesMainChatUI scrollPanelMessages) {
-        this.displaySettings = displaySettings;
-        this.messagesDialogCtrl = messagesDialogCtrl;
-        this.scrollPanelMessages = scrollPanelMessages;
+        this.displaySettings = Objects.requireNonNull(displaySettings,
+                "displaySettings is mandatory");
+        this.messagesDialogCtrl = Objects.requireNonNull(messagesDialogCtrl,
+                "messagesDialogCtrl is mandatory");
+        this.scrollPanelMessages = Objects.requireNonNull(scrollPanelMessages,
+                "scrollPanelMessages is mandatory");
 
         textMessage = "";
         statusMessage = MainChatsGlobalDefines.TypeStatusMessage.Error;

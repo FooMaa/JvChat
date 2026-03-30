@@ -15,10 +15,7 @@ import java.util.concurrent.TimeUnit;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
-
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.ctrl.ChatsCtrl;
@@ -30,8 +27,6 @@ import org.foomaa.jvchat.settings.UsersInfoSettings;
 import org.foomaa.jvchat.structobjects.ChatStructObject;
 import org.foomaa.jvchat.structobjects.UserStructObject;
 
-@Component
-@Profile("users")
 @Slf4j
 public class ScrollPanelChatsMainChatUI extends JPanel {
     private final int intervalMilliSecondsSleepUpdating;
@@ -47,18 +42,25 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
     private final MessagesDefinesCtrl messagesDefinesCtrl;
 
     private final RectChatMainChatUIFactory rectChatFactory;
-    private final ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider;
+    private final ChatsCtrl chatsCtrl;
 
+    @Builder
     ScrollPanelChatsMainChatUI(UsersInfoSettings usersInfoSettings, UISettings uiSettings,
             SendMessagesCtrl sendMessagesCtrl, MessagesDefinesCtrl messagesDefinesCtrl,
             RectChatMainChatUIFactory rectChatFactory,
-            ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider) {
-        this.usersInfoSettings = usersInfoSettings;
-        this.uiSettings = uiSettings;
-        this.sendMessagesCtrl = sendMessagesCtrl;
-        this.messagesDefinesCtrl = messagesDefinesCtrl;
-        this.rectChatFactory = rectChatFactory;
-        this.chatsCtrlObjectProvider = chatsCtrlObjectProvider;
+            ChatsCtrl chatsCtrl) {
+        this.usersInfoSettings = Objects.requireNonNull(usersInfoSettings,
+                "usersInfoSettings is mandatory");
+        this.uiSettings = Objects.requireNonNull(uiSettings,
+                "uiSettings is mandatory");
+        this.sendMessagesCtrl = Objects.requireNonNull(sendMessagesCtrl,
+                "sendMessagesCtrl is mandatory");
+        this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl,
+                "messagesDefinesCtrl is mandatory");
+        this.rectChatFactory = Objects.requireNonNull(rectChatFactory,
+                "rectChatFactory is mandatory");
+        this.chatsCtrl = Objects.requireNonNull(chatsCtrl,
+                "chatsCtrl is mandatory");
 
         intervalMilliSecondsSleepUpdating = 30000;
         intervalSecondsWaitLoopUpdate = 5;
@@ -223,12 +225,6 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
             }
 
             if (messagesDefinesCtrl.getChatsLoadReplyFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
-                ChatsCtrl chatsCtrl = chatsCtrlObjectProvider.getIfAvailable();
-                if (chatsCtrl == null) {
-                    log.error("charsCtrl is null");
-                    return chatsStructObjectsList;
-                }
-
                 chatsStructObjectsList = chatsCtrl.getChatsObjects();
             }
         }
@@ -270,12 +266,6 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
     }
 
     private void sendingUpdateOnlinePackage() {
-        ChatsCtrl chatsCtrl = chatsCtrlObjectProvider.getIfAvailable();
-        if (chatsCtrl == null) {
-            log.error("charsCtrl is null");
-            return;
-        }
-
         List<UUID> uuidsUsersChats = chatsCtrl.getUuidsUsersChats();
         sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.LoadUsersOnlineStatusRequest,
                 uuidsUsersChats);
@@ -286,12 +276,6 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
             RectChatMainChatUI rectChatMainChatUI = (RectChatMainChatUI) component;
 
             UUID uuidUser = rectChatMainChatUI.getUuidUser();
-
-            ChatsCtrl chatsCtrl = chatsCtrlObjectProvider.getIfAvailable();
-            if (chatsCtrl == null) {
-                log.error("charsCtrl is null");
-                return;
-            }
 
             UserStructObject user = chatsCtrl.getUserObjectsByUuidUser(uuidUser);
             String lastOnlineString = chatsCtrl

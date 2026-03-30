@@ -1,5 +1,10 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
+import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
+import org.foomaa.jvchat.ctrl.SendMessagesCtrl;
+import org.foomaa.jvchat.settings.UISettings;
+import org.foomaa.jvchat.settings.UsersInfoSettings;
+import org.foomaa.jvchat.structobjects.ChatStructObject;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +14,7 @@ import org.springframework.context.annotation.Scope;
 import org.foomaa.jvchat.ctrl.ChatsCtrl;
 import org.foomaa.jvchat.ctrl.MessagesDialogCtrl;
 import org.foomaa.jvchat.settings.DisplaySettings;
+import org.springframework.stereotype.Component;
 
 @Configuration
 public class MainChatUIConfig {
@@ -71,18 +77,67 @@ public class MainChatUIConfig {
         return PanelSendingMessageMainChatUIFactory.builder().panelSendingMessageObjectProvider(panelSendingMessageObjectProvider).build();
     }
 
-
-
-
-
-
-    @Bean(name = "beanScrollPanelChatsMainChatUI")
-    @Lazy
-    @Scope("singleton")
-    @SuppressWarnings("unused")
-    public ScrollPanelChatsMainChatUI beanScrollPanelChatsMainChatUI() {
-        return new ScrollPanelChatsMainChatUI();
+    @Bean
+    @Scope("prototype")
+    @Profile("users")
+    public RectChatMainChatUI beanRectChatMainChatUI(ChatStructObject chatObject, UsersInfoSettings usersInfoSettings,
+                                                     DisplaySettings displaySettings, MessagesDialogCtrl messagesDialogCtrl,
+                                                     ChatsCtrl chatsCtrl) {
+        return RectChatMainChatUI.builder()
+                .chatObject(chatObject)
+                .usersInfoSettings(usersInfoSettings)
+                .displaySettings(displaySettings)
+                .messagesDialogCtrl(messagesDialogCtrl)
+                .chatsCtrl(chatsCtrl)
+                .build();
     }
+
+    @Bean
+    @Profile("users")
+    public RectChatMainChatUIFactory beanRectChatMainChatUIFactory(ObjectProvider<RectChatMainChatUI> rectChatObjectProvider) {
+        return RectChatMainChatUIFactory.builder().rectChatObjectProvider(rectChatObjectProvider).build();
+    }
+
+    @Bean
+    @Scope("prototype")
+    @Profile("users")
+    public RectMessageMainChatUI beanRectMessageMainChatUI(DisplaySettings displaySettings, MessagesDialogCtrl messagesDialogCtrl,
+                                                           ScrollPanelMessagesMainChatUI scrollPanelMessages) {
+        return RectMessageMainChatUI.builder()
+                .displaySettings(displaySettings)
+                .messagesDialogCtrl(messagesDialogCtrl)
+                .scrollPanelMessages(scrollPanelMessages)
+                .build();
+    }
+
+    @Bean
+    @Profile("users")
+    public RectMessageMainChatUIFactory beanRectMessageMainChatUIFactory(ObjectProvider<RectMessageMainChatUI> rectMessageObjectProvider) {
+        return RectMessageMainChatUIFactory.builder().rectMessageObjectProvider(rectMessageObjectProvider).build();
+    }
+
+    @Bean
+    @Profile("users")
+    public ScrollPanelChatsMainChatUI beanScrollPanelChatsMainChatUI(UsersInfoSettings usersInfoSettings, UISettings uiSettings,
+                                                                     SendMessagesCtrl sendMessagesCtrl, MessagesDefinesCtrl messagesDefinesCtrl,
+                                                                     RectChatMainChatUIFactory rectChatFactory,
+                                                                     ChatsCtrl chatsCtrl) {
+        return ScrollPanelChatsMainChatUI.builder()
+                .usersInfoSettings(usersInfoSettings)
+                .uiSettings(uiSettings)
+                .sendMessagesCtrl(sendMessagesCtrl)
+                .messagesDefinesCtrl(messagesDefinesCtrl)
+                .rectChatFactory(rectChatFactory)
+                .chatsCtrl(chatsCtrl)
+                .build();
+    }
+
+
+
+
+
+
+
 
     @Bean(name = "beanScrollPanelMessagesMainChatUI")
     @Lazy
@@ -98,22 +153,6 @@ public class MainChatUIConfig {
     @SuppressWarnings("unused")
     public TitlePanelMainChatUI beanTitlePanelMainChatUI() {
         return new TitlePanelMainChatUI();
-    }
-
-    @Bean(name = "beanRectMessageMainChatUI")
-    @Lazy
-    @Scope("prototype")
-    @SuppressWarnings("unused")
-    public RectMessageMainChatUI beanRectMessageMainChatUI(MessageStructObject messageObject) {
-        return new RectMessageMainChatUI(messageObject);
-    }
-
-    @Bean(name = "beanRectChatMainChatUI")
-    @Lazy
-    @Scope("prototype")
-    @SuppressWarnings("unused")
-    public RectChatMainChatUI beanRectChatMainChatUI(ChatStructObject chatObject) {
-        return new RectChatMainChatUI(chatObject);
     }
 
     @Bean(name = "beanSendButtonMainChatUI")

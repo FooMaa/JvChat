@@ -8,11 +8,7 @@ import java.util.UUID;
 
 import javax.swing.*;
 
-import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.ctrl.ChatsCtrl;
@@ -23,9 +19,6 @@ import org.foomaa.jvchat.settings.UsersInfoSettings;
 import org.foomaa.jvchat.structobjects.ChatStructObject;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
 
-@Component
-@Scope("prototype")
-@Profile("users")
 @Slf4j
 public class RectChatMainChatUI extends JPanel {
     private String nickName;
@@ -45,15 +38,20 @@ public class RectChatMainChatUI extends JPanel {
     private final UsersInfoSettings usersInfoSettings;
     private final DisplaySettings displaySettings;
     private final MessagesDialogCtrl messagesDialogCtrl;
-    private final ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider;
+    private final ChatsCtrl chatsCtrl;
 
+    @Builder
     RectChatMainChatUI(ChatStructObject chatObject, UsersInfoSettings usersInfoSettings,
             DisplaySettings displaySettings, MessagesDialogCtrl messagesDialogCtrl,
-            ObjectProvider<ChatsCtrl> chatsCtrlObjectProvider) {
-        this.usersInfoSettings = usersInfoSettings;
-        this.displaySettings = displaySettings;
-        this.messagesDialogCtrl = messagesDialogCtrl;
-        this.chatsCtrlObjectProvider = chatsCtrlObjectProvider;
+            ChatsCtrl chatsCtrl) {
+        this.usersInfoSettings = Objects.requireNonNull(usersInfoSettings,
+                "usersInfoSettings is mandatory");
+        this.displaySettings = Objects.requireNonNull(displaySettings,
+                "displaySettings is mandatory");
+        this.messagesDialogCtrl = Objects.requireNonNull(messagesDialogCtrl,
+                "messagesDialogCtrl is mandatory");
+        this.chatsCtrl = Objects.requireNonNull(chatsCtrl,
+                "chatsCtrl is mandatory");
 
         nickName = "";
         shortLastMessage = "";
@@ -94,12 +92,6 @@ public class RectChatMainChatUI extends JPanel {
     }
 
     private void installTimeLastMessage(ChatStructObject chatObject) {
-        ChatsCtrl chatsCtrl = chatsCtrlObjectProvider.getIfAvailable();
-        if (chatsCtrl == null) {
-            log.error("charsCtrl is null");
-            return;
-        }
-
         timeLastMessage = chatsCtrl
                 .getTimeFormattedLastMessage(chatObject.getLastMessage().getTimestamp());
     }
@@ -300,12 +292,6 @@ public class RectChatMainChatUI extends JPanel {
 
     public void updateLastMessage(MessageStructObject message) {
         shortLastMessage = message.getText();
-
-        ChatsCtrl chatsCtrl = chatsCtrlObjectProvider.getIfAvailable();
-        if (chatsCtrl == null) {
-            log.error("charsCtrl is null");
-            return;
-        }
 
         timeLastMessage = chatsCtrl.getTimeFormattedLastMessage(message.getTimestamp());
         lastMessageSender = message.getUuidUserSender();

@@ -1,18 +1,19 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
+import lombok.Builder;
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
 
 import org.foomaa.jvchat.structobjects.ChatStructObject;
 
-@Component
-@Profile("users")
+import java.util.Objects;
+
 public class RectChatMainChatUIFactory {
     private final ObjectProvider<RectChatMainChatUI> rectChatObjectProvider;
 
+    @Builder
     RectChatMainChatUIFactory(ObjectProvider<RectChatMainChatUI> rectChatObjectProvider) {
-        this.rectChatObjectProvider = rectChatObjectProvider;
+        this.rectChatObjectProvider = Objects.requireNonNull(rectChatObjectProvider,
+                "rectChatObjectProvider is mandatory");
     }
 
     public RectChatMainChatUI create(ChatStructObject chatStructObject) {
