@@ -23,8 +23,8 @@ public class SocketRunnableCtrlModel extends BaseModel {
     }
 
     public void createSocketRunnableCtrlStructObject(Runnable socketRunnableCtrl) {
-        SocketRunnableCtrlStructObject socketStreamsStructObject = socketRunnableCtrlStructObjectFactory
-                .create(socketRunnableCtrl);
+        SocketRunnableCtrlStructObject socketStreamsStructObject = socketRunnableCtrlStructObjectFactory.create(
+                socketRunnableCtrl);
         addItem(socketStreamsStructObject, getRootObject());
     }
 
@@ -43,8 +43,7 @@ public class SocketRunnableCtrlModel extends BaseModel {
             Runnable runnable) {
         for (BaseStructObject baseStructObject : getRootObject().getChildren()) {
             SocketRunnableCtrlStructObject socketRunnableCtrlStructObject = (SocketRunnableCtrlStructObject) baseStructObject;
-            if (socketRunnableCtrlStructObject != null
-                    && socketRunnableCtrlStructObject.getSocketRunnableCtrl() == runnable) {
+            if (socketRunnableCtrlStructObject != null && socketRunnableCtrlStructObject.getSocketRunnableCtrl() == runnable) {
                 return socketRunnableCtrlStructObject;
             }
         }
@@ -58,8 +57,8 @@ public class SocketRunnableCtrlModel extends BaseModel {
                 runnable);
 
         if (socketRunnableCtrlStructObject == null) {
-            SocketRunnableCtrlStructObject newSocketRunnableCtrlStructObject = socketRunnableCtrlStructObjectFactory
-                    .create(runnable);
+            SocketRunnableCtrlStructObject newSocketRunnableCtrlStructObject = socketRunnableCtrlStructObjectFactory.create(
+                    runnable);
             addItem(newSocketRunnableCtrlStructObject, getRootObject());
             return newSocketRunnableCtrlStructObject;
         }

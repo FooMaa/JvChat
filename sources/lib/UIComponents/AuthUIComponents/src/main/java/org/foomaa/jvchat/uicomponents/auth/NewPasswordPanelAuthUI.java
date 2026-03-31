@@ -33,20 +33,15 @@ public class NewPasswordPanelAuthUI extends JPanel {
     @Builder
     NewPasswordPanelAuthUI(DisplaySettings displaySettings, SendMessagesCtrl sendMessagesCtrl,
             MessagesDefinesCtrl messagesDefinesCtrl, ButtonAuthUIFactory buttonAuthUIFactory,
-            ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
-            PasswordFieldAuthUIFactory passwordFieldAuthUIFactory,
+            ErrorLabelAuthUIFactory errorLabelAuthUIFactory, PasswordFieldAuthUIFactory passwordFieldAuthUIFactory,
             OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
         Objects.requireNonNull(buttonAuthUIFactory, "buttonAuthUIFactory is mandatory");
         Objects.requireNonNull(errorLabelAuthUIFactory, "errorLabelAuthUIFactory is mandatory");
-        Objects.requireNonNull(passwordFieldAuthUIFactory,
-                "passwordFieldAuthUIFactory is mandatory");
+        Objects.requireNonNull(passwordFieldAuthUIFactory, "passwordFieldAuthUIFactory is mandatory");
 
-        this.displaySettings = Objects.requireNonNull(displaySettings,
-                "displaySettings is mandatory");
-        this.sendMessagesCtrl = Objects.requireNonNull(sendMessagesCtrl,
-                "sendMessagesCtrl is mandatory");
-        this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl,
-                "messagesDefinesCtrl is mandatory");
+        this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
+        this.sendMessagesCtrl = Objects.requireNonNull(sendMessagesCtrl, "sendMessagesCtrl is mandatory");
+        this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl, "messagesDefinesCtrl is mandatory");
         this.optionPaneAuthUIFactory = Objects.requireNonNull(optionPaneAuthUIFactory,
                 "optionPaneAuthUIFactory is mandatory");
 
@@ -87,8 +82,7 @@ public class NewPasswordPanelAuthUI extends JPanel {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        int insX = displaySettings.getResizeFromDisplay(0.025,
-                DisplaySettings.TypeOfDisplayBorder.WIDTH);
+        int insX = displaySettings.getResizeFromDisplay(0.025, DisplaySettings.TypeOfDisplayBorder.WIDTH);
         int gridyNum = 0;
 
         gbc.weightx = 1.0;
@@ -96,8 +90,8 @@ public class NewPasswordPanelAuthUI extends JPanel {
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(displaySettings.getResizePixel(0.085), insX,
-                displaySettings.getResizePixel(0.004), insX);
+        gbc.insets = new Insets(displaySettings.getResizePixel(0.085), insX, displaySettings.getResizePixel(
+                0.004), insX);
         gbc.gridy = gridyNum;
         add(tPassword, gbc);
         gridyNum++;
@@ -119,24 +113,18 @@ public class NewPasswordPanelAuthUI extends JPanel {
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.NORTHWEST;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, displaySettings.getResizePixel(0.026),
-                displaySettings.getResizePixel(0.017), 0);
-        gbc.ipadx = displaySettings.getResizeFromDisplay(0.015,
-                DisplaySettings.TypeOfDisplayBorder.WIDTH);
-        gbc.ipady = displaySettings.getResizeFromDisplay(0.004,
-                DisplaySettings.TypeOfDisplayBorder.HEIGHT);
+        gbc.insets = new Insets(0, displaySettings.getResizePixel(0.026), displaySettings.getResizePixel(0.017), 0);
+        gbc.ipadx = displaySettings.getResizeFromDisplay(0.015, DisplaySettings.TypeOfDisplayBorder.WIDTH);
+        gbc.ipady = displaySettings.getResizeFromDisplay(0.004, DisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
         add(bBack, gbc);
 
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.NORTHEAST;
-        gbc.insets = new Insets(0, 0, displaySettings.getResizePixel(0.017),
-                displaySettings.getResizePixel(0.026));
+        gbc.insets = new Insets(0, 0, displaySettings.getResizePixel(0.017), displaySettings.getResizePixel(0.026));
 
-        gbc.ipadx = displaySettings.getResizeFromDisplay(0.015,
-                DisplaySettings.TypeOfDisplayBorder.WIDTH);
-        gbc.ipady = displaySettings.getResizeFromDisplay(0.004,
-                DisplaySettings.TypeOfDisplayBorder.HEIGHT);
+        gbc.ipadx = displaySettings.getResizeFromDisplay(0.015, DisplaySettings.TypeOfDisplayBorder.WIDTH);
+        gbc.ipady = displaySettings.getResizeFromDisplay(0.004, DisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
         add(bAccept, gbc);
     }
@@ -144,8 +132,8 @@ public class NewPasswordPanelAuthUI extends JPanel {
     private void addListenerToElements() {
         bAccept.addActionListener(event -> {
             if (checkFields()) {
-                sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.ChangePasswordRequest,
-                        email, tPassword.getInputText());
+                sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.ChangePasswordRequest, email,
+                        tPassword.getInputText());
                 waitRepeatServer();
             }
         });
@@ -169,9 +157,8 @@ public class NewPasswordPanelAuthUI extends JPanel {
             fields.add("\"Confirm password\"");
         }
 
-        if (!Objects.equals(tPassword.getInputText(), "")
-                && !Objects.equals(tPasswordConfirm.getInputText(), "")
-                && !Objects.equals(tPassword.getInputText(), tPasswordConfirm.getInputText())) {
+        if (!Objects.equals(tPassword.getInputText(), "") && !Objects.equals(tPasswordConfirm.getInputText(),
+                "") && !Objects.equals(tPassword.getInputText(), tPasswordConfirm.getInputText())) {
             tPassword.setErrorBorder(true);
             tPasswordConfirm.setErrorBorder(true);
             tErrorHelpInfo.setText("The entered passwords must match.");
@@ -188,8 +175,7 @@ public class NewPasswordPanelAuthUI extends JPanel {
                 tErrorHelpInfo.setText(
                         String.format("The %s field must be completed or corrected", concatFields));
             } else {
-                tErrorHelpInfo.setText(String.format("The %s fields must be completed or corrected",
-                        concatFields));
+                tErrorHelpInfo.setText(String.format("The %s fields must be completed or corrected", concatFields));
             }
             return false;
         }
@@ -223,8 +209,7 @@ public class NewPasswordPanelAuthUI extends JPanel {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (messagesDefinesCtrl
-                .getChangePasswordRequest() == MessagesDefinesCtrl.TypeFlags.DEFAULT) {
+        while (messagesDefinesCtrl.getChangePasswordRequest() == MessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
@@ -234,11 +219,9 @@ public class NewPasswordPanelAuthUI extends JPanel {
         if (messagesDefinesCtrl.getChangePasswordRequest() == MessagesDefinesCtrl.TypeFlags.TRUE) {
             changeRegimeNext();
             setEnabled(true);
-        } else if (messagesDefinesCtrl
-                .getChangePasswordRequest() == MessagesDefinesCtrl.TypeFlags.FALSE) {
+        } else if (messagesDefinesCtrl.getChangePasswordRequest() == MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            optionPaneAuthUIFactory.create().show("Failed to change password.",
-                    OptionPaneAuthUI.TypeDlg.ERROR);
+            optionPaneAuthUIFactory.create().show("Failed to change password.", OptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 }

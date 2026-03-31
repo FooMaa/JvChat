@@ -26,13 +26,11 @@ public class SendMessagesCtrl {
     private final NetworkCtrl networkCtrl;
 
     @Builder
-    SendMessagesCtrl(SerializatorDataMessages serializatorDataMessages,
-            MessagesDefinesCtrl messagesDefinesCtrl, StructTools structTools,
-            NetworkCtrl networkCtrl, ServersInfoSettings serversInfoSettings) {
+    SendMessagesCtrl(SerializatorDataMessages serializatorDataMessages, MessagesDefinesCtrl messagesDefinesCtrl,
+            StructTools structTools, NetworkCtrl networkCtrl, ServersInfoSettings serversInfoSettings) {
         this.serializatorDataMessages = Objects.requireNonNull(serializatorDataMessages,
                 "serializatorDataMessages is mandatory");
-        this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl,
-                "messagesDefinesCtrl is mandatory");
+        this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl, "messagesDefinesCtrl is mandatory");
         this.structTools = Objects.requireNonNull(structTools, "structTools is mandatory");
         this.networkCtrl = Objects.requireNonNull(networkCtrl, "networkCtrl is mandatory");
 
@@ -45,8 +43,7 @@ public class SendMessagesCtrl {
                 if (parameters.length == 2) {
                     Object login = parameters[0];
                     Object password = parameters[1];
-                    byte[] bodyMessage = createBodyEntryRequestMessage(type, (String) login,
-                            (String) password);
+                    byte[] bodyMessage = createBodyEntryRequestMessage(type, (String) login, (String) password);
                     sendReadyMessageNetwork(bodyMessage);
                     messagesDefinesCtrl.setEntryRequestFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
                 }
@@ -55,8 +52,7 @@ public class SendMessagesCtrl {
                 if (parameters.length == 2) {
                     Object reply = parameters[0];
                     Object uuidUser = parameters[1];
-                    byte[] bodyMessage = createBodyEntryReplyMessage(type, (Boolean) reply,
-                            (UUID) uuidUser);
+                    byte[] bodyMessage = createBodyEntryReplyMessage(type, (Boolean) reply, (UUID) uuidUser);
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
@@ -65,11 +61,10 @@ public class SendMessagesCtrl {
                     Object login = parameters[0];
                     Object email = parameters[1];
                     Object password = parameters[2];
-                    byte[] bodyMessage = createBodyRegistrationRequestMessage(type, (String) login,
-                            (String) email, (String) password);
+                    byte[] bodyMessage = createBodyRegistrationRequestMessage(type, (String) login, (String) email,
+                            (String) password);
                     sendReadyMessageNetwork(bodyMessage);
-                    messagesDefinesCtrl
-                            .setRegistrationRequestFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
+                    messagesDefinesCtrl.setRegistrationRequestFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
                 }
             }
             case RegistrationReply -> {
@@ -87,8 +82,8 @@ public class SendMessagesCtrl {
                     Object email = parameters[1];
                     Object password = parameters[2];
                     Object code = parameters[3];
-                    byte[] bodyMessage = createBodyVerifyRegistrationEmailRequestMessage(type,
-                            (String) login, (String) email, (String) password, (String) code);
+                    byte[] bodyMessage = createBodyVerifyRegistrationEmailRequestMessage(type, (String) login,
+                            (String) email, (String) password, (String) code);
                     sendReadyMessageNetwork(bodyMessage);
                     messagesDefinesCtrl.setVerifyRegistrationEmailRequestFlag(
                             MessagesDefinesCtrl.TypeFlags.DEFAULT);
@@ -98,19 +93,17 @@ public class SendMessagesCtrl {
                 if (parameters.length == 2) {
                     Object reply = parameters[0];
                     Object error = parameters[1];
-                    byte[] bodyMessage = createBodyVerifyRegistrationEmailReplyMessage(type,
-                            (Boolean) reply, (DefinesMessages.TypeErrorRegistration) error);
+                    byte[] bodyMessage = createBodyVerifyRegistrationEmailReplyMessage(type, (Boolean) reply,
+                            (DefinesMessages.TypeErrorRegistration) error);
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
             case ResetPasswordRequest -> {
                 if (parameters.length == 1) {
                     Object email = parameters[0];
-                    byte[] bodyMessage = createBodyResetPasswordRequestMessage(type,
-                            (String) email);
+                    byte[] bodyMessage = createBodyResetPasswordRequestMessage(type, (String) email);
                     sendReadyMessageNetwork(bodyMessage);
-                    messagesDefinesCtrl
-                            .setResetPasswordRequestFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
+                    messagesDefinesCtrl.setResetPasswordRequestFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
                 }
             }
             case ResetPasswordReply -> {
@@ -124,18 +117,15 @@ public class SendMessagesCtrl {
                 if (parameters.length == 2) {
                     Object email = parameters[0];
                     Object code = parameters[1];
-                    byte[] bodyMessage = createBodyVerifyFamousEmailRequestMessage(type,
-                            (String) email, (String) code);
+                    byte[] bodyMessage = createBodyVerifyFamousEmailRequestMessage(type, (String) email, (String) code);
                     sendReadyMessageNetwork(bodyMessage);
-                    messagesDefinesCtrl
-                            .setVerifyFamousEmailRequestFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
+                    messagesDefinesCtrl.setVerifyFamousEmailRequestFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
                 }
             }
             case VerifyFamousEmailReply -> {
                 if (parameters.length == 1) {
                     Object reply = parameters[0];
-                    byte[] bodyMessage = createBodyVerifyFamousEmailReplyMessage(type,
-                            (Boolean) reply);
+                    byte[] bodyMessage = createBodyVerifyFamousEmailReplyMessage(type, (Boolean) reply);
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
@@ -143,18 +133,16 @@ public class SendMessagesCtrl {
                 if (parameters.length == 2) {
                     Object email = parameters[0];
                     Object password = parameters[1];
-                    byte[] bodyMessage = createBodyChangePasswordRequestMessage(type,
-                            (String) email, (String) password);
+                    byte[] bodyMessage = createBodyChangePasswordRequestMessage(type, (String) email,
+                            (String) password);
                     sendReadyMessageNetwork(bodyMessage);
-                    messagesDefinesCtrl
-                            .setChangePasswordRequest(MessagesDefinesCtrl.TypeFlags.DEFAULT);
+                    messagesDefinesCtrl.setChangePasswordRequest(MessagesDefinesCtrl.TypeFlags.DEFAULT);
                 }
             }
             case ChangePasswordReply -> {
                 if (parameters.length == 1) {
                     Object reply = parameters[0];
-                    byte[] bodyMessage = createBodyChangePasswordReplyMessage(type,
-                            (Boolean) reply);
+                    byte[] bodyMessage = createBodyChangePasswordReplyMessage(type, (Boolean) reply);
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
@@ -163,18 +151,15 @@ public class SendMessagesCtrl {
                     Object uuidUser = parameters[0];
                     byte[] bodyMessage = createBodyChatsLoadRequestMessage(type, (UUID) uuidUser);
                     sendReadyMessageNetwork(bodyMessage);
-                    messagesDefinesCtrl
-                            .setChatsLoadReplyFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
+                    messagesDefinesCtrl.setChatsLoadReplyFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
                 }
             }
             case ChatsLoadReply -> {
                 if (parameters.length == 1) {
                     Object chatsInfoObj = parameters[0];
-                    List<Map<DbGlobalDefines.LineKeys, String>> chatsInfo = structTools
-                            .objectInListMaps(chatsInfoObj, DbGlobalDefines.LineKeys.class,
-                                    String.class);
-                    byte[] bodyMessageChatsLoadReply = createBodyChatsLoadReplyMessage(type,
-                            chatsInfo);
+                    List<Map<DbGlobalDefines.LineKeys, String>> chatsInfo = structTools.objectInListMaps(chatsInfoObj,
+                            DbGlobalDefines.LineKeys.class, String.class);
+                    byte[] bodyMessageChatsLoadReply = createBodyChatsLoadReplyMessage(type, chatsInfo);
                     sendReadyMessageNetwork(bodyMessageChatsLoadReply);
 
                     if (serversInfoSettings == null) {
@@ -182,8 +167,7 @@ public class SendMessagesCtrl {
                         return;
                     }
 
-                    sendMessage(DefinesMessages.TypeMessage.CheckOnlineUserRequest,
-                            serversInfoSettings.getIp());
+                    sendMessage(DefinesMessages.TypeMessage.CheckOnlineUserRequest, serversInfoSettings.getIp());
                 }
             }
             case CheckOnlineUserRequest -> {
@@ -197,8 +181,7 @@ public class SendMessagesCtrl {
             case CheckOnlineUserReply -> {
                 if (parameters.length == 1) {
                     Object uuidUser = parameters[0];
-                    byte[] bodyMessage = createBodyCheckOnlineUserReplyMessage(type,
-                            (UUID) uuidUser);
+                    byte[] bodyMessage = createBodyCheckOnlineUserReplyMessage(type, (UUID) uuidUser);
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
@@ -206,24 +189,21 @@ public class SendMessagesCtrl {
                 if (parameters.length == 1) {
                     Object uuidsObject = parameters[0];
                     List<UUID> uuidsList = structTools.checkedCastList(uuidsObject, UUID.class);
-                    byte[] bodyMessage = createBodyLoadUsersOnlineStatusRequestMessage(type,
-                            uuidsList);
+                    byte[] bodyMessage = createBodyLoadUsersOnlineStatusRequestMessage(type, uuidsList);
                     sendReadyMessageNetwork(bodyMessage);
-                    messagesDefinesCtrl
-                            .setLoadUsersOnlineReplyFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
+                    messagesDefinesCtrl.setLoadUsersOnlineReplyFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
                 }
             }
             case LoadUsersOnlineStatusReply -> {
                 if (parameters.length == 2) {
                     Object statusesUsersObj = parameters[0];
                     Object lastOnlineTimeUsersObj = parameters[1];
-                    Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> statusesUsersMap = structTools
-                            .objectInMap(statusesUsersObj, UUID.class,
-                                    MainChatsGlobalDefines.TypeStatusOnline.class);
-                    Map<UUID, String> lastOnlineTimeUsers = structTools
-                            .objectInMap(lastOnlineTimeUsersObj, UUID.class, String.class);
-                    byte[] bodyMessage = createBodyLoadUsersOnlineStatusReplyMessage(type,
-                            statusesUsersMap, lastOnlineTimeUsers);
+                    Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> statusesUsersMap = structTools.objectInMap(
+                            statusesUsersObj, UUID.class, MainChatsGlobalDefines.TypeStatusOnline.class);
+                    Map<UUID, String> lastOnlineTimeUsers = structTools.objectInMap(lastOnlineTimeUsersObj, UUID.class,
+                            String.class);
+                    byte[] bodyMessage = createBodyLoadUsersOnlineStatusReplyMessage(type, statusesUsersMap,
+                            lastOnlineTimeUsers);
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
@@ -234,9 +214,8 @@ public class SendMessagesCtrl {
                     Object uuidMessage = parameters[2];
                     Object text = parameters[3];
                     Object timestamp = parameters[4];
-                    byte[] bodyMessage = createBodyTextMessageSendUserToServerMessage(type,
-                            (UUID) uuidUserSender, (UUID) uuidUserReceiver, (UUID) uuidMessage,
-                            (String) text, (String) timestamp);
+                    byte[] bodyMessage = createBodyTextMessageSendUserToServerMessage(type, (UUID) uuidUserSender,
+                            (UUID) uuidUserReceiver, (UUID) uuidMessage, (String) text, (String) timestamp);
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
@@ -253,9 +232,8 @@ public class SendMessagesCtrl {
             case TextMessagesChangingStatusFromServer -> {
                 if (parameters.length == 1) {
                     Object mapUuidStatus = parameters[0];
-                    Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = structTools
-                            .objectInMap(mapUuidStatus, UUID.class,
-                                    MainChatsGlobalDefines.TypeStatusMessage.class);
+                    Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = structTools.objectInMap(
+                            mapUuidStatus, UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
                     byte[] bodyMessage = createBodyTextMessagesChangingStatusFromServerMessage(type,
                             mapStatusesMessages);
                     sendReadyMessageNetwork(bodyMessage);
@@ -272,11 +250,9 @@ public class SendMessagesCtrl {
             case TextMessagesChangingStatusFromUser -> {
                 if (parameters.length == 1) {
                     Object mapUuidStatus = parameters[0];
-                    Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = structTools
-                            .objectInMap(mapUuidStatus, UUID.class,
-                                    MainChatsGlobalDefines.TypeStatusMessage.class);
-                    byte[] bodyMessage = createBodyTextMessagesChangingStatusFromUserMessage(type,
-                            mapStatusesMessages);
+                    Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = structTools.objectInMap(
+                            mapUuidStatus, UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
+                    byte[] bodyMessage = createBodyTextMessagesChangingStatusFromUserMessage(type, mapStatusesMessages);
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
@@ -296,9 +272,8 @@ public class SendMessagesCtrl {
                     Object text = parameters[3];
                     Object timestamp = parameters[4];
                     Object runnableCtrl = parameters[5];
-                    byte[] bodyMessage = createBodyTextMessageRedirectServerToUserMessage(type,
-                            (UUID) uuidUserSender, (UUID) uuidUserReceiver, (UUID) uuidMessage,
-                            (String) text, (String) timestamp);
+                    byte[] bodyMessage = createBodyTextMessageRedirectServerToUserMessage(type, (UUID) uuidUserSender,
+                            (UUID) uuidUserReceiver, (UUID) uuidMessage, (String) text, (String) timestamp);
                     sendReadyMessageNetwork(bodyMessage, (Runnable) runnableCtrl);
                 }
             }
@@ -317,18 +292,15 @@ public class SendMessagesCtrl {
                     byte[] bodyMessage = createMessagesLoadRequestMessage(type, (UUID) uuidChat,
                             (Integer) quantityMessages);
                     sendReadyMessageNetwork(bodyMessage);
-                    messagesDefinesCtrl
-                            .setTextMessagesLoadReplyFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
+                    messagesDefinesCtrl.setTextMessagesLoadReplyFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
                 }
             }
             case MessagesLoadReply -> {
                 if (parameters.length == 1) {
                     Object msgInfoObj = parameters[0];
-                    List<Map<DbGlobalDefines.LineKeys, String>> msgInfo = structTools
-                            .objectInListMaps(msgInfoObj, DbGlobalDefines.LineKeys.class,
-                                    String.class);
-                    byte[] bodyMessageChatsLoadReply = createBodyMessagesLoadReplyMessage(type,
-                            msgInfo);
+                    List<Map<DbGlobalDefines.LineKeys, String>> msgInfo = structTools.objectInListMaps(msgInfoObj,
+                            DbGlobalDefines.LineKeys.class, String.class);
+                    byte[] bodyMessageChatsLoadReply = createBodyMessagesLoadReplyMessage(type, msgInfo);
                     sendReadyMessageNetwork(bodyMessageChatsLoadReply);
                 }
             }
@@ -344,80 +316,73 @@ public class SendMessagesCtrl {
     }
 
     @Profile("users")
-    private byte[] createBodyEntryRequestMessage(DefinesMessages.TypeMessage type, String login,
-            String password) {
+    private byte[] createBodyEntryRequestMessage(DefinesMessages.TypeMessage type, String login, String password) {
         return serializatorDataMessages.serialiseData(type, login, password);
     }
 
     @Profile("servers")
-    private byte[] createBodyEntryReplyMessage(DefinesMessages.TypeMessage type, Boolean reply,
-            UUID uuidUser) {
+    private byte[] createBodyEntryReplyMessage(DefinesMessages.TypeMessage type, Boolean reply, UUID uuidUser) {
         return serializatorDataMessages.serialiseData(type, reply, uuidUser);
     }
 
     @Profile("users")
-    private byte[] createBodyRegistrationRequestMessage(DefinesMessages.TypeMessage type,
-            String login, String email, String password) {
+    private byte[] createBodyRegistrationRequestMessage(DefinesMessages.TypeMessage type, String login, String email,
+            String password) {
         return serializatorDataMessages.serialiseData(type, login, email, password);
     }
 
     @Profile("servers")
-    private byte[] createBodyRegistrationReplyMessage(DefinesMessages.TypeMessage type,
-            Boolean reply, DefinesMessages.TypeErrorRegistration error) {
+    private byte[] createBodyRegistrationReplyMessage(DefinesMessages.TypeMessage type, Boolean reply,
+            DefinesMessages.TypeErrorRegistration error) {
         return serializatorDataMessages.serialiseData(type, reply, error);
     }
 
     @Profile("users")
-    private byte[] createBodyVerifyRegistrationEmailRequestMessage(DefinesMessages.TypeMessage type,
-            String login, String email, String password, String code) {
+    private byte[] createBodyVerifyRegistrationEmailRequestMessage(DefinesMessages.TypeMessage type, String login,
+            String email, String password, String code) {
         return serializatorDataMessages.serialiseData(type, login, email, password, code);
     }
 
     @Profile("servers")
-    private byte[] createBodyVerifyRegistrationEmailReplyMessage(DefinesMessages.TypeMessage type,
-            Boolean reply, DefinesMessages.TypeErrorRegistration error) {
+    private byte[] createBodyVerifyRegistrationEmailReplyMessage(DefinesMessages.TypeMessage type, Boolean reply,
+            DefinesMessages.TypeErrorRegistration error) {
         return serializatorDataMessages.serialiseData(type, reply, error);
     }
 
     @Profile("users")
-    private byte[] createBodyResetPasswordRequestMessage(DefinesMessages.TypeMessage type,
-            String email) {
+    private byte[] createBodyResetPasswordRequestMessage(DefinesMessages.TypeMessage type, String email) {
         return serializatorDataMessages.serialiseData(type, email);
     }
 
     @Profile("servers")
-    private byte[] createBodyResetPasswordReplyMessage(DefinesMessages.TypeMessage type,
-            Boolean reply) {
+    private byte[] createBodyResetPasswordReplyMessage(DefinesMessages.TypeMessage type, Boolean reply) {
         return serializatorDataMessages.serialiseData(type, reply);
     }
 
     @Profile("users")
-    private byte[] createBodyVerifyFamousEmailRequestMessage(DefinesMessages.TypeMessage type,
-            String email, String code) {
+    private byte[] createBodyVerifyFamousEmailRequestMessage(DefinesMessages.TypeMessage type, String email,
+            String code) {
         return serializatorDataMessages.serialiseData(type, email, code);
     }
 
     @Profile("servers")
-    private byte[] createBodyVerifyFamousEmailReplyMessage(DefinesMessages.TypeMessage type,
-            Boolean reply) {
+    private byte[] createBodyVerifyFamousEmailReplyMessage(DefinesMessages.TypeMessage type, Boolean reply) {
         return serializatorDataMessages.serialiseData(type, reply);
     }
 
     @Profile("users")
-    private byte[] createBodyChangePasswordRequestMessage(DefinesMessages.TypeMessage type,
-            String email, String password) {
+    private byte[] createBodyChangePasswordRequestMessage(DefinesMessages.TypeMessage type, String email,
+            String password) {
         return serializatorDataMessages.serialiseData(type, email, password);
     }
 
     @Profile("servers")
-    private byte[] createBodyChangePasswordReplyMessage(DefinesMessages.TypeMessage type,
-            Boolean reply) {
+    private byte[] createBodyChangePasswordReplyMessage(DefinesMessages.TypeMessage type, Boolean reply) {
         return serializatorDataMessages.serialiseData(type, reply);
     }
 
     @Profile("users")
-    private byte[] createBodyChatsLoadRequestMessage(DefinesMessages.TypeMessage type,
-            UUID uuidUser) {
+    private byte[] createBodyChatsLoadRequestMessage(DefinesMessages.TypeMessage type, UUID uuidUser) {
         return serializatorDataMessages.serialiseData(type, uuidUser);
     }
 
@@ -427,32 +392,27 @@ public class SendMessagesCtrl {
         return serializatorDataMessages.serialiseData(type, reply);
     }
 
-    private byte[] createBodyCheckOnlineUserRequestMessage(DefinesMessages.TypeMessage type,
-            String ip) {
+    private byte[] createBodyCheckOnlineUserRequestMessage(DefinesMessages.TypeMessage type, String ip) {
         return serializatorDataMessages.serialiseData(type, ip);
     }
 
-    private byte[] createBodyCheckOnlineUserReplyMessage(DefinesMessages.TypeMessage type,
-            UUID login) {
+    private byte[] createBodyCheckOnlineUserReplyMessage(DefinesMessages.TypeMessage type, UUID login) {
         return serializatorDataMessages.serialiseData(type, login);
     }
 
-    private byte[] createBodyLoadUsersOnlineStatusRequestMessage(DefinesMessages.TypeMessage type,
-            List<UUID> uuids) {
+    private byte[] createBodyLoadUsersOnlineStatusRequestMessage(DefinesMessages.TypeMessage type, List<UUID> uuids) {
         return serializatorDataMessages.serialiseData(type, uuids);
     }
 
     private byte[] createBodyLoadUsersOnlineStatusReplyMessage(DefinesMessages.TypeMessage type,
-            Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> statusesUsers,
-            Map<UUID, String> lastOnlineTimeUsers) {
+            Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> statusesUsers, Map<UUID, String> lastOnlineTimeUsers) {
         return serializatorDataMessages.serialiseData(type, statusesUsers, lastOnlineTimeUsers);
     }
 
-    private byte[] createBodyTextMessageSendUserToServerMessage(DefinesMessages.TypeMessage type,
-            UUID uuidUserSender, UUID uuidUserReceiver, UUID uuidMessage, String text,
-            String timestamp) {
-        return serializatorDataMessages.serialiseData(type, uuidUserSender, uuidUserReceiver,
-                uuidMessage, text, timestamp);
+    private byte[] createBodyTextMessageSendUserToServerMessage(DefinesMessages.TypeMessage type, UUID uuidUserSender,
+            UUID uuidUserReceiver, UUID uuidMessage, String text, String timestamp) {
+        return serializatorDataMessages.serialiseData(type, uuidUserSender, uuidUserReceiver, uuidMessage, text,
+                timestamp);
     }
 
     private byte[] createBodyTextMessageSendUserToServerVerificationMessage(
@@ -461,8 +421,7 @@ public class SendMessagesCtrl {
     }
 
     private byte[] createBodyTextMessagesChangingStatusFromServerMessage(
-            DefinesMessages.TypeMessage type,
-            Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
+            DefinesMessages.TypeMessage type, Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
         return serializatorDataMessages.serialiseData(type, mapStatusMessages);
     }
 
@@ -472,8 +431,7 @@ public class SendMessagesCtrl {
     }
 
     private byte[] createBodyTextMessagesChangingStatusFromUserMessage(
-            DefinesMessages.TypeMessage type,
-            Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
+            DefinesMessages.TypeMessage type, Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
         return serializatorDataMessages.serialiseData(type, mapStatusMessages);
     }
 
@@ -483,10 +441,10 @@ public class SendMessagesCtrl {
     }
 
     private byte[] createBodyTextMessageRedirectServerToUserMessage(
-            DefinesMessages.TypeMessage type, UUID uuidUserSender, UUID uuidUserReceiver,
-            UUID uuidMessage, String text, String timestamp) {
-        return serializatorDataMessages.serialiseData(type, uuidUserSender, uuidUserReceiver,
-                uuidMessage, text, timestamp);
+            DefinesMessages.TypeMessage type, UUID uuidUserSender, UUID uuidUserReceiver, UUID uuidMessage, String text,
+            String timestamp) {
+        return serializatorDataMessages.serialiseData(type, uuidUserSender, uuidUserReceiver, uuidMessage, text,
+                timestamp);
     }
 
     private byte[] createBodyTextMessageRedirectServerToUserVerificationMessage(

@@ -27,12 +27,9 @@ public class ActiveLabelAuthUI extends JLabel {
     @Builder
     ActiveLabelAuthUI(DisplaySettings displaySettings, FontsGlobalDefines fontsGlobalDefines,
             ToolTipAuthUIFactory toolTipAuthUIFactory) {
-        this.displaySettings = Objects.requireNonNull(displaySettings,
-                "displaySettings is mandatory");
-        this.fontsGlobalDefines = Objects.requireNonNull(fontsGlobalDefines,
-                "fontsGlobalDefines is mandatory");
-        this.toolTipAuthUIFactory = Objects.requireNonNull(toolTipAuthUIFactory,
-                "toolTipAuthUIFactory is mandatory");
+        this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
+        this.fontsGlobalDefines = Objects.requireNonNull(fontsGlobalDefines, "fontsGlobalDefines is mandatory");
+        this.toolTipAuthUIFactory = Objects.requireNonNull(toolTipAuthUIFactory, "toolTipAuthUIFactory is mandatory");
 
         setFont(false);
         setForeground(Color.WHITE);
@@ -53,8 +50,7 @@ public class ActiveLabelAuthUI extends JLabel {
     private void setFont(boolean isEnteredMouse) {
         try {
             int size = displaySettings.getResizePixel(0.011);
-            Font steticaFont = fontsGlobalDefines
-                    .createMainSteticaFont(isEnteredMouse ? Font.BOLD : Font.PLAIN, size);
+            Font steticaFont = fontsGlobalDefines.createMainSteticaFont(isEnteredMouse ? Font.BOLD : Font.PLAIN, size);
             Map<TextAttribute, Object> attributes = new HashMap<>(steticaFont.getAttributes());
             attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_LOW_DOTTED);
             setFont(steticaFont.deriveFont(attributes));

@@ -13,8 +13,7 @@ public class PasswordFieldAuthUIFactory {
     PasswordFieldAuthUIFactory(
             ObjectProvider<PasswordFieldAuthUI> passwordFieldAuthUIObjectProvider) {
         this.passwordFieldAuthUIObjectProvider = Objects.requireNonNull(
-                passwordFieldAuthUIObjectProvider,
-                "passwordFieldAuthUIObjectProvider is mandatory");
+                passwordFieldAuthUIObjectProvider, "passwordFieldAuthUIObjectProvider is mandatory");
     }
 
     public PasswordFieldAuthUI create(String defaultText) {

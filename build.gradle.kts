@@ -26,7 +26,7 @@ subprojects {
 
     configure<com.diffplug.gradle.spotless.SpotlessExtension> {
         java {
-            eclipse("4.21.0").configFile(rootProject.file("config/eclipse-format.xml"))
+            eclipse("4.21.0").configFile(rootProject.file("config/idea-format.xml"))
             indentWithSpaces(4)
             removeUnusedImports()
             importOrder(

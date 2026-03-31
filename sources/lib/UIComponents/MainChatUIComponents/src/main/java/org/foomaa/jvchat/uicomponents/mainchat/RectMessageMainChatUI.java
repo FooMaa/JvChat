@@ -30,12 +30,9 @@ public class RectMessageMainChatUI extends JTextArea {
     @Builder
     RectMessageMainChatUI(DisplaySettings displaySettings, MessagesDialogCtrl messagesDialogCtrl,
             ScrollPanelMessagesMainChatUI scrollPanelMessages) {
-        this.displaySettings = Objects.requireNonNull(displaySettings,
-                "displaySettings is mandatory");
-        this.messagesDialogCtrl = Objects.requireNonNull(messagesDialogCtrl,
-                "messagesDialogCtrl is mandatory");
-        this.scrollPanelMessages = Objects.requireNonNull(scrollPanelMessages,
-                "scrollPanelMessages is mandatory");
+        this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
+        this.messagesDialogCtrl = Objects.requireNonNull(messagesDialogCtrl, "messagesDialogCtrl is mandatory");
+        this.scrollPanelMessages = Objects.requireNonNull(scrollPanelMessages, "scrollPanelMessages is mandatory");
 
         textMessage = "";
         statusMessage = MainChatsGlobalDefines.TypeStatusMessage.Error;
@@ -72,8 +69,7 @@ public class RectMessageMainChatUI extends JTextArea {
         int xRoundSecond = xRound - diameter - 1;
 
         // Рисуем кружки доставки
-        if (statusMessage == MainChatsGlobalDefines.TypeStatusMessage.Delivered
-                || statusMessage == MainChatsGlobalDefines.TypeStatusMessage.Read) {
+        if (statusMessage == MainChatsGlobalDefines.TypeStatusMessage.Delivered || statusMessage == MainChatsGlobalDefines.TypeStatusMessage.Read) {
             g2.fillOval(xRound, yRound, diameter, diameter);
         }
         if (statusMessage == MainChatsGlobalDefines.TypeStatusMessage.Read) {

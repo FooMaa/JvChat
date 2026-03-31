@@ -22,8 +22,8 @@ public class MessageStructObjectFactory {
     }
 
     public MessageStructObject create(UUID uuidUserSender, UUID uuidUserReceiver,
-            MainChatsGlobalDefines.TypeStatusMessage statusMessage, String text,
-            LocalDateTime timestamp, UUID uuidMessage) {
+            MainChatsGlobalDefines.TypeStatusMessage statusMessage, String text, LocalDateTime timestamp,
+            UUID uuidMessage) {
         MessageStructObject messageStructObject = messageStructObjectObjectProvider.getObject();
 
         messageStructObject.setUuidUserSender(uuidUserSender);

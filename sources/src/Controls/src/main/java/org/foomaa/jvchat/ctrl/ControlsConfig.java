@@ -48,40 +48,35 @@ public class ControlsConfig {
     @Profile("users")
     public MessagesDialogCtrl beanUsersMessagesDialogCtrl(@Lazy MessagesModel messagesModel,
             @Lazy ChatsModel chatsModel, FormatTools formatTools, SendMessagesCtrl sendMessagesCtrl,
-            MessagesDefinesCtrl messagesDefinesCtrl,
-            MessageStructObjectFactory messageStructObjectFactory, ChatsCtrl chatsCtrl,
-            UsersInfoSettings usersInfoSettings) {
-        return MessagesDialogCtrl.builder().messagesModel(messagesModel).chatsModel(chatsModel)
-                .formatTools(formatTools).sendMessagesCtrl(sendMessagesCtrl)
-                .messagesDefinesCtrl(messagesDefinesCtrl)
-                .messageStructObjectFactory(messageStructObjectFactory).chatsCtrl(chatsCtrl)
-                .usersInfoSettings(usersInfoSettings).build();
+            MessagesDefinesCtrl messagesDefinesCtrl, MessageStructObjectFactory messageStructObjectFactory,
+            ChatsCtrl chatsCtrl, UsersInfoSettings usersInfoSettings) {
+        return MessagesDialogCtrl.builder().messagesModel(messagesModel).chatsModel(chatsModel).formatTools(
+                formatTools).sendMessagesCtrl(sendMessagesCtrl).messagesDefinesCtrl(
+                        messagesDefinesCtrl).messageStructObjectFactory(messageStructObjectFactory).chatsCtrl(
+                                chatsCtrl).usersInfoSettings(usersInfoSettings).build();
     }
 
     @Bean
     @Profile("servers")
     public MessagesDialogCtrl beanServersMessagesDialogCtrl(@Lazy MessagesModel messagesModel,
             @Lazy ChatsModel chatsModel, FormatTools formatTools, SendMessagesCtrl sendMessagesCtrl,
-            MessagesDefinesCtrl messagesDefinesCtrl,
-            MessageStructObjectFactory messageStructObjectFactory,
+            MessagesDefinesCtrl messagesDefinesCtrl, MessageStructObjectFactory messageStructObjectFactory,
             OnlineServersCtrl onlineServersCtrl) {
-        return MessagesDialogCtrl.builder().messagesModel(messagesModel).chatsModel(chatsModel)
-                .formatTools(formatTools).sendMessagesCtrl(sendMessagesCtrl)
-                .messagesDefinesCtrl(messagesDefinesCtrl)
-                .messageStructObjectFactory(messageStructObjectFactory)
-                .onlineServersCtrl(onlineServersCtrl).build();
+        return MessagesDialogCtrl.builder().messagesModel(messagesModel).chatsModel(chatsModel).formatTools(
+                formatTools).sendMessagesCtrl(sendMessagesCtrl).messagesDefinesCtrl(
+                        messagesDefinesCtrl).messageStructObjectFactory(messageStructObjectFactory).onlineServersCtrl(
+                                onlineServersCtrl).build();
     }
 
     @Bean
     @Lazy
     @Profile("users")
-    public NetworkCtrl beanUsersNetworkCtrl(MainSettings mainSettings,
-            SocketRunnableCtrlModel socketRunnableCtrlModel, TakeMessagesCtrl takeMessagesCtrl,
-            SocketRunnableCtrlFactory socketRunnableCtrlFactory, UsersSocket usersSocket) {
-        return NetworkCtrl.builder().mainSettings(mainSettings)
-                .socketRunnableCtrlModel(socketRunnableCtrlModel).takeMessagesCtrl(takeMessagesCtrl)
-                .socketRunnableCtrlFactory(socketRunnableCtrlFactory).usersSocket(usersSocket)
-                .build();
+    public NetworkCtrl beanUsersNetworkCtrl(MainSettings mainSettings, SocketRunnableCtrlModel socketRunnableCtrlModel,
+            TakeMessagesCtrl takeMessagesCtrl, SocketRunnableCtrlFactory socketRunnableCtrlFactory,
+            UsersSocket usersSocket) {
+        return NetworkCtrl.builder().mainSettings(mainSettings).socketRunnableCtrlModel(
+                socketRunnableCtrlModel).takeMessagesCtrl(takeMessagesCtrl).socketRunnableCtrlFactory(
+                        socketRunnableCtrlFactory).usersSocket(usersSocket).build();
     }
 
     @Bean
@@ -91,44 +86,39 @@ public class ControlsConfig {
             SocketRunnableCtrlModel socketRunnableCtrlModel, TakeMessagesCtrl takeMessagesCtrl,
             SocketRunnableCtrlFactory socketRunnableCtrlFactory, ServersSocket serversSocket,
             OnlineServersCtrl onlineServersCtrl) {
-        return NetworkCtrl.builder().mainSettings(mainSettings)
-                .socketRunnableCtrlModel(socketRunnableCtrlModel).takeMessagesCtrl(takeMessagesCtrl)
-                .socketRunnableCtrlFactory(socketRunnableCtrlFactory).serversSocket(serversSocket)
-                .onlineServersCtrl(onlineServersCtrl).build();
+        return NetworkCtrl.builder().mainSettings(mainSettings).socketRunnableCtrlModel(
+                socketRunnableCtrlModel).takeMessagesCtrl(takeMessagesCtrl).socketRunnableCtrlFactory(
+                        socketRunnableCtrlFactory).serversSocket(serversSocket).onlineServersCtrl(
+                                onlineServersCtrl).build();
     }
 
     @Bean
     @Profile("servers")
-    public OnlineServersCtrl beanOnlineServersCtrl(DbCtrl dbCtrl,
-            ServersInfoSettings serversInfoSettings, CheckersOnlineModel checkersOnlineModel,
-            UsersModel usersModel, SocketRunnableCtrlModel socketRunnableCtrlModel,
-            SendMessagesCtrl sendMessagesCtrl) {
-        return OnlineServersCtrl.builder().dbCtrl(dbCtrl).serversInfoSettings(serversInfoSettings)
-                .checkersOnlineModel(checkersOnlineModel).usersModel(usersModel)
-                .socketRunnableCtrlModel(socketRunnableCtrlModel).sendMessagesCtrl(sendMessagesCtrl)
-                .build();
+    public OnlineServersCtrl beanOnlineServersCtrl(DbCtrl dbCtrl, ServersInfoSettings serversInfoSettings,
+            CheckersOnlineModel checkersOnlineModel, UsersModel usersModel,
+            SocketRunnableCtrlModel socketRunnableCtrlModel, SendMessagesCtrl sendMessagesCtrl) {
+        return OnlineServersCtrl.builder().dbCtrl(dbCtrl).serversInfoSettings(serversInfoSettings).checkersOnlineModel(
+                checkersOnlineModel).usersModel(usersModel).socketRunnableCtrlModel(
+                        socketRunnableCtrlModel).sendMessagesCtrl(sendMessagesCtrl).build();
     }
 
     @Bean
     @Profile("users")
     public SendMessagesCtrl beanUsersSendMessagesCtrl(
-            SerializatorDataMessages serializatorDataMessages,
-            MessagesDefinesCtrl messagesDefinesCtrl, StructTools structTools,
-            @Lazy NetworkCtrl networkCtrl) {
-        return SendMessagesCtrl.builder().serializatorDataMessages(serializatorDataMessages)
-                .messagesDefinesCtrl(messagesDefinesCtrl).structTools(structTools)
-                .networkCtrl(networkCtrl).build();
+            SerializatorDataMessages serializatorDataMessages, MessagesDefinesCtrl messagesDefinesCtrl,
+            StructTools structTools, @Lazy NetworkCtrl networkCtrl) {
+        return SendMessagesCtrl.builder().serializatorDataMessages(serializatorDataMessages).messagesDefinesCtrl(
+                messagesDefinesCtrl).structTools(structTools).networkCtrl(networkCtrl).build();
     }
 
     @Bean
     @Profile("servers")
     public SendMessagesCtrl beanServersSendMessagesCtrl(
-            SerializatorDataMessages serializatorDataMessages,
-            MessagesDefinesCtrl messagesDefinesCtrl, StructTools structTools,
-            @Lazy NetworkCtrl networkCtrl, ServersInfoSettings serversInfoSettings) {
-        return SendMessagesCtrl.builder().serializatorDataMessages(serializatorDataMessages)
-                .messagesDefinesCtrl(messagesDefinesCtrl).structTools(structTools)
-                .networkCtrl(networkCtrl).serversInfoSettings(serversInfoSettings).build();
+            SerializatorDataMessages serializatorDataMessages, MessagesDefinesCtrl messagesDefinesCtrl,
+            StructTools structTools, @Lazy NetworkCtrl networkCtrl, ServersInfoSettings serversInfoSettings) {
+        return SendMessagesCtrl.builder().serializatorDataMessages(serializatorDataMessages).messagesDefinesCtrl(
+                messagesDefinesCtrl).structTools(structTools).networkCtrl(networkCtrl).serversInfoSettings(
+                        serversInfoSettings).build();
     }
 
     @Bean
@@ -136,42 +126,40 @@ public class ControlsConfig {
     @Scope("prototype")
     public SocketRunnableCtrl beanSocketRunnableCtrl(
             SocketRunnableCtrlModel socketRunnableCtrlModel, @Lazy NetworkCtrl networkCtrl) {
-        return SocketRunnableCtrl.builder().socketRunnableCtrlModel(socketRunnableCtrlModel)
-                .networkCtrl(networkCtrl).build();
+        return SocketRunnableCtrl.builder().socketRunnableCtrlModel(socketRunnableCtrlModel).networkCtrl(
+                networkCtrl).build();
     }
 
     @Bean
     public SocketRunnableCtrlFactory beanSocketRunnableCtrlFactory(
             ObjectProvider<SocketRunnableCtrl> socketRunnableCtrlObjectProvider) {
-        return SocketRunnableCtrlFactory.builder()
-                .socketRunnableCtrlObjectProvider(socketRunnableCtrlObjectProvider).build();
+        return SocketRunnableCtrlFactory.builder().socketRunnableCtrlObjectProvider(
+                socketRunnableCtrlObjectProvider).build();
     }
 
     @Bean
     @Profile("users")
     public TakeMessagesCtrl beanUsersTakeMessagesCtrl(HashCryptography hashCryptography,
-            DeserializatorDataMessages deserializatorDataMessages, StructTools structTools,
-            FormatTools formatTools, SendMessagesCtrl sendMessagesCtrl,
-            MessagesDefinesCtrl messagesDefinesCtrl, MessagesDialogCtrl messagesDialogCtrl,
-            UsersInfoSettings usersInfoSettings, ChatsCtrl chatsCtrl) {
-        return TakeMessagesCtrl.builder().hashCryptography(hashCryptography)
-                .deserializatorDataMessages(deserializatorDataMessages).structTools(structTools)
-                .formatTools(formatTools).sendMessagesCtrl(sendMessagesCtrl)
-                .messagesDefinesCtrl(messagesDefinesCtrl).messagesDialogCtrl(messagesDialogCtrl)
-                .usersInfoSettings(usersInfoSettings).chatsCtrl(chatsCtrl).build();
+            DeserializatorDataMessages deserializatorDataMessages, StructTools structTools, FormatTools formatTools,
+            SendMessagesCtrl sendMessagesCtrl, MessagesDefinesCtrl messagesDefinesCtrl,
+            MessagesDialogCtrl messagesDialogCtrl, UsersInfoSettings usersInfoSettings, ChatsCtrl chatsCtrl) {
+        return TakeMessagesCtrl.builder().hashCryptography(hashCryptography).deserializatorDataMessages(
+                deserializatorDataMessages).structTools(structTools).formatTools(formatTools).sendMessagesCtrl(
+                        sendMessagesCtrl).messagesDefinesCtrl(messagesDefinesCtrl).messagesDialogCtrl(
+                                messagesDialogCtrl).usersInfoSettings(usersInfoSettings).chatsCtrl(chatsCtrl).build();
     }
 
     @Bean
     @Profile("servers")
     public TakeMessagesCtrl beanServersTakeMessagesCtrl(HashCryptography hashCryptography,
-            DeserializatorDataMessages deserializatorDataMessages, StructTools structTools,
-            FormatTools formatTools, SendMessagesCtrl sendMessagesCtrl,
-            MessagesDefinesCtrl messagesDefinesCtrl, MessagesDialogCtrl messagesDialogCtrl,
-            OnlineServersCtrl onlineServersCtrl, EmailCtrl emailCtrl, DbCtrl dbCtrl) {
-        return TakeMessagesCtrl.builder().hashCryptography(hashCryptography)
-                .deserializatorDataMessages(deserializatorDataMessages).structTools(structTools)
-                .formatTools(formatTools).sendMessagesCtrl(sendMessagesCtrl)
-                .messagesDefinesCtrl(messagesDefinesCtrl).messagesDialogCtrl(messagesDialogCtrl)
-                .onlineServersCtrl(onlineServersCtrl).emailCtrl(emailCtrl).dbCtrl(dbCtrl).build();
+            DeserializatorDataMessages deserializatorDataMessages, StructTools structTools, FormatTools formatTools,
+            SendMessagesCtrl sendMessagesCtrl, MessagesDefinesCtrl messagesDefinesCtrl,
+            MessagesDialogCtrl messagesDialogCtrl, OnlineServersCtrl onlineServersCtrl, EmailCtrl emailCtrl,
+            DbCtrl dbCtrl) {
+        return TakeMessagesCtrl.builder().hashCryptography(hashCryptography).deserializatorDataMessages(
+                deserializatorDataMessages).structTools(structTools).formatTools(formatTools).sendMessagesCtrl(
+                        sendMessagesCtrl).messagesDefinesCtrl(messagesDefinesCtrl).messagesDialogCtrl(
+                                messagesDialogCtrl).onlineServersCtrl(onlineServersCtrl).emailCtrl(emailCtrl).dbCtrl(
+                                        dbCtrl).build();
     }
 }

@@ -37,8 +37,7 @@ public class FormatTools {
                     "It is not possible to convert the date and time to the required format. Trying regex...");
 
             // Regex format: 'yyyy-MM-dd HH:mm:ss'
-            String patternStr = "^(?<year>\\d{4})-(?<month>0[1-9]|1[012])-(?<day>0[1-9]|[12][0-9]|3[01])"
-                    + "[T ](?<hour>[01][0-9]|2[0-3]):(?<minute>[0-5][0-9]):(?<second>[0-5][0-9])$";
+            String patternStr = "^(?<year>\\d{4})-(?<month>0[1-9]|1[012])-(?<day>0[1-9]|[12][0-9]|3[01])" + "[T ](?<hour>[01][0-9]|2[0-3]):(?<minute>[0-5][0-9]):(?<second>[0-5][0-9])$";
 
             Pattern pattern = Pattern.compile(patternStr);
             Matcher m = pattern.matcher(timestamp);

@@ -13,13 +13,11 @@ public class FindTextFieldMainChatUIFactory {
     FindTextFieldMainChatUIFactory(
             ObjectProvider<FindTextFieldMainChatUI> findTextFieldMainChatUIObjectProvider) {
         this.findTextFieldMainChatUIObjectProvider = Objects.requireNonNull(
-                findTextFieldMainChatUIObjectProvider,
-                "findTextFieldMainChatUIObjectProvider is mandatory");
+                findTextFieldMainChatUIObjectProvider, "findTextFieldMainChatUIObjectProvider is mandatory");
     }
 
     public FindTextFieldMainChatUI create(String defaultText) {
-        FindTextFieldMainChatUI findTextFieldMainChatUI = findTextFieldMainChatUIObjectProvider
-                .getObject();
+        FindTextFieldMainChatUI findTextFieldMainChatUI = findTextFieldMainChatUIObjectProvider.getObject();
         findTextFieldMainChatUI.setDefaultText(defaultText);
         return findTextFieldMainChatUI;
     }

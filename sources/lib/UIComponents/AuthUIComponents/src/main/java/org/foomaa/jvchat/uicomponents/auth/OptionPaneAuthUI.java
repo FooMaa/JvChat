@@ -15,11 +15,11 @@ public class OptionPaneAuthUI extends JOptionPane {
 
     public void show(String msg, TypeDlg type) {
         switch (type) {
-            case ERROR :
+            case ERROR:
                 JFrame frame = new JFrame();
                 showMessageDialog(frame, msg, "Error", JOptionPane.ERROR_MESSAGE);
                 break;
-            case WARNING :
+            case WARNING:
                 break;
         }
     }

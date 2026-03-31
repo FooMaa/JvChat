@@ -13,8 +13,7 @@ public class PanelSendingMessageMainChatUIFactory {
     PanelSendingMessageMainChatUIFactory(
             ObjectProvider<PanelSendingMessageMainChatUI> panelSendingMessageObjectProvider) {
         this.panelSendingMessageObjectProvider = Objects.requireNonNull(
-                panelSendingMessageObjectProvider,
-                "panelSendingMessageObjectProvider is mandatory");
+                panelSendingMessageObjectProvider, "panelSendingMessageObjectProvider is mandatory");
     }
 
     public PanelSendingMessageMainChatUI create() {

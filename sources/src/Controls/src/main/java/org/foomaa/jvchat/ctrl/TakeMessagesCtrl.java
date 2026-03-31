@@ -32,22 +32,17 @@ public class TakeMessagesCtrl {
     private final DbCtrl dbCtrl;
 
     @Builder
-    TakeMessagesCtrl(HashCryptography hashCryptography,
-            DeserializatorDataMessages deserializatorDataMessages, StructTools structTools,
-            FormatTools formatTools, SendMessagesCtrl sendMessagesCtrl,
+    TakeMessagesCtrl(HashCryptography hashCryptography, DeserializatorDataMessages deserializatorDataMessages,
+            StructTools structTools, FormatTools formatTools, SendMessagesCtrl sendMessagesCtrl,
             MessagesDefinesCtrl messagesDefinesCtrl, MessagesDialogCtrl messagesDialogCtrl,
-            OnlineServersCtrl onlineServersCtrl, UsersInfoSettings usersInfoSettings,
-            ChatsCtrl chatsCtrl, EmailCtrl emailCtrl, DbCtrl dbCtrl) {
-        this.hashCryptography = Objects.requireNonNull(hashCryptography,
-                "hashCryptography is mandatory");
+            OnlineServersCtrl onlineServersCtrl, UsersInfoSettings usersInfoSettings, ChatsCtrl chatsCtrl,
+            EmailCtrl emailCtrl, DbCtrl dbCtrl) {
+        this.hashCryptography = Objects.requireNonNull(hashCryptography, "hashCryptography is mandatory");
         this.structTools = Objects.requireNonNull(structTools, "structTools is mandatory");
         this.formatTools = Objects.requireNonNull(formatTools, "formatTools is mandatory");
-        this.sendMessagesCtrl = Objects.requireNonNull(sendMessagesCtrl,
-                "sendMessagesCtrl is mandatory");
-        this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl,
-                "messagesDefinesCtrl is mandatory");
-        this.messagesDialogCtrl = Objects.requireNonNull(messagesDialogCtrl,
-                "messagesDialogCtrl is mandatory");
+        this.sendMessagesCtrl = Objects.requireNonNull(sendMessagesCtrl, "sendMessagesCtrl is mandatory");
+        this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl, "messagesDefinesCtrl is mandatory");
+        this.messagesDialogCtrl = Objects.requireNonNull(messagesDialogCtrl, "messagesDialogCtrl is mandatory");
         this.deserializatorDataMessages = Objects.requireNonNull(deserializatorDataMessages,
                 "deserializatorDataMessages is mandatory");
 
@@ -145,11 +140,9 @@ public class TakeMessagesCtrl {
             return;
         }
 
-        boolean requestDB = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.UserPassword, login,
-                hashPassword);
+        boolean requestDB = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.UserPassword, login, hashPassword);
 
-        String uuidUserStr = dbCtrl
-                .getSingleDataFromDb(DbCtrl.TypeExecutionGetSingle.UuidUserByLogin, login);
+        String uuidUserStr = dbCtrl.getSingleDataFromDb(DbCtrl.TypeExecutionGetSingle.UuidUserByLogin, login);
         UUID uuidUser = UUID.fromString(uuidUserStr);
 
         sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.EntryReply, requestDB, uuidUser);
@@ -181,10 +174,10 @@ public class TakeMessagesCtrl {
             return;
         }
 
-        boolean checkLogin = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.Login,
-                (String) map.get(DefinesMessages.TypeData.Login));
-        boolean checkEmail = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.Email,
-                (String) map.get(DefinesMessages.TypeData.Email));
+        boolean checkLogin = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.Login, (String) map.get(
+                DefinesMessages.TypeData.Login));
+        boolean checkEmail = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.Email, (String) map.get(
+                DefinesMessages.TypeData.Email));
         if (checkLogin) {
             typeError = DefinesMessages.TypeErrorRegistration.Login;
         }
@@ -200,12 +193,10 @@ public class TakeMessagesCtrl {
                 return;
             }
 
-            requestDB = emailCtrl
-                    .startVerifyRegEmail((String) map.get(DefinesMessages.TypeData.Email));
+            requestDB = emailCtrl.startVerifyRegEmail((String) map.get(DefinesMessages.TypeData.Email));
             typeError = DefinesMessages.TypeErrorRegistration.EmailSending;
         }
-        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.RegistrationReply, requestDB,
-                typeError);
+        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.RegistrationReply, requestDB, typeError);
     }
 
     private void workRegistrationReplyMessage(HashMap<DefinesMessages.TypeData, ?> map) {
@@ -225,9 +216,8 @@ public class TakeMessagesCtrl {
             return;
         }
 
-        boolean checkCode = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.VerifyRegistrationEmail,
-                (String) map.get(DefinesMessages.TypeData.Email),
-                (String) map.get(DefinesMessages.TypeData.VerifyCode));
+        boolean checkCode = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.VerifyRegistrationEmail, (String) map.get(
+                DefinesMessages.TypeData.Email), (String) map.get(DefinesMessages.TypeData.VerifyCode));
         if (checkCode) {
             String login = (String) map.get(DefinesMessages.TypeData.Login);
             String email = (String) map.get(DefinesMessages.TypeData.Email);
@@ -236,14 +226,14 @@ public class TakeMessagesCtrl {
             String hashPassword = hashCryptography.getHash(password);
             UUID uuidUser = UUID.randomUUID();
 
-            boolean requestDB = dbCtrl.insertQueryToDB(DbCtrl.TypeExecutionInsert.RegisterForm,
-                    login, email, hashPassword, uuidUser.toString());
+            boolean requestDB = dbCtrl.insertQueryToDB(DbCtrl.TypeExecutionInsert.RegisterForm, login, email,
+                    hashPassword, uuidUser.toString());
             DefinesMessages.TypeErrorRegistration typeError = DefinesMessages.TypeErrorRegistration.NoError;
             if (!requestDB) {
-                boolean checkLogin = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.Login,
-                        (String) map.get(DefinesMessages.TypeData.Login));
-                boolean checkEmail = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.Email,
-                        (String) map.get(DefinesMessages.TypeData.Email));
+                boolean checkLogin = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.Login, (String) map.get(
+                        DefinesMessages.TypeData.Login));
+                boolean checkEmail = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.Email, (String) map.get(
+                        DefinesMessages.TypeData.Email));
                 if (checkLogin) {
                     typeError = DefinesMessages.TypeErrorRegistration.Login;
                 }
@@ -254,21 +244,19 @@ public class TakeMessagesCtrl {
                     typeError = DefinesMessages.TypeErrorRegistration.LoginAndEmail;
                 }
             }
-            sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.VerifyRegistrationEmailReply,
-                    requestDB, typeError);
+            sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.VerifyRegistrationEmailReply, requestDB,
+                    typeError);
         } else {
-            sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.VerifyRegistrationEmailReply,
-                    false, DefinesMessages.TypeErrorRegistration.Code);
+            sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.VerifyRegistrationEmailReply, false,
+                    DefinesMessages.TypeErrorRegistration.Code);
         }
     }
 
     private void workVerifyRegistrationEmailReplyMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(DefinesMessages.TypeData.BoolReply)) {
-            messagesDefinesCtrl
-                    .setVerifyRegistrationEmailRequestFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
+            messagesDefinesCtrl.setVerifyRegistrationEmailRequestFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
         } else {
-            messagesDefinesCtrl
-                    .setVerifyRegistrationEmailRequestFlag(MessagesDefinesCtrl.TypeFlags.FALSE);
+            messagesDefinesCtrl.setVerifyRegistrationEmailRequestFlag(MessagesDefinesCtrl.TypeFlags.FALSE);
         }
         messagesDefinesCtrl.setErrorVerifyRegEmailFlag(
                 (DefinesMessages.TypeErrorRegistration) map.get(DefinesMessages.TypeData.ErrorReg));
@@ -309,9 +297,8 @@ public class TakeMessagesCtrl {
             return;
         }
 
-        boolean requestDB = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.VerifyFamousEmailCode,
-                (String) map.get(DefinesMessages.TypeData.Email),
-                (String) map.get(DefinesMessages.TypeData.VerifyCode));
+        boolean requestDB = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.VerifyFamousEmailCode, (String) map.get(
+                DefinesMessages.TypeData.Email), (String) map.get(DefinesMessages.TypeData.VerifyCode));
         sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.VerifyFamousEmailReply, requestDB);
     }
 
@@ -319,8 +306,7 @@ public class TakeMessagesCtrl {
         if ((Boolean) map.get(DefinesMessages.TypeData.BoolReply)) {
             messagesDefinesCtrl.setVerifyFamousEmailRequestFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
         } else {
-            messagesDefinesCtrl
-                    .setVerifyFamousEmailRequestFlag(MessagesDefinesCtrl.TypeFlags.FALSE);
+            messagesDefinesCtrl.setVerifyFamousEmailRequestFlag(MessagesDefinesCtrl.TypeFlags.FALSE);
         }
     }
 
@@ -335,8 +321,7 @@ public class TakeMessagesCtrl {
             return;
         }
 
-        boolean requestDB = dbCtrl.insertQueryToDB(DbCtrl.TypeExecutionInsert.ChangePassword, email,
-                hashPassword);
+        boolean requestDB = dbCtrl.insertQueryToDB(DbCtrl.TypeExecutionInsert.ChangePassword, email, hashPassword);
         sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.ChangePasswordReply, requestDB);
     }
 
@@ -356,15 +341,15 @@ public class TakeMessagesCtrl {
             return;
         }
 
-        List<Map<DbGlobalDefines.LineKeys, String>> requestDB = dbCtrl
-                .getMultipleInfoFromDb(DbCtrl.TypeExecutionGetMultiple.ChatsLoad, uuidUserStr);
+        List<Map<DbGlobalDefines.LineKeys, String>> requestDB = dbCtrl.getMultipleInfoFromDb(
+                DbCtrl.TypeExecutionGetMultiple.ChatsLoad, uuidUserStr);
         sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.ChatsLoadReply, requestDB);
     }
 
     private void workChatsLoadReplyMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         Object objectFromMap = map.get(DefinesMessages.TypeData.ChatsInfoList);
-        List<Map<DefinesMessages.TypeData, Object>> chatsInfo = structTools
-                .objectInListMaps(objectFromMap, DefinesMessages.TypeData.class, Object.class);
+        List<Map<DefinesMessages.TypeData, Object>> chatsInfo = structTools.objectInListMaps(objectFromMap,
+                DefinesMessages.TypeData.class, Object.class);
 
         if (chatsCtrl == null) {
             log.error("charsCtrl is null");
@@ -376,8 +361,7 @@ public class TakeMessagesCtrl {
     }
 
     private void workCheckOnlineUserRequestMessage(HashMap<DefinesMessages.TypeData, ?> map) {
-        @SuppressWarnings("unused")
-        String ip = (String) map.get(DefinesMessages.TypeData.IP);
+        @SuppressWarnings("unused") String ip = (String) map.get(DefinesMessages.TypeData.IP);
 
         if (usersInfoSettings == null) {
             log.error("usersInfoSettings is null");
@@ -414,23 +398,21 @@ public class TakeMessagesCtrl {
             return;
         }
 
-        Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> statusesUsers = onlineServersCtrl
-                .getStatusesUsers(uuidsUsers);
-        Map<UUID, String> lastOnlineTimeUsers = onlineServersCtrl
-                .getLastOnlineTimeUsers(uuidsUsers);
-        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.LoadUsersOnlineStatusReply,
-                statusesUsers, lastOnlineTimeUsers);
+        Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> statusesUsers = onlineServersCtrl.getStatusesUsers(
+                uuidsUsers);
+        Map<UUID, String> lastOnlineTimeUsers = onlineServersCtrl.getLastOnlineTimeUsers(uuidsUsers);
+        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.LoadUsersOnlineStatusReply, statusesUsers,
+                lastOnlineTimeUsers);
     }
 
     private void workLoadUsersOnlineStatusReplyMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         Object objectMapStatusesUsers = map.get(DefinesMessages.TypeData.UsersOnlineInfoList);
         Object objectMapLastOnlineTimeUsers = map.get(DefinesMessages.TypeData.Timestamp);
 
-        Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> mapStatusesUsers = structTools
-                .objectInMap(objectMapStatusesUsers, UUID.class,
-                        MainChatsGlobalDefines.TypeStatusOnline.class);
-        Map<UUID, String> mapLastOnlineTimeUsers = structTools
-                .objectInMap(objectMapLastOnlineTimeUsers, UUID.class, String.class);
+        Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> mapStatusesUsers = structTools.objectInMap(
+                objectMapStatusesUsers, UUID.class, MainChatsGlobalDefines.TypeStatusOnline.class);
+        Map<UUID, String> mapLastOnlineTimeUsers = structTools.objectInMap(objectMapLastOnlineTimeUsers, UUID.class,
+                String.class);
 
         if (chatsCtrl == null) {
             log.error("charsCtrl is null");
@@ -455,8 +437,7 @@ public class TakeMessagesCtrl {
         Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages = new HashMap<>();
         mapStatusMessages.put(uuidMessage, status);
         int normaliseTimestampCount = 3;
-        LocalDateTime timestamp = formatTools.stringToLocalDateTime(timestampStr,
-                normaliseTimestampCount);
+        LocalDateTime timestamp = formatTools.stringToLocalDateTime(timestampStr, normaliseTimestampCount);
 
         // write to the database first
         if (dbCtrl == null) {
@@ -464,16 +445,14 @@ public class TakeMessagesCtrl {
             return;
         }
 
-        dbCtrl.insertQueryToDB(DbCtrl.TypeExecutionInsert.ChatMessagesSentMessage,
-                uuidUserSender.toString(), uuidUserReceiver.toString(), uuidMessage.toString(),
-                statusString, text, timestampStr);
+        dbCtrl.insertQueryToDB(DbCtrl.TypeExecutionInsert.ChatMessagesSentMessage, uuidUserSender.toString(),
+                uuidUserReceiver.toString(), uuidMessage.toString(), statusString, text, timestampStr);
         // send the status "delivered"
         sendMessagesCtrl.sendMessage(
-                DefinesMessages.TypeMessage.TextMessagesChangingStatusFromServer,
-                mapStatusMessages);
+                DefinesMessages.TypeMessage.TextMessagesChangingStatusFromServer, mapStatusMessages);
         // send to the user if he is online
-        messagesDialogCtrl.redirectMessageToOnlineUser(uuidUserSender, uuidUserReceiver,
-                uuidMessage, status, text, timestamp);
+        messagesDialogCtrl.redirectMessageToOnlineUser(uuidUserSender, uuidUserReceiver, uuidMessage, status, text,
+                timestamp);
         // send a delivery receipt
         sendMessagesCtrl.sendMessage(
                 DefinesMessages.TypeMessage.TextMessageSendUserToServerVerification, true);
@@ -482,20 +461,17 @@ public class TakeMessagesCtrl {
     private void workTextMessageSendUserToServerVerificationMessage(
             HashMap<DefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(DefinesMessages.TypeData.BoolReply)) {
-            messagesDefinesCtrl
-                    .setTextMessageSendUserToServerFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
+            messagesDefinesCtrl.setTextMessageSendUserToServerFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
         } else {
-            messagesDefinesCtrl
-                    .setTextMessageSendUserToServerFlag(MessagesDefinesCtrl.TypeFlags.FALSE);
+            messagesDefinesCtrl.setTextMessageSendUserToServerFlag(MessagesDefinesCtrl.TypeFlags.FALSE);
         }
     }
 
     private void workTextMessagesChangingStatusFromServerMessage(
             HashMap<DefinesMessages.TypeData, ?> map) {
         Object statusesMap = map.get(DefinesMessages.TypeData.StatusMessagesMap);
-        Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = structTools
-                .objectInMap(statusesMap, UUID.class,
-                        MainChatsGlobalDefines.TypeStatusMessage.class);
+        Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = structTools.objectInMap(statusesMap,
+                UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
 
         messagesDialogCtrl.setDirtyStatusToMessage(mapStatusesMessages);
 
@@ -515,9 +491,8 @@ public class TakeMessagesCtrl {
     private void workTextMessagesChangingStatusFromUserMessage(
             HashMap<DefinesMessages.TypeData, ?> map) {
         Object statusesMap = map.get(DefinesMessages.TypeData.StatusMessagesMap);
-        Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = structTools
-                .objectInMap(statusesMap, UUID.class,
-                        MainChatsGlobalDefines.TypeStatusMessage.class);
+        Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = structTools.objectInMap(statusesMap,
+                UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
 
         for (UUID uuidMessage : mapStatusesMessages.keySet()) {
             String statusByUuid = String.valueOf(mapStatusesMessages.get(uuidMessage).getValue());
@@ -527,8 +502,8 @@ public class TakeMessagesCtrl {
                 return;
             }
 
-            dbCtrl.insertQueryToDB(DbCtrl.TypeExecutionInsert.ChatsMessageStatusChange,
-                    uuidMessage.toString(), statusByUuid);
+            dbCtrl.insertQueryToDB(DbCtrl.TypeExecutionInsert.ChatsMessageStatusChange, uuidMessage.toString(),
+                    statusByUuid);
         }
 
         sendMessagesCtrl.sendMessage(
@@ -554,13 +529,11 @@ public class TakeMessagesCtrl {
 
         MainChatsGlobalDefines.TypeStatusMessage status = MainChatsGlobalDefines.TypeStatusMessage.Delivered;
         int normaliseTimestampCount = 3;
-        LocalDateTime timestamp = formatTools.stringToLocalDateTime(timestampStr,
-                normaliseTimestampCount);
+        LocalDateTime timestamp = formatTools.stringToLocalDateTime(timestampStr, normaliseTimestampCount);
 
-        messagesDialogCtrl.addRedirectMessageToModel(uuidUserSender, uuidUserReceiver, uuidMessage,
-                status, text, timestamp);
-        messagesDefinesCtrl
-                .setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
+        messagesDialogCtrl.addRedirectMessageToModel(uuidUserSender, uuidUserReceiver, uuidMessage, status, text,
+                timestamp);
+        messagesDefinesCtrl.setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
 
         sendMessagesCtrl.sendMessage(
                 DefinesMessages.TypeMessage.TextMessageRedirectServerToUserVerification, true);
@@ -569,11 +542,9 @@ public class TakeMessagesCtrl {
     private void workTextMessageRedirectServerToUserVerificationMessage(
             HashMap<DefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(DefinesMessages.TypeData.BoolReply)) {
-            messagesDefinesCtrl
-                    .setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
+            messagesDefinesCtrl.setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
         } else {
-            messagesDefinesCtrl
-                    .setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.FALSE);
+            messagesDefinesCtrl.setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.FALSE);
         }
     }
 
@@ -587,15 +558,14 @@ public class TakeMessagesCtrl {
         }
 
         List<Map<DbGlobalDefines.LineKeys, String>> requestDB = dbCtrl.getMultipleInfoFromDb(
-                DbCtrl.TypeExecutionGetMultiple.MessagesLoad, uuidChat.toString(),
-                String.valueOf(quantityMessages));
+                DbCtrl.TypeExecutionGetMultiple.MessagesLoad, uuidChat.toString(), String.valueOf(quantityMessages));
         sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.MessagesLoadReply, requestDB);
     }
 
     private void workMessagesLoadReplyMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         Object objectFromMap = map.get(DefinesMessages.TypeData.MessagesInfoList);
-        List<Map<DefinesMessages.TypeData, Object>> msgInfo = structTools
-                .objectInListMaps(objectFromMap, DefinesMessages.TypeData.class, Object.class);
+        List<Map<DefinesMessages.TypeData, Object>> msgInfo = structTools.objectInListMaps(objectFromMap,
+                DefinesMessages.TypeData.class, Object.class);
 
         messagesDialogCtrl.createMessagesObjects(msgInfo);
         messagesDefinesCtrl.setTextMessagesLoadReplyFlag(MessagesDefinesCtrl.TypeFlags.TRUE);

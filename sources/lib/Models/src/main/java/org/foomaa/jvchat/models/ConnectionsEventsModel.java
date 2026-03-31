@@ -20,26 +20,24 @@ public class ConnectionsEventsModel extends BaseModel {
     // DI ↓
     private final ConnectionEventStructObjectFactory connectionEventStructObjectFactory;
 
-    ConnectionsEventsModel(RootStructObjectFactory rootStructObjectFactory,
-            RootObjectsModel rootObjectsModel,
+    ConnectionsEventsModel(RootStructObjectFactory rootStructObjectFactory, RootObjectsModel rootObjectsModel,
             ConnectionEventStructObjectFactory connectionEventStructObjectFactory) {
         super(rootObjectsModel, rootStructObjectFactory);
 
         this.connectionEventStructObjectFactory = connectionEventStructObjectFactory;
     }
 
-    public UUID createNewConnection(Object objectSender, Object objectReceiver,
-            String customNameEvent, AnnotationConfigApplicationContext context) {
-        ConnectionEventStructObject connectionObject = connectionEventStructObjectFactory
-                .create(customNameEvent, objectReceiver, context, objectSender);
+    public UUID createNewConnection(Object objectSender, Object objectReceiver, String customNameEvent,
+            AnnotationConfigApplicationContext context) {
+        ConnectionEventStructObject connectionObject = connectionEventStructObjectFactory.create(customNameEvent,
+                objectReceiver, context, objectSender);
 
         addItem(connectionObject, getRootObject());
 
         return connectionObject.getUuid();
     }
 
-    public List<ConnectionEventStructObject> findConnections(Object objectSender,
-            String customNameEvent) {
+    public List<ConnectionEventStructObject> findConnections(Object objectSender, String customNameEvent) {
         List<ConnectionEventStructObject> resList = new ArrayList<>();
 
         for (BaseStructObject baseStructObject : getRootObject().getChildren()) {
@@ -48,8 +46,8 @@ public class ConnectionsEventsModel extends BaseModel {
                 log.error("This includes the chatStructObject object, which is null.");
                 continue;
             }
-            if (connectionEventStructObject.getObjectSender() == objectSender && Objects
-                    .equals(connectionEventStructObject.getCustomNameEvent(), customNameEvent)) {
+            if (connectionEventStructObject.getObjectSender() == objectSender && Objects.equals(
+                    connectionEventStructObject.getCustomNameEvent(), customNameEvent)) {
                 resList.add(connectionEventStructObject);
             }
         }

@@ -13,7 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.models.SocketRunnableCtrlModel;
 
-/* NOTE(VAD): here it is done so that the tasks of the server and the user
+/*
+ * NOTE(VAD): here it is done so that the tasks of the server and the user
  * solved by one class. There is a model of all connections SocketRunnableCtrlModel.
  * The main element of the model is SocketRunnableCtrlStructObject,
  * which contains a Runnable field. This field is the object
@@ -28,8 +29,7 @@ public class SocketRunnableCtrl implements Runnable {
     private final NetworkCtrl networkCtrl;
 
     @Builder
-    SocketRunnableCtrl(SocketRunnableCtrlModel socketRunnableCtrlModel,
-            @Lazy NetworkCtrl networkCtrl) {
+    SocketRunnableCtrl(SocketRunnableCtrlModel socketRunnableCtrlModel, @Lazy NetworkCtrl networkCtrl) {
         Objects.requireNonNull(socketRunnableCtrlModel, "socketRunnableCtrlModel is mandatory");
         this.networkCtrl = Objects.requireNonNull(networkCtrl, "networkCtrl is mandatory");
 

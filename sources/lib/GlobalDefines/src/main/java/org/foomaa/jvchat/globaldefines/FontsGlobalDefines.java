@@ -11,8 +11,7 @@ public class FontsGlobalDefines {
     FontsGlobalDefines() {
     }
 
-    public Font createMainSteticaFont(int style, float size)
-            throws IOException, FontFormatException {
+    public Font createMainSteticaFont(int style, float size) throws IOException, FontFormatException {
         InputStream inputStream = getClass().getResourceAsStream("/MainSteticaFont.otf");
 
         if (inputStream == null) {
@@ -46,8 +45,7 @@ public class FontsGlobalDefines {
         return customFont;
     }
 
-    public Font createMainMavobleFont(int style, float size)
-            throws IOException, FontFormatException {
+    public Font createMainMavobleFont(int style, float size) throws IOException, FontFormatException {
         InputStream inputStream = getClass().getResourceAsStream("/MainMavobleFont.otf");
 
         if (inputStream == null) {

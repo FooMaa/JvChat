@@ -25,8 +25,7 @@ public class FullLineColorConverter extends ClassicConverter {
         String location = "unknown:0";
 
         if (event.getCallerData() != null && event.getCallerData().length > 0) {
-            location = event.getCallerData()[0].getClassName() + ":"
-                    + event.getCallerData()[0].getLineNumber();
+            location = event.getCallerData()[0].getClassName() + ":" + event.getCallerData()[0].getLineNumber();
         }
 
         String msg = event.getFormattedMessage();

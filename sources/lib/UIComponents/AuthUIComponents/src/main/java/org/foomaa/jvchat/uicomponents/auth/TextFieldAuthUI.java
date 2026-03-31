@@ -28,12 +28,9 @@ public class TextFieldAuthUI extends JPanel {
     @Builder
     TextFieldAuthUI(DisplaySettings displaySettings, FontsGlobalDefines fontsGlobalDefines,
             ToolTipAuthUIFactory toolTipAuthUIFactory) {
-        this.displaySettings = Objects.requireNonNull(displaySettings,
-                "displaySettings is mandatory");
-        this.fontsGlobalDefines = Objects.requireNonNull(fontsGlobalDefines,
-                "fontsGlobalDefines is mandatory");
-        this.toolTipAuthUIFactory = Objects.requireNonNull(toolTipAuthUIFactory,
-                "toolTipAuthUIFactory is mandatory");
+        this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
+        this.fontsGlobalDefines = Objects.requireNonNull(fontsGlobalDefines, "fontsGlobalDefines is mandatory");
+        this.toolTipAuthUIFactory = Objects.requireNonNull(toolTipAuthUIFactory, "toolTipAuthUIFactory is mandatory");
 
         defaultText = "";
         borderSize = 2;
@@ -124,9 +121,8 @@ public class TextFieldAuthUI extends JPanel {
     private void settingTextPanel() {
         Dimension dim = new Dimension(
                 displaySettings.getResizeFromDisplay(0.23,
-                        DisplaySettings.TypeOfDisplayBorder.WIDTH),
-                displaySettings.getResizeFromDisplay(0.03,
-                        DisplaySettings.TypeOfDisplayBorder.HEIGHT));
+                        DisplaySettings.TypeOfDisplayBorder.WIDTH), displaySettings.getResizeFromDisplay(0.03,
+                                DisplaySettings.TypeOfDisplayBorder.HEIGHT));
         settingTextField(dim);
         addElements();
         setBackground(textField.getBackground());
@@ -172,8 +168,7 @@ public class TextFieldAuthUI extends JPanel {
         caret.setBlinkRate(750);
         textField.setCaret(caret);
 
-        Dimension calcNewDim = new Dimension((int) dim.getWidth(),
-                (int) dim.getHeight() - borderSize * 2);
+        Dimension calcNewDim = new Dimension((int) dim.getWidth(), (int) dim.getHeight() - borderSize * 2);
         textField.setPreferredSize(calcNewDim);
         textField.setBorder(null);
         textField.setText(defaultText);

@@ -31,9 +31,8 @@ public class StartupRunner implements ApplicationRunner {
 
     @Builder
     private StartupRunner(ServersTools serversTools, MainTools mainTools, MainSettings mainSettings,
-            ApplicationContext context, UsersInfoSettings usersInfoSettings,
-            NetworkCtrl networkCtrl, StartAuthenticationUILink startAuthenticationUILink,
-            ErrorStartUILinkFactory errorStartUILinkFactory) {
+            ApplicationContext context, UsersInfoSettings usersInfoSettings, NetworkCtrl networkCtrl,
+            StartAuthenticationUILink startAuthenticationUILink, ErrorStartUILinkFactory errorStartUILinkFactory) {
         this.mainTools = Objects.requireNonNull(mainTools, "mainTool is mandatory");
         this.mainSettings = Objects.requireNonNull(mainSettings, "mainSettings is mandatory");
         this.context = Objects.requireNonNull(context, "context is mandatory");

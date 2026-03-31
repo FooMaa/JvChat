@@ -55,16 +55,13 @@ public class MainFrameAuthUI extends JFrame {
 
     @Builder
     MainFrameAuthUI(DisplaySettings displaySettings, EntryPanelAuthUI entryPanelAuthUI,
-            NewPasswordPanelAuthUI newPasswordPanelAuthUI,
-            RegistrationPanelAuthUI registrationPanelAuthUI,
-            ResetPasswordPanelAuthUI resetPasswordPanelAuthUI,
-            VerifyCodePanelAuthUI verifyCodePanelAuthUI, TitlePanelAuthUI titlePanel) {
+            NewPasswordPanelAuthUI newPasswordPanelAuthUI, RegistrationPanelAuthUI registrationPanelAuthUI,
+            ResetPasswordPanelAuthUI resetPasswordPanelAuthUI, VerifyCodePanelAuthUI verifyCodePanelAuthUI,
+            TitlePanelAuthUI titlePanel) {
         super("EntryFrame");
 
-        this.displaySettings = Objects.requireNonNull(displaySettings,
-                "displaySettings is mandatory");
-        this.entryPanelAuthUI = Objects.requireNonNull(entryPanelAuthUI,
-                "entryPanelAuthUI is mandatory");
+        this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
+        this.entryPanelAuthUI = Objects.requireNonNull(entryPanelAuthUI, "entryPanelAuthUI is mandatory");
         this.newPasswordPanelAuthUI = Objects.requireNonNull(newPasswordPanelAuthUI,
                 "newPasswordPanelAuthUI is mandatory");
         this.registrationPanelAuthUI = Objects.requireNonNull(registrationPanelAuthUI,
@@ -136,8 +133,7 @@ public class MainFrameAuthUI extends JFrame {
 
                 Image img = null;
                 try {
-                    img = ImageIO
-                            .read(Objects.requireNonNull(getClass().getResource(backgroundPath)));
+                    img = ImageIO.read(Objects.requireNonNull(getClass().getResource(backgroundPath)));
                 } catch (IOException e) {
                     e.getStackTrace();
                 }
@@ -156,14 +152,12 @@ public class MainFrameAuthUI extends JFrame {
             }
             case Registration -> {
                 RegistrationPanelAuthUI registrationPanel = registrationPanelAuthUI;
-                loadGifStart("Registration", registrationPanel.getDefaultButton(),
-                        registrationPanel);
+                loadGifStart("Registration", registrationPanel.getDefaultButton(), registrationPanel);
             }
             case VerifyCodeRegistration -> {
                 VerifyCodePanelAuthUI verifyCodePanel = verifyCodePanelAuthUI;
                 loadGifStart("Verify code", verifyCodePanel.getDefaultButton(), verifyCodePanel);
-                verifyCodePanel.setParametersRegistration((String) data[1], (String) data[2],
-                        (String) data[3]);
+                verifyCodePanel.setParametersRegistration((String) data[1], (String) data[2], (String) data[3]);
             }
             case VerifyCodeResetPassword -> {
                 VerifyCodePanelAuthUI verifyCodePanel = verifyCodePanelAuthUI;
@@ -172,8 +166,7 @@ public class MainFrameAuthUI extends JFrame {
             }
             case ResetPassword -> {
                 ResetPasswordPanelAuthUI resetPasswordPanel = resetPasswordPanelAuthUI;
-                loadGifStart("Reset password", resetPasswordPanel.getDefaultButton(),
-                        resetPasswordPanel);
+                loadGifStart("Reset password", resetPasswordPanel.getDefaultButton(), resetPasswordPanel);
             }
             case NewPassword -> {
                 NewPasswordPanelAuthUI newPasswordPanel = newPasswordPanelAuthUI;
@@ -200,8 +193,7 @@ public class MainFrameAuthUI extends JFrame {
     }
 
     private void loadGifStart(String textTitle, ButtonAuthUI defaultButton, JPanel newPanel) {
-        Timer timerLoadGif = new Timer(1000,
-                actionEvent -> updateVisualPanel(textTitle, defaultButton, newPanel));
+        Timer timerLoadGif = new Timer(1000, actionEvent -> updateVisualPanel(textTitle, defaultButton, newPanel));
         timerLoadGif.setRepeats(false);
 
         loadingState();
@@ -256,9 +248,7 @@ public class MainFrameAuthUI extends JFrame {
         setVisible(false);
     }
 
-    @CheckerEventsAnnotation(connectionUuid = {"uuidSignalChangeRegimeWorkEntry",
-            "uuidSignalChangeRegimeWorkRegistration", "uuidSignalChangeRegimeWorkVerifyCode",
-            "uuidSignalChangeRegimeWorkResetPassword", "uuidSignalChangeRegimeWorkNewPassword"})
+    @CheckerEventsAnnotation(connectionUuid = {"uuidSignalChangeRegimeWorkEntry", "uuidSignalChangeRegimeWorkRegistration", "uuidSignalChangeRegimeWorkVerifyCode", "uuidSignalChangeRegimeWorkResetPassword", "uuidSignalChangeRegimeWorkNewPassword"})
     @EventListener
     @Async
     @SuppressWarnings("unused")
@@ -279,10 +269,8 @@ public class MainFrameAuthUI extends JFrame {
         setUndecorated(true);
         pack();
 
-        setSize(displaySettings.getResizeFromDisplay(0.3,
-                DisplaySettings.TypeOfDisplayBorder.WIDTH),
-                displaySettings.getResizeFromDisplay(0.31,
-                        DisplaySettings.TypeOfDisplayBorder.HEIGHT));
+        setSize(displaySettings.getResizeFromDisplay(0.3, DisplaySettings.TypeOfDisplayBorder.WIDTH),
+                displaySettings.getResizeFromDisplay(0.31, DisplaySettings.TypeOfDisplayBorder.HEIGHT));
 
         setResizable(false);
         setLocationRelativeTo(null);

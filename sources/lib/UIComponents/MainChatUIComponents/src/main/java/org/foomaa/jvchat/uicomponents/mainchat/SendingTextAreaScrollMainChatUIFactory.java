@@ -13,8 +13,7 @@ public class SendingTextAreaScrollMainChatUIFactory {
     SendingTextAreaScrollMainChatUIFactory(
             ObjectProvider<SendingTextAreaScrollMainChatUI> sendingTextAreaScrollObjectProvider) {
         this.sendingTextAreaScrollObjectProvider = Objects.requireNonNull(
-                sendingTextAreaScrollObjectProvider,
-                "sendingTextAreaScrollObjectProvider is mandatory");
+                sendingTextAreaScrollObjectProvider, "sendingTextAreaScrollObjectProvider is mandatory");
     }
 
     public SendingTextAreaScrollMainChatUI create() {

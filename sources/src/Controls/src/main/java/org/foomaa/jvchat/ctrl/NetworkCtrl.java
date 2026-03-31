@@ -29,13 +29,11 @@ public class NetworkCtrl {
     @Builder
     NetworkCtrl(MainSettings mainSettings, SocketRunnableCtrlModel socketRunnableCtrlModel,
             TakeMessagesCtrl takeMessagesCtrl, SocketRunnableCtrlFactory socketRunnableCtrlFactory,
-            ServersSocket serversSocket, UsersSocket usersSocket,
-            OnlineServersCtrl onlineServersCtrl) {
+            ServersSocket serversSocket, UsersSocket usersSocket, OnlineServersCtrl onlineServersCtrl) {
         this.mainSettings = Objects.requireNonNull(mainSettings, "mainSettings is mandatory");
         this.socketRunnableCtrlModel = Objects.requireNonNull(socketRunnableCtrlModel,
                 "socketRunnableCtrlModel is mandatory");
-        this.takeMessagesCtrl = Objects.requireNonNull(takeMessagesCtrl,
-                "takeMessagesCtrl is mandatory");
+        this.takeMessagesCtrl = Objects.requireNonNull(takeMessagesCtrl, "takeMessagesCtrl is mandatory");
         this.socketRunnableCtrlFactory = Objects.requireNonNull(socketRunnableCtrlFactory,
                 "socketRunnableCtrlFactory is mandatory");
 
@@ -61,8 +59,7 @@ public class NetworkCtrl {
         runningErrorsControlSockets();
         while (true) {
             Socket fromSocketServer = socketServer.accept();
-            SocketRunnableCtrl socketRunnableCtrl = socketRunnableCtrlFactory
-                    .create(fromSocketServer);
+            SocketRunnableCtrl socketRunnableCtrl = socketRunnableCtrlFactory.create(fromSocketServer);
             Thread threadServers = new Thread(socketRunnableCtrl);
             threadServers.start();
         }
@@ -71,8 +68,7 @@ public class NetworkCtrl {
     private void startUsersNetwork() throws IOException {
         usersSocket.start();
 
-        currentSocketRunnableCtrl = socketRunnableCtrlFactory
-                .create(usersSocket.getCurrentSocket());
+        currentSocketRunnableCtrl = socketRunnableCtrlFactory.create(usersSocket.getCurrentSocket());
         if (!usersSocket.getCurrentSocket().isConnected()) {
             throw new IOException();
         }
@@ -112,14 +108,12 @@ public class NetworkCtrl {
     }
 
     private void controlErrorConnectionSocket() {
-        List<SocketRunnableCtrlStructObject> listAllConnections = socketRunnableCtrlModel
-                .getAllSocketRunnableCtrlStructObject();
+        List<SocketRunnableCtrlStructObject> listAllConnections = socketRunnableCtrlModel.getAllSocketRunnableCtrlStructObject();
 
         int milliSecondsSleepAfterOperation = 10000;
 
         for (SocketRunnableCtrlStructObject socketCtrl : listAllConnections) {
-            SocketRunnableCtrl socketRunnableCtrl = (SocketRunnableCtrl) socketCtrl
-                    .getSocketRunnableCtrl();
+            SocketRunnableCtrl socketRunnableCtrl = (SocketRunnableCtrl) socketCtrl.getSocketRunnableCtrl();
 
             if (socketRunnableCtrl != null && socketRunnableCtrl.isErrorsExceedsLimit()) {
                 log.warn("We clean up a thread that has not responded for a long time.");

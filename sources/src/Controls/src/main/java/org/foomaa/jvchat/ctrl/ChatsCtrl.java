@@ -37,10 +37,9 @@ public class ChatsCtrl {
             String lastMessageText = (String) chat.get(DefinesMessages.TypeData.TextMessage);
             UUID uuidChat = (UUID) chat.get(DefinesMessages.TypeData.UuidChat);
             UUID uuidLastMessage = (UUID) chat.get(DefinesMessages.TypeData.UuidMessage);
-            Boolean isLoginSentLastMessage = (Boolean) chat
-                    .get(DefinesMessages.TypeData.IsLoginSentLastMessage);
-            MainChatsGlobalDefines.TypeStatusMessage statusMessage = (MainChatsGlobalDefines.TypeStatusMessage) chat
-                    .get(DefinesMessages.TypeData.StatusMessage);
+            Boolean isLoginSentLastMessage = (Boolean) chat.get(DefinesMessages.TypeData.IsLoginSentLastMessage);
+            MainChatsGlobalDefines.TypeStatusMessage statusMessage = (MainChatsGlobalDefines.TypeStatusMessage) chat.get(
+                    DefinesMessages.TypeData.StatusMessage);
             LocalDateTime timestampLastMessage = formatTools.stringToLocalDateTime(
                     (String) chat.get(DefinesMessages.TypeData.Timestamp), normalizeTimestampCount);
 
@@ -152,10 +151,9 @@ public class ChatsCtrl {
             MessageStructObject lastMessageObj = chat.getLastMessage();
             UUID uuidUserSender = lastMessageObj.getUuidUserSender();
             UUID uuidUserReceiver = lastMessageObj.getUuidUserReceiver();
-            if ((uuidUserSender.equals(message.getUuidUserSender())
-                    && uuidUserReceiver.equals(message.getUuidUserReceiver()))
-                    || (uuidUserSender.equals(message.getUuidUserReceiver())
-                            && uuidUserReceiver.equals(message.getUuidUserReceiver()))) {
+            if ((uuidUserSender.equals(message.getUuidUserSender()) && uuidUserReceiver.equals(
+                    message.getUuidUserReceiver())) || (uuidUserSender.equals(
+                            message.getUuidUserReceiver()) && uuidUserReceiver.equals(message.getUuidUserReceiver()))) {
                 chat.setLastMessage(message);
                 return;
             }

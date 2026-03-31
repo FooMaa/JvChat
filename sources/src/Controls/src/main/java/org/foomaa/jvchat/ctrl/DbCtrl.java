@@ -36,7 +36,8 @@ public class DbCtrl {
     @Builder
     DbCtrl(DbRequests dbRequests, DbWorker dbWorker) {
         this.dbRequests = Objects.requireNonNull(dbRequests, "dbRequests is mandatory");
-        this.db = Objects.requireNonNull(dbWorker, "dbWorker is mandatory");;
+        this.db = Objects.requireNonNull(dbWorker, "dbWorker is mandatory");
+        ;
     }
 
     public List<String> getStrDataAtRow(ResultSet resultSet, int row) {
@@ -84,8 +85,8 @@ public class DbCtrl {
                     String email = parameters[1];
                     String hashPassword = parameters[2];
                     String uuidUser = parameters[3];
-                    if (!checkQueryToDB(TypeExecutionCheck.Login, login)
-                            && !checkQueryToDB(TypeExecutionCheck.Email, email)) {
+                    if (!checkQueryToDB(TypeExecutionCheck.Login, login) && !checkQueryToDB(TypeExecutionCheck.Email,
+                            email)) {
                         ResultSet rs = db.makeExecution(
                                 dbRequests.insertToRegForm(login, email, hashPassword, uuidUser));
                         db.closeResultSet(rs);
@@ -100,8 +101,7 @@ public class DbCtrl {
                 if (parameters.length == 2) {
                     String email = parameters[0];
                     String hashPassword = parameters[1];
-                    ResultSet rs = db
-                            .makeExecution(dbRequests.insertChangePassword(email, hashPassword));
+                    ResultSet rs = db.makeExecution(dbRequests.insertChangePassword(email, hashPassword));
                     db.closeResultSet(rs);
                     return true;
                 }
@@ -113,8 +113,7 @@ public class DbCtrl {
                     String code = parameters[1];
                     String userUuid;
                     if (checkQueryToDB(TypeExecutionCheck.Email, email)) {
-                        userUuid = getSingleDataFromDb(TypeExecutionGetSingle.UuidUserByEmail,
-                                email);
+                        userUuid = getSingleDataFromDb(TypeExecutionGetSingle.UuidUserByEmail, email);
                         ResultSet rs = db.makeExecution(
                                 dbRequests.insertCodeVerifyFamousEmail(userUuid, code));
                         db.closeResultSet(rs);
@@ -127,8 +126,7 @@ public class DbCtrl {
                 if (parameters.length == 2) {
                     String email = parameters[0];
                     String code = parameters[1];
-                    ResultSet rs = db
-                            .makeExecution(dbRequests.insertVerifyRegistrationEmail(email, code));
+                    ResultSet rs = db.makeExecution(dbRequests.insertVerifyRegistrationEmail(email, code));
                     db.closeResultSet(rs);
                     return true;
                 }
@@ -138,8 +136,7 @@ public class DbCtrl {
                 if (parameters.length == 2) {
                     String login = parameters[0];
                     String status = parameters[1];
-                    ResultSet rs = db
-                            .makeExecution(dbRequests.insertOnlineUsersInfo(login, status));
+                    ResultSet rs = db.makeExecution(dbRequests.insertOnlineUsersInfo(login, status));
                     db.closeResultSet(rs);
                     return true;
                 }
@@ -153,9 +150,8 @@ public class DbCtrl {
                     String status = parameters[3];
                     String text = parameters[4];
                     String timestamp = parameters[5];
-                    ResultSet rs = db
-                            .makeExecution(dbRequests.insertChatsSentMessage(uuidUserSender,
-                                    uuidUserReceiver, uuidMessage, status, text, timestamp));
+                    ResultSet rs = db.makeExecution(dbRequests.insertChatsSentMessage(uuidUserSender, uuidUserReceiver,
+                            uuidMessage, status, text, timestamp));
                     db.closeResultSet(rs);
                     return true;
                 }
@@ -182,8 +178,7 @@ public class DbCtrl {
                 if (parameters.length == 2) {
                     String login = parameters[0];
                     String hashPassword = parameters[1];
-                    ResultSet rs = db
-                            .makeExecution(dbRequests.checkUserPassword(login, hashPassword));
+                    ResultSet rs = db.makeExecution(dbRequests.checkUserPassword(login, hashPassword));
                     try {
                         boolean result = rs.next();
                         db.closeResultSet(rs);
@@ -226,8 +221,7 @@ public class DbCtrl {
                 if (parameters.length == 2) {
                     String email = parameters[0];
                     String code = parameters[1];
-                    ResultSet rs = db
-                            .makeExecution(dbRequests.checkVerifyFamousEmailCode(email, code));
+                    ResultSet rs = db.makeExecution(dbRequests.checkVerifyFamousEmailCode(email, code));
                     try {
                         boolean result = rs.next();
                         db.closeResultSet(rs);
@@ -242,8 +236,7 @@ public class DbCtrl {
                 if (parameters.length == 2) {
                     String email = parameters[0];
                     String code = parameters[1];
-                    ResultSet rs = db
-                            .makeExecution(dbRequests.checkVerifyRegistrationEmail(email, code));
+                    ResultSet rs = db.makeExecution(dbRequests.checkVerifyRegistrationEmail(email, code));
                     try {
                         boolean result = rs.next();
                         db.closeResultSet(rs);
@@ -299,8 +292,7 @@ public class DbCtrl {
             case LastOnlineTimeUser -> {
                 if (parameters.length == 1) {
                     String uuidUser = parameters[0];
-                    ResultSet resultSet = db
-                            .makeExecution(dbRequests.getLastOnlineTimeUser(uuidUser));
+                    ResultSet resultSet = db.makeExecution(dbRequests.getLastOnlineTimeUser(uuidUser));
                     List<String> result = getStrDataAtRow(resultSet, 1);
                     db.closeResultSet(resultSet);
                     if (!result.isEmpty()) {
@@ -334,8 +326,7 @@ public class DbCtrl {
             case StatusOnlineTimeUser -> {
                 if (parameters.length == 1) {
                     String uuidUser = parameters[0];
-                    ResultSet resultSet = db
-                            .makeExecution(dbRequests.getStatusOnlineTimeUser(uuidUser));
+                    ResultSet resultSet = db.makeExecution(dbRequests.getStatusOnlineTimeUser(uuidUser));
                     List<Map<DbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(
                             resultSet);
 

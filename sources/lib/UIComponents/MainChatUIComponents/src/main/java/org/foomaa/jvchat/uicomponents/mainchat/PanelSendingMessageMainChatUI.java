@@ -24,22 +24,16 @@ public class PanelSendingMessageMainChatUI extends JPanel {
 
     @Builder
     PanelSendingMessageMainChatUI(ScrollPanelChatsMainChatUI scrollPanelChats,
-            ScrollPanelMessagesMainChatUI scrollPanelMessages,
-            MessagesDialogCtrl messagesDialogCtrl,
+            ScrollPanelMessagesMainChatUI scrollPanelMessages, MessagesDialogCtrl messagesDialogCtrl,
             SendButtonMainChatUIFactory sendButtonMainChatUIFactory,
-            SendingTextAreaScrollMainChatUIFactory sendingTextAreaScrollMainChatUIFactory,
-            ChatsCtrl chatsCtrl) {
+            SendingTextAreaScrollMainChatUIFactory sendingTextAreaScrollMainChatUIFactory, ChatsCtrl chatsCtrl) {
         Objects.requireNonNull(sendingTextAreaScrollMainChatUIFactory,
                 "sendingTextAreaScrollMainChatUIFactory is mandatory");
-        Objects.requireNonNull(sendButtonMainChatUIFactory,
-                "sendButtonMainChatUIFactory is mandatory");
+        Objects.requireNonNull(sendButtonMainChatUIFactory, "sendButtonMainChatUIFactory is mandatory");
 
-        this.scrollPanelChats = Objects.requireNonNull(scrollPanelChats,
-                "scrollPanelChats is mandatory");
-        this.scrollPanelMessages = Objects.requireNonNull(scrollPanelMessages,
-                "scrollPanelMessages is mandatory");
-        this.messagesDialogCtrl = Objects.requireNonNull(messagesDialogCtrl,
-                "messagesDialogCtrl is mandatory");
+        this.scrollPanelChats = Objects.requireNonNull(scrollPanelChats, "scrollPanelChats is mandatory");
+        this.scrollPanelMessages = Objects.requireNonNull(scrollPanelMessages, "scrollPanelMessages is mandatory");
+        this.messagesDialogCtrl = Objects.requireNonNull(messagesDialogCtrl, "messagesDialogCtrl is mandatory");
         this.chatsCtrl = Objects.requireNonNull(chatsCtrl, "chatsCtrl is mandatory");
 
         sendingTextAreaScroll = sendingTextAreaScrollMainChatUIFactory.create();

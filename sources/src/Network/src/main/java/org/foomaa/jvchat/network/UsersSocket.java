@@ -17,14 +17,14 @@ public class UsersSocket {
 
     @Builder
     private UsersSocket(UsersInfoSettings usersInfoSettings) {
-        this.usersInfoSettings = Objects.requireNonNull(usersInfoSettings,
-                "usersInfoSettings is mandatory");
+        this.usersInfoSettings = Objects.requireNonNull(usersInfoSettings, "usersInfoSettings is mandatory");
     }
 
     public void start() throws IOException {
         socketUsers = new Socket();
-        socketUsers.connect(new InetSocketAddress(usersInfoSettings.getIpRemoteServer(),
-                usersInfoSettings.getPortRemoteServer()), 4000);
+        socketUsers.connect(
+                new InetSocketAddress(usersInfoSettings.getIpRemoteServer(), usersInfoSettings.getPortRemoteServer()),
+                4000);
         closeSocketWhenKill();
     }
 

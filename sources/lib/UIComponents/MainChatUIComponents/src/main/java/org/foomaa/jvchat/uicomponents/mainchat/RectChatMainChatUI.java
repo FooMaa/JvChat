@@ -42,14 +42,10 @@ public class RectChatMainChatUI extends JPanel {
 
     @Builder
     RectChatMainChatUI(ChatStructObject chatObject, UsersInfoSettings usersInfoSettings,
-            DisplaySettings displaySettings, MessagesDialogCtrl messagesDialogCtrl,
-            ChatsCtrl chatsCtrl) {
-        this.usersInfoSettings = Objects.requireNonNull(usersInfoSettings,
-                "usersInfoSettings is mandatory");
-        this.displaySettings = Objects.requireNonNull(displaySettings,
-                "displaySettings is mandatory");
-        this.messagesDialogCtrl = Objects.requireNonNull(messagesDialogCtrl,
-                "messagesDialogCtrl is mandatory");
+            DisplaySettings displaySettings, MessagesDialogCtrl messagesDialogCtrl, ChatsCtrl chatsCtrl) {
+        this.usersInfoSettings = Objects.requireNonNull(usersInfoSettings, "usersInfoSettings is mandatory");
+        this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
+        this.messagesDialogCtrl = Objects.requireNonNull(messagesDialogCtrl, "messagesDialogCtrl is mandatory");
         this.chatsCtrl = Objects.requireNonNull(chatsCtrl, "chatsCtrl is mandatory");
 
         nickName = "";
@@ -91,8 +87,7 @@ public class RectChatMainChatUI extends JPanel {
     }
 
     private void installTimeLastMessage(ChatStructObject chatObject) {
-        timeLastMessage = chatsCtrl
-                .getTimeFormattedLastMessage(chatObject.getLastMessage().getTimestamp());
+        timeLastMessage = chatsCtrl.getTimeFormattedLastMessage(chatObject.getLastMessage().getTimestamp());
     }
 
     private void makeChatBox() {
@@ -114,8 +109,7 @@ public class RectChatMainChatUI extends JPanel {
 
         JLabel statusOnlineLabel = new JLabel(getStatusOnlineText());
         statusOnlineLabel.setName(nameForLabelOnline);
-        statusOnlineLabel
-                .setFont(new Font("Times", Font.PLAIN, displaySettings.getResizePixel(0.014)));
+        statusOnlineLabel.setFont(new Font("Times", Font.PLAIN, displaySettings.getResizePixel(0.014)));
         statusOnlineLabel.setForeground(getStatusOnlineColor());
 
         gbc.weightx = 1.0;
@@ -131,8 +125,8 @@ public class RectChatMainChatUI extends JPanel {
         boolean isBoldMessage = isBoldMessageByStatus();
         JLabel lastMessageLabel = new JLabel(createLastMessageString());
         lastMessageLabel.setName(nameForLabelLastMessage);
-        lastMessageLabel.setFont(new Font("Times", (isBoldMessage ? Font.BOLD : Font.PLAIN),
-                displaySettings.getResizePixel(0.014)));
+        lastMessageLabel.setFont(
+                new Font("Times", (isBoldMessage ? Font.BOLD : Font.PLAIN), displaySettings.getResizePixel(0.014)));
 
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
@@ -144,8 +138,8 @@ public class RectChatMainChatUI extends JPanel {
 
         JLabel timeLastMessageLabel = new JLabel(timeLastMessage);
         timeLastMessageLabel.setName(nameForLabelTimeLastMessage);
-        timeLastMessageLabel.setFont(new Font("Times", (isBoldMessage ? Font.BOLD : Font.PLAIN),
-                displaySettings.getResizePixel(0.014)));
+        timeLastMessageLabel.setFont(
+                new Font("Times", (isBoldMessage ? Font.BOLD : Font.PLAIN), displaySettings.getResizePixel(0.014)));
 
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
@@ -285,8 +279,7 @@ public class RectChatMainChatUI extends JPanel {
     }
 
     private void setBoldToLabelConditionally(JLabel label, boolean isBold) {
-        label.setFont(new Font("Times", (isBold ? Font.BOLD : Font.PLAIN),
-                displaySettings.getResizePixel(0.014)));
+        label.setFont(new Font("Times", (isBold ? Font.BOLD : Font.PLAIN), displaySettings.getResizePixel(0.014)));
     }
 
     public void updateLastMessage(MessageStructObject message) {

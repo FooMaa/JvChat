@@ -23,12 +23,9 @@ public class ButtonAuthUI extends JButton {
     @Builder
     ButtonAuthUI(DisplaySettings displaySettings, FontsGlobalDefines fontsGlobalDefines,
             ToolTipAuthUIFactory toolTipAuthUIFactory) {
-        this.displaySettings = Objects.requireNonNull(displaySettings,
-                "displaySettings is mandatory");
-        this.fontsGlobalDefines = Objects.requireNonNull(fontsGlobalDefines,
-                "fontsGlobalDefines is mandatory");
-        this.toolTipAuthUIFactory = Objects.requireNonNull(toolTipAuthUIFactory,
-                "toolTipAuthUIFactory is mandatory");
+        this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
+        this.fontsGlobalDefines = Objects.requireNonNull(fontsGlobalDefines, "fontsGlobalDefines is mandatory");
+        this.toolTipAuthUIFactory = Objects.requireNonNull(toolTipAuthUIFactory, "toolTipAuthUIFactory is mandatory");
 
         setBackground(Color.WHITE);
         setFocusable(false);

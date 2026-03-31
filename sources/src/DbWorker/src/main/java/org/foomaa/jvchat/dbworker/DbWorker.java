@@ -34,8 +34,8 @@ public class DbWorker {
         connection = null;
 
         try {
-            connection = DriverManager.getConnection(serversInfoSettings.getDbUrl(),
-                    serversInfoSettings.getDbUser(), serversInfoSettings.getMagicStringDb());
+            connection = DriverManager.getConnection(serversInfoSettings.getDbUrl(), serversInfoSettings.getDbUser(),
+                    serversInfoSettings.getMagicStringDb());
         } catch (SQLException e) {
             log.error("Error in connect to DB.");
             return;
@@ -59,8 +59,7 @@ public class DbWorker {
     public ResultSet makeExecution(String execution) {
         ResultSet resultSet = null;
         try {
-            Statement stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY);
+            Statement stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             resultSet = stmt.executeQuery(execution);
         } catch (SQLException exception) {
             log.error("The database returned an error, the request cannot be executed.");

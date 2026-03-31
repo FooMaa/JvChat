@@ -20,10 +20,8 @@ public class ToolTipAuthUI extends JToolTip {
 
     @Builder
     ToolTipAuthUI(DisplaySettings displaySettings, FontsGlobalDefines fontsGlobalDefines) {
-        this.displaySettings = Objects.requireNonNull(displaySettings,
-                "displaySettings is mandatory");
-        this.fontsGlobalDefines = Objects.requireNonNull(fontsGlobalDefines,
-                "fontsGlobalDefines is mandatory");
+        this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
+        this.fontsGlobalDefines = Objects.requireNonNull(fontsGlobalDefines, "fontsGlobalDefines is mandatory");
 
         setGeneralSettings();
     }

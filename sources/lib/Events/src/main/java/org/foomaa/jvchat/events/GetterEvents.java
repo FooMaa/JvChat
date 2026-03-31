@@ -23,20 +23,17 @@ public class GetterEvents {
         return context;
     }
 
-    public BaseEvent getBeanBaseEvent(Object source, Object destination, UUID uuidKey,
-            Object... data) {
-        return (BaseEvent) context.getBean(EventsSpringConfig.NameBeans.BeanBaseEvent.getValue(),
-                source, destination, uuidKey, data);
+    public BaseEvent getBeanBaseEvent(Object source, Object destination, UUID uuidKey, Object... data) {
+        return (BaseEvent) context.getBean(EventsSpringConfig.NameBeans.BeanBaseEvent.getValue(), source, destination,
+                uuidKey, data);
     }
 
     public PublisherEvents getBeanPublisherEvents(AnnotationConfigApplicationContext context) {
-        return (PublisherEvents) context
-                .getBean(EventsSpringConfig.NameBeans.BeanPublisherEvents.getValue(), context);
+        return (PublisherEvents) context.getBean(EventsSpringConfig.NameBeans.BeanPublisherEvents.getValue(), context);
     }
 
     public MakerEvents getBeanMakerEvents() {
-        return context.getBean(EventsSpringConfig.NameBeans.BeanMakerEvents.getValue(),
-                MakerEvents.class);
+        return context.getBean(EventsSpringConfig.NameBeans.BeanMakerEvents.getValue(), MakerEvents.class);
     }
 
     public AspectCheckerEvents getBeanAspectCompareEventsUuids() {

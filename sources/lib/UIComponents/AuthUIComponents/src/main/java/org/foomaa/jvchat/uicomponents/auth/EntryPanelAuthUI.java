@@ -38,30 +38,21 @@ public class EntryPanelAuthUI extends JPanel {
     @Builder
     EntryPanelAuthUI(UsersInfoSettings usersInfoSettings, DisplaySettings displaySettings,
             MainFrameMainChatUI mainFrameMainChatUI, SendMessagesCtrl sendMessagesCtrl,
-            MessagesDefinesCtrl messagesDefinesCtrl,
-            ActiveLabelAuthUIFactory activeLabelAuthUIFactory,
-            ButtonAuthUIFactory buttonAuthUIFactory,
-            ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
-            PasswordFieldAuthUIFactory passwordFieldAuthUIFactory,
-            TextFieldAuthUIFactory textFieldAuthUIFactory,
+            MessagesDefinesCtrl messagesDefinesCtrl, ActiveLabelAuthUIFactory activeLabelAuthUIFactory,
+            ButtonAuthUIFactory buttonAuthUIFactory, ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
+            PasswordFieldAuthUIFactory passwordFieldAuthUIFactory, TextFieldAuthUIFactory textFieldAuthUIFactory,
             OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
         Objects.requireNonNull(activeLabelAuthUIFactory, "activeLabelAuthUIFactory is mandatory");
         Objects.requireNonNull(buttonAuthUIFactory, "buttonAuthUIFactory is mandatory");
         Objects.requireNonNull(errorLabelAuthUIFactory, "errorLabelAuthUIFactory is mandatory");
-        Objects.requireNonNull(passwordFieldAuthUIFactory,
-                "passwordFieldAuthUIFactory is mandatory");
+        Objects.requireNonNull(passwordFieldAuthUIFactory, "passwordFieldAuthUIFactory is mandatory");
         Objects.requireNonNull(textFieldAuthUIFactory, "textFieldAuthUIFactory is mandatory");
 
-        this.usersInfoSettings = Objects.requireNonNull(usersInfoSettings,
-                "usersInfoSettings is mandatory");
-        this.displaySettings = Objects.requireNonNull(displaySettings,
-                "displaySettings is mandatory");
-        this.mainFrameMainChatUI = Objects.requireNonNull(mainFrameMainChatUI,
-                "mainFrameMainChatUI is mandatory");
-        this.sendMessagesCtrl = Objects.requireNonNull(sendMessagesCtrl,
-                "sendMessagesCtrl is mandatory");
-        this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl,
-                "messagesDefinesCtrl is mandatory");
+        this.usersInfoSettings = Objects.requireNonNull(usersInfoSettings, "usersInfoSettings is mandatory");
+        this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
+        this.mainFrameMainChatUI = Objects.requireNonNull(mainFrameMainChatUI, "mainFrameMainChatUI is mandatory");
+        this.sendMessagesCtrl = Objects.requireNonNull(sendMessagesCtrl, "sendMessagesCtrl is mandatory");
+        this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl, "messagesDefinesCtrl is mandatory");
         this.optionPaneAuthUIFactory = Objects.requireNonNull(optionPaneAuthUIFactory,
                 "optionPaneAuthUIFactory is mandatory");
 
@@ -97,16 +88,15 @@ public class EntryPanelAuthUI extends JPanel {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        int insX = displaySettings.getResizeFromDisplay(0.025,
-                DisplaySettings.TypeOfDisplayBorder.WIDTH);
+        int insX = displaySettings.getResizeFromDisplay(0.025, DisplaySettings.TypeOfDisplayBorder.WIDTH);
         int gridyNum = 0;
 
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(displaySettings.getResizePixel(0.075), insX,
-                displaySettings.getResizePixel(0.004), insX);
+        gbc.insets = new Insets(displaySettings.getResizePixel(0.075), insX, displaySettings.getResizePixel(
+                0.004), insX);
         gbc.gridy = gridyNum;
         add(tLogin, gbc);
         gridyNum++;
@@ -140,10 +130,8 @@ public class EntryPanelAuthUI extends JPanel {
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.SOUTH;
         gbc.insets = new Insets(0, 0, displaySettings.getResizePixel(0.017), 0);
-        gbc.ipadx = displaySettings.getResizeFromDisplay(0.015,
-                DisplaySettings.TypeOfDisplayBorder.WIDTH);
-        gbc.ipady = displaySettings.getResizeFromDisplay(0.004,
-                DisplaySettings.TypeOfDisplayBorder.HEIGHT);
+        gbc.ipadx = displaySettings.getResizeFromDisplay(0.015, DisplaySettings.TypeOfDisplayBorder.WIDTH);
+        gbc.ipady = displaySettings.getResizeFromDisplay(0.004, DisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
         add(bEnter, gbc);
     }
@@ -151,8 +139,8 @@ public class EntryPanelAuthUI extends JPanel {
     private void addListenerToElements() {
         bEnter.addActionListener(event -> {
             if (checkFields()) {
-                sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.EntryRequest,
-                        tLogin.getInputText(), tPassword.getInputText());
+                sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.EntryRequest, tLogin.getInputText(),
+                        tPassword.getInputText());
                 waitRepeatServer();
             }
         });
@@ -227,11 +215,9 @@ public class EntryPanelAuthUI extends JPanel {
         }
         if (messagesDefinesCtrl.getEntryRequestFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
             openMainPage();
-        } else if (messagesDefinesCtrl
-                .getEntryRequestFlag() == MessagesDefinesCtrl.TypeFlags.FALSE) {
+        } else if (messagesDefinesCtrl.getEntryRequestFlag() == MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            optionPaneAuthUIFactory.create().show("Login failed, data is incorrect.",
-                    OptionPaneAuthUI.TypeDlg.ERROR);
+            optionPaneAuthUIFactory.create().show("Login failed, data is incorrect.", OptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 

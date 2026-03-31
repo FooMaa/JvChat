@@ -40,8 +40,7 @@ public class MainStartPoint {
     }
 
     private static String loadProfile() {
-        try (InputStream is = MainStartPoint.class.getClassLoader()
-                .getResourceAsStream("profile.properties")) {
+        try (InputStream is = MainStartPoint.class.getClassLoader().getResourceAsStream("profile.properties")) {
 
             if (is == null) {
                 throw new IllegalStateException("profile.properties not found in classpath");

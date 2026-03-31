@@ -16,8 +16,8 @@ public class AspectCheckerEvents {
 
     @Around("@annotation(checkerEventsAnnotation)")
     @SuppressWarnings("unused")
-    public Object checkFieldMatch(ProceedingJoinPoint joinPoint,
-            CheckerEventsAnnotation checkerEventsAnnotation) throws Throwable {
+    public Object checkFieldMatch(ProceedingJoinPoint joinPoint, CheckerEventsAnnotation checkerEventsAnnotation)
+            throws Throwable {
         Object targetObject = joinPoint.getTarget();
         Object[] methodArgs = joinPoint.getArgs();
         String nameDestination = "destination";
@@ -37,8 +37,7 @@ public class AspectCheckerEvents {
         boolean flagReturn = false;
         for (String classFieldName : classFieldNames) {
             Object classFieldValue = getFieldValue(targetObject, classFieldName);
-            if (objectFieldValue != null && objectFieldValue.equals(classFieldValue)
-                    && destination == targetObject) {
+            if (objectFieldValue != null && objectFieldValue.equals(classFieldValue) && destination == targetObject) {
                 flagReturn = true;
             } else {
                 log.info(
@@ -49,8 +48,7 @@ public class AspectCheckerEvents {
         return flagReturn ? joinPoint.proceed() : null;
     }
 
-    private Object getFieldValue(Object obj, String fieldName)
-            throws NoSuchFieldException, IllegalAccessException {
+    private Object getFieldValue(Object obj, String fieldName) throws NoSuchFieldException, IllegalAccessException {
         Field field = obj.getClass().getDeclaredField(fieldName);
         field.setAccessible(true);
         return field.get(obj);

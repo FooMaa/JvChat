@@ -28,8 +28,7 @@ public class MainFrameMainChatUI extends JFrame {
             MainPanelMainChatUI mainPanel) {
         super("MainChatWindow");
 
-        this.displaySettings = Objects.requireNonNull(displaySettings,
-                "displaySettings is mandatory");
+        this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
         this.titlePanel = Objects.requireNonNull(titlePanel, "titlePanel is mandatory");
         this.mainPanel = Objects.requireNonNull(mainPanel, "mainPanel is mandatory");
 
@@ -53,8 +52,7 @@ public class MainFrameMainChatUI extends JFrame {
 
                 Image img = null;
                 try {
-                    img = ImageIO
-                            .read(Objects.requireNonNull(getClass().getResource(backgroundPath)));
+                    img = ImageIO.read(Objects.requireNonNull(getClass().getResource(backgroundPath)));
                 } catch (IOException e) {
                     e.getStackTrace();
                 }
@@ -122,16 +120,13 @@ public class MainFrameMainChatUI extends JFrame {
         setUndecorated(true);
         pack();
 
-        setSize(displaySettings.getResizeFromDisplay(0.585,
-                DisplaySettings.TypeOfDisplayBorder.WIDTH),
-                displaySettings.getResizeFromDisplay(0.5625,
-                        DisplaySettings.TypeOfDisplayBorder.HEIGHT));
+        setSize(displaySettings.getResizeFromDisplay(0.585, DisplaySettings.TypeOfDisplayBorder.WIDTH),
+                displaySettings.getResizeFromDisplay(0.5625, DisplaySettings.TypeOfDisplayBorder.HEIGHT));
 
         Dimension minSiseDimension = new Dimension(
                 displaySettings.getResizeFromDisplay(0.43,
-                        DisplaySettings.TypeOfDisplayBorder.WIDTH),
-                displaySettings.getResizeFromDisplay(0.28,
-                        DisplaySettings.TypeOfDisplayBorder.HEIGHT));
+                        DisplaySettings.TypeOfDisplayBorder.WIDTH), displaySettings.getResizeFromDisplay(0.28,
+                                DisplaySettings.TypeOfDisplayBorder.HEIGHT));
         setMinimumSize(minSiseDimension);
 
         setResizable(true);

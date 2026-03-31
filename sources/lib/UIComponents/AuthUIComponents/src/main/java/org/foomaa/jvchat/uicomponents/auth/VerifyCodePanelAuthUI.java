@@ -38,19 +38,15 @@ public class VerifyCodePanelAuthUI extends JPanel {
     @Builder
     VerifyCodePanelAuthUI(DisplaySettings displaySettings, SendMessagesCtrl sendMessagesCtrl,
             MessagesDefinesCtrl messagesDefinesCtrl, ButtonAuthUIFactory buttonAuthUIFactory,
-            ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
-            TextFieldAuthUIFactory textFieldAuthUIFactory,
+            ErrorLabelAuthUIFactory errorLabelAuthUIFactory, TextFieldAuthUIFactory textFieldAuthUIFactory,
             OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
         Objects.requireNonNull(buttonAuthUIFactory, "buttonAuthUIFactory is mandatory");
         Objects.requireNonNull(errorLabelAuthUIFactory, "errorLabelAuthUIFactory is mandatory");
         Objects.requireNonNull(textFieldAuthUIFactory, "textFieldAuthUIFactory is mandatory");
 
-        this.displaySettings = Objects.requireNonNull(displaySettings,
-                "displaySettings is mandatory");
-        this.sendMessagesCtrl = Objects.requireNonNull(sendMessagesCtrl,
-                "sendMessagesCtrl is mandatory");
-        this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl,
-                "messagesDefinesCtrl is mandatory");
+        this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
+        this.sendMessagesCtrl = Objects.requireNonNull(sendMessagesCtrl, "sendMessagesCtrl is mandatory");
+        this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl, "messagesDefinesCtrl is mandatory");
         this.optionPaneAuthUIFactory = Objects.requireNonNull(optionPaneAuthUIFactory,
                 "optionPaneAuthUIFactory is mandatory");
 
@@ -95,8 +91,7 @@ public class VerifyCodePanelAuthUI extends JPanel {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        int insX = displaySettings.getResizeFromDisplay(0.025,
-                DisplaySettings.TypeOfDisplayBorder.WIDTH);
+        int insX = displaySettings.getResizeFromDisplay(0.025, DisplaySettings.TypeOfDisplayBorder.WIDTH);
         int gridyNum = 0;
 
         gbc.weightx = 1.0;
@@ -104,8 +99,8 @@ public class VerifyCodePanelAuthUI extends JPanel {
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(displaySettings.getResizePixel(0.115), insX,
-                displaySettings.getResizePixel(0.004), insX);
+        gbc.insets = new Insets(displaySettings.getResizePixel(0.115), insX, displaySettings.getResizePixel(
+                0.004), insX);
         gbc.gridy = gridyNum;
         add(tCode, gbc);
         gridyNum++;
@@ -120,23 +115,19 @@ public class VerifyCodePanelAuthUI extends JPanel {
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.SOUTHWEST;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(displaySettings.getResizePixel(0.046),
-                displaySettings.getResizePixel(0.026), displaySettings.getResizePixel(0.017), 0);
-        gbc.ipadx = displaySettings.getResizeFromDisplay(0.015,
-                DisplaySettings.TypeOfDisplayBorder.WIDTH);
-        gbc.ipady = displaySettings.getResizeFromDisplay(0.004,
-                DisplaySettings.TypeOfDisplayBorder.HEIGHT);
+        gbc.insets = new Insets(displaySettings.getResizePixel(0.046), displaySettings.getResizePixel(
+                0.026), displaySettings.getResizePixel(0.017), 0);
+        gbc.ipadx = displaySettings.getResizeFromDisplay(0.015, DisplaySettings.TypeOfDisplayBorder.WIDTH);
+        gbc.ipady = displaySettings.getResizeFromDisplay(0.004, DisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
         add(bBack, gbc);
 
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.SOUTHEAST;
-        gbc.insets = new Insets(displaySettings.getResizePixel(0.046), 0,
-                displaySettings.getResizePixel(0.017), displaySettings.getResizePixel(0.026));
-        gbc.ipadx = displaySettings.getResizeFromDisplay(0.015,
-                DisplaySettings.TypeOfDisplayBorder.WIDTH);
-        gbc.ipady = displaySettings.getResizeFromDisplay(0.004,
-                DisplaySettings.TypeOfDisplayBorder.HEIGHT);
+        gbc.insets = new Insets(displaySettings.getResizePixel(0.046), 0, displaySettings.getResizePixel(
+                0.017), displaySettings.getResizePixel(0.026));
+        gbc.ipadx = displaySettings.getResizeFromDisplay(0.015, DisplaySettings.TypeOfDisplayBorder.WIDTH);
+        gbc.ipady = displaySettings.getResizeFromDisplay(0.004, DisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
         add(bSet, gbc);
     }
@@ -146,13 +137,12 @@ public class VerifyCodePanelAuthUI extends JPanel {
             if (checkFields()) {
                 if (regime == RegimeWork.ResetPassword) {
                     sendMessagesCtrl.sendMessage(
-                            DefinesMessages.TypeMessage.VerifyFamousEmailRequest, email,
-                            tCode.getInputText());
+                            DefinesMessages.TypeMessage.VerifyFamousEmailRequest, email, tCode.getInputText());
                     waitRepeatServerResetPassword();
                 } else if (regime == RegimeWork.Registration) {
                     sendMessagesCtrl.sendMessage(
-                            DefinesMessages.TypeMessage.VerifyRegistrationEmailRequest, login,
-                            email, password, tCode.getInputText());
+                            DefinesMessages.TypeMessage.VerifyRegistrationEmailRequest, login, email, password,
+                            tCode.getInputText());
                     waitRepeatServerRegistration();
                 }
             }
@@ -167,8 +157,7 @@ public class VerifyCodePanelAuthUI extends JPanel {
 
         if (Objects.equals(tCode.getInputText(), "") || (tCode.getInputText().length() != 6)) {
             tCode.setErrorBorder(true);
-            tErrorHelpInfo
-                    .setText("The \"Code\" field must be completed and contain the submitted code");
+            tErrorHelpInfo.setText("The \"Code\" field must be completed and contain the submitted code");
             return false;
         }
 
@@ -207,44 +196,37 @@ public class VerifyCodePanelAuthUI extends JPanel {
 
     private void waitRepeatServerResetPassword() {
         setEnabled(false);
-        while (messagesDefinesCtrl
-                .getVerifyFamousEmailRequestFlag() == MessagesDefinesCtrl.TypeFlags.DEFAULT) {
+        while (messagesDefinesCtrl.getVerifyFamousEmailRequestFlag() == MessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
                 log.error("Failed to wait.");
             }
         }
-        if (messagesDefinesCtrl
-                .getVerifyFamousEmailRequestFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (messagesDefinesCtrl.getVerifyFamousEmailRequestFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
             changeRegimeNext();
             setEnabled(true);
-        } else if (messagesDefinesCtrl
-                .getVerifyFamousEmailRequestFlag() == MessagesDefinesCtrl.TypeFlags.FALSE) {
+        } else if (messagesDefinesCtrl.getVerifyFamousEmailRequestFlag() == MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            optionPaneAuthUIFactory.create()
-                    .show("The code is not correct. Enter the code you received by mail again.\n"
-                            + "The code may have expired, enter your email again and get a new one.",
-                            OptionPaneAuthUI.TypeDlg.ERROR);
+            optionPaneAuthUIFactory.create().show(
+                    "The code is not correct. Enter the code you received by mail again.\n" + "The code may have expired, enter your email again and get a new one.",
+                    OptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 
     private void waitRepeatServerRegistration() {
         setEnabled(false);
-        while (messagesDefinesCtrl
-                .getVerifyRegistrationEmailRequestFlag() == MessagesDefinesCtrl.TypeFlags.DEFAULT) {
+        while (messagesDefinesCtrl.getVerifyRegistrationEmailRequestFlag() == MessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
                 log.error("Failed to wait.");
             }
         }
-        if (messagesDefinesCtrl
-                .getVerifyRegistrationEmailRequestFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (messagesDefinesCtrl.getVerifyRegistrationEmailRequestFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
             changeRegimeNext();
             setEnabled(true);
-        } else if (messagesDefinesCtrl
-                .getVerifyRegistrationEmailRequestFlag() == MessagesDefinesCtrl.TypeFlags.FALSE) {
+        } else if (messagesDefinesCtrl.getVerifyRegistrationEmailRequestFlag() == MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             openErrorPane();
         }
@@ -260,10 +242,9 @@ public class VerifyCodePanelAuthUI extends JPanel {
                     OptionPaneAuthUI.TypeDlg.ERROR);
             case Email -> optionPaneAuthUIFactory.create().show("This email is already in use.",
                     OptionPaneAuthUI.TypeDlg.ERROR);
-            case Code -> optionPaneAuthUIFactory.create()
-                    .show("The code is not correct. Enter the code you received by mail again.\n"
-                            + "The code may have expired, enter your email again and get a new one.",
-                            OptionPaneAuthUI.TypeDlg.ERROR);
+            case Code -> optionPaneAuthUIFactory.create().show(
+                    "The code is not correct. Enter the code you received by mail again.\n" + "The code may have expired, enter your email again and get a new one.",
+                    OptionPaneAuthUI.TypeDlg.ERROR);
             case LoginAndEmail -> optionPaneAuthUIFactory.create().show(
                     "The email and login data are already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
         }

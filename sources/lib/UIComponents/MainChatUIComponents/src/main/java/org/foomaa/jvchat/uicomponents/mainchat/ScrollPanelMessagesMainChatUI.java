@@ -27,13 +27,10 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
     private final RectMessageMainChatUIFactory rectMessageMainChatUIFactory;
 
     @Builder
-    ScrollPanelMessagesMainChatUI(MessagesDefinesCtrl messagesDefinesCtrl,
-            MessagesDialogCtrl messagesDialogCtrl,
+    ScrollPanelMessagesMainChatUI(MessagesDefinesCtrl messagesDefinesCtrl, MessagesDialogCtrl messagesDialogCtrl,
             RectMessageMainChatUIFactory rectMessageMainChatUIFactory) {
-        this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl,
-                "messagesDefinesCtrl is mandatory");
-        this.messagesDialogCtrl = Objects.requireNonNull(messagesDialogCtrl,
-                "messagesDialogCtrl is mandatory");
+        this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl, "messagesDefinesCtrl is mandatory");
+        this.messagesDialogCtrl = Objects.requireNonNull(messagesDialogCtrl, "messagesDialogCtrl is mandatory");
         this.rectMessageMainChatUIFactory = Objects.requireNonNull(rectMessageMainChatUIFactory,
                 "rectMessageMainChatUIFactory is mandatory");
 
@@ -97,9 +94,7 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
         gbc.gridy = 0;
         gbc.weightx = 0.5;
         gbc.weighty = 1.0;
-        gbc.fill = scrollPane.getVerticalScrollBar().isVisible()
-                ? GridBagConstraints.BOTH
-                : GridBagConstraints.HORIZONTAL;
+        gbc.fill = scrollPane.getVerticalScrollBar().isVisible() ? GridBagConstraints.BOTH : GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.SOUTH;
         add(scrollPane, gbc);
 
@@ -130,15 +125,13 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
     private void scrollDownPanel() {
         JScrollBar verticalScrollBar = scrollPane.getVerticalScrollBar();
         if (verticalScrollBar != null) {
-            SwingUtilities
-                    .invokeLater(() -> verticalScrollBar.setValue(verticalScrollBar.getMaximum()));
+            SwingUtilities.invokeLater(() -> verticalScrollBar.setValue(verticalScrollBar.getMaximum()));
         }
     }
 
     public void addMessage(MessageStructObject messageObject) {
-        String constraints = messagesDialogCtrl.isCurrentUserSender(messageObject)
-                ? BorderLayout.EAST
-                : BorderLayout.WEST;
+        String constraints = messagesDialogCtrl.isCurrentUserSender(
+                messageObject) ? BorderLayout.EAST : BorderLayout.WEST;
         createPanelMessage(messageObject, constraints);
         updatePanelMessages();
     }
@@ -156,16 +149,13 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
     }
 
     private void processUpdatingMessages() {
-        if (messagesDefinesCtrl
-                .getTextMessagesLoadReplyFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (messagesDefinesCtrl.getTextMessagesLoadReplyFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
             changeAllMessages();
         }
-        if (messagesDefinesCtrl
-                .getTextMessageRedirectServerToUserFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (messagesDefinesCtrl.getTextMessageRedirectServerToUserFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
             addRedirectMessage();
         }
-        if (messagesDefinesCtrl
-                .getTextMessagesChangingStatusFromServerFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (messagesDefinesCtrl.getTextMessagesChangingStatusFromServerFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
             changeStatusMessage();
         }
 
@@ -192,16 +182,14 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
         UUID currentPanelUuid = messagesDialogCtrl.getCurrentActiveChatUuid();
 
         for (MessageStructObject messageStructObject : allMessagesObjSorted) {
-            UUID uuidChat = messagesDialogCtrl
-                    .findUuidChatByUuidUser(messageStructObject.getUuidUserSender());
-            if (findRectMessageByUuid(panel, messageStructObject.getUuid()) == null
-                    && uuidChat != null && uuidChat.equals(currentPanelUuid)) {
+            UUID uuidChat = messagesDialogCtrl.findUuidChatByUuidUser(messageStructObject.getUuidUserSender());
+            if (findRectMessageByUuid(panel,
+                    messageStructObject.getUuid()) == null && uuidChat != null && uuidChat.equals(currentPanelUuid)) {
                 addMessage(messageStructObject);
             }
         }
 
-        messagesDefinesCtrl
-                .setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
+        messagesDefinesCtrl.setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
     }
 
     private RectMessageMainChatUI findRectMessageByUuid(JPanel panelMsg, UUID uuid) {
@@ -227,14 +215,12 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
         List<MessageStructObject> allMessagesObjSorted = messagesDialogCtrl.getAllSortedMessages();
 
         for (MessageStructObject messageStructObject : allMessagesObjSorted) {
-            RectMessageMainChatUI rectMessage = findRectMessageByUuid(panel,
-                    messageStructObject.getUuid());
+            RectMessageMainChatUI rectMessage = findRectMessageByUuid(panel, messageStructObject.getUuid());
             if (rectMessage != null) {
                 rectMessage.changeStatusMessage(messageStructObject.getStatusMessage());
             }
         }
 
-        messagesDefinesCtrl
-                .setTextMessagesChangingStatusFromServerFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
+        messagesDefinesCtrl.setTextMessagesChangingStatusFromServerFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
     }
 }

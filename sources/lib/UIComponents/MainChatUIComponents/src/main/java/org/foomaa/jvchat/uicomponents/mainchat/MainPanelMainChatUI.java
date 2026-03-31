@@ -14,19 +14,14 @@ public class MainPanelMainChatUI extends JPanel {
     private final PanelSendingMessageMainChatUI panelSendingMessage;
 
     @Builder
-    MainPanelMainChatUI(ScrollPanelChatsMainChatUI scrollPanelChats,
-            ScrollPanelMessagesMainChatUI scrollPanelMessages,
+    MainPanelMainChatUI(ScrollPanelChatsMainChatUI scrollPanelChats, ScrollPanelMessagesMainChatUI scrollPanelMessages,
             PanelSendingMessageMainChatUIFactory panelSendingMessageFactory,
             FindTextFieldMainChatUIFactory findTextFieldMainChatUIFactory) {
-        Objects.requireNonNull(panelSendingMessageFactory,
-                "panelSendingMessageFactory is mandatory");
-        Objects.requireNonNull(findTextFieldMainChatUIFactory,
-                "findTextFieldMainChatUIFactory is mandatory");
+        Objects.requireNonNull(panelSendingMessageFactory, "panelSendingMessageFactory is mandatory");
+        Objects.requireNonNull(findTextFieldMainChatUIFactory, "findTextFieldMainChatUIFactory is mandatory");
 
-        this.scrollPanelChats = Objects.requireNonNull(scrollPanelChats,
-                "scrollPanelChats is mandatory");
-        this.scrollPanelMessages = Objects.requireNonNull(scrollPanelMessages,
-                "scrollPanelMessages is mandatory");
+        this.scrollPanelChats = Objects.requireNonNull(scrollPanelChats, "scrollPanelChats is mandatory");
+        this.scrollPanelMessages = Objects.requireNonNull(scrollPanelMessages, "scrollPanelMessages is mandatory");
 
         findTextField = findTextFieldMainChatUIFactory.create("Find by login");
         panelSendingMessage = panelSendingMessageFactory.create();

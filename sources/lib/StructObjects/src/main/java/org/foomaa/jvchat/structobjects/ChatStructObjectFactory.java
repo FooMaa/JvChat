@@ -17,8 +17,7 @@ public class ChatStructObjectFactory {
         return chatStructObjectObjectProvider.getObject();
     }
 
-    public ChatStructObject create(UserStructObject userChat, MessageStructObject lastMessage,
-            UUID uuidChat) {
+    public ChatStructObject create(UserStructObject userChat, MessageStructObject lastMessage, UUID uuidChat) {
         ChatStructObject chatStructObject = chatStructObjectObjectProvider.getObject();
 
         chatStructObject.setUserChat(userChat);

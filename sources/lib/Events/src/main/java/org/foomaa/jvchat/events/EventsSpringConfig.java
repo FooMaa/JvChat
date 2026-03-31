@@ -30,8 +30,7 @@ class EventsSpringConfig {
     @Lazy
     @Scope("prototype")
     @SuppressWarnings("unused")
-    public BaseEvent beanBaseEvent(Object source, Object destination, UUID uuidKey,
-            Object... data) {
+    public BaseEvent beanBaseEvent(Object source, Object destination, UUID uuidKey, Object... data) {
         return new BaseEvent(source, destination, uuidKey, data);
     }
 

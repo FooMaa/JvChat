@@ -26,8 +26,7 @@ public class FindTextFieldMainChatUI extends JPanel {
 
     @Builder
     FindTextFieldMainChatUI(DisplaySettings displaySettings) {
-        this.displaySettings = Objects.requireNonNull(displaySettings,
-                "displaySettings is mandatory");
+        this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
 
         image = setIcon();
         defaultText = "";
@@ -108,9 +107,8 @@ public class FindTextFieldMainChatUI extends JPanel {
     private void settingTextAndButtonPanel() {
         Dimension dim = new Dimension(
                 displaySettings.getResizeFromDisplay(0.23,
-                        DisplaySettings.TypeOfDisplayBorder.WIDTH),
-                displaySettings.getResizeFromDisplay(0.03,
-                        DisplaySettings.TypeOfDisplayBorder.HEIGHT));
+                        DisplaySettings.TypeOfDisplayBorder.WIDTH), displaySettings.getResizeFromDisplay(0.03,
+                                DisplaySettings.TypeOfDisplayBorder.HEIGHT));
         settingButtonImage();
         settingTextField(dim);
         addElements();
@@ -141,8 +139,7 @@ public class FindTextFieldMainChatUI extends JPanel {
 
     private void settingTextField(Dimension dim) {
         textField = new JTextField();
-        Dimension calcNewDim = new Dimension((int) dim.getWidth() - button.getPreferredSize().width,
-                (int) dim.getHeight() - borderSize * 2);
+        Dimension calcNewDim = new Dimension((int) dim.getWidth() - button.getPreferredSize().width, (int) dim.getHeight() - borderSize * 2);
         textField.setPreferredSize(calcNewDim);
         textField.setBorder(null);
         textField.setText(defaultText);

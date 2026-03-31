@@ -31,35 +31,31 @@ public class CheckersOnlineModel extends BaseModel {
     }
 
     public void createNewCheckersOnline(UUID uuidUser, LocalDateTime dateTimeUpdating) {
-        UserStructObject userStructObject = usersModel
-                .findCreateUserStructObjectByUuidUser(uuidUser);
-        CheckerOnlineStructObject checkerOnlineStructObject = checkerOnlineStructObjectFactory
-                .create(userStructObject, dateTimeUpdating);
+        UserStructObject userStructObject = usersModel.findCreateUserStructObjectByUuidUser(uuidUser);
+        CheckerOnlineStructObject checkerOnlineStructObject = checkerOnlineStructObjectFactory.create(userStructObject,
+                dateTimeUpdating);
 
         addItem(checkerOnlineStructObject, getRootObject());
     }
 
-    public void createNewCheckersOnline(Runnable runnable, boolean isSending,
-            LocalDateTime dateTimeSending, LocalDateTime dateTimeUpdating) {
-        SocketRunnableCtrlStructObject socketRunnableCtrlStructObject = socketRunnableCtrlModel
-                .findCreateSocketRunnableCtrlStructObjectByRunnable(runnable);
-        CheckerOnlineStructObject checkerOnlineStructObject = checkerOnlineStructObjectFactory
-                .create(isSending, dateTimeSending, dateTimeUpdating,
-                        socketRunnableCtrlStructObject);
+    public void createNewCheckersOnline(Runnable runnable, boolean isSending, LocalDateTime dateTimeSending,
+            LocalDateTime dateTimeUpdating) {
+        SocketRunnableCtrlStructObject socketRunnableCtrlStructObject = socketRunnableCtrlModel.findCreateSocketRunnableCtrlStructObjectByRunnable(
+                runnable);
+        CheckerOnlineStructObject checkerOnlineStructObject = checkerOnlineStructObjectFactory.create(isSending,
+                dateTimeSending, dateTimeUpdating, socketRunnableCtrlStructObject);
 
         addItem(checkerOnlineStructObject, getRootObject());
     }
 
     public void createNewCheckersOnline(UUID uuidUser, Runnable runnable, boolean isSending,
             LocalDateTime dateTimeSending, LocalDateTime dateTimeUpdating) {
-        UserStructObject userStructObject = usersModel
-                .findCreateUserStructObjectByUuidUser(uuidUser);
-        SocketRunnableCtrlStructObject socketRunnableCtrlStructObject = socketRunnableCtrlModel
-                .findCreateSocketRunnableCtrlStructObjectByRunnable(runnable);
+        UserStructObject userStructObject = usersModel.findCreateUserStructObjectByUuidUser(uuidUser);
+        SocketRunnableCtrlStructObject socketRunnableCtrlStructObject = socketRunnableCtrlModel.findCreateSocketRunnableCtrlStructObjectByRunnable(
+                runnable);
 
-        CheckerOnlineStructObject checkerOnlineStructObject = checkerOnlineStructObjectFactory
-                .create(userStructObject, isSending, dateTimeSending, dateTimeUpdating,
-                        socketRunnableCtrlStructObject);
+        CheckerOnlineStructObject checkerOnlineStructObject = checkerOnlineStructObjectFactory.create(userStructObject,
+                isSending, dateTimeSending, dateTimeUpdating, socketRunnableCtrlStructObject);
 
         addItem(checkerOnlineStructObject, getRootObject());
     }

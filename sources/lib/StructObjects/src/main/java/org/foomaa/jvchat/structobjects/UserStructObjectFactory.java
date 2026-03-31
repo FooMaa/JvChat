@@ -20,9 +20,8 @@ public class UserStructObjectFactory {
         return userStructObjectObjectProvider.getObject();
     }
 
-    public UserStructObject create(String login,
-            MainChatsGlobalDefines.TypeStatusOnline statusOnline, LocalDateTime timestampLastOnline,
-            UUID uuid) {
+    public UserStructObject create(String login, MainChatsGlobalDefines.TypeStatusOnline statusOnline,
+            LocalDateTime timestampLastOnline, UUID uuid) {
         UserStructObject structObject = userStructObjectObjectProvider.getObject();
 
         structObject.setLogin(login);
