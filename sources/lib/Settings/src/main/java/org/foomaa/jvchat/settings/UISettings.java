@@ -1,11 +1,9 @@
 package org.foomaa.jvchat.settings;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
+import lombok.Builder;
 
-@Component
-@Profile("users")
 public class UISettings {
+    @Builder
     UISettings() {
         quantityMessagesLoad = 30;
     }

@@ -1,9 +1,9 @@
 package org.foomaa.jvchat.settings;
 
-import org.springframework.stereotype.Component;
+import lombok.Builder;
 
-@Component
 public class MainSettings {
+    @Builder
     MainSettings() {
     }
 

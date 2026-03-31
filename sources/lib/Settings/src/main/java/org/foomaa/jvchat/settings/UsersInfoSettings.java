@@ -3,12 +3,10 @@ package org.foomaa.jvchat.settings;
 import java.util.Objects;
 import java.util.UUID;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
+import lombok.Builder;
 
-@Component
-@Profile("users")
 public class UsersInfoSettings {
+    @Builder
     UsersInfoSettings() {
     }
 

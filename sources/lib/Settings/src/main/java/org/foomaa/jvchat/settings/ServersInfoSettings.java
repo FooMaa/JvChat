@@ -3,12 +3,10 @@ package org.foomaa.jvchat.settings;
 import java.util.Base64;
 import java.util.Objects;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
+import lombok.Builder;
 
-@Component
-@Profile("servers")
 public class ServersInfoSettings {
+    @Builder
     ServersInfoSettings() {
     }
 
