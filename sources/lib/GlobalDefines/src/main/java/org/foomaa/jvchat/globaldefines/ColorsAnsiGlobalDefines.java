@@ -1,10 +1,10 @@
 package org.foomaa.jvchat.globaldefines;
 
-import org.springframework.stereotype.Component;
+import lombok.Builder;
 
-@Component
 @SuppressWarnings("unused")
 public class ColorsAnsiGlobalDefines {
+    @Builder
     ColorsAnsiGlobalDefines() {
     }
 

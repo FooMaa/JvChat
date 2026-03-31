@@ -1,9 +1,9 @@
 package org.foomaa.jvchat.globaldefines;
 
-import org.springframework.stereotype.Component;
+import lombok.Builder;
 
-@Component
 public class MainGlobalDefines {
+    @Builder
     MainGlobalDefines() {
     }
 

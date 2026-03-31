@@ -4,10 +4,10 @@ import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.springframework.stereotype.Component;
+import lombok.Builder;
 
-@Component
 public class FontsGlobalDefines {
+    @Builder
     FontsGlobalDefines() {
     }
 

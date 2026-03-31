@@ -2,10 +2,10 @@ package org.foomaa.jvchat.globaldefines;
 
 import java.util.Objects;
 
-import org.springframework.stereotype.Component;
+import lombok.Builder;
 
-@Component
 public class DbGlobalDefines {
+    @Builder
     DbGlobalDefines() {
     }
 
