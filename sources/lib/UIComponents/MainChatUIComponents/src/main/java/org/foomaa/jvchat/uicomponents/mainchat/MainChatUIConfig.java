@@ -56,9 +56,9 @@ public class MainChatUIConfig {
     @Bean
     @Scope("prototype")
     @Profile("users")
-    public PanelSendingMessageMainChatUI beanPanelSendingMessageMainChatUI(
-            ScrollPanelChatsMainChatUI scrollPanelChats, ScrollPanelMessagesMainChatUI scrollPanelMessages,
-            MessagesDialogCtrl messagesDialogCtrl, SendButtonMainChatUIFactory sendButtonMainChatUIFactory,
+    public PanelSendingMessageMainChatUI beanPanelSendingMessageMainChatUI(ScrollPanelChatsMainChatUI scrollPanelChats,
+            ScrollPanelMessagesMainChatUI scrollPanelMessages, MessagesDialogCtrl messagesDialogCtrl,
+            SendButtonMainChatUIFactory sendButtonMainChatUIFactory,
             SendingTextAreaScrollMainChatUIFactory sendingTextAreaScrollMainChatUIFactory, ChatsCtrl chatsCtrl) {
         return PanelSendingMessageMainChatUI.builder().scrollPanelChats(scrollPanelChats).scrollPanelMessages(
                 scrollPanelMessages).messagesDialogCtrl(messagesDialogCtrl).sendButtonMainChatUIFactory(
@@ -108,9 +108,9 @@ public class MainChatUIConfig {
 
     @Bean
     @Profile("users")
-    public ScrollPanelChatsMainChatUI beanScrollPanelChatsMainChatUI(
-            UsersInfoSettings usersInfoSettings, UISettings uiSettings, SendMessagesCtrl sendMessagesCtrl,
-            MessagesDefinesCtrl messagesDefinesCtrl, RectChatMainChatUIFactory rectChatFactory, ChatsCtrl chatsCtrl) {
+    public ScrollPanelChatsMainChatUI beanScrollPanelChatsMainChatUI(UsersInfoSettings usersInfoSettings,
+            UISettings uiSettings, SendMessagesCtrl sendMessagesCtrl, MessagesDefinesCtrl messagesDefinesCtrl,
+            RectChatMainChatUIFactory rectChatFactory, ChatsCtrl chatsCtrl) {
         return ScrollPanelChatsMainChatUI.builder().usersInfoSettings(usersInfoSettings).uiSettings(
                 uiSettings).sendMessagesCtrl(sendMessagesCtrl).messagesDefinesCtrl(messagesDefinesCtrl).rectChatFactory(
                         rectChatFactory).chatsCtrl(chatsCtrl).build();
@@ -118,9 +118,8 @@ public class MainChatUIConfig {
 
     @Bean
     @Profile("users")
-    public ScrollPanelMessagesMainChatUI beanScrollPanelMessagesMainChatUI(
-            MessagesDefinesCtrl messagesDefinesCtrl, MessagesDialogCtrl messagesDialogCtrl,
-            RectMessageMainChatUIFactory rectMessageMainChatUIFactory) {
+    public ScrollPanelMessagesMainChatUI beanScrollPanelMessagesMainChatUI(MessagesDefinesCtrl messagesDefinesCtrl,
+            MessagesDialogCtrl messagesDialogCtrl, RectMessageMainChatUIFactory rectMessageMainChatUIFactory) {
         return ScrollPanelMessagesMainChatUI.builder().messagesDefinesCtrl(messagesDefinesCtrl).messagesDialogCtrl(
                 messagesDialogCtrl).rectMessageMainChatUIFactory(rectMessageMainChatUIFactory).build();
     }

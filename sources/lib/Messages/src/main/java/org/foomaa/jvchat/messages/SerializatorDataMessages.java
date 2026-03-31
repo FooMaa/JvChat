@@ -1,23 +1,20 @@
 package org.foomaa.jvchat.messages;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
-import org.springframework.stereotype.Component;
+import lombok.Builder;
 
 import org.foomaa.jvchat.globaldefines.DbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.tools.StructTools;
 
-@Component
 public class SerializatorDataMessages {
     // DI ↓
     private final StructTools structTools;
 
+    @Builder
     SerializatorDataMessages(StructTools structTools) {
-        this.structTools = structTools;
+        this.structTools = Objects.requireNonNull(structTools, "structTools is mandatory");
     }
 
     public byte[] serialiseData(DefinesMessages.TypeMessage type, Object... parameters) {
@@ -357,8 +354,8 @@ public class SerializatorDataMessages {
                                                             Boolean.parseBoolean(map.get(
                                                                     DbGlobalDefines.LineKeys.IsLoginSentLastMessage))).setStatusMessage(
                                                                             ClientServerSerializeProtocolMessage_pb.ChatsInfo.TypeStatusMessage.forNumber(
-                                                                                    Integer.parseInt(
-                                                                                            map.get(DbGlobalDefines.LineKeys.StatusMessage)))).setDateTimeLastMessage(
+                                                                                    Integer.parseInt(map.get(
+                                                                                            DbGlobalDefines.LineKeys.StatusMessage)))).setDateTimeLastMessage(
                                                                                                     map.get(DbGlobalDefines.LineKeys.DateTimeMessage)).build();
             builder.addChatsInfo(chatsInfoPart);
         }
@@ -438,8 +435,8 @@ public class SerializatorDataMessages {
         return resMsg.toByteArray();
     }
 
-    private byte[] createTextMessageSendUserToServerVerificationMessage(
-            DefinesMessages.TypeMessage type, boolean reply) {
+    private byte[] createTextMessageSendUserToServerVerificationMessage(DefinesMessages.TypeMessage type,
+            boolean reply) {
         ClientServerSerializeProtocolMessage_pb.TextMessageSendUserToServerVerification msgVerify = ClientServerSerializeProtocolMessage_pb.TextMessageSendUserToServerVerification.newBuilder().setReply(
                 reply).build();
         ClientServerSerializeProtocolMessage_pb.General resMsg = ClientServerSerializeProtocolMessage_pb.General.newBuilder().setType(
@@ -447,8 +444,8 @@ public class SerializatorDataMessages {
         return resMsg.toByteArray();
     }
 
-    private byte[] createTextMessageChangingStatusFromServerMessage(
-            DefinesMessages.TypeMessage type, Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
+    private byte[] createTextMessageChangingStatusFromServerMessage(DefinesMessages.TypeMessage type,
+            Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
         Map<String, ClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServer.StatusMessage> resultMap = new HashMap<>();
         for (UUID uuid : mapStatusMessages.keySet()) {
             int statusInt = mapStatusMessages.get(uuid).getValue();
@@ -465,8 +462,8 @@ public class SerializatorDataMessages {
         return resMsg.toByteArray();
     }
 
-    private byte[] createTextMessagesChangingStatusFromServerVerificationMessage(
-            DefinesMessages.TypeMessage type, boolean reply) {
+    private byte[] createTextMessagesChangingStatusFromServerVerificationMessage(DefinesMessages.TypeMessage type,
+            boolean reply) {
         ClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServerVerification msgVerify = ClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServerVerification.newBuilder().setReply(
                 reply).build();
         ClientServerSerializeProtocolMessage_pb.General resMsg = ClientServerSerializeProtocolMessage_pb.General.newBuilder().setType(
@@ -491,8 +488,8 @@ public class SerializatorDataMessages {
         return resMsg.toByteArray();
     }
 
-    private byte[] createTextMessagesChangingStatusFromUserVerificationMessage(
-            DefinesMessages.TypeMessage type, boolean reply) {
+    private byte[] createTextMessagesChangingStatusFromUserVerificationMessage(DefinesMessages.TypeMessage type,
+            boolean reply) {
         ClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromUserVerification msgVerify = ClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromUserVerification.newBuilder().setReply(
                 reply).build();
         ClientServerSerializeProtocolMessage_pb.General resMsg = ClientServerSerializeProtocolMessage_pb.General.newBuilder().setType(
@@ -512,8 +509,8 @@ public class SerializatorDataMessages {
         return resMsg.toByteArray();
     }
 
-    private byte[] createTextMessageRedirectServerToUserVerificationMessage(
-            DefinesMessages.TypeMessage type, boolean reply) {
+    private byte[] createTextMessageRedirectServerToUserVerificationMessage(DefinesMessages.TypeMessage type,
+            boolean reply) {
         ClientServerSerializeProtocolMessage_pb.TextMessageRedirectServerToUserVerification msgVerify = ClientServerSerializeProtocolMessage_pb.TextMessageRedirectServerToUserVerification.newBuilder().setReply(
                 reply).build();
         ClientServerSerializeProtocolMessage_pb.General resMsg = ClientServerSerializeProtocolMessage_pb.General.newBuilder().setType(
@@ -538,9 +535,9 @@ public class SerializatorDataMessages {
             ClientServerSerializeProtocolMessage_pb.TextMessageInfo msgInfoMap = ClientServerSerializeProtocolMessage_pb.TextMessageInfo.newBuilder().setUuidUserSender(
                     map.get(DbGlobalDefines.LineKeys.UuidSender)).setUuidUserReceiver(map.get(
                             DbGlobalDefines.LineKeys.UuidReceiver)).setUuidMessage(map.get(
-                                    DbGlobalDefines.LineKeys.UuidMessage)).setStatusMessage(
-                                            Integer.parseInt(map.get(DbGlobalDefines.LineKeys.StatusMessage))).setText(
-                                                    map.get(DbGlobalDefines.LineKeys.TextMessage)).setTimestamp(map.get(
+                                    DbGlobalDefines.LineKeys.UuidMessage)).setStatusMessage(Integer.parseInt(map.get(
+                                            DbGlobalDefines.LineKeys.StatusMessage))).setText(map.get(
+                                                    DbGlobalDefines.LineKeys.TextMessage)).setTimestamp(map.get(
                                                             DbGlobalDefines.LineKeys.DateTimeMessage)).build();
             builder.addTextMessageInfo(msgInfoMap);
         }

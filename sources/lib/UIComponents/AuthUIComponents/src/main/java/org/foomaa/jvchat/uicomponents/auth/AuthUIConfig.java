@@ -41,8 +41,7 @@ public class AuthUIConfig {
 
     @Bean
     @Profile("users")
-    public ButtonAuthUIFactory beanButtonAuthUIFactory(
-            ObjectProvider<ButtonAuthUI> buttonAuthUIObjectProvider) {
+    public ButtonAuthUIFactory beanButtonAuthUIFactory(ObjectProvider<ButtonAuthUI> buttonAuthUIObjectProvider) {
         return ButtonAuthUIFactory.builder().buttonAuthUIObjectProvider(buttonAuthUIObjectProvider).build();
     }
 
@@ -209,8 +208,7 @@ public class AuthUIConfig {
 
     @Bean
     @Profile("users")
-    public ToolTipAuthUIFactory beanToolTipAuthUIFactory(
-            ObjectProvider<ToolTipAuthUI> toolTipAuthUIObjectProvider) {
+    public ToolTipAuthUIFactory beanToolTipAuthUIFactory(ObjectProvider<ToolTipAuthUI> toolTipAuthUIObjectProvider) {
         return ToolTipAuthUIFactory.builder().toolTipAuthUIObjectProvider(toolTipAuthUIObjectProvider).build();
     }
 

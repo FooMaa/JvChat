@@ -10,10 +10,9 @@ public class FindTextFieldMainChatUIFactory {
     private final ObjectProvider<FindTextFieldMainChatUI> findTextFieldMainChatUIObjectProvider;
 
     @Builder
-    FindTextFieldMainChatUIFactory(
-            ObjectProvider<FindTextFieldMainChatUI> findTextFieldMainChatUIObjectProvider) {
-        this.findTextFieldMainChatUIObjectProvider = Objects.requireNonNull(
-                findTextFieldMainChatUIObjectProvider, "findTextFieldMainChatUIObjectProvider is mandatory");
+    FindTextFieldMainChatUIFactory(ObjectProvider<FindTextFieldMainChatUI> findTextFieldMainChatUIObjectProvider) {
+        this.findTextFieldMainChatUIObjectProvider = Objects.requireNonNull(findTextFieldMainChatUIObjectProvider,
+                "findTextFieldMainChatUIObjectProvider is mandatory");
     }
 
     public FindTextFieldMainChatUI create(String defaultText) {

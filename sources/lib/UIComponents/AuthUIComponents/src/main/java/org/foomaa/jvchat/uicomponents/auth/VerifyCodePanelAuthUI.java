@@ -136,13 +136,12 @@ public class VerifyCodePanelAuthUI extends JPanel {
         bSet.addActionListener(event -> {
             if (checkFields()) {
                 if (regime == RegimeWork.ResetPassword) {
-                    sendMessagesCtrl.sendMessage(
-                            DefinesMessages.TypeMessage.VerifyFamousEmailRequest, email, tCode.getInputText());
+                    sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.VerifyFamousEmailRequest, email,
+                            tCode.getInputText());
                     waitRepeatServerResetPassword();
                 } else if (regime == RegimeWork.Registration) {
-                    sendMessagesCtrl.sendMessage(
-                            DefinesMessages.TypeMessage.VerifyRegistrationEmailRequest, login, email, password,
-                            tCode.getInputText());
+                    sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.VerifyRegistrationEmailRequest, login,
+                            email, password, tCode.getInputText());
                     waitRepeatServerRegistration();
                 }
             }
@@ -245,8 +244,8 @@ public class VerifyCodePanelAuthUI extends JPanel {
             case Code -> optionPaneAuthUIFactory.create().show(
                     "The code is not correct. Enter the code you received by mail again.\n" + "The code may have expired, enter your email again and get a new one.",
                     OptionPaneAuthUI.TypeDlg.ERROR);
-            case LoginAndEmail -> optionPaneAuthUIFactory.create().show(
-                    "The email and login data are already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case LoginAndEmail -> optionPaneAuthUIFactory.create().show("The email and login data are already in use.",
+                    OptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 }

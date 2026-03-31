@@ -48,8 +48,7 @@ public class ServersInfoSettings {
     // DATABASE
     private final String dbUrl = "jdbc:postgresql://127.0.0.1:5432/jvchat";
     private final String dbUser = "jvchat";
-    private final String magicStringDb = new String(
-            Base64.getDecoder().decode("MTExMQ==".getBytes()));
+    private final String magicStringDb = new String(Base64.getDecoder().decode("MTExMQ==".getBytes()));
 
     public String getDbUrl() {
         return dbUrl;

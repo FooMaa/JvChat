@@ -26,16 +26,14 @@ public class ServersTools {
     public void initServersParameters() {
         Scanner in = new Scanner(System.in);
 
-        log.info(
-                "Set the IP-address or push \"Enter\" for default value (default value \"auto\"): ");
+        log.info("Set the IP-address or push \"Enter\" for default value (default value \"auto\"): ");
         while (true) {
             String ip = in.nextLine();
             if (mainTools.validateInputIp(ip)) {
                 setIpToSettings(ip);
                 break;
             } else {
-                log.error(
-                        "Set the IP-address again or push \"Enter\" for default value (default value \"auto\"): ");
+                log.error("Set the IP-address again or push \"Enter\" for default value (default value \"auto\"): ");
             }
         }
 
@@ -48,13 +46,11 @@ public class ServersTools {
                 }
                 break;
             } else {
-                log.error(
-                        "Set the port again or push \"Enter\" for default value (default value \"4004\"): ");
+                log.error("Set the port again or push \"Enter\" for default value (default value \"4004\"): ");
             }
         }
 
-        log.info(
-                "Set the limit count connections or push \"Enter\" for default value (default value \"1000\"): ");
+        log.info("Set the limit count connections or push \"Enter\" for default value (default value \"1000\"): ");
         while (true) {
             String limitConnection = in.nextLine();
             if (validateInputLimitConnections(limitConnection)) {

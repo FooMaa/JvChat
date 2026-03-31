@@ -109,8 +109,7 @@ public class MessagesDialogCtrl {
                     (String) msg.get(DefinesMessages.TypeData.Timestamp), normalizeCountTimestamp);
 
             if (timestampMessage == null) {
-                log.warn(
-                        "It was not possible to normalize the date and time to the required format.");
+                log.warn("It was not possible to normalize the date and time to the required format.");
             }
 
             messagesModel.createNewMessage(uuidUserSender, uuidUserReceiver, uuidMessage, statusMessage, text,
@@ -135,8 +134,7 @@ public class MessagesDialogCtrl {
                 timestampNewMessage);
     }
 
-    public void setDirtyStatusToMessage(
-            Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages) {
+    public void setDirtyStatusToMessage(Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages) {
         for (UUID uuid : mapStatusesMessages.keySet()) {
             MessageStructObject message = findMessage(uuid);
             if (message != null) {

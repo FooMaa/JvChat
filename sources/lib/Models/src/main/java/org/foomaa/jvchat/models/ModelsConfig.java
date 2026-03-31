@@ -36,8 +36,7 @@ public class ModelsConfig {
     @Bean
     @Lazy
     public ConnectionsEventsModel beanConnectionsEventsModel(RootStructObjectFactory rootStructObjectFactory,
-            RootObjectsModel rootObjectsModel,
-            ConnectionEventStructObjectFactory connectionEventStructObjectFactory) {
+            RootObjectsModel rootObjectsModel, ConnectionEventStructObjectFactory connectionEventStructObjectFactory) {
         return ConnectionsEventsModel.builder().rootStructObjectFactory(rootStructObjectFactory).rootObjectsModel(
                 rootObjectsModel).connectionEventStructObjectFactory(connectionEventStructObjectFactory).build();
     }
@@ -68,8 +67,7 @@ public class ModelsConfig {
     @Bean
     @Lazy
     public UsersModel beanUsersModel(UserStructObjectFactory userStructObjectFactory,
-            RootStructObjectFactory rootStructObjectFactory,
-            RootObjectsModel rootObjectsModel) {
+            RootStructObjectFactory rootStructObjectFactory, RootObjectsModel rootObjectsModel) {
         return UsersModel.builder().userStructObjectFactory(userStructObjectFactory).rootStructObjectFactory(
                 rootStructObjectFactory).rootObjectsModel(rootObjectsModel).build();
     }

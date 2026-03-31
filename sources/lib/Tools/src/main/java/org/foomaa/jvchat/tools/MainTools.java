@@ -26,8 +26,7 @@ public class MainTools {
     }
 
     public boolean validateInputIp(String param) {
-        Pattern regex = Pattern.compile(
-                "^(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])$");
+        Pattern regex = Pattern.compile("^(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])$");
         if (param.isEmpty()) {
             return true;
         }

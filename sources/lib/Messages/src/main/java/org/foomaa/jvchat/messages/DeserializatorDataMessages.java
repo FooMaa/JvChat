@@ -2,17 +2,16 @@ package org.foomaa.jvchat.messages;
 
 import java.util.*;
 
-import org.springframework.stereotype.Component;
-
 import com.google.protobuf.InvalidProtocolBufferException;
 
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 
-@Component
 @Slf4j
 public class DeserializatorDataMessages {
+    @Builder
     DeserializatorDataMessages() {
     }
 
@@ -37,18 +36,14 @@ public class DeserializatorDataMessages {
             case LoadUsersOnlineStatusRequest -> takeLoadUsersOnlineStatusRequestMessage(data);
             case LoadUsersOnlineStatusReply -> takeLoadUsersOnlineStatusReplyMessage(data);
             case TextMessageSendUserToServer -> takeTextMessageSendUserToServerMessage(data);
-            case TextMessageSendUserToServerVerification -> takeTextMessageSendUserToServerVerificationMessage(
-                    data);
-            case TextMessagesChangingStatusFromServer -> takeTextMessagesChangingStatusFromServerMessage(
-                    data);
+            case TextMessageSendUserToServerVerification -> takeTextMessageSendUserToServerVerificationMessage(data);
+            case TextMessagesChangingStatusFromServer -> takeTextMessagesChangingStatusFromServerMessage(data);
             case TextMessagesChangingStatusFromServerVerification -> takeTextMessagesChangingStatusFromServerVerificationMessage(
                     data);
-            case TextMessagesChangingStatusFromUser -> takeTextMessagesChangingStatusFromUserMessage(
-                    data);
+            case TextMessagesChangingStatusFromUser -> takeTextMessagesChangingStatusFromUserMessage(data);
             case TextMessagesChangingStatusFromUserVerification -> takeTextMessagesChangingStatusFromUserVerificationMessage(
                     data);
-            case TextMessageRedirectServerToUser -> takeTextMessageRedirectServerToUserMessage(
-                    data);
+            case TextMessageRedirectServerToUser -> takeTextMessageRedirectServerToUserMessage(data);
             case TextMessageRedirectServerToUserVerification -> takeTextMessageRedirectServerToUserVerificationMessage(
                     data);
             case MessagesLoadRequest -> takeMessagesLoadRequestMessage(data);
@@ -70,10 +65,10 @@ public class DeserializatorDataMessages {
     private HashMap<DefinesMessages.TypeData, String> takeEntryRequestMessage(byte[] data) {
         HashMap<DefinesMessages.TypeData, String> result = new HashMap<>();
         try {
-            result.put(DefinesMessages.TypeData.Login, ClientServerSerializeProtocolMessage_pb.General.parseFrom(
-                    data).getEntryRequest().getLogin());
-            result.put(DefinesMessages.TypeData.Password, ClientServerSerializeProtocolMessage_pb.General.parseFrom(
-                    data).getEntryRequest().getPassword());
+            result.put(DefinesMessages.TypeData.Login,
+                    ClientServerSerializeProtocolMessage_pb.General.parseFrom(data).getEntryRequest().getLogin());
+            result.put(DefinesMessages.TypeData.Password,
+                    ClientServerSerializeProtocolMessage_pb.General.parseFrom(data).getEntryRequest().getPassword());
         } catch (InvalidProtocolBufferException exception) {
             log.error("Error in protobuf deserialised data.");
         }
@@ -83,8 +78,8 @@ public class DeserializatorDataMessages {
     private HashMap<DefinesMessages.TypeData, Object> takeEntryReplyMessage(byte[] data) {
         HashMap<DefinesMessages.TypeData, Object> result = new HashMap<>();
         try {
-            result.put(DefinesMessages.TypeData.BoolReply, ClientServerSerializeProtocolMessage_pb.General.parseFrom(
-                    data).getEntryReply().getReply());
+            result.put(DefinesMessages.TypeData.BoolReply,
+                    ClientServerSerializeProtocolMessage_pb.General.parseFrom(data).getEntryReply().getReply());
             result.put(DefinesMessages.TypeData.UuidUser, UUID.fromString(
                     ClientServerSerializeProtocolMessage_pb.General.parseFrom(data).getEntryReply().getUuidUser()));
         } catch (InvalidProtocolBufferException exception) {
@@ -111,19 +106,19 @@ public class DeserializatorDataMessages {
     private HashMap<DefinesMessages.TypeData, Object> takeRegistrationReplyMessage(byte[] data) {
         HashMap<DefinesMessages.TypeData, Object> result = new HashMap<>();
         try {
-            result.put(DefinesMessages.TypeData.BoolReply, ClientServerSerializeProtocolMessage_pb.General.parseFrom(
-                    data).getRegistrationReply().getReply());
-            result.put(DefinesMessages.TypeData.ErrorReg, DefinesMessages.TypeErrorRegistration.getTypeError(
-                    ClientServerSerializeProtocolMessage_pb.General.parseFrom(
-                            data).getRegistrationReply().getError().getNumber()));
+            result.put(DefinesMessages.TypeData.BoolReply,
+                    ClientServerSerializeProtocolMessage_pb.General.parseFrom(data).getRegistrationReply().getReply());
+            result.put(DefinesMessages.TypeData.ErrorReg,
+                    DefinesMessages.TypeErrorRegistration.getTypeError(
+                            ClientServerSerializeProtocolMessage_pb.General.parseFrom(
+                                    data).getRegistrationReply().getError().getNumber()));
         } catch (InvalidProtocolBufferException exception) {
             log.error("Error in protobuf deserialised data.");
         }
         return result;
     }
 
-    private HashMap<DefinesMessages.TypeData, String> takeVerifyRegistrationEmailRequestMessage(
-            byte[] data) {
+    private HashMap<DefinesMessages.TypeData, String> takeVerifyRegistrationEmailRequestMessage(byte[] data) {
         HashMap<DefinesMessages.TypeData, String> result = new HashMap<>();
         try {
             result.put(DefinesMessages.TypeData.Login, ClientServerSerializeProtocolMessage_pb.General.parseFrom(
@@ -140,15 +135,15 @@ public class DeserializatorDataMessages {
         return result;
     }
 
-    private HashMap<DefinesMessages.TypeData, Object> takeVerifyRegistrationEmailReplyMessage(
-            byte[] data) {
+    private HashMap<DefinesMessages.TypeData, Object> takeVerifyRegistrationEmailReplyMessage(byte[] data) {
         HashMap<DefinesMessages.TypeData, Object> result = new HashMap<>();
         try {
             result.put(DefinesMessages.TypeData.BoolReply, ClientServerSerializeProtocolMessage_pb.General.parseFrom(
                     data).getVerifyRegistrationEmailReply().getReply());
-            result.put(DefinesMessages.TypeData.ErrorReg, DefinesMessages.TypeErrorRegistration.getTypeError(
-                    ClientServerSerializeProtocolMessage_pb.General.parseFrom(
-                            data).getVerifyRegistrationEmailReply().getError().getNumber()));
+            result.put(DefinesMessages.TypeData.ErrorReg,
+                    DefinesMessages.TypeErrorRegistration.getTypeError(
+                            ClientServerSerializeProtocolMessage_pb.General.parseFrom(
+                                    data).getVerifyRegistrationEmailReply().getError().getNumber()));
         } catch (InvalidProtocolBufferException exception) {
             log.error("Error in protobuf deserialised data.");
         }
@@ -169,16 +164,15 @@ public class DeserializatorDataMessages {
     private HashMap<DefinesMessages.TypeData, Boolean> takeResetPasswordReplyMessage(byte[] data) {
         HashMap<DefinesMessages.TypeData, Boolean> result = new HashMap<>();
         try {
-            result.put(DefinesMessages.TypeData.BoolReply, ClientServerSerializeProtocolMessage_pb.General.parseFrom(
-                    data).getResetPasswordReply().getReply());
+            result.put(DefinesMessages.TypeData.BoolReply,
+                    ClientServerSerializeProtocolMessage_pb.General.parseFrom(data).getResetPasswordReply().getReply());
         } catch (InvalidProtocolBufferException exception) {
             log.error("Error in protobuf deserialised data.");
         }
         return result;
     }
 
-    private HashMap<DefinesMessages.TypeData, String> takeVerifyFamousEmailRequestMessage(
-            byte[] data) {
+    private HashMap<DefinesMessages.TypeData, String> takeVerifyFamousEmailRequestMessage(byte[] data) {
         HashMap<DefinesMessages.TypeData, String> result = new HashMap<>();
         try {
             result.put(DefinesMessages.TypeData.Email, ClientServerSerializeProtocolMessage_pb.General.parseFrom(
@@ -191,8 +185,7 @@ public class DeserializatorDataMessages {
         return result;
     }
 
-    private HashMap<DefinesMessages.TypeData, Boolean> takeVerifyFamousEmailReplyMessage(
-            byte[] data) {
+    private HashMap<DefinesMessages.TypeData, Boolean> takeVerifyFamousEmailReplyMessage(byte[] data) {
         HashMap<DefinesMessages.TypeData, Boolean> result = new HashMap<>();
         try {
             result.put(DefinesMessages.TypeData.BoolReply, ClientServerSerializeProtocolMessage_pb.General.parseFrom(
@@ -203,8 +196,7 @@ public class DeserializatorDataMessages {
         return result;
     }
 
-    private HashMap<DefinesMessages.TypeData, String> takeChangePasswordRequestMessage(
-            byte[] data) {
+    private HashMap<DefinesMessages.TypeData, String> takeChangePasswordRequestMessage(byte[] data) {
         HashMap<DefinesMessages.TypeData, String> result = new HashMap<>();
         try {
             result.put(DefinesMessages.TypeData.Email, ClientServerSerializeProtocolMessage_pb.General.parseFrom(
@@ -282,12 +274,11 @@ public class DeserializatorDataMessages {
         return result;
     }
 
-    private HashMap<DefinesMessages.TypeData, String> takeCheckOnlineUserRequestMessage(
-            byte[] data) {
+    private HashMap<DefinesMessages.TypeData, String> takeCheckOnlineUserRequestMessage(byte[] data) {
         HashMap<DefinesMessages.TypeData, String> result = new HashMap<>();
         try {
-            result.put(DefinesMessages.TypeData.IP, ClientServerSerializeProtocolMessage_pb.General.parseFrom(
-                    data).getCheckOnlineRequest().getIp());
+            result.put(DefinesMessages.TypeData.IP,
+                    ClientServerSerializeProtocolMessage_pb.General.parseFrom(data).getCheckOnlineRequest().getIp());
         } catch (InvalidProtocolBufferException exception) {
             log.error("Error in protobuf deserialised data.");
         }
@@ -297,8 +288,8 @@ public class DeserializatorDataMessages {
     private HashMap<DefinesMessages.TypeData, UUID> takeCheckOnlineUserReplyMessage(byte[] data) {
         HashMap<DefinesMessages.TypeData, UUID> result = new HashMap<>();
         try {
-            result.put(DefinesMessages.TypeData.UuidUser, UUID.fromString(
-                    ClientServerSerializeProtocolMessage_pb.General.parseFrom(
+            result.put(DefinesMessages.TypeData.UuidUser,
+                    UUID.fromString(ClientServerSerializeProtocolMessage_pb.General.parseFrom(
                             data).getCheckOnlineReply().getUuidUser()));
         } catch (InvalidProtocolBufferException exception) {
             log.error("Error in protobuf deserialised data.");
@@ -306,8 +297,7 @@ public class DeserializatorDataMessages {
         return result;
     }
 
-    private HashMap<DefinesMessages.TypeData, List<UUID>> takeLoadUsersOnlineStatusRequestMessage(
-            byte[] data) {
+    private HashMap<DefinesMessages.TypeData, List<UUID>> takeLoadUsersOnlineStatusRequestMessage(byte[] data) {
         HashMap<DefinesMessages.TypeData, List<UUID>> result = new HashMap<>();
         try {
             ClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusRequest loadUsersOnlineStatusRequestMsg = ClientServerSerializeProtocolMessage_pb.General.parseFrom(
@@ -326,8 +316,7 @@ public class DeserializatorDataMessages {
         return result;
     }
 
-    private HashMap<DefinesMessages.TypeData, Map<UUID, ?>> takeLoadUsersOnlineStatusReplyMessage(
-            byte[] data) {
+    private HashMap<DefinesMessages.TypeData, Map<UUID, ?>> takeLoadUsersOnlineStatusReplyMessage(byte[] data) {
         HashMap<DefinesMessages.TypeData, Map<UUID, ?>> result = new HashMap<>();
         try {
             ClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusReply loadUsersOnlineStatusReply = ClientServerSerializeProtocolMessage_pb.General.parseFrom(
@@ -358,8 +347,7 @@ public class DeserializatorDataMessages {
         return result;
     }
 
-    private HashMap<DefinesMessages.TypeData, Object> takeTextMessageSendUserToServerMessage(
-            byte[] data) {
+    private HashMap<DefinesMessages.TypeData, Object> takeTextMessageSendUserToServerMessage(byte[] data) {
         HashMap<DefinesMessages.TypeData, Object> result = new HashMap<>();
         try {
             ClientServerSerializeProtocolMessage_pb.TextMessageSendUserToServer msgData = ClientServerSerializeProtocolMessage_pb.General.parseFrom(
@@ -377,8 +365,7 @@ public class DeserializatorDataMessages {
         return result;
     }
 
-    private HashMap<DefinesMessages.TypeData, Object> takeTextMessageSendUserToServerVerificationMessage(
-            byte[] data) {
+    private HashMap<DefinesMessages.TypeData, Object> takeTextMessageSendUserToServerVerificationMessage(byte[] data) {
         HashMap<DefinesMessages.TypeData, Object> result = new HashMap<>();
         try {
             result.put(DefinesMessages.TypeData.BoolReply, ClientServerSerializeProtocolMessage_pb.General.parseFrom(
@@ -389,8 +376,7 @@ public class DeserializatorDataMessages {
         return result;
     }
 
-    private HashMap<DefinesMessages.TypeData, Object> takeTextMessagesChangingStatusFromServerMessage(
-            byte[] data) {
+    private HashMap<DefinesMessages.TypeData, Object> takeTextMessagesChangingStatusFromServerMessage(byte[] data) {
         HashMap<DefinesMessages.TypeData, Object> result = new HashMap<>();
         try {
             ClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServer msgData = ClientServerSerializeProtocolMessage_pb.General.parseFrom(
@@ -426,8 +412,7 @@ public class DeserializatorDataMessages {
         return result;
     }
 
-    private HashMap<DefinesMessages.TypeData, Object> takeTextMessagesChangingStatusFromUserMessage(
-            byte[] data) {
+    private HashMap<DefinesMessages.TypeData, Object> takeTextMessagesChangingStatusFromUserMessage(byte[] data) {
         HashMap<DefinesMessages.TypeData, Object> result = new HashMap<>();
         try {
             ClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromUser msgData = ClientServerSerializeProtocolMessage_pb.General.parseFrom(
@@ -463,8 +448,7 @@ public class DeserializatorDataMessages {
         return result;
     }
 
-    private HashMap<DefinesMessages.TypeData, Object> takeTextMessageRedirectServerToUserMessage(
-            byte[] data) {
+    private HashMap<DefinesMessages.TypeData, Object> takeTextMessageRedirectServerToUserMessage(byte[] data) {
         HashMap<DefinesMessages.TypeData, Object> result = new HashMap<>();
         try {
             ClientServerSerializeProtocolMessage_pb.TextMessageSendUserToServer msgData = ClientServerSerializeProtocolMessage_pb.General.parseFrom(

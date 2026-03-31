@@ -44,8 +44,7 @@ public class ChatsCtrl {
                     (String) chat.get(DefinesMessages.TypeData.Timestamp), normalizeTimestampCount);
 
             if (timestampLastMessage == null) {
-                log.warn(
-                        "It was not possible to normalize the date and time to the required format.");
+                log.warn("It was not possible to normalize the date and time to the required format.");
             }
 
             chatsModel.createNewChat(login, uuidUser, lastMessageText, uuidChat, uuidLastMessage,
@@ -53,8 +52,7 @@ public class ChatsCtrl {
         }
     }
 
-    public void setOnlineStatusesUsers(
-            Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> onlineStatusesUsers) {
+    public void setOnlineStatusesUsers(Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> onlineStatusesUsers) {
         for (UUID uuidUser : onlineStatusesUsers.keySet()) {
             chatsModel.setOnlineStatusToUser(uuidUser, onlineStatusesUsers.get(uuidUser));
         }
@@ -63,16 +61,15 @@ public class ChatsCtrl {
     public void setLastOnlineTimeUsersByStrings(Map<UUID, String> lastOnlineTimeUsers) {
         int normalizeTimestampCount = 3;
         for (UUID uuidUser : lastOnlineTimeUsers.keySet()) {
-            LocalDateTime timestamp = formatTools.stringToLocalDateTime(
-                    lastOnlineTimeUsers.get(uuidUser), normalizeTimestampCount);
+            LocalDateTime timestamp = formatTools.stringToLocalDateTime(lastOnlineTimeUsers.get(uuidUser),
+                    normalizeTimestampCount);
             chatsModel.setTimestampLastOnlineToUser(uuidUser, timestamp);
         }
     }
 
     public String getTimeFormattedLastOnline(LocalDateTime lastOnlineDateTime) {
         if (lastOnlineDateTime == null) {
-            log.warn(
-                    "Here lastOnlineDateTime turned out to be null (Maybe for those who are online).");
+            log.warn("Here lastOnlineDateTime turned out to be null (Maybe for those who are online).");
             return "";
         }
 

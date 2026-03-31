@@ -85,8 +85,7 @@ public class SendMessagesCtrl {
                     byte[] bodyMessage = createBodyVerifyRegistrationEmailRequestMessage(type, (String) login,
                             (String) email, (String) password, (String) code);
                     sendReadyMessageNetwork(bodyMessage);
-                    messagesDefinesCtrl.setVerifyRegistrationEmailRequestFlag(
-                            MessagesDefinesCtrl.TypeFlags.DEFAULT);
+                    messagesDefinesCtrl.setVerifyRegistrationEmailRequestFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
                 }
             }
             case VerifyRegistrationEmailReply -> {
@@ -222,11 +221,10 @@ public class SendMessagesCtrl {
             case TextMessageSendUserToServerVerification -> {
                 if (parameters.length == 1) {
                     Object reply = parameters[0];
-                    byte[] bodyMessage = createBodyTextMessageSendUserToServerVerificationMessage(
-                            type, (Boolean) reply);
+                    byte[] bodyMessage = createBodyTextMessageSendUserToServerVerificationMessage(type,
+                            (Boolean) reply);
                     sendReadyMessageNetwork(bodyMessage);
-                    messagesDefinesCtrl.setTextMessageSendUserToServerFlag(
-                            MessagesDefinesCtrl.TypeFlags.DEFAULT);
+                    messagesDefinesCtrl.setTextMessageSendUserToServerFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
                 }
             }
             case TextMessagesChangingStatusFromServer -> {
@@ -242,8 +240,8 @@ public class SendMessagesCtrl {
             case TextMessagesChangingStatusFromServerVerification -> {
                 if (parameters.length == 1) {
                     Object reply = parameters[0];
-                    byte[] bodyMessage = createBodyTextMessagesChangingStatusFromServerVerificationMessage(
-                            type, (Boolean) reply);
+                    byte[] bodyMessage = createBodyTextMessagesChangingStatusFromServerVerificationMessage(type,
+                            (Boolean) reply);
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
@@ -259,8 +257,8 @@ public class SendMessagesCtrl {
             case TextMessagesChangingStatusFromUserVerification -> {
                 if (parameters.length == 1) {
                     Object reply = parameters[0];
-                    byte[] bodyMessage = createBodyTextMessagesChangingStatusFromUserVerificationMessage(
-                            type, (Boolean) reply);
+                    byte[] bodyMessage = createBodyTextMessagesChangingStatusFromUserVerificationMessage(type,
+                            (Boolean) reply);
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
@@ -280,8 +278,8 @@ public class SendMessagesCtrl {
             case TextMessageRedirectServerToUserVerification -> {
                 if (parameters.length == 1) {
                     Object reply = parameters[0];
-                    byte[] bodyMessage = createBodyTextMessageRedirectServerToUserVerificationMessage(
-                            type, (Boolean) reply);
+                    byte[] bodyMessage = createBodyTextMessageRedirectServerToUserVerificationMessage(type,
+                            (Boolean) reply);
                     sendReadyMessageNetwork(bodyMessage);
                 }
             }
@@ -415,40 +413,39 @@ public class SendMessagesCtrl {
                 timestamp);
     }
 
-    private byte[] createBodyTextMessageSendUserToServerVerificationMessage(
-            DefinesMessages.TypeMessage type, boolean reply) {
+    private byte[] createBodyTextMessageSendUserToServerVerificationMessage(DefinesMessages.TypeMessage type,
+            boolean reply) {
         return serializatorDataMessages.serialiseData(type, reply);
     }
 
-    private byte[] createBodyTextMessagesChangingStatusFromServerMessage(
-            DefinesMessages.TypeMessage type, Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
+    private byte[] createBodyTextMessagesChangingStatusFromServerMessage(DefinesMessages.TypeMessage type,
+            Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
         return serializatorDataMessages.serialiseData(type, mapStatusMessages);
     }
 
-    private byte[] createBodyTextMessagesChangingStatusFromServerVerificationMessage(
-            DefinesMessages.TypeMessage type, boolean reply) {
+    private byte[] createBodyTextMessagesChangingStatusFromServerVerificationMessage(DefinesMessages.TypeMessage type,
+            boolean reply) {
         return serializatorDataMessages.serialiseData(type, reply);
     }
 
-    private byte[] createBodyTextMessagesChangingStatusFromUserMessage(
-            DefinesMessages.TypeMessage type, Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
+    private byte[] createBodyTextMessagesChangingStatusFromUserMessage(DefinesMessages.TypeMessage type,
+            Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
         return serializatorDataMessages.serialiseData(type, mapStatusMessages);
     }
 
-    private byte[] createBodyTextMessagesChangingStatusFromUserVerificationMessage(
-            DefinesMessages.TypeMessage type, boolean reply) {
+    private byte[] createBodyTextMessagesChangingStatusFromUserVerificationMessage(DefinesMessages.TypeMessage type,
+            boolean reply) {
         return serializatorDataMessages.serialiseData(type, reply);
     }
 
-    private byte[] createBodyTextMessageRedirectServerToUserMessage(
-            DefinesMessages.TypeMessage type, UUID uuidUserSender, UUID uuidUserReceiver, UUID uuidMessage, String text,
-            String timestamp) {
+    private byte[] createBodyTextMessageRedirectServerToUserMessage(DefinesMessages.TypeMessage type,
+            UUID uuidUserSender, UUID uuidUserReceiver, UUID uuidMessage, String text, String timestamp) {
         return serializatorDataMessages.serialiseData(type, uuidUserSender, uuidUserReceiver, uuidMessage, text,
                 timestamp);
     }
 
-    private byte[] createBodyTextMessageRedirectServerToUserVerificationMessage(
-            DefinesMessages.TypeMessage type, boolean reply) {
+    private byte[] createBodyTextMessageRedirectServerToUserVerificationMessage(DefinesMessages.TypeMessage type,
+            boolean reply) {
         return serializatorDataMessages.serialiseData(type, reply);
     }
 

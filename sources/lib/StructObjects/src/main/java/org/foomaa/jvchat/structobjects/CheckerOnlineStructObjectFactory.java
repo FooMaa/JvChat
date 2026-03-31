@@ -11,8 +11,7 @@ public class CheckerOnlineStructObjectFactory {
     private final ObjectProvider<CheckerOnlineStructObject> checkerOnlineObjectProvider;
 
     @Builder
-    CheckerOnlineStructObjectFactory(
-            ObjectProvider<CheckerOnlineStructObject> checkerOnlineObjectProvider) {
+    CheckerOnlineStructObjectFactory(ObjectProvider<CheckerOnlineStructObject> checkerOnlineObjectProvider) {
         this.checkerOnlineObjectProvider = Objects.requireNonNull(checkerOnlineObjectProvider,
                 "checkerOnlineObjectProvider is mandatory");
     }

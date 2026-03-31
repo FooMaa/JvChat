@@ -13,8 +13,7 @@ public class SocketRunnableCtrlModel extends BaseModel {
     private final SocketRunnableCtrlStructObjectFactory socketRunnableCtrlStructObjectFactory;
 
     @Builder
-    SocketRunnableCtrlModel(
-            SocketRunnableCtrlStructObjectFactory socketRunnableCtrlStructObjectFactory,
+    SocketRunnableCtrlModel(SocketRunnableCtrlStructObjectFactory socketRunnableCtrlStructObjectFactory,
             RootStructObjectFactory rootStructObjectFactory, RootObjectsModel rootObjectsModel) {
         super(Objects.requireNonNull(rootObjectsModel, "rootObjectsModel is mandatory"), Objects.requireNonNull(
                 rootStructObjectFactory, "rootStructObjectFactory is mandatory"));
@@ -40,8 +39,7 @@ public class SocketRunnableCtrlModel extends BaseModel {
         return resultList;
     }
 
-    private SocketRunnableCtrlStructObject findSocketRunnableCtrlStructObjectByRunnable(
-            Runnable runnable) {
+    private SocketRunnableCtrlStructObject findSocketRunnableCtrlStructObjectByRunnable(Runnable runnable) {
         for (BaseStructObject baseStructObject : getRootObject().getChildren()) {
             SocketRunnableCtrlStructObject socketRunnableCtrlStructObject = (SocketRunnableCtrlStructObject) baseStructObject;
             if (socketRunnableCtrlStructObject != null && socketRunnableCtrlStructObject.getSocketRunnableCtrl() == runnable) {
@@ -52,8 +50,7 @@ public class SocketRunnableCtrlModel extends BaseModel {
         return null;
     }
 
-    public SocketRunnableCtrlStructObject findCreateSocketRunnableCtrlStructObjectByRunnable(
-            Runnable runnable) {
+    public SocketRunnableCtrlStructObject findCreateSocketRunnableCtrlStructObjectByRunnable(Runnable runnable) {
         SocketRunnableCtrlStructObject socketRunnableCtrlStructObject = findSocketRunnableCtrlStructObjectByRunnable(
                 runnable);
 

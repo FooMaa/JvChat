@@ -89,8 +89,7 @@ public class TitlePanelAuthUI extends JPanel {
             ImageIcon iconEntered = new ImageIcon(imageEntered);
 
             button.setIcon(iconExited);
-            button.setPreferredSize(
-                    new Dimension(iconExited.getIconWidth(), iconExited.getIconWidth()));
+            button.setPreferredSize(new Dimension(iconExited.getIconWidth(), iconExited.getIconWidth()));
 
             button.addMouseListener(new MouseAdapter() {
                 @Override

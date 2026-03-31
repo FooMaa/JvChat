@@ -156,8 +156,7 @@ public class FindTextFieldMainChatUI extends JPanel {
     }
 
     public void setNormalBorder() {
-        setBorder(
-                BorderFactory.createMatteBorder(borderSize, borderSize, borderSize, 7, Color.GRAY));
+        setBorder(BorderFactory.createMatteBorder(borderSize, borderSize, borderSize, 7, Color.GRAY));
     }
 
     public void setUnfocusFieldOnClose(boolean needSaveText) {

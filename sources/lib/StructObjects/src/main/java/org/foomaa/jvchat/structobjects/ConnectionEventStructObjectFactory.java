@@ -11,8 +11,7 @@ public class ConnectionEventStructObjectFactory {
     private final ObjectProvider<ConnectionEventStructObject> connectionEventsObjectProvider;
 
     @Builder
-    ConnectionEventStructObjectFactory(
-            ObjectProvider<ConnectionEventStructObject> connectionEventsObjectProvider) {
+    ConnectionEventStructObjectFactory(ObjectProvider<ConnectionEventStructObject> connectionEventsObjectProvider) {
         this.connectionEventsObjectProvider = Objects.requireNonNull(connectionEventsObjectProvider,
                 "connectionEventsObjectProvider is mandatory");
     }

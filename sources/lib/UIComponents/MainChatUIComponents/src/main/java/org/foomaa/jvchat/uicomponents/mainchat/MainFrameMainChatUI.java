@@ -65,8 +65,7 @@ public class MainFrameMainChatUI extends JFrame {
     }
 
     private void settingLoadLabel() {
-        loadGifLabel = new JLabel(
-                new ImageIcon(Objects.requireNonNull(getClass().getResource(loadGifPath))));
+        loadGifLabel = new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getResource(loadGifPath))));
         loadGifLabel.setOpaque(false);
         loadGifLabel.setBackground(new Color(0, 0, 0, 0));
     }

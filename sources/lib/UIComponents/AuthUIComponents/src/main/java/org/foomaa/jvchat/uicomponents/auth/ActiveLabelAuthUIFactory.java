@@ -11,8 +11,8 @@ public class ActiveLabelAuthUIFactory {
 
     @Builder
     ActiveLabelAuthUIFactory(ObjectProvider<ActiveLabelAuthUI> activeLabelAuthUIObjectProvider) {
-        this.activeLabelAuthUIObjectProvider = Objects.requireNonNull(
-                activeLabelAuthUIObjectProvider, "activeLabelAuthUIObjectProvider is mandatory");
+        this.activeLabelAuthUIObjectProvider = Objects.requireNonNull(activeLabelAuthUIObjectProvider,
+                "activeLabelAuthUIObjectProvider is mandatory");
     }
 
     public ActiveLabelAuthUI create(String text) {

@@ -1,31 +1,30 @@
 package org.foomaa.jvchat.messages;
 
+import lombok.Builder;
+
 public final class DefinesMessages {
+    @Builder
     DefinesMessages() {
     }
 
     public enum TypeMessage {
-        EntryRequest(0), EntryReply(1), RegistrationRequest(2), RegistrationReply(
-                3), VerifyRegistrationEmailRequest(4), VerifyRegistrationEmailReply(
-                        5), ResetPasswordRequest(6), ResetPasswordReply(
-                                7), VerifyFamousEmailRequest(8), VerifyFamousEmailReply(
-                                        9), ChangePasswordRequest(10), ChangePasswordReply(
-                                                11), ChatsLoadRequest(12), ChatsLoadReply(
-                                                        13), CheckOnlineUserRequest(
-                                                                14), CheckOnlineUserReply(
-                                                                        15), LoadUsersOnlineStatusRequest(
-                                                                                16), LoadUsersOnlineStatusReply(
-                                                                                        17), TextMessageSendUserToServer(
-                                                                                                18), TextMessageSendUserToServerVerification(
-                                                                                                        19), TextMessagesChangingStatusFromServer(
-                                                                                                                20), TextMessagesChangingStatusFromServerVerification(
-                                                                                                                        21), TextMessagesChangingStatusFromUser(
-                                                                                                                                22), TextMessagesChangingStatusFromUserVerification(
-                                                                                                                                        23), TextMessageRedirectServerToUser(
-                                                                                                                                                24), TextMessageRedirectServerToUserVerification(
-                                                                                                                                                        25), MessagesLoadRequest(
-                                                                                                                                                                26), MessagesLoadReply(
-                                                                                                                                                                        27);
+        EntryRequest(0), EntryReply(1), RegistrationRequest(2), RegistrationReply(3), VerifyRegistrationEmailRequest(
+                4), VerifyRegistrationEmailReply(5), ResetPasswordRequest(6), ResetPasswordReply(
+                        7), VerifyFamousEmailRequest(8), VerifyFamousEmailReply(9), ChangePasswordRequest(
+                                10), ChangePasswordReply(11), ChatsLoadRequest(12), ChatsLoadReply(
+                                        13), CheckOnlineUserRequest(14), CheckOnlineUserReply(
+                                                15), LoadUsersOnlineStatusRequest(16), LoadUsersOnlineStatusReply(
+                                                        17), TextMessageSendUserToServer(
+                                                                18), TextMessageSendUserToServerVerification(
+                                                                        19), TextMessagesChangingStatusFromServer(
+                                                                                20), TextMessagesChangingStatusFromServerVerification(
+                                                                                        21), TextMessagesChangingStatusFromUser(
+                                                                                                22), TextMessagesChangingStatusFromUserVerification(
+                                                                                                        23), TextMessageRedirectServerToUser(
+                                                                                                                24), TextMessageRedirectServerToUserVerification(
+                                                                                                                        25), MessagesLoadRequest(
+                                                                                                                                26), MessagesLoadReply(
+                                                                                                                                        27);
 
         private final int value;
 

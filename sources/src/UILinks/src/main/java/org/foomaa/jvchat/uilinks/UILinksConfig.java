@@ -25,8 +25,7 @@ public class UILinksConfig {
     @Bean
     @Lazy
     @Profile("users")
-    public StartAuthenticationUILink beanStartAuthenticationUILink(
-            MainFrameAuthUI mainFrameAuthUI) {
+    public StartAuthenticationUILink beanStartAuthenticationUILink(MainFrameAuthUI mainFrameAuthUI) {
         return StartAuthenticationUILink.builder().mainFrameAuthUI(mainFrameAuthUI).build();
     }
 }

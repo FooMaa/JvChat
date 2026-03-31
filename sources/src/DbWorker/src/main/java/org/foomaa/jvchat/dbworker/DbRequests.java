@@ -8,9 +8,8 @@ public class DbRequests {
     }
 
     public String insertToRegForm(String login, String email, String password, String uuid) {
-        return String.format(
-                "SELECT * FROM jvchat_schema.auth_users_info_save('%s', '%s', '%s', '%s');", login, email, password,
-                uuid);
+        return String.format("SELECT * FROM jvchat_schema.auth_users_info_save('%s', '%s', '%s', '%s');", login, email,
+                password, uuid);
     }
 
     public String insertCodeVerifyFamousEmail(String userUuid, String code) {
@@ -18,13 +17,12 @@ public class DbRequests {
     }
 
     public String insertChangePassword(String email, String password) {
-        return String.format(
-                "SELECT * FROM jvchat_schema.auth_users_info_change_password('%s', '%s');", email, password);
+        return String.format("SELECT * FROM jvchat_schema.auth_users_info_change_password('%s', '%s');", email,
+                password);
     }
 
     public String insertVerifyRegistrationEmail(String email, String code) {
-        return String.format(
-                "SELECT * FROM jvchat_schema.verify_registration_email_save( '%s','%s');", email, code);
+        return String.format("SELECT * FROM jvchat_schema.verify_registration_email_save( '%s','%s');", email, code);
     }
 
     public String insertOnlineUsersInfo(String uuidUser, String status) {
@@ -43,8 +41,8 @@ public class DbRequests {
     }
 
     public String checkUserPassword(String login, String password) {
-        return String.format(
-                "SELECT * FROM jvchat_schema.auth_users_info_check_login_password('%s', '%s');", login, password);
+        return String.format("SELECT * FROM jvchat_schema.auth_users_info_check_login_password('%s', '%s');", login,
+                password);
     }
 
     public String checkLogin(String login) {
@@ -56,13 +54,13 @@ public class DbRequests {
     }
 
     public String checkVerifyFamousEmailCode(String email, String code) {
-        return String.format(
-                "SELECT * FROM jvchat_schema.verify_famous_email_check_email_code('%s', '%s');", email, code);
+        return String.format("SELECT * FROM jvchat_schema.verify_famous_email_check_email_code('%s', '%s');", email,
+                code);
     }
 
     public String checkVerifyRegistrationEmail(String email, String code) {
-        return String.format(
-                "SELECT * FROM jvchat_schema.verify_registration_email_check_email_code('%s', '%s');", email, code);
+        return String.format("SELECT * FROM jvchat_schema.verify_registration_email_check_email_code('%s', '%s');",
+                email, code);
     }
 
     public String getUserUuidByEmail(String email) {
@@ -74,8 +72,7 @@ public class DbRequests {
     }
 
     public String getLoginByEmail(String email) {
-        return String.format(
-                "SELECT * FROM jvchat_schema.auth_users_info_get_login_by_email('%s');", email);
+        return String.format("SELECT * FROM jvchat_schema.auth_users_info_get_login_by_email('%s');", email);
     }
 
     public String getChats(String login) {
@@ -83,8 +80,8 @@ public class DbRequests {
     }
 
     public String getStatusOnlineTimeUser(String uuidUser) {
-        return String.format(
-                "SELECT * FROM jvchat_schema.online_users_info_get_status_time_by_uuid_user('%s');", uuidUser);
+        return String.format("SELECT * FROM jvchat_schema.online_users_info_get_status_time_by_uuid_user('%s');",
+                uuidUser);
     }
 
     public String getOnlineUsers() {
@@ -92,13 +89,11 @@ public class DbRequests {
     }
 
     public String getLastOnlineTimeUser(String uuidUser) {
-        return String.format(
-                "SELECT * FROM jvchat_schema.online_users_info_get_time_by_user_uuid('%s');", uuidUser);
+        return String.format("SELECT * FROM jvchat_schema.online_users_info_get_time_by_user_uuid('%s');", uuidUser);
     }
 
     public String getQuantityMessagesByUuids(String uuidChat, String quantity) {
-        return String.format(
-                "SELECT * FROM jvchat_schema.chats_messages_get_quantity_messages_by_chat('%s', %s);", uuidChat,
-                quantity);
+        return String.format("SELECT * FROM jvchat_schema.chats_messages_get_quantity_messages_by_chat('%s', %s);",
+                uuidChat, quantity);
     }
 }

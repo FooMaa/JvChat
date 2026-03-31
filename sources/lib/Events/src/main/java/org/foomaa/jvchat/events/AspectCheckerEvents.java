@@ -40,8 +40,7 @@ public class AspectCheckerEvents {
             if (objectFieldValue != null && objectFieldValue.equals(classFieldValue) && destination == targetObject) {
                 flagReturn = true;
             } else {
-                log.info(
-                        "Method execution skipped: uuid class argument != uuid event in this class");
+                log.info("Method execution skipped: uuid class argument != uuid event in this class");
             }
         }
 

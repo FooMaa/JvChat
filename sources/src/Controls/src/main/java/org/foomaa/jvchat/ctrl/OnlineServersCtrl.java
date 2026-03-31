@@ -63,8 +63,7 @@ public class OnlineServersCtrl {
         return false;
     }
 
-    private CheckerOnlineStructObject getCheckerOnlineByRunnable(
-            SocketRunnableCtrl socketRunnableCtrl) {
+    private CheckerOnlineStructObject getCheckerOnlineByRunnable(SocketRunnableCtrl socketRunnableCtrl) {
         List<CheckerOnlineStructObject> listCheckersOnline = checkersOnlineModel.getAllCheckersOnline();
 
         for (CheckerOnlineStructObject checkerOnline : listCheckersOnline) {
@@ -239,8 +238,7 @@ public class OnlineServersCtrl {
 
             if (flagSending && milliSecondsAfterLastSending < intervalMilliSecondsAfterLastSending) {
                 try {
-                    Thread.sleep(
-                            intervalMilliSecondsAfterLastSending - milliSecondsAfterLastSending);
+                    Thread.sleep(intervalMilliSecondsAfterLastSending - milliSecondsAfterLastSending);
                 } catch (InterruptedException exception) {
                     log.error("Thread.sleep() failed to running here.");
                 }
@@ -270,8 +268,7 @@ public class OnlineServersCtrl {
         }
     }
 
-    public Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> getStatusesUsers(
-            List<UUID> uuidsUsers) {
+    public Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> getStatusesUsers(List<UUID> uuidsUsers) {
         Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> resultMap = new HashMap<>();
         for (UUID uuidUser : uuidsUsers) {
             boolean isUserOnline = isUuidUserInListCheckerOnline(uuidUser);
@@ -289,8 +286,8 @@ public class OnlineServersCtrl {
         for (UUID uuidUser : uuidsUsers) {
             boolean isUserOnline = isUuidUserInListCheckerOnline(uuidUser);
             if (!isUserOnline) {
-                String lastOnlineTime = dbCtrl.getSingleDataFromDb(
-                        DbCtrl.TypeExecutionGetSingle.LastOnlineTimeUser, uuidUser.toString());
+                String lastOnlineTime = dbCtrl.getSingleDataFromDb(DbCtrl.TypeExecutionGetSingle.LastOnlineTimeUser,
+                        uuidUser.toString());
                 resultMap.put(uuidUser, lastOnlineTime);
             }
         }

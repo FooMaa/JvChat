@@ -104,18 +104,17 @@ public class ControlsConfig {
 
     @Bean
     @Profile("users")
-    public SendMessagesCtrl beanUsersSendMessagesCtrl(
-            SerializatorDataMessages serializatorDataMessages, MessagesDefinesCtrl messagesDefinesCtrl,
-            StructTools structTools, @Lazy NetworkCtrl networkCtrl) {
+    public SendMessagesCtrl beanUsersSendMessagesCtrl(SerializatorDataMessages serializatorDataMessages,
+            MessagesDefinesCtrl messagesDefinesCtrl, StructTools structTools, @Lazy NetworkCtrl networkCtrl) {
         return SendMessagesCtrl.builder().serializatorDataMessages(serializatorDataMessages).messagesDefinesCtrl(
                 messagesDefinesCtrl).structTools(structTools).networkCtrl(networkCtrl).build();
     }
 
     @Bean
     @Profile("servers")
-    public SendMessagesCtrl beanServersSendMessagesCtrl(
-            SerializatorDataMessages serializatorDataMessages, MessagesDefinesCtrl messagesDefinesCtrl,
-            StructTools structTools, @Lazy NetworkCtrl networkCtrl, ServersInfoSettings serversInfoSettings) {
+    public SendMessagesCtrl beanServersSendMessagesCtrl(SerializatorDataMessages serializatorDataMessages,
+            MessagesDefinesCtrl messagesDefinesCtrl, StructTools structTools, @Lazy NetworkCtrl networkCtrl,
+            ServersInfoSettings serversInfoSettings) {
         return SendMessagesCtrl.builder().serializatorDataMessages(serializatorDataMessages).messagesDefinesCtrl(
                 messagesDefinesCtrl).structTools(structTools).networkCtrl(networkCtrl).serversInfoSettings(
                         serversInfoSettings).build();
@@ -124,8 +123,8 @@ public class ControlsConfig {
     @Bean
     @Lazy
     @Scope("prototype")
-    public SocketRunnableCtrl beanSocketRunnableCtrl(
-            SocketRunnableCtrlModel socketRunnableCtrlModel, @Lazy NetworkCtrl networkCtrl) {
+    public SocketRunnableCtrl beanSocketRunnableCtrl(SocketRunnableCtrlModel socketRunnableCtrlModel,
+            @Lazy NetworkCtrl networkCtrl) {
         return SocketRunnableCtrl.builder().socketRunnableCtrlModel(socketRunnableCtrlModel).networkCtrl(
                 networkCtrl).build();
     }

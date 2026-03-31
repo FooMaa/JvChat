@@ -121,8 +121,7 @@ public class PasswordFieldAuthUI extends JPanel {
         button.setBorder(null);
         button.setEnabled(false);
         button.setFocusPainted(false);
-        button.setPreferredSize(
-                new Dimension(invisibleImage.getWidth(), invisibleImage.getHeight()));
+        button.setPreferredSize(new Dimension(invisibleImage.getWidth(), invisibleImage.getHeight()));
         updateToolTipButton();
     }
 

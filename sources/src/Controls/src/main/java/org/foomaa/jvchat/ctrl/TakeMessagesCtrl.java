@@ -59,36 +59,25 @@ public class TakeMessagesCtrl {
         switch (type) {
             case EntryRequest -> workEntryRequestMessage(getDeserializeMapData(type, data));
             case EntryReply -> workEntryReplyMessage(getDeserializeMapData(type, data));
-            case RegistrationRequest -> workRegistrationRequestMessage(
-                    getDeserializeMapData(type, data));
-            case RegistrationReply -> workRegistrationReplyMessage(
-                    getDeserializeMapData(type, data));
+            case RegistrationRequest -> workRegistrationRequestMessage(getDeserializeMapData(type, data));
+            case RegistrationReply -> workRegistrationReplyMessage(getDeserializeMapData(type, data));
             case VerifyRegistrationEmailRequest -> workVerifyRegistrationEmailRequestMessage(
                     getDeserializeMapData(type, data));
             case VerifyRegistrationEmailReply -> workVerifyRegistrationEmailReplyMessage(
                     getDeserializeMapData(type, data));
-            case ResetPasswordRequest -> workResetPasswordRequestMessage(
-                    getDeserializeMapData(type, data));
-            case ResetPasswordReply -> workResetPasswordReplyMessage(
-                    getDeserializeMapData(type, data));
-            case VerifyFamousEmailRequest -> workVerifyFamousEmailRequestMessage(
-                    getDeserializeMapData(type, data));
-            case VerifyFamousEmailReply -> workVerifyFamousEmailReplyMessage(
-                    getDeserializeMapData(type, data));
-            case ChangePasswordRequest -> workChangePasswordRequestMessage(
-                    getDeserializeMapData(type, data));
-            case ChangePasswordReply -> workChangePasswordReplyMessage(
-                    getDeserializeMapData(type, data));
-            case CheckOnlineUserRequest -> workCheckOnlineUserRequestMessage(
-                    getDeserializeMapData(type, data));
-            case CheckOnlineUserReply -> workCheckOnlineUserReplyMessage(
-                    getDeserializeMapData(type, data));
+            case ResetPasswordRequest -> workResetPasswordRequestMessage(getDeserializeMapData(type, data));
+            case ResetPasswordReply -> workResetPasswordReplyMessage(getDeserializeMapData(type, data));
+            case VerifyFamousEmailRequest -> workVerifyFamousEmailRequestMessage(getDeserializeMapData(type, data));
+            case VerifyFamousEmailReply -> workVerifyFamousEmailReplyMessage(getDeserializeMapData(type, data));
+            case ChangePasswordRequest -> workChangePasswordRequestMessage(getDeserializeMapData(type, data));
+            case ChangePasswordReply -> workChangePasswordReplyMessage(getDeserializeMapData(type, data));
+            case CheckOnlineUserRequest -> workCheckOnlineUserRequestMessage(getDeserializeMapData(type, data));
+            case CheckOnlineUserReply -> workCheckOnlineUserReplyMessage(getDeserializeMapData(type, data));
             case ChatsLoadRequest -> workChatsLoadRequestMessage(getDeserializeMapData(type, data));
             case ChatsLoadReply -> workChatsLoadReplyMessage(getDeserializeMapData(type, data));
             case LoadUsersOnlineStatusRequest -> workLoadUsersOnlineStatusRequestMessage(
                     getDeserializeMapData(type, data));
-            case LoadUsersOnlineStatusReply -> workLoadUsersOnlineStatusReplyMessage(
-                    getDeserializeMapData(type, data));
+            case LoadUsersOnlineStatusReply -> workLoadUsersOnlineStatusReplyMessage(getDeserializeMapData(type, data));
             case TextMessageSendUserToServer -> workTextMessageSendUserToServerMessage(
                     getDeserializeMapData(type, data));
             case TextMessageSendUserToServerVerification -> workTextMessageSendUserToServerVerificationMessage(
@@ -105,17 +94,14 @@ public class TakeMessagesCtrl {
                     getDeserializeMapData(type, data));
             case TextMessageRedirectServerToUserVerification -> workTextMessageRedirectServerToUserVerificationMessage(
                     getDeserializeMapData(type, data));
-            case MessagesLoadRequest -> workMessagesLoadRequestMessage(
-                    getDeserializeMapData(type, data));
-            case MessagesLoadReply -> workMessagesLoadReplyMessage(
-                    getDeserializeMapData(type, data));
+            case MessagesLoadRequest -> workMessagesLoadRequestMessage(getDeserializeMapData(type, data));
+            case MessagesLoadReply -> workMessagesLoadReplyMessage(getDeserializeMapData(type, data));
         }
 
         clearRunnableCtrlFromConnection();
     }
 
-    private HashMap<DefinesMessages.TypeData, ?> getDeserializeMapData(
-            DefinesMessages.TypeMessage type, byte[] data) {
+    private HashMap<DefinesMessages.TypeData, ?> getDeserializeMapData(DefinesMessages.TypeMessage type, byte[] data) {
         return deserializatorDataMessages.deserializeData(type, data);
     }
 
@@ -174,10 +160,10 @@ public class TakeMessagesCtrl {
             return;
         }
 
-        boolean checkLogin = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.Login, (String) map.get(
-                DefinesMessages.TypeData.Login));
-        boolean checkEmail = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.Email, (String) map.get(
-                DefinesMessages.TypeData.Email));
+        boolean checkLogin = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.Login,
+                (String) map.get(DefinesMessages.TypeData.Login));
+        boolean checkEmail = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.Email,
+                (String) map.get(DefinesMessages.TypeData.Email));
         if (checkLogin) {
             typeError = DefinesMessages.TypeErrorRegistration.Login;
         }
@@ -209,15 +195,15 @@ public class TakeMessagesCtrl {
                 (DefinesMessages.TypeErrorRegistration) map.get(DefinesMessages.TypeData.ErrorReg));
     }
 
-    private void workVerifyRegistrationEmailRequestMessage(
-            HashMap<DefinesMessages.TypeData, ?> map) {
+    private void workVerifyRegistrationEmailRequestMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         if (dbCtrl == null) {
             log.error("dbCtrl is null");
             return;
         }
 
-        boolean checkCode = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.VerifyRegistrationEmail, (String) map.get(
-                DefinesMessages.TypeData.Email), (String) map.get(DefinesMessages.TypeData.VerifyCode));
+        boolean checkCode = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.VerifyRegistrationEmail,
+                (String) map.get(DefinesMessages.TypeData.Email),
+                (String) map.get(DefinesMessages.TypeData.VerifyCode));
         if (checkCode) {
             String login = (String) map.get(DefinesMessages.TypeData.Login);
             String email = (String) map.get(DefinesMessages.TypeData.Email);
@@ -230,10 +216,10 @@ public class TakeMessagesCtrl {
                     hashPassword, uuidUser.toString());
             DefinesMessages.TypeErrorRegistration typeError = DefinesMessages.TypeErrorRegistration.NoError;
             if (!requestDB) {
-                boolean checkLogin = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.Login, (String) map.get(
-                        DefinesMessages.TypeData.Login));
-                boolean checkEmail = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.Email, (String) map.get(
-                        DefinesMessages.TypeData.Email));
+                boolean checkLogin = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.Login,
+                        (String) map.get(DefinesMessages.TypeData.Login));
+                boolean checkEmail = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.Email,
+                        (String) map.get(DefinesMessages.TypeData.Email));
                 if (checkLogin) {
                     typeError = DefinesMessages.TypeErrorRegistration.Login;
                 }
@@ -297,8 +283,9 @@ public class TakeMessagesCtrl {
             return;
         }
 
-        boolean requestDB = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.VerifyFamousEmailCode, (String) map.get(
-                DefinesMessages.TypeData.Email), (String) map.get(DefinesMessages.TypeData.VerifyCode));
+        boolean requestDB = dbCtrl.checkQueryToDB(DbCtrl.TypeExecutionCheck.VerifyFamousEmailCode,
+                (String) map.get(DefinesMessages.TypeData.Email),
+                (String) map.get(DefinesMessages.TypeData.VerifyCode));
         sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.VerifyFamousEmailReply, requestDB);
     }
 
@@ -448,18 +435,16 @@ public class TakeMessagesCtrl {
         dbCtrl.insertQueryToDB(DbCtrl.TypeExecutionInsert.ChatMessagesSentMessage, uuidUserSender.toString(),
                 uuidUserReceiver.toString(), uuidMessage.toString(), statusString, text, timestampStr);
         // send the status "delivered"
-        sendMessagesCtrl.sendMessage(
-                DefinesMessages.TypeMessage.TextMessagesChangingStatusFromServer, mapStatusMessages);
+        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.TextMessagesChangingStatusFromServer,
+                mapStatusMessages);
         // send to the user if he is online
         messagesDialogCtrl.redirectMessageToOnlineUser(uuidUserSender, uuidUserReceiver, uuidMessage, status, text,
                 timestamp);
         // send a delivery receipt
-        sendMessagesCtrl.sendMessage(
-                DefinesMessages.TypeMessage.TextMessageSendUserToServerVerification, true);
+        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.TextMessageSendUserToServerVerification, true);
     }
 
-    private void workTextMessageSendUserToServerVerificationMessage(
-            HashMap<DefinesMessages.TypeData, ?> map) {
+    private void workTextMessageSendUserToServerVerificationMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(DefinesMessages.TypeData.BoolReply)) {
             messagesDefinesCtrl.setTextMessageSendUserToServerFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
         } else {
@@ -467,20 +452,18 @@ public class TakeMessagesCtrl {
         }
     }
 
-    private void workTextMessagesChangingStatusFromServerMessage(
-            HashMap<DefinesMessages.TypeData, ?> map) {
+    private void workTextMessagesChangingStatusFromServerMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         Object statusesMap = map.get(DefinesMessages.TypeData.StatusMessagesMap);
         Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = structTools.objectInMap(statusesMap,
                 UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
 
         messagesDialogCtrl.setDirtyStatusToMessage(mapStatusesMessages);
 
-        sendMessagesCtrl.sendMessage(
-                DefinesMessages.TypeMessage.TextMessagesChangingStatusFromServerVerification, true);
+        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.TextMessagesChangingStatusFromServerVerification,
+                true);
     }
 
-    private void workTextMessagesChangingStatusFromServerVerificationMessage(
-            HashMap<DefinesMessages.TypeData, ?> map) {
+    private void workTextMessagesChangingStatusFromServerVerificationMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(DefinesMessages.TypeData.BoolReply)) {
             log.info("Received a message delivery receipt with a status without errors.");
         } else {
@@ -488,8 +471,7 @@ public class TakeMessagesCtrl {
         }
     }
 
-    private void workTextMessagesChangingStatusFromUserMessage(
-            HashMap<DefinesMessages.TypeData, ?> map) {
+    private void workTextMessagesChangingStatusFromUserMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         Object statusesMap = map.get(DefinesMessages.TypeData.StatusMessagesMap);
         Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = structTools.objectInMap(statusesMap,
                 UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
@@ -506,12 +488,10 @@ public class TakeMessagesCtrl {
                     statusByUuid);
         }
 
-        sendMessagesCtrl.sendMessage(
-                DefinesMessages.TypeMessage.TextMessagesChangingStatusFromUserVerification, true);
+        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.TextMessagesChangingStatusFromUserVerification, true);
     }
 
-    private void workTextMessagesChangingStatusFromUserVerificationMessage(
-            HashMap<DefinesMessages.TypeData, ?> map) {
+    private void workTextMessagesChangingStatusFromUserVerificationMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(DefinesMessages.TypeData.BoolReply)) {
             log.info("Received a message delivery receipt with a status without errors.");
         } else {
@@ -519,8 +499,7 @@ public class TakeMessagesCtrl {
         }
     }
 
-    private void workTextMessageRedirectServerToUserMessage(
-            HashMap<DefinesMessages.TypeData, ?> map) {
+    private void workTextMessageRedirectServerToUserMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         UUID uuidUserSender = (UUID) map.get(DefinesMessages.TypeData.UuidUserSender);
         UUID uuidUserReceiver = (UUID) map.get(DefinesMessages.TypeData.UuidUserReceiver);
         UUID uuidMessage = (UUID) map.get(DefinesMessages.TypeData.UuidMessage);
@@ -535,12 +514,10 @@ public class TakeMessagesCtrl {
                 timestamp);
         messagesDefinesCtrl.setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
 
-        sendMessagesCtrl.sendMessage(
-                DefinesMessages.TypeMessage.TextMessageRedirectServerToUserVerification, true);
+        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.TextMessageRedirectServerToUserVerification, true);
     }
 
-    private void workTextMessageRedirectServerToUserVerificationMessage(
-            HashMap<DefinesMessages.TypeData, ?> map) {
+    private void workTextMessageRedirectServerToUserVerificationMessage(HashMap<DefinesMessages.TypeData, ?> map) {
         if ((Boolean) map.get(DefinesMessages.TypeData.BoolReply)) {
             messagesDefinesCtrl.setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.TRUE);
         } else {

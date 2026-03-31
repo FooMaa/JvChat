@@ -14,8 +14,7 @@ public class MessageStructObjectFactory {
     private final ObjectProvider<MessageStructObject> messageStructObjectObjectProvider;
 
     @Builder
-    MessageStructObjectFactory(
-            ObjectProvider<MessageStructObject> messageStructObjectObjectProvider) {
+    MessageStructObjectFactory(ObjectProvider<MessageStructObject> messageStructObjectObjectProvider) {
         this.messageStructObjectObjectProvider = Objects.requireNonNull(messageStructObjectObjectProvider,
                 "messageStructObjectObjectProvider is mandatory");
     }

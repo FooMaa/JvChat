@@ -172,8 +172,7 @@ public class NewPasswordPanelAuthUI extends JPanel {
             }
             concatFields = new StringBuilder(concatFields.substring(0, concatFields.length() - 2));
             if (fields.size() == 1) {
-                tErrorHelpInfo.setText(
-                        String.format("The %s field must be completed or corrected", concatFields));
+                tErrorHelpInfo.setText(String.format("The %s field must be completed or corrected", concatFields));
             } else {
                 tErrorHelpInfo.setText(String.format("The %s fields must be completed or corrected", concatFields));
             }

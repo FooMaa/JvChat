@@ -35,8 +35,8 @@ public class EmailCtrl {
         int code = (int) ((Math.random() * (999999 - 100000)) + 100000);
         String message = createVerifyRegEmailMessage(code);
         if (emailProcessor.sendEmail(email, message)) {
-            return dbCtrl.insertQueryToDB(DbCtrl.TypeExecutionInsert.VerifyRegistrationEmail, email, String.valueOf(
-                    code));
+            return dbCtrl.insertQueryToDB(DbCtrl.TypeExecutionInsert.VerifyRegistrationEmail, email,
+                    String.valueOf(code));
         }
         return false;
     }

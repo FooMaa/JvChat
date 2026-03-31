@@ -87,8 +87,8 @@ public class DbCtrl {
                     String uuidUser = parameters[3];
                     if (!checkQueryToDB(TypeExecutionCheck.Login, login) && !checkQueryToDB(TypeExecutionCheck.Email,
                             email)) {
-                        ResultSet rs = db.makeExecution(
-                                dbRequests.insertToRegForm(login, email, hashPassword, uuidUser));
+                        ResultSet rs = db.makeExecution(dbRequests.insertToRegForm(login, email, hashPassword,
+                                uuidUser));
                         db.closeResultSet(rs);
                         return true;
                     } else {
@@ -114,8 +114,7 @@ public class DbCtrl {
                     String userUuid;
                     if (checkQueryToDB(TypeExecutionCheck.Email, email)) {
                         userUuid = getSingleDataFromDb(TypeExecutionGetSingle.UuidUserByEmail, email);
-                        ResultSet rs = db.makeExecution(
-                                dbRequests.insertCodeVerifyFamousEmail(userUuid, code));
+                        ResultSet rs = db.makeExecution(dbRequests.insertCodeVerifyFamousEmail(userUuid, code));
                         db.closeResultSet(rs);
                         return true;
                     }
@@ -161,8 +160,7 @@ public class DbCtrl {
                 if (parameters.length == 2) {
                     String uuidMessage = parameters[0];
                     String status = parameters[1];
-                    ResultSet rs = db.makeExecution(
-                            dbRequests.insertChatsMessageStatusChange(uuidMessage, status));
+                    ResultSet rs = db.makeExecution(dbRequests.insertChatsMessageStatusChange(uuidMessage, status));
                     db.closeResultSet(rs);
                     return true;
                 }
@@ -305,15 +303,14 @@ public class DbCtrl {
         return null;
     }
 
-    public List<Map<DbGlobalDefines.LineKeys, String>> getMultipleInfoFromDb(
-            TypeExecutionGetMultiple type, String... parameters) {
+    public List<Map<DbGlobalDefines.LineKeys, String>> getMultipleInfoFromDb(TypeExecutionGetMultiple type,
+            String... parameters) {
         switch (type) {
             case ChatsLoad -> {
                 if (parameters.length == 1) {
                     String userLogin = parameters[0];
                     ResultSet resultSet = db.makeExecution(dbRequests.getChats(userLogin));
-                    List<Map<DbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(
-                            resultSet);
+                    List<Map<DbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
 
                     db.closeResultSet(resultSet);
 
@@ -327,8 +324,7 @@ public class DbCtrl {
                 if (parameters.length == 1) {
                     String uuidUser = parameters[0];
                     ResultSet resultSet = db.makeExecution(dbRequests.getStatusOnlineTimeUser(uuidUser));
-                    List<Map<DbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(
-                            resultSet);
+                    List<Map<DbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
 
                     db.closeResultSet(resultSet);
 
@@ -341,8 +337,7 @@ public class DbCtrl {
             case OnlineUsers -> {
                 if (parameters.length == 0) {
                     ResultSet resultSet = db.makeExecution(dbRequests.getOnlineUsers());
-                    List<Map<DbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(
-                            resultSet);
+                    List<Map<DbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
 
                     db.closeResultSet(resultSet);
 
@@ -357,10 +352,9 @@ public class DbCtrl {
                     String uuidChat = parameters[0];
                     String quantityMessages = parameters[1];
 
-                    ResultSet resultSet = db.makeExecution(
-                            dbRequests.getQuantityMessagesByUuids(uuidChat, quantityMessages));
-                    List<Map<DbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(
-                            resultSet);
+                    ResultSet resultSet = db.makeExecution(dbRequests.getQuantityMessagesByUuids(uuidChat,
+                            quantityMessages));
+                    List<Map<DbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
 
                     db.closeResultSet(resultSet);
 
@@ -374,8 +368,7 @@ public class DbCtrl {
         return null;
     }
 
-    public List<Map<DbGlobalDefines.LineKeys, String>> multipleDataFromResultSet(
-            ResultSet resultSet) {
+    public List<Map<DbGlobalDefines.LineKeys, String>> multipleDataFromResultSet(ResultSet resultSet) {
         List<Map<DbGlobalDefines.LineKeys, String>> result = new ArrayList<>();
 
         try {

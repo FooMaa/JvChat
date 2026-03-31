@@ -12,8 +12,8 @@ public class SocketRunnableCtrlFactory {
 
     @Builder
     SocketRunnableCtrlFactory(ObjectProvider<SocketRunnableCtrl> socketRunnableCtrlObjectProvider) {
-        this.socketRunnableCtrlObjectProvider = Objects.requireNonNull(
-                socketRunnableCtrlObjectProvider, "socketRunnableCtrlObjectProvider is mandatory");
+        this.socketRunnableCtrlObjectProvider = Objects.requireNonNull(socketRunnableCtrlObjectProvider,
+                "socketRunnableCtrlObjectProvider is mandatory");
     }
 
     public SocketRunnableCtrl create(Socket socket) {
