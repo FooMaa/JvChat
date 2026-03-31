@@ -6,13 +6,12 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.springframework.stereotype.Component;
-
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
-@Component
 @Slf4j
 public class FormatTools {
+    @Builder
     FormatTools() {
     }
 

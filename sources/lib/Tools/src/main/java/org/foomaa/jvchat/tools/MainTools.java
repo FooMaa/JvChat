@@ -3,16 +3,16 @@ package org.foomaa.jvchat.tools;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import org.springframework.stereotype.Component;
+import lombok.Builder;
 
 import org.foomaa.jvchat.settings.MainSettings;
 
-@Component
 public class MainTools {
     private final MainSettings mainSettings;
 
+    @Builder
     MainTools(MainSettings mainSettings) {
-        this.mainSettings = mainSettings;
+        this.mainSettings = Objects.requireNonNull(mainSettings, "mainSettings is mandatory");
     }
 
     public void setProfileSetting(String profile) {

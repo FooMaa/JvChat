@@ -3,26 +3,24 @@ package org.foomaa.jvchat.tools;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
-
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.settings.ServersInfoSettings;
 
-@Component
-@Profile("servers")
 @Slf4j
 public class ServersTools {
     private final MainTools mainTools;
     private final ServersInfoSettings serversInfoSettings;
 
+    @Builder
     ServersTools(MainTools mainTools, ServersInfoSettings serversInfoSettings) {
-        this.mainTools = mainTools;
-        this.serversInfoSettings = serversInfoSettings;
+        this.mainTools = Objects.requireNonNull(mainTools, "mainTools is mandatory");
+        this.serversInfoSettings = Objects.requireNonNull(serversInfoSettings, "serversInfoSettings is mandatory");
     }
 
     public void initServersParameters() {

@@ -2,12 +2,10 @@ package org.foomaa.jvchat.tools;
 
 import java.util.regex.Pattern;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
+import lombok.Builder;
 
-@Component
-@Profile("users")
 public class UsersTools {
+    @Builder
     UsersTools() {
     }
 
