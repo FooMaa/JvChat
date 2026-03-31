@@ -7,9 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
-
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
@@ -18,8 +16,6 @@ import org.foomaa.jvchat.events.GetterEvents;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
 
-@Component
-@Profile("users")
 @Slf4j
 public class NewPasswordPanelAuthUI extends JPanel {
     private final ErrorLabelAuthUI tErrorHelpInfo;
@@ -34,15 +30,25 @@ public class NewPasswordPanelAuthUI extends JPanel {
     private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
+    @Builder
     NewPasswordPanelAuthUI(DisplaySettings displaySettings, SendMessagesCtrl sendMessagesCtrl,
             MessagesDefinesCtrl messagesDefinesCtrl, ButtonAuthUIFactory buttonAuthUIFactory,
             ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
             PasswordFieldAuthUIFactory passwordFieldAuthUIFactory,
             OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
-        this.displaySettings = displaySettings;
-        this.sendMessagesCtrl = sendMessagesCtrl;
-        this.messagesDefinesCtrl = messagesDefinesCtrl;
-        this.optionPaneAuthUIFactory = optionPaneAuthUIFactory;
+        Objects.requireNonNull(buttonAuthUIFactory, "buttonAuthUIFactory is mandatory");
+        Objects.requireNonNull(errorLabelAuthUIFactory, "errorLabelAuthUIFactory is mandatory");
+        Objects.requireNonNull(passwordFieldAuthUIFactory,
+                "passwordFieldAuthUIFactory is mandatory");
+
+        this.displaySettings = Objects.requireNonNull(displaySettings,
+                "displaySettings is mandatory");
+        this.sendMessagesCtrl = Objects.requireNonNull(sendMessagesCtrl,
+                "sendMessagesCtrl is mandatory");
+        this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl,
+                "messagesDefinesCtrl is mandatory");
+        this.optionPaneAuthUIFactory = Objects.requireNonNull(optionPaneAuthUIFactory,
+                "optionPaneAuthUIFactory is mandatory");
 
         tErrorHelpInfo = errorLabelAuthUIFactory.create("");
         tErrorHelpInfo.settingToError();

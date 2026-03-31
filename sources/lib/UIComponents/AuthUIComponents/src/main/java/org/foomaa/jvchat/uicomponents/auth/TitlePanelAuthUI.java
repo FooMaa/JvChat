@@ -11,16 +11,12 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
-
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
 import org.foomaa.jvchat.settings.DisplaySettings;
 
-@Component
-@Profile("users")
 @Slf4j
 public class TitlePanelAuthUI extends JPanel {
     private final JButton closeButton;
@@ -33,11 +29,15 @@ public class TitlePanelAuthUI extends JPanel {
     private final FontsGlobalDefines fontsGlobalDefines;
     private final ToolTipAuthUIFactory toolTipAuthUIFactory;
 
+    @Builder
     TitlePanelAuthUI(DisplaySettings displaySettings, FontsGlobalDefines fontsGlobalDefines,
             ToolTipAuthUIFactory toolTipAuthUIFactory) {
-        this.displaySettings = displaySettings;
-        this.fontsGlobalDefines = fontsGlobalDefines;
-        this.toolTipAuthUIFactory = toolTipAuthUIFactory;
+        this.displaySettings = Objects.requireNonNull(displaySettings,
+                "displaySettings is mandatory");
+        this.fontsGlobalDefines = Objects.requireNonNull(fontsGlobalDefines,
+                "fontsGlobalDefines is mandatory");
+        this.toolTipAuthUIFactory = Objects.requireNonNull(toolTipAuthUIFactory,
+                "toolTipAuthUIFactory is mandatory");
 
         closeButton = new JButton() {
             @Override

@@ -11,19 +11,15 @@ import java.util.UUID;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Component;
+
+import lombok.Builder;
 
 import org.foomaa.jvchat.events.BaseEvent;
 import org.foomaa.jvchat.events.CheckerEventsAnnotation;
 import org.foomaa.jvchat.settings.DisplaySettings;
 
-@Component
-@Profile("users")
-@Lazy
 public class MainFrameAuthUI extends JFrame {
     private final TitlePanelAuthUI titlePanel;
     private DefinesAuthUI.RegimeWorkMainFrame regimeWorkMainFrame;
@@ -57,6 +53,7 @@ public class MainFrameAuthUI extends JFrame {
     private final ResetPasswordPanelAuthUI resetPasswordPanelAuthUI;
     private final VerifyCodePanelAuthUI verifyCodePanelAuthUI;
 
+    @Builder
     MainFrameAuthUI(DisplaySettings displaySettings, EntryPanelAuthUI entryPanelAuthUI,
             NewPasswordPanelAuthUI newPasswordPanelAuthUI,
             RegistrationPanelAuthUI registrationPanelAuthUI,
@@ -64,14 +61,20 @@ public class MainFrameAuthUI extends JFrame {
             VerifyCodePanelAuthUI verifyCodePanelAuthUI, TitlePanelAuthUI titlePanel) {
         super("EntryFrame");
 
-        this.displaySettings = displaySettings;
-        this.entryPanelAuthUI = entryPanelAuthUI;
-        this.newPasswordPanelAuthUI = newPasswordPanelAuthUI;
-        this.registrationPanelAuthUI = registrationPanelAuthUI;
-        this.resetPasswordPanelAuthUI = resetPasswordPanelAuthUI;
-        this.verifyCodePanelAuthUI = verifyCodePanelAuthUI;
+        this.displaySettings = Objects.requireNonNull(displaySettings,
+                "displaySettings is mandatory");
+        this.entryPanelAuthUI = Objects.requireNonNull(entryPanelAuthUI,
+                "entryPanelAuthUI is mandatory");
+        this.newPasswordPanelAuthUI = Objects.requireNonNull(newPasswordPanelAuthUI,
+                "newPasswordPanelAuthUI is mandatory");
+        this.registrationPanelAuthUI = Objects.requireNonNull(registrationPanelAuthUI,
+                "registrationPanelAuthUI is mandatory");
+        this.resetPasswordPanelAuthUI = Objects.requireNonNull(resetPasswordPanelAuthUI,
+                "resetPasswordPanelAuthUI is mandatory");
+        this.verifyCodePanelAuthUI = Objects.requireNonNull(verifyCodePanelAuthUI,
+                "verifyCodePanelAuthUI is mandatory");
+        this.titlePanel = Objects.requireNonNull(titlePanel, "titlePanel is mandatory");
 
-        this.titlePanel = titlePanel;
         regimeWorkMainFrame = DefinesAuthUI.RegimeWorkMainFrame.Auth;
         backgroundPath = "/AuthMainBackground.png";
         loadGifPath = "/Load.gif";

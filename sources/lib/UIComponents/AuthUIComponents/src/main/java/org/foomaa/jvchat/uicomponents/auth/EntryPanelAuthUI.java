@@ -9,10 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
-
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
@@ -23,8 +20,6 @@ import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.settings.UsersInfoSettings;
 import org.foomaa.jvchat.uicomponents.mainchat.MainFrameMainChatUI;
 
-@Component
-@Profile("users")
 @Slf4j
 public class EntryPanelAuthUI extends JPanel {
     private final TextFieldAuthUI tLogin;
@@ -40,8 +35,9 @@ public class EntryPanelAuthUI extends JPanel {
     private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
+    @Builder
     EntryPanelAuthUI(UsersInfoSettings usersInfoSettings, DisplaySettings displaySettings,
-            @Lazy MainFrameMainChatUI mainFrameMainChatUI, SendMessagesCtrl sendMessagesCtrl,
+            MainFrameMainChatUI mainFrameMainChatUI, SendMessagesCtrl sendMessagesCtrl,
             MessagesDefinesCtrl messagesDefinesCtrl,
             ActiveLabelAuthUIFactory activeLabelAuthUIFactory,
             ButtonAuthUIFactory buttonAuthUIFactory,
@@ -49,12 +45,25 @@ public class EntryPanelAuthUI extends JPanel {
             PasswordFieldAuthUIFactory passwordFieldAuthUIFactory,
             TextFieldAuthUIFactory textFieldAuthUIFactory,
             OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
-        this.usersInfoSettings = usersInfoSettings;
-        this.displaySettings = displaySettings;
-        this.mainFrameMainChatUI = mainFrameMainChatUI;
-        this.sendMessagesCtrl = sendMessagesCtrl;
-        this.messagesDefinesCtrl = messagesDefinesCtrl;
-        this.optionPaneAuthUIFactory = optionPaneAuthUIFactory;
+        Objects.requireNonNull(activeLabelAuthUIFactory, "activeLabelAuthUIFactory is mandatory");
+        Objects.requireNonNull(buttonAuthUIFactory, "buttonAuthUIFactory is mandatory");
+        Objects.requireNonNull(errorLabelAuthUIFactory, "errorLabelAuthUIFactory is mandatory");
+        Objects.requireNonNull(passwordFieldAuthUIFactory,
+                "passwordFieldAuthUIFactory is mandatory");
+        Objects.requireNonNull(textFieldAuthUIFactory, "textFieldAuthUIFactory is mandatory");
+
+        this.usersInfoSettings = Objects.requireNonNull(usersInfoSettings,
+                "usersInfoSettings is mandatory");
+        this.displaySettings = Objects.requireNonNull(displaySettings,
+                "displaySettings is mandatory");
+        this.mainFrameMainChatUI = Objects.requireNonNull(mainFrameMainChatUI,
+                "mainFrameMainChatUI is mandatory");
+        this.sendMessagesCtrl = Objects.requireNonNull(sendMessagesCtrl,
+                "sendMessagesCtrl is mandatory");
+        this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl,
+                "messagesDefinesCtrl is mandatory");
+        this.optionPaneAuthUIFactory = Objects.requireNonNull(optionPaneAuthUIFactory,
+                "optionPaneAuthUIFactory is mandatory");
 
         tLogin = textFieldAuthUIFactory.create("Login");
         tErrorHelpInfo = errorLabelAuthUIFactory.create("");

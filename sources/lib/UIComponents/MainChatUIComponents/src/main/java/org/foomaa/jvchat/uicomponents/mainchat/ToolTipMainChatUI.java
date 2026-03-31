@@ -2,6 +2,7 @@ package org.foomaa.jvchat.uicomponents.mainchat;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.Objects;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -19,8 +20,10 @@ public class ToolTipMainChatUI extends JToolTip {
 
     @Builder
     ToolTipMainChatUI(DisplaySettings displaySettings, FontsGlobalDefines fontsGlobalDefines) {
-        this.displaySettings = displaySettings;
-        this.fontsGlobalDefines = fontsGlobalDefines;
+        this.displaySettings = Objects.requireNonNull(displaySettings,
+                "displaySettings is mandatory");
+        this.fontsGlobalDefines = Objects.requireNonNull(fontsGlobalDefines,
+                "fontsGlobalDefines is mandatory");
 
         setGeneralSettings();
     }

@@ -7,21 +7,16 @@ import java.awt.font.TextAttribute;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.swing.*;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
 import org.foomaa.jvchat.settings.DisplaySettings;
 
-@Component
-@Scope("prototype")
-@Profile("users")
 @Slf4j
 public class ActiveLabelAuthUI extends JLabel {
     private ToolTipAuthUI toolTip;
@@ -29,11 +24,15 @@ public class ActiveLabelAuthUI extends JLabel {
     private final FontsGlobalDefines fontsGlobalDefines;
     private final ToolTipAuthUIFactory toolTipAuthUIFactory;
 
+    @Builder
     ActiveLabelAuthUI(DisplaySettings displaySettings, FontsGlobalDefines fontsGlobalDefines,
             ToolTipAuthUIFactory toolTipAuthUIFactory) {
-        this.displaySettings = displaySettings;
-        this.fontsGlobalDefines = fontsGlobalDefines;
-        this.toolTipAuthUIFactory = toolTipAuthUIFactory;
+        this.displaySettings = Objects.requireNonNull(displaySettings,
+                "displaySettings is mandatory");
+        this.fontsGlobalDefines = Objects.requireNonNull(fontsGlobalDefines,
+                "fontsGlobalDefines is mandatory");
+        this.toolTipAuthUIFactory = Objects.requireNonNull(toolTipAuthUIFactory,
+                "toolTipAuthUIFactory is mandatory");
 
         setFont(false);
         setForeground(Color.WHITE);

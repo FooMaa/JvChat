@@ -1,16 +1,18 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
+import java.util.Objects;
 
-@Component
-@Profile("users")
+import org.springframework.beans.factory.ObjectProvider;
+
+import lombok.Builder;
+
 public class ButtonAuthUIFactory {
     private final ObjectProvider<ButtonAuthUI> buttonAuthUIObjectProvider;
 
+    @Builder
     ButtonAuthUIFactory(ObjectProvider<ButtonAuthUI> buttonAuthUIObjectProvider) {
-        this.buttonAuthUIObjectProvider = buttonAuthUIObjectProvider;
+        this.buttonAuthUIObjectProvider = Objects.requireNonNull(buttonAuthUIObjectProvider,
+                "buttonAuthUIObjectProvider is mandatory");
     }
 
     public ButtonAuthUI create(String text) {

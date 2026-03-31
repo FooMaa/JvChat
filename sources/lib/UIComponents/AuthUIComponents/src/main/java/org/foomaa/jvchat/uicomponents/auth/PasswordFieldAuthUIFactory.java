@@ -1,17 +1,20 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
+import java.util.Objects;
 
-@Component
-@Profile("users")
+import org.springframework.beans.factory.ObjectProvider;
+
+import lombok.Builder;
+
 public class PasswordFieldAuthUIFactory {
     private final ObjectProvider<PasswordFieldAuthUI> passwordFieldAuthUIObjectProvider;
 
+    @Builder
     PasswordFieldAuthUIFactory(
             ObjectProvider<PasswordFieldAuthUI> passwordFieldAuthUIObjectProvider) {
-        this.passwordFieldAuthUIObjectProvider = passwordFieldAuthUIObjectProvider;
+        this.passwordFieldAuthUIObjectProvider = Objects.requireNonNull(
+                passwordFieldAuthUIObjectProvider,
+                "passwordFieldAuthUIObjectProvider is mandatory");
     }
 
     public PasswordFieldAuthUI create(String defaultText) {

@@ -13,18 +13,12 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.text.DefaultCaret;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
 import org.foomaa.jvchat.settings.DisplaySettings;
 
-@Component
-@Scope("prototype")
-@Profile("users")
 @Slf4j
 public class PasswordFieldAuthUI extends JPanel {
     private final BufferedImage visibleImage;
@@ -44,11 +38,15 @@ public class PasswordFieldAuthUI extends JPanel {
     private final FontsGlobalDefines fontsGlobalDefines;
     private final ToolTipAuthUIFactory toolTipAuthUIFactory;
 
+    @Builder
     PasswordFieldAuthUI(DisplaySettings displaySettings, FontsGlobalDefines fontsGlobalDefines,
             ToolTipAuthUIFactory toolTipAuthUIFactory) {
-        this.displaySettings = displaySettings;
-        this.fontsGlobalDefines = fontsGlobalDefines;
-        this.toolTipAuthUIFactory = toolTipAuthUIFactory;
+        this.displaySettings = Objects.requireNonNull(displaySettings,
+                "displaySettings is mandatory");
+        this.fontsGlobalDefines = Objects.requireNonNull(fontsGlobalDefines,
+                "fontsGlobalDefines is mandatory");
+        this.toolTipAuthUIFactory = Objects.requireNonNull(toolTipAuthUIFactory,
+                "toolTipAuthUIFactory is mandatory");
 
         visibleImage = setIcon("/Eye.png");
         invisibleImage = setIcon("/Eye-close.png");

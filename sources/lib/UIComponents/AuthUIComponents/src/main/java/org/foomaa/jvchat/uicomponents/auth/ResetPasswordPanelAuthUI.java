@@ -6,9 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
-
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
@@ -18,8 +16,6 @@ import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.tools.UsersTools;
 
-@Component
-@Profile("users")
 @Slf4j
 public class ResetPasswordPanelAuthUI extends JPanel {
     private final TextFieldAuthUI tEmail;
@@ -33,17 +29,26 @@ public class ResetPasswordPanelAuthUI extends JPanel {
     private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
+    @Builder
     ResetPasswordPanelAuthUI(DisplaySettings displaySettings, UsersTools usersTools,
             SendMessagesCtrl sendMessagesCtrl, MessagesDefinesCtrl messagesDefinesCtrl,
             ButtonAuthUIFactory buttonAuthUIFactory,
             ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
             TextFieldAuthUIFactory textFieldAuthUIFactory,
             OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
-        this.displaySettings = displaySettings;
-        this.usersTools = usersTools;
-        this.sendMessagesCtrl = sendMessagesCtrl;
-        this.messagesDefinesCtrl = messagesDefinesCtrl;
-        this.optionPaneAuthUIFactory = optionPaneAuthUIFactory;
+        Objects.requireNonNull(buttonAuthUIFactory, "buttonAuthUIFactory is mandatory");
+        Objects.requireNonNull(errorLabelAuthUIFactory, "errorLabelAuthUIFactory is mandatory");
+        Objects.requireNonNull(textFieldAuthUIFactory, "textFieldAuthUIFactory is mandatory");
+
+        this.displaySettings = Objects.requireNonNull(displaySettings,
+                "displaySettings is mandatory");
+        this.usersTools = Objects.requireNonNull(usersTools, "usersTools is mandatory");
+        this.sendMessagesCtrl = Objects.requireNonNull(sendMessagesCtrl,
+                "sendMessagesCtrl is mandatory");
+        this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl,
+                "messagesDefinesCtrl is mandatory");
+        this.optionPaneAuthUIFactory = Objects.requireNonNull(optionPaneAuthUIFactory,
+                "optionPaneAuthUIFactory is mandatory");
 
         tEmail = textFieldAuthUIFactory.create("Email");
         tErrorHelpInfo = errorLabelAuthUIFactory.create("");

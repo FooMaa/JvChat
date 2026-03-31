@@ -1,16 +1,18 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
+import java.util.Objects;
 
-@Component
-@Profile("users")
+import org.springframework.beans.factory.ObjectProvider;
+
+import lombok.Builder;
+
 public class ToolTipAuthUIFactory {
     private final ObjectProvider<ToolTipAuthUI> toolTipAuthUIObjectProvider;
 
+    @Builder
     ToolTipAuthUIFactory(ObjectProvider<ToolTipAuthUI> toolTipAuthUIObjectProvider) {
-        this.toolTipAuthUIObjectProvider = toolTipAuthUIObjectProvider;
+        this.toolTipAuthUIObjectProvider = Objects.requireNonNull(toolTipAuthUIObjectProvider,
+                "toolTipAuthUIObjectProvider is mandatory");
     }
 
     public ToolTipAuthUI create() {

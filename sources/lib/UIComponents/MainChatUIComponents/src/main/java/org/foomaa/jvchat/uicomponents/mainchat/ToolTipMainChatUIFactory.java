@@ -1,5 +1,7 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
+import java.util.Objects;
+
 import org.springframework.beans.factory.ObjectProvider;
 
 import lombok.Builder;
@@ -9,7 +11,8 @@ public class ToolTipMainChatUIFactory {
 
     @Builder
     ToolTipMainChatUIFactory(ObjectProvider<ToolTipMainChatUI> toolTipObjectProvider) {
-        this.toolTipObjectProvider = toolTipObjectProvider;
+        this.toolTipObjectProvider = Objects.requireNonNull(toolTipObjectProvider,
+                "toolTipObjectProvider is mandatory");
     }
 
     public ToolTipMainChatUI create() {

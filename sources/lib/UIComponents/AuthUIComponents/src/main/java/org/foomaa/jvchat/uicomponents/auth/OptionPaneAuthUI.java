@@ -2,18 +2,14 @@ package org.foomaa.jvchat.uicomponents.auth;
 
 import javax.swing.*;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import lombok.Builder;
 
-@Component
-@Scope("prototype")
-@Profile("users")
 public class OptionPaneAuthUI extends JOptionPane {
     public enum TypeDlg {
         ERROR, WARNING
     }
 
+    @Builder
     OptionPaneAuthUI() {
     }
 

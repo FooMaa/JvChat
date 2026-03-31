@@ -6,27 +6,24 @@ import java.util.Objects;
 
 import javax.swing.*;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
 import org.foomaa.jvchat.settings.DisplaySettings;
 
-@Component
-@Scope("prototype")
-@Profile("users")
 @Slf4j
 public class ErrorLabelAuthUI extends JLabel {
     private final Timer timerVisible;
     private final DisplaySettings displaySettings;
     private final FontsGlobalDefines fontsGlobalDefines;
 
+    @Builder
     ErrorLabelAuthUI(DisplaySettings displaySettings, FontsGlobalDefines fontsGlobalDefines) {
-        this.displaySettings = displaySettings;
-        this.fontsGlobalDefines = fontsGlobalDefines;
+        this.displaySettings = Objects.requireNonNull(displaySettings,
+                "displaySettings is mandatory");
+        this.fontsGlobalDefines = Objects.requireNonNull(fontsGlobalDefines,
+                "fontsGlobalDefines is mandatory");
 
         timerVisible = new Timer(5000, actionEvent -> setText(""));
         timerVisible.setRepeats(false);
