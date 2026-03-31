@@ -50,8 +50,7 @@ public class RectChatMainChatUI extends JPanel {
                 "displaySettings is mandatory");
         this.messagesDialogCtrl = Objects.requireNonNull(messagesDialogCtrl,
                 "messagesDialogCtrl is mandatory");
-        this.chatsCtrl = Objects.requireNonNull(chatsCtrl,
-                "chatsCtrl is mandatory");
+        this.chatsCtrl = Objects.requireNonNull(chatsCtrl, "chatsCtrl is mandatory");
 
         nickName = "";
         shortLastMessage = "";

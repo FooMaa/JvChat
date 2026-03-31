@@ -1,11 +1,5 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
-import org.foomaa.jvchat.ctrl.SendMessagesCtrl;
-import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
-import org.foomaa.jvchat.settings.UISettings;
-import org.foomaa.jvchat.settings.UsersInfoSettings;
-import org.foomaa.jvchat.structobjects.ChatStructObject;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,9 +7,14 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
 
 import org.foomaa.jvchat.ctrl.ChatsCtrl;
+import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.ctrl.MessagesDialogCtrl;
+import org.foomaa.jvchat.ctrl.SendMessagesCtrl;
+import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
 import org.foomaa.jvchat.settings.DisplaySettings;
-import org.springframework.stereotype.Component;
+import org.foomaa.jvchat.settings.UISettings;
+import org.foomaa.jvchat.settings.UsersInfoSettings;
+import org.foomaa.jvchat.structobjects.ChatStructObject;
 
 @Configuration
 public class MainChatUIConfig {
@@ -74,71 +73,70 @@ public class MainChatUIConfig {
 
     @Bean
     @Profile("users")
-    public PanelSendingMessageMainChatUIFactory beanPanelSendingMessageMainChatUIFactory(ObjectProvider<PanelSendingMessageMainChatUI> panelSendingMessageObjectProvider) {
-        return PanelSendingMessageMainChatUIFactory.builder().panelSendingMessageObjectProvider(panelSendingMessageObjectProvider).build();
+    public PanelSendingMessageMainChatUIFactory beanPanelSendingMessageMainChatUIFactory(
+            ObjectProvider<PanelSendingMessageMainChatUI> panelSendingMessageObjectProvider) {
+        return PanelSendingMessageMainChatUIFactory.builder()
+                .panelSendingMessageObjectProvider(panelSendingMessageObjectProvider).build();
     }
 
     @Bean
     @Scope("prototype")
     @Profile("users")
-    public RectChatMainChatUI beanRectChatMainChatUI(ChatStructObject chatObject, UsersInfoSettings usersInfoSettings,
-                                                     DisplaySettings displaySettings, MessagesDialogCtrl messagesDialogCtrl,
-                                                     ChatsCtrl chatsCtrl) {
-        return RectChatMainChatUI.builder()
-                .chatObject(chatObject)
-                .usersInfoSettings(usersInfoSettings)
-                .displaySettings(displaySettings)
-                .messagesDialogCtrl(messagesDialogCtrl)
-                .chatsCtrl(chatsCtrl)
-                .build();
+    public RectChatMainChatUI beanRectChatMainChatUI(ChatStructObject chatObject,
+            UsersInfoSettings usersInfoSettings, DisplaySettings displaySettings,
+            MessagesDialogCtrl messagesDialogCtrl, ChatsCtrl chatsCtrl) {
+        return RectChatMainChatUI.builder().chatObject(chatObject)
+                .usersInfoSettings(usersInfoSettings).displaySettings(displaySettings)
+                .messagesDialogCtrl(messagesDialogCtrl).chatsCtrl(chatsCtrl).build();
     }
 
     @Bean
     @Profile("users")
-    public RectChatMainChatUIFactory beanRectChatMainChatUIFactory(ObjectProvider<RectChatMainChatUI> rectChatObjectProvider) {
-        return RectChatMainChatUIFactory.builder().rectChatObjectProvider(rectChatObjectProvider).build();
+    public RectChatMainChatUIFactory beanRectChatMainChatUIFactory(
+            ObjectProvider<RectChatMainChatUI> rectChatObjectProvider) {
+        return RectChatMainChatUIFactory.builder().rectChatObjectProvider(rectChatObjectProvider)
+                .build();
     }
 
     @Bean
     @Scope("prototype")
     @Profile("users")
-    public RectMessageMainChatUI beanRectMessageMainChatUI(DisplaySettings displaySettings, MessagesDialogCtrl messagesDialogCtrl,
-                                                           ScrollPanelMessagesMainChatUI scrollPanelMessages) {
-        return RectMessageMainChatUI.builder()
-                .displaySettings(displaySettings)
+    public RectMessageMainChatUI beanRectMessageMainChatUI(DisplaySettings displaySettings,
+            MessagesDialogCtrl messagesDialogCtrl,
+            ScrollPanelMessagesMainChatUI scrollPanelMessages) {
+        return RectMessageMainChatUI.builder().displaySettings(displaySettings)
+                .messagesDialogCtrl(messagesDialogCtrl).scrollPanelMessages(scrollPanelMessages)
+                .build();
+    }
+
+    @Bean
+    @Profile("users")
+    public RectMessageMainChatUIFactory beanRectMessageMainChatUIFactory(
+            ObjectProvider<RectMessageMainChatUI> rectMessageObjectProvider) {
+        return RectMessageMainChatUIFactory.builder()
+                .rectMessageObjectProvider(rectMessageObjectProvider).build();
+    }
+
+    @Bean
+    @Profile("users")
+    public ScrollPanelChatsMainChatUI beanScrollPanelChatsMainChatUI(
+            UsersInfoSettings usersInfoSettings, UISettings uiSettings,
+            SendMessagesCtrl sendMessagesCtrl, MessagesDefinesCtrl messagesDefinesCtrl,
+            RectChatMainChatUIFactory rectChatFactory, ChatsCtrl chatsCtrl) {
+        return ScrollPanelChatsMainChatUI.builder().usersInfoSettings(usersInfoSettings)
+                .uiSettings(uiSettings).sendMessagesCtrl(sendMessagesCtrl)
+                .messagesDefinesCtrl(messagesDefinesCtrl).rectChatFactory(rectChatFactory)
+                .chatsCtrl(chatsCtrl).build();
+    }
+
+    @Bean
+    @Profile("users")
+    public ScrollPanelMessagesMainChatUI beanScrollPanelMessagesMainChatUI(
+            MessagesDefinesCtrl messagesDefinesCtrl, MessagesDialogCtrl messagesDialogCtrl,
+            RectMessageMainChatUIFactory rectMessageMainChatUIFactory) {
+        return ScrollPanelMessagesMainChatUI.builder().messagesDefinesCtrl(messagesDefinesCtrl)
                 .messagesDialogCtrl(messagesDialogCtrl)
-                .scrollPanelMessages(scrollPanelMessages)
-                .build();
-    }
-
-    @Bean
-    @Profile("users")
-    public RectMessageMainChatUIFactory beanRectMessageMainChatUIFactory(ObjectProvider<RectMessageMainChatUI> rectMessageObjectProvider) {
-        return RectMessageMainChatUIFactory.builder().rectMessageObjectProvider(rectMessageObjectProvider).build();
-    }
-
-    @Bean
-    @Profile("users")
-    public ScrollPanelChatsMainChatUI beanScrollPanelChatsMainChatUI(UsersInfoSettings usersInfoSettings, UISettings uiSettings,
-                                                                     SendMessagesCtrl sendMessagesCtrl, MessagesDefinesCtrl messagesDefinesCtrl,
-                                                                     RectChatMainChatUIFactory rectChatFactory,
-                                                                     ChatsCtrl chatsCtrl) {
-        return ScrollPanelChatsMainChatUI.builder()
-                .usersInfoSettings(usersInfoSettings)
-                .uiSettings(uiSettings)
-                .sendMessagesCtrl(sendMessagesCtrl)
-                .messagesDefinesCtrl(messagesDefinesCtrl)
-                .rectChatFactory(rectChatFactory)
-                .chatsCtrl(chatsCtrl)
-                .build();
-    }
-
-    @Bean
-    @Profile("users")
-    public ScrollPanelMessagesMainChatUI beanScrollPanelMessagesMainChatUI(MessagesDefinesCtrl messagesDefinesCtrl,
-                                                                           MessagesDialogCtrl messagesDialogCtrl,
-                                                                           RectMessageMainChatUIFactory rectMessageMainChatUIFactory) {
-        return ScrollPanelMessagesMainChatUI.builder().messagesDefinesCtrl(messagesDefinesCtrl).messagesDialogCtrl(messagesDialogCtrl).rectMessageMainChatUIFactory(rectMessageMainChatUIFactory).build();
+                .rectMessageMainChatUIFactory(rectMessageMainChatUIFactory).build();
     }
 
     @Bean
@@ -150,8 +148,10 @@ public class MainChatUIConfig {
 
     @Bean
     @Profile("users")
-    public SendButtonMainChatUIFactory beanSendButtonMainChatUIFactory(ObjectProvider<SendButtonMainChatUI> sendButtonObjectProvider) {
-        return SendButtonMainChatUIFactory.builder().sendButtonObjectProvider(sendButtonObjectProvider).build();
+    public SendButtonMainChatUIFactory beanSendButtonMainChatUIFactory(
+            ObjectProvider<SendButtonMainChatUI> sendButtonObjectProvider) {
+        return SendButtonMainChatUIFactory.builder()
+                .sendButtonObjectProvider(sendButtonObjectProvider).build();
     }
 
     @Bean
@@ -163,40 +163,34 @@ public class MainChatUIConfig {
 
     @Bean
     @Profile("users")
-    public SendingTextAreaScrollMainChatUIFactory beanSendingTextAreaScrollMainChatUIFactory(ObjectProvider<SendingTextAreaScrollMainChatUI> sendingTextAreaScrollObjectProvider) {
-        return SendingTextAreaScrollMainChatUIFactory.builder().sendingTextAreaScrollObjectProvider(sendingTextAreaScrollObjectProvider).build();
+    public SendingTextAreaScrollMainChatUIFactory beanSendingTextAreaScrollMainChatUIFactory(
+            ObjectProvider<SendingTextAreaScrollMainChatUI> sendingTextAreaScrollObjectProvider) {
+        return SendingTextAreaScrollMainChatUIFactory.builder()
+                .sendingTextAreaScrollObjectProvider(sendingTextAreaScrollObjectProvider).build();
     }
 
     @Bean
     @Profile("users")
-    public TitlePanelMainChatUI beanTitlePanelMainChatUI(DisplaySettings displaySettings, FontsGlobalDefines fontsGlobalDefines,
-                                                         ToolTipMainChatUIFactory toolTipFactory) {
-        return TitlePanelMainChatUI.builder().displaySettings(displaySettings).fontsGlobalDefines(fontsGlobalDefines).toolTipFactory(toolTipFactory).build();
+    public TitlePanelMainChatUI beanTitlePanelMainChatUI(DisplaySettings displaySettings,
+            FontsGlobalDefines fontsGlobalDefines, ToolTipMainChatUIFactory toolTipFactory) {
+        return TitlePanelMainChatUI.builder().displaySettings(displaySettings)
+                .fontsGlobalDefines(fontsGlobalDefines).toolTipFactory(toolTipFactory).build();
     }
 
-
-
-
-
-
-
-
-
-
-
-    @Bean(name = "beanPanelSendingMessageMainChatUI")
-    @Lazy
+    @Bean
     @Scope("prototype")
-    @SuppressWarnings("unused")
-    public PanelSendingMessageMainChatUI beanPanelSendingMessageMainChatUI() {
-        return new PanelSendingMessageMainChatUI();
+    @Profile("users")
+    public ToolTipMainChatUI beanToolTipMainChatUI(DisplaySettings displaySettings,
+            FontsGlobalDefines fontsGlobalDefines) {
+        return ToolTipMainChatUI.builder().displaySettings(displaySettings)
+                .fontsGlobalDefines(fontsGlobalDefines).build();
     }
 
-    @Bean(name = "beanToolTipMainChatUI")
-    @Lazy
-    @Scope("prototype")
-    @SuppressWarnings("unused")
-    public ToolTipMainChatUI beanToolTipMainChatUI() {
-        return new ToolTipMainChatUI();
+    @Bean
+    @Profile("users")
+    public ToolTipMainChatUIFactory beanToolTipMainChatUIFactory(
+            ObjectProvider<ToolTipMainChatUI> toolTipObjectProvider) {
+        return ToolTipMainChatUIFactory.builder().toolTipObjectProvider(toolTipObjectProvider)
+                .build();
     }
 }

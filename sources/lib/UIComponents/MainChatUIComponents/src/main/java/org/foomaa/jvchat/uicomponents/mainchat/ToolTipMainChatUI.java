@@ -6,23 +6,18 @@ import java.io.IOException;
 import javax.swing.*;
 import javax.swing.border.Border;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
 import org.foomaa.jvchat.settings.DisplaySettings;
 
-@Component
-@Scope("prototype")
-@Profile("users")
 @Slf4j
 public class ToolTipMainChatUI extends JToolTip {
     private final DisplaySettings displaySettings;
     private final FontsGlobalDefines fontsGlobalDefines;
 
+    @Builder
     ToolTipMainChatUI(DisplaySettings displaySettings, FontsGlobalDefines fontsGlobalDefines) {
         this.displaySettings = displaySettings;
         this.fontsGlobalDefines = fontsGlobalDefines;

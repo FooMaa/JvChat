@@ -1,14 +1,13 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
 
-@Component
-@Profile("users")
+import lombok.Builder;
+
 public class ToolTipMainChatUIFactory {
     private final ObjectProvider<ToolTipMainChatUI> toolTipObjectProvider;
 
+    @Builder
     ToolTipMainChatUIFactory(ObjectProvider<ToolTipMainChatUI> toolTipObjectProvider) {
         this.toolTipObjectProvider = toolTipObjectProvider;
     }

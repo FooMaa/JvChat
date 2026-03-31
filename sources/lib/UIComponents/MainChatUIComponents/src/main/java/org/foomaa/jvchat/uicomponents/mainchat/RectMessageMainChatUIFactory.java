@@ -1,13 +1,12 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import lombok.Builder;
+import java.util.Objects;
+
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
+
+import lombok.Builder;
 
 import org.foomaa.jvchat.structobjects.MessageStructObject;
-
-import java.util.Objects;
 
 public class RectMessageMainChatUIFactory {
     private final ObjectProvider<RectMessageMainChatUI> rectMessageObjectProvider;

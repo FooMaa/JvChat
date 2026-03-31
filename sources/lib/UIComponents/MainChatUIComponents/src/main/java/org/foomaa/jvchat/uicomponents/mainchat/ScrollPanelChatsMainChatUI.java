@@ -47,20 +47,17 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
     @Builder
     ScrollPanelChatsMainChatUI(UsersInfoSettings usersInfoSettings, UISettings uiSettings,
             SendMessagesCtrl sendMessagesCtrl, MessagesDefinesCtrl messagesDefinesCtrl,
-            RectChatMainChatUIFactory rectChatFactory,
-            ChatsCtrl chatsCtrl) {
+            RectChatMainChatUIFactory rectChatFactory, ChatsCtrl chatsCtrl) {
         this.usersInfoSettings = Objects.requireNonNull(usersInfoSettings,
                 "usersInfoSettings is mandatory");
-        this.uiSettings = Objects.requireNonNull(uiSettings,
-                "uiSettings is mandatory");
+        this.uiSettings = Objects.requireNonNull(uiSettings, "uiSettings is mandatory");
         this.sendMessagesCtrl = Objects.requireNonNull(sendMessagesCtrl,
                 "sendMessagesCtrl is mandatory");
         this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl,
                 "messagesDefinesCtrl is mandatory");
         this.rectChatFactory = Objects.requireNonNull(rectChatFactory,
                 "rectChatFactory is mandatory");
-        this.chatsCtrl = Objects.requireNonNull(chatsCtrl,
-                "chatsCtrl is mandatory");
+        this.chatsCtrl = Objects.requireNonNull(chatsCtrl, "chatsCtrl is mandatory");
 
         intervalMilliSecondsSleepUpdating = 30000;
         intervalSecondsWaitLoopUpdate = 5;

@@ -1,9 +1,10 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import lombok.Builder;
+import java.util.Objects;
+
 import org.springframework.beans.factory.ObjectProvider;
 
-import java.util.Objects;
+import lombok.Builder;
 
 public class SendButtonMainChatUIFactory {
     private final ObjectProvider<SendButtonMainChatUI> sendButtonObjectProvider;

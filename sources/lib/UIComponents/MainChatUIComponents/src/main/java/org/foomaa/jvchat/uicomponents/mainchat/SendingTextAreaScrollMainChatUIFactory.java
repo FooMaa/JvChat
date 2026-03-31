@@ -1,11 +1,10 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import lombok.Builder;
-import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
-
 import java.util.Objects;
+
+import org.springframework.beans.factory.ObjectProvider;
+
+import lombok.Builder;
 
 public class SendingTextAreaScrollMainChatUIFactory {
     private final ObjectProvider<SendingTextAreaScrollMainChatUI> sendingTextAreaScrollObjectProvider;
@@ -13,7 +12,8 @@ public class SendingTextAreaScrollMainChatUIFactory {
     @Builder
     SendingTextAreaScrollMainChatUIFactory(
             ObjectProvider<SendingTextAreaScrollMainChatUI> sendingTextAreaScrollObjectProvider) {
-        this.sendingTextAreaScrollObjectProvider = Objects.requireNonNull(sendingTextAreaScrollObjectProvider,
+        this.sendingTextAreaScrollObjectProvider = Objects.requireNonNull(
+                sendingTextAreaScrollObjectProvider,
                 "sendingTextAreaScrollObjectProvider is mandatory");
     }
 

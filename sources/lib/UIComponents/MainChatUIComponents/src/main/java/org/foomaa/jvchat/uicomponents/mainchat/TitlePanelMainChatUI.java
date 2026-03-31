@@ -12,9 +12,6 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 import lombok.Builder;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
-
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
@@ -39,8 +36,7 @@ public class TitlePanelMainChatUI extends JPanel {
                 "displaySettings is mandatory");
         this.fontsGlobalDefines = Objects.requireNonNull(fontsGlobalDefines,
                 "fontsGlobalDefines is mandatory");
-        this.toolTipFactory = Objects.requireNonNull(toolTipFactory,
-                "toolTipFactory is mandatory");
+        this.toolTipFactory = Objects.requireNonNull(toolTipFactory, "toolTipFactory is mandatory");
 
         closeButton = new JButton() {
             @Override
