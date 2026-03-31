@@ -1,12 +1,14 @@
 package org.foomaa.jvchat.models;
 
-import org.springframework.stereotype.Component;
+import java.util.Objects;
+
+import lombok.Builder;
 
 import org.foomaa.jvchat.structobjects.RootStructObjectFactory;
 
-@Component
 public class RootObjectsModel extends BaseModel {
+    @Builder
     RootObjectsModel(RootStructObjectFactory rootStructObjectFactory) {
-        super(null, rootStructObjectFactory);
+        super(null, Objects.requireNonNull(rootStructObjectFactory, "rootStructObjectFactory is mandatory"));
     }
 }

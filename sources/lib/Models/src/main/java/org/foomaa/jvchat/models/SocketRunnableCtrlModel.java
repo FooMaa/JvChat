@@ -2,24 +2,25 @@ package org.foomaa.jvchat.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
+import lombok.Builder;
 
 import org.foomaa.jvchat.structobjects.*;
 
-@Component
-@Lazy
 public class SocketRunnableCtrlModel extends BaseModel {
     // DI ↓
     private final SocketRunnableCtrlStructObjectFactory socketRunnableCtrlStructObjectFactory;
 
+    @Builder
     SocketRunnableCtrlModel(
             SocketRunnableCtrlStructObjectFactory socketRunnableCtrlStructObjectFactory,
             RootStructObjectFactory rootStructObjectFactory, RootObjectsModel rootObjectsModel) {
-        super(rootObjectsModel, rootStructObjectFactory);
+        super(Objects.requireNonNull(rootObjectsModel, "rootObjectsModel is mandatory"), Objects.requireNonNull(
+                rootStructObjectFactory, "rootStructObjectFactory is mandatory"));
 
-        this.socketRunnableCtrlStructObjectFactory = socketRunnableCtrlStructObjectFactory;
+        this.socketRunnableCtrlStructObjectFactory = Objects.requireNonNull(socketRunnableCtrlStructObjectFactory,
+                "socketRunnableCtrlStructObjectFactory is mandatory");
     }
 
     public void createSocketRunnableCtrlStructObject(Runnable socketRunnableCtrl) {

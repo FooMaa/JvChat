@@ -3,9 +3,7 @@ package org.foomaa.jvchat.models;
 import java.time.LocalDateTime;
 import java.util.*;
 
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
-
+import lombok.Builder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -13,8 +11,6 @@ import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.settings.UsersInfoSettings;
 import org.foomaa.jvchat.structobjects.*;
 
-@Component
-@Lazy
 @Slf4j
 public class ChatsModel extends BaseModel {
     @Getter
@@ -26,17 +22,22 @@ public class ChatsModel extends BaseModel {
     private final ChatStructObjectFactory chatStructObjectFactory;
     private final UserStructObjectFactory userStructObjectFactory;
 
+    @Builder
     ChatsModel(UsersInfoSettings usersInfoSettings, UsersModel usersModel,
             MessageStructObjectFactory messageStructObjectFactory, ChatStructObjectFactory chatStructObjectFactory,
             UserStructObjectFactory userStructObjectFactory, RootStructObjectFactory rootStructObjectFactory,
             RootObjectsModel rootObjectsModel) {
-        super(rootObjectsModel, rootStructObjectFactory);
+        super(Objects.requireNonNull(rootObjectsModel, "rootObjectsModel is mandatory"), Objects.requireNonNull(
+                rootStructObjectFactory, "rootStructObjectFactory is mandatory"));
 
-        this.usersInfoSettings = usersInfoSettings;
-        this.usersModel = usersModel;
-        this.messageStructObjectFactory = messageStructObjectFactory;
-        this.chatStructObjectFactory = chatStructObjectFactory;
-        this.userStructObjectFactory = userStructObjectFactory;
+        this.usersInfoSettings = Objects.requireNonNull(usersInfoSettings, "usersInfoSettings is mandatory");
+        this.usersModel = Objects.requireNonNull(usersModel, "usersModel is mandatory");
+        this.messageStructObjectFactory = Objects.requireNonNull(messageStructObjectFactory,
+                "messageStructObjectFactory is mandatory");
+        this.chatStructObjectFactory = Objects.requireNonNull(chatStructObjectFactory,
+                "chatStructObjectFactory is mandatory");
+        this.userStructObjectFactory = Objects.requireNonNull(userStructObjectFactory,
+                "userStructObjectFactory is mandatory");
 
         currentActiveChatUuid = null;
     }

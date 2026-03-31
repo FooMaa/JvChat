@@ -1,26 +1,26 @@
 package org.foomaa.jvchat.models;
 
+import java.util.Objects;
 import java.util.UUID;
 
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
-
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.structobjects.*;
 
-@Component
-@Lazy
 @Slf4j
 public class UsersModel extends BaseModel {
     // DI ↓
     private final UserStructObjectFactory userStructObjectFactory;
 
+    @Builder
     UsersModel(UserStructObjectFactory userStructObjectFactory, RootStructObjectFactory rootStructObjectFactory,
             RootObjectsModel rootObjectsModel) {
-        super(rootObjectsModel, rootStructObjectFactory);
+        super(Objects.requireNonNull(rootObjectsModel, "rootObjectsModel is mandatory"), Objects.requireNonNull(
+                rootStructObjectFactory, "rootStructObjectFactory is mandatory"));
 
-        this.userStructObjectFactory = userStructObjectFactory;
+        this.userStructObjectFactory = Objects.requireNonNull(userStructObjectFactory,
+                "userStructObjectFactory is mandatory");
     }
 
     public void addCreatedUser(UserStructObject userStructObject) {

@@ -3,31 +3,31 @@ package org.foomaa.jvchat.models;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
+import lombok.Builder;
 
 import org.foomaa.jvchat.structobjects.*;
 
-@Component
-@Profile("servers")
-@Lazy
 public class CheckersOnlineModel extends BaseModel {
     // DI ↓
     private final UsersModel usersModel;
     private final SocketRunnableCtrlModel socketRunnableCtrlModel;
     private final CheckerOnlineStructObjectFactory checkerOnlineStructObjectFactory;
 
+    @Builder
     CheckersOnlineModel(UsersModel usersModel, SocketRunnableCtrlModel socketRunnableCtrlModel,
             CheckerOnlineStructObjectFactory checkerOnlineStructObjectFactory,
             RootStructObjectFactory rootStructObjectFactory, RootObjectsModel rootObjectsModel) {
-        super(rootObjectsModel, rootStructObjectFactory);
+        super(Objects.requireNonNull(rootObjectsModel, "rootObjectsModel is mandatory"), Objects.requireNonNull(
+                rootStructObjectFactory, "rootStructObjectFactory is mandatory"));
 
-        this.usersModel = usersModel;
-        this.socketRunnableCtrlModel = socketRunnableCtrlModel;
-        this.checkerOnlineStructObjectFactory = checkerOnlineStructObjectFactory;
+        this.usersModel = Objects.requireNonNull(usersModel, "usersModel is mandatory");
+        this.socketRunnableCtrlModel = Objects.requireNonNull(socketRunnableCtrlModel,
+                "socketRunnableCtrlModel is mandatory");
+        this.checkerOnlineStructObjectFactory = Objects.requireNonNull(checkerOnlineStructObjectFactory,
+                "checkerOnlineStructObjectFactory is mandatory");
     }
 
     public void createNewCheckersOnline(UUID uuidUser, LocalDateTime dateTimeUpdating) {

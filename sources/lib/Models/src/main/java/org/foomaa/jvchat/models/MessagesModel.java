@@ -3,25 +3,26 @@ package org.foomaa.jvchat.models;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
+import lombok.Builder;
 
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 import org.foomaa.jvchat.structobjects.*;
 
-@Component
-@Lazy
 public class MessagesModel extends BaseModel {
     // DI ↓
     private final MessageStructObjectFactory messageStructObjectFactory;
 
+    @Builder
     MessagesModel(MessageStructObjectFactory messageStructObjectFactory,
             RootStructObjectFactory rootStructObjectFactory, RootObjectsModel rootObjectsModel) {
-        super(rootObjectsModel, rootStructObjectFactory);
+        super(Objects.requireNonNull(rootObjectsModel, "rootObjectsModel is mandatory"), Objects.requireNonNull(
+                rootStructObjectFactory, "rootStructObjectFactory is mandatory"));
 
-        this.messageStructObjectFactory = messageStructObjectFactory;
+        this.messageStructObjectFactory = Objects.requireNonNull(messageStructObjectFactory,
+                "messageStructObjectFactory is mandatory");
     }
 
     public MessageStructObject createNewMessage(UUID uuidUserSender, UUID uuidUserReceiver, UUID uuidMessage,
