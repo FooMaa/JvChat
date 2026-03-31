@@ -1,15 +1,19 @@
 package org.foomaa.jvchat.structobjects;
 
-import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.stereotype.Component;
+import java.util.Objects;
 
-@Component
+import org.springframework.beans.factory.ObjectProvider;
+
+import lombok.Builder;
+
 public class SocketRunnableCtrlStructObjectFactory {
     private final ObjectProvider<SocketRunnableCtrlStructObject> ctrlStructObjectObjectProvider;
 
+    @Builder
     SocketRunnableCtrlStructObjectFactory(
             ObjectProvider<SocketRunnableCtrlStructObject> ctrlStructObjectObjectProvider) {
-        this.ctrlStructObjectObjectProvider = ctrlStructObjectObjectProvider;
+        this.ctrlStructObjectObjectProvider = Objects.requireNonNull(ctrlStructObjectObjectProvider,
+                "ctrlStructObjectObjectProvider is mandatory");
     }
 
     public SocketRunnableCtrlStructObject create() {

@@ -1,14 +1,18 @@
 package org.foomaa.jvchat.structobjects;
 
-import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.stereotype.Component;
+import java.util.Objects;
 
-@Component
+import org.springframework.beans.factory.ObjectProvider;
+
+import lombok.Builder;
+
 public class RootStructObjectFactory {
     private final ObjectProvider<RootStructObject> rootStructObjectObjectProvider;
 
+    @Builder
     RootStructObjectFactory(ObjectProvider<RootStructObject> rootStructObjectObjectProvider) {
-        this.rootStructObjectObjectProvider = rootStructObjectObjectProvider;
+        this.rootStructObjectObjectProvider = Objects.requireNonNull(rootStructObjectObjectProvider,
+                "rootStructObjectObjectProvider is mandatory");
     }
 
     public RootStructObject create() {

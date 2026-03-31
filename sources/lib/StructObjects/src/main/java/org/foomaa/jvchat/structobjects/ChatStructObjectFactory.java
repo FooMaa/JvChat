@@ -1,16 +1,19 @@
 package org.foomaa.jvchat.structobjects;
 
+import java.util.Objects;
 import java.util.UUID;
 
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.stereotype.Component;
 
-@Component
+import lombok.Builder;
+
 public class ChatStructObjectFactory {
     private final ObjectProvider<ChatStructObject> chatStructObjectObjectProvider;
 
+    @Builder
     ChatStructObjectFactory(ObjectProvider<ChatStructObject> chatStructObjectObjectProvider) {
-        this.chatStructObjectObjectProvider = chatStructObjectObjectProvider;
+        this.chatStructObjectObjectProvider = Objects.requireNonNull(chatStructObjectObjectProvider,
+                "chatStructObjectObjectProvider is mandatory");
     }
 
     public ChatStructObject create() {

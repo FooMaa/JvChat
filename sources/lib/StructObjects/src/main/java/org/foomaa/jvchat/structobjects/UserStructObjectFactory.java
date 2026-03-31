@@ -1,19 +1,22 @@
 package org.foomaa.jvchat.structobjects;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.stereotype.Component;
+
+import lombok.Builder;
 
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 
-@Component
 public class UserStructObjectFactory {
     private final ObjectProvider<UserStructObject> userStructObjectObjectProvider;
 
+    @Builder
     UserStructObjectFactory(ObjectProvider<UserStructObject> userStructObjectObjectProvider) {
-        this.userStructObjectObjectProvider = userStructObjectObjectProvider;
+        this.userStructObjectObjectProvider = Objects.requireNonNull(userStructObjectObjectProvider,
+                "userStructObjectObjectProvider is mandatory");
     }
 
     public UserStructObject create() {

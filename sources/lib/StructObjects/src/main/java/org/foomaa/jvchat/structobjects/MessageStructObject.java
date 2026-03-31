@@ -4,15 +4,11 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
+import lombok.Builder;
 import lombok.Getter;
 
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 
-@Component
-@Scope("prototype")
 @Getter
 public class MessageStructObject extends BaseStructObject {
     private UUID uuidUserSender;
@@ -21,6 +17,7 @@ public class MessageStructObject extends BaseStructObject {
     private String text;
     private LocalDateTime timestamp;
 
+    @Builder
     MessageStructObject() {
         uuidUserSender = null;
         uuidUserReceiver = null;

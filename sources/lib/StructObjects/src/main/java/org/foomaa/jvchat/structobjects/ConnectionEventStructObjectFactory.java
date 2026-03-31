@@ -1,16 +1,20 @@
 package org.foomaa.jvchat.structobjects;
 
+import java.util.Objects;
+
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.stereotype.Component;
 
-@Component
+import lombok.Builder;
+
 public class ConnectionEventStructObjectFactory {
     private final ObjectProvider<ConnectionEventStructObject> connectionEventsObjectProvider;
 
+    @Builder
     ConnectionEventStructObjectFactory(
             ObjectProvider<ConnectionEventStructObject> connectionEventsObjectProvider) {
-        this.connectionEventsObjectProvider = connectionEventsObjectProvider;
+        this.connectionEventsObjectProvider = Objects.requireNonNull(connectionEventsObjectProvider,
+                "connectionEventsObjectProvider is mandatory");
     }
 
     public ConnectionEventStructObject create() {

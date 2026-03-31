@@ -1,16 +1,13 @@
 package org.foomaa.jvchat.structobjects;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
+import lombok.Builder;
 import lombok.Getter;
 
-@Component
-@Scope("prototype")
 @Getter
 public class SocketRunnableCtrlStructObject extends BaseStructObject {
     private Runnable socketRunnableCtrl;
 
+    @Builder
     SocketRunnableCtrlStructObject() {
         socketRunnableCtrl = null;
         commitProperties();

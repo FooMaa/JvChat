@@ -1,17 +1,14 @@
 package org.foomaa.jvchat.structobjects;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
+import lombok.Builder;
 import lombok.Getter;
 
-@Component
-@Scope("prototype")
 @Getter
 public class ChatStructObject extends BaseStructObject {
     private MessageStructObject lastMessage;
     private UserStructObject userChat;
 
+    @Builder
     ChatStructObject() {
         lastMessage = null;
         userChat = null;

@@ -3,21 +3,18 @@ package org.foomaa.jvchat.structobjects;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
+import lombok.Builder;
 import lombok.Getter;
 
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 
-@Component
-@Scope("prototype")
 @Getter
 public class UserStructObject extends BaseStructObject {
     private String login;
     private MainChatsGlobalDefines.TypeStatusOnline statusOnline;
     private LocalDateTime timestampLastOnline;
 
+    @Builder
     UserStructObject() {
         login = null;
         statusOnline = null;

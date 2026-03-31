@@ -3,15 +3,9 @@ package org.foomaa.jvchat.structobjects;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
+import lombok.Builder;
 import lombok.Getter;
 
-@Component
-@Scope("prototype")
-@Profile("servers")
 @Getter
 public class CheckerOnlineStructObject extends BaseStructObject {
     private UserStructObject user;
@@ -20,6 +14,7 @@ public class CheckerOnlineStructObject extends BaseStructObject {
     private LocalDateTime dateTimeSending;
     private LocalDateTime dateTimeUpdating;
 
+    @Builder
     CheckerOnlineStructObject() {
         user = null;
         isSending = false;

@@ -1,19 +1,20 @@
 package org.foomaa.jvchat.structobjects;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
 
-@Component
-@Profile("servers")
+import lombok.Builder;
+
 public class CheckerOnlineStructObjectFactory {
     private final ObjectProvider<CheckerOnlineStructObject> checkerOnlineObjectProvider;
 
+    @Builder
     CheckerOnlineStructObjectFactory(
             ObjectProvider<CheckerOnlineStructObject> checkerOnlineObjectProvider) {
-        this.checkerOnlineObjectProvider = checkerOnlineObjectProvider;
+        this.checkerOnlineObjectProvider = Objects.requireNonNull(checkerOnlineObjectProvider,
+                "checkerOnlineObjectProvider is mandatory");
     }
 
     public CheckerOnlineStructObject create() {
