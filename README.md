@@ -98,4 +98,4 @@ spotless:apply
 | scripts/db/db_creator.py                               | Clears and recreates the database using a number of *.sql scripts located in a folder named after the database schema                                               |
 | scripts/db/pre_inst_db.sh                              | Can install all dependencies as scripts/dependencies/install_dependencies.sh, creates users with passwords, configures them in the database, configures pg_hba.conf |
 | scripts/db/make_default_db.sh                          | Runs scripts/db/db_creator.py and pre_inst_db.sh with default parameters                                                                                            |
-| scripts/db/check_format.sh                             | Runs                                                                                                                                                                |
+| scripts/db/check_format.sh                             | The code is checked format, or a complete reformatting (is performed depending on the passed arguments)                                                             |
