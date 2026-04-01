@@ -22,7 +22,10 @@ public class ToolsConfig {
     @Bean
     @Profile("servers")
     public ServersTools beanServersTools(MainTools mainTools, ServersInfoSettings serversInfoSettings) {
-        return ServersTools.builder().mainTools(mainTools).serversInfoSettings(serversInfoSettings).build();
+        return ServersTools.builder()
+                .mainTools(mainTools)
+                .serversInfoSettings(serversInfoSettings)
+                .build();
     }
 
     @Bean

@@ -30,7 +30,9 @@ public class TitlePanelAuthUI extends JPanel {
     private final ToolTipAuthUIFactory toolTipAuthUIFactory;
 
     @Builder
-    TitlePanelAuthUI(DisplaySettings displaySettings, FontsGlobalDefines fontsGlobalDefines,
+    TitlePanelAuthUI(
+            DisplaySettings displaySettings,
+            FontsGlobalDefines fontsGlobalDefines,
             ToolTipAuthUIFactory toolTipAuthUIFactory) {
         this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
         this.fontsGlobalDefines = Objects.requireNonNull(fontsGlobalDefines, "fontsGlobalDefines is mandatory");
@@ -82,10 +84,12 @@ public class TitlePanelAuthUI extends JPanel {
 
     private void settingButtonImage(JButton button, String imagePathExited, String imagePathEntered) {
         try {
-            BufferedImage imageExited = ImageIO.read(Objects.requireNonNull(getClass().getResource(imagePathExited)));
+            BufferedImage imageExited =
+                    ImageIO.read(Objects.requireNonNull(getClass().getResource(imagePathExited)));
             ImageIcon iconExited = new ImageIcon(imageExited);
 
-            BufferedImage imageEntered = ImageIO.read(Objects.requireNonNull(getClass().getResource(imagePathEntered)));
+            BufferedImage imageEntered =
+                    ImageIO.read(Objects.requireNonNull(getClass().getResource(imagePathEntered)));
             ImageIcon iconEntered = new ImageIcon(imageEntered);
 
             button.setIcon(iconExited);

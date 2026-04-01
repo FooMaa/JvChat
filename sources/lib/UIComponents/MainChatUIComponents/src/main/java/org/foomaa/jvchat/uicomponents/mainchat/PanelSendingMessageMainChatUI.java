@@ -23,12 +23,15 @@ public class PanelSendingMessageMainChatUI extends JPanel {
     private final ChatsCtrl chatsCtrl;
 
     @Builder
-    PanelSendingMessageMainChatUI(ScrollPanelChatsMainChatUI scrollPanelChats,
-            ScrollPanelMessagesMainChatUI scrollPanelMessages, MessagesDialogCtrl messagesDialogCtrl,
+    PanelSendingMessageMainChatUI(
+            ScrollPanelChatsMainChatUI scrollPanelChats,
+            ScrollPanelMessagesMainChatUI scrollPanelMessages,
+            MessagesDialogCtrl messagesDialogCtrl,
             SendButtonMainChatUIFactory sendButtonMainChatUIFactory,
-            SendingTextAreaScrollMainChatUIFactory sendingTextAreaScrollMainChatUIFactory, ChatsCtrl chatsCtrl) {
-        Objects.requireNonNull(sendingTextAreaScrollMainChatUIFactory,
-                "sendingTextAreaScrollMainChatUIFactory is mandatory");
+            SendingTextAreaScrollMainChatUIFactory sendingTextAreaScrollMainChatUIFactory,
+            ChatsCtrl chatsCtrl) {
+        Objects.requireNonNull(
+                sendingTextAreaScrollMainChatUIFactory, "sendingTextAreaScrollMainChatUIFactory is mandatory");
         Objects.requireNonNull(sendButtonMainChatUIFactory, "sendButtonMainChatUIFactory is mandatory");
 
         this.scrollPanelChats = Objects.requireNonNull(scrollPanelChats, "scrollPanelChats is mandatory");

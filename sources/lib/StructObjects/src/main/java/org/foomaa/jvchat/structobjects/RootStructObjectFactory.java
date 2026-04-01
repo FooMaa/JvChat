@@ -11,8 +11,8 @@ public class RootStructObjectFactory {
 
     @Builder
     RootStructObjectFactory(ObjectProvider<RootStructObject> rootStructObjectObjectProvider) {
-        this.rootStructObjectObjectProvider = Objects.requireNonNull(rootStructObjectObjectProvider,
-                "rootStructObjectObjectProvider is mandatory");
+        this.rootStructObjectObjectProvider =
+                Objects.requireNonNull(rootStructObjectObjectProvider, "rootStructObjectObjectProvider is mandatory");
     }
 
     public RootStructObject create() {

@@ -9,11 +9,10 @@ import lombok.Builder;
 
 public class StructTools {
     @Builder
-    StructTools() {
-    }
+    StructTools() {}
 
-    public <TYPE_KEY, TYPE_VALUE> List<Map<TYPE_KEY, TYPE_VALUE>> objectInListMaps(Object object,
-            Class<TYPE_KEY> clazzKey, Class<TYPE_VALUE> clazzValue) {
+    public <TYPE_KEY, TYPE_VALUE> List<Map<TYPE_KEY, TYPE_VALUE>> objectInListMaps(
+            Object object, Class<TYPE_KEY> clazzKey, Class<TYPE_VALUE> clazzValue) {
         List<Map<TYPE_KEY, TYPE_VALUE>> resultList = new ArrayList<>();
 
         if (object instanceof List<?> objectList) {
@@ -46,8 +45,8 @@ public class StructTools {
         return resultList;
     }
 
-    public <TYPE_KEY, TYPE_VALUE> Map<TYPE_KEY, TYPE_VALUE> objectInMap(Object object, Class<TYPE_KEY> clazzKey,
-            Class<TYPE_VALUE> clazzValue) {
+    public <TYPE_KEY, TYPE_VALUE> Map<TYPE_KEY, TYPE_VALUE> objectInMap(
+            Object object, Class<TYPE_KEY> clazzKey, Class<TYPE_VALUE> clazzValue) {
         Map<TYPE_KEY, TYPE_VALUE> resultMap = new HashMap<>();
 
         if (object instanceof Map<?, ?> map) {

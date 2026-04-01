@@ -25,7 +25,9 @@ public class ActiveLabelAuthUI extends JLabel {
     private final ToolTipAuthUIFactory toolTipAuthUIFactory;
 
     @Builder
-    ActiveLabelAuthUI(DisplaySettings displaySettings, FontsGlobalDefines fontsGlobalDefines,
+    ActiveLabelAuthUI(
+            DisplaySettings displaySettings,
+            FontsGlobalDefines fontsGlobalDefines,
             ToolTipAuthUIFactory toolTipAuthUIFactory) {
         this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
         this.fontsGlobalDefines = Objects.requireNonNull(fontsGlobalDefines, "fontsGlobalDefines is mandatory");

@@ -6,7 +6,9 @@ import org.foomaa.jvchat.messages.DefinesMessages;
 
 public class MessagesDefinesCtrl {
     public enum TypeFlags {
-        TRUE, FALSE, DEFAULT
+        TRUE,
+        FALSE,
+        DEFAULT
     }
 
     private TypeFlags EntryRequestFlag = TypeFlags.DEFAULT;
@@ -16,7 +18,8 @@ public class MessagesDefinesCtrl {
     private DefinesMessages.TypeErrorRegistration errorRegistrationFlag = DefinesMessages.TypeErrorRegistration.NoError;
     private TypeFlags ChangePasswordRequest = TypeFlags.DEFAULT;
     private TypeFlags VerifyRegistrationEmailRequestFlag = TypeFlags.DEFAULT;
-    private DefinesMessages.TypeErrorRegistration ErrorVerifyRegEmailFlag = DefinesMessages.TypeErrorRegistration.NoError;
+    private DefinesMessages.TypeErrorRegistration ErrorVerifyRegEmailFlag =
+            DefinesMessages.TypeErrorRegistration.NoError;
     private TypeFlags ChatsLoadReplyFlag = TypeFlags.DEFAULT;
     private TypeFlags LoadUsersOnlineReplyFlag = TypeFlags.DEFAULT;
     private TypeFlags TextMessagesLoadReplyFlag = TypeFlags.DEFAULT;
@@ -27,8 +30,7 @@ public class MessagesDefinesCtrl {
     private TypeFlags TextMessageRedirectServerToUserVerificationFlag = TypeFlags.DEFAULT;
 
     @Builder
-    MessagesDefinesCtrl() {
-    }
+    MessagesDefinesCtrl() {}
 
     public void setEntryRequestFlag(TypeFlags newFlag) {
         if (EntryRequestFlag != newFlag) {

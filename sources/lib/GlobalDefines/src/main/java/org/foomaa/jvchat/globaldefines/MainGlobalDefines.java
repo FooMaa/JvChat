@@ -4,8 +4,7 @@ import lombok.Builder;
 
 public class MainGlobalDefines {
     @Builder
-    MainGlobalDefines() {
-    }
+    MainGlobalDefines() {}
 
     public final String NAME_PROJECT = "JvChat";
 }

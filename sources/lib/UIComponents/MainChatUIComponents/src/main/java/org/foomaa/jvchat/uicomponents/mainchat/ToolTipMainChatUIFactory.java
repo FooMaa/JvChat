@@ -11,8 +11,8 @@ public class ToolTipMainChatUIFactory {
 
     @Builder
     ToolTipMainChatUIFactory(ObjectProvider<ToolTipMainChatUI> toolTipObjectProvider) {
-        this.toolTipObjectProvider = Objects.requireNonNull(toolTipObjectProvider,
-                "toolTipObjectProvider is mandatory");
+        this.toolTipObjectProvider =
+                Objects.requireNonNull(toolTipObjectProvider, "toolTipObjectProvider is mandatory");
     }
 
     public ToolTipMainChatUI create() {

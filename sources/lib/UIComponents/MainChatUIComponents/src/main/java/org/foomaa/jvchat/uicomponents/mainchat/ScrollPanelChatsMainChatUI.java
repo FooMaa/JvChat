@@ -45,9 +45,13 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
     private final ChatsCtrl chatsCtrl;
 
     @Builder
-    ScrollPanelChatsMainChatUI(UsersInfoSettings usersInfoSettings, UISettings uiSettings,
-            SendMessagesCtrl sendMessagesCtrl, MessagesDefinesCtrl messagesDefinesCtrl,
-            RectChatMainChatUIFactory rectChatFactory, ChatsCtrl chatsCtrl) {
+    ScrollPanelChatsMainChatUI(
+            UsersInfoSettings usersInfoSettings,
+            UISettings uiSettings,
+            SendMessagesCtrl sendMessagesCtrl,
+            MessagesDefinesCtrl messagesDefinesCtrl,
+            RectChatMainChatUIFactory rectChatFactory,
+            ChatsCtrl chatsCtrl) {
         this.usersInfoSettings = Objects.requireNonNull(usersInfoSettings, "usersInfoSettings is mandatory");
         this.uiSettings = Objects.requireNonNull(uiSettings, "uiSettings is mandatory");
         this.sendMessagesCtrl = Objects.requireNonNull(sendMessagesCtrl, "sendMessagesCtrl is mandatory");
@@ -81,7 +85,8 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
     }
 
     private void settingLoadLabel() {
-        loadGifLabel = new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getResource(loadGifPath))));
+        loadGifLabel =
+                new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getResource(loadGifPath))));
         loadGifLabel.setOpaque(false);
         loadGifLabel.setBackground(new Color(0, 0, 0, 0));
     }
@@ -145,7 +150,8 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         gbc.anchor = GridBagConstraints.PAGE_START;
-        gbc.fill = scrollPane.getVerticalScrollBar().isVisible() ? GridBagConstraints.BOTH : GridBagConstraints.HORIZONTAL;
+        gbc.fill =
+                scrollPane.getVerticalScrollBar().isVisible() ? GridBagConstraints.BOTH : GridBagConstraints.HORIZONTAL;
         add(scrollPane, gbc);
 
         revalidate();

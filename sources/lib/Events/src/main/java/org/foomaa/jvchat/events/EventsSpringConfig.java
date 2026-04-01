@@ -12,8 +12,10 @@ import org.foomaa.jvchat.models.ConnectionsEventsModel;
 @EnableAutoConfiguration // Will change it later
 class EventsSpringConfig {
     public enum NameBeans {
-        BeanBaseEvent("beanBaseEvent"), BeanPublisherEvents("beanPublisherEvents"), BeanMakerEvents(
-                "beanMakerEvents"), BeanAspectCompareEventsUuids("beanAspectCompareEventsUuids");
+        BeanBaseEvent("beanBaseEvent"),
+        BeanPublisherEvents("beanPublisherEvents"),
+        BeanMakerEvents("beanMakerEvents"),
+        BeanAspectCompareEventsUuids("beanAspectCompareEventsUuids");
 
         private final String value;
 

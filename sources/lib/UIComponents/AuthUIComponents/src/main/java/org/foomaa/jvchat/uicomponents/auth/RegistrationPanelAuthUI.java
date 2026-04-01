@@ -34,10 +34,16 @@ public class RegistrationPanelAuthUI extends JPanel {
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
     @Builder
-    RegistrationPanelAuthUI(DisplaySettings displaySettings, UsersTools usersTools, SendMessagesCtrl sendMessagesCtrl,
-            MessagesDefinesCtrl messagesDefinesCtrl, ButtonAuthUIFactory buttonAuthUIFactory,
-            ErrorLabelAuthUIFactory errorLabelAuthUIFactory, PasswordFieldAuthUIFactory passwordFieldAuthUIFactory,
-            TextFieldAuthUIFactory textFieldAuthUIFactory, OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
+    RegistrationPanelAuthUI(
+            DisplaySettings displaySettings,
+            UsersTools usersTools,
+            SendMessagesCtrl sendMessagesCtrl,
+            MessagesDefinesCtrl messagesDefinesCtrl,
+            ButtonAuthUIFactory buttonAuthUIFactory,
+            ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
+            PasswordFieldAuthUIFactory passwordFieldAuthUIFactory,
+            TextFieldAuthUIFactory textFieldAuthUIFactory,
+            OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
         Objects.requireNonNull(buttonAuthUIFactory, "buttonAuthUIFactory is mandatory");
         Objects.requireNonNull(errorLabelAuthUIFactory, "errorLabelAuthUIFactory is mandatory");
         Objects.requireNonNull(passwordFieldAuthUIFactory, "passwordFieldAuthUIFactory is mandatory");
@@ -47,8 +53,8 @@ public class RegistrationPanelAuthUI extends JPanel {
         this.usersTools = Objects.requireNonNull(usersTools, "usersTools is mandatory");
         this.sendMessagesCtrl = Objects.requireNonNull(sendMessagesCtrl, "sendMessagesCtrl is mandatory");
         this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl, "messagesDefinesCtrl is mandatory");
-        this.optionPaneAuthUIFactory = Objects.requireNonNull(optionPaneAuthUIFactory,
-                "optionPaneAuthUIFactory is mandatory");
+        this.optionPaneAuthUIFactory =
+                Objects.requireNonNull(optionPaneAuthUIFactory, "optionPaneAuthUIFactory is mandatory");
 
         tLogin = textFieldAuthUIFactory.create("Login");
         tEmail = textFieldAuthUIFactory.create("Email");
@@ -93,8 +99,8 @@ public class RegistrationPanelAuthUI extends JPanel {
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(displaySettings.getResizePixel(0.03), insX, displaySettings.getResizePixel(
-                0.0045), insX);
+        gbc.insets =
+                new Insets(displaySettings.getResizePixel(0.03), insX, displaySettings.getResizePixel(0.0045), insX);
         gbc.gridy = gridyNum;
         add(tLogin, gbc);
         gridyNum++;
@@ -148,8 +154,11 @@ public class RegistrationPanelAuthUI extends JPanel {
     private void addListenerToElements() {
         bRegister.addActionListener(event -> {
             if (checkFields()) {
-                sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.RegistrationRequest, tLogin.getInputText(),
-                        tEmail.getInputText(), tPassword.getInputText());
+                sendMessagesCtrl.sendMessage(
+                        DefinesMessages.TypeMessage.RegistrationRequest,
+                        tLogin.getInputText(),
+                        tEmail.getInputText(),
+                        tPassword.getInputText());
                 waitRepeatServer();
             }
         });
@@ -183,8 +192,9 @@ public class RegistrationPanelAuthUI extends JPanel {
             fields.add("\"Confirm password\"");
         }
 
-        if (!Objects.equals(tPassword.getInputText(), "") && !Objects.equals(tPasswordConfirm.getInputText(),
-                "") && !Objects.equals(tPassword.getInputText(), tPasswordConfirm.getInputText())) {
+        if (!Objects.equals(tPassword.getInputText(), "")
+                && !Objects.equals(tPasswordConfirm.getInputText(), "")
+                && !Objects.equals(tPassword.getInputText(), tPasswordConfirm.getInputText())) {
             tPassword.setErrorBorder(true);
             tPasswordConfirm.setErrorBorder(true);
             tErrorHelpInfo.setText("The entered passwords must match!");
@@ -212,15 +222,22 @@ public class RegistrationPanelAuthUI extends JPanel {
     }
 
     private void changeRegimeBack() {
-        GetterEvents.getInstance().getBeanMakerEvents().event(this, "changeRegimeWork",
-                DefinesAuthUI.RegimeWorkMainFrame.Auth);
+        GetterEvents.getInstance()
+                .getBeanMakerEvents()
+                .event(this, "changeRegimeWork", DefinesAuthUI.RegimeWorkMainFrame.Auth);
         settingUnfocusFieldsOnChangeRegime();
     }
 
     private void changeRegimeNext() {
-        GetterEvents.getInstance().getBeanMakerEvents().event(this, "changeRegimeWork",
-                DefinesAuthUI.RegimeWorkMainFrame.VerifyCodeRegistration, tLogin.getInputText(), tEmail.getInputText(),
-                tPassword.getInputText());
+        GetterEvents.getInstance()
+                .getBeanMakerEvents()
+                .event(
+                        this,
+                        "changeRegimeWork",
+                        DefinesAuthUI.RegimeWorkMainFrame.VerifyCodeRegistration,
+                        tLogin.getInputText(),
+                        tEmail.getInputText(),
+                        tPassword.getInputText());
         settingUnfocusFieldsOnChangeRegime();
     }
 
@@ -251,16 +268,21 @@ public class RegistrationPanelAuthUI extends JPanel {
 
     private void openErrorPane() {
         switch (messagesDefinesCtrl.getErrorRegistrationFlag()) {
-            case NoError -> optionPaneAuthUIFactory.create().show("The error is not clear.",
-                    OptionPaneAuthUI.TypeDlg.ERROR);
-            case EmailSending -> optionPaneAuthUIFactory.create().show("The email may be invalid.",
-                    OptionPaneAuthUI.TypeDlg.ERROR);
-            case Login -> optionPaneAuthUIFactory.create().show("This login is already in use.",
-                    OptionPaneAuthUI.TypeDlg.ERROR);
-            case Email -> optionPaneAuthUIFactory.create().show("This email is already in use.",
-                    OptionPaneAuthUI.TypeDlg.ERROR);
-            case LoginAndEmail -> optionPaneAuthUIFactory.create().show("The email and login data are already in use.",
-                    OptionPaneAuthUI.TypeDlg.ERROR);
+            case NoError -> optionPaneAuthUIFactory
+                    .create()
+                    .show("The error is not clear.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case EmailSending -> optionPaneAuthUIFactory
+                    .create()
+                    .show("The email may be invalid.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case Login -> optionPaneAuthUIFactory
+                    .create()
+                    .show("This login is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case Email -> optionPaneAuthUIFactory
+                    .create()
+                    .show("This email is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case LoginAndEmail -> optionPaneAuthUIFactory
+                    .create()
+                    .show("The email and login data are already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 }

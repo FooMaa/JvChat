@@ -21,7 +21,9 @@ public class ButtonAuthUI extends JButton {
     private final ToolTipAuthUIFactory toolTipAuthUIFactory;
 
     @Builder
-    ButtonAuthUI(DisplaySettings displaySettings, FontsGlobalDefines fontsGlobalDefines,
+    ButtonAuthUI(
+            DisplaySettings displaySettings,
+            FontsGlobalDefines fontsGlobalDefines,
             ToolTipAuthUIFactory toolTipAuthUIFactory) {
         this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
         this.fontsGlobalDefines = Objects.requireNonNull(fontsGlobalDefines, "fontsGlobalDefines is mandatory");
@@ -61,8 +63,7 @@ public class ButtonAuthUI extends JButton {
     }
 
     @Override
-    public void setContentAreaFilled(boolean b) {
-    }
+    public void setContentAreaFilled(boolean b) {}
 
     @Override
     public boolean isContentAreaFilled() {

@@ -12,16 +12,19 @@ public class ConnectionEventStructObjectFactory {
 
     @Builder
     ConnectionEventStructObjectFactory(ObjectProvider<ConnectionEventStructObject> connectionEventsObjectProvider) {
-        this.connectionEventsObjectProvider = Objects.requireNonNull(connectionEventsObjectProvider,
-                "connectionEventsObjectProvider is mandatory");
+        this.connectionEventsObjectProvider =
+                Objects.requireNonNull(connectionEventsObjectProvider, "connectionEventsObjectProvider is mandatory");
     }
 
     public ConnectionEventStructObject create() {
         return connectionEventsObjectProvider.getObject();
     }
 
-    public ConnectionEventStructObject create(String customNameEvent, Object objectReceiver,
-            AnnotationConfigApplicationContext context, Object objectSender) {
+    public ConnectionEventStructObject create(
+            String customNameEvent,
+            Object objectReceiver,
+            AnnotationConfigApplicationContext context,
+            Object objectSender) {
         ConnectionEventStructObject connectionEventStructObject = connectionEventsObjectProvider.getObject();
 
         connectionEventStructObject.setCustomNameEvent(customNameEvent);

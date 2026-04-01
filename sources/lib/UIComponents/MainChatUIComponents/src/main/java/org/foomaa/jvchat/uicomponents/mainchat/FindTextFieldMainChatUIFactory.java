@@ -11,8 +11,8 @@ public class FindTextFieldMainChatUIFactory {
 
     @Builder
     FindTextFieldMainChatUIFactory(ObjectProvider<FindTextFieldMainChatUI> findTextFieldMainChatUIObjectProvider) {
-        this.findTextFieldMainChatUIObjectProvider = Objects.requireNonNull(findTextFieldMainChatUIObjectProvider,
-                "findTextFieldMainChatUIObjectProvider is mandatory");
+        this.findTextFieldMainChatUIObjectProvider = Objects.requireNonNull(
+                findTextFieldMainChatUIObjectProvider, "findTextFieldMainChatUIObjectProvider is mandatory");
     }
 
     public FindTextFieldMainChatUI create(String defaultText) {

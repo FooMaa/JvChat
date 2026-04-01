@@ -27,15 +27,20 @@ public class NetworkCtrl {
     private final SocketRunnableCtrlFactory socketRunnableCtrlFactory;
 
     @Builder
-    NetworkCtrl(MainSettings mainSettings, SocketRunnableCtrlModel socketRunnableCtrlModel,
-            TakeMessagesCtrl takeMessagesCtrl, SocketRunnableCtrlFactory socketRunnableCtrlFactory,
-            ServersSocket serversSocket, UsersSocket usersSocket, OnlineServersCtrl onlineServersCtrl) {
+    NetworkCtrl(
+            MainSettings mainSettings,
+            SocketRunnableCtrlModel socketRunnableCtrlModel,
+            TakeMessagesCtrl takeMessagesCtrl,
+            SocketRunnableCtrlFactory socketRunnableCtrlFactory,
+            ServersSocket serversSocket,
+            UsersSocket usersSocket,
+            OnlineServersCtrl onlineServersCtrl) {
         this.mainSettings = Objects.requireNonNull(mainSettings, "mainSettings is mandatory");
-        this.socketRunnableCtrlModel = Objects.requireNonNull(socketRunnableCtrlModel,
-                "socketRunnableCtrlModel is mandatory");
+        this.socketRunnableCtrlModel =
+                Objects.requireNonNull(socketRunnableCtrlModel, "socketRunnableCtrlModel is mandatory");
         this.takeMessagesCtrl = Objects.requireNonNull(takeMessagesCtrl, "takeMessagesCtrl is mandatory");
-        this.socketRunnableCtrlFactory = Objects.requireNonNull(socketRunnableCtrlFactory,
-                "socketRunnableCtrlFactory is mandatory");
+        this.socketRunnableCtrlFactory =
+                Objects.requireNonNull(socketRunnableCtrlFactory, "socketRunnableCtrlFactory is mandatory");
 
         this.serversSocket = serversSocket;
         this.usersSocket = usersSocket;
@@ -108,7 +113,8 @@ public class NetworkCtrl {
     }
 
     private void controlErrorConnectionSocket() {
-        List<SocketRunnableCtrlStructObject> listAllConnections = socketRunnableCtrlModel.getAllSocketRunnableCtrlStructObject();
+        List<SocketRunnableCtrlStructObject> listAllConnections =
+                socketRunnableCtrlModel.getAllSocketRunnableCtrlStructObject();
 
         int milliSecondsSleepAfterOperation = 10000;
 
@@ -118,7 +124,8 @@ public class NetworkCtrl {
             if (socketRunnableCtrl != null && socketRunnableCtrl.isErrorsExceedsLimit()) {
                 log.warn("We clean up a thread that has not responded for a long time.");
                 socketRunnableCtrlModel.removeItem(socketCtrl);
-                log.warn("Number of active connections after cleaning: {}",
+                log.warn(
+                        "Number of active connections after cleaning: {}",
                         socketRunnableCtrlModel.getCountConnections());
             }
         }

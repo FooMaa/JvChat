@@ -7,8 +7,7 @@ import lombok.Builder;
 
 public class UsersInfoSettings {
     @Builder
-    UsersInfoSettings() {
-    }
+    UsersInfoSettings() {}
 
     private String login = "";
     private UUID uuid = null;

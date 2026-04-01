@@ -22,7 +22,8 @@ public class DisplaySettings {
     public int widthScreen;
 
     public enum TypeOfDisplayBorder {
-        HEIGHT, WIDTH
+        HEIGHT,
+        WIDTH
     }
 
     public int getResizeFromDisplay(double scale, TypeOfDisplayBorder displayBorder) {

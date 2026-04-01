@@ -9,8 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class HashCryptography {
     @Builder
-    HashCryptography() {
-    }
+    HashCryptography() {}
 
     public String getHash(String inputString) {
         String result = "";

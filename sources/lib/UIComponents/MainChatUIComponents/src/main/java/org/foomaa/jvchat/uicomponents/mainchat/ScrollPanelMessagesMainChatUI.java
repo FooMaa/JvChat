@@ -27,12 +27,14 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
     private final RectMessageMainChatUIFactory rectMessageMainChatUIFactory;
 
     @Builder
-    ScrollPanelMessagesMainChatUI(MessagesDefinesCtrl messagesDefinesCtrl, MessagesDialogCtrl messagesDialogCtrl,
+    ScrollPanelMessagesMainChatUI(
+            MessagesDefinesCtrl messagesDefinesCtrl,
+            MessagesDialogCtrl messagesDialogCtrl,
             RectMessageMainChatUIFactory rectMessageMainChatUIFactory) {
         this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl, "messagesDefinesCtrl is mandatory");
         this.messagesDialogCtrl = Objects.requireNonNull(messagesDialogCtrl, "messagesDialogCtrl is mandatory");
-        this.rectMessageMainChatUIFactory = Objects.requireNonNull(rectMessageMainChatUIFactory,
-                "rectMessageMainChatUIFactory is mandatory");
+        this.rectMessageMainChatUIFactory =
+                Objects.requireNonNull(rectMessageMainChatUIFactory, "rectMessageMainChatUIFactory is mandatory");
 
         intervalMilliSecondsSleepUpdating = 500;
 
@@ -94,7 +96,8 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
         gbc.gridy = 0;
         gbc.weightx = 0.5;
         gbc.weighty = 1.0;
-        gbc.fill = scrollPane.getVerticalScrollBar().isVisible() ? GridBagConstraints.BOTH : GridBagConstraints.HORIZONTAL;
+        gbc.fill =
+                scrollPane.getVerticalScrollBar().isVisible() ? GridBagConstraints.BOTH : GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.SOUTH;
         add(scrollPane, gbc);
 
@@ -130,8 +133,8 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
     }
 
     public void addMessage(MessageStructObject messageObject) {
-        String constraints = messagesDialogCtrl.isCurrentUserSender(
-                messageObject) ? BorderLayout.EAST : BorderLayout.WEST;
+        String constraints =
+                messagesDialogCtrl.isCurrentUserSender(messageObject) ? BorderLayout.EAST : BorderLayout.WEST;
         createPanelMessage(messageObject, constraints);
         updatePanelMessages();
     }
@@ -183,8 +186,9 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
 
         for (MessageStructObject messageStructObject : allMessagesObjSorted) {
             UUID uuidChat = messagesDialogCtrl.findUuidChatByUuidUser(messageStructObject.getUuidUserSender());
-            if (findRectMessageByUuid(panel,
-                    messageStructObject.getUuid()) == null && uuidChat != null && uuidChat.equals(currentPanelUuid)) {
+            if (findRectMessageByUuid(panel, messageStructObject.getUuid()) == null
+                    && uuidChat != null
+                    && uuidChat.equals(currentPanelUuid)) {
                 addMessage(messageStructObject);
             }
         }

@@ -17,7 +17,9 @@ public class StructObjectsConfig {
     @Bean
     public ChatStructObjectFactory beanChatStructObjectFactory(
             ObjectProvider<ChatStructObject> chatStructObjectObjectProvider) {
-        return ChatStructObjectFactory.builder().chatStructObjectObjectProvider(chatStructObjectObjectProvider).build();
+        return ChatStructObjectFactory.builder()
+                .chatStructObjectObjectProvider(chatStructObjectObjectProvider)
+                .build();
     }
 
     @Bean
@@ -31,8 +33,9 @@ public class StructObjectsConfig {
     @Profile("servers")
     public CheckerOnlineStructObjectFactory beanCheckerOnlineStructObjectFactory(
             ObjectProvider<CheckerOnlineStructObject> checkerOnlineObjectProvider) {
-        return CheckerOnlineStructObjectFactory.builder().checkerOnlineObjectProvider(
-                checkerOnlineObjectProvider).build();
+        return CheckerOnlineStructObjectFactory.builder()
+                .checkerOnlineObjectProvider(checkerOnlineObjectProvider)
+                .build();
     }
 
     @Bean
@@ -44,8 +47,9 @@ public class StructObjectsConfig {
     @Bean
     public ConnectionEventStructObjectFactory beanConnectionEventStructObjectFactory(
             ObjectProvider<ConnectionEventStructObject> connectionEventsObjectProvider) {
-        return ConnectionEventStructObjectFactory.builder().connectionEventsObjectProvider(
-                connectionEventsObjectProvider).build();
+        return ConnectionEventStructObjectFactory.builder()
+                .connectionEventsObjectProvider(connectionEventsObjectProvider)
+                .build();
     }
 
     @Bean
@@ -57,8 +61,9 @@ public class StructObjectsConfig {
     @Bean
     public MessageStructObjectFactory beanBaseStructObjectFactory(
             ObjectProvider<MessageStructObject> messageStructObjectObjectProvider) {
-        return MessageStructObjectFactory.builder().messageStructObjectObjectProvider(
-                messageStructObjectObjectProvider).build();
+        return MessageStructObjectFactory.builder()
+                .messageStructObjectObjectProvider(messageStructObjectObjectProvider)
+                .build();
     }
 
     @Bean
@@ -70,7 +75,9 @@ public class StructObjectsConfig {
     @Bean
     public RootStructObjectFactory beanRootStructObjectFactory(
             ObjectProvider<RootStructObject> rootStructObjectObjectProvider) {
-        return RootStructObjectFactory.builder().rootStructObjectObjectProvider(rootStructObjectObjectProvider).build();
+        return RootStructObjectFactory.builder()
+                .rootStructObjectObjectProvider(rootStructObjectObjectProvider)
+                .build();
     }
 
     @Bean
@@ -82,8 +89,9 @@ public class StructObjectsConfig {
     @Bean
     public SocketRunnableCtrlStructObjectFactory beanSocketRunnableCtrlStructObjectFactory(
             ObjectProvider<SocketRunnableCtrlStructObject> ctrlStructObjectObjectProvider) {
-        return SocketRunnableCtrlStructObjectFactory.builder().ctrlStructObjectObjectProvider(
-                ctrlStructObjectObjectProvider).build();
+        return SocketRunnableCtrlStructObjectFactory.builder()
+                .ctrlStructObjectObjectProvider(ctrlStructObjectObjectProvider)
+                .build();
     }
 
     @Bean
@@ -95,6 +103,8 @@ public class StructObjectsConfig {
     @Bean
     public UserStructObjectFactory beanUserStructObjectFactory(
             ObjectProvider<UserStructObject> userStructObjectObjectProvider) {
-        return UserStructObjectFactory.builder().userStructObjectObjectProvider(userStructObjectObjectProvider).build();
+        return UserStructObjectFactory.builder()
+                .userStructObjectObjectProvider(userStructObjectObjectProvider)
+                .build();
     }
 }

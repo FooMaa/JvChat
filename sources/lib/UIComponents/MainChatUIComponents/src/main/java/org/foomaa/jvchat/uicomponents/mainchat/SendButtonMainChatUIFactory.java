@@ -11,8 +11,8 @@ public class SendButtonMainChatUIFactory {
 
     @Builder
     SendButtonMainChatUIFactory(ObjectProvider<SendButtonMainChatUI> sendButtonObjectProvider) {
-        this.sendButtonObjectProvider = Objects.requireNonNull(sendButtonObjectProvider,
-                "sendButtonObjectProvider is mandatory");
+        this.sendButtonObjectProvider =
+                Objects.requireNonNull(sendButtonObjectProvider, "sendButtonObjectProvider is mandatory");
     }
 
     public SendButtonMainChatUI create(String text) {

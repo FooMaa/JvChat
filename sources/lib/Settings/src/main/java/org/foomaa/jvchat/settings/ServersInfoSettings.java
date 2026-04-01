@@ -7,8 +7,7 @@ import lombok.Builder;
 
 public class ServersInfoSettings {
     @Builder
-    ServersInfoSettings() {
-    }
+    ServersInfoSettings() {}
 
     // NETWORK
     private int port = 4004;
@@ -66,8 +65,8 @@ public class ServersInfoSettings {
     private final String emailAddress = "jvchat.foomaa@mail.ru";
     // To find this password follow the link:
     // https://account.mail.ru/user/2-step-auth/passwords?back_url=https%3A%2F%2Fid.mail.ru%2Fsecurity
-    private final String magicStringEmail = new String(
-            Base64.getDecoder().decode("THhtZ2lUV0gwYW1ISlRyblI0SjM=".getBytes()));
+    private final String magicStringEmail =
+            new String(Base64.getDecoder().decode("THhtZ2lUV0gwYW1ISlRyblI0SjM=".getBytes()));
 
     public String getEmailAddress() {
         return emailAddress;

@@ -15,16 +15,19 @@ public class UserStructObjectFactory {
 
     @Builder
     UserStructObjectFactory(ObjectProvider<UserStructObject> userStructObjectObjectProvider) {
-        this.userStructObjectObjectProvider = Objects.requireNonNull(userStructObjectObjectProvider,
-                "userStructObjectObjectProvider is mandatory");
+        this.userStructObjectObjectProvider =
+                Objects.requireNonNull(userStructObjectObjectProvider, "userStructObjectObjectProvider is mandatory");
     }
 
     public UserStructObject create() {
         return userStructObjectObjectProvider.getObject();
     }
 
-    public UserStructObject create(String login, MainChatsGlobalDefines.TypeStatusOnline statusOnline,
-            LocalDateTime timestampLastOnline, UUID uuid) {
+    public UserStructObject create(
+            String login,
+            MainChatsGlobalDefines.TypeStatusOnline statusOnline,
+            LocalDateTime timestampLastOnline,
+            UUID uuid) {
         UserStructObject structObject = userStructObjectObjectProvider.getObject();
 
         structObject.setLogin(login);

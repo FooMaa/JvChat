@@ -30,9 +30,14 @@ public class ResetPasswordPanelAuthUI extends JPanel {
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
     @Builder
-    ResetPasswordPanelAuthUI(DisplaySettings displaySettings, UsersTools usersTools, SendMessagesCtrl sendMessagesCtrl,
-            MessagesDefinesCtrl messagesDefinesCtrl, ButtonAuthUIFactory buttonAuthUIFactory,
-            ErrorLabelAuthUIFactory errorLabelAuthUIFactory, TextFieldAuthUIFactory textFieldAuthUIFactory,
+    ResetPasswordPanelAuthUI(
+            DisplaySettings displaySettings,
+            UsersTools usersTools,
+            SendMessagesCtrl sendMessagesCtrl,
+            MessagesDefinesCtrl messagesDefinesCtrl,
+            ButtonAuthUIFactory buttonAuthUIFactory,
+            ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
+            TextFieldAuthUIFactory textFieldAuthUIFactory,
             OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
         Objects.requireNonNull(buttonAuthUIFactory, "buttonAuthUIFactory is mandatory");
         Objects.requireNonNull(errorLabelAuthUIFactory, "errorLabelAuthUIFactory is mandatory");
@@ -42,8 +47,8 @@ public class ResetPasswordPanelAuthUI extends JPanel {
         this.usersTools = Objects.requireNonNull(usersTools, "usersTools is mandatory");
         this.sendMessagesCtrl = Objects.requireNonNull(sendMessagesCtrl, "sendMessagesCtrl is mandatory");
         this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl, "messagesDefinesCtrl is mandatory");
-        this.optionPaneAuthUIFactory = Objects.requireNonNull(optionPaneAuthUIFactory,
-                "optionPaneAuthUIFactory is mandatory");
+        this.optionPaneAuthUIFactory =
+                Objects.requireNonNull(optionPaneAuthUIFactory, "optionPaneAuthUIFactory is mandatory");
 
         tEmail = textFieldAuthUIFactory.create("Email");
         tErrorHelpInfo = errorLabelAuthUIFactory.create("");
@@ -82,8 +87,8 @@ public class ResetPasswordPanelAuthUI extends JPanel {
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(displaySettings.getResizePixel(0.115), insX, displaySettings.getResizePixel(
-                0.004), insX);
+        gbc.insets =
+                new Insets(displaySettings.getResizePixel(0.115), insX, displaySettings.getResizePixel(0.004), insX);
         gbc.gridy = gridyNum;
         add(tEmail, gbc);
         gridyNum++;
@@ -98,8 +103,11 @@ public class ResetPasswordPanelAuthUI extends JPanel {
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.NORTHWEST;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(displaySettings.getResizePixel(0.046), displaySettings.getResizePixel(
-                0.026), displaySettings.getResizePixel(0.017), 0);
+        gbc.insets = new Insets(
+                displaySettings.getResizePixel(0.046),
+                displaySettings.getResizePixel(0.026),
+                displaySettings.getResizePixel(0.017),
+                0);
         gbc.ipadx = displaySettings.getResizeFromDisplay(0.015, DisplaySettings.TypeOfDisplayBorder.WIDTH);
         gbc.ipady = displaySettings.getResizeFromDisplay(0.004, DisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
@@ -107,8 +115,11 @@ public class ResetPasswordPanelAuthUI extends JPanel {
 
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.NORTHEAST;
-        gbc.insets = new Insets(displaySettings.getResizePixel(0.046), 0, displaySettings.getResizePixel(
-                0.017), displaySettings.getResizePixel(0.026));
+        gbc.insets = new Insets(
+                displaySettings.getResizePixel(0.046),
+                0,
+                displaySettings.getResizePixel(0.017),
+                displaySettings.getResizePixel(0.026));
         gbc.ipadx = displaySettings.getResizeFromDisplay(0.015, DisplaySettings.TypeOfDisplayBorder.WIDTH);
         gbc.ipady = displaySettings.getResizeFromDisplay(0.004, DisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
@@ -144,14 +155,20 @@ public class ResetPasswordPanelAuthUI extends JPanel {
     }
 
     private void changeRegimeBack() {
-        GetterEvents.getInstance().getBeanMakerEvents().event(this, "changeRegimeWork",
-                DefinesAuthUI.RegimeWorkMainFrame.Auth);
+        GetterEvents.getInstance()
+                .getBeanMakerEvents()
+                .event(this, "changeRegimeWork", DefinesAuthUI.RegimeWorkMainFrame.Auth);
         settingUnfocusFieldsOnChangeRegime();
     }
 
     private void changeRegimeNext() {
-        GetterEvents.getInstance().getBeanMakerEvents().event(this, "changeRegimeWork",
-                DefinesAuthUI.RegimeWorkMainFrame.VerifyCodeResetPassword, tEmail.getInputText());
+        GetterEvents.getInstance()
+                .getBeanMakerEvents()
+                .event(
+                        this,
+                        "changeRegimeWork",
+                        DefinesAuthUI.RegimeWorkMainFrame.VerifyCodeResetPassword,
+                        tEmail.getInputText());
         settingUnfocusFieldsOnChangeRegime();
     }
 

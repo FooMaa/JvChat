@@ -28,7 +28,9 @@ public class RectMessageMainChatUI extends JTextArea {
     private final ScrollPanelMessagesMainChatUI scrollPanelMessages;
 
     @Builder
-    RectMessageMainChatUI(DisplaySettings displaySettings, MessagesDialogCtrl messagesDialogCtrl,
+    RectMessageMainChatUI(
+            DisplaySettings displaySettings,
+            MessagesDialogCtrl messagesDialogCtrl,
             ScrollPanelMessagesMainChatUI scrollPanelMessages) {
         this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
         this.messagesDialogCtrl = Objects.requireNonNull(messagesDialogCtrl, "messagesDialogCtrl is mandatory");
@@ -69,7 +71,8 @@ public class RectMessageMainChatUI extends JTextArea {
         int xRoundSecond = xRound - diameter - 1;
 
         // Рисуем кружки доставки
-        if (statusMessage == MainChatsGlobalDefines.TypeStatusMessage.Delivered || statusMessage == MainChatsGlobalDefines.TypeStatusMessage.Read) {
+        if (statusMessage == MainChatsGlobalDefines.TypeStatusMessage.Delivered
+                || statusMessage == MainChatsGlobalDefines.TypeStatusMessage.Read) {
             g2.fillOval(xRound, yRound, diameter, diameter);
         }
         if (statusMessage == MainChatsGlobalDefines.TypeStatusMessage.Read) {

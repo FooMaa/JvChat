@@ -6,12 +6,12 @@ import lombok.Builder;
 
 public class OptionPaneAuthUI extends JOptionPane {
     public enum TypeDlg {
-        ERROR, WARNING
+        ERROR,
+        WARNING
     }
 
     @Builder
-    OptionPaneAuthUI() {
-    }
+    OptionPaneAuthUI() {}
 
     public void show(String msg, TypeDlg type) {
         switch (type) {

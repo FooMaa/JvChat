@@ -14,6 +14,7 @@ import org.foomaa.jvchat.structobjects.RootStructObjectFactory;
 public abstract class BaseModel {
     @Getter
     private final String nameModel;
+
     private RootStructObject rootObject;
     private final BaseModel rootModel;
     private final RootStructObjectFactory rootStructObjectFactory;

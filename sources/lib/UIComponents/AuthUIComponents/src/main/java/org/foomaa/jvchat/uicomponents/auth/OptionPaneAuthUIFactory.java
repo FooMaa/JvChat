@@ -11,8 +11,8 @@ public class OptionPaneAuthUIFactory {
 
     @Builder
     OptionPaneAuthUIFactory(ObjectProvider<OptionPaneAuthUI> optionPaneAuthUIObjectProvider) {
-        this.optionPaneAuthUIObjectProvider = Objects.requireNonNull(optionPaneAuthUIObjectProvider,
-                "optionPaneAuthUIObjectProvider is mandatory");
+        this.optionPaneAuthUIObjectProvider =
+                Objects.requireNonNull(optionPaneAuthUIObjectProvider, "optionPaneAuthUIObjectProvider is mandatory");
     }
 
     public OptionPaneAuthUI create() {

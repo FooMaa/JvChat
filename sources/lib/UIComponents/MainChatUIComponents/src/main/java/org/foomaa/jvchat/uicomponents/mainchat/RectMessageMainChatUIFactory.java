@@ -13,8 +13,8 @@ public class RectMessageMainChatUIFactory {
 
     @Builder
     RectMessageMainChatUIFactory(ObjectProvider<RectMessageMainChatUI> rectMessageObjectProvider) {
-        this.rectMessageObjectProvider = Objects.requireNonNull(rectMessageObjectProvider,
-                "rectMessageObjectProvider is mandatory");
+        this.rectMessageObjectProvider =
+                Objects.requireNonNull(rectMessageObjectProvider, "rectMessageObjectProvider is mandatory");
     }
 
     public RectMessageMainChatUI create(MessageStructObject messageStructObject) {

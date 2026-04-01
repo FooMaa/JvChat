@@ -34,7 +34,9 @@ public class DbWorker {
         connection = null;
 
         try {
-            connection = DriverManager.getConnection(serversInfoSettings.getDbUrl(), serversInfoSettings.getDbUser(),
+            connection = DriverManager.getConnection(
+                    serversInfoSettings.getDbUrl(),
+                    serversInfoSettings.getDbUser(),
                     serversInfoSettings.getMagicStringDb());
         } catch (SQLException e) {
             log.error("Error in connect to DB.");

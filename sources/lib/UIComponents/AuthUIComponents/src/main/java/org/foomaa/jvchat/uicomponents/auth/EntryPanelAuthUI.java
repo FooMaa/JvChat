@@ -36,11 +36,17 @@ public class EntryPanelAuthUI extends JPanel {
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
     @Builder
-    EntryPanelAuthUI(UsersInfoSettings usersInfoSettings, DisplaySettings displaySettings,
-            MainFrameMainChatUI mainFrameMainChatUI, SendMessagesCtrl sendMessagesCtrl,
-            MessagesDefinesCtrl messagesDefinesCtrl, ActiveLabelAuthUIFactory activeLabelAuthUIFactory,
-            ButtonAuthUIFactory buttonAuthUIFactory, ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
-            PasswordFieldAuthUIFactory passwordFieldAuthUIFactory, TextFieldAuthUIFactory textFieldAuthUIFactory,
+    EntryPanelAuthUI(
+            UsersInfoSettings usersInfoSettings,
+            DisplaySettings displaySettings,
+            MainFrameMainChatUI mainFrameMainChatUI,
+            SendMessagesCtrl sendMessagesCtrl,
+            MessagesDefinesCtrl messagesDefinesCtrl,
+            ActiveLabelAuthUIFactory activeLabelAuthUIFactory,
+            ButtonAuthUIFactory buttonAuthUIFactory,
+            ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
+            PasswordFieldAuthUIFactory passwordFieldAuthUIFactory,
+            TextFieldAuthUIFactory textFieldAuthUIFactory,
             OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
         Objects.requireNonNull(activeLabelAuthUIFactory, "activeLabelAuthUIFactory is mandatory");
         Objects.requireNonNull(buttonAuthUIFactory, "buttonAuthUIFactory is mandatory");
@@ -53,8 +59,8 @@ public class EntryPanelAuthUI extends JPanel {
         this.mainFrameMainChatUI = Objects.requireNonNull(mainFrameMainChatUI, "mainFrameMainChatUI is mandatory");
         this.sendMessagesCtrl = Objects.requireNonNull(sendMessagesCtrl, "sendMessagesCtrl is mandatory");
         this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl, "messagesDefinesCtrl is mandatory");
-        this.optionPaneAuthUIFactory = Objects.requireNonNull(optionPaneAuthUIFactory,
-                "optionPaneAuthUIFactory is mandatory");
+        this.optionPaneAuthUIFactory =
+                Objects.requireNonNull(optionPaneAuthUIFactory, "optionPaneAuthUIFactory is mandatory");
 
         tLogin = textFieldAuthUIFactory.create("Login");
         tErrorHelpInfo = errorLabelAuthUIFactory.create("");
@@ -95,8 +101,8 @@ public class EntryPanelAuthUI extends JPanel {
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(displaySettings.getResizePixel(0.075), insX, displaySettings.getResizePixel(
-                0.004), insX);
+        gbc.insets =
+                new Insets(displaySettings.getResizePixel(0.075), insX, displaySettings.getResizePixel(0.004), insX);
         gbc.gridy = gridyNum;
         add(tLogin, gbc);
         gridyNum++;
@@ -139,8 +145,8 @@ public class EntryPanelAuthUI extends JPanel {
     private void addListenerToElements() {
         bEnter.addActionListener(event -> {
             if (checkFields()) {
-                sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.EntryRequest, tLogin.getInputText(),
-                        tPassword.getInputText());
+                sendMessagesCtrl.sendMessage(
+                        DefinesMessages.TypeMessage.EntryRequest, tLogin.getInputText(), tPassword.getInputText());
                 waitRepeatServer();
             }
         });

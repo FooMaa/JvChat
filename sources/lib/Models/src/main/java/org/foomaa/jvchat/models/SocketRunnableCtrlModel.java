@@ -13,18 +13,21 @@ public class SocketRunnableCtrlModel extends BaseModel {
     private final SocketRunnableCtrlStructObjectFactory socketRunnableCtrlStructObjectFactory;
 
     @Builder
-    SocketRunnableCtrlModel(SocketRunnableCtrlStructObjectFactory socketRunnableCtrlStructObjectFactory,
-            RootStructObjectFactory rootStructObjectFactory, RootObjectsModel rootObjectsModel) {
-        super(Objects.requireNonNull(rootObjectsModel, "rootObjectsModel is mandatory"), Objects.requireNonNull(
-                rootStructObjectFactory, "rootStructObjectFactory is mandatory"));
+    SocketRunnableCtrlModel(
+            SocketRunnableCtrlStructObjectFactory socketRunnableCtrlStructObjectFactory,
+            RootStructObjectFactory rootStructObjectFactory,
+            RootObjectsModel rootObjectsModel) {
+        super(
+                Objects.requireNonNull(rootObjectsModel, "rootObjectsModel is mandatory"),
+                Objects.requireNonNull(rootStructObjectFactory, "rootStructObjectFactory is mandatory"));
 
-        this.socketRunnableCtrlStructObjectFactory = Objects.requireNonNull(socketRunnableCtrlStructObjectFactory,
-                "socketRunnableCtrlStructObjectFactory is mandatory");
+        this.socketRunnableCtrlStructObjectFactory = Objects.requireNonNull(
+                socketRunnableCtrlStructObjectFactory, "socketRunnableCtrlStructObjectFactory is mandatory");
     }
 
     public void createSocketRunnableCtrlStructObject(Runnable socketRunnableCtrl) {
-        SocketRunnableCtrlStructObject socketStreamsStructObject = socketRunnableCtrlStructObjectFactory.create(
-                socketRunnableCtrl);
+        SocketRunnableCtrlStructObject socketStreamsStructObject =
+                socketRunnableCtrlStructObjectFactory.create(socketRunnableCtrl);
         addItem(socketStreamsStructObject, getRootObject());
     }
 
@@ -32,7 +35,8 @@ public class SocketRunnableCtrlModel extends BaseModel {
         List<SocketRunnableCtrlStructObject> resultList = new ArrayList<>();
 
         for (BaseStructObject baseStructObject : getRootObject().getChildren()) {
-            SocketRunnableCtrlStructObject socketStreamsStructObject = (SocketRunnableCtrlStructObject) baseStructObject;
+            SocketRunnableCtrlStructObject socketStreamsStructObject =
+                    (SocketRunnableCtrlStructObject) baseStructObject;
             resultList.add(socketStreamsStructObject);
         }
 
@@ -41,8 +45,10 @@ public class SocketRunnableCtrlModel extends BaseModel {
 
     private SocketRunnableCtrlStructObject findSocketRunnableCtrlStructObjectByRunnable(Runnable runnable) {
         for (BaseStructObject baseStructObject : getRootObject().getChildren()) {
-            SocketRunnableCtrlStructObject socketRunnableCtrlStructObject = (SocketRunnableCtrlStructObject) baseStructObject;
-            if (socketRunnableCtrlStructObject != null && socketRunnableCtrlStructObject.getSocketRunnableCtrl() == runnable) {
+            SocketRunnableCtrlStructObject socketRunnableCtrlStructObject =
+                    (SocketRunnableCtrlStructObject) baseStructObject;
+            if (socketRunnableCtrlStructObject != null
+                    && socketRunnableCtrlStructObject.getSocketRunnableCtrl() == runnable) {
                 return socketRunnableCtrlStructObject;
             }
         }
@@ -51,12 +57,12 @@ public class SocketRunnableCtrlModel extends BaseModel {
     }
 
     public SocketRunnableCtrlStructObject findCreateSocketRunnableCtrlStructObjectByRunnable(Runnable runnable) {
-        SocketRunnableCtrlStructObject socketRunnableCtrlStructObject = findSocketRunnableCtrlStructObjectByRunnable(
-                runnable);
+        SocketRunnableCtrlStructObject socketRunnableCtrlStructObject =
+                findSocketRunnableCtrlStructObjectByRunnable(runnable);
 
         if (socketRunnableCtrlStructObject == null) {
-            SocketRunnableCtrlStructObject newSocketRunnableCtrlStructObject = socketRunnableCtrlStructObjectFactory.create(
-                    runnable);
+            SocketRunnableCtrlStructObject newSocketRunnableCtrlStructObject =
+                    socketRunnableCtrlStructObjectFactory.create(runnable);
             addItem(newSocketRunnableCtrlStructObject, getRootObject());
             return newSocketRunnableCtrlStructObject;
         }

@@ -11,8 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 @Aspect
 @Slf4j
 public class AspectCheckerEvents {
-    AspectCheckerEvents() {
-    }
+    AspectCheckerEvents() {}
 
     @Around("@annotation(checkerEventsAnnotation)")
     @SuppressWarnings("unused")

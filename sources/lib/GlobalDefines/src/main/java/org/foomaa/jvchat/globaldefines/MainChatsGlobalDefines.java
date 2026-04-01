@@ -4,11 +4,13 @@ import lombok.Builder;
 
 public class MainChatsGlobalDefines {
     @Builder
-    MainChatsGlobalDefines() {
-    }
+    MainChatsGlobalDefines() {}
 
     public enum TypeStatusMessage {
-        Error(0), Sent(1), Delivered(2), Read(3);
+        Error(0),
+        Sent(1),
+        Delivered(2),
+        Read(3);
 
         private final int value;
 
@@ -37,7 +39,9 @@ public class MainChatsGlobalDefines {
     }
 
     public enum TypeStatusOnline {
-        Error(0), Offline(1), Online(2);
+        Error(0),
+        Offline(1),
+        Online(2);
 
         private final int value;
 

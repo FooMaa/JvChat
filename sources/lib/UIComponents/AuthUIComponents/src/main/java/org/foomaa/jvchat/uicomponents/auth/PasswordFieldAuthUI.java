@@ -39,7 +39,9 @@ public class PasswordFieldAuthUI extends JPanel {
     private final ToolTipAuthUIFactory toolTipAuthUIFactory;
 
     @Builder
-    PasswordFieldAuthUI(DisplaySettings displaySettings, FontsGlobalDefines fontsGlobalDefines,
+    PasswordFieldAuthUI(
+            DisplaySettings displaySettings,
+            FontsGlobalDefines fontsGlobalDefines,
             ToolTipAuthUIFactory toolTipAuthUIFactory) {
         this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
         this.fontsGlobalDefines = Objects.requireNonNull(fontsGlobalDefines, "fontsGlobalDefines is mandatory");
@@ -213,9 +215,8 @@ public class PasswordFieldAuthUI extends JPanel {
 
     private void settingPassAndButtonPanel() {
         Dimension dim = new Dimension(
-                displaySettings.getResizeFromDisplay(0.23,
-                        DisplaySettings.TypeOfDisplayBorder.WIDTH), displaySettings.getResizeFromDisplay(0.03,
-                                DisplaySettings.TypeOfDisplayBorder.HEIGHT));
+                displaySettings.getResizeFromDisplay(0.23, DisplaySettings.TypeOfDisplayBorder.WIDTH),
+                displaySettings.getResizeFromDisplay(0.03, DisplaySettings.TypeOfDisplayBorder.HEIGHT));
         settingButtonImage();
         settingPassField(dim);
         addElements();
@@ -270,7 +271,8 @@ public class PasswordFieldAuthUI extends JPanel {
         caret.setBlinkRate(750);
         passwordField.setCaret(caret);
 
-        Dimension calcNewDim = new Dimension((int) dim.getWidth() - button.getPreferredSize().width, (int) dim.getHeight() - borderSize * 2);
+        Dimension calcNewDim = new Dimension(
+                (int) dim.getWidth() - button.getPreferredSize().width, (int) dim.getHeight() - borderSize * 2);
         passwordField.setPreferredSize(calcNewDim);
         passwordField.setBorder(null);
         passwordField.setText(defaultText);

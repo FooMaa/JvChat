@@ -12,8 +12,8 @@ public class SocketRunnableCtrlStructObjectFactory {
     @Builder
     SocketRunnableCtrlStructObjectFactory(
             ObjectProvider<SocketRunnableCtrlStructObject> ctrlStructObjectObjectProvider) {
-        this.ctrlStructObjectObjectProvider = Objects.requireNonNull(ctrlStructObjectObjectProvider,
-                "ctrlStructObjectObjectProvider is mandatory");
+        this.ctrlStructObjectObjectProvider =
+                Objects.requireNonNull(ctrlStructObjectObjectProvider, "ctrlStructObjectObjectProvider is mandatory");
     }
 
     public SocketRunnableCtrlStructObject create() {

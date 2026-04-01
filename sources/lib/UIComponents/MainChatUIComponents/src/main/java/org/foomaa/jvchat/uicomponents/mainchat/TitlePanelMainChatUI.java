@@ -30,7 +30,9 @@ public class TitlePanelMainChatUI extends JPanel {
     private final ToolTipMainChatUIFactory toolTipFactory;
 
     @Builder
-    TitlePanelMainChatUI(DisplaySettings displaySettings, FontsGlobalDefines fontsGlobalDefines,
+    TitlePanelMainChatUI(
+            DisplaySettings displaySettings,
+            FontsGlobalDefines fontsGlobalDefines,
             ToolTipMainChatUIFactory toolTipFactory) {
         this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
         this.fontsGlobalDefines = Objects.requireNonNull(fontsGlobalDefines, "fontsGlobalDefines is mandatory");
@@ -82,10 +84,12 @@ public class TitlePanelMainChatUI extends JPanel {
 
     private void settingButtonImage(JButton button, String imagePathExited, String imagePathEntered) {
         try {
-            BufferedImage imageExited = ImageIO.read(Objects.requireNonNull(getClass().getResource(imagePathExited)));
+            BufferedImage imageExited =
+                    ImageIO.read(Objects.requireNonNull(getClass().getResource(imagePathExited)));
             ImageIcon iconExited = new ImageIcon(imageExited);
 
-            BufferedImage imageEntered = ImageIO.read(Objects.requireNonNull(getClass().getResource(imagePathEntered)));
+            BufferedImage imageEntered =
+                    ImageIO.read(Objects.requireNonNull(getClass().getResource(imagePathEntered)));
             ImageIcon iconEntered = new ImageIcon(imageEntered);
 
             button.setIcon(iconExited);

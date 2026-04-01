@@ -18,19 +18,35 @@ public class DbCtrl {
     private final DbRequests dbRequests;
 
     public enum TypeExecutionInsert {
-        RegisterForm, ChangePassword, VerifyFamousEmail, VerifyRegistrationEmail, OnlineUsersInfo, ChatMessagesSentMessage, ChatsMessageStatusChange,
+        RegisterForm,
+        ChangePassword,
+        VerifyFamousEmail,
+        VerifyRegistrationEmail,
+        OnlineUsersInfo,
+        ChatMessagesSentMessage,
+        ChatsMessageStatusChange,
     }
 
     public enum TypeExecutionCheck {
-        UserPassword, Login, Email, VerifyFamousEmailCode, VerifyRegistrationEmail,
+        UserPassword,
+        Login,
+        Email,
+        VerifyFamousEmailCode,
+        VerifyRegistrationEmail,
     }
 
     public enum TypeExecutionGetSingle {
-        LoginByEmail, UuidUserByEmail, UuidUserByLogin, LastOnlineTimeUser,
+        LoginByEmail,
+        UuidUserByEmail,
+        UuidUserByLogin,
+        LastOnlineTimeUser,
     }
 
     public enum TypeExecutionGetMultiple {
-        ChatsLoad, StatusOnlineTimeUser, OnlineUsers, MessagesLoad,
+        ChatsLoad,
+        StatusOnlineTimeUser,
+        OnlineUsers,
+        MessagesLoad,
     }
 
     @Builder
@@ -85,10 +101,10 @@ public class DbCtrl {
                     String email = parameters[1];
                     String hashPassword = parameters[2];
                     String uuidUser = parameters[3];
-                    if (!checkQueryToDB(TypeExecutionCheck.Login, login) && !checkQueryToDB(TypeExecutionCheck.Email,
-                            email)) {
-                        ResultSet rs = db.makeExecution(dbRequests.insertToRegForm(login, email, hashPassword,
-                                uuidUser));
+                    if (!checkQueryToDB(TypeExecutionCheck.Login, login)
+                            && !checkQueryToDB(TypeExecutionCheck.Email, email)) {
+                        ResultSet rs =
+                                db.makeExecution(dbRequests.insertToRegForm(login, email, hashPassword, uuidUser));
                         db.closeResultSet(rs);
                         return true;
                     } else {
@@ -149,8 +165,8 @@ public class DbCtrl {
                     String status = parameters[3];
                     String text = parameters[4];
                     String timestamp = parameters[5];
-                    ResultSet rs = db.makeExecution(dbRequests.insertChatsSentMessage(uuidUserSender, uuidUserReceiver,
-                            uuidMessage, status, text, timestamp));
+                    ResultSet rs = db.makeExecution(dbRequests.insertChatsSentMessage(
+                            uuidUserSender, uuidUserReceiver, uuidMessage, status, text, timestamp));
                     db.closeResultSet(rs);
                     return true;
                 }
@@ -303,8 +319,8 @@ public class DbCtrl {
         return null;
     }
 
-    public List<Map<DbGlobalDefines.LineKeys, String>> getMultipleInfoFromDb(TypeExecutionGetMultiple type,
-            String... parameters) {
+    public List<Map<DbGlobalDefines.LineKeys, String>> getMultipleInfoFromDb(
+            TypeExecutionGetMultiple type, String... parameters) {
         switch (type) {
             case ChatsLoad -> {
                 if (parameters.length == 1) {
@@ -352,8 +368,8 @@ public class DbCtrl {
                     String uuidChat = parameters[0];
                     String quantityMessages = parameters[1];
 
-                    ResultSet resultSet = db.makeExecution(dbRequests.getQuantityMessagesByUuids(uuidChat,
-                            quantityMessages));
+                    ResultSet resultSet =
+                            db.makeExecution(dbRequests.getQuantityMessagesByUuids(uuidChat, quantityMessages));
                     List<Map<DbGlobalDefines.LineKeys, String>> result = multipleDataFromResultSet(resultSet);
 
                     db.closeResultSet(resultSet);

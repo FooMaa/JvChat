@@ -14,7 +14,9 @@ public class MainPanelMainChatUI extends JPanel {
     private final PanelSendingMessageMainChatUI panelSendingMessage;
 
     @Builder
-    MainPanelMainChatUI(ScrollPanelChatsMainChatUI scrollPanelChats, ScrollPanelMessagesMainChatUI scrollPanelMessages,
+    MainPanelMainChatUI(
+            ScrollPanelChatsMainChatUI scrollPanelChats,
+            ScrollPanelMessagesMainChatUI scrollPanelMessages,
             PanelSendingMessageMainChatUIFactory panelSendingMessageFactory,
             FindTextFieldMainChatUIFactory findTextFieldMainChatUIFactory) {
         Objects.requireNonNull(panelSendingMessageFactory, "panelSendingMessageFactory is mandatory");

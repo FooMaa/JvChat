@@ -41,8 +41,12 @@ public class RectChatMainChatUI extends JPanel {
     private final ChatsCtrl chatsCtrl;
 
     @Builder
-    RectChatMainChatUI(ChatStructObject chatObject, UsersInfoSettings usersInfoSettings,
-            DisplaySettings displaySettings, MessagesDialogCtrl messagesDialogCtrl, ChatsCtrl chatsCtrl) {
+    RectChatMainChatUI(
+            ChatStructObject chatObject,
+            UsersInfoSettings usersInfoSettings,
+            DisplaySettings displaySettings,
+            MessagesDialogCtrl messagesDialogCtrl,
+            ChatsCtrl chatsCtrl) {
         this.usersInfoSettings = Objects.requireNonNull(usersInfoSettings, "usersInfoSettings is mandatory");
         this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
         this.messagesDialogCtrl = Objects.requireNonNull(messagesDialogCtrl, "messagesDialogCtrl is mandatory");
@@ -87,7 +91,8 @@ public class RectChatMainChatUI extends JPanel {
     }
 
     private void installTimeLastMessage(ChatStructObject chatObject) {
-        timeLastMessage = chatsCtrl.getTimeFormattedLastMessage(chatObject.getLastMessage().getTimestamp());
+        timeLastMessage = chatsCtrl.getTimeFormattedLastMessage(
+                chatObject.getLastMessage().getTimestamp());
     }
 
     private void makeChatBox() {

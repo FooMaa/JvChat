@@ -8,8 +8,7 @@ import lombok.Builder;
 
 public class FontsGlobalDefines {
     @Builder
-    FontsGlobalDefines() {
-    }
+    FontsGlobalDefines() {}
 
     public Font createMainSteticaFont(int style, float size) throws IOException, FontFormatException {
         InputStream inputStream = getClass().getResourceAsStream("/MainSteticaFont.otf");

@@ -5,8 +5,7 @@ import lombok.Builder;
 @SuppressWarnings("unused")
 public class ColorsAnsiGlobalDefines {
     @Builder
-    ColorsAnsiGlobalDefines() {
-    }
+    ColorsAnsiGlobalDefines() {}
 
     public final String RESET = "\033[0m";
     public final String BLACK = "\033[0;30m";

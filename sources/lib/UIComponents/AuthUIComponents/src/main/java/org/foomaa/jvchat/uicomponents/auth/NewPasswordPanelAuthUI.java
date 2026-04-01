@@ -31,9 +31,13 @@ public class NewPasswordPanelAuthUI extends JPanel {
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
     @Builder
-    NewPasswordPanelAuthUI(DisplaySettings displaySettings, SendMessagesCtrl sendMessagesCtrl,
-            MessagesDefinesCtrl messagesDefinesCtrl, ButtonAuthUIFactory buttonAuthUIFactory,
-            ErrorLabelAuthUIFactory errorLabelAuthUIFactory, PasswordFieldAuthUIFactory passwordFieldAuthUIFactory,
+    NewPasswordPanelAuthUI(
+            DisplaySettings displaySettings,
+            SendMessagesCtrl sendMessagesCtrl,
+            MessagesDefinesCtrl messagesDefinesCtrl,
+            ButtonAuthUIFactory buttonAuthUIFactory,
+            ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
+            PasswordFieldAuthUIFactory passwordFieldAuthUIFactory,
             OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
         Objects.requireNonNull(buttonAuthUIFactory, "buttonAuthUIFactory is mandatory");
         Objects.requireNonNull(errorLabelAuthUIFactory, "errorLabelAuthUIFactory is mandatory");
@@ -42,8 +46,8 @@ public class NewPasswordPanelAuthUI extends JPanel {
         this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
         this.sendMessagesCtrl = Objects.requireNonNull(sendMessagesCtrl, "sendMessagesCtrl is mandatory");
         this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl, "messagesDefinesCtrl is mandatory");
-        this.optionPaneAuthUIFactory = Objects.requireNonNull(optionPaneAuthUIFactory,
-                "optionPaneAuthUIFactory is mandatory");
+        this.optionPaneAuthUIFactory =
+                Objects.requireNonNull(optionPaneAuthUIFactory, "optionPaneAuthUIFactory is mandatory");
 
         tErrorHelpInfo = errorLabelAuthUIFactory.create("");
         tErrorHelpInfo.settingToError();
@@ -90,8 +94,8 @@ public class NewPasswordPanelAuthUI extends JPanel {
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(displaySettings.getResizePixel(0.085), insX, displaySettings.getResizePixel(
-                0.004), insX);
+        gbc.insets =
+                new Insets(displaySettings.getResizePixel(0.085), insX, displaySettings.getResizePixel(0.004), insX);
         gbc.gridy = gridyNum;
         add(tPassword, gbc);
         gridyNum++;
@@ -132,8 +136,8 @@ public class NewPasswordPanelAuthUI extends JPanel {
     private void addListenerToElements() {
         bAccept.addActionListener(event -> {
             if (checkFields()) {
-                sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.ChangePasswordRequest, email,
-                        tPassword.getInputText());
+                sendMessagesCtrl.sendMessage(
+                        DefinesMessages.TypeMessage.ChangePasswordRequest, email, tPassword.getInputText());
                 waitRepeatServer();
             }
         });
@@ -157,8 +161,9 @@ public class NewPasswordPanelAuthUI extends JPanel {
             fields.add("\"Confirm password\"");
         }
 
-        if (!Objects.equals(tPassword.getInputText(), "") && !Objects.equals(tPasswordConfirm.getInputText(),
-                "") && !Objects.equals(tPassword.getInputText(), tPasswordConfirm.getInputText())) {
+        if (!Objects.equals(tPassword.getInputText(), "")
+                && !Objects.equals(tPasswordConfirm.getInputText(), "")
+                && !Objects.equals(tPassword.getInputText(), tPasswordConfirm.getInputText())) {
             tPassword.setErrorBorder(true);
             tPasswordConfirm.setErrorBorder(true);
             tErrorHelpInfo.setText("The entered passwords must match.");
@@ -186,14 +191,16 @@ public class NewPasswordPanelAuthUI extends JPanel {
     }
 
     private void changeRegimeBack() {
-        GetterEvents.getInstance().getBeanMakerEvents().event(this, "changeRegimeWork",
-                DefinesAuthUI.RegimeWorkMainFrame.ResetPassword);
+        GetterEvents.getInstance()
+                .getBeanMakerEvents()
+                .event(this, "changeRegimeWork", DefinesAuthUI.RegimeWorkMainFrame.ResetPassword);
         settingUnfocusFieldsOnChangeRegime();
     }
 
     private void changeRegimeNext() {
-        GetterEvents.getInstance().getBeanMakerEvents().event(this, "changeRegimeWork",
-                DefinesAuthUI.RegimeWorkMainFrame.Auth);
+        GetterEvents.getInstance()
+                .getBeanMakerEvents()
+                .event(this, "changeRegimeWork", DefinesAuthUI.RegimeWorkMainFrame.Auth);
         settingUnfocusFieldsOnChangeRegime();
     }
 

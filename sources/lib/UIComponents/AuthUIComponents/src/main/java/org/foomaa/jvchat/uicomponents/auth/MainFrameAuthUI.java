@@ -54,22 +54,26 @@ public class MainFrameAuthUI extends JFrame {
     private final VerifyCodePanelAuthUI verifyCodePanelAuthUI;
 
     @Builder
-    MainFrameAuthUI(DisplaySettings displaySettings, EntryPanelAuthUI entryPanelAuthUI,
-            NewPasswordPanelAuthUI newPasswordPanelAuthUI, RegistrationPanelAuthUI registrationPanelAuthUI,
-            ResetPasswordPanelAuthUI resetPasswordPanelAuthUI, VerifyCodePanelAuthUI verifyCodePanelAuthUI,
+    MainFrameAuthUI(
+            DisplaySettings displaySettings,
+            EntryPanelAuthUI entryPanelAuthUI,
+            NewPasswordPanelAuthUI newPasswordPanelAuthUI,
+            RegistrationPanelAuthUI registrationPanelAuthUI,
+            ResetPasswordPanelAuthUI resetPasswordPanelAuthUI,
+            VerifyCodePanelAuthUI verifyCodePanelAuthUI,
             TitlePanelAuthUI titlePanel) {
         super("EntryFrame");
 
         this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
         this.entryPanelAuthUI = Objects.requireNonNull(entryPanelAuthUI, "entryPanelAuthUI is mandatory");
-        this.newPasswordPanelAuthUI = Objects.requireNonNull(newPasswordPanelAuthUI,
-                "newPasswordPanelAuthUI is mandatory");
-        this.registrationPanelAuthUI = Objects.requireNonNull(registrationPanelAuthUI,
-                "registrationPanelAuthUI is mandatory");
-        this.resetPasswordPanelAuthUI = Objects.requireNonNull(resetPasswordPanelAuthUI,
-                "resetPasswordPanelAuthUI is mandatory");
-        this.verifyCodePanelAuthUI = Objects.requireNonNull(verifyCodePanelAuthUI,
-                "verifyCodePanelAuthUI is mandatory");
+        this.newPasswordPanelAuthUI =
+                Objects.requireNonNull(newPasswordPanelAuthUI, "newPasswordPanelAuthUI is mandatory");
+        this.registrationPanelAuthUI =
+                Objects.requireNonNull(registrationPanelAuthUI, "registrationPanelAuthUI is mandatory");
+        this.resetPasswordPanelAuthUI =
+                Objects.requireNonNull(resetPasswordPanelAuthUI, "resetPasswordPanelAuthUI is mandatory");
+        this.verifyCodePanelAuthUI =
+                Objects.requireNonNull(verifyCodePanelAuthUI, "verifyCodePanelAuthUI is mandatory");
         this.titlePanel = Objects.requireNonNull(titlePanel, "titlePanel is mandatory");
 
         regimeWorkMainFrame = DefinesAuthUI.RegimeWorkMainFrame.Auth;
@@ -202,7 +206,8 @@ public class MainFrameAuthUI extends JFrame {
     }
 
     private void settingLoadLabel() {
-        loadGifLabel = new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getResource(loadGifPath))));
+        loadGifLabel =
+                new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getResource(loadGifPath))));
         loadGifLabel.setOpaque(false);
         loadGifLabel.setBackground(new Color(0, 0, 0, 0));
     }
@@ -247,7 +252,14 @@ public class MainFrameAuthUI extends JFrame {
         setVisible(false);
     }
 
-    @CheckerEventsAnnotation(connectionUuid = {"uuidSignalChangeRegimeWorkEntry", "uuidSignalChangeRegimeWorkRegistration", "uuidSignalChangeRegimeWorkVerifyCode", "uuidSignalChangeRegimeWorkResetPassword", "uuidSignalChangeRegimeWorkNewPassword"})
+    @CheckerEventsAnnotation(
+            connectionUuid = {
+                "uuidSignalChangeRegimeWorkEntry",
+                "uuidSignalChangeRegimeWorkRegistration",
+                "uuidSignalChangeRegimeWorkVerifyCode",
+                "uuidSignalChangeRegimeWorkResetPassword",
+                "uuidSignalChangeRegimeWorkNewPassword"
+            })
     @EventListener
     @Async
     @SuppressWarnings("unused")
@@ -268,7 +280,8 @@ public class MainFrameAuthUI extends JFrame {
         setUndecorated(true);
         pack();
 
-        setSize(displaySettings.getResizeFromDisplay(0.3, DisplaySettings.TypeOfDisplayBorder.WIDTH),
+        setSize(
+                displaySettings.getResizeFromDisplay(0.3, DisplaySettings.TypeOfDisplayBorder.WIDTH),
                 displaySettings.getResizeFromDisplay(0.31, DisplaySettings.TypeOfDisplayBorder.HEIGHT));
 
         setResizable(false);

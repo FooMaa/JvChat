@@ -4,10 +4,14 @@ import lombok.Builder;
 
 public class DefinesAuthUI {
     @Builder
-    DefinesAuthUI() {
-    }
+    DefinesAuthUI() {}
 
     public enum RegimeWorkMainFrame {
-        Auth, Registration, ResetPassword, VerifyCodeRegistration, VerifyCodeResetPassword, NewPassword
+        Auth,
+        Registration,
+        ResetPassword,
+        VerifyCodeRegistration,
+        VerifyCodeResetPassword,
+        NewPassword
     }
 }

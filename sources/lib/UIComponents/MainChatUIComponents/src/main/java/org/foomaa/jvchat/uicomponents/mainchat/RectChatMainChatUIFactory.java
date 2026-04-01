@@ -13,8 +13,8 @@ public class RectChatMainChatUIFactory {
 
     @Builder
     RectChatMainChatUIFactory(ObjectProvider<RectChatMainChatUI> rectChatObjectProvider) {
-        this.rectChatObjectProvider = Objects.requireNonNull(rectChatObjectProvider,
-                "rectChatObjectProvider is mandatory");
+        this.rectChatObjectProvider =
+                Objects.requireNonNull(rectChatObjectProvider, "rectChatObjectProvider is mandatory");
     }
 
     public RectChatMainChatUI create(ChatStructObject chatStructObject) {

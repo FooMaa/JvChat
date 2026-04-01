@@ -12,16 +12,20 @@ public class CheckerOnlineStructObjectFactory {
 
     @Builder
     CheckerOnlineStructObjectFactory(ObjectProvider<CheckerOnlineStructObject> checkerOnlineObjectProvider) {
-        this.checkerOnlineObjectProvider = Objects.requireNonNull(checkerOnlineObjectProvider,
-                "checkerOnlineObjectProvider is mandatory");
+        this.checkerOnlineObjectProvider =
+                Objects.requireNonNull(checkerOnlineObjectProvider, "checkerOnlineObjectProvider is mandatory");
     }
 
     public CheckerOnlineStructObject create() {
         return checkerOnlineObjectProvider.getObject();
     }
 
-    public CheckerOnlineStructObject create(UserStructObject user, boolean isSending, LocalDateTime dateTimeSending,
-            LocalDateTime dateTimeUpdating, SocketRunnableCtrlStructObject runnableCtrlStructObject) {
+    public CheckerOnlineStructObject create(
+            UserStructObject user,
+            boolean isSending,
+            LocalDateTime dateTimeSending,
+            LocalDateTime dateTimeUpdating,
+            SocketRunnableCtrlStructObject runnableCtrlStructObject) {
         CheckerOnlineStructObject connectionEventStructObject = checkerOnlineObjectProvider.getObject();
 
         connectionEventStructObject.setUser(user);
@@ -42,8 +46,11 @@ public class CheckerOnlineStructObjectFactory {
         return connectionEventStructObject;
     }
 
-    public CheckerOnlineStructObject create(boolean isSending, LocalDateTime dateTimeSending,
-            LocalDateTime dateTimeUpdating, SocketRunnableCtrlStructObject runnableCtrlStructObject) {
+    public CheckerOnlineStructObject create(
+            boolean isSending,
+            LocalDateTime dateTimeSending,
+            LocalDateTime dateTimeUpdating,
+            SocketRunnableCtrlStructObject runnableCtrlStructObject) {
         CheckerOnlineStructObject connectionEventStructObject = checkerOnlineObjectProvider.getObject();
 
         connectionEventStructObject.setIsSending(isSending);

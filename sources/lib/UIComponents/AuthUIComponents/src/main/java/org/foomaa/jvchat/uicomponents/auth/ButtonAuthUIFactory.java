@@ -11,8 +11,8 @@ public class ButtonAuthUIFactory {
 
     @Builder
     ButtonAuthUIFactory(ObjectProvider<ButtonAuthUI> buttonAuthUIObjectProvider) {
-        this.buttonAuthUIObjectProvider = Objects.requireNonNull(buttonAuthUIObjectProvider,
-                "buttonAuthUIObjectProvider is mandatory");
+        this.buttonAuthUIObjectProvider =
+                Objects.requireNonNull(buttonAuthUIObjectProvider, "buttonAuthUIObjectProvider is mandatory");
     }
 
     public ButtonAuthUI create(String text) {

@@ -11,8 +11,8 @@ public class ErrorStartUILinkFactory {
 
     @Builder
     ErrorStartUILinkFactory(ObjectProvider<ErrorStartUILink> errorStartUILinkObjectProvider) {
-        this.errorStartUILinkObjectProvider = Objects.requireNonNull(errorStartUILinkObjectProvider,
-                "errorStartUILinkObjectProvider is mandatory");
+        this.errorStartUILinkObjectProvider =
+                Objects.requireNonNull(errorStartUILinkObjectProvider, "errorStartUILinkObjectProvider is mandatory");
         ;
     }
 

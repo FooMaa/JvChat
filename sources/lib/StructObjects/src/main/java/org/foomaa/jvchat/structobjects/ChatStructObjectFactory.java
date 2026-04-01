@@ -12,8 +12,8 @@ public class ChatStructObjectFactory {
 
     @Builder
     ChatStructObjectFactory(ObjectProvider<ChatStructObject> chatStructObjectObjectProvider) {
-        this.chatStructObjectObjectProvider = Objects.requireNonNull(chatStructObjectObjectProvider,
-                "chatStructObjectObjectProvider is mandatory");
+        this.chatStructObjectObjectProvider =
+                Objects.requireNonNull(chatStructObjectObjectProvider, "chatStructObjectObjectProvider is mandatory");
     }
 
     public ChatStructObject create() {

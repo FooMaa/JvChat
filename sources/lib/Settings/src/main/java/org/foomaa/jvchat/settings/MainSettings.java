@@ -4,11 +4,12 @@ import lombok.Builder;
 
 public class MainSettings {
     @Builder
-    MainSettings() {
-    }
+    MainSettings() {}
 
     public enum TypeProfiles {
-        TESTS("tests"), USERS("users"), SERVERS("servers");
+        TESTS("tests"),
+        USERS("users"),
+        SERVERS("servers");
 
         private final String name;
 

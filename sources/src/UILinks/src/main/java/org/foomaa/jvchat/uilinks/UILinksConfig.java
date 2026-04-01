@@ -12,20 +12,26 @@ public class UILinksConfig {
     @Lazy
     @Profile("users")
     public ErrorStartUILink beanErrorStartUILink(OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
-        return ErrorStartUILink.builder().optionPaneAuthUIFactory(optionPaneAuthUIFactory).build();
+        return ErrorStartUILink.builder()
+                .optionPaneAuthUIFactory(optionPaneAuthUIFactory)
+                .build();
     }
 
     @Bean
     @Profile("users")
     public ErrorStartUILinkFactory beanErrorStartUILinkFactory(
             ObjectProvider<ErrorStartUILink> errorStartUILinkObjectProvider) {
-        return ErrorStartUILinkFactory.builder().errorStartUILinkObjectProvider(errorStartUILinkObjectProvider).build();
+        return ErrorStartUILinkFactory.builder()
+                .errorStartUILinkObjectProvider(errorStartUILinkObjectProvider)
+                .build();
     }
 
     @Bean
     @Lazy
     @Profile("users")
     public StartAuthenticationUILink beanStartAuthenticationUILink(MainFrameAuthUI mainFrameAuthUI) {
-        return StartAuthenticationUILink.builder().mainFrameAuthUI(mainFrameAuthUI).build();
+        return StartAuthenticationUILink.builder()
+                .mainFrameAuthUI(mainFrameAuthUI)
+                .build();
     }
 }

@@ -24,8 +24,10 @@ public class ServersSocket {
         if (serversInfoSettings.getIp().isEmpty()) {
             socketServers = new ServerSocket(serversInfoSettings.getPort());
         } else {
-            socketServers = new ServerSocket(serversInfoSettings.getPort(), serversInfoSettings.getQuantityConnections(), InetAddress.getByName(
-                    serversInfoSettings.getIp()));
+            socketServers = new ServerSocket(
+                    serversInfoSettings.getPort(),
+                    serversInfoSettings.getQuantityConnections(),
+                    InetAddress.getByName(serversInfoSettings.getIp()));
         }
 
         log.info("IP: {}.", socketServers.getInetAddress().toString());

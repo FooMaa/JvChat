@@ -14,13 +14,16 @@ public class UsersModel extends BaseModel {
     private final UserStructObjectFactory userStructObjectFactory;
 
     @Builder
-    UsersModel(UserStructObjectFactory userStructObjectFactory, RootStructObjectFactory rootStructObjectFactory,
+    UsersModel(
+            UserStructObjectFactory userStructObjectFactory,
+            RootStructObjectFactory rootStructObjectFactory,
             RootObjectsModel rootObjectsModel) {
-        super(Objects.requireNonNull(rootObjectsModel, "rootObjectsModel is mandatory"), Objects.requireNonNull(
-                rootStructObjectFactory, "rootStructObjectFactory is mandatory"));
+        super(
+                Objects.requireNonNull(rootObjectsModel, "rootObjectsModel is mandatory"),
+                Objects.requireNonNull(rootStructObjectFactory, "rootStructObjectFactory is mandatory"));
 
-        this.userStructObjectFactory = Objects.requireNonNull(userStructObjectFactory,
-                "userStructObjectFactory is mandatory");
+        this.userStructObjectFactory =
+                Objects.requireNonNull(userStructObjectFactory, "userStructObjectFactory is mandatory");
     }
 
     public void addCreatedUser(UserStructObject userStructObject) {

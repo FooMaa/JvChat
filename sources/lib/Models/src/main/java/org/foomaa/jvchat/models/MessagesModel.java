@@ -16,19 +16,27 @@ public class MessagesModel extends BaseModel {
     private final MessageStructObjectFactory messageStructObjectFactory;
 
     @Builder
-    MessagesModel(MessageStructObjectFactory messageStructObjectFactory,
-            RootStructObjectFactory rootStructObjectFactory, RootObjectsModel rootObjectsModel) {
-        super(Objects.requireNonNull(rootObjectsModel, "rootObjectsModel is mandatory"), Objects.requireNonNull(
-                rootStructObjectFactory, "rootStructObjectFactory is mandatory"));
+    MessagesModel(
+            MessageStructObjectFactory messageStructObjectFactory,
+            RootStructObjectFactory rootStructObjectFactory,
+            RootObjectsModel rootObjectsModel) {
+        super(
+                Objects.requireNonNull(rootObjectsModel, "rootObjectsModel is mandatory"),
+                Objects.requireNonNull(rootStructObjectFactory, "rootStructObjectFactory is mandatory"));
 
-        this.messageStructObjectFactory = Objects.requireNonNull(messageStructObjectFactory,
-                "messageStructObjectFactory is mandatory");
+        this.messageStructObjectFactory =
+                Objects.requireNonNull(messageStructObjectFactory, "messageStructObjectFactory is mandatory");
     }
 
-    public MessageStructObject createNewMessage(UUID uuidUserSender, UUID uuidUserReceiver, UUID uuidMessage,
-            MainChatsGlobalDefines.TypeStatusMessage statusMessage, String text, LocalDateTime timestamp) {
-        MessageStructObject messageObj = messageStructObjectFactory.create(uuidUserSender, uuidUserReceiver,
-                statusMessage, text, timestamp, uuidMessage);
+    public MessageStructObject createNewMessage(
+            UUID uuidUserSender,
+            UUID uuidUserReceiver,
+            UUID uuidMessage,
+            MainChatsGlobalDefines.TypeStatusMessage statusMessage,
+            String text,
+            LocalDateTime timestamp) {
+        MessageStructObject messageObj = messageStructObjectFactory.create(
+                uuidUserSender, uuidUserReceiver, statusMessage, text, timestamp, uuidMessage);
 
         addItem(messageObj, getRootObject());
 

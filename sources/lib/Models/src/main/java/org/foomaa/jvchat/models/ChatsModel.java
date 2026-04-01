@@ -23,21 +23,26 @@ public class ChatsModel extends BaseModel {
     private final UserStructObjectFactory userStructObjectFactory;
 
     @Builder
-    ChatsModel(UsersInfoSettings usersInfoSettings, UsersModel usersModel,
-            MessageStructObjectFactory messageStructObjectFactory, ChatStructObjectFactory chatStructObjectFactory,
-            UserStructObjectFactory userStructObjectFactory, RootStructObjectFactory rootStructObjectFactory,
+    ChatsModel(
+            UsersInfoSettings usersInfoSettings,
+            UsersModel usersModel,
+            MessageStructObjectFactory messageStructObjectFactory,
+            ChatStructObjectFactory chatStructObjectFactory,
+            UserStructObjectFactory userStructObjectFactory,
+            RootStructObjectFactory rootStructObjectFactory,
             RootObjectsModel rootObjectsModel) {
-        super(Objects.requireNonNull(rootObjectsModel, "rootObjectsModel is mandatory"), Objects.requireNonNull(
-                rootStructObjectFactory, "rootStructObjectFactory is mandatory"));
+        super(
+                Objects.requireNonNull(rootObjectsModel, "rootObjectsModel is mandatory"),
+                Objects.requireNonNull(rootStructObjectFactory, "rootStructObjectFactory is mandatory"));
 
         this.usersInfoSettings = Objects.requireNonNull(usersInfoSettings, "usersInfoSettings is mandatory");
         this.usersModel = Objects.requireNonNull(usersModel, "usersModel is mandatory");
-        this.messageStructObjectFactory = Objects.requireNonNull(messageStructObjectFactory,
-                "messageStructObjectFactory is mandatory");
-        this.chatStructObjectFactory = Objects.requireNonNull(chatStructObjectFactory,
-                "chatStructObjectFactory is mandatory");
-        this.userStructObjectFactory = Objects.requireNonNull(userStructObjectFactory,
-                "userStructObjectFactory is mandatory");
+        this.messageStructObjectFactory =
+                Objects.requireNonNull(messageStructObjectFactory, "messageStructObjectFactory is mandatory");
+        this.chatStructObjectFactory =
+                Objects.requireNonNull(chatStructObjectFactory, "chatStructObjectFactory is mandatory");
+        this.userStructObjectFactory =
+                Objects.requireNonNull(userStructObjectFactory, "userStructObjectFactory is mandatory");
 
         currentActiveChatUuid = null;
     }
@@ -48,8 +53,14 @@ public class ChatsModel extends BaseModel {
         }
     }
 
-    public void createNewChat(String login, UUID uuidUser, String lastMessageText, UUID uuidChat, UUID uuidLastMessage,
-            Boolean isLoginSentLastMessage, MainChatsGlobalDefines.TypeStatusMessage statusMessage,
+    public void createNewChat(
+            String login,
+            UUID uuidUser,
+            String lastMessageText,
+            UUID uuidChat,
+            UUID uuidLastMessage,
+            Boolean isLoginSentLastMessage,
+            MainChatsGlobalDefines.TypeStatusMessage statusMessage,
             LocalDateTime timestampLastMessage) {
         UserStructObject userChat = userStructObjectFactory.create(login, uuidUser);
         usersModel.addCreatedUser(userChat);
@@ -57,8 +68,8 @@ public class ChatsModel extends BaseModel {
         UUID uuidSender = isLoginSentLastMessage ? uuidUser : usersInfoSettings.getUuid();
         UUID uuidReceiver = isLoginSentLastMessage ? usersInfoSettings.getUuid() : uuidUser;
 
-        MessageStructObject lastMessage = messageStructObjectFactory.create(uuidSender, uuidReceiver, statusMessage,
-                lastMessageText, timestampLastMessage, uuidLastMessage);
+        MessageStructObject lastMessage = messageStructObjectFactory.create(
+                uuidSender, uuidReceiver, statusMessage, lastMessageText, timestampLastMessage, uuidLastMessage);
 
         ChatStructObject chat = chatStructObjectFactory.create(userChat, lastMessage, uuidChat);
 

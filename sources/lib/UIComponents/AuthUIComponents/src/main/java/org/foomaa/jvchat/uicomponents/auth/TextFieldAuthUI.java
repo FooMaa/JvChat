@@ -26,7 +26,9 @@ public class TextFieldAuthUI extends JPanel {
     private final ToolTipAuthUIFactory toolTipAuthUIFactory;
 
     @Builder
-    TextFieldAuthUI(DisplaySettings displaySettings, FontsGlobalDefines fontsGlobalDefines,
+    TextFieldAuthUI(
+            DisplaySettings displaySettings,
+            FontsGlobalDefines fontsGlobalDefines,
             ToolTipAuthUIFactory toolTipAuthUIFactory) {
         this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
         this.fontsGlobalDefines = Objects.requireNonNull(fontsGlobalDefines, "fontsGlobalDefines is mandatory");
@@ -120,9 +122,8 @@ public class TextFieldAuthUI extends JPanel {
 
     private void settingTextPanel() {
         Dimension dim = new Dimension(
-                displaySettings.getResizeFromDisplay(0.23,
-                        DisplaySettings.TypeOfDisplayBorder.WIDTH), displaySettings.getResizeFromDisplay(0.03,
-                                DisplaySettings.TypeOfDisplayBorder.HEIGHT));
+                displaySettings.getResizeFromDisplay(0.23, DisplaySettings.TypeOfDisplayBorder.WIDTH),
+                displaySettings.getResizeFromDisplay(0.03, DisplaySettings.TypeOfDisplayBorder.HEIGHT));
         settingTextField(dim);
         addElements();
         setBackground(textField.getBackground());

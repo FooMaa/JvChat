@@ -15,16 +15,20 @@ public class MessageStructObjectFactory {
 
     @Builder
     MessageStructObjectFactory(ObjectProvider<MessageStructObject> messageStructObjectObjectProvider) {
-        this.messageStructObjectObjectProvider = Objects.requireNonNull(messageStructObjectObjectProvider,
-                "messageStructObjectObjectProvider is mandatory");
+        this.messageStructObjectObjectProvider = Objects.requireNonNull(
+                messageStructObjectObjectProvider, "messageStructObjectObjectProvider is mandatory");
     }
 
     public MessageStructObject create() {
         return messageStructObjectObjectProvider.getObject();
     }
 
-    public MessageStructObject create(UUID uuidUserSender, UUID uuidUserReceiver,
-            MainChatsGlobalDefines.TypeStatusMessage statusMessage, String text, LocalDateTime timestamp,
+    public MessageStructObject create(
+            UUID uuidUserSender,
+            UUID uuidUserReceiver,
+            MainChatsGlobalDefines.TypeStatusMessage statusMessage,
+            String text,
+            LocalDateTime timestamp,
             UUID uuidMessage) {
         MessageStructObject messageStructObject = messageStructObjectObjectProvider.getObject();
 

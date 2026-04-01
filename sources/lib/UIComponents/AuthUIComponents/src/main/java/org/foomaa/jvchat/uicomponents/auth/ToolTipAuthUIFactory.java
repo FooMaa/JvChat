@@ -11,8 +11,8 @@ public class ToolTipAuthUIFactory {
 
     @Builder
     ToolTipAuthUIFactory(ObjectProvider<ToolTipAuthUI> toolTipAuthUIObjectProvider) {
-        this.toolTipAuthUIObjectProvider = Objects.requireNonNull(toolTipAuthUIObjectProvider,
-                "toolTipAuthUIObjectProvider is mandatory");
+        this.toolTipAuthUIObjectProvider =
+                Objects.requireNonNull(toolTipAuthUIObjectProvider, "toolTipAuthUIObjectProvider is mandatory");
     }
 
     public ToolTipAuthUI create() {

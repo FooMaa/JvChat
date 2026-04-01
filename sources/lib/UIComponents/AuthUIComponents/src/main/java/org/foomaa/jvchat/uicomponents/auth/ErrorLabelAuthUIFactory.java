@@ -11,8 +11,8 @@ public class ErrorLabelAuthUIFactory {
 
     @Builder
     ErrorLabelAuthUIFactory(ObjectProvider<ErrorLabelAuthUI> errorLabelAuthUIObjectProvider) {
-        this.errorLabelAuthUIObjectProvider = Objects.requireNonNull(errorLabelAuthUIObjectProvider,
-                "errorLabelAuthUIObjectProvider is mandatory");
+        this.errorLabelAuthUIObjectProvider =
+                Objects.requireNonNull(errorLabelAuthUIObjectProvider, "errorLabelAuthUIObjectProvider is mandatory");
     }
 
     public ErrorLabelAuthUI create(String text) {

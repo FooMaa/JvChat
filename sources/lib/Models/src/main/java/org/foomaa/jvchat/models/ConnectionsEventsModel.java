@@ -18,19 +18,25 @@ public class ConnectionsEventsModel extends BaseModel {
     private final ConnectionEventStructObjectFactory connectionEventStructObjectFactory;
 
     @Builder
-    ConnectionsEventsModel(RootStructObjectFactory rootStructObjectFactory, RootObjectsModel rootObjectsModel,
+    ConnectionsEventsModel(
+            RootStructObjectFactory rootStructObjectFactory,
+            RootObjectsModel rootObjectsModel,
             ConnectionEventStructObjectFactory connectionEventStructObjectFactory) {
-        super(Objects.requireNonNull(rootObjectsModel, "rootObjectsModel is mandatory"), Objects.requireNonNull(
-                rootStructObjectFactory, "rootStructObjectFactory is mandatory"));
+        super(
+                Objects.requireNonNull(rootObjectsModel, "rootObjectsModel is mandatory"),
+                Objects.requireNonNull(rootStructObjectFactory, "rootStructObjectFactory is mandatory"));
 
-        this.connectionEventStructObjectFactory = Objects.requireNonNull(connectionEventStructObjectFactory,
-                "connectionEventStructObjectFactory is mandatory");
+        this.connectionEventStructObjectFactory = Objects.requireNonNull(
+                connectionEventStructObjectFactory, "connectionEventStructObjectFactory is mandatory");
     }
 
-    public UUID createNewConnection(Object objectSender, Object objectReceiver, String customNameEvent,
+    public UUID createNewConnection(
+            Object objectSender,
+            Object objectReceiver,
+            String customNameEvent,
             AnnotationConfigApplicationContext context) {
-        ConnectionEventStructObject connectionObject = connectionEventStructObjectFactory.create(customNameEvent,
-                objectReceiver, context, objectSender);
+        ConnectionEventStructObject connectionObject =
+                connectionEventStructObjectFactory.create(customNameEvent, objectReceiver, context, objectSender);
 
         addItem(connectionObject, getRootObject());
 
@@ -46,8 +52,8 @@ public class ConnectionsEventsModel extends BaseModel {
                 log.error("This includes the chatStructObject object, which is null.");
                 continue;
             }
-            if (connectionEventStructObject.getObjectSender() == objectSender && Objects.equals(
-                    connectionEventStructObject.getCustomNameEvent(), customNameEvent)) {
+            if (connectionEventStructObject.getObjectSender() == objectSender
+                    && Objects.equals(connectionEventStructObject.getCustomNameEvent(), customNameEvent)) {
                 resList.add(connectionEventStructObject);
             }
         }

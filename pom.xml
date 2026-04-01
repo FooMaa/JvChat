@@ -115,14 +115,7 @@
 
                 <configuration>
                     <java>
-                        <eclipse>
-                            <version>4.21.0</version>
-                            <file>${maven.multiModuleProjectDirectory}/config/idea-format.xml</file>
-                        </eclipse>
-                        <indent>
-                            <spaces>true</spaces>
-                            <spacesPerTab>4</spacesPerTab>
-                        </indent>
+                        <palantirJavaFormat/>
                         <importOrder>
                             <order>java,javax,org,com,lombok,org.foomaa.jvchat,</order>
                         </importOrder>
