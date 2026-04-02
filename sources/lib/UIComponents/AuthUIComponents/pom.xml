@@ -75,7 +75,7 @@
         </dependency>
 
         <dependency>
-            <groupId>org.foomaa.jvchat.events</groupId>
+            <groupId>org.foomaa.jvchat.signals</groupId>
             <artifactId>Signals</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
