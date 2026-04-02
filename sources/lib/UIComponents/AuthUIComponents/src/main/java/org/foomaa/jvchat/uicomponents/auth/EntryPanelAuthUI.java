@@ -10,11 +10,13 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.*;
 
 import lombok.Builder;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.ctrl.SendMessagesCtrl;
-import org.foomaa.jvchat.events.GetterEvents;
+import org.foomaa.jvchat.signals.Signal;
+import org.foomaa.jvchat.signals.SignalFactory;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.settings.UsersInfoSettings;
@@ -35,6 +37,12 @@ public class EntryPanelAuthUI extends JPanel {
     private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
+    @Getter
+    private final Signal closeWindow;
+
+    @Getter
+    private final Signal changeRegimeWork;
+
     @Builder
     EntryPanelAuthUI(
             UsersInfoSettings usersInfoSettings,
@@ -47,12 +55,14 @@ public class EntryPanelAuthUI extends JPanel {
             ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
             PasswordFieldAuthUIFactory passwordFieldAuthUIFactory,
             TextFieldAuthUIFactory textFieldAuthUIFactory,
-            OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
+            OptionPaneAuthUIFactory optionPaneAuthUIFactory,
+            SignalFactory signalFactory) {
         Objects.requireNonNull(activeLabelAuthUIFactory, "activeLabelAuthUIFactory is mandatory");
         Objects.requireNonNull(buttonAuthUIFactory, "buttonAuthUIFactory is mandatory");
         Objects.requireNonNull(errorLabelAuthUIFactory, "errorLabelAuthUIFactory is mandatory");
         Objects.requireNonNull(passwordFieldAuthUIFactory, "passwordFieldAuthUIFactory is mandatory");
         Objects.requireNonNull(textFieldAuthUIFactory, "textFieldAuthUIFactory is mandatory");
+        Objects.requireNonNull(signalFactory, "eventFactory is mandatory");
 
         this.usersInfoSettings = Objects.requireNonNull(usersInfoSettings, "usersInfoSettings is mandatory");
         this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
@@ -61,6 +71,8 @@ public class EntryPanelAuthUI extends JPanel {
         this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl, "messagesDefinesCtrl is mandatory");
         this.optionPaneAuthUIFactory =
                 Objects.requireNonNull(optionPaneAuthUIFactory, "optionPaneAuthUIFactory is mandatory");
+        this.closeWindow = signalFactory.create();
+        this.changeRegimeWork = signalFactory.create();
 
         tLogin = textFieldAuthUIFactory.create("Login");
         tErrorHelpInfo = errorLabelAuthUIFactory.create("");
@@ -167,13 +179,14 @@ public class EntryPanelAuthUI extends JPanel {
     }
 
     private void closeFrameWindow() {
-        GetterEvents.getInstance().getBeanMakerEvents().event(this, "closeWindow");
+        closeWindow.emit();
+
         tLogin.setUnfocusFieldOnClose(true);
         tPassword.setUnfocusFieldOnClose(true);
     }
 
     private void changeRegime(DefinesAuthUI.RegimeWorkMainFrame regime) {
-        GetterEvents.getInstance().getBeanMakerEvents().event(this, "changeRegimeWork", regime);
+        changeRegimeWork.emit(regime);
         tLogin.setUnfocusFieldOnClose(true);
         tPassword.setUnfocusFieldOnClose(true);
     }

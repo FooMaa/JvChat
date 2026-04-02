@@ -8,11 +8,13 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.*;
 
 import lombok.Builder;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.ctrl.SendMessagesCtrl;
-import org.foomaa.jvchat.events.GetterEvents;
+import org.foomaa.jvchat.signals.Signal;
+import org.foomaa.jvchat.signals.SignalFactory;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
 
@@ -30,6 +32,9 @@ public class NewPasswordPanelAuthUI extends JPanel {
     private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
+    @Getter
+    private final Signal changeRegimeWork;
+
     @Builder
     NewPasswordPanelAuthUI(
             DisplaySettings displaySettings,
@@ -38,16 +43,19 @@ public class NewPasswordPanelAuthUI extends JPanel {
             ButtonAuthUIFactory buttonAuthUIFactory,
             ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
             PasswordFieldAuthUIFactory passwordFieldAuthUIFactory,
-            OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
+            OptionPaneAuthUIFactory optionPaneAuthUIFactory,
+            SignalFactory signalFactory) {
         Objects.requireNonNull(buttonAuthUIFactory, "buttonAuthUIFactory is mandatory");
         Objects.requireNonNull(errorLabelAuthUIFactory, "errorLabelAuthUIFactory is mandatory");
         Objects.requireNonNull(passwordFieldAuthUIFactory, "passwordFieldAuthUIFactory is mandatory");
+        Objects.requireNonNull(signalFactory, "eventFactory is mandatory");
 
         this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
         this.sendMessagesCtrl = Objects.requireNonNull(sendMessagesCtrl, "sendMessagesCtrl is mandatory");
         this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl, "messagesDefinesCtrl is mandatory");
         this.optionPaneAuthUIFactory =
                 Objects.requireNonNull(optionPaneAuthUIFactory, "optionPaneAuthUIFactory is mandatory");
+        this.changeRegimeWork = signalFactory.create();
 
         tErrorHelpInfo = errorLabelAuthUIFactory.create("");
         tErrorHelpInfo.settingToError();
@@ -191,16 +199,12 @@ public class NewPasswordPanelAuthUI extends JPanel {
     }
 
     private void changeRegimeBack() {
-        GetterEvents.getInstance()
-                .getBeanMakerEvents()
-                .event(this, "changeRegimeWork", DefinesAuthUI.RegimeWorkMainFrame.ResetPassword);
+        changeRegimeWork.emit(DefinesAuthUI.RegimeWorkMainFrame.ResetPassword);
         settingUnfocusFieldsOnChangeRegime();
     }
 
     private void changeRegimeNext() {
-        GetterEvents.getInstance()
-                .getBeanMakerEvents()
-                .event(this, "changeRegimeWork", DefinesAuthUI.RegimeWorkMainFrame.Auth);
+        changeRegimeWork.emit(DefinesAuthUI.RegimeWorkMainFrame.Auth);
         settingUnfocusFieldsOnChangeRegime();
     }
 

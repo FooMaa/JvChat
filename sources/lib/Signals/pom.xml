@@ -8,8 +8,8 @@
         <relativePath>../../../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.foomaa.jvchat.events</groupId>
-    <artifactId>Events</artifactId>
+    <groupId>org.foomaa.jvchat.signals</groupId>
+    <artifactId>Signals</artifactId>
     <packaging>jar</packaging>
 
     <name>JvEvents</name>

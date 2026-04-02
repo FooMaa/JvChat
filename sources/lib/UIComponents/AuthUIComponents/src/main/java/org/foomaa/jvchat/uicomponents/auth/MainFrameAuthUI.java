@@ -6,18 +6,12 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
 import java.io.IOException;
 import java.util.Objects;
-import java.util.UUID;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import org.springframework.context.event.EventListener;
-import org.springframework.scheduling.annotation.Async;
-
 import lombok.Builder;
 
-import org.foomaa.jvchat.events.BaseEvent;
-import org.foomaa.jvchat.events.CheckerEventsAnnotation;
 import org.foomaa.jvchat.settings.DisplaySettings;
 
 public class MainFrameAuthUI extends JFrame {
@@ -27,24 +21,6 @@ public class MainFrameAuthUI extends JFrame {
     private final String backgroundPath;
     private final String loadGifPath;
     private JLabel loadGifLabel;
-
-    @SuppressWarnings({"unused", "FieldCanBeLocal"})
-    private UUID uuidSignalCloseWindow;
-
-    @SuppressWarnings({"unused", "FieldCanBeLocal"})
-    private UUID uuidSignalChangeRegimeWorkEntry;
-
-    @SuppressWarnings({"unused", "FieldCanBeLocal"})
-    private UUID uuidSignalChangeRegimeWorkRegistration;
-
-    @SuppressWarnings({"unused", "FieldCanBeLocal"})
-    private UUID uuidSignalChangeRegimeWorkVerifyCode;
-
-    @SuppressWarnings({"unused", "FieldCanBeLocal"})
-    private UUID uuidSignalChangeRegimeWorkResetPassword;
-
-    @SuppressWarnings({"unused", "FieldCanBeLocal"})
-    private UUID uuidSignalChangeRegimeWorkNewPassword;
 
     private final DisplaySettings displaySettings;
     private final EntryPanelAuthUI entryPanelAuthUI;
@@ -91,42 +67,55 @@ public class MainFrameAuthUI extends JFrame {
     }
 
     private void createConnections() {
-        // uuidSignalCloseWindow =
-        // GetterEvents.getInstance().getBeanMakerEvents().addConnect(
-        // entryPanelAuthUI,
-        // this,
-        // "closeWindow",
-        // null);
-        // uuidSignalChangeRegimeWorkEntry =
-        // GetterEvents.getInstance().getBeanMakerEvents().addConnect(
-        // entryPanelAuthUI,
-        // this,
-        // "changeRegimeWork",
-        // null);
-        // uuidSignalChangeRegimeWorkRegistration =
-        // GetterEvents.getInstance().getBeanMakerEvents().addConnect(
-        // registrationPanelAuthUI,
-        // this,
-        // "changeRegimeWork",
-        // null);
-        // uuidSignalChangeRegimeWorkVerifyCode =
-        // GetterEvents.getInstance().getBeanMakerEvents().addConnect(
-        // verifyCodePanelAuthUI,
-        // this,
-        // "changeRegimeWork",
-        // null);
-        // uuidSignalChangeRegimeWorkResetPassword =
-        // GetterEvents.getInstance().getBeanMakerEvents().addConnect(
-        // resetPasswordPanelAuthUI,
-        // this,
-        // "changeRegimeWork",
-        // null);
-        // uuidSignalChangeRegimeWorkNewPassword =
-        // GetterEvents.getInstance().getBeanMakerEvents().addConnect(
-        // newPasswordPanelAuthUI,
-        // this,
-        // "changeRegimeWork",
-        // null);
+        entryPanelAuthUI.getCloseWindow().connect(args -> closeWindow());
+        entryPanelAuthUI
+                .getChangeRegimeWork()
+                .connect(
+                        args -> changeRegimeWork((DefinesAuthUI.RegimeWorkMainFrame) args[0]),
+                        DefinesAuthUI.RegimeWorkMainFrame.class);
+
+        registrationPanelAuthUI
+                .getChangeRegimeWork()
+                .connect(
+                        args -> changeRegimeWork(
+                                (DefinesAuthUI.RegimeWorkMainFrame) args[0],
+                                (String) args[1],
+                                (String) args[2],
+                                (String) args[3]),
+                        DefinesAuthUI.RegimeWorkMainFrame.class,
+                        String.class,
+                        String.class,
+                        String.class);
+
+        verifyCodePanelAuthUI
+                .getChangeRegimeWork()
+                .connect(
+                        args -> changeRegimeWork((DefinesAuthUI.RegimeWorkMainFrame) args[0]),
+                        DefinesAuthUI.RegimeWorkMainFrame.class);
+        verifyCodePanelAuthUI
+                .getChangeRegimeWork()
+                .connect(
+                        args -> changeRegimeWork((DefinesAuthUI.RegimeWorkMainFrame) args[0], (String) args[1]),
+                        DefinesAuthUI.RegimeWorkMainFrame.class,
+                        String.class);
+
+        resetPasswordPanelAuthUI
+                .getChangeRegimeWork()
+                .connect(
+                        args -> changeRegimeWork((DefinesAuthUI.RegimeWorkMainFrame) args[0]),
+                        DefinesAuthUI.RegimeWorkMainFrame.class);
+        resetPasswordPanelAuthUI
+                .getChangeRegimeWork()
+                .connect(
+                        args -> changeRegimeWork((DefinesAuthUI.RegimeWorkMainFrame) args[0], (String) args[1]),
+                        DefinesAuthUI.RegimeWorkMainFrame.class,
+                        String.class);
+
+        newPasswordPanelAuthUI
+                .getChangeRegimeWork()
+                .connect(
+                        args -> changeRegimeWork((DefinesAuthUI.RegimeWorkMainFrame) args[0]),
+                        DefinesAuthUI.RegimeWorkMainFrame.class);
     }
 
     private void settingBackgroundPanel() {
@@ -236,36 +225,32 @@ public class MainFrameAuthUI extends JFrame {
 
     private void addListenerToElements() {
         titlePanel.getCloseButton().addActionListener(event -> {
-            closeWindow(null);
+            closeWindow();
             System.exit(0);
         });
 
         titlePanel.getMinimizeButton().addActionListener(event -> minimizeWindow());
     }
 
-    @CheckerEventsAnnotation(connectionUuid = "uuidSignalCloseWindow")
-    @EventListener
-    @Async
-    @SuppressWarnings("unused")
-    public void closeWindow(BaseEvent event) {
+    public void closeWindow() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(false);
     }
 
-    @CheckerEventsAnnotation(
-            connectionUuid = {
-                "uuidSignalChangeRegimeWorkEntry",
-                "uuidSignalChangeRegimeWorkRegistration",
-                "uuidSignalChangeRegimeWorkVerifyCode",
-                "uuidSignalChangeRegimeWorkResetPassword",
-                "uuidSignalChangeRegimeWorkNewPassword"
-            })
-    @EventListener
-    @Async
-    @SuppressWarnings("unused")
-    public void changeRegimeWork(BaseEvent event) {
-        regimeWorkMainFrame = (DefinesAuthUI.RegimeWorkMainFrame) event.getData()[0];
-        setPanelSettings(event.getData());
+    public void changeRegimeWork(DefinesAuthUI.RegimeWorkMainFrame regime) {
+        regimeWorkMainFrame = regime;
+        setPanelSettings();
+    }
+
+    public void changeRegimeWork(
+            DefinesAuthUI.RegimeWorkMainFrame regime, String login, String email, String password) {
+        regimeWorkMainFrame = regime;
+        setPanelSettings(login, email, password);
+    }
+
+    public void changeRegimeWork(DefinesAuthUI.RegimeWorkMainFrame regime, String email) {
+        regimeWorkMainFrame = regime;
+        setPanelSettings(email);
     }
 
     public void openWindow() {

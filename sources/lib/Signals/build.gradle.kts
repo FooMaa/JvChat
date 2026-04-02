@@ -1,4 +1,4 @@
-group = "org.foomaa.jvchat.events"
+group = "org.foomaa.jvchat.signals"
 version = "1.0-SNAPSHOT"
 
 dependencies {

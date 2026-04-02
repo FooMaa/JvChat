@@ -24,7 +24,7 @@
         <module>sources/lib/Logger</module>
         <module>sources/lib/GlobalDefines</module>
         <module>sources/lib/Messages</module>
-        <module>sources/lib/Events</module>
+        <module>sources/lib/Signals</module>
         <module>sources/lib/Models</module>
         <module>sources/lib/StructObjects</module>
         <module>sources/src/StartPoint</module>

@@ -1,4 +1,4 @@
-package org.foomaa.jvchat.events;
+package org.foomaa.jvchat.signals;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
