@@ -13,10 +13,10 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
 import org.foomaa.jvchat.ctrl.SendMessagesCtrl;
-import org.foomaa.jvchat.signals.Signal;
-import org.foomaa.jvchat.signals.SignalFactory;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
+import org.foomaa.jvchat.signals.Signal;
+import org.foomaa.jvchat.signals.SignalFactory;
 
 @Slf4j
 public class NewPasswordPanelAuthUI extends JPanel {
