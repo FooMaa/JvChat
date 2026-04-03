@@ -15,14 +15,15 @@ import org.foomaa.jvchat.structobjects.MessageStructObject;
 
 @Slf4j
 public class PanelSendingMessageMainChatUI extends JPanel {
-    private final SendingTextAreaScrollMainChatUI sendingTextAreaScroll;
-    private final JButton sendButton;
-
     // DI ↓
     private final ScrollPanelChatsMainChatUI scrollPanelChats;
     private final ScrollPanelMessagesMainChatUI scrollPanelMessages;
     private final MessagesDialogCtrl messagesDialogCtrl;
     private final ChatsCtrl chatsCtrl;
+
+    // DI(P) ↓
+    private final SendingTextAreaScrollMainChatUI sendingTextAreaScroll;
+    private final JButton sendButton;
 
     @Builder
     PanelSendingMessageMainChatUI(

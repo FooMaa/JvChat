@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Objects;
 
-import org.springframework.context.annotation.Lazy;
-
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,8 +29,9 @@ public class SocketRunnableCtrl implements Runnable {
     private final NetworkCtrl networkCtrl;
 
     @Builder
-    SocketRunnableCtrl(SocketRunnableCtrlModel socketRunnableCtrlModel, @Lazy NetworkCtrl networkCtrl) {
+    SocketRunnableCtrl(NetworkCtrl networkCtrl, SocketRunnableCtrlModel socketRunnableCtrlModel) {
         Objects.requireNonNull(socketRunnableCtrlModel, "socketRunnableCtrlModel is mandatory");
+
         this.networkCtrl = Objects.requireNonNull(networkCtrl, "networkCtrl is mandatory");
 
         socketRunnableCtrlModel.createSocketRunnableCtrlStructObject(this);

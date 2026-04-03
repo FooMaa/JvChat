@@ -20,11 +20,6 @@ import org.foomaa.jvchat.signals.SignalFactory;
 
 @Slf4j
 public class NewPasswordPanelAuthUI extends JPanel {
-    private final ErrorLabelAuthUI tErrorHelpInfo;
-    private final PasswordFieldAuthUI tPassword;
-    private final PasswordFieldAuthUI tPasswordConfirm;
-    private final ButtonAuthUI bAccept;
-    private final ButtonAuthUI bBack;
     private String email;
 
     // DI ↓
@@ -32,6 +27,13 @@ public class NewPasswordPanelAuthUI extends JPanel {
     private final SendMessagesCtrl sendMessagesCtrl;
     private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
+
+    // DI(P) ↓
+    private final ErrorLabelAuthUI tErrorHelpInfo;
+    private final PasswordFieldAuthUI tPassword;
+    private final PasswordFieldAuthUI tPasswordConfirm;
+    private final ButtonAuthUI bAccept;
+    private final ButtonAuthUI bBack;
 
     // Signals ↓
     @Getter

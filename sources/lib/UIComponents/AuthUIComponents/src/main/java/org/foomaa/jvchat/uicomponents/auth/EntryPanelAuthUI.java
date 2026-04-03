@@ -24,13 +24,6 @@ import org.foomaa.jvchat.uicomponents.mainchat.MainFrameMainChatUI;
 
 @Slf4j
 public class EntryPanelAuthUI extends JPanel {
-    private final TextFieldAuthUI tLogin;
-    private final ErrorLabelAuthUI tErrorHelpInfo;
-    private final PasswordFieldAuthUI tPassword;
-    private final ButtonAuthUI bEnter;
-    private final ActiveLabelAuthUI activeRegisterLabel;
-    private final ActiveLabelAuthUI activeMissLabel;
-
     // DI ↓
     private final UsersInfoSettings usersInfoSettings;
     private final DisplaySettings displaySettings;
@@ -38,6 +31,14 @@ public class EntryPanelAuthUI extends JPanel {
     private final SendMessagesCtrl sendMessagesCtrl;
     private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
+
+    // DI(P) ↓
+    private final TextFieldAuthUI tLogin;
+    private final ErrorLabelAuthUI tErrorHelpInfo;
+    private final PasswordFieldAuthUI tPassword;
+    private final ButtonAuthUI bEnter;
+    private final ActiveLabelAuthUI activeRegisterLabel;
+    private final ActiveLabelAuthUI activeMissLabel;
 
     // Signals ↓
     @Getter

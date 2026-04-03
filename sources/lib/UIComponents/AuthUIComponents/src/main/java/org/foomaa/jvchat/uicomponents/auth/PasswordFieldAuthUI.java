@@ -27,7 +27,6 @@ public class PasswordFieldAuthUI extends JPanel {
     private boolean unLockPass;
     private JPasswordField passwordField;
     private JButton button;
-    private ToolTipAuthUI toolTip;
     private final String textButtonHide;
     private final String textButtonShow;
     private String defaultText;
@@ -38,6 +37,9 @@ public class PasswordFieldAuthUI extends JPanel {
     private final DisplaySettings displaySettings;
     private final FontsGlobalDefines fontsGlobalDefines;
     private final ToolTipAuthUIFactory toolTipAuthUIFactory;
+
+    // DI(P) ↓
+    private ToolTipAuthUI toolTip;
 
     @Builder
     PasswordFieldAuthUI(

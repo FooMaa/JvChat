@@ -17,8 +17,6 @@ import org.foomaa.jvchat.structobjects.SocketRunnableCtrlStructObject;
 
 @Slf4j
 public class NetworkCtrl {
-    private SocketRunnableCtrl currentSocketRunnableCtrl;
-
     // DI ↓
     private final ServersSocket serversSocket;
     private final UsersSocket usersSocket;
@@ -27,6 +25,9 @@ public class NetworkCtrl {
     private final MainSettings mainSettings;
     private final SocketRunnableCtrlModel socketRunnableCtrlModel;
     private final SocketRunnableCtrlFactory socketRunnableCtrlFactory;
+
+    // DI(P) ↓
+    private SocketRunnableCtrl currentSocketRunnableCtrl;
 
     @Builder
     NetworkCtrl(

@@ -15,10 +15,10 @@ public abstract class BaseStructObject {
     private final HashMap<String, Object> properties;
 
     BaseStructObject() {
-        properties = new HashMap<>();
-        children = new ArrayList<>();
         parent = null;
+        children = new ArrayList<>();
         uuid = UUID.randomUUID();
+        properties = new HashMap<>();
     }
 
     public Object getProperty(String name) {

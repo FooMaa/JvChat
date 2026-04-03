@@ -21,6 +21,14 @@ import org.foomaa.jvchat.tools.UsersTools;
 
 @Slf4j
 public class RegistrationPanelAuthUI extends JPanel {
+    // DI ↓
+    private final DisplaySettings displaySettings;
+    private final UsersTools usersTools;
+    private final SendMessagesCtrl sendMessagesCtrl;
+    private final MessagesDefinesCtrl messagesDefinesCtrl;
+    private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
+
+    // DI(P) ↓
     private final TextFieldAuthUI tLogin;
     private final TextFieldAuthUI tEmail;
     private final ErrorLabelAuthUI tErrorHelpInfo;
@@ -28,13 +36,6 @@ public class RegistrationPanelAuthUI extends JPanel {
     private final PasswordFieldAuthUI tPasswordConfirm;
     private final ButtonAuthUI bRegister;
     private final ButtonAuthUI bBack;
-
-    // DI ↓
-    private final DisplaySettings displaySettings;
-    private final UsersTools usersTools;
-    private final SendMessagesCtrl sendMessagesCtrl;
-    private final MessagesDefinesCtrl messagesDefinesCtrl;
-    private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
     // Signals ↓
     @Getter
@@ -73,7 +74,6 @@ public class RegistrationPanelAuthUI extends JPanel {
 
         tLogin = textFieldAuthUIFactory.create("Login");
         tEmail = textFieldAuthUIFactory.create("Email");
-
         tErrorHelpInfo = errorLabelAuthUIFactory.create("");
         tPassword = passwordFieldAuthUIFactory.create("Password");
         tPasswordConfirm = passwordFieldAuthUIFactory.create("Confirm password");

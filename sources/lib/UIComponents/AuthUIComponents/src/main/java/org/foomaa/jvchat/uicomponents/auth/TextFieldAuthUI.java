@@ -17,7 +17,6 @@ import org.foomaa.jvchat.settings.DisplaySettings;
 @Slf4j
 public class TextFieldAuthUI extends JPanel {
     private JTextField textField;
-    private ToolTipAuthUI toolTip;
     private String defaultText;
     private boolean isErrorBorderActive;
     private final int borderSize;
@@ -26,6 +25,9 @@ public class TextFieldAuthUI extends JPanel {
     private final DisplaySettings displaySettings;
     private final FontsGlobalDefines fontsGlobalDefines;
     private final ToolTipAuthUIFactory toolTipAuthUIFactory;
+
+    // DI(P) ↓
+    private ToolTipAuthUI toolTip;
 
     @Builder
     TextFieldAuthUI(

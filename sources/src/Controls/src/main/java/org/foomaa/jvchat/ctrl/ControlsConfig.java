@@ -184,7 +184,7 @@ public class ControlsConfig {
     @Lazy
     @Scope("prototype")
     public SocketRunnableCtrl beanSocketRunnableCtrl(
-            SocketRunnableCtrlModel socketRunnableCtrlModel, @Lazy NetworkCtrl networkCtrl) {
+            @Lazy NetworkCtrl networkCtrl, SocketRunnableCtrlModel socketRunnableCtrlModel) {
         return SocketRunnableCtrl.builder()
                 .socketRunnableCtrlModel(socketRunnableCtrlModel)
                 .networkCtrl(networkCtrl)

@@ -27,13 +27,15 @@ public class TitlePanelAuthUI extends JPanel {
     private final JButton minimizeButton;
 
     private final JLabel titleLabel;
-    private ToolTipAuthUI toolTipClose;
-    private ToolTipAuthUI toolTipMinimize;
 
     // DI ↓
     private final DisplaySettings displaySettings;
     private final FontsGlobalDefines fontsGlobalDefines;
     private final ToolTipAuthUIFactory toolTipAuthUIFactory;
+
+    // DI(P) ↓
+    private ToolTipAuthUI toolTipClose;
+    private ToolTipAuthUI toolTipMinimize;
 
     @Builder
     TitlePanelAuthUI(

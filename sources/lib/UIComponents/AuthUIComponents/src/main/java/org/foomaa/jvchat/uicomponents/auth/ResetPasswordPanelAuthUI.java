@@ -20,17 +20,18 @@ import org.foomaa.jvchat.tools.UsersTools;
 
 @Slf4j
 public class ResetPasswordPanelAuthUI extends JPanel {
-    private final TextFieldAuthUI tEmail;
-    private final ErrorLabelAuthUI tErrorHelpInfo;
-    private final ButtonAuthUI bSet;
-    private final ButtonAuthUI bBack;
-
     // DI ↓
     private final DisplaySettings displaySettings;
     private final UsersTools usersTools;
     private final SendMessagesCtrl sendMessagesCtrl;
     private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
+
+    // DI(P) ↓
+    private final TextFieldAuthUI tEmail;
+    private final ErrorLabelAuthUI tErrorHelpInfo;
+    private final ButtonAuthUI bSet;
+    private final ButtonAuthUI bBack;
 
     // Signals ↓
     @Getter

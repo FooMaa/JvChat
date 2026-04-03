@@ -27,13 +27,15 @@ public class TitlePanelMainChatUI extends JPanel {
     private final JButton minimizeButton;
 
     private final JLabel titleLabel;
-    private ToolTipMainChatUI toolTipClose;
-    private ToolTipMainChatUI toolTipMinimize;
 
     // DI ↓
     private final DisplaySettings displaySettings;
     private final FontsGlobalDefines fontsGlobalDefines;
     private final ToolTipMainChatUIFactory toolTipFactory;
+
+    // DI(P) ↓
+    private ToolTipMainChatUI toolTipClose;
+    private ToolTipMainChatUI toolTipMinimize;
 
     @Builder
     TitlePanelMainChatUI(

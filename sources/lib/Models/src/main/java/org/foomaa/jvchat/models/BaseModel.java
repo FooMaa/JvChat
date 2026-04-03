@@ -16,13 +16,12 @@ public abstract class BaseModel {
     private final String nameModel;
 
     private RootStructObject rootObject;
-
     private final BaseModel rootModel;
     private final RootStructObjectFactory rootStructObjectFactory;
 
     BaseModel(BaseModel rootModel, RootStructObjectFactory rootStructObjectFactory) {
-        this.rootStructObjectFactory = rootStructObjectFactory;
         this.rootModel = rootModel;
+        this.rootStructObjectFactory = rootStructObjectFactory;
 
         nameModel = getClass().getSimpleName();
 

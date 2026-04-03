@@ -19,10 +19,6 @@ import org.foomaa.jvchat.signals.SignalFactory;
 
 @Slf4j
 public class VerifyCodePanelAuthUI extends JPanel {
-    private final TextFieldAuthUI tCode;
-    private final ErrorLabelAuthUI tErrorHelpInfo;
-    private final ButtonAuthUI bSet;
-    private final ButtonAuthUI bBack;
     private String login;
     private String email;
     private String password;
@@ -33,6 +29,12 @@ public class VerifyCodePanelAuthUI extends JPanel {
     private final SendMessagesCtrl sendMessagesCtrl;
     private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
+
+    // DI(P) ↓
+    private final TextFieldAuthUI tCode;
+    private final ErrorLabelAuthUI tErrorHelpInfo;
+    private final ButtonAuthUI bSet;
+    private final ButtonAuthUI bBack;
 
     // Signals ↓
     @Getter
