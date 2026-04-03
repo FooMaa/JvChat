@@ -1,7 +1,7 @@
 import com.google.protobuf.gradle.*
 
 plugins {
-    id("com.google.protobuf") version "0.9.4"
+    id("com.google.protobuf") version "0.9.6"
 }
 
 group = "org.foomaa.jvchat.messages"

@@ -22,8 +22,10 @@ import org.foomaa.jvchat.settings.DisplaySettings;
 public class TitlePanelAuthUI extends JPanel {
     @Getter
     private final JButton closeButton;
+
     @Getter
     private final JButton minimizeButton;
+
     private final JLabel titleLabel;
     private ToolTipAuthUI toolTipClose;
     private ToolTipAuthUI toolTipMinimize;

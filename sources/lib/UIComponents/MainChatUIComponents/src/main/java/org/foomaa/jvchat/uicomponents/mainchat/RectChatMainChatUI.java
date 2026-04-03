@@ -28,10 +28,13 @@ public class RectChatMainChatUI extends JPanel {
     private String timeLastMessage;
     private MainChatsGlobalDefines.TypeStatusMessage statusMessage;
     private MainChatsGlobalDefines.TypeStatusOnline statusOnline;
+
     @Getter
     private UUID uuidChat;
+
     @Getter
     private UUID uuidUser;
+
     private String lastOnlineDateTime;
     private final String nameForLabelOnline;
     private final String nameForLabelLastMessage;

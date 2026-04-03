@@ -42,6 +42,7 @@ public class EntryPanelAuthUI extends JPanel {
     // Signals ↓
     @Getter
     private final Signal<Void> closeWindow;
+
     @Getter
     private final Signal<RecordsAuthUI.Regime> changeRegimeWork;
 

@@ -32,8 +32,10 @@ import org.foomaa.jvchat.structobjects.UserStructObject;
 public class ScrollPanelChatsMainChatUI extends JPanel {
     private final int intervalMilliSecondsSleepUpdating;
     private final int intervalSecondsWaitLoopUpdate;
+
     @Getter
     private Box boxComponents;
+
     private final String backgroundPath;
     private final String loadGifPath;
     private JLabel loadGifLabel;

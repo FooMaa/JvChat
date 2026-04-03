@@ -35,6 +35,7 @@ public class ResetPasswordPanelAuthUI extends JPanel {
     // Signals ↓
     @Getter
     private final Signal<RecordsAuthUI.Regime> changeRegimeWork;
+
     @Getter
     private final Signal<RecordsAuthUI.RegimeEmail> changeRegimeWorkWithEmail;
 

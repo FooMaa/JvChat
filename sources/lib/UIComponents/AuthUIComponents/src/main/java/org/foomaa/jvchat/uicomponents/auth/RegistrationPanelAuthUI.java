@@ -39,6 +39,7 @@ public class RegistrationPanelAuthUI extends JPanel {
     // Signals ↓
     @Getter
     private final Signal<RecordsAuthUI.Regime> changeRegimeWorkBack;
+
     @Getter
     private final Signal<RecordsAuthUI.RegimeLoginEmailPassword> changeRegimeWorkNext;
 

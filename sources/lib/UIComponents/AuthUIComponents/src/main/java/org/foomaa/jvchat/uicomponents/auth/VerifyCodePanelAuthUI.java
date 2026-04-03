@@ -37,6 +37,7 @@ public class VerifyCodePanelAuthUI extends JPanel {
     // Signals ↓
     @Getter
     private final Signal<RecordsAuthUI.Regime> changeRegimeWork;
+
     @Getter
     private final Signal<RecordsAuthUI.RegimeEmail> changeRegimeWorkWithEmail;
 
