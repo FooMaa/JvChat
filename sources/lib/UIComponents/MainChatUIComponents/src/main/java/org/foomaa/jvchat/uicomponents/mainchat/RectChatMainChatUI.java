@@ -9,6 +9,7 @@ import java.util.UUID;
 import javax.swing.*;
 
 import lombok.Builder;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.ctrl.ChatsCtrl;
@@ -27,8 +28,13 @@ public class RectChatMainChatUI extends JPanel {
     private String timeLastMessage;
     private MainChatsGlobalDefines.TypeStatusMessage statusMessage;
     private MainChatsGlobalDefines.TypeStatusOnline statusOnline;
+
+    @Getter
     private UUID uuidChat;
+
+    @Getter
     private UUID uuidUser;
+
     private String lastOnlineDateTime;
     private final String nameForLabelOnline;
     private final String nameForLabelLastMessage;
@@ -80,14 +86,6 @@ public class RectChatMainChatUI extends JPanel {
         statusMessage = chatObject.getLastMessage().getStatusMessage();
         uuidChat = chatObject.getUuid();
         uuidUser = chatObject.getUserChat().getUuid();
-    }
-
-    public UUID getUuidUser() {
-        return uuidUser;
-    }
-
-    public UUID getUuidChat() {
-        return uuidChat;
     }
 
     private void installTimeLastMessage(ChatStructObject chatObject) {

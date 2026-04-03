@@ -53,7 +53,6 @@ public class DbCtrl {
     DbCtrl(DbRequests dbRequests, DbWorker dbWorker) {
         this.dbRequests = Objects.requireNonNull(dbRequests, "dbRequests is mandatory");
         this.db = Objects.requireNonNull(dbWorker, "dbWorker is mandatory");
-        ;
     }
 
     public List<String> getStrDataAtRow(ResultSet resultSet, int row) {

@@ -16,7 +16,6 @@ public class ToolTipAuthUIFactory {
     }
 
     public ToolTipAuthUI create() {
-        ToolTipAuthUI toolTipAuthUI = toolTipAuthUIObjectProvider.getObject();
-        return toolTipAuthUI;
+        return toolTipAuthUIObjectProvider.getObject();
     }
 }

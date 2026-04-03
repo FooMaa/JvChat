@@ -12,6 +12,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 import lombok.Builder;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
@@ -19,8 +20,12 @@ import org.foomaa.jvchat.settings.DisplaySettings;
 
 @Slf4j
 public class TitlePanelAuthUI extends JPanel {
+    @Getter
     private final JButton closeButton;
+
+    @Getter
     private final JButton minimizeButton;
+
     private final JLabel titleLabel;
     private ToolTipAuthUI toolTipClose;
     private ToolTipAuthUI toolTipMinimize;
@@ -113,14 +118,6 @@ public class TitlePanelAuthUI extends JPanel {
         button.setContentAreaFilled(false);
         button.setBorder(null);
         button.setFocusPainted(false);
-    }
-
-    public JButton getCloseButton() {
-        return closeButton;
-    }
-
-    public JButton getMinimizeButton() {
-        return minimizeButton;
     }
 
     private void settingTitleLabel() {

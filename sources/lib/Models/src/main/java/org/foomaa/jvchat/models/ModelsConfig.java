@@ -48,19 +48,6 @@ public class ModelsConfig {
 
     @Bean
     @Lazy
-    public ConnectionsEventsModel beanConnectionsEventsModel(
-            RootStructObjectFactory rootStructObjectFactory,
-            RootObjectsModel rootObjectsModel,
-            ConnectionEventStructObjectFactory connectionEventStructObjectFactory) {
-        return ConnectionsEventsModel.builder()
-                .rootStructObjectFactory(rootStructObjectFactory)
-                .rootObjectsModel(rootObjectsModel)
-                .connectionEventStructObjectFactory(connectionEventStructObjectFactory)
-                .build();
-    }
-
-    @Bean
-    @Lazy
     public MessagesModel beanMessagesModel(
             MessageStructObjectFactory messageStructObjectFactory,
             RootStructObjectFactory rootStructObjectFactory,

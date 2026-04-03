@@ -40,20 +40,6 @@ public class StructObjectsConfig {
 
     @Bean
     @Scope("prototype")
-    public ConnectionEventStructObject beanConnectionEventStructObject() {
-        return ConnectionEventStructObject.builder().build();
-    }
-
-    @Bean
-    public ConnectionEventStructObjectFactory beanConnectionEventStructObjectFactory(
-            ObjectProvider<ConnectionEventStructObject> connectionEventsObjectProvider) {
-        return ConnectionEventStructObjectFactory.builder()
-                .connectionEventsObjectProvider(connectionEventsObjectProvider)
-                .build();
-    }
-
-    @Bean
-    @Scope("prototype")
     public MessageStructObject beanBaseStructObject() {
         return MessageStructObject.builder().build();
     }

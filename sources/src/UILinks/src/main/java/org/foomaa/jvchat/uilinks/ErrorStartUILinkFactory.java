@@ -13,7 +13,6 @@ public class ErrorStartUILinkFactory {
     ErrorStartUILinkFactory(ObjectProvider<ErrorStartUILink> errorStartUILinkObjectProvider) {
         this.errorStartUILinkObjectProvider =
                 Objects.requireNonNull(errorStartUILinkObjectProvider, "errorStartUILinkObjectProvider is mandatory");
-        ;
     }
 
     public void create(String message) {

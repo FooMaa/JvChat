@@ -23,13 +23,14 @@ public class MainStartPoint {
         app.setBannerMode(Banner.Mode.OFF);
         app.setHeadless(false);
 
-        // NOTE(VAD): app.run(args);
-        try {
-            app.run(args);
-        } catch (Throwable e) {
-            e.printStackTrace();
-            throw e;
-        }
+        app.run(args);
+        //        NOTE(VAD): For debug
+        //        try {
+        //            app.run(args);
+        //        } catch (Throwable e) {
+        //            e.printStackTrace();
+        //            throw e;
+        //        }
     }
 
     private static void installProfile(SpringApplication app) {

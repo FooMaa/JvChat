@@ -1,11 +1,13 @@
 package org.foomaa.jvchat.messages;
 
 import lombok.Builder;
+import lombok.Getter;
 
 public final class DefinesMessages {
     @Builder
     DefinesMessages() {}
 
+    @Getter
     public enum TypeMessage {
         EntryRequest(0),
         EntryReply(1),
@@ -40,10 +42,6 @@ public final class DefinesMessages {
 
         TypeMessage(int newValue) {
             value = newValue;
-        }
-
-        public int getValue() {
-            return value;
         }
 
         public boolean compare(int i) {
@@ -87,6 +85,7 @@ public final class DefinesMessages {
         StatusMessagesMap,
     }
 
+    @Getter
     public enum TypeErrorRegistration {
         Login(ClientServerSerializeProtocolMessage_pb.RegistrationReply.Error.Login_VALUE),
         Email(ClientServerSerializeProtocolMessage_pb.RegistrationReply.Error.Email_VALUE),
@@ -99,10 +98,6 @@ public final class DefinesMessages {
 
         TypeErrorRegistration(int newValue) {
             value = newValue;
-        }
-
-        public int getValue() {
-            return value;
         }
 
         public boolean compare(int i) {

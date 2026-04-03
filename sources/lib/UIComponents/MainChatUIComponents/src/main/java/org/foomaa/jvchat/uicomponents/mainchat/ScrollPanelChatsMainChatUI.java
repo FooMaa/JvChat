@@ -16,6 +16,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import lombok.Builder;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.ctrl.ChatsCtrl;
@@ -31,7 +32,10 @@ import org.foomaa.jvchat.structobjects.UserStructObject;
 public class ScrollPanelChatsMainChatUI extends JPanel {
     private final int intervalMilliSecondsSleepUpdating;
     private final int intervalSecondsWaitLoopUpdate;
+
+    @Getter
     private Box boxComponents;
+
     private final String backgroundPath;
     private final String loadGifPath;
     private JLabel loadGifLabel;
@@ -275,9 +279,5 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
             rectChatMainChatUI.setLastOnlineDateTime(lastOnlineString);
             rectChatMainChatUI.setStatusOnline(user.getStatusOnline());
         }
-    }
-
-    public Box getBoxComponents() {
-        return boxComponents;
     }
 }

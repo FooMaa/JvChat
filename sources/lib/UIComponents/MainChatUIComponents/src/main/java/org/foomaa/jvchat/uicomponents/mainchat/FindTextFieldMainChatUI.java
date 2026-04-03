@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import lombok.Builder;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import org.foomaa.jvchat.settings.DisplaySettings;
@@ -19,7 +20,10 @@ public class FindTextFieldMainChatUI extends JPanel {
     private final BufferedImage image;
     private JTextField textField;
     private JButton button;
+
+    @Setter
     private String defaultText;
+
     private final int borderSize = 1;
 
     private final DisplaySettings displaySettings;
@@ -33,10 +37,6 @@ public class FindTextFieldMainChatUI extends JPanel {
 
         settingTextAndButtonPanel();
         addListenerToElem();
-    }
-
-    public void setDefaultText(String defaultText) {
-        this.defaultText = defaultText;
     }
 
     private BufferedImage setIcon() {
