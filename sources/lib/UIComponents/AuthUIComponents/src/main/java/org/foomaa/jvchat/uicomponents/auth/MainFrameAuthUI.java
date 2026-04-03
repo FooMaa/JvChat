@@ -67,55 +67,26 @@ public class MainFrameAuthUI extends JFrame {
     }
 
     private void createConnections() {
-        entryPanelAuthUI.getCloseWindow().connect(args -> closeWindow());
-        entryPanelAuthUI
-                .getChangeRegimeWork()
-                .connect(
-                        args -> changeRegimeWork((DefinesAuthUI.RegimeWorkMainFrame) args[0]),
-                        DefinesAuthUI.RegimeWorkMainFrame.class);
+        entryPanelAuthUI.getCloseWindow().connect(this::closeWindow);
+        entryPanelAuthUI.getChangeRegimeWork().connect(signal -> changeRegimeWork(signal.regime()));
 
         registrationPanelAuthUI
-                .getChangeRegimeWork()
+                .getChangeRegimeWorkNext()
                 .connect(
-                        args -> changeRegimeWork(
-                                (DefinesAuthUI.RegimeWorkMainFrame) args[0],
-                                (String) args[1],
-                                (String) args[2],
-                                (String) args[3]),
-                        DefinesAuthUI.RegimeWorkMainFrame.class,
-                        String.class,
-                        String.class,
-                        String.class);
+                        signal -> changeRegimeWork(signal.regime(), signal.login(), signal.email(), signal.password()));
+        registrationPanelAuthUI.getChangeRegimeWorkNext().connect(signal -> changeRegimeWork(signal.regime()));
 
+        verifyCodePanelAuthUI.getChangeRegimeWork().connect(signal -> changeRegimeWork(signal.regime()));
         verifyCodePanelAuthUI
-                .getChangeRegimeWork()
-                .connect(
-                        args -> changeRegimeWork((DefinesAuthUI.RegimeWorkMainFrame) args[0]),
-                        DefinesAuthUI.RegimeWorkMainFrame.class);
-        verifyCodePanelAuthUI
-                .getChangeRegimeWork()
-                .connect(
-                        args -> changeRegimeWork((DefinesAuthUI.RegimeWorkMainFrame) args[0], (String) args[1]),
-                        DefinesAuthUI.RegimeWorkMainFrame.class,
-                        String.class);
+                .getChangeRegimeWorkWithEmail()
+                .connect(signal -> changeRegimeWork(signal.regime(), signal.email()));
 
+        resetPasswordPanelAuthUI.getChangeRegimeWork().connect(signal -> changeRegimeWork(signal.regime()));
         resetPasswordPanelAuthUI
-                .getChangeRegimeWork()
-                .connect(
-                        args -> changeRegimeWork((DefinesAuthUI.RegimeWorkMainFrame) args[0]),
-                        DefinesAuthUI.RegimeWorkMainFrame.class);
-        resetPasswordPanelAuthUI
-                .getChangeRegimeWork()
-                .connect(
-                        args -> changeRegimeWork((DefinesAuthUI.RegimeWorkMainFrame) args[0], (String) args[1]),
-                        DefinesAuthUI.RegimeWorkMainFrame.class,
-                        String.class);
+                .getChangeRegimeWorkWithEmail()
+                .connect(signal -> changeRegimeWork(signal.regime(), signal.email()));
 
-        newPasswordPanelAuthUI
-                .getChangeRegimeWork()
-                .connect(
-                        args -> changeRegimeWork((DefinesAuthUI.RegimeWorkMainFrame) args[0]),
-                        DefinesAuthUI.RegimeWorkMainFrame.class);
+        newPasswordPanelAuthUI.getChangeRegimeWork().connect(signal -> changeRegimeWork(signal.regime()));
     }
 
     private void settingBackgroundPanel() {

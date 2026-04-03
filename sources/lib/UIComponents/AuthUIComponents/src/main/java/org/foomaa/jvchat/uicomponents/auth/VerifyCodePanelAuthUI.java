@@ -34,7 +34,10 @@ public class VerifyCodePanelAuthUI extends JPanel {
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
     @Getter
-    private final Signal changeRegimeWork;
+    private final Signal<RecordsAuthUI.Regime> changeRegimeWork;
+
+    @Getter
+    private final Signal<RecordsAuthUI.RegimeEmail> changeRegimeWorkWithEmail;
 
     public enum RegimeWork {
         Registration,
@@ -62,6 +65,7 @@ public class VerifyCodePanelAuthUI extends JPanel {
         this.optionPaneAuthUIFactory =
                 Objects.requireNonNull(optionPaneAuthUIFactory, "optionPaneAuthUIFactory is mandatory");
         this.changeRegimeWork = signalFactory.create();
+        this.changeRegimeWorkWithEmail = signalFactory.create();
 
         tCode = textFieldAuthUIFactory.create("Code (valid for 60 sec.)");
         tErrorHelpInfo = errorLabelAuthUIFactory.create("");
@@ -192,18 +196,19 @@ public class VerifyCodePanelAuthUI extends JPanel {
 
     private void changeRegimeBack() {
         if (regime == RegimeWork.Registration) {
-            changeRegimeWork.emit(DefinesAuthUI.RegimeWorkMainFrame.Registration);
+            changeRegimeWork.emit(new RecordsAuthUI.Regime(DefinesAuthUI.RegimeWorkMainFrame.Registration));
         } else if (regime == RegimeWork.ResetPassword) {
-            changeRegimeWork.emit(DefinesAuthUI.RegimeWorkMainFrame.ResetPassword);
+            changeRegimeWork.emit(new RecordsAuthUI.Regime(DefinesAuthUI.RegimeWorkMainFrame.ResetPassword));
         }
         settingUnfocusFieldsOnChangeRegime();
     }
 
     private void changeRegimeNext() {
         if (regime == RegimeWork.Registration) {
-            changeRegimeWork.emit(DefinesAuthUI.RegimeWorkMainFrame.Auth);
+            changeRegimeWork.emit(new RecordsAuthUI.Regime(DefinesAuthUI.RegimeWorkMainFrame.Auth));
         } else if (regime == RegimeWork.ResetPassword) {
-            changeRegimeWork.emit(DefinesAuthUI.RegimeWorkMainFrame.NewPassword, email);
+            changeRegimeWorkWithEmail.emit(
+                    new RecordsAuthUI.RegimeEmail(DefinesAuthUI.RegimeWorkMainFrame.NewPassword, email));
         }
         settingUnfocusFieldsOnChangeRegime();
     }

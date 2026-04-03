@@ -36,7 +36,10 @@ public class RegistrationPanelAuthUI extends JPanel {
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
     @Getter
-    private final Signal changeRegimeWork;
+    private final Signal<RecordsAuthUI.Regime> changeRegimeWorkBack;
+
+    @Getter
+    private final Signal<RecordsAuthUI.RegimeLoginEmailPassword> changeRegimeWorkNext;
 
     @Builder
     RegistrationPanelAuthUI(
@@ -62,7 +65,8 @@ public class RegistrationPanelAuthUI extends JPanel {
         this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl, "messagesDefinesCtrl is mandatory");
         this.optionPaneAuthUIFactory =
                 Objects.requireNonNull(optionPaneAuthUIFactory, "optionPaneAuthUIFactory is mandatory");
-        this.changeRegimeWork = signalFactory.create();
+        this.changeRegimeWorkBack = signalFactory.create();
+        this.changeRegimeWorkNext = signalFactory.create();
 
         tLogin = textFieldAuthUIFactory.create("Login");
         tEmail = textFieldAuthUIFactory.create("Email");
@@ -230,16 +234,16 @@ public class RegistrationPanelAuthUI extends JPanel {
     }
 
     private void changeRegimeBack() {
-        changeRegimeWork.emit(DefinesAuthUI.RegimeWorkMainFrame.Auth);
+        changeRegimeWorkBack.emit(new RecordsAuthUI.Regime(DefinesAuthUI.RegimeWorkMainFrame.Auth));
         settingUnfocusFieldsOnChangeRegime();
     }
 
     private void changeRegimeNext() {
-        changeRegimeWork.emit(
+        changeRegimeWorkNext.emit(new RecordsAuthUI.RegimeLoginEmailPassword(
                 DefinesAuthUI.RegimeWorkMainFrame.VerifyCodeRegistration,
                 tLogin.getInputText(),
                 tEmail.getInputText(),
-                tPassword.getInputText());
+                tPassword.getInputText()));
         settingUnfocusFieldsOnChangeRegime();
     }
 

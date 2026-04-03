@@ -33,7 +33,7 @@ public class NewPasswordPanelAuthUI extends JPanel {
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
     @Getter
-    private final Signal changeRegimeWork;
+    private final Signal<RecordsAuthUI.Regime> changeRegimeWork;
 
     @Builder
     NewPasswordPanelAuthUI(
@@ -199,12 +199,12 @@ public class NewPasswordPanelAuthUI extends JPanel {
     }
 
     private void changeRegimeBack() {
-        changeRegimeWork.emit(DefinesAuthUI.RegimeWorkMainFrame.ResetPassword);
+        changeRegimeWork.emit(new RecordsAuthUI.Regime(DefinesAuthUI.RegimeWorkMainFrame.ResetPassword));
         settingUnfocusFieldsOnChangeRegime();
     }
 
     private void changeRegimeNext() {
-        changeRegimeWork.emit(DefinesAuthUI.RegimeWorkMainFrame.Auth);
+        changeRegimeWork.emit(new RecordsAuthUI.Regime(DefinesAuthUI.RegimeWorkMainFrame.Auth));
         settingUnfocusFieldsOnChangeRegime();
     }
 

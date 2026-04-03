@@ -1,46 +1,37 @@
 package org.foomaa.jvchat.signals;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.Consumer;
 
-import lombok.Builder;
-
-public class Signal {
-    @Builder
+public class Signal<T> {
     Signal() {}
 
     @FunctionalInterface
-    public interface Slot {
-        void accept(Object... args);
+    public interface Connection {
+        void disconnect();
     }
 
-    private final List<Slot> slots = new ArrayList<>();
+    private final List<Consumer<T>> slots = new CopyOnWriteArrayList<>();
 
-    public Connection connect(Slot slot, Class<?>... types) {
-        Slot wrapper = args -> {
-            if (args.length != types.length) {
-                throw new IllegalArgumentException(
-                        "Неверное количество аргументов: expected " + types.length + ", got " + args.length);
-            }
-            for (int i = 0; i < types.length; i++) {
-                if (!types[i].isInstance(args[i])) {
-                    throw new IllegalArgumentException(
-                            "Неверный тип аргумента #" + i + ": expected " + types[i] + ", got " + args[i].getClass());
-                }
-            }
-            slot.accept(args);
-        };
+    public Connection connect(Consumer<T> slot) {
+        slots.add(slot);
+        return () -> slots.remove(slot);
+    }
+
+    public Connection connect(Runnable slot) {
+        Consumer<T> wrapper = (data) -> slot.run();
         slots.add(wrapper);
         return () -> slots.remove(wrapper);
     }
 
-    public void emit(Object... args) {
-        for (Slot slot : new ArrayList<>(slots)) {
-            slot.accept(args);
+    public void emit(T data) {
+        for (Consumer<T> slot : slots) {
+            slot.accept(data);
         }
     }
 
-    public interface Connection {
-        void disconnect();
+    public void emit() {
+        emit(null);
     }
 }

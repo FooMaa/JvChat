@@ -32,7 +32,10 @@ public class ResetPasswordPanelAuthUI extends JPanel {
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
     @Getter
-    private final Signal changeRegimeWork;
+    private final Signal<RecordsAuthUI.Regime> changeRegimeWork;
+
+    @Getter
+    private final Signal<RecordsAuthUI.RegimeEmail> changeRegimeWorkWithEmail;
 
     @Builder
     ResetPasswordPanelAuthUI(
@@ -57,6 +60,7 @@ public class ResetPasswordPanelAuthUI extends JPanel {
         this.optionPaneAuthUIFactory =
                 Objects.requireNonNull(optionPaneAuthUIFactory, "optionPaneAuthUIFactory is mandatory");
         this.changeRegimeWork = signalFactory.create();
+        this.changeRegimeWorkWithEmail = signalFactory.create();
 
         tEmail = textFieldAuthUIFactory.create("Email");
         tErrorHelpInfo = errorLabelAuthUIFactory.create("");
@@ -163,12 +167,13 @@ public class ResetPasswordPanelAuthUI extends JPanel {
     }
 
     private void changeRegimeBack() {
-        changeRegimeWork.emit(DefinesAuthUI.RegimeWorkMainFrame.Auth);
+        changeRegimeWork.emit(new RecordsAuthUI.Regime(DefinesAuthUI.RegimeWorkMainFrame.Auth));
         settingUnfocusFieldsOnChangeRegime();
     }
 
     private void changeRegimeNext() {
-        changeRegimeWork.emit(DefinesAuthUI.RegimeWorkMainFrame.VerifyCodeResetPassword, tEmail.getInputText());
+        changeRegimeWorkWithEmail.emit(new RecordsAuthUI.RegimeEmail(
+                DefinesAuthUI.RegimeWorkMainFrame.VerifyCodeResetPassword, tEmail.getInputText()));
         settingUnfocusFieldsOnChangeRegime();
     }
 

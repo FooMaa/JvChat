@@ -38,10 +38,10 @@ public class EntryPanelAuthUI extends JPanel {
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
     @Getter
-    private final Signal closeWindow;
+    private final Signal<Void> closeWindow;
 
     @Getter
-    private final Signal changeRegimeWork;
+    private final Signal<RecordsAuthUI.Regime> changeRegimeWork;
 
     @Builder
     EntryPanelAuthUI(
@@ -186,7 +186,7 @@ public class EntryPanelAuthUI extends JPanel {
     }
 
     private void changeRegime(DefinesAuthUI.RegimeWorkMainFrame regime) {
-        changeRegimeWork.emit(regime);
+        changeRegimeWork.emit(new RecordsAuthUI.Regime(regime));
         tLogin.setUnfocusFieldOnClose(true);
         tPassword.setUnfocusFieldOnClose(true);
     }
