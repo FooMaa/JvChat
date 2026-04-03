@@ -13,6 +13,8 @@ import org.foomaa.jvchat.settings.UsersInfoSettings;
 @Slf4j
 public class UsersSocket {
     private static Socket socketUsers;
+
+    // DI ↓
     private final UsersInfoSettings usersInfoSettings;
 
     @Builder

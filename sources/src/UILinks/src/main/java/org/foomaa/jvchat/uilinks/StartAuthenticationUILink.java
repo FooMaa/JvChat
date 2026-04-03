@@ -9,6 +9,7 @@ import lombok.Builder;
 import org.foomaa.jvchat.uicomponents.auth.MainFrameAuthUI;
 
 public class StartAuthenticationUILink {
+    // DI ↓
     private final MainFrameAuthUI mainFrameAuthUI;
 
     @Builder

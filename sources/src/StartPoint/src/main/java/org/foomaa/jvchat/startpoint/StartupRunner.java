@@ -20,6 +20,7 @@ import org.foomaa.jvchat.uilinks.StartAuthenticationUILink;
 
 @Slf4j
 public class StartupRunner implements ApplicationRunner {
+    // DI ↓
     private final ServersTools serversTools;
     private final MainTools mainTools;
     private final MainSettings mainSettings;
@@ -31,13 +32,13 @@ public class StartupRunner implements ApplicationRunner {
 
     @Builder
     private StartupRunner(
+            StartAuthenticationUILink startAuthenticationUILink,
             ServersTools serversTools,
             MainTools mainTools,
             MainSettings mainSettings,
             ApplicationContext context,
             UsersInfoSettings usersInfoSettings,
             NetworkCtrl networkCtrl,
-            StartAuthenticationUILink startAuthenticationUILink,
             ErrorStartUILinkFactory errorStartUILinkFactory) {
         this.mainTools = Objects.requireNonNull(mainTools, "mainTool is mandatory");
         this.mainSettings = Objects.requireNonNull(mainSettings, "mainSettings is mandatory");

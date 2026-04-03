@@ -13,6 +13,8 @@ import org.foomaa.jvchat.settings.ServersInfoSettings;
 @Slf4j
 public class ServersSocket {
     private static ServerSocket socketServers;
+
+    // DI ↓
     private final ServersInfoSettings serversInfoSettings;
 
     @Builder

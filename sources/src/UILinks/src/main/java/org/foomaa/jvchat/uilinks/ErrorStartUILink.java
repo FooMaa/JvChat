@@ -8,6 +8,7 @@ import org.foomaa.jvchat.uicomponents.auth.OptionPaneAuthUI;
 import org.foomaa.jvchat.uicomponents.auth.OptionPaneAuthUIFactory;
 
 public class ErrorStartUILink {
+    // DI ↓
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
     @Builder

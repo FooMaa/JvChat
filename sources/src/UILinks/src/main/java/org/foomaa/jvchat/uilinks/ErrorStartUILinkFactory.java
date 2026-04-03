@@ -7,6 +7,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import lombok.Builder;
 
 public class ErrorStartUILinkFactory {
+    // DI ↓
     private final ObjectProvider<ErrorStartUILink> errorStartUILinkObjectProvider;
 
     @Builder

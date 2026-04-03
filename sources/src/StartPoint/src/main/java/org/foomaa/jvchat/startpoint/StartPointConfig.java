@@ -19,12 +19,12 @@ public class StartPointConfig {
     @Bean
     @Profile("users")
     public StartupRunner beanUsersStartupRunner(
+            @Lazy StartAuthenticationUILink startAuthenticationUILink,
             MainTools mainTools,
             MainSettings mainSettings,
             ApplicationContext context,
             UsersInfoSettings usersInfoSettings,
             NetworkCtrl networkCtrl,
-            @Lazy StartAuthenticationUILink startAuthenticationUILink,
             ErrorStartUILinkFactory errorStartUILinkFactory) {
         return StartupRunner.builder()
                 .mainTools(mainTools)
