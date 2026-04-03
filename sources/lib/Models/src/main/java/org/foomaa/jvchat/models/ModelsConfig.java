@@ -12,19 +12,19 @@ public class ModelsConfig {
     public ChatsModel beanChatsModel(
             UsersInfoSettings usersInfoSettings,
             UsersModel usersModel,
+            RootObjectsModel rootObjectsModel,
             MessageStructObjectFactory messageStructObjectFactory,
             ChatStructObjectFactory chatStructObjectFactory,
             UserStructObjectFactory userStructObjectFactory,
-            RootStructObjectFactory rootStructObjectFactory,
-            RootObjectsModel rootObjectsModel) {
+            RootStructObjectFactory rootStructObjectFactory) {
         return ChatsModel.builder()
                 .usersInfoSettings(usersInfoSettings)
                 .usersModel(usersModel)
+                .rootObjectsModel(rootObjectsModel)
                 .messageStructObjectFactory(messageStructObjectFactory)
                 .chatStructObjectFactory(chatStructObjectFactory)
                 .userStructObjectFactory(userStructObjectFactory)
                 .rootStructObjectFactory(rootStructObjectFactory)
-                .rootObjectsModel(rootObjectsModel)
                 .build();
     }
 
@@ -34,28 +34,28 @@ public class ModelsConfig {
     public CheckersOnlineModel beanCheckersOnlineModel(
             UsersModel usersModel,
             SocketRunnableCtrlModel socketRunnableCtrlModel,
+            RootObjectsModel rootObjectsModel,
             CheckerOnlineStructObjectFactory checkerOnlineStructObjectFactory,
-            RootStructObjectFactory rootStructObjectFactory,
-            RootObjectsModel rootObjectsModel) {
+            RootStructObjectFactory rootStructObjectFactory) {
         return CheckersOnlineModel.builder()
                 .usersModel(usersModel)
                 .socketRunnableCtrlModel(socketRunnableCtrlModel)
+                .rootObjectsModel(rootObjectsModel)
                 .checkerOnlineStructObjectFactory(checkerOnlineStructObjectFactory)
                 .rootStructObjectFactory(rootStructObjectFactory)
-                .rootObjectsModel(rootObjectsModel)
                 .build();
     }
 
     @Bean
     @Lazy
     public MessagesModel beanMessagesModel(
+            RootObjectsModel rootObjectsModel,
             MessageStructObjectFactory messageStructObjectFactory,
-            RootStructObjectFactory rootStructObjectFactory,
-            RootObjectsModel rootObjectsModel) {
+            RootStructObjectFactory rootStructObjectFactory) {
         return MessagesModel.builder()
+                .rootObjectsModel(rootObjectsModel)
                 .messageStructObjectFactory(messageStructObjectFactory)
                 .rootStructObjectFactory(rootStructObjectFactory)
-                .rootObjectsModel(rootObjectsModel)
                 .build();
     }
 
@@ -69,22 +69,22 @@ public class ModelsConfig {
     @Bean
     @Lazy
     public SocketRunnableCtrlModel beanSocketRunnableCtrlModel(
+            RootObjectsModel rootObjectsModel,
             SocketRunnableCtrlStructObjectFactory socketRunnableCtrlStructObjectFactory,
-            RootStructObjectFactory rootStructObjectFactory,
-            RootObjectsModel rootObjectsModel) {
+            RootStructObjectFactory rootStructObjectFactory) {
         return SocketRunnableCtrlModel.builder()
+                .rootObjectsModel(rootObjectsModel)
                 .socketRunnableCtrlStructObjectFactory(socketRunnableCtrlStructObjectFactory)
                 .rootStructObjectFactory(rootStructObjectFactory)
-                .rootObjectsModel(rootObjectsModel)
                 .build();
     }
 
     @Bean
     @Lazy
     public UsersModel beanUsersModel(
+            RootObjectsModel rootObjectsModel,
             UserStructObjectFactory userStructObjectFactory,
-            RootStructObjectFactory rootStructObjectFactory,
-            RootObjectsModel rootObjectsModel) {
+            RootStructObjectFactory rootStructObjectFactory) {
         return UsersModel.builder()
                 .userStructObjectFactory(userStructObjectFactory)
                 .rootStructObjectFactory(rootStructObjectFactory)

@@ -20,6 +20,8 @@ import org.foomaa.jvchat.settings.DisplaySettings;
 @Slf4j
 public class ActiveLabelAuthUI extends JLabel {
     private ToolTipAuthUI toolTip;
+
+    // DI ↓
     private final DisplaySettings displaySettings;
     private final FontsGlobalDefines fontsGlobalDefines;
     private final ToolTipAuthUIFactory toolTipAuthUIFactory;

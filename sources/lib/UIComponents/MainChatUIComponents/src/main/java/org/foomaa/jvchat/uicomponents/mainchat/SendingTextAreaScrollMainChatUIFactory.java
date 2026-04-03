@@ -7,6 +7,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import lombok.Builder;
 
 public class SendingTextAreaScrollMainChatUIFactory {
+    // DI ↓
     private final ObjectProvider<SendingTextAreaScrollMainChatUI> sendingTextAreaScrollObjectProvider;
 
     @Builder

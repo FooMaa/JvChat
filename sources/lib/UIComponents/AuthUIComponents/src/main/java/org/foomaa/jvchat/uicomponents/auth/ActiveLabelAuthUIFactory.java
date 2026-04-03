@@ -7,6 +7,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import lombok.Builder;
 
 public class ActiveLabelAuthUIFactory {
+    // DI ↓
     private final ObjectProvider<ActiveLabelAuthUI> activeLabelAuthUIObjectProvider;
 
     @Builder

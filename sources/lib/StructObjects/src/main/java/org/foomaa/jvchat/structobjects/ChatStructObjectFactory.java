@@ -8,6 +8,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import lombok.Builder;
 
 public class ChatStructObjectFactory {
+    // DI ↓
     private final ObjectProvider<ChatStructObject> chatStructObjectObjectProvider;
 
     @Builder

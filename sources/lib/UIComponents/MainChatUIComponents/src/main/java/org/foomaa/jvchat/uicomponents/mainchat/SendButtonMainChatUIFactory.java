@@ -7,6 +7,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import lombok.Builder;
 
 public class SendButtonMainChatUIFactory {
+    // DI ↓
     private final ObjectProvider<SendButtonMainChatUI> sendButtonObjectProvider;
 
     @Builder

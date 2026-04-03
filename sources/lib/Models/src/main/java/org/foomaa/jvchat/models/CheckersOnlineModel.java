@@ -19,10 +19,10 @@ public class CheckersOnlineModel extends BaseModel {
     @Builder
     CheckersOnlineModel(
             UsersModel usersModel,
+            RootObjectsModel rootObjectsModel,
             SocketRunnableCtrlModel socketRunnableCtrlModel,
             CheckerOnlineStructObjectFactory checkerOnlineStructObjectFactory,
-            RootStructObjectFactory rootStructObjectFactory,
-            RootObjectsModel rootObjectsModel) {
+            RootStructObjectFactory rootStructObjectFactory) {
         super(
                 Objects.requireNonNull(rootObjectsModel, "rootObjectsModel is mandatory"),
                 Objects.requireNonNull(rootStructObjectFactory, "rootStructObjectFactory is mandatory"));

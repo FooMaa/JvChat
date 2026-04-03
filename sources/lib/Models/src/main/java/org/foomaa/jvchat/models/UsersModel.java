@@ -15,9 +15,9 @@ public class UsersModel extends BaseModel {
 
     @Builder
     UsersModel(
+            RootObjectsModel rootObjectsModel,
             UserStructObjectFactory userStructObjectFactory,
-            RootStructObjectFactory rootStructObjectFactory,
-            RootObjectsModel rootObjectsModel) {
+            RootStructObjectFactory rootStructObjectFactory) {
         super(
                 Objects.requireNonNull(rootObjectsModel, "rootObjectsModel is mandatory"),
                 Objects.requireNonNull(rootStructObjectFactory, "rootStructObjectFactory is mandatory"));

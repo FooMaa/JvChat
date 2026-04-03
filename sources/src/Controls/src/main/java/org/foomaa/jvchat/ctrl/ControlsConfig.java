@@ -55,18 +55,18 @@ public class ControlsConfig {
             FormatTools formatTools,
             SendMessagesCtrl sendMessagesCtrl,
             MessagesDefinesCtrl messagesDefinesCtrl,
-            MessageStructObjectFactory messageStructObjectFactory,
             ChatsCtrl chatsCtrl,
-            UsersInfoSettings usersInfoSettings) {
+            UsersInfoSettings usersInfoSettings,
+            MessageStructObjectFactory messageStructObjectFactory) {
         return MessagesDialogCtrl.builder()
                 .messagesModel(messagesModel)
                 .chatsModel(chatsModel)
                 .formatTools(formatTools)
                 .sendMessagesCtrl(sendMessagesCtrl)
                 .messagesDefinesCtrl(messagesDefinesCtrl)
-                .messageStructObjectFactory(messageStructObjectFactory)
                 .chatsCtrl(chatsCtrl)
                 .usersInfoSettings(usersInfoSettings)
+                .messageStructObjectFactory(messageStructObjectFactory)
                 .build();
     }
 
@@ -78,16 +78,16 @@ public class ControlsConfig {
             FormatTools formatTools,
             SendMessagesCtrl sendMessagesCtrl,
             MessagesDefinesCtrl messagesDefinesCtrl,
-            MessageStructObjectFactory messageStructObjectFactory,
-            OnlineServersCtrl onlineServersCtrl) {
+            OnlineServersCtrl onlineServersCtrl,
+            MessageStructObjectFactory messageStructObjectFactory) {
         return MessagesDialogCtrl.builder()
                 .messagesModel(messagesModel)
                 .chatsModel(chatsModel)
                 .formatTools(formatTools)
                 .sendMessagesCtrl(sendMessagesCtrl)
                 .messagesDefinesCtrl(messagesDefinesCtrl)
-                .messageStructObjectFactory(messageStructObjectFactory)
                 .onlineServersCtrl(onlineServersCtrl)
+                .messageStructObjectFactory(messageStructObjectFactory)
                 .build();
     }
 
@@ -98,14 +98,14 @@ public class ControlsConfig {
             MainSettings mainSettings,
             SocketRunnableCtrlModel socketRunnableCtrlModel,
             TakeMessagesCtrl takeMessagesCtrl,
-            SocketRunnableCtrlFactory socketRunnableCtrlFactory,
-            UsersSocket usersSocket) {
+            UsersSocket usersSocket,
+            SocketRunnableCtrlFactory socketRunnableCtrlFactory) {
         return NetworkCtrl.builder()
                 .mainSettings(mainSettings)
                 .socketRunnableCtrlModel(socketRunnableCtrlModel)
                 .takeMessagesCtrl(takeMessagesCtrl)
-                .socketRunnableCtrlFactory(socketRunnableCtrlFactory)
                 .usersSocket(usersSocket)
+                .socketRunnableCtrlFactory(socketRunnableCtrlFactory)
                 .build();
     }
 
@@ -116,16 +116,16 @@ public class ControlsConfig {
             MainSettings mainSettings,
             SocketRunnableCtrlModel socketRunnableCtrlModel,
             TakeMessagesCtrl takeMessagesCtrl,
-            SocketRunnableCtrlFactory socketRunnableCtrlFactory,
             ServersSocket serversSocket,
-            OnlineServersCtrl onlineServersCtrl) {
+            OnlineServersCtrl onlineServersCtrl,
+            SocketRunnableCtrlFactory socketRunnableCtrlFactory) {
         return NetworkCtrl.builder()
                 .mainSettings(mainSettings)
                 .socketRunnableCtrlModel(socketRunnableCtrlModel)
                 .takeMessagesCtrl(takeMessagesCtrl)
-                .socketRunnableCtrlFactory(socketRunnableCtrlFactory)
                 .serversSocket(serversSocket)
                 .onlineServersCtrl(onlineServersCtrl)
+                .socketRunnableCtrlFactory(socketRunnableCtrlFactory)
                 .build();
     }
 

@@ -15,19 +15,20 @@ import lombok.Builder;
 import org.foomaa.jvchat.settings.DisplaySettings;
 
 public class MainFrameAuthUI extends JFrame {
-    private final TitlePanelAuthUI titlePanel;
     private DefinesAuthUI.RegimeWorkMainFrame regimeWorkMainFrame;
     private JPanel backgroundPanel;
     private final String backgroundPath;
     private final String loadGifPath;
     private JLabel loadGifLabel;
 
+    // DI ↓
     private final DisplaySettings displaySettings;
     private final EntryPanelAuthUI entryPanelAuthUI;
     private final NewPasswordPanelAuthUI newPasswordPanelAuthUI;
     private final RegistrationPanelAuthUI registrationPanelAuthUI;
     private final ResetPasswordPanelAuthUI resetPasswordPanelAuthUI;
     private final VerifyCodePanelAuthUI verifyCodePanelAuthUI;
+    private final TitlePanelAuthUI titlePanel;
 
     @Builder
     MainFrameAuthUI(

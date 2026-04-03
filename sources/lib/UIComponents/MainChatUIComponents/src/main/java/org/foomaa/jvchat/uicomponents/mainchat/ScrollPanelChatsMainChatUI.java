@@ -32,21 +32,20 @@ import org.foomaa.jvchat.structobjects.UserStructObject;
 public class ScrollPanelChatsMainChatUI extends JPanel {
     private final int intervalMilliSecondsSleepUpdating;
     private final int intervalSecondsWaitLoopUpdate;
-
     @Getter
     private Box boxComponents;
-
     private final String backgroundPath;
     private final String loadGifPath;
     private JLabel loadGifLabel;
     private RectChatMainChatUI selectedElement;
+
+    // DI ↓
     private final UsersInfoSettings usersInfoSettings;
     private final UISettings uiSettings;
     private final SendMessagesCtrl sendMessagesCtrl;
     private final MessagesDefinesCtrl messagesDefinesCtrl;
-
-    private final RectChatMainChatUIFactory rectChatFactory;
     private final ChatsCtrl chatsCtrl;
+    private final RectChatMainChatUIFactory rectChatFactory;
 
     @Builder
     ScrollPanelChatsMainChatUI(
@@ -54,14 +53,14 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
             UISettings uiSettings,
             SendMessagesCtrl sendMessagesCtrl,
             MessagesDefinesCtrl messagesDefinesCtrl,
-            RectChatMainChatUIFactory rectChatFactory,
-            ChatsCtrl chatsCtrl) {
+            ChatsCtrl chatsCtrl,
+            RectChatMainChatUIFactory rectChatFactory) {
         this.usersInfoSettings = Objects.requireNonNull(usersInfoSettings, "usersInfoSettings is mandatory");
         this.uiSettings = Objects.requireNonNull(uiSettings, "uiSettings is mandatory");
         this.sendMessagesCtrl = Objects.requireNonNull(sendMessagesCtrl, "sendMessagesCtrl is mandatory");
         this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl, "messagesDefinesCtrl is mandatory");
-        this.rectChatFactory = Objects.requireNonNull(rectChatFactory, "rectChatFactory is mandatory");
         this.chatsCtrl = Objects.requireNonNull(chatsCtrl, "chatsCtrl is mandatory");
+        this.rectChatFactory = Objects.requireNonNull(rectChatFactory, "rectChatFactory is mandatory");
 
         intervalMilliSecondsSleepUpdating = 30000;
         intervalSecondsWaitLoopUpdate = 5;

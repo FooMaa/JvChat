@@ -23,6 +23,7 @@ public class RectMessageMainChatUI extends JTextArea {
     private LocalDateTime timestamp;
     private UUID uuidMessage;
 
+    // DI ↓
     private final DisplaySettings displaySettings;
     private final MessagesDialogCtrl messagesDialogCtrl;
     private final ScrollPanelMessagesMainChatUI scrollPanelMessages;

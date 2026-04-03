@@ -11,6 +11,7 @@ import lombok.Builder;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 
 public class UserStructObjectFactory {
+    // DI ↓
     private final ObjectProvider<UserStructObject> userStructObjectObjectProvider;
 
     @Builder

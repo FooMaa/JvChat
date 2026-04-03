@@ -9,6 +9,7 @@ import lombok.Builder;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
 
 public class RectMessageMainChatUIFactory {
+    // DI ↓
     private final ObjectProvider<RectMessageMainChatUI> rectMessageObjectProvider;
 
     @Builder

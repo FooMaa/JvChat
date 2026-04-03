@@ -67,9 +67,9 @@ public class AuthUIConfig {
     @Bean
     @Profile("users")
     public EntryPanelAuthUI beanEntryPanelAuthUI(
+            @Lazy MainFrameMainChatUI mainFrameMainChatUI,
             UsersInfoSettings usersInfoSettings,
             DisplaySettings displaySettings,
-            @Lazy MainFrameMainChatUI mainFrameMainChatUI,
             SendMessagesCtrl sendMessagesCtrl,
             MessagesDefinesCtrl messagesDefinesCtrl,
             ActiveLabelAuthUIFactory activeLabelAuthUIFactory,

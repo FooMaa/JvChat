@@ -19,6 +19,7 @@ import org.foomaa.jvchat.tools.FormatTools;
 
 @Slf4j
 public class MessagesDialogCtrl {
+    // DI ↓
     private final MessagesModel messagesModel;
     private final ChatsModel chatsModel;
     private final FormatTools formatTools;
@@ -36,10 +37,10 @@ public class MessagesDialogCtrl {
             FormatTools formatTools,
             SendMessagesCtrl sendMessagesCtrl,
             MessagesDefinesCtrl messagesDefinesCtrl,
-            MessageStructObjectFactory messageStructObjectFactory,
             OnlineServersCtrl onlineServersCtrl,
             ChatsCtrl chatsCtrl,
-            UsersInfoSettings usersInfoSettings) {
+            UsersInfoSettings usersInfoSettings,
+            MessageStructObjectFactory messageStructObjectFactory) {
         this.messagesModel = Objects.requireNonNull(messagesModel, "messagesModel is mandatory");
         this.chatsModel = Objects.requireNonNull(chatsModel, "chatsModel is mandatory");
         this.formatTools = Objects.requireNonNull(formatTools, "formatTools is mandatory");

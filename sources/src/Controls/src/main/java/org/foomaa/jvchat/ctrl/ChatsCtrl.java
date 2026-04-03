@@ -18,6 +18,7 @@ import org.foomaa.jvchat.tools.FormatTools;
 
 @Slf4j
 public class ChatsCtrl {
+    // DI ↓
     private final ChatsModel chatsModel;
     private final FormatTools formatTools;
 

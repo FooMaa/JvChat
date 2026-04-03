@@ -7,6 +7,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import lombok.Builder;
 
 public class PanelSendingMessageMainChatUIFactory {
+    // DI ↓
     private final ObjectProvider<PanelSendingMessageMainChatUI> panelSendingMessageObjectProvider;
 
     @Builder

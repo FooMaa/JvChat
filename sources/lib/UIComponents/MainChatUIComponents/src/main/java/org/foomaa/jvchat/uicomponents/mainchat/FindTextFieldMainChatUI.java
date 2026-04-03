@@ -20,12 +20,11 @@ public class FindTextFieldMainChatUI extends JPanel {
     private final BufferedImage image;
     private JTextField textField;
     private JButton button;
-
     @Setter
     private String defaultText;
-
     private final int borderSize = 1;
 
+    // DI ↓
     private final DisplaySettings displaySettings;
 
     @Builder

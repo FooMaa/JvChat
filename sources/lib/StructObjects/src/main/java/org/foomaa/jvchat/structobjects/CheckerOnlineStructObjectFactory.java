@@ -8,6 +8,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import lombok.Builder;
 
 public class CheckerOnlineStructObjectFactory {
+    // DI ↓
     private final ObjectProvider<CheckerOnlineStructObject> checkerOnlineObjectProvider;
 
     @Builder

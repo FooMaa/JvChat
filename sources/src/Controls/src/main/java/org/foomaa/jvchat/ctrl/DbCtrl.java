@@ -14,6 +14,7 @@ import org.foomaa.jvchat.globaldefines.DbGlobalDefines;
 
 @Slf4j
 public class DbCtrl {
+    // DI ↓
     private final DbWorker db;
     private final DbRequests dbRequests;
 

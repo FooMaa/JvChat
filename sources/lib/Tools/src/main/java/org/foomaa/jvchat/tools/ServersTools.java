@@ -14,6 +14,7 @@ import org.foomaa.jvchat.settings.ServersInfoSettings;
 
 @Slf4j
 public class ServersTools {
+    // DI ↓
     private final MainTools mainTools;
     private final ServersInfoSettings serversInfoSettings;
 

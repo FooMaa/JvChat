@@ -26,6 +26,8 @@ public class SocketRunnableCtrl implements Runnable {
     private DataInputStream readStream;
     private final int limitErrorsConnection;
     private int errorsConnection;
+
+    // DI ↓
     private final NetworkCtrl networkCtrl;
 
     @Builder

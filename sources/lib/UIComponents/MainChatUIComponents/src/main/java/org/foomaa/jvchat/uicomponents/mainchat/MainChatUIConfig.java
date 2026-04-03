@@ -69,16 +69,16 @@ public class MainChatUIConfig {
             ScrollPanelChatsMainChatUI scrollPanelChats,
             ScrollPanelMessagesMainChatUI scrollPanelMessages,
             MessagesDialogCtrl messagesDialogCtrl,
+            ChatsCtrl chatsCtrl,
             SendButtonMainChatUIFactory sendButtonMainChatUIFactory,
-            SendingTextAreaScrollMainChatUIFactory sendingTextAreaScrollMainChatUIFactory,
-            ChatsCtrl chatsCtrl) {
+            SendingTextAreaScrollMainChatUIFactory sendingTextAreaScrollMainChatUIFactory) {
         return PanelSendingMessageMainChatUI.builder()
                 .scrollPanelChats(scrollPanelChats)
                 .scrollPanelMessages(scrollPanelMessages)
                 .messagesDialogCtrl(messagesDialogCtrl)
+                .chatsCtrl(chatsCtrl)
                 .sendButtonMainChatUIFactory(sendButtonMainChatUIFactory)
                 .sendingTextAreaScrollMainChatUIFactory(sendingTextAreaScrollMainChatUIFactory)
-                .chatsCtrl(chatsCtrl)
                 .build();
     }
 
@@ -148,15 +148,15 @@ public class MainChatUIConfig {
             UISettings uiSettings,
             SendMessagesCtrl sendMessagesCtrl,
             MessagesDefinesCtrl messagesDefinesCtrl,
-            RectChatMainChatUIFactory rectChatFactory,
-            ChatsCtrl chatsCtrl) {
+            ChatsCtrl chatsCtrl,
+            RectChatMainChatUIFactory rectChatFactory) {
         return ScrollPanelChatsMainChatUI.builder()
                 .usersInfoSettings(usersInfoSettings)
                 .uiSettings(uiSettings)
                 .sendMessagesCtrl(sendMessagesCtrl)
                 .messagesDefinesCtrl(messagesDefinesCtrl)
-                .rectChatFactory(rectChatFactory)
                 .chatsCtrl(chatsCtrl)
+                .rectChatFactory(rectChatFactory)
                 .build();
     }
 

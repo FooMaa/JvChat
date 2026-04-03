@@ -7,6 +7,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import lombok.Builder;
 
 public class OptionPaneAuthUIFactory {
+    // DI ↓
     private final ObjectProvider<OptionPaneAuthUI> optionPaneAuthUIObjectProvider;
 
     @Builder

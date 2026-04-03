@@ -29,15 +29,16 @@ public class RegistrationPanelAuthUI extends JPanel {
     private final ButtonAuthUI bRegister;
     private final ButtonAuthUI bBack;
 
+    // DI ↓
     private final DisplaySettings displaySettings;
     private final UsersTools usersTools;
     private final SendMessagesCtrl sendMessagesCtrl;
     private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
+    // Signals ↓
     @Getter
     private final Signal<RecordsAuthUI.Regime> changeRegimeWorkBack;
-
     @Getter
     private final Signal<RecordsAuthUI.RegimeLoginEmailPassword> changeRegimeWorkNext;
 
@@ -65,6 +66,7 @@ public class RegistrationPanelAuthUI extends JPanel {
         this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl, "messagesDefinesCtrl is mandatory");
         this.optionPaneAuthUIFactory =
                 Objects.requireNonNull(optionPaneAuthUIFactory, "optionPaneAuthUIFactory is mandatory");
+
         this.changeRegimeWorkBack = signalFactory.create();
         this.changeRegimeWorkNext = signalFactory.create();
 

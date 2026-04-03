@@ -7,6 +7,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import lombok.Builder;
 
 public class ErrorLabelAuthUIFactory {
+    // DI ↓
     private final ObjectProvider<ErrorLabelAuthUI> errorLabelAuthUIObjectProvider;
 
     @Builder

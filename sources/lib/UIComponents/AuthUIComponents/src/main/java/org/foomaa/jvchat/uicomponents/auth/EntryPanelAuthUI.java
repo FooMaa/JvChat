@@ -30,6 +30,8 @@ public class EntryPanelAuthUI extends JPanel {
     private final ButtonAuthUI bEnter;
     private final ActiveLabelAuthUI activeRegisterLabel;
     private final ActiveLabelAuthUI activeMissLabel;
+
+    // DI ↓
     private final UsersInfoSettings usersInfoSettings;
     private final DisplaySettings displaySettings;
     private final MainFrameMainChatUI mainFrameMainChatUI;
@@ -37,17 +39,17 @@ public class EntryPanelAuthUI extends JPanel {
     private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
+    // Signals ↓
     @Getter
     private final Signal<Void> closeWindow;
-
     @Getter
     private final Signal<RecordsAuthUI.Regime> changeRegimeWork;
 
     @Builder
     EntryPanelAuthUI(
+            MainFrameMainChatUI mainFrameMainChatUI,
             UsersInfoSettings usersInfoSettings,
             DisplaySettings displaySettings,
-            MainFrameMainChatUI mainFrameMainChatUI,
             SendMessagesCtrl sendMessagesCtrl,
             MessagesDefinesCtrl messagesDefinesCtrl,
             ActiveLabelAuthUIFactory activeLabelAuthUIFactory,
@@ -71,6 +73,7 @@ public class EntryPanelAuthUI extends JPanel {
         this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl, "messagesDefinesCtrl is mandatory");
         this.optionPaneAuthUIFactory =
                 Objects.requireNonNull(optionPaneAuthUIFactory, "optionPaneAuthUIFactory is mandatory");
+
         this.closeWindow = signalFactory.create();
         this.changeRegimeWork = signalFactory.create();
 

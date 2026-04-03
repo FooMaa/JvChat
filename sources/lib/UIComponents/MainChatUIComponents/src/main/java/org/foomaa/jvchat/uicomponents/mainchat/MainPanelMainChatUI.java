@@ -9,9 +9,11 @@ import lombok.Builder;
 
 public class MainPanelMainChatUI extends JPanel {
     private final FindTextFieldMainChatUI findTextField;
+    private final PanelSendingMessageMainChatUI panelSendingMessage;
+
+    // DI ↓
     private final ScrollPanelChatsMainChatUI scrollPanelChats;
     private final ScrollPanelMessagesMainChatUI scrollPanelMessages;
-    private final PanelSendingMessageMainChatUI panelSendingMessage;
 
     @Builder
     MainPanelMainChatUI(

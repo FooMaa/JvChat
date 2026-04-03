@@ -19,6 +19,8 @@ public class MainFrameMainChatUI extends JFrame {
     private final String loadGifPath;
     private JPanel backgroundPanel;
     private JLabel loadGifLabel;
+
+    // DI ↓
     private final TitlePanelMainChatUI titlePanel;
     private final MainPanelMainChatUI mainPanel;
     private final DisplaySettings displaySettings;

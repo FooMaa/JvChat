@@ -22,6 +22,7 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
     private JScrollPane scrollPane;
     private JPanel panel;
 
+    // DI ↓
     private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final MessagesDialogCtrl messagesDialogCtrl;
     private final RectMessageMainChatUIFactory rectMessageMainChatUIFactory;

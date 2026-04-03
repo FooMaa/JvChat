@@ -27,11 +27,13 @@ public class NewPasswordPanelAuthUI extends JPanel {
     private final ButtonAuthUI bBack;
     private String email;
 
+    // DI ↓
     private final DisplaySettings displaySettings;
     private final SendMessagesCtrl sendMessagesCtrl;
     private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
+    // Signals ↓
     @Getter
     private final Signal<RecordsAuthUI.Regime> changeRegimeWork;
 
@@ -55,6 +57,7 @@ public class NewPasswordPanelAuthUI extends JPanel {
         this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl, "messagesDefinesCtrl is mandatory");
         this.optionPaneAuthUIFactory =
                 Objects.requireNonNull(optionPaneAuthUIFactory, "optionPaneAuthUIFactory is mandatory");
+
         this.changeRegimeWork = signalFactory.create();
 
         tErrorHelpInfo = errorLabelAuthUIFactory.create("");

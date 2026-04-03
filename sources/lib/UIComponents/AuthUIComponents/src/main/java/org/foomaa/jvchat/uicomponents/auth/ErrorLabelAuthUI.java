@@ -15,6 +15,8 @@ import org.foomaa.jvchat.settings.DisplaySettings;
 @Slf4j
 public class ErrorLabelAuthUI extends JLabel {
     private final Timer timerVisible;
+
+    // DI ↓
     private final DisplaySettings displaySettings;
     private final FontsGlobalDefines fontsGlobalDefines;
 

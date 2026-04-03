@@ -18,6 +18,8 @@ import org.foomaa.jvchat.tools.StructTools;
 @Slf4j
 public class TakeMessagesCtrl {
     private Runnable runnableCtrlFrom;
+
+    // DI ↓
     private final HashCryptography hashCryptography;
     private final DeserializatorDataMessages deserializatorDataMessages;
     private final StructTools structTools;

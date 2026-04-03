@@ -14,9 +14,9 @@ public class SocketRunnableCtrlModel extends BaseModel {
 
     @Builder
     SocketRunnableCtrlModel(
+            RootObjectsModel rootObjectsModel,
             SocketRunnableCtrlStructObjectFactory socketRunnableCtrlStructObjectFactory,
-            RootStructObjectFactory rootStructObjectFactory,
-            RootObjectsModel rootObjectsModel) {
+            RootStructObjectFactory rootStructObjectFactory) {
         super(
                 Objects.requireNonNull(rootObjectsModel, "rootObjectsModel is mandatory"),
                 Objects.requireNonNull(rootStructObjectFactory, "rootStructObjectFactory is mandatory"));

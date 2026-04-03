@@ -25,15 +25,16 @@ public class ResetPasswordPanelAuthUI extends JPanel {
     private final ButtonAuthUI bSet;
     private final ButtonAuthUI bBack;
 
+    // DI ↓
     private final DisplaySettings displaySettings;
     private final UsersTools usersTools;
     private final SendMessagesCtrl sendMessagesCtrl;
     private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
 
+    // Signals ↓
     @Getter
     private final Signal<RecordsAuthUI.Regime> changeRegimeWork;
-
     @Getter
     private final Signal<RecordsAuthUI.RegimeEmail> changeRegimeWorkWithEmail;
 
@@ -59,6 +60,7 @@ public class ResetPasswordPanelAuthUI extends JPanel {
         this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl, "messagesDefinesCtrl is mandatory");
         this.optionPaneAuthUIFactory =
                 Objects.requireNonNull(optionPaneAuthUIFactory, "optionPaneAuthUIFactory is mandatory");
+
         this.changeRegimeWork = signalFactory.create();
         this.changeRegimeWorkWithEmail = signalFactory.create();
 

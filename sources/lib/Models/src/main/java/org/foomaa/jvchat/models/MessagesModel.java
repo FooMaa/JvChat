@@ -17,9 +17,9 @@ public class MessagesModel extends BaseModel {
 
     @Builder
     MessagesModel(
+            RootObjectsModel rootObjectsModel,
             MessageStructObjectFactory messageStructObjectFactory,
-            RootStructObjectFactory rootStructObjectFactory,
-            RootObjectsModel rootObjectsModel) {
+            RootStructObjectFactory rootStructObjectFactory) {
         super(
                 Objects.requireNonNull(rootObjectsModel, "rootObjectsModel is mandatory"),
                 Objects.requireNonNull(rootStructObjectFactory, "rootStructObjectFactory is mandatory"));

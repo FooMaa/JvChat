@@ -22,14 +22,13 @@ import org.foomaa.jvchat.settings.DisplaySettings;
 public class TitlePanelMainChatUI extends JPanel {
     @Getter
     private final JButton closeButton;
-
     @Getter
     private final JButton minimizeButton;
-
     private final JLabel titleLabel;
     private ToolTipMainChatUI toolTipClose;
     private ToolTipMainChatUI toolTipMinimize;
 
+    // DI ↓
     private final DisplaySettings displaySettings;
     private final FontsGlobalDefines fontsGlobalDefines;
     private final ToolTipMainChatUIFactory toolTipFactory;

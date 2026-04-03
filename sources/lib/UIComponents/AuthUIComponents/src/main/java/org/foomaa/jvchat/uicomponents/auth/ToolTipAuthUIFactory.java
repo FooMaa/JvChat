@@ -7,6 +7,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import lombok.Builder;
 
 public class ToolTipAuthUIFactory {
+    // DI ↓
     private final ObjectProvider<ToolTipAuthUI> toolTipAuthUIObjectProvider;
 
     @Builder

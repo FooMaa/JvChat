@@ -17,6 +17,8 @@ import org.foomaa.jvchat.structobjects.MessageStructObject;
 public class PanelSendingMessageMainChatUI extends JPanel {
     private final SendingTextAreaScrollMainChatUI sendingTextAreaScroll;
     private final JButton sendButton;
+
+    // DI ↓
     private final ScrollPanelChatsMainChatUI scrollPanelChats;
     private final ScrollPanelMessagesMainChatUI scrollPanelMessages;
     private final MessagesDialogCtrl messagesDialogCtrl;
@@ -27,9 +29,9 @@ public class PanelSendingMessageMainChatUI extends JPanel {
             ScrollPanelChatsMainChatUI scrollPanelChats,
             ScrollPanelMessagesMainChatUI scrollPanelMessages,
             MessagesDialogCtrl messagesDialogCtrl,
+            ChatsCtrl chatsCtrl,
             SendButtonMainChatUIFactory sendButtonMainChatUIFactory,
-            SendingTextAreaScrollMainChatUIFactory sendingTextAreaScrollMainChatUIFactory,
-            ChatsCtrl chatsCtrl) {
+            SendingTextAreaScrollMainChatUIFactory sendingTextAreaScrollMainChatUIFactory) {
         Objects.requireNonNull(
                 sendingTextAreaScrollMainChatUIFactory, "sendingTextAreaScrollMainChatUIFactory is mandatory");
         Objects.requireNonNull(sendButtonMainChatUIFactory, "sendButtonMainChatUIFactory is mandatory");

@@ -15,6 +15,7 @@ import org.foomaa.jvchat.settings.DisplaySettings;
 
 @Slf4j
 public class ToolTipAuthUI extends JToolTip {
+    // DI ↓
     private final DisplaySettings displaySettings;
     private final FontsGlobalDefines fontsGlobalDefines;
 

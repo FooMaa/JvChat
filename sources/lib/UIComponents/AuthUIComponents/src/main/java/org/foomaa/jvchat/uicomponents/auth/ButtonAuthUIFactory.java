@@ -7,6 +7,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import lombok.Builder;
 
 public class ButtonAuthUIFactory {
+    // DI ↓
     private final ObjectProvider<ButtonAuthUI> buttonAuthUIObjectProvider;
 
     @Builder

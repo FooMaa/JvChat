@@ -17,9 +17,11 @@ import org.foomaa.jvchat.structobjects.SocketRunnableCtrlStructObject;
 
 @Slf4j
 public class NetworkCtrl {
+    private SocketRunnableCtrl currentSocketRunnableCtrl;
+
+    // DI ↓
     private final ServersSocket serversSocket;
     private final UsersSocket usersSocket;
-    private SocketRunnableCtrl currentSocketRunnableCtrl;
     private final TakeMessagesCtrl takeMessagesCtrl;
     private final OnlineServersCtrl onlineServersCtrl;
     private final MainSettings mainSettings;
@@ -31,10 +33,10 @@ public class NetworkCtrl {
             MainSettings mainSettings,
             SocketRunnableCtrlModel socketRunnableCtrlModel,
             TakeMessagesCtrl takeMessagesCtrl,
-            SocketRunnableCtrlFactory socketRunnableCtrlFactory,
             ServersSocket serversSocket,
             UsersSocket usersSocket,
-            OnlineServersCtrl onlineServersCtrl) {
+            OnlineServersCtrl onlineServersCtrl,
+            SocketRunnableCtrlFactory socketRunnableCtrlFactory) {
         this.mainSettings = Objects.requireNonNull(mainSettings, "mainSettings is mandatory");
         this.socketRunnableCtrlModel =
                 Objects.requireNonNull(socketRunnableCtrlModel, "socketRunnableCtrlModel is mandatory");

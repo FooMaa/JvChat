@@ -22,6 +22,8 @@ import org.foomaa.jvchat.structobjects.UserStructObject;
 public class OnlineServersCtrl {
     private final int intervalMilliSecondsAfterLastSending;
     private final int intervalMilliSecondsAfterLastUpdate;
+
+    // DI ↓
     private final CheckersOnlineModel checkersOnlineModel;
     private final DbCtrl dbCtrl;
     private final ServersInfoSettings serversInfoSettings;

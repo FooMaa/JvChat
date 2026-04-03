@@ -19,6 +19,7 @@ import org.foomaa.jvchat.tools.StructTools;
 
 @Slf4j
 public class SendMessagesCtrl {
+    // DI ↓
     private final SerializatorDataMessages serializatorDataMessages;
     private final MessagesDefinesCtrl messagesDefinesCtrl;
     private final ServersInfoSettings serversInfoSettings;

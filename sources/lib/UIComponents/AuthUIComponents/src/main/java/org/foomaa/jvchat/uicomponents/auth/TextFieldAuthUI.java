@@ -21,6 +21,8 @@ public class TextFieldAuthUI extends JPanel {
     private String defaultText;
     private boolean isErrorBorderActive;
     private final int borderSize;
+
+    // DI ↓
     private final DisplaySettings displaySettings;
     private final FontsGlobalDefines fontsGlobalDefines;
     private final ToolTipAuthUIFactory toolTipAuthUIFactory;

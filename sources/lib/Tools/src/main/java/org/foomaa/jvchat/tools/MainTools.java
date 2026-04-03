@@ -8,6 +8,7 @@ import lombok.Builder;
 import org.foomaa.jvchat.settings.MainSettings;
 
 public class MainTools {
+    // DI ↓
     private final MainSettings mainSettings;
 
     @Builder

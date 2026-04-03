@@ -7,6 +7,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import lombok.Builder;
 
 public class SocketRunnableCtrlStructObjectFactory {
+    // DI ↓
     private final ObjectProvider<SocketRunnableCtrlStructObject> ctrlStructObjectObjectProvider;
 
     @Builder

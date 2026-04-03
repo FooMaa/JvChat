@@ -34,6 +34,7 @@ public class PasswordFieldAuthUI extends JPanel {
     private final int borderSize;
     private boolean isErrorBorderActive;
 
+    // DI ↓
     private final DisplaySettings displaySettings;
     private final FontsGlobalDefines fontsGlobalDefines;
     private final ToolTipAuthUIFactory toolTipAuthUIFactory;

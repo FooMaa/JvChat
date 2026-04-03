@@ -7,6 +7,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import lombok.Builder;
 
 public class RootStructObjectFactory {
+    // DI ↓
     private final ObjectProvider<RootStructObject> rootStructObjectObjectProvider;
 
     @Builder

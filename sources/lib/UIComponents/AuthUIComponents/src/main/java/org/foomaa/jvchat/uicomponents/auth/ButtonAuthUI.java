@@ -16,6 +16,8 @@ import org.foomaa.jvchat.settings.DisplaySettings;
 @Slf4j
 public class ButtonAuthUI extends JButton {
     private ToolTipAuthUI toolTip;
+
+    // DI ↓
     private final DisplaySettings displaySettings;
     private final FontsGlobalDefines fontsGlobalDefines;
     private final ToolTipAuthUIFactory toolTipAuthUIFactory;

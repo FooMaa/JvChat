@@ -7,6 +7,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import lombok.Builder;
 
 public class ToolTipMainChatUIFactory {
+    // DI ↓
     private final ObjectProvider<ToolTipMainChatUI> toolTipObjectProvider;
 
     @Builder

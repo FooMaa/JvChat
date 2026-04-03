@@ -15,6 +15,7 @@ import org.foomaa.jvchat.structobjects.*;
 public class ChatsModel extends BaseModel {
     @Getter
     private UUID currentActiveChatUuid;
+
     // DI ↓
     private final UsersInfoSettings usersInfoSettings;
     private final UsersModel usersModel;
@@ -26,11 +27,11 @@ public class ChatsModel extends BaseModel {
     ChatsModel(
             UsersInfoSettings usersInfoSettings,
             UsersModel usersModel,
+            RootObjectsModel rootObjectsModel,
             MessageStructObjectFactory messageStructObjectFactory,
             ChatStructObjectFactory chatStructObjectFactory,
             UserStructObjectFactory userStructObjectFactory,
-            RootStructObjectFactory rootStructObjectFactory,
-            RootObjectsModel rootObjectsModel) {
+            RootStructObjectFactory rootStructObjectFactory) {
         super(
                 Objects.requireNonNull(rootObjectsModel, "rootObjectsModel is mandatory"),
                 Objects.requireNonNull(rootStructObjectFactory, "rootStructObjectFactory is mandatory"));

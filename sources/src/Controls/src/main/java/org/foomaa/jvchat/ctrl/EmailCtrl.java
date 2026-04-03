@@ -7,6 +7,7 @@ import lombok.Builder;
 import org.foomaa.jvchat.network.EmailProcessor;
 
 public class EmailCtrl {
+    // DI ↓
     private final EmailProcessor emailProcessor;
     private final DbCtrl dbCtrl;
 

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import lombok.Builder;
 
 public class TextFieldAuthUIFactory {
+    // DI ↓
     private final ObjectProvider<TextFieldAuthUI> textFieldAuthUIObjectProvider;
 
     @Builder
