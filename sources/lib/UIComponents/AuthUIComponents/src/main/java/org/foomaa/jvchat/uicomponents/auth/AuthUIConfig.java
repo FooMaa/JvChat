@@ -8,6 +8,7 @@ import org.foomaa.jvchat.ctrl.SendMessagesCtrl;
 import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.settings.UsersInfoSettings;
+import org.foomaa.jvchat.signals.SignalFactory;
 import org.foomaa.jvchat.tools.UsersTools;
 import org.foomaa.jvchat.uicomponents.mainchat.MainFrameMainChatUI;
 
@@ -77,7 +78,8 @@ public class AuthUIConfig {
             ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
             PasswordFieldAuthUIFactory passwordFieldAuthUIFactory,
             TextFieldAuthUIFactory textFieldAuthUIFactory,
-            OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
+            OptionPaneAuthUIFactory optionPaneAuthUIFactory,
+            SignalFactory signalFactory) {
         return EntryPanelAuthUI.builder()
                 .usersInfoSettings(usersInfoSettings)
                 .displaySettings(displaySettings)
@@ -90,6 +92,7 @@ public class AuthUIConfig {
                 .passwordFieldAuthUIFactory(passwordFieldAuthUIFactory)
                 .textFieldAuthUIFactory(textFieldAuthUIFactory)
                 .optionPaneAuthUIFactory(optionPaneAuthUIFactory)
+                .signalFactory(signalFactory)
                 .build();
     }
 
@@ -144,7 +147,8 @@ public class AuthUIConfig {
             ButtonAuthUIFactory buttonAuthUIFactory,
             ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
             PasswordFieldAuthUIFactory passwordFieldAuthUIFactory,
-            OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
+            OptionPaneAuthUIFactory optionPaneAuthUIFactory,
+            SignalFactory signalFactory) {
         return NewPasswordPanelAuthUI.builder()
                 .displaySettings(displaySettings)
                 .sendMessagesCtrl(sendMessagesCtrl)
@@ -153,6 +157,7 @@ public class AuthUIConfig {
                 .errorLabelAuthUIFactory(errorLabelAuthUIFactory)
                 .passwordFieldAuthUIFactory(passwordFieldAuthUIFactory)
                 .optionPaneAuthUIFactory(optionPaneAuthUIFactory)
+                .signalFactory(signalFactory)
                 .build();
     }
 
@@ -206,7 +211,8 @@ public class AuthUIConfig {
             ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
             PasswordFieldAuthUIFactory passwordFieldAuthUIFactory,
             TextFieldAuthUIFactory textFieldAuthUIFactory,
-            OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
+            OptionPaneAuthUIFactory optionPaneAuthUIFactory,
+            SignalFactory signalFactory) {
         return RegistrationPanelAuthUI.builder()
                 .displaySettings(displaySettings)
                 .usersTools(usersTools)
@@ -217,6 +223,7 @@ public class AuthUIConfig {
                 .passwordFieldAuthUIFactory(passwordFieldAuthUIFactory)
                 .textFieldAuthUIFactory(textFieldAuthUIFactory)
                 .optionPaneAuthUIFactory(optionPaneAuthUIFactory)
+                .signalFactory(signalFactory)
                 .build();
     }
 
@@ -230,7 +237,8 @@ public class AuthUIConfig {
             ButtonAuthUIFactory buttonAuthUIFactory,
             ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
             TextFieldAuthUIFactory textFieldAuthUIFactory,
-            OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
+            OptionPaneAuthUIFactory optionPaneAuthUIFactory,
+            SignalFactory signalFactory) {
         return ResetPasswordPanelAuthUI.builder()
                 .displaySettings(displaySettings)
                 .usersTools(usersTools)
@@ -240,6 +248,7 @@ public class AuthUIConfig {
                 .errorLabelAuthUIFactory(errorLabelAuthUIFactory)
                 .textFieldAuthUIFactory(textFieldAuthUIFactory)
                 .optionPaneAuthUIFactory(optionPaneAuthUIFactory)
+                .signalFactory(signalFactory)
                 .build();
     }
 
@@ -306,7 +315,8 @@ public class AuthUIConfig {
             ButtonAuthUIFactory buttonAuthUIFactory,
             ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
             TextFieldAuthUIFactory textFieldAuthUIFactory,
-            OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
+            OptionPaneAuthUIFactory optionPaneAuthUIFactory,
+            SignalFactory signalFactory) {
         return VerifyCodePanelAuthUI.builder()
                 .displaySettings(displaySettings)
                 .sendMessagesCtrl(sendMessagesCtrl)
@@ -315,6 +325,7 @@ public class AuthUIConfig {
                 .errorLabelAuthUIFactory(errorLabelAuthUIFactory)
                 .textFieldAuthUIFactory(textFieldAuthUIFactory)
                 .optionPaneAuthUIFactory(optionPaneAuthUIFactory)
+                .signalFactory(signalFactory)
                 .build();
     }
 }

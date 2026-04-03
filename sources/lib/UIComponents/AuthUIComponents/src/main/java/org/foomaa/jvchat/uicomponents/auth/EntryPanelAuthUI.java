@@ -66,7 +66,7 @@ public class EntryPanelAuthUI extends JPanel {
         Objects.requireNonNull(errorLabelAuthUIFactory, "errorLabelAuthUIFactory is mandatory");
         Objects.requireNonNull(passwordFieldAuthUIFactory, "passwordFieldAuthUIFactory is mandatory");
         Objects.requireNonNull(textFieldAuthUIFactory, "textFieldAuthUIFactory is mandatory");
-        Objects.requireNonNull(signalFactory, "eventFactory is mandatory");
+        Objects.requireNonNull(signalFactory, "signalFactory is mandatory");
 
         this.usersInfoSettings = Objects.requireNonNull(usersInfoSettings, "usersInfoSettings is mandatory");
         this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");

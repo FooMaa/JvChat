@@ -54,7 +54,7 @@ public class ResetPasswordPanelAuthUI extends JPanel {
         Objects.requireNonNull(buttonAuthUIFactory, "buttonAuthUIFactory is mandatory");
         Objects.requireNonNull(errorLabelAuthUIFactory, "errorLabelAuthUIFactory is mandatory");
         Objects.requireNonNull(textFieldAuthUIFactory, "textFieldAuthUIFactory is mandatory");
-        Objects.requireNonNull(signalFactory, "eventFactory is mandatory");
+        Objects.requireNonNull(signalFactory, "signalFactory is mandatory");
 
         this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
         this.usersTools = Objects.requireNonNull(usersTools, "usersTools is mandatory");

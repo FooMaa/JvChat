@@ -1,10 +1,7 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.*;
 
 import org.foomaa.jvchat.ctrl.ChatsCtrl;
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
@@ -37,6 +34,7 @@ public class MainChatUIConfig {
     }
 
     @Bean
+    @Lazy
     @Profile("users")
     public MainFrameMainChatUI beanMainFrameMainChatUI(
             DisplaySettings displaySettings, TitlePanelMainChatUI titlePanel, MainPanelMainChatUI mainPanel) {

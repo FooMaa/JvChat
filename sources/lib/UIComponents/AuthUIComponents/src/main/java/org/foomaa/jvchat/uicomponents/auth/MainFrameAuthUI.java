@@ -71,11 +71,11 @@ public class MainFrameAuthUI extends JFrame {
         entryPanelAuthUI.getCloseWindow().connect(this::closeWindow);
         entryPanelAuthUI.getChangeRegimeWork().connect(signal -> changeRegimeWork(signal.regime()));
 
+        registrationPanelAuthUI.getChangeRegimeWorkBack().connect(signal -> changeRegimeWork(signal.regime()));
         registrationPanelAuthUI
                 .getChangeRegimeWorkNext()
                 .connect(
                         signal -> changeRegimeWork(signal.regime(), signal.login(), signal.email(), signal.password()));
-        registrationPanelAuthUI.getChangeRegimeWorkNext().connect(signal -> changeRegimeWork(signal.regime()));
 
         verifyCodePanelAuthUI.getChangeRegimeWork().connect(signal -> changeRegimeWork(signal.regime()));
         verifyCodePanelAuthUI
