@@ -81,7 +81,7 @@ function install_arc_dependences {
 
 function download_gradle {
     echo -n "[...] download gradle"
-    VERSION=8.4
+    VERSION=9.4.1
     wget https://services.gradle.org/distributions/gradle-${VERSION}-bin.zip -P $PROJECT_DIR"data/" >> $LOG_FILE 2>&1
     EXIT_CODE=$?
     if [[ $EXIT_CODE -ne 0 ]]; then
