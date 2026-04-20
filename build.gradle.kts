@@ -45,7 +45,11 @@ subprojects {
     }
 
     dependencies {
-        testImplementation("junit:junit:4.13.2")
+        testImplementation("org.junit.jupiter:junit-jupiter:5.14.3")
+        testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.14.3")
+        testImplementation("org.assertj:assertj-core:3.27.7")
+        testImplementation("org.mockito:mockito-core:5.23.0")
+        testImplementation("org.mockito:mockito-junit-jupiter:5.23.0")
         implementation("org.springframework:spring-context")
         implementation("org.springframework:spring-beans")
         implementation("org.springframework:spring-core")
@@ -61,7 +65,7 @@ subprojects {
         onlyIf {
             project.hasProperty("tests")
         }
-        useJUnit()
+        useJUnitPlatform()
         maxHeapSize = "1G"
         failFast = true
         testLogging {

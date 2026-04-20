@@ -14,7 +14,7 @@ public class FontsGlobalDefines {
         InputStream inputStream = getClass().getResourceAsStream("/MainSteticaFont.otf");
 
         if (inputStream == null) {
-            return null;
+            throw new IllegalStateException("Font resource not found");
         }
 
         Font customFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
@@ -27,11 +27,11 @@ public class FontsGlobalDefines {
         return customFont;
     }
 
-    public Font createMainMMFont(int style, float size) throws IOException, FontFormatException {
-        InputStream inputStream = getClass().getResourceAsStream("/MainMMFont.otf");
+    public Font createMainMMColumnFont(int style, float size) throws IOException, FontFormatException {
+        InputStream inputStream = getClass().getResourceAsStream("/MainMMColumnFont.otf");
 
         if (inputStream == null) {
-            return null;
+            throw new IllegalStateException("Font resource not found");
         }
 
         Font customFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
@@ -48,7 +48,7 @@ public class FontsGlobalDefines {
         InputStream inputStream = getClass().getResourceAsStream("/MainMavobleFont.otf");
 
         if (inputStream == null) {
-            return null;
+            throw new IllegalStateException("Font resource not found");
         }
 
         Font customFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);

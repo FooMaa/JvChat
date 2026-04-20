@@ -27,7 +27,7 @@ public class HashCryptography {
             }
             result = hexString.toString();
         } catch (NoSuchAlgorithmException exception) {
-            log.error("Error when taking string hash.");
+            throw new IllegalStateException("SHA-256 not available", exception);
         }
         return result;
     }
