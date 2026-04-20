@@ -11,7 +11,6 @@ import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
 import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.settings.UISettings;
 import org.foomaa.jvchat.settings.UsersInfoSettings;
-import org.foomaa.jvchat.structobjects.ChatStructObject;
 
 @Configuration
 public class MainChatUIConfig {
