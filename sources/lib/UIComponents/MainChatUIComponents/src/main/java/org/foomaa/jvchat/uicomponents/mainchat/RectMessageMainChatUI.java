@@ -52,6 +52,8 @@ public class RectMessageMainChatUI extends JTextArea {
         statusMessage = messageObject.getStatusMessage();
         timestamp = messageObject.getTimestamp();
         uuidMessage = messageObject.getUuid();
+
+        setTextMessage();
     }
 
     @Override

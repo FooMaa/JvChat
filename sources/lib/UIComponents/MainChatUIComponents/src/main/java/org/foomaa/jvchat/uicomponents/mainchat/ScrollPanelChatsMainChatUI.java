@@ -179,6 +179,7 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
 
         for (ChatStructObject chat : chatsObjects) {
             RectChatMainChatUI component = rectChatFactory.create(chat);
+            component.paintRect();
             boxComponents.add(component);
             connectSelectingElement(component);
         }

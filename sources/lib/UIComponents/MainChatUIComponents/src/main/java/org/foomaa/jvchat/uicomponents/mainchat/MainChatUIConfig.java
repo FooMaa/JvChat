@@ -25,6 +25,7 @@ public class MainChatUIConfig {
     }
 
     @Bean
+    @Lazy
     @Profile("users")
     public FindTextFieldMainChatUIFactory beanFindTextFieldMainChatUIFactory(
             ObjectProvider<FindTextFieldMainChatUI> findTextFieldMainChatUIObjectProvider) {
@@ -46,6 +47,7 @@ public class MainChatUIConfig {
     }
 
     @Bean
+    @Lazy
     @Profile("users")
     public MainPanelMainChatUI beanMainPanelMainChatUI(
             ScrollPanelChatsMainChatUI scrollPanelChats,
@@ -81,6 +83,7 @@ public class MainChatUIConfig {
     }
 
     @Bean
+    @Lazy
     @Profile("users")
     public PanelSendingMessageMainChatUIFactory beanPanelSendingMessageMainChatUIFactory(
             ObjectProvider<PanelSendingMessageMainChatUI> panelSendingMessageObjectProvider) {
@@ -93,13 +96,11 @@ public class MainChatUIConfig {
     @Scope("prototype")
     @Profile("users")
     public RectChatMainChatUI beanRectChatMainChatUI(
-            ChatStructObject chatObject,
             UsersInfoSettings usersInfoSettings,
             DisplaySettings displaySettings,
             MessagesDialogCtrl messagesDialogCtrl,
             ChatsCtrl chatsCtrl) {
         return RectChatMainChatUI.builder()
-                .chatObject(chatObject)
                 .usersInfoSettings(usersInfoSettings)
                 .displaySettings(displaySettings)
                 .messagesDialogCtrl(messagesDialogCtrl)
@@ -108,6 +109,7 @@ public class MainChatUIConfig {
     }
 
     @Bean
+    @Lazy
     @Profile("users")
     public RectChatMainChatUIFactory beanRectChatMainChatUIFactory(
             ObjectProvider<RectChatMainChatUI> rectChatObjectProvider) {
@@ -131,6 +133,7 @@ public class MainChatUIConfig {
     }
 
     @Bean
+    @Lazy
     @Profile("users")
     public RectMessageMainChatUIFactory beanRectMessageMainChatUIFactory(
             ObjectProvider<RectMessageMainChatUI> rectMessageObjectProvider) {
@@ -140,6 +143,7 @@ public class MainChatUIConfig {
     }
 
     @Bean
+    @Lazy
     @Profile("users")
     public ScrollPanelChatsMainChatUI beanScrollPanelChatsMainChatUI(
             UsersInfoSettings usersInfoSettings,
@@ -159,6 +163,7 @@ public class MainChatUIConfig {
     }
 
     @Bean
+    @Lazy
     @Profile("users")
     public ScrollPanelMessagesMainChatUI beanScrollPanelMessagesMainChatUI(
             MessagesDefinesCtrl messagesDefinesCtrl,
@@ -179,6 +184,7 @@ public class MainChatUIConfig {
     }
 
     @Bean
+    @Lazy
     @Profile("users")
     public SendButtonMainChatUIFactory beanSendButtonMainChatUIFactory(
             ObjectProvider<SendButtonMainChatUI> sendButtonObjectProvider) {
@@ -195,6 +201,7 @@ public class MainChatUIConfig {
     }
 
     @Bean
+    @Lazy
     @Profile("users")
     public SendingTextAreaScrollMainChatUIFactory beanSendingTextAreaScrollMainChatUIFactory(
             ObjectProvider<SendingTextAreaScrollMainChatUI> sendingTextAreaScrollObjectProvider) {
@@ -204,6 +211,7 @@ public class MainChatUIConfig {
     }
 
     @Bean
+    @Lazy
     @Profile("users")
     public TitlePanelMainChatUI beanTitlePanelMainChatUI(
             DisplaySettings displaySettings,
@@ -228,6 +236,7 @@ public class MainChatUIConfig {
     }
 
     @Bean
+    @Lazy
     @Profile("users")
     public ToolTipMainChatUIFactory beanToolTipMainChatUIFactory(
             ObjectProvider<ToolTipMainChatUI> toolTipObjectProvider) {

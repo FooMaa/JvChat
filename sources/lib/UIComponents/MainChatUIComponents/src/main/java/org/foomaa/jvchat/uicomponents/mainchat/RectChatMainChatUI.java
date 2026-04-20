@@ -49,7 +49,6 @@ public class RectChatMainChatUI extends JPanel {
 
     @Builder
     RectChatMainChatUI(
-            ChatStructObject chatObject,
             UsersInfoSettings usersInfoSettings,
             DisplaySettings displaySettings,
             MessagesDialogCtrl messagesDialogCtrl,
@@ -74,8 +73,6 @@ public class RectChatMainChatUI extends JPanel {
 
         flagSelect = false;
 
-        installTimeLastMessage(chatObject);
-        makeChatBox();
         addListenerToElements();
     }
 
@@ -87,6 +84,12 @@ public class RectChatMainChatUI extends JPanel {
         statusMessage = chatObject.getLastMessage().getStatusMessage();
         uuidChat = chatObject.getUuid();
         uuidUser = chatObject.getUserChat().getUuid();
+
+        installTimeLastMessage(chatObject);
+    }
+
+    public void paintRect() {
+        makeChatBox();
     }
 
     private void installTimeLastMessage(ChatStructObject chatObject) {
