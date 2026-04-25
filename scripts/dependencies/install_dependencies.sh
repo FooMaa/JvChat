@@ -95,7 +95,7 @@ function download_gradle {
 
 function download_maven {
     echo -n "[...] download maven"
-    VERSION=3.9.14
+    VERSION=3.9.15
     wget https://downloads.apache.org/maven/maven-3/${VERSION}/binaries/apache-maven-${VERSION}-bin.tar.gz -P $PROJECT_DIR"data/" >> $LOG_FILE 2>&1
     EXIT_CODE=$?
     if [[ $EXIT_CODE -ne 0 ]]; then
