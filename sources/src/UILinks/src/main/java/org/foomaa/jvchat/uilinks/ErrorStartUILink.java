@@ -13,7 +13,8 @@ public class ErrorStartUILink {
 
     @Builder
     ErrorStartUILink(OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
-        this.optionPaneAuthUIFactory = Objects.requireNonNull(optionPaneAuthUIFactory, "mainTool is mandatory");
+        this.optionPaneAuthUIFactory =
+                Objects.requireNonNull(optionPaneAuthUIFactory, "optionPaneAuthUIFactory is mandatory");
     }
 
     public void show(String message) {
