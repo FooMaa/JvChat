@@ -1,54 +1,82 @@
 package org.foomaa.jvchat.ctrl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Profile;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
+import java.util.Objects;
 
-import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.models.GetterModels;
+import lombok.Builder;
+import lombok.extern.slf4j.Slf4j;
+
 import org.foomaa.jvchat.models.SocketRunnableCtrlModel;
-import org.foomaa.jvchat.network.UsersSocket;
-import org.foomaa.jvchat.settings.GetterSettings;
-import org.foomaa.jvchat.settings.MainSettings;
 import org.foomaa.jvchat.network.ServersSocket;
+import org.foomaa.jvchat.network.UsersSocket;
+import org.foomaa.jvchat.settings.MainSettings;
 import org.foomaa.jvchat.structobjects.SocketRunnableCtrlStructObject;
 
-
+@Slf4j
 public class NetworkCtrl {
-    private ServersSocket serversSocket;
-    private UsersSocket usersSocket;
+    // DI ↓
+    private final ServersSocket serversSocket;
+    private final UsersSocket usersSocket;
+    private final TakeMessagesCtrl takeMessagesCtrl;
+    private final OnlineServersCtrl onlineServersCtrl;
+    private final MainSettings mainSettings;
+    private final SocketRunnableCtrlModel socketRunnableCtrlModel;
+    private final SocketRunnableCtrlFactory socketRunnableCtrlFactory;
+
+    // DI(P) ↓
     private SocketRunnableCtrl currentSocketRunnableCtrl;
 
-    NetworkCtrl() {}
+    @Builder
+    NetworkCtrl(
+            MainSettings mainSettings,
+            SocketRunnableCtrlModel socketRunnableCtrlModel,
+            TakeMessagesCtrl takeMessagesCtrl,
+            ServersSocket serversSocket,
+            UsersSocket usersSocket,
+            OnlineServersCtrl onlineServersCtrl,
+            SocketRunnableCtrlFactory socketRunnableCtrlFactory) {
+        this.mainSettings = Objects.requireNonNull(mainSettings, "mainSettings is mandatory");
+        this.socketRunnableCtrlModel =
+                Objects.requireNonNull(socketRunnableCtrlModel, "socketRunnableCtrlModel is mandatory");
+        this.takeMessagesCtrl = Objects.requireNonNull(takeMessagesCtrl, "takeMessagesCtrl is mandatory");
+        this.socketRunnableCtrlFactory =
+                Objects.requireNonNull(socketRunnableCtrlFactory, "socketRunnableCtrlFactory is mandatory");
+
+        this.serversSocket = serversSocket;
+        this.usersSocket = usersSocket;
+        this.onlineServersCtrl = onlineServersCtrl;
+    }
 
     public void startNetwork() throws IOException {
-        if (GetterSettings.getInstance().getBeanMainSettings().getProfile() == MainSettings.TypeProfiles.SERVERS) {
+        if (mainSettings.getProfile() == MainSettings.TypeProfiles.SERVERS) {
             startServersNetwork();
-        } else if (GetterSettings.getInstance().getBeanMainSettings().getProfile() == MainSettings.TypeProfiles.USERS) {
+        } else if (mainSettings.getProfile() == MainSettings.TypeProfiles.USERS) {
             startUsersNetwork();
         }
     }
 
     @SuppressWarnings("InfiniteLoopStatement")
     private void startServersNetwork() throws IOException {
+        serversSocket.start();
+
         ServerSocket socketServer = serversSocket.getSocketServers();
-        GetterControls.getInstance().getBeanOnlineServersCtrl().loadDataOnlineUsers();
+        onlineServersCtrl.loadDataOnlineUsers();
         runningErrorsControlSockets();
         while (true) {
             Socket fromSocketServer = socketServer.accept();
-            SocketRunnableCtrl socketRunnableCtrl =
-                    GetterControls.getInstance().getBeanSocketRunnableCtrl(fromSocketServer);
+            SocketRunnableCtrl socketRunnableCtrl = socketRunnableCtrlFactory.create(fromSocketServer);
             Thread threadServers = new Thread(socketRunnableCtrl);
             threadServers.start();
         }
     }
 
     private void startUsersNetwork() throws IOException {
-        currentSocketRunnableCtrl = GetterControls.getInstance().getBeanSocketRunnableCtrl(usersSocket.getCurrentSocket());
+        usersSocket.start();
+
+        currentSocketRunnableCtrl = socketRunnableCtrlFactory.create(usersSocket.getCurrentSocket());
         if (!usersSocket.getCurrentSocket().isConnected()) {
             throw new IOException();
         }
@@ -56,32 +84,12 @@ public class NetworkCtrl {
         threadUsers.start();
     }
 
-    @Autowired(required = false)
-    @Qualifier("beanServersSocket")
-    @Profile("servers")
-    @SuppressWarnings("unused")
-    private void setServersSocket(ServersSocket newServersSocket) {
-        if ( serversSocket !=  newServersSocket ) {
-            serversSocket = newServersSocket;
-        }
-    }
-
-    @Autowired(required = false)
-    @Qualifier("beanUsersSocket")
-    @Profile("users")
-    @SuppressWarnings("unused")
-    private void setUsersSocket(UsersSocket newUsersSocket) {
-        if (usersSocket != newUsersSocket) {
-            usersSocket = newUsersSocket;
-        }
-    }
-
     public void takeMessage(byte[] message, SocketRunnableCtrl runnableCtrl) {
-        if (GetterSettings.getInstance().getBeanMainSettings().getProfile() == MainSettings.TypeProfiles.SERVERS) {
+        if (mainSettings.getProfile() == MainSettings.TypeProfiles.SERVERS) {
             currentSocketRunnableCtrl = runnableCtrl;
-            GetterControls.getInstance().getBeanTakeMessagesCtrl().setRunnableCtrlFromConnection(currentSocketRunnableCtrl);
+            takeMessagesCtrl.setRunnableCtrlFromConnection(currentSocketRunnableCtrl);
         }
-        GetterControls.getInstance().getBeanTakeMessagesCtrl().takeMessage(message);
+        takeMessagesCtrl.takeMessage(message);
     }
 
     public void sendMessage(byte[] message) {
@@ -89,7 +97,7 @@ public class NetworkCtrl {
     }
 
     public void sendMessageByRunnableCtrl(byte[] message, Runnable runnable) {
-        if (GetterSettings.getInstance().getBeanMainSettings().getProfile() == MainSettings.TypeProfiles.SERVERS) {
+        if (mainSettings.getProfile() == MainSettings.TypeProfiles.SERVERS) {
             SocketRunnableCtrl srvRunnable = (SocketRunnableCtrl) runnable;
             srvRunnable.send(message);
         }
@@ -108,8 +116,6 @@ public class NetworkCtrl {
     }
 
     private void controlErrorConnectionSocket() {
-        SocketRunnableCtrlModel socketRunnableCtrlModel =
-                GetterModels.getInstance().getBeanSocketRunnableCtrlModel();
         List<SocketRunnableCtrlStructObject> listAllConnections =
                 socketRunnableCtrlModel.getAllSocketRunnableCtrlStructObject();
 
@@ -119,9 +125,10 @@ public class NetworkCtrl {
             SocketRunnableCtrl socketRunnableCtrl = (SocketRunnableCtrl) socketCtrl.getSocketRunnableCtrl();
 
             if (socketRunnableCtrl != null && socketRunnableCtrl.isErrorsExceedsLimit()) {
-                Log.write(Log.TypeLog.Warn, "We clean up a thread that has not responded for a long time.");
+                log.warn("We clean up a thread that has not responded for a long time.");
                 socketRunnableCtrlModel.removeItem(socketCtrl);
-                Log.write(Log.TypeLog.Warn, "Number of active connections after cleaning: " +
+                log.warn(
+                        "Number of active connections after cleaning: {}",
                         socketRunnableCtrlModel.getCountConnections());
             }
         }
@@ -129,7 +136,7 @@ public class NetworkCtrl {
         try {
             Thread.sleep(milliSecondsSleepAfterOperation);
         } catch (InterruptedException exception) {
-            Log.write(Log.TypeLog.Error, "Sleep() failed to running here.");
+            log.error("Thread.sleep() failed to running here.");
         }
     }
 }

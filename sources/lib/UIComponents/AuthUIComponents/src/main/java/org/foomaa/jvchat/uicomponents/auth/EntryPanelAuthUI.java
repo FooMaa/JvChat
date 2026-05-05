@@ -1,6 +1,5 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Objects;
@@ -8,17 +7,32 @@ import java.util.UUID;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
-import org.foomaa.jvchat.ctrl.GetterControls;
+import javax.swing.*;
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
-import org.foomaa.jvchat.events.GetterEvents;
-import org.foomaa.jvchat.logger.Log;
+import org.foomaa.jvchat.ctrl.SendMessagesCtrl;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
-import org.foomaa.jvchat.settings.GetterSettings;
-import org.foomaa.jvchat.uicomponents.mainchat.GetterMainChatUIComponents;
+import org.foomaa.jvchat.settings.UsersInfoSettings;
+import org.foomaa.jvchat.signals.Signal;
+import org.foomaa.jvchat.signals.SignalFactory;
+import org.foomaa.jvchat.uicomponents.mainchat.MainFrameMainChatUI;
 
-
+@Slf4j
 public class EntryPanelAuthUI extends JPanel {
+    // DI ↓
+    private final UsersInfoSettings usersInfoSettings;
+    private final DisplaySettings displaySettings;
+    private final MainFrameMainChatUI mainFrameMainChatUI;
+    private final SendMessagesCtrl sendMessagesCtrl;
+    private final MessagesDefinesCtrl messagesDefinesCtrl;
+    private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
+
+    // DI(P) ↓
     private final TextFieldAuthUI tLogin;
     private final ErrorLabelAuthUI tErrorHelpInfo;
     private final PasswordFieldAuthUI tPassword;
@@ -26,13 +40,51 @@ public class EntryPanelAuthUI extends JPanel {
     private final ActiveLabelAuthUI activeRegisterLabel;
     private final ActiveLabelAuthUI activeMissLabel;
 
-    EntryPanelAuthUI() {
-        tLogin = GetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Login");
-        tErrorHelpInfo = GetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
-        tPassword = GetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Password");
-        bEnter = GetterAuthUIComponents.getInstance().getBeanButtonAuthUI("Next");
-        activeMissLabel = GetterAuthUIComponents.getInstance().getBeanActiveLabelAuthUI("Reset password");
-        activeRegisterLabel = GetterAuthUIComponents.getInstance().getBeanActiveLabelAuthUI("Registration");
+    // Signals ↓
+    @Getter
+    private final Signal<Void> closeWindow;
+
+    @Getter
+    private final Signal<RecordsAuthUI.Regime> changeRegimeWork;
+
+    @Builder
+    EntryPanelAuthUI(
+            MainFrameMainChatUI mainFrameMainChatUI,
+            UsersInfoSettings usersInfoSettings,
+            DisplaySettings displaySettings,
+            SendMessagesCtrl sendMessagesCtrl,
+            MessagesDefinesCtrl messagesDefinesCtrl,
+            ActiveLabelAuthUIFactory activeLabelAuthUIFactory,
+            ButtonAuthUIFactory buttonAuthUIFactory,
+            ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
+            PasswordFieldAuthUIFactory passwordFieldAuthUIFactory,
+            TextFieldAuthUIFactory textFieldAuthUIFactory,
+            OptionPaneAuthUIFactory optionPaneAuthUIFactory,
+            SignalFactory signalFactory) {
+        Objects.requireNonNull(activeLabelAuthUIFactory, "activeLabelAuthUIFactory is mandatory");
+        Objects.requireNonNull(buttonAuthUIFactory, "buttonAuthUIFactory is mandatory");
+        Objects.requireNonNull(errorLabelAuthUIFactory, "errorLabelAuthUIFactory is mandatory");
+        Objects.requireNonNull(passwordFieldAuthUIFactory, "passwordFieldAuthUIFactory is mandatory");
+        Objects.requireNonNull(textFieldAuthUIFactory, "textFieldAuthUIFactory is mandatory");
+        Objects.requireNonNull(signalFactory, "signalFactory is mandatory");
+
+        this.usersInfoSettings = Objects.requireNonNull(usersInfoSettings, "usersInfoSettings is mandatory");
+        this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
+        this.mainFrameMainChatUI = Objects.requireNonNull(mainFrameMainChatUI, "mainFrameMainChatUI is mandatory");
+        this.sendMessagesCtrl = Objects.requireNonNull(sendMessagesCtrl, "sendMessagesCtrl is mandatory");
+        this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl, "messagesDefinesCtrl is mandatory");
+        this.optionPaneAuthUIFactory =
+                Objects.requireNonNull(optionPaneAuthUIFactory, "optionPaneAuthUIFactory is mandatory");
+
+        this.closeWindow = signalFactory.create();
+        this.changeRegimeWork = signalFactory.create();
+
+        tLogin = textFieldAuthUIFactory.create("Login");
+        tErrorHelpInfo = errorLabelAuthUIFactory.create("");
+        tPassword = passwordFieldAuthUIFactory.create("Password");
+        bEnter = buttonAuthUIFactory.create("Next");
+        activeMissLabel = activeLabelAuthUIFactory.create("Reset password");
+        activeRegisterLabel = activeLabelAuthUIFactory.create("Registration");
 
         settingComponents();
         makePanelSetting();
@@ -59,23 +111,22 @@ public class EntryPanelAuthUI extends JPanel {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        int insX = GetterSettings.getInstance().getBeanDisplaySettings().
-                getResizeFromDisplay(0.025, DisplaySettings.TypeOfDisplayBorder.WIDTH);
+        int insX = displaySettings.getResizeFromDisplay(0.025, DisplaySettings.TypeOfDisplayBorder.WIDTH);
         int gridyNum = 0;
 
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.075), insX,
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.004), insX);
+        gbc.insets =
+                new Insets(displaySettings.getResizePixel(0.075), insX, displaySettings.getResizePixel(0.004), insX);
         gbc.gridy = gridyNum;
         add(tLogin, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX, GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.01), insX);
+        gbc.insets = new Insets(0, insX, displaySettings.getResizePixel(0.01), insX);
         gbc.gridy = gridyNum;
         add(tPassword, gbc);
         gridyNum++;
@@ -88,27 +139,22 @@ public class EntryPanelAuthUI extends JPanel {
         gridyNum++;
 
         gbc.anchor = GridBagConstraints.NORTH;
-        gbc.insets = new Insets(0, 0,
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.002), 0);
+        gbc.insets = new Insets(0, 0, displaySettings.getResizePixel(0.002), 0);
         gbc.gridy = gridyNum;
         add(activeRegisterLabel, gbc);
         gridyNum++;
 
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX,
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0084), insX);
+        gbc.insets = new Insets(0, insX, displaySettings.getResizePixel(0.0084), insX);
         gbc.gridy = gridyNum;
         add(tErrorHelpInfo, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.SOUTH;
-        gbc.insets = new Insets(0, 0,
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017), 0);
-        gbc.ipadx = GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.015,
-                DisplaySettings.TypeOfDisplayBorder.WIDTH);
-        gbc.ipady = GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.004,
-                DisplaySettings.TypeOfDisplayBorder.HEIGHT);
+        gbc.insets = new Insets(0, 0, displaySettings.getResizePixel(0.017), 0);
+        gbc.ipadx = displaySettings.getResizeFromDisplay(0.015, DisplaySettings.TypeOfDisplayBorder.WIDTH);
+        gbc.ipady = displaySettings.getResizeFromDisplay(0.004, DisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
         add(bEnter, gbc);
     }
@@ -116,8 +162,8 @@ public class EntryPanelAuthUI extends JPanel {
     private void addListenerToElements() {
         bEnter.addActionListener(event -> {
             if (checkFields()) {
-                GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(DefinesMessages.TypeMessage.EntryRequest,
-                        tLogin.getInputText(), tPassword.getInputText());
+                sendMessagesCtrl.sendMessage(
+                        DefinesMessages.TypeMessage.EntryRequest, tLogin.getInputText(), tPassword.getInputText());
                 waitRepeatServer();
             }
         });
@@ -138,13 +184,14 @@ public class EntryPanelAuthUI extends JPanel {
     }
 
     private void closeFrameWindow() {
-        GetterEvents.getInstance().getBeanMakerEvents().event(this, "closeWindow");
+        closeWindow.emit();
+
         tLogin.setUnfocusFieldOnClose(true);
         tPassword.setUnfocusFieldOnClose(true);
     }
 
     private void changeRegime(DefinesAuthUI.RegimeWorkMainFrame regime) {
-        GetterEvents.getInstance().getBeanMakerEvents().event(this, "changeRegimeWork", regime);
+        changeRegimeWork.emit(new RecordsAuthUI.Regime(regime));
         tLogin.setUnfocusFieldOnClose(true);
         tPassword.setUnfocusFieldOnClose(true);
     }
@@ -183,38 +230,33 @@ public class EntryPanelAuthUI extends JPanel {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getEntryRequestFlag() ==
-                MessagesDefinesCtrl.TypeFlags.DEFAULT) {
+        while (messagesDefinesCtrl.getEntryRequestFlag() == MessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
-                Log.write(Log.TypeLog.Error, "Couldn't wait.");
+                log.error("Couldn't wait.");
             }
         }
-        if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getEntryRequestFlag() ==
-                MessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (messagesDefinesCtrl.getEntryRequestFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
             openMainPage();
-        } else if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getEntryRequestFlag() ==
-                MessagesDefinesCtrl.TypeFlags.FALSE) {
+        } else if (messagesDefinesCtrl.getEntryRequestFlag() == MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            GetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("Login failed, data is incorrect.", OptionPaneAuthUI.TypeDlg.ERROR);
+            optionPaneAuthUIFactory.create().show("Login failed, data is incorrect.", OptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 
     private void openMainPage() {
-        GetterSettings.getInstance().getBeanUsersInfoSettings().setLogin(tLogin.getInputText());
+        usersInfoSettings.setLogin(tLogin.getInputText());
 
-        UUID uuidUser = GetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
-        GetterControls.getInstance().getBeanSendMessagesCtrl()
-                .sendMessage(DefinesMessages.TypeMessage.CheckOnlineUserReply, uuidUser);
+        UUID uuidUser = usersInfoSettings.getUuid();
+        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.CheckOnlineUserReply, uuidUser);
 
         closeFrameWindow();
         setEnabled(true);
 
-        GetterMainChatUIComponents.getInstance().getBeanMainFrameMainChatUI().openWindow();
+        mainFrameMainChatUI.openWindow();
 
-        Log.write(Log.TypeLog.Info, "Login done.");
+        log.info("Login done.");
     }
 
     public ButtonAuthUI getDefaultButton() {

@@ -1,17 +1,29 @@
 package org.foomaa.jvchat.models;
 
-import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.structobjects.BaseStructObject;
-import org.foomaa.jvchat.structobjects.GetterStructObjects;
-import org.foomaa.jvchat.structobjects.UserStructObject;
-
+import java.util.Objects;
 import java.util.UUID;
 
+import lombok.Builder;
+import lombok.extern.slf4j.Slf4j;
 
+import org.foomaa.jvchat.structobjects.*;
+
+@Slf4j
 public class UsersModel extends BaseModel {
-    UsersModel() {
-        setRootObject(GetterStructObjects.getInstance()
-                .getBeanRootStructObject(getNameModel()));
+    // DI ↓
+    private final UserStructObjectFactory userStructObjectFactory;
+
+    @Builder
+    UsersModel(
+            RootObjectsModel rootObjectsModel,
+            UserStructObjectFactory userStructObjectFactory,
+            RootStructObjectFactory rootStructObjectFactory) {
+        super(
+                Objects.requireNonNull(rootObjectsModel, "rootObjectsModel is mandatory"),
+                Objects.requireNonNull(rootStructObjectFactory, "rootStructObjectFactory is mandatory"));
+
+        this.userStructObjectFactory =
+                Objects.requireNonNull(userStructObjectFactory, "userStructObjectFactory is mandatory");
     }
 
     public void addCreatedUser(UserStructObject userStructObject) {
@@ -25,7 +37,7 @@ public class UsersModel extends BaseModel {
     }
 
     private UserStructObject findUserStructObjectByUuidUser(UUID uuidUser) {
-        for (BaseStructObject baseStructObject: getRootObject().getChildren()) {
+        for (BaseStructObject baseStructObject : getRootObject().getChildren()) {
             UserStructObject userStructObject = (UserStructObject) baseStructObject;
             if (userStructObject != null && userStructObject.getUuid().equals(uuidUser)) {
                 return userStructObject;
@@ -39,9 +51,8 @@ public class UsersModel extends BaseModel {
         UserStructObject userStructObject = findUserStructObjectByUuidUser(uuidUser);
 
         if (userStructObject == null) {
-            Log.write(Log.TypeLog.Warn, "There is no userStructObject with uuid created here, creating...");
-            UserStructObject userChat = GetterStructObjects.getInstance().getBeanUserStructObject();
-            userChat.setUuid(uuidUser);
+            log.warn("There is no userStructObject with uuid created here, creating...");
+            UserStructObject userChat = userStructObjectFactory.create(uuidUser);
             addItem(userChat, getRootObject());
             return userChat;
         }

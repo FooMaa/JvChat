@@ -1,20 +1,35 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
+import javax.swing.*;
+
+import lombok.Builder;
 
 public class MainPanelMainChatUI extends JPanel {
-    private final FindTextFieldMainChatUI findTextField;
+    // DI ↓
     private final ScrollPanelChatsMainChatUI scrollPanelChats;
     private final ScrollPanelMessagesMainChatUI scrollPanelMessages;
+
+    // DI(P) ↓
+    private final FindTextFieldMainChatUI findTextField;
     private final PanelSendingMessageMainChatUI panelSendingMessage;
 
-    MainPanelMainChatUI() {
-        findTextField = GetterMainChatUIComponents.getInstance().getBeanFindTextFieldMainChatUI("Поиск по логину");
-        scrollPanelChats = GetterMainChatUIComponents.getInstance().getBeanScrollPanelChatsMainChatUI();
-        scrollPanelMessages = GetterMainChatUIComponents.getInstance().getBeanScrollPanelMessagesMainChatUI();
-        panelSendingMessage = GetterMainChatUIComponents.getInstance().getBeanPanelSendingMessageMainChatUI();
+    @Builder
+    MainPanelMainChatUI(
+            ScrollPanelChatsMainChatUI scrollPanelChats,
+            ScrollPanelMessagesMainChatUI scrollPanelMessages,
+            PanelSendingMessageMainChatUIFactory panelSendingMessageFactory,
+            FindTextFieldMainChatUIFactory findTextFieldMainChatUIFactory) {
+        Objects.requireNonNull(panelSendingMessageFactory, "panelSendingMessageFactory is mandatory");
+        Objects.requireNonNull(findTextFieldMainChatUIFactory, "findTextFieldMainChatUIFactory is mandatory");
+
+        this.scrollPanelChats = Objects.requireNonNull(scrollPanelChats, "scrollPanelChats is mandatory");
+        this.scrollPanelMessages = Objects.requireNonNull(scrollPanelMessages, "scrollPanelMessages is mandatory");
+
+        findTextField = findTextFieldMainChatUIFactory.create("Find by login");
+        panelSendingMessage = panelSendingMessageFactory.create();
 
         makePanelSetting();
         makePanelTransparent();

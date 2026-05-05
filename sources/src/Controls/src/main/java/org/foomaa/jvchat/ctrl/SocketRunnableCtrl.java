@@ -4,35 +4,52 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Objects;
 
-import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.models.GetterModels;
+import lombok.Builder;
+import lombok.extern.slf4j.Slf4j;
 
+import org.foomaa.jvchat.models.SocketRunnableCtrlModel;
 
-/* NOTE(VAD): here it is done so that the tasks of the server and the user
+/*
+ * NOTE(VAD): here it is done so that the tasks of the server and the user
  * solved by one class. There is a model of all connections SocketRunnableCtrlModel.
  * The main element of the model is SocketRunnableCtrlStructObject,
  * which contains a Runnable field. This field is the object
  * of this SocketRunnableCtrl class.
  */
+@Slf4j
 public class SocketRunnableCtrl implements Runnable {
     private DataOutputStream sendStream;
     private DataInputStream readStream;
     private final int limitErrorsConnection;
     private int errorsConnection;
 
-    SocketRunnableCtrl(Socket socket) {
-        GetterModels.getInstance().getBeanSocketRunnableCtrlModel().createSocketRunnableCtrlStructObject(this);
+    // DI ↓
+    private final NetworkCtrl networkCtrl;
 
+    @Builder
+    SocketRunnableCtrl(NetworkCtrl networkCtrl, SocketRunnableCtrlModel socketRunnableCtrlModel) {
+        Objects.requireNonNull(socketRunnableCtrlModel, "socketRunnableCtrlModel is mandatory");
+
+        this.networkCtrl = Objects.requireNonNull(networkCtrl, "networkCtrl is mandatory");
+
+        socketRunnableCtrlModel.createSocketRunnableCtrlStructObject(this);
+
+        sendStream = null;
+        readStream = null;
+
+        errorsConnection = 0;
+        limitErrorsConnection = 3;
+    }
+
+    public void setSocket(Socket socket) {
         try {
             sendStream = new DataOutputStream(socket.getOutputStream());
             readStream = new DataInputStream(socket.getInputStream());
         } catch (IOException exception) {
-            Log.write(Log.TypeLog.Error, "Error in creating threads for sending and receiving messages.");
+            log.error("Error in creating threads for sending and receiving messages.");
         }
-
-        errorsConnection = 0;
-        limitErrorsConnection = 3;
     }
 
     @Override
@@ -44,12 +61,12 @@ public class SocketRunnableCtrl implements Runnable {
                 if (length > 0) {
                     byte[] message = new byte[length];
                     readStream.readFully(message, 0, message.length);
-                    GetterControls.getInstance().getBeanNetworkCtrl().takeMessage(message, this);
+                    networkCtrl.takeMessage(message, this);
                 }
             }
         } catch (IOException exception) {
             errorsConnection++;
-            Log.write(Log.TypeLog.Error, "Error in network.");
+            log.error("Error in network.");
         }
     }
 
@@ -60,10 +77,9 @@ public class SocketRunnableCtrl implements Runnable {
             sendStream.flush();
         } catch (IOException exception) {
             errorsConnection++;
-            Log.write(Log.TypeLog.Error, "Error in network.");
+            log.error("Error in network.");
         }
     }
-
 
     public boolean isErrorsExceedsLimit() {
         return (errorsConnection >= limitErrorsConnection);

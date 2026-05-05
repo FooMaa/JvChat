@@ -3,28 +3,26 @@ package org.foomaa.jvchat.structobjects;
 import java.lang.reflect.Field;
 import java.util.*;
 
-import org.foomaa.jvchat.logger.Log;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
-
+@Getter
+@Slf4j
 public abstract class BaseStructObject {
     private BaseStructObject parent;
     private List<BaseStructObject> children;
-    private final HashMap<String, Object> properties;
     private UUID uuid;
+    private final HashMap<String, Object> properties;
 
     BaseStructObject() {
-        properties = new HashMap<>();
-        children = new ArrayList<>();
         parent = null;
+        children = new ArrayList<>();
         uuid = UUID.randomUUID();
+        properties = new HashMap<>();
     }
 
     public Object getProperty(String name) {
         return properties.get(name);
-    }
-
-    public BaseStructObject getParent() {
-        return parent;
     }
 
     public void setParent(BaseStructObject newParent) {
@@ -40,10 +38,6 @@ public abstract class BaseStructObject {
 
     public void removeChild(BaseStructObject child) {
         children.remove(child);
-    }
-
-    public List<BaseStructObject> getChildren() {
-        return children;
     }
 
     @Deprecated
@@ -64,7 +58,7 @@ public abstract class BaseStructObject {
                 try {
                     properties.put(field.getName(), field.get(this));
                 } catch (IllegalAccessException exception) {
-                    Log.write(Log.TypeLog.Error,"There's a permissions problem here.");
+                    log.error("There's a permissions problem here.");
                 }
             }
 
@@ -77,9 +71,5 @@ public abstract class BaseStructObject {
             uuid = newUuid;
             commitProperties();
         }
-    }
-
-    public UUID getUuid() {
-        return uuid;
     }
 }

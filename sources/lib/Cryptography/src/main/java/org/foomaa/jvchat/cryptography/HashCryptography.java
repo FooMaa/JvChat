@@ -3,10 +3,12 @@ package org.foomaa.jvchat.cryptography;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import org.foomaa.jvchat.logger.Log;
+import lombok.Builder;
+import lombok.extern.slf4j.Slf4j;
 
-
+@Slf4j
 public class HashCryptography {
+    @Builder
     HashCryptography() {}
 
     public String getHash(String inputString) {
@@ -25,7 +27,7 @@ public class HashCryptography {
             }
             result = hexString.toString();
         } catch (NoSuchAlgorithmException exception) {
-            Log.write(Log.TypeLog.Error, "Error when taking string hash.");
+            throw new IllegalStateException("SHA-256 not available", exception);
         }
         return result;
     }

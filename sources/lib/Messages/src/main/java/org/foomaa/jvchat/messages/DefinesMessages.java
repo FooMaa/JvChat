@@ -1,9 +1,13 @@
 package org.foomaa.jvchat.messages;
 
+import lombok.Builder;
+import lombok.Getter;
 
-public class DefinesMessages {
+public final class DefinesMessages {
+    @Builder
     DefinesMessages() {}
 
+    @Getter
     public enum TypeMessage {
         EntryRequest(0),
         EntryReply(1),
@@ -40,20 +44,14 @@ public class DefinesMessages {
             value = newValue;
         }
 
-        public int getValue() {
-            return value;
-        }
-
         public boolean compare(int i) {
             return value == i;
         }
 
-        public static TypeMessage getTypeMsg(int value)
-        {
+        public static TypeMessage getTypeMsg(int value) {
             TypeMessage[] errors = TypeMessage.values();
             for (TypeMessage error : errors) {
-                if (error.compare(value))
-                    return error;
+                if (error.compare(value)) return error;
             }
             return null;
         }
@@ -87,6 +85,7 @@ public class DefinesMessages {
         StatusMessagesMap,
     }
 
+    @Getter
     public enum TypeErrorRegistration {
         Login(ClientServerSerializeProtocolMessage_pb.RegistrationReply.Error.Login_VALUE),
         Email(ClientServerSerializeProtocolMessage_pb.RegistrationReply.Error.Email_VALUE),
@@ -101,20 +100,14 @@ public class DefinesMessages {
             value = newValue;
         }
 
-        public int getValue() {
-            return value;
-        }
-
         public boolean compare(int i) {
             return value == i;
         }
 
-        public static TypeErrorRegistration getTypeError(int value)
-        {
+        public static TypeErrorRegistration getTypeError(int value) {
             TypeErrorRegistration[] errors = TypeErrorRegistration.values();
             for (TypeErrorRegistration error : errors) {
-                if (error.compare(value))
-                    return error;
+                if (error.compare(value)) return error;
             }
             return TypeErrorRegistration.NoError;
         }

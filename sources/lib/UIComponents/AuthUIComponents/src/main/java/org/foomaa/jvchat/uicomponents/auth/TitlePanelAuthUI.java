@@ -1,12 +1,5 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
-import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.settings.GetterSettings;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -14,15 +7,45 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import javax.swing.border.Border;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+
+import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
+import org.foomaa.jvchat.settings.DisplaySettings;
+
+@Slf4j
 public class TitlePanelAuthUI extends JPanel {
+    @Getter
     private final JButton closeButton;
+
+    @Getter
     private final JButton minimizeButton;
+
     private final JLabel titleLabel;
+
+    // DI ↓
+    private final DisplaySettings displaySettings;
+    private final FontsGlobalDefines fontsGlobalDefines;
+    private final ToolTipAuthUIFactory toolTipAuthUIFactory;
+
+    // DI(P) ↓
     private ToolTipAuthUI toolTipClose;
     private ToolTipAuthUI toolTipMinimize;
 
-    TitlePanelAuthUI() {
+    @Builder
+    TitlePanelAuthUI(
+            DisplaySettings displaySettings,
+            FontsGlobalDefines fontsGlobalDefines,
+            ToolTipAuthUIFactory toolTipAuthUIFactory) {
+        this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
+        this.fontsGlobalDefines = Objects.requireNonNull(fontsGlobalDefines, "fontsGlobalDefines is mandatory");
+        this.toolTipAuthUIFactory = Objects.requireNonNull(toolTipAuthUIFactory, "toolTipAuthUIFactory is mandatory");
+
         closeButton = new JButton() {
             @Override
             public JToolTip createToolTip() {
@@ -46,30 +69,35 @@ public class TitlePanelAuthUI extends JPanel {
     }
 
     public void setTitle(String text) {
-        // It is necessary to give the component the opportunity to first recalculate its size itself
+        // It is necessary to give the component the opportunity to first recalculate
+        // its size itself
         titleLabel.setPreferredSize(null);
         titleLabel.setText(text);
         Dimension currentSize = titleLabel.getPreferredSize();
-        // necessary because the font is custom, and the component may cut the text a little because of this
+        // necessary because the font is custom, and the component may cut the text a
+        // little because of
+        // this
         titleLabel.setPreferredSize(new Dimension(currentSize.width + 2, currentSize.height));
     }
 
     private void setToolTips() {
-        toolTipClose = GetterAuthUIComponents.getInstance().getBeanToolTipAuthUI();
+        toolTipClose = toolTipAuthUIFactory.create();
         closeButton.createToolTip();
         closeButton.setToolTipText("Close");
 
-        toolTipMinimize = GetterAuthUIComponents.getInstance().getBeanToolTipAuthUI();
+        toolTipMinimize = toolTipAuthUIFactory.create();
         minimizeButton.createToolTip();
         minimizeButton.setToolTipText("Minimize");
     }
 
     private void settingButtonImage(JButton button, String imagePathExited, String imagePathEntered) {
         try {
-            BufferedImage imageExited = ImageIO.read(Objects.requireNonNull(getClass().getResource(imagePathExited)));
+            BufferedImage imageExited =
+                    ImageIO.read(Objects.requireNonNull(getClass().getResource(imagePathExited)));
             ImageIcon iconExited = new ImageIcon(imageExited);
 
-            BufferedImage imageEntered = ImageIO.read(Objects.requireNonNull(getClass().getResource(imagePathEntered)));
+            BufferedImage imageEntered =
+                    ImageIO.read(Objects.requireNonNull(getClass().getResource(imagePathEntered)));
             ImageIcon iconEntered = new ImageIcon(imageEntered);
 
             button.setIcon(iconExited);
@@ -87,7 +115,7 @@ public class TitlePanelAuthUI extends JPanel {
                 }
             });
         } catch (IOException ex) {
-            Log.write(Log.TypeLog.Error, "No icon.");
+            log.error("No icon.");
         }
 
         button.setContentAreaFilled(false);
@@ -95,30 +123,20 @@ public class TitlePanelAuthUI extends JPanel {
         button.setFocusPainted(false);
     }
 
-    public JButton getCloseButton() {
-        return closeButton;
-    }
-
-    public JButton getMinimizeButton() {
-        return minimizeButton;
-    }
-
     private void settingTitleLabel() {
         titleLabel.setForeground(Color.LIGHT_GRAY);
         try {
-            int size = GetterSettings.getInstance().getBeanDisplaySettings().getResizeFont(0.0093);
-            Font steticaFont = GetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
-                    .createMainSteticaFont(Font.BOLD, size);
+            int size = displaySettings.getResizeFont(0.0093);
+            Font steticaFont = fontsGlobalDefines.createMainSteticaFont(Font.BOLD, size);
             titleLabel.setFont(steticaFont);
         } catch (IOException | FontFormatException exception) {
-            Log.write(Log.TypeLog.Error, "steticaFont was not created here.");
+            log.error("steticaFont was not created here.");
         }
     }
 
     private void settingPanel() {
         setLayout(new BorderLayout());
-        Border bottomBorder =
-                BorderFactory.createMatteBorder(0, 0, 2, 0, Color.LIGHT_GRAY);
+        Border bottomBorder = BorderFactory.createMatteBorder(0, 0, 2, 0, Color.LIGHT_GRAY);
         setBorder(bottomBorder);
 
         JPanel titlePanel = new JPanel(new GridBagLayout());

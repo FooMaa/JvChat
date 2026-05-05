@@ -1,17 +1,21 @@
 package org.foomaa.jvchat.messages;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
+
+import lombok.Builder;
 
 import org.foomaa.jvchat.globaldefines.DbGlobalDefines;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
-import org.foomaa.jvchat.tools.GetterTools;
-
+import org.foomaa.jvchat.tools.StructTools;
 
 public class SerializatorDataMessages {
-    SerializatorDataMessages() {}
+    // DI ↓
+    private final StructTools structTools;
+
+    @Builder
+    SerializatorDataMessages(StructTools structTools) {
+        this.structTools = Objects.requireNonNull(structTools, "structTools is mandatory");
+    }
 
     public byte[] serialiseData(DefinesMessages.TypeMessage type, Object... parameters) {
         switch (type) {
@@ -19,8 +23,7 @@ public class SerializatorDataMessages {
                 if (parameters.length == 2) {
                     Object login = parameters[0];
                     Object password = parameters[1];
-                    return createEntryRequestMessage(type,
-                            (String) login, (String) password);
+                    return createEntryRequestMessage(type, (String) login, (String) password);
                 }
             }
             case EntryReply -> {
@@ -35,16 +38,15 @@ public class SerializatorDataMessages {
                     Object login = parameters[0];
                     Object email = parameters[1];
                     Object password = parameters[2];
-                    return createRegistrationRequestMessage(type,
-                            (String) login, (String) email, (String) password);
+                    return createRegistrationRequestMessage(type, (String) login, (String) email, (String) password);
                 }
             }
             case RegistrationReply -> {
                 if (parameters.length == 2) {
                     Object reply = parameters[0];
                     Object error = parameters[1];
-                    return createRegistrationReplyMessage(type, (Boolean) reply,
-                            (DefinesMessages.TypeErrorRegistration) error);
+                    return createRegistrationReplyMessage(
+                            type, (Boolean) reply, (DefinesMessages.TypeErrorRegistration) error);
                 }
             }
             case VerifyRegistrationEmailRequest -> {
@@ -53,16 +55,16 @@ public class SerializatorDataMessages {
                     Object email = parameters[1];
                     Object password = parameters[2];
                     Object code = parameters[3];
-                    return createVerifyRegistrationEmailRequestMessage(type,
-                            (String) login, (String) email, (String) password, (String) code);
+                    return createVerifyRegistrationEmailRequestMessage(
+                            type, (String) login, (String) email, (String) password, (String) code);
                 }
             }
             case VerifyRegistrationEmailReply -> {
                 if (parameters.length == 2) {
                     Object reply = parameters[0];
                     Object error = parameters[1];
-                    return createVerifyRegistrationEmailReplyMessage(type, (Boolean) reply,
-                            (DefinesMessages.TypeErrorRegistration) error);
+                    return createVerifyRegistrationEmailReplyMessage(
+                            type, (Boolean) reply, (DefinesMessages.TypeErrorRegistration) error);
                 }
             }
             case ResetPasswordRequest -> {
@@ -113,8 +115,7 @@ public class SerializatorDataMessages {
                 if (parameters.length == 1) {
                     Object chatsInfoObj = parameters[0];
                     List<Map<DbGlobalDefines.LineKeys, String>> chatsInfo =
-                            GetterTools.getInstance().getBeanStructTools()
-                                    .objectInListMaps(chatsInfoObj, DbGlobalDefines.LineKeys.class, String.class);
+                            structTools.objectInListMaps(chatsInfoObj, DbGlobalDefines.LineKeys.class, String.class);
                     return createChatsLoadReplyMessage(type, chatsInfo);
                 }
             }
@@ -133,8 +134,7 @@ public class SerializatorDataMessages {
             case LoadUsersOnlineStatusRequest -> {
                 if (parameters.length == 1) {
                     Object uuidsObject = parameters[0];
-                    List<UUID> uuidsUsers = GetterTools.getInstance()
-                            .getBeanStructTools().checkedCastList(uuidsObject, UUID.class);
+                    List<UUID> uuidsUsers = structTools.checkedCastList(uuidsObject, UUID.class);
                     return createLoadUsersOnlineStatusRequestMessage(type, uuidsUsers);
                 }
             }
@@ -142,10 +142,10 @@ public class SerializatorDataMessages {
                 if (parameters.length == 2) {
                     Object statusesUsersObj = parameters[0];
                     Object lastOnlineTimeUsersObj = parameters[1];
-                    Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> statusesUsersMap = GetterTools.getInstance()
-                            .getBeanStructTools().objectInMap(statusesUsersObj, UUID.class, MainChatsGlobalDefines.TypeStatusOnline.class);
-                    Map<UUID, String> lastOnlineTimeUsers = GetterTools.getInstance()
-                            .getBeanStructTools().objectInMap(lastOnlineTimeUsersObj, UUID.class, String.class);
+                    Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> statusesUsersMap = structTools.objectInMap(
+                            statusesUsersObj, UUID.class, MainChatsGlobalDefines.TypeStatusOnline.class);
+                    Map<UUID, String> lastOnlineTimeUsers =
+                            structTools.objectInMap(lastOnlineTimeUsersObj, UUID.class, String.class);
                     return createLoadUsersOnlineStatusReplyMessage(type, statusesUsersMap, lastOnlineTimeUsers);
                 }
             }
@@ -156,8 +156,13 @@ public class SerializatorDataMessages {
                     Object uuidMessage = parameters[2];
                     Object text = parameters[3];
                     Object timestamp = parameters[4];
-                    return createTextMessageSendUserToServerMessage(type, (UUID) uuidUserSender,
-                            (UUID) uuidUserReceiver, (UUID) uuidMessage, (String) text, (String) timestamp);
+                    return createTextMessageSendUserToServerMessage(
+                            type,
+                            (UUID) uuidUserSender,
+                            (UUID) uuidUserReceiver,
+                            (UUID) uuidMessage,
+                            (String) text,
+                            (String) timestamp);
                 }
             }
             case TextMessageSendUserToServerVerification -> {
@@ -169,8 +174,8 @@ public class SerializatorDataMessages {
             case TextMessagesChangingStatusFromServer -> {
                 if (parameters.length == 1) {
                     Object mapUuidStatus = parameters[0];
-                    Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = GetterTools.getInstance()
-                            .getBeanStructTools().objectInMap(mapUuidStatus, UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
+                    Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = structTools.objectInMap(
+                            mapUuidStatus, UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
                     return createTextMessageChangingStatusFromServerMessage(type, mapStatusesMessages);
                 }
             }
@@ -183,8 +188,8 @@ public class SerializatorDataMessages {
             case TextMessagesChangingStatusFromUser -> {
                 if (parameters.length == 1) {
                     Object mapUuidStatus = parameters[0];
-                    Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = GetterTools.getInstance()
-                            .getBeanStructTools().objectInMap(mapUuidStatus, UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
+                    Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusesMessages = structTools.objectInMap(
+                            mapUuidStatus, UUID.class, MainChatsGlobalDefines.TypeStatusMessage.class);
                     return createTextMessageChangingStatusFromUserMessage(type, mapStatusesMessages);
                 }
             }
@@ -201,8 +206,13 @@ public class SerializatorDataMessages {
                     Object uuidMessage = parameters[2];
                     Object text = parameters[3];
                     Object timestamp = parameters[4];
-                    return createTextMessageRedirectServerToUserMessage(type, (UUID) uuidUserSender,
-                            (UUID) uuidUserReceiver, (UUID) uuidMessage, (String) text, (String) timestamp);
+                    return createTextMessageRedirectServerToUserMessage(
+                            type,
+                            (UUID) uuidUserSender,
+                            (UUID) uuidUserReceiver,
+                            (UUID) uuidMessage,
+                            (String) text,
+                            (String) timestamp);
                 }
             }
             case TextMessageRedirectServerToUserVerification -> {
@@ -222,8 +232,7 @@ public class SerializatorDataMessages {
                 if (parameters.length == 1) {
                     Object messagesInfoObj = parameters[0];
                     List<Map<DbGlobalDefines.LineKeys, String>> messagesInfo =
-                            GetterTools.getInstance().getBeanStructTools()
-                                    .objectInListMaps(messagesInfoObj, DbGlobalDefines.LineKeys.class, String.class);
+                            structTools.objectInListMaps(messagesInfoObj, DbGlobalDefines.LineKeys.class, String.class);
                     return createMessagesLoadReplyMessage(type, messagesInfo);
                 }
             }
@@ -234,167 +243,173 @@ public class SerializatorDataMessages {
     private byte[] createEntryRequestMessage(DefinesMessages.TypeMessage type, String login, String password) {
         ClientServerSerializeProtocolMessage_pb.EntryRequest msgEntryRequest =
                 ClientServerSerializeProtocolMessage_pb.EntryRequest.newBuilder()
-                .setLogin(login)
-                .setPassword(password)
-                .build();
+                        .setLogin(login)
+                        .setPassword(password)
+                        .build();
         ClientServerSerializeProtocolMessage_pb.General resMsg =
                 ClientServerSerializeProtocolMessage_pb.General.newBuilder()
-                .setType(type.getValue())
-                .setEntryRequest(msgEntryRequest)
-                .build();
+                        .setType(type.getValue())
+                        .setEntryRequest(msgEntryRequest)
+                        .build();
         return resMsg.toByteArray();
     }
 
     private byte[] createEntryReplyMessage(DefinesMessages.TypeMessage type, boolean reply, UUID uuidUser) {
         ClientServerSerializeProtocolMessage_pb.EntryReply msgEntryReply =
                 ClientServerSerializeProtocolMessage_pb.EntryReply.newBuilder()
-                .setReply(reply)
-                .setUuidUser(uuidUser.toString())
-                .build();
+                        .setReply(reply)
+                        .setUuidUser(uuidUser.toString())
+                        .build();
         ClientServerSerializeProtocolMessage_pb.General resMsg =
                 ClientServerSerializeProtocolMessage_pb.General.newBuilder()
-                .setType(type.getValue())
-                .setEntryReply(msgEntryReply)
-                .build();
+                        .setType(type.getValue())
+                        .setEntryReply(msgEntryReply)
+                        .build();
         return resMsg.toByteArray();
     }
 
-    private byte[] createRegistrationRequestMessage(DefinesMessages.TypeMessage type, String login, String email, String password) {
+    private byte[] createRegistrationRequestMessage(
+            DefinesMessages.TypeMessage type, String login, String email, String password) {
         ClientServerSerializeProtocolMessage_pb.RegistrationRequest msgRegRequest =
                 ClientServerSerializeProtocolMessage_pb.RegistrationRequest.newBuilder()
-                .setLogin(login)
-                .setEmail(email)
-                .setPassword(password)
-                .build();
+                        .setLogin(login)
+                        .setEmail(email)
+                        .setPassword(password)
+                        .build();
         ClientServerSerializeProtocolMessage_pb.General resMsg =
                 ClientServerSerializeProtocolMessage_pb.General.newBuilder()
-                .setType(type.getValue())
-                .setRegistrationRequest(msgRegRequest)
-                .build();
+                        .setType(type.getValue())
+                        .setRegistrationRequest(msgRegRequest)
+                        .build();
         return resMsg.toByteArray();
     }
 
-    private byte[] createRegistrationReplyMessage(DefinesMessages.TypeMessage type, boolean reply, DefinesMessages.TypeErrorRegistration error) {
+    private byte[] createRegistrationReplyMessage(
+            DefinesMessages.TypeMessage type, boolean reply, DefinesMessages.TypeErrorRegistration error) {
         ClientServerSerializeProtocolMessage_pb.RegistrationReply msgRegReply =
                 ClientServerSerializeProtocolMessage_pb.RegistrationReply.newBuilder()
-                .setReply(reply)
-                .setError(ClientServerSerializeProtocolMessage_pb.RegistrationReply.Error.forNumber(error.getValue()))
-                .build();
+                        .setReply(reply)
+                        .setError(ClientServerSerializeProtocolMessage_pb.RegistrationReply.Error.forNumber(
+                                error.getValue()))
+                        .build();
         ClientServerSerializeProtocolMessage_pb.General resMsg =
                 ClientServerSerializeProtocolMessage_pb.General.newBuilder()
-                .setType(type.getValue())
-                .setRegistrationReply(msgRegReply)
-                .build();
+                        .setType(type.getValue())
+                        .setRegistrationReply(msgRegReply)
+                        .build();
         return resMsg.toByteArray();
     }
 
-    private byte[] createVerifyRegistrationEmailRequestMessage(DefinesMessages.TypeMessage type, String login, String email, String password, String code) {
+    private byte[] createVerifyRegistrationEmailRequestMessage(
+            DefinesMessages.TypeMessage type, String login, String email, String password, String code) {
         ClientServerSerializeProtocolMessage_pb.VerifyRegistrationEmailRequest msgVerifyRegRequest =
                 ClientServerSerializeProtocolMessage_pb.VerifyRegistrationEmailRequest.newBuilder()
-                .setLogin(login)
-                .setEmail(email)
-                .setPassword(password)
-                .setCode(code)
-                .build();
+                        .setLogin(login)
+                        .setEmail(email)
+                        .setPassword(password)
+                        .setCode(code)
+                        .build();
         ClientServerSerializeProtocolMessage_pb.General resMsg =
                 ClientServerSerializeProtocolMessage_pb.General.newBuilder()
-                .setType(type.getValue())
-                .setVerifyRegistrationEmailRequest(msgVerifyRegRequest)
-                .build();
+                        .setType(type.getValue())
+                        .setVerifyRegistrationEmailRequest(msgVerifyRegRequest)
+                        .build();
         return resMsg.toByteArray();
     }
 
-    private byte[] createVerifyRegistrationEmailReplyMessage(DefinesMessages.TypeMessage type, boolean reply, DefinesMessages.TypeErrorRegistration error) {
+    private byte[] createVerifyRegistrationEmailReplyMessage(
+            DefinesMessages.TypeMessage type, boolean reply, DefinesMessages.TypeErrorRegistration error) {
         ClientServerSerializeProtocolMessage_pb.VerifyRegistrationEmailReply msgVerifyRegReply =
                 ClientServerSerializeProtocolMessage_pb.VerifyRegistrationEmailReply.newBuilder()
-                .setReply(reply)
-                .setError(ClientServerSerializeProtocolMessage_pb.VerifyRegistrationEmailReply.Error.forNumber(error.getValue()))
-                .build();
+                        .setReply(reply)
+                        .setError(ClientServerSerializeProtocolMessage_pb.VerifyRegistrationEmailReply.Error.forNumber(
+                                error.getValue()))
+                        .build();
         ClientServerSerializeProtocolMessage_pb.General resMsg =
                 ClientServerSerializeProtocolMessage_pb.General.newBuilder()
-                .setType(type.getValue())
-                .setVerifyRegistrationEmailReply(msgVerifyRegReply)
-                .build();
+                        .setType(type.getValue())
+                        .setVerifyRegistrationEmailReply(msgVerifyRegReply)
+                        .build();
         return resMsg.toByteArray();
     }
 
     private byte[] createResetPasswordRequestMessage(DefinesMessages.TypeMessage type, String email) {
         ClientServerSerializeProtocolMessage_pb.ResetPasswordRequest msgResetRequest =
                 ClientServerSerializeProtocolMessage_pb.ResetPasswordRequest.newBuilder()
-                .setEmail(email)
-                .build();
+                        .setEmail(email)
+                        .build();
         ClientServerSerializeProtocolMessage_pb.General resMsg =
                 ClientServerSerializeProtocolMessage_pb.General.newBuilder()
-                .setType(type.getValue())
-                .setResetPasswordRequest(msgResetRequest)
-                .build();
+                        .setType(type.getValue())
+                        .setResetPasswordRequest(msgResetRequest)
+                        .build();
         return resMsg.toByteArray();
     }
 
     private byte[] createResetPasswordReplyMessage(DefinesMessages.TypeMessage type, boolean reply) {
         ClientServerSerializeProtocolMessage_pb.ResetPasswordReply msgResetReply =
                 ClientServerSerializeProtocolMessage_pb.ResetPasswordReply.newBuilder()
-                .setReply(reply)
-                .build();
+                        .setReply(reply)
+                        .build();
         ClientServerSerializeProtocolMessage_pb.General resMsg =
                 ClientServerSerializeProtocolMessage_pb.General.newBuilder()
-                .setType(type.getValue())
-                .setResetPasswordReply(msgResetReply)
-                .build();
+                        .setType(type.getValue())
+                        .setResetPasswordReply(msgResetReply)
+                        .build();
         return resMsg.toByteArray();
     }
 
     private byte[] createVerifyFamousEmailRequestMessage(DefinesMessages.TypeMessage type, String email, String code) {
         ClientServerSerializeProtocolMessage_pb.VerifyFamousEmailRequest msgVerifyEmailRequest =
                 ClientServerSerializeProtocolMessage_pb.VerifyFamousEmailRequest.newBuilder()
-                .setEmail(email)
-                .setCode(code)
-                .build();
+                        .setEmail(email)
+                        .setCode(code)
+                        .build();
         ClientServerSerializeProtocolMessage_pb.General resMsg =
                 ClientServerSerializeProtocolMessage_pb.General.newBuilder()
-                .setType(type.getValue())
-                .setVerifyFamousEmailRequest(msgVerifyEmailRequest)
-                .build();
+                        .setType(type.getValue())
+                        .setVerifyFamousEmailRequest(msgVerifyEmailRequest)
+                        .build();
         return resMsg.toByteArray();
     }
 
     private byte[] createVerifyFamousEmailReplyMessage(DefinesMessages.TypeMessage type, boolean reply) {
         ClientServerSerializeProtocolMessage_pb.VerifyFamousEmailReply msgVerifyEmailReply =
                 ClientServerSerializeProtocolMessage_pb.VerifyFamousEmailReply.newBuilder()
-                .setReply(reply)
-                .build();
+                        .setReply(reply)
+                        .build();
         ClientServerSerializeProtocolMessage_pb.General resMsg =
                 ClientServerSerializeProtocolMessage_pb.General.newBuilder()
-                .setType(type.getValue())
-                .setVerifyFamousEmailReply(msgVerifyEmailReply)
-                .build();
+                        .setType(type.getValue())
+                        .setVerifyFamousEmailReply(msgVerifyEmailReply)
+                        .build();
         return resMsg.toByteArray();
     }
 
     private byte[] createChangePasswordRequestMessage(DefinesMessages.TypeMessage type, String email, String password) {
         ClientServerSerializeProtocolMessage_pb.ChangePasswordRequest msgChangePasswordRequest =
                 ClientServerSerializeProtocolMessage_pb.ChangePasswordRequest.newBuilder()
-                .setEmail(email)
-                .setPassword(password)
-                .build();
+                        .setEmail(email)
+                        .setPassword(password)
+                        .build();
         ClientServerSerializeProtocolMessage_pb.General resMsg =
                 ClientServerSerializeProtocolMessage_pb.General.newBuilder()
-                .setType(type.getValue())
-                .setChangePasswordRequest(msgChangePasswordRequest)
-                .build();
+                        .setType(type.getValue())
+                        .setChangePasswordRequest(msgChangePasswordRequest)
+                        .build();
         return resMsg.toByteArray();
     }
 
     private byte[] createChangePasswordReplyMessage(DefinesMessages.TypeMessage type, boolean reply) {
         ClientServerSerializeProtocolMessage_pb.ChangePasswordReply msgChangePasswordReply =
                 ClientServerSerializeProtocolMessage_pb.ChangePasswordReply.newBuilder()
-                .setReply(reply)
-                .build();
+                        .setReply(reply)
+                        .build();
         ClientServerSerializeProtocolMessage_pb.General resMsg =
                 ClientServerSerializeProtocolMessage_pb.General.newBuilder()
-                .setType(type.getValue())
-                .setChangePasswordReply(msgChangePasswordReply)
-                .build();
+                        .setType(type.getValue())
+                        .setChangePasswordReply(msgChangePasswordReply)
+                        .build();
         return resMsg.toByteArray();
     }
 
@@ -411,24 +426,26 @@ public class SerializatorDataMessages {
         return resMsg.toByteArray();
     }
 
-    private byte[] createChatsLoadReplyMessage(DefinesMessages.TypeMessage type,
-                                               List<Map<DbGlobalDefines.LineKeys, String>> chatsInfo) {
+    private byte[] createChatsLoadReplyMessage(
+            DefinesMessages.TypeMessage type, List<Map<DbGlobalDefines.LineKeys, String>> chatsInfo) {
         ClientServerSerializeProtocolMessage_pb.ChatsLoadReply.Builder builder =
                 ClientServerSerializeProtocolMessage_pb.ChatsLoadReply.newBuilder();
 
         for (Map<DbGlobalDefines.LineKeys, String> map : chatsInfo) {
-            ClientServerSerializeProtocolMessage_pb.ChatsInfo chatsInfoPart = ClientServerSerializeProtocolMessage_pb.ChatsInfo
-                    .newBuilder()
-                    .setLogin(map.get(DbGlobalDefines.LineKeys.Login))
-                    .setLastMessageText(map.get(DbGlobalDefines.LineKeys.TextMessage))
-                    .setUuidChat(map.get(DbGlobalDefines.LineKeys.UuidChat))
-                    .setUuidUser(map.get(DbGlobalDefines.LineKeys.UuidUser))
-                    .setUuidMessage(map.get(DbGlobalDefines.LineKeys.UuidMessage))
-                    .setIsLoginSentLastMessage(Boolean.parseBoolean(map.get(DbGlobalDefines.LineKeys.IsLoginSentLastMessage)))
-                    .setStatusMessage(ClientServerSerializeProtocolMessage_pb.ChatsInfo.TypeStatusMessage
-                            .forNumber(Integer.parseInt(map.get(DbGlobalDefines.LineKeys.StatusMessage))))
-                    .setDateTimeLastMessage(map.get(DbGlobalDefines.LineKeys.DateTimeMessage))
-                    .build();
+            ClientServerSerializeProtocolMessage_pb.ChatsInfo chatsInfoPart =
+                    ClientServerSerializeProtocolMessage_pb.ChatsInfo.newBuilder()
+                            .setLogin(map.get(DbGlobalDefines.LineKeys.Login))
+                            .setLastMessageText(map.get(DbGlobalDefines.LineKeys.TextMessage))
+                            .setUuidChat(map.get(DbGlobalDefines.LineKeys.UuidChat))
+                            .setUuidUser(map.get(DbGlobalDefines.LineKeys.UuidUser))
+                            .setUuidMessage(map.get(DbGlobalDefines.LineKeys.UuidMessage))
+                            .setIsLoginSentLastMessage(
+                                    Boolean.parseBoolean(map.get(DbGlobalDefines.LineKeys.IsLoginSentLastMessage)))
+                            .setStatusMessage(
+                                    ClientServerSerializeProtocolMessage_pb.ChatsInfo.TypeStatusMessage.forNumber(
+                                            Integer.parseInt(map.get(DbGlobalDefines.LineKeys.StatusMessage))))
+                            .setDateTimeLastMessage(map.get(DbGlobalDefines.LineKeys.DateTimeMessage))
+                            .build();
             builder.addChatsInfo(chatsInfoPart);
         }
 
@@ -476,7 +493,8 @@ public class SerializatorDataMessages {
             builder.addUuidsUsers(uuidUser.toString());
         }
 
-        ClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusRequest msgLoadUsersOnlineStatusRequest = builder.build();
+        ClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusRequest msgLoadUsersOnlineStatusRequest =
+                builder.build();
 
         ClientServerSerializeProtocolMessage_pb.General resMsg =
                 ClientServerSerializeProtocolMessage_pb.General.newBuilder()
@@ -486,15 +504,18 @@ public class SerializatorDataMessages {
         return resMsg.toByteArray();
     }
 
-    private byte[] createLoadUsersOnlineStatusReplyMessage(DefinesMessages.TypeMessage type,
-                                                           Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> statusesUsers,
-                                                           Map<UUID, String> lastOnlineTimeUsers) {
-        Map<String, ClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusReply.StatusOnline> newMapStatusesUsers = new HashMap<>();
+    private byte[] createLoadUsersOnlineStatusReplyMessage(
+            DefinesMessages.TypeMessage type,
+            Map<UUID, MainChatsGlobalDefines.TypeStatusOnline> statusesUsers,
+            Map<UUID, String> lastOnlineTimeUsers) {
+        Map<String, ClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusReply.StatusOnline>
+                newMapStatusesUsers = new HashMap<>();
 
         for (UUID key : statusesUsers.keySet()) {
-            int integerStatus =  statusesUsers.get(key).getValue();
+            int integerStatus = statusesUsers.get(key).getValue();
             ClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusReply.StatusOnline statusMsg =
-                    ClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusReply.StatusOnline.forNumber(integerStatus);
+                    ClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusReply.StatusOnline.forNumber(
+                            integerStatus);
             newMapStatusesUsers.put(key.toString(), statusMsg);
         }
 
@@ -505,8 +526,7 @@ public class SerializatorDataMessages {
         }
 
         ClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusReply msgLoadUsersOnlineStatusReply =
-                ClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusReply
-                        .newBuilder()
+                ClientServerSerializeProtocolMessage_pb.LoadUsersOnlineStatusReply.newBuilder()
                         .putAllMapStatusOnline(newMapStatusesUsers)
                         .putAllMapLastOnlineTime(newMapLastOnlineTimes)
                         .build();
@@ -520,9 +540,13 @@ public class SerializatorDataMessages {
         return resMsg.toByteArray();
     }
 
-    private byte[] createTextMessageSendUserToServerMessage(DefinesMessages.TypeMessage type,
-                                                            UUID uuidUserSender, UUID uuidUserReceiver,
-                                                            UUID uuidMessage, String text, String timestamp) {
+    private byte[] createTextMessageSendUserToServerMessage(
+            DefinesMessages.TypeMessage type,
+            UUID uuidUserSender,
+            UUID uuidUserReceiver,
+            UUID uuidMessage,
+            String text,
+            String timestamp) {
         ClientServerSerializeProtocolMessage_pb.TextMessageInfo messageInfo =
                 ClientServerSerializeProtocolMessage_pb.TextMessageInfo.newBuilder()
                         .setUuidUserSender(uuidUserSender.toString())
@@ -543,7 +567,8 @@ public class SerializatorDataMessages {
         return resMsg.toByteArray();
     }
 
-    private byte[] createTextMessageSendUserToServerVerificationMessage(DefinesMessages.TypeMessage type, boolean reply) {
+    private byte[] createTextMessageSendUserToServerVerificationMessage(
+            DefinesMessages.TypeMessage type, boolean reply) {
         ClientServerSerializeProtocolMessage_pb.TextMessageSendUserToServerVerification msgVerify =
                 ClientServerSerializeProtocolMessage_pb.TextMessageSendUserToServerVerification.newBuilder()
                         .setReply(reply)
@@ -556,21 +581,23 @@ public class SerializatorDataMessages {
         return resMsg.toByteArray();
     }
 
-    private byte[] createTextMessageChangingStatusFromServerMessage(DefinesMessages.TypeMessage type,
-                                                                    Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
-        Map<String, ClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServer.StatusMessage> resultMap =
-                new HashMap<>();
+    private byte[] createTextMessageChangingStatusFromServerMessage(
+            DefinesMessages.TypeMessage type, Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
+        Map<String, ClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServer.StatusMessage>
+                resultMap = new HashMap<>();
         for (UUID uuid : mapStatusMessages.keySet()) {
             int statusInt = mapStatusMessages.get(uuid).getValue();
             ClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServer.StatusMessage statusMsg =
-                    ClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServer.StatusMessage.forNumber(statusInt);
+                    ClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServer.StatusMessage
+                            .forNumber(statusInt);
             resultMap.put(uuid.toString(), statusMsg);
         }
 
-        ClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServer msgTextMessagesChangingStatusFromServer =
-                ClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServer.newBuilder()
-                        .putAllMapStatusMessages(resultMap)
-                        .build();
+        ClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServer
+                msgTextMessagesChangingStatusFromServer =
+                        ClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServer.newBuilder()
+                                .putAllMapStatusMessages(resultMap)
+                                .build();
         ClientServerSerializeProtocolMessage_pb.General resMsg =
                 ClientServerSerializeProtocolMessage_pb.General.newBuilder()
                         .setType(type.getValue())
@@ -579,7 +606,8 @@ public class SerializatorDataMessages {
         return resMsg.toByteArray();
     }
 
-    private byte[] createTextMessagesChangingStatusFromServerVerificationMessage(DefinesMessages.TypeMessage type, boolean reply) {
+    private byte[] createTextMessagesChangingStatusFromServerVerificationMessage(
+            DefinesMessages.TypeMessage type, boolean reply) {
         ClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServerVerification msgVerify =
                 ClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromServerVerification.newBuilder()
                         .setReply(reply)
@@ -592,21 +620,23 @@ public class SerializatorDataMessages {
         return resMsg.toByteArray();
     }
 
-    private byte[] createTextMessageChangingStatusFromUserMessage(DefinesMessages.TypeMessage type,
-                                                                  Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
-        Map<String, ClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromUser.StatusMessage> resultMap =
-                new HashMap<>();
+    private byte[] createTextMessageChangingStatusFromUserMessage(
+            DefinesMessages.TypeMessage type, Map<UUID, MainChatsGlobalDefines.TypeStatusMessage> mapStatusMessages) {
+        Map<String, ClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromUser.StatusMessage>
+                resultMap = new HashMap<>();
         for (UUID uuid : mapStatusMessages.keySet()) {
             int statusInt = mapStatusMessages.get(uuid).getValue();
             ClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromUser.StatusMessage statusMsg =
-                    ClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromUser.StatusMessage.forNumber(statusInt);
+                    ClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromUser.StatusMessage.forNumber(
+                            statusInt);
             resultMap.put(uuid.toString(), statusMsg);
         }
 
-        ClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromUser msgTextMessagesChangingStatusFromUser =
-                ClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromUser.newBuilder()
-                        .putAllMapStatusMessages(resultMap)
-                        .build();
+        ClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromUser
+                msgTextMessagesChangingStatusFromUser =
+                        ClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromUser.newBuilder()
+                                .putAllMapStatusMessages(resultMap)
+                                .build();
         ClientServerSerializeProtocolMessage_pb.General resMsg =
                 ClientServerSerializeProtocolMessage_pb.General.newBuilder()
                         .setType(type.getValue())
@@ -615,7 +645,8 @@ public class SerializatorDataMessages {
         return resMsg.toByteArray();
     }
 
-    private byte[] createTextMessagesChangingStatusFromUserVerificationMessage(DefinesMessages.TypeMessage type, boolean reply) {
+    private byte[] createTextMessagesChangingStatusFromUserVerificationMessage(
+            DefinesMessages.TypeMessage type, boolean reply) {
         ClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromUserVerification msgVerify =
                 ClientServerSerializeProtocolMessage_pb.TextMessagesChangingStatusFromUserVerification.newBuilder()
                         .setReply(reply)
@@ -628,9 +659,13 @@ public class SerializatorDataMessages {
         return resMsg.toByteArray();
     }
 
-    private byte[] createTextMessageRedirectServerToUserMessage(DefinesMessages.TypeMessage type,
-                                                                UUID uuidUserSender, UUID uuidUserReceiver,
-                                                                UUID uuidMessage, String text, String timestamp) {
+    private byte[] createTextMessageRedirectServerToUserMessage(
+            DefinesMessages.TypeMessage type,
+            UUID uuidUserSender,
+            UUID uuidUserReceiver,
+            UUID uuidMessage,
+            String text,
+            String timestamp) {
         ClientServerSerializeProtocolMessage_pb.TextMessageInfo messageInfo =
                 ClientServerSerializeProtocolMessage_pb.TextMessageInfo.newBuilder()
                         .setUuidUserSender(uuidUserSender.toString())
@@ -651,7 +686,8 @@ public class SerializatorDataMessages {
         return resMsg.toByteArray();
     }
 
-    private byte[] createTextMessageRedirectServerToUserVerificationMessage(DefinesMessages.TypeMessage type, boolean reply) {
+    private byte[] createTextMessageRedirectServerToUserVerificationMessage(
+            DefinesMessages.TypeMessage type, boolean reply) {
         ClientServerSerializeProtocolMessage_pb.TextMessageRedirectServerToUserVerification msgVerify =
                 ClientServerSerializeProtocolMessage_pb.TextMessageRedirectServerToUserVerification.newBuilder()
                         .setReply(reply)
@@ -664,8 +700,8 @@ public class SerializatorDataMessages {
         return resMsg.toByteArray();
     }
 
-    private byte[] createMessagesLoadRequestMessage(DefinesMessages.TypeMessage type,
-                                                    UUID uuidChat, int quantityMessages) {
+    private byte[] createMessagesLoadRequestMessage(
+            DefinesMessages.TypeMessage type, UUID uuidChat, int quantityMessages) {
         ClientServerSerializeProtocolMessage_pb.MessagesLoadRequest loadMessagesRequest =
                 ClientServerSerializeProtocolMessage_pb.MessagesLoadRequest.newBuilder()
                         .setUuidChat(uuidChat.toString())
@@ -679,21 +715,21 @@ public class SerializatorDataMessages {
         return resMsg.toByteArray();
     }
 
-    private byte[] createMessagesLoadReplyMessage(DefinesMessages.TypeMessage type,
-                                                  List<Map<DbGlobalDefines.LineKeys, String>> msgInfo) {
+    private byte[] createMessagesLoadReplyMessage(
+            DefinesMessages.TypeMessage type, List<Map<DbGlobalDefines.LineKeys, String>> msgInfo) {
         ClientServerSerializeProtocolMessage_pb.MessagesLoadReply.Builder builder =
                 ClientServerSerializeProtocolMessage_pb.MessagesLoadReply.newBuilder();
 
         for (Map<DbGlobalDefines.LineKeys, String> map : msgInfo) {
-            ClientServerSerializeProtocolMessage_pb.TextMessageInfo msgInfoMap = ClientServerSerializeProtocolMessage_pb.TextMessageInfo
-                    .newBuilder()
-                    .setUuidUserSender(map.get(DbGlobalDefines.LineKeys.UuidSender))
-                    .setUuidUserReceiver(map.get(DbGlobalDefines.LineKeys.UuidReceiver))
-                    .setUuidMessage(map.get(DbGlobalDefines.LineKeys.UuidMessage))
-                    .setStatusMessage(Integer.parseInt(map.get(DbGlobalDefines.LineKeys.StatusMessage)))
-                    .setText(map.get(DbGlobalDefines.LineKeys.TextMessage))
-                    .setTimestamp(map.get(DbGlobalDefines.LineKeys.DateTimeMessage))
-                    .build();
+            ClientServerSerializeProtocolMessage_pb.TextMessageInfo msgInfoMap =
+                    ClientServerSerializeProtocolMessage_pb.TextMessageInfo.newBuilder()
+                            .setUuidUserSender(map.get(DbGlobalDefines.LineKeys.UuidSender))
+                            .setUuidUserReceiver(map.get(DbGlobalDefines.LineKeys.UuidReceiver))
+                            .setUuidMessage(map.get(DbGlobalDefines.LineKeys.UuidMessage))
+                            .setStatusMessage(Integer.parseInt(map.get(DbGlobalDefines.LineKeys.StatusMessage)))
+                            .setText(map.get(DbGlobalDefines.LineKeys.TextMessage))
+                            .setTimestamp(map.get(DbGlobalDefines.LineKeys.DateTimeMessage))
+                            .build();
             builder.addTextMessageInfo(msgInfoMap);
         }
 

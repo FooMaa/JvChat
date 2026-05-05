@@ -7,7 +7,7 @@ dependencies {
     implementation(project(":Network"))
     implementation(project(":DbWorker"))
     implementation(project(":Logger"))
-    implementation(project(":Events"))
+    implementation(project(":Signals"))
     implementation(project(":GlobalDefines"))
     implementation(project(":Tools"))
     implementation(project(":Cryptography"))

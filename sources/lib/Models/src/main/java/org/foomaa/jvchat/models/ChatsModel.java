@@ -3,23 +3,49 @@ package org.foomaa.jvchat.models;
 import java.time.LocalDateTime;
 import java.util.*;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
-import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.settings.GetterSettings;
+import org.foomaa.jvchat.settings.UsersInfoSettings;
 import org.foomaa.jvchat.structobjects.*;
 
-
+@Slf4j
 public class ChatsModel extends BaseModel {
+    @Getter
     private UUID currentActiveChatUuid;
 
-    ChatsModel() {
-        setRootObject(GetterStructObjects.getInstance()
-                .getBeanRootStructObject(getNameModel()));
-        currentActiveChatUuid = null;
-    }
+    // DI ↓
+    private final UsersInfoSettings usersInfoSettings;
+    private final UsersModel usersModel;
+    private final MessageStructObjectFactory messageStructObjectFactory;
+    private final ChatStructObjectFactory chatStructObjectFactory;
+    private final UserStructObjectFactory userStructObjectFactory;
 
-    public UUID getCurrentActiveChatUuid() {
-        return currentActiveChatUuid;
+    @Builder
+    ChatsModel(
+            UsersInfoSettings usersInfoSettings,
+            UsersModel usersModel,
+            RootObjectsModel rootObjectsModel,
+            MessageStructObjectFactory messageStructObjectFactory,
+            ChatStructObjectFactory chatStructObjectFactory,
+            UserStructObjectFactory userStructObjectFactory,
+            RootStructObjectFactory rootStructObjectFactory) {
+        super(
+                Objects.requireNonNull(rootObjectsModel, "rootObjectsModel is mandatory"),
+                Objects.requireNonNull(rootStructObjectFactory, "rootStructObjectFactory is mandatory"));
+
+        this.usersInfoSettings = Objects.requireNonNull(usersInfoSettings, "usersInfoSettings is mandatory");
+        this.usersModel = Objects.requireNonNull(usersModel, "usersModel is mandatory");
+        this.messageStructObjectFactory =
+                Objects.requireNonNull(messageStructObjectFactory, "messageStructObjectFactory is mandatory");
+        this.chatStructObjectFactory =
+                Objects.requireNonNull(chatStructObjectFactory, "chatStructObjectFactory is mandatory");
+        this.userStructObjectFactory =
+                Objects.requireNonNull(userStructObjectFactory, "userStructObjectFactory is mandatory");
+
+        currentActiveChatUuid = null;
     }
 
     public void setCurrentActiveChatUuid(UUID newCurrentActiveChatUuid) {
@@ -28,34 +54,25 @@ public class ChatsModel extends BaseModel {
         }
     }
 
-    public void createNewChat(String login,
-                              UUID uuidUser,
-                              String lastMessageText,
-                              UUID uuidChat,
-                              UUID uuidLastMessage,
-                              Boolean isLoginSentLastMessage,
-                              MainChatsGlobalDefines.TypeStatusMessage statusMessage,
-                              LocalDateTime timestampLastMessage) {
-        UserStructObject userChat = GetterStructObjects.getInstance().getBeanUserStructObject();
-        userChat.setLogin(login);
-        userChat.setUuid(uuidUser);
-        GetterModels.getInstance().getBeanUsersModel().addCreatedUser(userChat);
+    public void createNewChat(
+            String login,
+            UUID uuidUser,
+            String lastMessageText,
+            UUID uuidChat,
+            UUID uuidLastMessage,
+            Boolean isLoginSentLastMessage,
+            MainChatsGlobalDefines.TypeStatusMessage statusMessage,
+            LocalDateTime timestampLastMessage) {
+        UserStructObject userChat = userStructObjectFactory.create(login, uuidUser);
+        usersModel.addCreatedUser(userChat);
 
-        UUID uuidSender = isLoginSentLastMessage ? uuidUser : GetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
-        UUID uuidReceiver = isLoginSentLastMessage ? GetterSettings.getInstance().getBeanUsersInfoSettings().getUuid() : uuidUser;
+        UUID uuidSender = isLoginSentLastMessage ? uuidUser : usersInfoSettings.getUuid();
+        UUID uuidReceiver = isLoginSentLastMessage ? usersInfoSettings.getUuid() : uuidUser;
 
-        MessageStructObject lastMessage = GetterStructObjects.getInstance().getBeanMessageStructObject();
-        lastMessage.setUuidUserSender(uuidSender);
-        lastMessage.setUuidUserReceiver(uuidReceiver);
-        lastMessage.setText(lastMessageText);
-        lastMessage.setStatusMessage(statusMessage);
-        lastMessage.setUuid(uuidLastMessage);
-        lastMessage.setTimestamp(timestampLastMessage);
+        MessageStructObject lastMessage = messageStructObjectFactory.create(
+                uuidSender, uuidReceiver, statusMessage, lastMessageText, timestampLastMessage, uuidLastMessage);
 
-        ChatStructObject chat = GetterStructObjects.getInstance().getBeanChatStructObject();
-        chat.setUserChat(userChat);
-        chat.setLastMessage(lastMessage);
-        chat.setUuid(uuidChat);
+        ChatStructObject chat = chatStructObjectFactory.create(userChat, lastMessage, uuidChat);
 
         addItem(chat, getRootObject());
     }
@@ -63,7 +80,7 @@ public class ChatsModel extends BaseModel {
     public void setOnlineStatusToUser(UUID uuidUser, MainChatsGlobalDefines.TypeStatusOnline statusOnline) {
         ChatStructObject chat = findByUuidUser(uuidUser);
         if (chat == null) {
-            Log.write(Log.TypeLog.Error, "This includes a chat object, which is null.");
+            log.error("This includes a chat object, which is null.");
             return;
         }
         chat.getUserChat().setStatusOnline(statusOnline);
@@ -72,7 +89,7 @@ public class ChatsModel extends BaseModel {
     public void setTimestampLastOnlineToUser(UUID uuidUser, LocalDateTime timestamp) {
         ChatStructObject chat = findByUuidUser(uuidUser);
         if (chat == null) {
-            Log.write(Log.TypeLog.Error, "This includes a chat object, which is null.");
+            log.error("This includes a chat object, which is null.");
             return;
         }
         chat.getUserChat().setTimestampLastOnline(timestamp);
@@ -82,7 +99,7 @@ public class ChatsModel extends BaseModel {
         for (BaseStructObject baseStructObject : getRootObject().getChildren()) {
             ChatStructObject chatStructObject = (ChatStructObject) baseStructObject;
             if (chatStructObject == null) {
-                Log.write(Log.TypeLog.Error, "This includes a chat object, which is null.");
+                log.error("This includes a chat object, which is null.");
                 continue;
             }
             UUID uuidObj = chatStructObject.getUserChat().getUuid();
@@ -100,7 +117,7 @@ public class ChatsModel extends BaseModel {
         for (BaseStructObject baseStructObject : getRootObject().getChildren()) {
             ChatStructObject chatStructObject = (ChatStructObject) baseStructObject;
             if (chatStructObject == null) {
-                Log.write(Log.TypeLog.Error, "This includes the chatStructObject object, which is null.");
+                log.error("This includes the chatStructObject object, which is null.");
                 continue;
             }
             resultList.add(chatStructObject);
@@ -115,7 +132,7 @@ public class ChatsModel extends BaseModel {
 
         for (ChatStructObject chatObject : chatsList) {
             if (chatObject == null) {
-                Log.write(Log.TypeLog.Error, "This includes the chatStructObject object, which is null.");
+                log.error("This includes the chatStructObject object, which is null.");
                 continue;
             }
             resultList.add(chatObject.getUserChat());

@@ -1,23 +1,21 @@
 package org.foomaa.jvchat.network;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import java.util.Date;
+import java.util.Objects;
+import java.util.Properties;
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.*;
-import java.util.Date;
-import java.util.Properties;
 
-import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.settings.GetterSettings;
+import lombok.Builder;
+import lombok.extern.slf4j.Slf4j;
 
+import org.foomaa.jvchat.settings.ServersInfoSettings;
 
-@Component("beanEmailProcessor")
-@Scope("singleton")
-@Profile("servers")
+@Slf4j
 public class EmailProcessor {
     private static Session session;
     private final String host;
@@ -25,10 +23,13 @@ public class EmailProcessor {
     private final String userPassword;
     private final int port = 465;
 
-    private EmailProcessor() {
+    @Builder
+    private EmailProcessor(ServersInfoSettings serversInfoSettings) {
+        Objects.requireNonNull(serversInfoSettings, "serversInfoSettings is mandatory");
+
         host = "smtp.mail.ru";
-        userLogin = GetterSettings.getInstance().getBeanServersInfoSettings().getEmailAddress();
-        userPassword = GetterSettings.getInstance().getBeanServersInfoSettings().getMagicStringEmail();
+        userLogin = serversInfoSettings.getEmailAddress();
+        userPassword = serversInfoSettings.getMagicStringEmail();
 
         Properties props = new Properties();
 
@@ -58,7 +59,7 @@ public class EmailProcessor {
             transport.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
             transport.close();
         } catch (MessagingException exception) {
-            Log.write(Log.TypeLog.Error, "Error sending email.");
+            log.error("Error sending email.");
             return false;
         }
         return true;

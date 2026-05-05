@@ -1,22 +1,34 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
-import org.foomaa.jvchat.ctrl.GetterControls;
+import javax.swing.*;
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
-import org.foomaa.jvchat.events.GetterEvents;
-import org.foomaa.jvchat.logger.Log;
+import org.foomaa.jvchat.ctrl.SendMessagesCtrl;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
-import org.foomaa.jvchat.settings.GetterSettings;
-import org.foomaa.jvchat.tools.GetterTools;
+import org.foomaa.jvchat.signals.Signal;
+import org.foomaa.jvchat.signals.SignalFactory;
+import org.foomaa.jvchat.tools.UsersTools;
 
-
+@Slf4j
 public class RegistrationPanelAuthUI extends JPanel {
+    // DI ↓
+    private final DisplaySettings displaySettings;
+    private final UsersTools usersTools;
+    private final SendMessagesCtrl sendMessagesCtrl;
+    private final MessagesDefinesCtrl messagesDefinesCtrl;
+    private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
+
+    // DI(P) ↓
     private final TextFieldAuthUI tLogin;
     private final TextFieldAuthUI tEmail;
     private final ErrorLabelAuthUI tErrorHelpInfo;
@@ -25,14 +37,48 @@ public class RegistrationPanelAuthUI extends JPanel {
     private final ButtonAuthUI bRegister;
     private final ButtonAuthUI bBack;
 
-    RegistrationPanelAuthUI() {
-        tLogin = GetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Login");
-        tEmail = GetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Email");
-        tErrorHelpInfo = GetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
-        tPassword = GetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Password");
-        tPasswordConfirm = GetterAuthUIComponents.getInstance().getBeanPasswordFieldAuthUI("Confirm password");
-        bRegister = GetterAuthUIComponents.getInstance().getBeanButtonAuthUI("Next");
-        bBack = GetterAuthUIComponents.getInstance().getBeanButtonAuthUI("Back");
+    // Signals ↓
+    @Getter
+    private final Signal<RecordsAuthUI.Regime> changeRegimeWorkBack;
+
+    @Getter
+    private final Signal<RecordsAuthUI.RegimeLoginEmailPassword> changeRegimeWorkNext;
+
+    @Builder
+    RegistrationPanelAuthUI(
+            DisplaySettings displaySettings,
+            UsersTools usersTools,
+            SendMessagesCtrl sendMessagesCtrl,
+            MessagesDefinesCtrl messagesDefinesCtrl,
+            ButtonAuthUIFactory buttonAuthUIFactory,
+            ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
+            PasswordFieldAuthUIFactory passwordFieldAuthUIFactory,
+            TextFieldAuthUIFactory textFieldAuthUIFactory,
+            OptionPaneAuthUIFactory optionPaneAuthUIFactory,
+            SignalFactory signalFactory) {
+        Objects.requireNonNull(buttonAuthUIFactory, "buttonAuthUIFactory is mandatory");
+        Objects.requireNonNull(errorLabelAuthUIFactory, "errorLabelAuthUIFactory is mandatory");
+        Objects.requireNonNull(passwordFieldAuthUIFactory, "passwordFieldAuthUIFactory is mandatory");
+        Objects.requireNonNull(textFieldAuthUIFactory, "textFieldAuthUIFactory is mandatory");
+        Objects.requireNonNull(signalFactory, "signalFactory is mandatory");
+
+        this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
+        this.usersTools = Objects.requireNonNull(usersTools, "usersTools is mandatory");
+        this.sendMessagesCtrl = Objects.requireNonNull(sendMessagesCtrl, "sendMessagesCtrl is mandatory");
+        this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl, "messagesDefinesCtrl is mandatory");
+        this.optionPaneAuthUIFactory =
+                Objects.requireNonNull(optionPaneAuthUIFactory, "optionPaneAuthUIFactory is mandatory");
+
+        this.changeRegimeWorkBack = signalFactory.create();
+        this.changeRegimeWorkNext = signalFactory.create();
+
+        tLogin = textFieldAuthUIFactory.create("Login");
+        tEmail = textFieldAuthUIFactory.create("Email");
+        tErrorHelpInfo = errorLabelAuthUIFactory.create("");
+        tPassword = passwordFieldAuthUIFactory.create("Password");
+        tPasswordConfirm = passwordFieldAuthUIFactory.create("Confirm password");
+        bRegister = buttonAuthUIFactory.create("Next");
+        bBack = buttonAuthUIFactory.create("Back");
 
         settingComponents();
         makePanelSetting();
@@ -60,8 +106,7 @@ public class RegistrationPanelAuthUI extends JPanel {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        int insX = GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.025,
-                        DisplaySettings.TypeOfDisplayBorder.WIDTH);
+        int insX = displaySettings.getResizeFromDisplay(0.025, DisplaySettings.TypeOfDisplayBorder.WIDTH);
         int gridyNum = 0;
 
         gbc.weightx = 1.0;
@@ -69,24 +114,22 @@ public class RegistrationPanelAuthUI extends JPanel {
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.03), insX,
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0045), insX);
+        gbc.insets =
+                new Insets(displaySettings.getResizePixel(0.03), insX, displaySettings.getResizePixel(0.0045), insX);
         gbc.gridy = gridyNum;
         add(tLogin, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX,
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0045), insX);
+        gbc.insets = new Insets(0, insX, displaySettings.getResizePixel(0.0045), insX);
         gbc.gridy = gridyNum;
         add(tEmail, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX,
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0045), insX);
+        gbc.insets = new Insets(0, insX, displaySettings.getResizePixel(0.0045), insX);
         gbc.gridy = gridyNum;
         add(tPassword, gbc);
         gridyNum++;
@@ -100,8 +143,7 @@ public class RegistrationPanelAuthUI extends JPanel {
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX,
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0084), insX);
+        gbc.insets = new Insets(0, insX, displaySettings.getResizePixel(0.0084), insX);
         gbc.gridy = gridyNum;
         add(tErrorHelpInfo, gbc);
         gridyNum++;
@@ -109,23 +151,17 @@ public class RegistrationPanelAuthUI extends JPanel {
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.NORTHWEST;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(0, GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.026),
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017), 0);
-        gbc.ipadx = GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.015,
-                DisplaySettings.TypeOfDisplayBorder.WIDTH);
-        gbc.ipady = GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.004,
-                DisplaySettings.TypeOfDisplayBorder.HEIGHT);
+        gbc.insets = new Insets(0, displaySettings.getResizePixel(0.026), displaySettings.getResizePixel(0.017), 0);
+        gbc.ipadx = displaySettings.getResizeFromDisplay(0.015, DisplaySettings.TypeOfDisplayBorder.WIDTH);
+        gbc.ipady = displaySettings.getResizeFromDisplay(0.004, DisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
         add(bBack, gbc);
 
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.NORTHEAST;
-        gbc.insets = new Insets(0, 0, GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017),
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.026));
-        gbc.ipadx = GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.015,
-                DisplaySettings.TypeOfDisplayBorder.WIDTH);
-        gbc.ipady = GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.004,
-                DisplaySettings.TypeOfDisplayBorder.HEIGHT);
+        gbc.insets = new Insets(0, 0, displaySettings.getResizePixel(0.017), displaySettings.getResizePixel(0.026));
+        gbc.ipadx = displaySettings.getResizeFromDisplay(0.015, DisplaySettings.TypeOfDisplayBorder.WIDTH);
+        gbc.ipady = displaySettings.getResizeFromDisplay(0.004, DisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
         add(bRegister, gbc);
     }
@@ -133,9 +169,11 @@ public class RegistrationPanelAuthUI extends JPanel {
     private void addListenerToElements() {
         bRegister.addActionListener(event -> {
             if (checkFields()) {
-                GetterControls.getInstance()
-                        .getBeanSendMessagesCtrl().sendMessage(DefinesMessages.TypeMessage.RegistrationRequest,
-                        tLogin.getInputText(), tEmail.getInputText(), tPassword.getInputText());
+                sendMessagesCtrl.sendMessage(
+                        DefinesMessages.TypeMessage.RegistrationRequest,
+                        tLogin.getInputText(),
+                        tEmail.getInputText(),
+                        tPassword.getInputText());
                 waitRepeatServer();
             }
         });
@@ -156,8 +194,7 @@ public class RegistrationPanelAuthUI extends JPanel {
             tLogin.setErrorBorder(true);
             fields.add("\"Login\"");
         }
-        if (Objects.equals(tEmail.getInputText(), "") ||
-                !GetterTools.getInstance().getBeanUsersTools().validateInputEmail(tEmail.getInputText())) {
+        if (Objects.equals(tEmail.getInputText(), "") || !usersTools.validateInputEmail(tEmail.getInputText())) {
             tEmail.setErrorBorder(true);
             fields.add("\"Email\"");
         }
@@ -170,9 +207,9 @@ public class RegistrationPanelAuthUI extends JPanel {
             fields.add("\"Confirm password\"");
         }
 
-        if (!Objects.equals(tPassword.getInputText(), "") &&
-                !Objects.equals(tPasswordConfirm.getInputText(), "") &&
-                !Objects.equals(tPassword.getInputText(), tPasswordConfirm.getInputText())) {
+        if (!Objects.equals(tPassword.getInputText(), "")
+                && !Objects.equals(tPasswordConfirm.getInputText(), "")
+                && !Objects.equals(tPassword.getInputText(), tPasswordConfirm.getInputText())) {
             tPassword.setErrorBorder(true);
             tPasswordConfirm.setErrorBorder(true);
             tErrorHelpInfo.setText("The entered passwords must match!");
@@ -200,21 +237,16 @@ public class RegistrationPanelAuthUI extends JPanel {
     }
 
     private void changeRegimeBack() {
-        GetterEvents.getInstance().getBeanMakerEvents().event(
-                this,
-                "changeRegimeWork",
-                DefinesAuthUI.RegimeWorkMainFrame.Auth);
+        changeRegimeWorkBack.emit(new RecordsAuthUI.Regime(DefinesAuthUI.RegimeWorkMainFrame.Auth));
         settingUnfocusFieldsOnChangeRegime();
     }
 
     private void changeRegimeNext() {
-        GetterEvents.getInstance().getBeanMakerEvents().event(
-                this,
-                "changeRegimeWork",
+        changeRegimeWorkNext.emit(new RecordsAuthUI.RegimeLoginEmailPassword(
                 DefinesAuthUI.RegimeWorkMainFrame.VerifyCodeRegistration,
                 tLogin.getInputText(),
                 tEmail.getInputText(),
-                tPassword.getInputText());
+                tPassword.getInputText()));
         settingUnfocusFieldsOnChangeRegime();
     }
 
@@ -227,38 +259,39 @@ public class RegistrationPanelAuthUI extends JPanel {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getRegistrationRequestFlag() ==
-                MessagesDefinesCtrl.TypeFlags.DEFAULT) {
+        while (messagesDefinesCtrl.getRegistrationRequestFlag() == MessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
-                Log.write(Log.TypeLog.Error, "Couldn't wait.");
+                log.error("Couldn't wait.");
             }
         }
-        if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getRegistrationRequestFlag() ==
-                MessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (messagesDefinesCtrl.getRegistrationRequestFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
             changeRegimeNext();
             setEnabled(true);
-        } else if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getRegistrationRequestFlag() ==
-                MessagesDefinesCtrl.TypeFlags.FALSE) {
+        } else if (messagesDefinesCtrl.getRegistrationRequestFlag() == MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
             openErrorPane();
         }
     }
 
     private void openErrorPane() {
-        switch (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getErrorRegistrationFlag()) {
-            case NoError -> GetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("The error is not clear.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case EmailSending -> GetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("The email may be invalid.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case Login -> GetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("This login is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case Email -> GetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("This email is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
-            case LoginAndEmail ->
-                    GetterAuthUIComponents.getInstance()
-                            .getBeanOptionPaneAuthUI("The email and login data are already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
+        switch (messagesDefinesCtrl.getErrorRegistrationFlag()) {
+            case NoError -> optionPaneAuthUIFactory
+                    .create()
+                    .show("The error is not clear.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case EmailSending -> optionPaneAuthUIFactory
+                    .create()
+                    .show("The email may be invalid.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case Login -> optionPaneAuthUIFactory
+                    .create()
+                    .show("This login is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case Email -> optionPaneAuthUIFactory
+                    .create()
+                    .show("This email is already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
+            case LoginAndEmail -> optionPaneAuthUIFactory
+                    .create()
+                    .show("The email and login data are already in use.", OptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 }

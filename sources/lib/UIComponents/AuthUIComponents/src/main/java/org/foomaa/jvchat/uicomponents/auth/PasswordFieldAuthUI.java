@@ -1,23 +1,25 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Objects;
 
-import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
-import org.foomaa.jvchat.logger.Log;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import javax.swing.text.DefaultCaret;
+
+import lombok.Builder;
+import lombok.extern.slf4j.Slf4j;
+
+import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
 import org.foomaa.jvchat.settings.DisplaySettings;
-import org.foomaa.jvchat.settings.GetterSettings;
 
-
+@Slf4j
 public class PasswordFieldAuthUI extends JPanel {
     private final BufferedImage visibleImage;
     private final BufferedImage invisibleImage;
@@ -25,17 +27,32 @@ public class PasswordFieldAuthUI extends JPanel {
     private boolean unLockPass;
     private JPasswordField passwordField;
     private JButton button;
-    private ToolTipAuthUI toolTip;
     private final String textButtonHide;
     private final String textButtonShow;
-    private final String defaultText;
+    private String defaultText;
     private final int borderSize;
     private boolean isErrorBorderActive;
 
-    PasswordFieldAuthUI(String text) {
+    // DI ↓
+    private final DisplaySettings displaySettings;
+    private final FontsGlobalDefines fontsGlobalDefines;
+    private final ToolTipAuthUIFactory toolTipAuthUIFactory;
+
+    // DI(P) ↓
+    private ToolTipAuthUI toolTip;
+
+    @Builder
+    PasswordFieldAuthUI(
+            DisplaySettings displaySettings,
+            FontsGlobalDefines fontsGlobalDefines,
+            ToolTipAuthUIFactory toolTipAuthUIFactory) {
+        this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
+        this.fontsGlobalDefines = Objects.requireNonNull(fontsGlobalDefines, "fontsGlobalDefines is mandatory");
+        this.toolTipAuthUIFactory = Objects.requireNonNull(toolTipAuthUIFactory, "toolTipAuthUIFactory is mandatory");
+
         visibleImage = setIcon("/Eye.png");
         invisibleImage = setIcon("/Eye-close.png");
-        defaultText = text;
+        defaultText = "";
         textButtonShow = "To show password";
         textButtonHide = "To hide password";
         flagEye = false;
@@ -45,6 +62,11 @@ public class PasswordFieldAuthUI extends JPanel {
 
         settingPassAndButtonPanel();
         addListenerToElem();
+    }
+
+    public void setDefaultText(String defaultText) {
+        this.defaultText = defaultText;
+        passwordField.setText(defaultText);
     }
 
     @Override
@@ -68,7 +90,7 @@ public class PasswordFieldAuthUI extends JPanel {
     }
 
     public void setToolTip(String text) {
-        toolTip = GetterAuthUIComponents.getInstance().getBeanToolTipAuthUI();
+        toolTip = toolTipAuthUIFactory.create();
         createToolTip();
         setToolTipText(text);
 
@@ -88,7 +110,7 @@ public class PasswordFieldAuthUI extends JPanel {
         try {
             return ImageIO.read(Objects.requireNonNull(getClass().getResource(path)));
         } catch (IOException ex) {
-            Log.write(Log.TypeLog.Error, "No icon found.");
+            log.error("No icon found.");
         }
         return null;
     }
@@ -195,10 +217,9 @@ public class PasswordFieldAuthUI extends JPanel {
     }
 
     private void settingPassAndButtonPanel() {
-        Dimension dim = new Dimension(GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.23,
-                DisplaySettings.TypeOfDisplayBorder.WIDTH),
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.03,
-                        DisplaySettings.TypeOfDisplayBorder.HEIGHT));
+        Dimension dim = new Dimension(
+                displaySettings.getResizeFromDisplay(0.23, DisplaySettings.TypeOfDisplayBorder.WIDTH),
+                displaySettings.getResizeFromDisplay(0.03, DisplaySettings.TypeOfDisplayBorder.HEIGHT));
         settingButtonImage();
         settingPassField(dim);
         addElements();
@@ -253,8 +274,8 @@ public class PasswordFieldAuthUI extends JPanel {
         caret.setBlinkRate(750);
         passwordField.setCaret(caret);
 
-        Dimension calcNewDim = new Dimension((int) dim.getWidth() -
-                button.getPreferredSize().width, (int) dim.getHeight() - borderSize * 2);
+        Dimension calcNewDim = new Dimension(
+                (int) dim.getWidth() - button.getPreferredSize().width, (int) dim.getHeight() - borderSize * 2);
         passwordField.setPreferredSize(calcNewDim);
         passwordField.setBorder(null);
         passwordField.setText(defaultText);
@@ -266,12 +287,11 @@ public class PasswordFieldAuthUI extends JPanel {
 
     private void setFont() {
         try {
-            int size = GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.015);
-            Font steticaFont = GetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
-                    .createMainSteticaFont(Font.BOLD, size);
+            int size = displaySettings.getResizePixel(0.015);
+            Font steticaFont = fontsGlobalDefines.createMainSteticaFont(Font.BOLD, size);
             passwordField.setFont(steticaFont);
         } catch (IOException | FontFormatException exception) {
-            Log.write(Log.TypeLog.Error, "SteticaFont not created here.");
+            log.error("SteticaFont not created here.");
         }
     }
 

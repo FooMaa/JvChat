@@ -1,31 +1,33 @@
 package org.foomaa.jvchat.network;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.Objects;
 
-import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.settings.GetterSettings;
+import lombok.Builder;
+import lombok.extern.slf4j.Slf4j;
 
+import org.foomaa.jvchat.settings.UsersInfoSettings;
 
-@Component("beanUsersSocket")
-@Scope("singleton")
-@Profile("users")
+@Slf4j
 public class UsersSocket {
     private static Socket socketUsers;
 
-    private UsersSocket() {
-        try {
-            socketUsers = new Socket();
-            socketUsers.connect(new InetSocketAddress(GetterSettings.getInstance().getBeanUsersInfoSettings().getIpRemoteServer(),
-                    GetterSettings.getInstance().getBeanUsersInfoSettings().getPortRemoteServer()), 4000);
-            closeSocketWhenKill();
-        } catch (IOException exception) {
-            Log.write(Log.TypeLog.Error, "No connection.");
-        }
+    // DI ↓
+    private final UsersInfoSettings usersInfoSettings;
+
+    @Builder
+    private UsersSocket(UsersInfoSettings usersInfoSettings) {
+        this.usersInfoSettings = Objects.requireNonNull(usersInfoSettings, "usersInfoSettings is mandatory");
+    }
+
+    public void start() throws IOException {
+        socketUsers = new Socket();
+        socketUsers.connect(
+                new InetSocketAddress(usersInfoSettings.getIpRemoteServer(), usersInfoSettings.getPortRemoteServer()),
+                4000);
+        closeSocketWhenKill();
     }
 
     private void closeSocketWhenKill() {

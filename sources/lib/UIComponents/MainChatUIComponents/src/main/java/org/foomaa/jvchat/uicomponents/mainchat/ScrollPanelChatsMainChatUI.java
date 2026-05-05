@@ -1,7 +1,5 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
@@ -14,25 +12,58 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import org.foomaa.jvchat.ctrl.GetterControls;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+
+import org.foomaa.jvchat.ctrl.ChatsCtrl;
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
-import org.foomaa.jvchat.logger.Log;
+import org.foomaa.jvchat.ctrl.SendMessagesCtrl;
 import org.foomaa.jvchat.messages.DefinesMessages;
-import org.foomaa.jvchat.settings.GetterSettings;
+import org.foomaa.jvchat.settings.UISettings;
+import org.foomaa.jvchat.settings.UsersInfoSettings;
 import org.foomaa.jvchat.structobjects.ChatStructObject;
 import org.foomaa.jvchat.structobjects.UserStructObject;
 
-
+@Slf4j
 public class ScrollPanelChatsMainChatUI extends JPanel {
     private final int intervalMilliSecondsSleepUpdating;
     private final int intervalSecondsWaitLoopUpdate;
+
+    @Getter
     private Box boxComponents;
+
     private final String backgroundPath;
     private final String loadGifPath;
     private JLabel loadGifLabel;
     private RectChatMainChatUI selectedElement;
 
-    ScrollPanelChatsMainChatUI() {
+    // DI ↓
+    private final UsersInfoSettings usersInfoSettings;
+    private final UISettings uiSettings;
+    private final SendMessagesCtrl sendMessagesCtrl;
+    private final MessagesDefinesCtrl messagesDefinesCtrl;
+    private final ChatsCtrl chatsCtrl;
+    private final RectChatMainChatUIFactory rectChatFactory;
+
+    @Builder
+    ScrollPanelChatsMainChatUI(
+            UsersInfoSettings usersInfoSettings,
+            UISettings uiSettings,
+            SendMessagesCtrl sendMessagesCtrl,
+            MessagesDefinesCtrl messagesDefinesCtrl,
+            ChatsCtrl chatsCtrl,
+            RectChatMainChatUIFactory rectChatFactory) {
+        this.usersInfoSettings = Objects.requireNonNull(usersInfoSettings, "usersInfoSettings is mandatory");
+        this.uiSettings = Objects.requireNonNull(uiSettings, "uiSettings is mandatory");
+        this.sendMessagesCtrl = Objects.requireNonNull(sendMessagesCtrl, "sendMessagesCtrl is mandatory");
+        this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl, "messagesDefinesCtrl is mandatory");
+        this.chatsCtrl = Objects.requireNonNull(chatsCtrl, "chatsCtrl is mandatory");
+        this.rectChatFactory = Objects.requireNonNull(rectChatFactory, "rectChatFactory is mandatory");
+
         intervalMilliSecondsSleepUpdating = 30000;
         intervalSecondsWaitLoopUpdate = 5;
         backgroundPath = "/MainChatMainBackground.png";
@@ -46,7 +77,7 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g) ;
+        super.paintComponent(g);
 
         Image img = null;
         try {
@@ -59,7 +90,8 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
     }
 
     private void settingLoadLabel() {
-        loadGifLabel = new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getResource(loadGifPath))));
+        loadGifLabel =
+                new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getResource(loadGifPath))));
         loadGifLabel.setOpaque(false);
         loadGifLabel.setBackground(new Color(0, 0, 0, 0));
     }
@@ -91,7 +123,7 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
     private void makePanel() {
         removeAll();
 
-        setBorder(BorderFactory.createMatteBorder(0,0,0,7, Color.GRAY));
+        setBorder(BorderFactory.createMatteBorder(0, 0, 0, 7, Color.GRAY));
 
         boxComponents = Box.createVerticalBox();
         loadChatsInBox();
@@ -123,7 +155,8 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         gbc.anchor = GridBagConstraints.PAGE_START;
-        gbc.fill = scrollPane.getVerticalScrollBar().isVisible() ? GridBagConstraints.BOTH : GridBagConstraints.HORIZONTAL;
+        gbc.fill =
+                scrollPane.getVerticalScrollBar().isVisible() ? GridBagConstraints.BOTH : GridBagConstraints.HORIZONTAL;
         add(scrollPane, gbc);
 
         revalidate();
@@ -145,7 +178,8 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
         List<ChatStructObject> chatsObjects = getChatsObjects();
 
         for (ChatStructObject chat : chatsObjects) {
-            RectChatMainChatUI component = GetterMainChatUIComponents.getInstance().getBeanRectChatMainChatUI(chat);
+            RectChatMainChatUI component = rectChatFactory.create(chat);
+            component.paintRect();
             boxComponents.add(component);
             connectSelectingElement(component);
         }
@@ -171,31 +205,27 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
 
     private void requestMessagesFromServer() {
         UUID uuidChat = selectedElement.getUuidChat();
-        int quantityMessages = GetterSettings.getInstance().getBeanUISettings().getQuantityMessagesLoad();
+        int quantityMessages = uiSettings.getQuantityMessagesLoad();
 
-        GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
-                DefinesMessages.TypeMessage.MessagesLoadRequest, uuidChat, quantityMessages);
+        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.MessagesLoadRequest, uuidChat, quantityMessages);
     }
 
     private void setRequestChatsToServer() {
-        UUID uuidUser = GetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
-        GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
-                DefinesMessages.TypeMessage.ChatsLoadRequest, uuidUser);
+        UUID uuidUser = usersInfoSettings.getUuid();
+        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.ChatsLoadRequest, uuidUser);
     }
 
     private List<ChatStructObject> getChatsObjects() {
         List<ChatStructObject> chatsStructObjectsList = new ArrayList<>();
-        while (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getChatsLoadReplyFlag() ==
-                MessagesDefinesCtrl.TypeFlags.DEFAULT) {
+        while (messagesDefinesCtrl.getChatsLoadReplyFlag() == MessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
-                Log.write(Log.TypeLog.Error, "Не удалось ждать");
+                log.error("Не удалось ждать");
             }
 
-            if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getChatsLoadReplyFlag() ==
-                    MessagesDefinesCtrl.TypeFlags.TRUE) {
-                chatsStructObjectsList = GetterControls.getInstance().getBeanChatsCtrl().getChatsObjects();
+            if (messagesDefinesCtrl.getChatsLoadReplyFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
+                chatsStructObjectsList = chatsCtrl.getChatsObjects();
             }
         }
 
@@ -217,12 +247,11 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
     private void processUpdatingOnline() {
         sendingUpdateOnlinePackage();
 
-        while (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getLoadUsersOnlineReplyFlag() ==
-                MessagesDefinesCtrl.TypeFlags.DEFAULT) {
+        while (messagesDefinesCtrl.getLoadUsersOnlineReplyFlag() == MessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(intervalSecondsWaitLoopUpdate);
             } catch (InterruptedException exception) {
-                Log.write(Log.TypeLog.Error, "Здесь не удалось выполнить sleep()");
+                log.error("Здесь не удалось выполнить sleep()");
             }
         }
 
@@ -231,32 +260,26 @@ public class ScrollPanelChatsMainChatUI extends JPanel {
         try {
             Thread.sleep(intervalMilliSecondsSleepUpdating);
         } catch (InterruptedException exception) {
-            Log.write(Log.TypeLog.Error, "Здесь не удалось выполнить sleep()");
+            log.error("Здесь не удалось выполнить sleep()");
         }
     }
 
     private void sendingUpdateOnlinePackage() {
-        List<UUID> uuidsUsersChats = GetterControls.getInstance().getBeanChatsCtrl().getUuidsUsersChats();
-        GetterControls.getInstance().getBeanSendMessagesCtrl().sendMessage(
-                DefinesMessages.TypeMessage.LoadUsersOnlineStatusRequest,
-                uuidsUsersChats);
+        List<UUID> uuidsUsersChats = chatsCtrl.getUuidsUsersChats();
+        sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.LoadUsersOnlineStatusRequest, uuidsUsersChats);
     }
 
     private void installingUpdatingDataInRectChats() {
-        for (Component component : boxComponents.getComponents()) {
+        for (java.awt.Component component : boxComponents.getComponents()) {
             RectChatMainChatUI rectChatMainChatUI = (RectChatMainChatUI) component;
 
             UUID uuidUser = rectChatMainChatUI.getUuidUser();
 
-            UserStructObject user = GetterControls.getInstance().getBeanChatsCtrl().getUserObjectsByUuidUser(uuidUser);
-            String lastOnlineString = GetterControls.getInstance().getBeanChatsCtrl().getTimeFormattedLastOnline(user.getTimestampLastOnline());
+            UserStructObject user = chatsCtrl.getUserObjectsByUuidUser(uuidUser);
+            String lastOnlineString = chatsCtrl.getTimeFormattedLastOnline(user.getTimestampLastOnline());
 
             rectChatMainChatUI.setLastOnlineDateTime(lastOnlineString);
             rectChatMainChatUI.setStatusOnline(user.getStatusOnline());
         }
-    }
-
-    public Box getBoxComponents() {
-        return boxComponents;
     }
 }

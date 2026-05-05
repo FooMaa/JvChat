@@ -2,10 +2,14 @@ package org.foomaa.jvchat.globaldefines;
 
 import java.util.Objects;
 
+import lombok.Builder;
+import lombok.Getter;
 
 public class DbGlobalDefines {
+    @Builder
     DbGlobalDefines() {}
 
+    @Getter
     public enum LineKeys {
         Login("login"),
         UuidUser("uuid_user"),
@@ -24,10 +28,6 @@ public class DbGlobalDefines {
 
         LineKeys(String newValue) {
             value = newValue;
-        }
-
-        public String getValue() {
-            return value;
         }
 
         public static LineKeys getTypeLineKey(String value) {

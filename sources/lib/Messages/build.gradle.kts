@@ -1,7 +1,7 @@
 import com.google.protobuf.gradle.*
 
 plugins {
-    id("com.google.protobuf") version "0.9.4"
+    id("com.google.protobuf") version "0.9.6"
 }
 
 group = "org.foomaa.jvchat.messages"
@@ -9,9 +9,9 @@ version = "1.0-SNAPSHOT"
 var protoPath = ""
 
 dependencies {
-    implementation("com.google.protobuf:protobuf-java:3.16.3")
-    implementation("io.grpc:grpc-stub:1.15.1")
-    implementation("io.grpc:grpc-protobuf:1.15.1")
+    implementation("com.google.protobuf:protobuf-java:4.34.1")
+    implementation("io.grpc:grpc-stub:1.80.0")
+    implementation("io.grpc:grpc-protobuf:1.80.0")
     implementation(project(":Logger"))
     implementation(project(":GlobalDefines"))
     implementation(project(":Tools"))
@@ -19,12 +19,12 @@ dependencies {
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:3.16.3"
+        artifact = "com.google.protobuf:protoc:4.34.1"
     }
 
     plugins {
         id("grpc") {
-            artifact = "io.grpc:protoc-gen-grpc-java:1.15.1"
+            artifact = "io.grpc:protoc-gen-grpc-java:1.80.0"
         }
     }
 

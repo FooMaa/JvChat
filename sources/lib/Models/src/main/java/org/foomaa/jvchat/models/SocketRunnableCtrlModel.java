@@ -1,23 +1,33 @@
 package org.foomaa.jvchat.models;
 
-import org.foomaa.jvchat.structobjects.BaseStructObject;
-import org.foomaa.jvchat.structobjects.GetterStructObjects;
-import org.foomaa.jvchat.structobjects.SocketRunnableCtrlStructObject;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+import lombok.Builder;
+
+import org.foomaa.jvchat.structobjects.*;
 
 public class SocketRunnableCtrlModel extends BaseModel {
-    SocketRunnableCtrlModel() {
-        setRootObject(GetterStructObjects.getInstance()
-                .getBeanRootStructObject(getNameModel()));
+    // DI ↓
+    private final SocketRunnableCtrlStructObjectFactory socketRunnableCtrlStructObjectFactory;
+
+    @Builder
+    SocketRunnableCtrlModel(
+            RootObjectsModel rootObjectsModel,
+            SocketRunnableCtrlStructObjectFactory socketRunnableCtrlStructObjectFactory,
+            RootStructObjectFactory rootStructObjectFactory) {
+        super(
+                Objects.requireNonNull(rootObjectsModel, "rootObjectsModel is mandatory"),
+                Objects.requireNonNull(rootStructObjectFactory, "rootStructObjectFactory is mandatory"));
+
+        this.socketRunnableCtrlStructObjectFactory = Objects.requireNonNull(
+                socketRunnableCtrlStructObjectFactory, "socketRunnableCtrlStructObjectFactory is mandatory");
     }
 
     public void createSocketRunnableCtrlStructObject(Runnable socketRunnableCtrl) {
         SocketRunnableCtrlStructObject socketStreamsStructObject =
-                GetterStructObjects.getInstance().getBeanSocketRunnableCtrlStructObject();
-        socketStreamsStructObject.setSocketRunnableCtrl(socketRunnableCtrl);
+                socketRunnableCtrlStructObjectFactory.create(socketRunnableCtrl);
         addItem(socketStreamsStructObject, getRootObject());
     }
 
@@ -25,7 +35,8 @@ public class SocketRunnableCtrlModel extends BaseModel {
         List<SocketRunnableCtrlStructObject> resultList = new ArrayList<>();
 
         for (BaseStructObject baseStructObject : getRootObject().getChildren()) {
-            SocketRunnableCtrlStructObject socketStreamsStructObject = (SocketRunnableCtrlStructObject) baseStructObject;
+            SocketRunnableCtrlStructObject socketStreamsStructObject =
+                    (SocketRunnableCtrlStructObject) baseStructObject;
             resultList.add(socketStreamsStructObject);
         }
 
@@ -33,11 +44,11 @@ public class SocketRunnableCtrlModel extends BaseModel {
     }
 
     private SocketRunnableCtrlStructObject findSocketRunnableCtrlStructObjectByRunnable(Runnable runnable) {
-        for (BaseStructObject baseStructObject: getRootObject().getChildren()) {
+        for (BaseStructObject baseStructObject : getRootObject().getChildren()) {
             SocketRunnableCtrlStructObject socketRunnableCtrlStructObject =
                     (SocketRunnableCtrlStructObject) baseStructObject;
-            if (socketRunnableCtrlStructObject != null &&
-                    socketRunnableCtrlStructObject.getSocketRunnableCtrl() == runnable) {
+            if (socketRunnableCtrlStructObject != null
+                    && socketRunnableCtrlStructObject.getSocketRunnableCtrl() == runnable) {
                 return socketRunnableCtrlStructObject;
             }
         }
@@ -51,8 +62,7 @@ public class SocketRunnableCtrlModel extends BaseModel {
 
         if (socketRunnableCtrlStructObject == null) {
             SocketRunnableCtrlStructObject newSocketRunnableCtrlStructObject =
-                    GetterStructObjects.getInstance().getBeanSocketRunnableCtrlStructObject();
-            newSocketRunnableCtrlStructObject.setSocketRunnableCtrl(runnable);
+                    socketRunnableCtrlStructObjectFactory.create(runnable);
             addItem(newSocketRunnableCtrlStructObject, getRootObject());
             return newSocketRunnableCtrlStructObject;
         }

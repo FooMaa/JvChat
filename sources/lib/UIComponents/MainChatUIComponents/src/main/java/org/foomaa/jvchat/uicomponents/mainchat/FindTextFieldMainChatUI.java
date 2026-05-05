@@ -1,28 +1,40 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Objects;
 
-import org.foomaa.jvchat.logger.Log;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+
+import lombok.Builder;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+
 import org.foomaa.jvchat.settings.DisplaySettings;
-import org.foomaa.jvchat.settings.GetterSettings;
 
-
+@Slf4j
 public class FindTextFieldMainChatUI extends JPanel {
     private final BufferedImage image;
     private JTextField textField;
     private JButton button;
-    private final String defaultText;
+
+    @Setter
+    private String defaultText;
+
     private final int borderSize = 1;
 
-    FindTextFieldMainChatUI(String text) {
+    // DI ↓
+    private final DisplaySettings displaySettings;
+
+    @Builder
+    FindTextFieldMainChatUI(DisplaySettings displaySettings) {
+        this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
+
         image = setIcon();
-        defaultText = text;
+        defaultText = "";
 
         settingTextAndButtonPanel();
         addListenerToElem();
@@ -32,7 +44,7 @@ public class FindTextFieldMainChatUI extends JPanel {
         try {
             return ImageIO.read(Objects.requireNonNull(getClass().getResource("/Magnifier.png")));
         } catch (IOException ex) {
-            Log.write(Log.TypeLog.Error, "Нет иконки глазка");
+            log.error("Нет иконки глазка");
         }
         return null;
     }
@@ -43,8 +55,7 @@ public class FindTextFieldMainChatUI extends JPanel {
         button.setBorder(null);
         button.setEnabled(false);
         button.setFocusPainted(false);
-        button.setPreferredSize(new Dimension(image.getWidth(),
-                image.getHeight()));
+        button.setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
     }
 
     private void addListenerToElem() {
@@ -95,10 +106,9 @@ public class FindTextFieldMainChatUI extends JPanel {
     }
 
     private void settingTextAndButtonPanel() {
-        Dimension dim = new Dimension(GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.23,
-                DisplaySettings.TypeOfDisplayBorder.WIDTH),
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.03,
-                        DisplaySettings.TypeOfDisplayBorder.HEIGHT));
+        Dimension dim = new Dimension(
+                displaySettings.getResizeFromDisplay(0.23, DisplaySettings.TypeOfDisplayBorder.WIDTH),
+                displaySettings.getResizeFromDisplay(0.03, DisplaySettings.TypeOfDisplayBorder.HEIGHT));
         settingButtonImage();
         settingTextField(dim);
         addElements();
@@ -129,14 +139,12 @@ public class FindTextFieldMainChatUI extends JPanel {
 
     private void settingTextField(Dimension dim) {
         textField = new JTextField();
-        Dimension calcNewDim = new Dimension((int) dim.getWidth() -
-                button.getPreferredSize().width,
-                (int) dim.getHeight() - borderSize * 2);
+        Dimension calcNewDim = new Dimension(
+                (int) dim.getWidth() - button.getPreferredSize().width, (int) dim.getHeight() - borderSize * 2);
         textField.setPreferredSize(calcNewDim);
         textField.setBorder(null);
         textField.setText(defaultText);
-        textField.setFont(new Font("Times", Font.BOLD,
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.012)));
+        textField.setFont(new Font("Times", Font.BOLD, displaySettings.getResizePixel(0.012)));
         textField.setForeground(Color.lightGray);
         textField.setFocusable(false);
     }
@@ -149,7 +157,7 @@ public class FindTextFieldMainChatUI extends JPanel {
     }
 
     public void setNormalBorder() {
-        setBorder(BorderFactory.createMatteBorder(borderSize,borderSize,borderSize,7, Color.GRAY));
+        setBorder(BorderFactory.createMatteBorder(borderSize, borderSize, borderSize, 7, Color.GRAY));
     }
 
     public void setUnfocusFieldOnClose(boolean needSaveText) {

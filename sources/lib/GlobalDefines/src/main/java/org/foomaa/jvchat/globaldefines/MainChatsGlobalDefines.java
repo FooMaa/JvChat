@@ -1,8 +1,13 @@
 package org.foomaa.jvchat.globaldefines;
 
+import lombok.Builder;
+import lombok.Getter;
+
 public class MainChatsGlobalDefines {
+    @Builder
     MainChatsGlobalDefines() {}
 
+    @Getter
     public enum TypeStatusMessage {
         Error(0),
         Sent(1),
@@ -13,10 +18,6 @@ public class MainChatsGlobalDefines {
 
         TypeStatusMessage(int newValue) {
             value = newValue;
-        }
-
-        public int getValue() {
-            return value;
         }
 
         @Override
@@ -35,6 +36,7 @@ public class MainChatsGlobalDefines {
         }
     }
 
+    @Getter
     public enum TypeStatusOnline {
         Error(0),
         Offline(1),
@@ -44,10 +46,6 @@ public class MainChatsGlobalDefines {
 
         TypeStatusOnline(int newValue) {
             value = newValue;
-        }
-
-        public int getValue() {
-            return value;
         }
 
         public static TypeStatusOnline getTypeStatusOnline(int value) {

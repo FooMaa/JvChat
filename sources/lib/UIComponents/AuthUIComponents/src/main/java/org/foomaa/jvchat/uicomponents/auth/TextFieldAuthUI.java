@@ -1,32 +1,54 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import javax.swing.*;
-import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.Objects;
 
-import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
-import org.foomaa.jvchat.logger.Log;
+import javax.swing.*;
+import javax.swing.text.DefaultCaret;
+
+import lombok.Builder;
+import lombok.extern.slf4j.Slf4j;
+
+import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
 import org.foomaa.jvchat.settings.DisplaySettings;
-import org.foomaa.jvchat.settings.GetterSettings;
 
-
+@Slf4j
 public class TextFieldAuthUI extends JPanel {
     private JTextField textField;
-    private ToolTipAuthUI toolTip;
-    private final String defaultText;
+    private String defaultText;
     private boolean isErrorBorderActive;
     private final int borderSize;
 
-    TextFieldAuthUI(String text) {
-        defaultText = text;
+    // DI ↓
+    private final DisplaySettings displaySettings;
+    private final FontsGlobalDefines fontsGlobalDefines;
+    private final ToolTipAuthUIFactory toolTipAuthUIFactory;
+
+    // DI(P) ↓
+    private ToolTipAuthUI toolTip;
+
+    @Builder
+    TextFieldAuthUI(
+            DisplaySettings displaySettings,
+            FontsGlobalDefines fontsGlobalDefines,
+            ToolTipAuthUIFactory toolTipAuthUIFactory) {
+        this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
+        this.fontsGlobalDefines = Objects.requireNonNull(fontsGlobalDefines, "fontsGlobalDefines is mandatory");
+        this.toolTipAuthUIFactory = Objects.requireNonNull(toolTipAuthUIFactory, "toolTipAuthUIFactory is mandatory");
+
+        defaultText = "";
         borderSize = 2;
         isErrorBorderActive = false;
 
         settingTextPanel();
         addListenerToElem();
+    }
+
+    public void setDefaultText(String defaultText) {
+        this.defaultText = defaultText;
+        textField.setText(defaultText);
     }
 
     @Override
@@ -50,7 +72,7 @@ public class TextFieldAuthUI extends JPanel {
     }
 
     public void setToolTip(String text) {
-        toolTip = GetterAuthUIComponents.getInstance().getBeanToolTipAuthUI();
+        toolTip = toolTipAuthUIFactory.create();
         createToolTip();
         setToolTipText(text);
 
@@ -103,11 +125,9 @@ public class TextFieldAuthUI extends JPanel {
     }
 
     private void settingTextPanel() {
-        Dimension dim = new Dimension(GetterSettings.getInstance().getBeanDisplaySettings().
-                getResizeFromDisplay(0.23,
-                        DisplaySettings.TypeOfDisplayBorder.WIDTH),
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.03,
-                        DisplaySettings.TypeOfDisplayBorder.HEIGHT));
+        Dimension dim = new Dimension(
+                displaySettings.getResizeFromDisplay(0.23, DisplaySettings.TypeOfDisplayBorder.WIDTH),
+                displaySettings.getResizeFromDisplay(0.03, DisplaySettings.TypeOfDisplayBorder.HEIGHT));
         settingTextField(dim);
         addElements();
         setBackground(textField.getBackground());
@@ -153,8 +173,7 @@ public class TextFieldAuthUI extends JPanel {
         caret.setBlinkRate(750);
         textField.setCaret(caret);
 
-        Dimension calcNewDim = new Dimension((int) dim.getWidth(),
-                (int) dim.getHeight() - borderSize * 2);
+        Dimension calcNewDim = new Dimension((int) dim.getWidth(), (int) dim.getHeight() - borderSize * 2);
         textField.setPreferredSize(calcNewDim);
         textField.setBorder(null);
         textField.setText(defaultText);
@@ -165,12 +184,11 @@ public class TextFieldAuthUI extends JPanel {
 
     private void setFont() {
         try {
-            int size = GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.015);
-            Font steticaFont = GetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
-                    .createMainSteticaFont(Font.BOLD, size);
+            int size = displaySettings.getResizePixel(0.015);
+            Font steticaFont = fontsGlobalDefines.createMainSteticaFont(Font.BOLD, size);
             textField.setFont(steticaFont);
         } catch (IOException | FontFormatException exception) {
-            Log.write(Log.TypeLog.Error, "steticaFont was not created here.");
+            log.error("steticaFont was not created here.");
         }
     }
 

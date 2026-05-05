@@ -1,14 +1,14 @@
 package org.foomaa.jvchat.settings;
 
+import lombok.Builder;
+import lombok.Getter;
 
+@Getter
 public class UISettings {
-    UISettings() {
-        quantityMessagesLoad = 30;
-    }
-
     private final int quantityMessagesLoad;
 
-    public int getQuantityMessagesLoad() {
-        return quantityMessagesLoad;
+    @Builder
+    UISettings() {
+        quantityMessagesLoad = 30;
     }
 }

@@ -1,45 +1,70 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Objects;
 import java.util.UUID;
 
-import org.foomaa.jvchat.ctrl.GetterControls;
-import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.settings.GetterSettings;
+import javax.swing.*;
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+
+import org.foomaa.jvchat.ctrl.ChatsCtrl;
+import org.foomaa.jvchat.ctrl.MessagesDialogCtrl;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
+import org.foomaa.jvchat.settings.DisplaySettings;
+import org.foomaa.jvchat.settings.UsersInfoSettings;
 import org.foomaa.jvchat.structobjects.ChatStructObject;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
 
-
+@Slf4j
 public class RectChatMainChatUI extends JPanel {
-    private final String nickName;
+    private String nickName;
     private String shortLastMessage;
     private UUID lastMessageSender;
     private String timeLastMessage;
     private MainChatsGlobalDefines.TypeStatusMessage statusMessage;
     private MainChatsGlobalDefines.TypeStatusOnline statusOnline;
-    private final UUID uuidChat;
-    private final UUID uuidUser;
+
+    @Getter
+    private UUID uuidChat;
+
+    @Getter
+    private UUID uuidUser;
+
     private String lastOnlineDateTime;
     private final String nameForLabelOnline;
     private final String nameForLabelLastMessage;
     private final String nameForLabelTimeLastMessage;
-
     private boolean flagSelect;
 
-    RectChatMainChatUI(ChatStructObject chatObject) {
-        nickName = chatObject.getUserChat().getLogin();
-        shortLastMessage = chatObject.getLastMessage().getText();
-        lastMessageSender = chatObject.getLastMessage().getUuidUserSender();
-        timeLastMessage = GetterControls.getInstance().getBeanChatsCtrl()
-                .getTimeFormattedLastMessage(chatObject.getLastMessage().getTimestamp());
-        statusMessage = chatObject.getLastMessage().getStatusMessage();
-        uuidChat = chatObject.getUuid();
-        uuidUser = chatObject.getUserChat().getUuid();
+    // DI ↓
+    private final UsersInfoSettings usersInfoSettings;
+    private final DisplaySettings displaySettings;
+    private final MessagesDialogCtrl messagesDialogCtrl;
+    private final ChatsCtrl chatsCtrl;
+
+    @Builder
+    RectChatMainChatUI(
+            UsersInfoSettings usersInfoSettings,
+            DisplaySettings displaySettings,
+            MessagesDialogCtrl messagesDialogCtrl,
+            ChatsCtrl chatsCtrl) {
+        this.usersInfoSettings = Objects.requireNonNull(usersInfoSettings, "usersInfoSettings is mandatory");
+        this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
+        this.messagesDialogCtrl = Objects.requireNonNull(messagesDialogCtrl, "messagesDialogCtrl is mandatory");
+        this.chatsCtrl = Objects.requireNonNull(chatsCtrl, "chatsCtrl is mandatory");
+
+        nickName = "";
+        shortLastMessage = "";
+        lastMessageSender = null;
+
+        statusMessage = MainChatsGlobalDefines.TypeStatusMessage.Error;
+        uuidChat = null;
+        uuidUser = null;
         statusOnline = MainChatsGlobalDefines.TypeStatusOnline.Offline;
         lastOnlineDateTime = "";
         nameForLabelOnline = "onlineLabel";
@@ -48,16 +73,28 @@ public class RectChatMainChatUI extends JPanel {
 
         flagSelect = false;
 
-        makeChatBox();
         addListenerToElements();
     }
 
-    public UUID getUuidUser() {
-        return uuidUser;
+    public void setChatObject(ChatStructObject chatObject) {
+        nickName = chatObject.getUserChat().getLogin();
+        shortLastMessage = chatObject.getLastMessage().getText();
+        lastMessageSender = chatObject.getLastMessage().getUuidUserSender();
+
+        statusMessage = chatObject.getLastMessage().getStatusMessage();
+        uuidChat = chatObject.getUuid();
+        uuidUser = chatObject.getUserChat().getUuid();
+
+        installTimeLastMessage(chatObject);
     }
 
-    public UUID getUuidChat() {
-        return uuidChat;
+    public void paintRect() {
+        makeChatBox();
+    }
+
+    private void installTimeLastMessage(ChatStructObject chatObject) {
+        timeLastMessage = chatsCtrl.getTimeFormattedLastMessage(
+                chatObject.getLastMessage().getTimestamp());
     }
 
     private void makeChatBox() {
@@ -67,8 +104,7 @@ public class RectChatMainChatUI extends JPanel {
         int gridyNum = 0;
 
         JLabel loginLabel = new JLabel(nickName);
-        loginLabel.setFont(new Font("Times", Font.BOLD,
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017)));
+        loginLabel.setFont(new Font("Times", Font.BOLD, displaySettings.getResizePixel(0.017)));
 
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
@@ -80,8 +116,7 @@ public class RectChatMainChatUI extends JPanel {
 
         JLabel statusOnlineLabel = new JLabel(getStatusOnlineText());
         statusOnlineLabel.setName(nameForLabelOnline);
-        statusOnlineLabel.setFont(new Font("Times", Font.PLAIN,
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
+        statusOnlineLabel.setFont(new Font("Times", Font.PLAIN, displaySettings.getResizePixel(0.014)));
         statusOnlineLabel.setForeground(getStatusOnlineColor());
 
         gbc.weightx = 1.0;
@@ -97,8 +132,8 @@ public class RectChatMainChatUI extends JPanel {
         boolean isBoldMessage = isBoldMessageByStatus();
         JLabel lastMessageLabel = new JLabel(createLastMessageString());
         lastMessageLabel.setName(nameForLabelLastMessage);
-        lastMessageLabel.setFont(new Font("Times", (isBoldMessage ? Font.BOLD : Font.PLAIN),
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
+        lastMessageLabel.setFont(
+                new Font("Times", (isBoldMessage ? Font.BOLD : Font.PLAIN), displaySettings.getResizePixel(0.014)));
 
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
@@ -110,8 +145,8 @@ public class RectChatMainChatUI extends JPanel {
 
         JLabel timeLastMessageLabel = new JLabel(timeLastMessage);
         timeLastMessageLabel.setName(nameForLabelTimeLastMessage);
-        timeLastMessageLabel.setFont(new Font("Times", (isBoldMessage ? Font.BOLD : Font.PLAIN),
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
+        timeLastMessageLabel.setFont(
+                new Font("Times", (isBoldMessage ? Font.BOLD : Font.PLAIN), displaySettings.getResizePixel(0.014)));
 
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
@@ -131,12 +166,12 @@ public class RectChatMainChatUI extends JPanel {
         if (flagSelect) {
             setBackground(new Color(246, 230, 125));
         } else {
-            setBackground(new Color(181,252,250));
+            setBackground(new Color(181, 252, 250));
         }
     }
 
     private boolean isBoldMessageByStatus() {
-        UUID currentUuid = GetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
+        UUID currentUuid = usersInfoSettings.getUuid();
 
         if (lastMessageSender.equals(currentUuid)) {
             return false;
@@ -146,7 +181,7 @@ public class RectChatMainChatUI extends JPanel {
     }
 
     private String createLastMessageString() {
-        UUID currentUuid = GetterSettings.getInstance().getBeanUsersInfoSettings().getUuid();
+        UUID currentUuid = usersInfoSettings.getUuid();
 
         if (lastMessageSender.equals(currentUuid)) {
             return "Вы: " + shortLastMessage;
@@ -166,7 +201,7 @@ public class RectChatMainChatUI extends JPanel {
         JLabel statusOnlineLabel = (JLabel) findComponentStatusOnline();
 
         if (statusOnlineLabel == null) {
-            Log.write(Log.TypeLog.Error, "Здесь nickNameLabel оказался null");
+            log.error("Здесь nickNameLabel оказался null");
             return;
         }
 
@@ -174,20 +209,20 @@ public class RectChatMainChatUI extends JPanel {
         statusOnlineLabel.setForeground(getStatusOnlineColor());
     }
 
-    private Component findComponentStatusOnline() {
+    private java.awt.Component findComponentStatusOnline() {
         return findComponentByName(nameForLabelOnline);
     }
 
-    private Component findComponentLastMessage() {
+    private java.awt.Component findComponentLastMessage() {
         return findComponentByName(nameForLabelLastMessage);
     }
 
-    private Component findComponentTimeLastMessage() {
+    private java.awt.Component findComponentTimeLastMessage() {
         return findComponentByName(nameForLabelTimeLastMessage);
     }
 
-    private Component findComponentByName(String nameComponent) {
-        for (Component component : getComponents()) {
+    private java.awt.Component findComponentByName(String nameComponent) {
+        for (java.awt.Component component : getComponents()) {
             if (Objects.equals(component.getName(), nameComponent)) {
                 return component;
             }
@@ -204,10 +239,10 @@ public class RectChatMainChatUI extends JPanel {
     private Color getStatusOnlineColor() {
         switch (statusOnline) {
             case Error -> {
-                return new Color(254,50,50);
+                return new Color(254, 50, 50);
             }
             case Offline -> {
-                return new Color(0,0,0);
+                return new Color(0, 0, 0);
             }
             case Online -> {
                 return new Color(14, 114, 14);
@@ -238,8 +273,7 @@ public class RectChatMainChatUI extends JPanel {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                GetterControls.getInstance().getBeanMessagesDialogCtrl()
-                        .setCurrentActiveChatUuid(uuidChat);
+                messagesDialogCtrl.setCurrentActiveChatUuid(uuidChat);
             }
         });
     }
@@ -252,14 +286,13 @@ public class RectChatMainChatUI extends JPanel {
     }
 
     private void setBoldToLabelConditionally(JLabel label, boolean isBold) {
-        label.setFont(new Font("Times", (isBold ? Font.BOLD : Font.PLAIN),
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
+        label.setFont(new Font("Times", (isBold ? Font.BOLD : Font.PLAIN), displaySettings.getResizePixel(0.014)));
     }
 
     public void updateLastMessage(MessageStructObject message) {
         shortLastMessage = message.getText();
-        timeLastMessage = GetterControls.getInstance().getBeanChatsCtrl()
-                .getTimeFormattedLastMessage(message.getTimestamp());
+
+        timeLastMessage = chatsCtrl.getTimeFormattedLastMessage(message.getTimestamp());
         lastMessageSender = message.getUuidUserSender();
         statusMessage = message.getStatusMessage();
 

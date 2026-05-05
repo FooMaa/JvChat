@@ -1,7 +1,5 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -9,23 +7,33 @@ import java.awt.geom.RoundRectangle2D;
 import java.io.IOException;
 import java.util.Objects;
 
-import org.foomaa.jvchat.settings.DisplaySettings;
-import org.foomaa.jvchat.settings.GetterSettings;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
+import lombok.Builder;
+
+import org.foomaa.jvchat.settings.DisplaySettings;
 
 public class MainFrameMainChatUI extends JFrame {
     private final String backgroundPath;
     private final String loadGifPath;
     private JPanel backgroundPanel;
     private JLabel loadGifLabel;
+
+    // DI ↓
     private final TitlePanelMainChatUI titlePanel;
     private final MainPanelMainChatUI mainPanel;
+    private final DisplaySettings displaySettings;
 
-    MainFrameMainChatUI() {
+    @Builder
+    MainFrameMainChatUI(
+            DisplaySettings displaySettings, TitlePanelMainChatUI titlePanel, MainPanelMainChatUI mainPanel) {
         super("MainChatWindow");
 
-        mainPanel = GetterMainChatUIComponents.getInstance().getBeanMainPanelMainChatUI();
-        titlePanel = GetterMainChatUIComponents.getInstance().getBeanTitlePanelMainChatUI();
+        this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
+        this.titlePanel = Objects.requireNonNull(titlePanel, "titlePanel is mandatory");
+        this.mainPanel = Objects.requireNonNull(mainPanel, "mainPanel is mandatory");
+
         backgroundPath = "/MainChatMainBackground.png";
         loadGifPath = "/Load.gif";
 
@@ -42,7 +50,7 @@ public class MainFrameMainChatUI extends JFrame {
         backgroundPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
-                super.paintComponent(g) ;
+                super.paintComponent(g);
 
                 Image img = null;
                 try {
@@ -59,7 +67,8 @@ public class MainFrameMainChatUI extends JFrame {
     }
 
     private void settingLoadLabel() {
-        loadGifLabel = new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getResource(loadGifPath))));
+        loadGifLabel =
+                new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getResource(loadGifPath))));
         loadGifLabel.setOpaque(false);
         loadGifLabel.setBackground(new Color(0, 0, 0, 0));
     }
@@ -113,14 +122,13 @@ public class MainFrameMainChatUI extends JFrame {
         setUndecorated(true);
         pack();
 
-        setSize(GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.585,
-                        DisplaySettings.TypeOfDisplayBorder.WIDTH),
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.5625,
-                        DisplaySettings.TypeOfDisplayBorder.HEIGHT));
+        setSize(
+                displaySettings.getResizeFromDisplay(0.585, DisplaySettings.TypeOfDisplayBorder.WIDTH),
+                displaySettings.getResizeFromDisplay(0.5625, DisplaySettings.TypeOfDisplayBorder.HEIGHT));
 
-        Dimension minSiseDimension = new Dimension(GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.43,
-                DisplaySettings.TypeOfDisplayBorder.WIDTH), GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.28,
-                DisplaySettings.TypeOfDisplayBorder.HEIGHT));
+        Dimension minSiseDimension = new Dimension(
+                displaySettings.getResizeFromDisplay(0.43, DisplaySettings.TypeOfDisplayBorder.WIDTH),
+                displaySettings.getResizeFromDisplay(0.28, DisplaySettings.TypeOfDisplayBorder.HEIGHT));
         setMinimumSize(minSiseDimension);
 
         setResizable(true);

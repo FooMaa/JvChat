@@ -1,24 +1,42 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import org.foomaa.jvchat.ctrl.GetterControls;
-import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
-import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.structobjects.MessageStructObject;
-
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
+import javax.swing.*;
 
+import lombok.Builder;
+import lombok.extern.slf4j.Slf4j;
+
+import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
+import org.foomaa.jvchat.ctrl.MessagesDialogCtrl;
+import org.foomaa.jvchat.structobjects.MessageStructObject;
+
+@Slf4j
 public class ScrollPanelMessagesMainChatUI extends JPanel {
     private final int intervalMilliSecondsSleepUpdating;
     private JScrollPane scrollPane;
     private JPanel panel;
 
-    ScrollPanelMessagesMainChatUI() {
+    // DI ↓
+    private final MessagesDefinesCtrl messagesDefinesCtrl;
+    private final MessagesDialogCtrl messagesDialogCtrl;
+    private final RectMessageMainChatUIFactory rectMessageMainChatUIFactory;
+
+    @Builder
+    ScrollPanelMessagesMainChatUI(
+            MessagesDefinesCtrl messagesDefinesCtrl,
+            MessagesDialogCtrl messagesDialogCtrl,
+            RectMessageMainChatUIFactory rectMessageMainChatUIFactory) {
+        this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl, "messagesDefinesCtrl is mandatory");
+        this.messagesDialogCtrl = Objects.requireNonNull(messagesDialogCtrl, "messagesDialogCtrl is mandatory");
+        this.rectMessageMainChatUIFactory =
+                Objects.requireNonNull(rectMessageMainChatUIFactory, "rectMessageMainChatUIFactory is mandatory");
+
         intervalMilliSecondsSleepUpdating = 500;
 
         makePanel();
@@ -68,7 +86,7 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
             public void componentHidden(ComponentEvent e) {
                 changeScrollPane();
             }
-       });
+        });
     }
 
     private void changeScrollPane() {
@@ -79,7 +97,8 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
         gbc.gridy = 0;
         gbc.weightx = 0.5;
         gbc.weighty = 1.0;
-        gbc.fill = scrollPane.getVerticalScrollBar().isVisible() ? GridBagConstraints.BOTH : GridBagConstraints.HORIZONTAL;
+        gbc.fill =
+                scrollPane.getVerticalScrollBar().isVisible() ? GridBagConstraints.BOTH : GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.SOUTH;
         add(scrollPane, gbc);
 
@@ -93,7 +112,7 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
 
         // NOTE(VAD): надо для того, чтоб компоненты не растягивались
         JPanel tmpPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-        tmpPanel.add(GetterMainChatUIComponents.getInstance().getBeanRectMessageMainChatUI(messageObject));
+        tmpPanel.add(rectMessageMainChatUIFactory.create(messageObject));
 
         rowPanel.add(tmpPanel, constraints);
 
@@ -115,8 +134,8 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
     }
 
     public void addMessage(MessageStructObject messageObject) {
-        String constraints = GetterControls.getInstance().getBeanMessagesDialogCtrl().isCurrentUserSender(messageObject) ?
-                BorderLayout.EAST : BorderLayout.WEST;
+        String constraints =
+                messagesDialogCtrl.isCurrentUserSender(messageObject) ? BorderLayout.EAST : BorderLayout.WEST;
         createPanelMessage(messageObject, constraints);
         updatePanelMessages();
     }
@@ -134,58 +153,54 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
     }
 
     private void processUpdatingMessages() {
-        if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getTextMessagesLoadReplyFlag() ==
-                MessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (messagesDefinesCtrl.getTextMessagesLoadReplyFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
             changeAllMessages();
         }
-        if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getTextMessageRedirectServerToUserFlag() ==
-                MessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (messagesDefinesCtrl.getTextMessageRedirectServerToUserFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
             addRedirectMessage();
         }
-        if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getTextMessagesChangingStatusFromServerFlag() ==
-                MessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (messagesDefinesCtrl.getTextMessagesChangingStatusFromServerFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
             changeStatusMessage();
         }
 
         try {
             Thread.sleep(intervalMilliSecondsSleepUpdating);
         } catch (InterruptedException exception) {
-            Log.write(Log.TypeLog.Error, "Здесь не удалось выполнить sleep()");
+            log.error("Здесь не удалось выполнить sleep()");
         }
     }
 
     private void changeAllMessages() {
         panel.removeAll();
 
-        List<MessageStructObject> allMessagesObjSorted = GetterControls.getInstance().getBeanMessagesDialogCtrl().getAllSortedMessages();
+        List<MessageStructObject> allMessagesObjSorted = messagesDialogCtrl.getAllSortedMessages();
         for (MessageStructObject messageStructObject : allMessagesObjSorted) {
             addMessage(messageStructObject);
         }
 
-        GetterControls.getInstance().getBeanMessagesDefinesCtrl().setTextMessagesLoadReplyFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
+        messagesDefinesCtrl.setTextMessagesLoadReplyFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
     }
 
     private void addRedirectMessage() {
-        List<MessageStructObject> allMessagesObjSorted = GetterControls.getInstance().getBeanMessagesDialogCtrl().getAllSortedMessages();
-        UUID currentPanelUuid = GetterControls.getInstance().getBeanMessagesDialogCtrl().getCurrentActiveChatUuid();
+        List<MessageStructObject> allMessagesObjSorted = messagesDialogCtrl.getAllSortedMessages();
+        UUID currentPanelUuid = messagesDialogCtrl.getCurrentActiveChatUuid();
 
         for (MessageStructObject messageStructObject : allMessagesObjSorted) {
-            UUID uuidChat = GetterControls.getInstance().getBeanMessagesDialogCtrl()
-                    .findUuidChatByUuidUser(messageStructObject.getUuidUserSender());
-            if (findRectMessageByUuid(panel, messageStructObject.getUuid()) == null &&
-                    uuidChat != null &&
-                    uuidChat.equals(currentPanelUuid)) {
+            UUID uuidChat = messagesDialogCtrl.findUuidChatByUuidUser(messageStructObject.getUuidUserSender());
+            if (findRectMessageByUuid(panel, messageStructObject.getUuid()) == null
+                    && uuidChat != null
+                    && uuidChat.equals(currentPanelUuid)) {
                 addMessage(messageStructObject);
             }
         }
 
-        GetterControls.getInstance().getBeanMessagesDefinesCtrl().setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
+        messagesDefinesCtrl.setTextMessageRedirectServerToUserFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
     }
 
     private RectMessageMainChatUI findRectMessageByUuid(JPanel panelMsg, UUID uuid) {
-        Component[] components = panelMsg.getComponents();
+        java.awt.Component[] components = panelMsg.getComponents();
 
-        for (Component component : components) {
+        for (java.awt.Component component : components) {
             if (component instanceof RectMessageMainChatUI rectMessage) {
                 if (rectMessage.getUuid().equals(uuid)) {
                     return rectMessage;
@@ -202,7 +217,7 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
     }
 
     private void changeStatusMessage() {
-        List<MessageStructObject> allMessagesObjSorted = GetterControls.getInstance().getBeanMessagesDialogCtrl().getAllSortedMessages();
+        List<MessageStructObject> allMessagesObjSorted = messagesDialogCtrl.getAllSortedMessages();
 
         for (MessageStructObject messageStructObject : allMessagesObjSorted) {
             RectMessageMainChatUI rectMessage = findRectMessageByUuid(panel, messageStructObject.getUuid());
@@ -211,7 +226,6 @@ public class ScrollPanelMessagesMainChatUI extends JPanel {
             }
         }
 
-        GetterControls.getInstance().getBeanMessagesDefinesCtrl()
-                .setTextMessagesChangingStatusFromServerFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
+        messagesDefinesCtrl.setTextMessagesChangingStatusFromServerFlag(MessagesDefinesCtrl.TypeFlags.DEFAULT);
     }
 }

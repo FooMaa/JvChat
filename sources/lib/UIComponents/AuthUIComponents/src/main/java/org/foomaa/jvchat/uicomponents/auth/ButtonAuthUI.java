@@ -1,20 +1,37 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
-import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.settings.GetterSettings;
-
-import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.io.IOException;
+import java.util.Objects;
 
+import javax.swing.*;
 
+import lombok.Builder;
+import lombok.extern.slf4j.Slf4j;
+
+import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
+import org.foomaa.jvchat.settings.DisplaySettings;
+
+@Slf4j
 public class ButtonAuthUI extends JButton {
+    // DI ↓
+    private final DisplaySettings displaySettings;
+    private final FontsGlobalDefines fontsGlobalDefines;
+    private final ToolTipAuthUIFactory toolTipAuthUIFactory;
+
+    // DI(P) ↓
     private ToolTipAuthUI toolTip;
 
-    ButtonAuthUI(String text) {
-        setText(text);
+    @Builder
+    ButtonAuthUI(
+            DisplaySettings displaySettings,
+            FontsGlobalDefines fontsGlobalDefines,
+            ToolTipAuthUIFactory toolTipAuthUIFactory) {
+        this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
+        this.fontsGlobalDefines = Objects.requireNonNull(fontsGlobalDefines, "fontsGlobalDefines is mandatory");
+        this.toolTipAuthUIFactory = Objects.requireNonNull(toolTipAuthUIFactory, "toolTipAuthUIFactory is mandatory");
+
         setBackground(Color.WHITE);
         setFocusable(false);
         addListenerToElements();
@@ -22,7 +39,7 @@ public class ButtonAuthUI extends JButton {
     }
 
     public void setToolTip(String text) {
-        toolTip = GetterAuthUIComponents.getInstance().getBeanToolTipAuthUI();
+        toolTip = toolTipAuthUIFactory.create();
         createToolTip();
         setToolTipText(text);
     }
@@ -42,16 +59,14 @@ public class ButtonAuthUI extends JButton {
             g.setColor(getBackground());
         }
         Graphics2D g2 = (Graphics2D) g;
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.fill(new RoundRectangle2D.Float(0, 0, getWidth() - 1, getHeight() - 1, 15, 15));
         g2.setColor(getForeground());
         super.paintComponent(g);
     }
 
     @Override
-    public void setContentAreaFilled(boolean b) {
-    }
+    public void setContentAreaFilled(boolean b) {}
 
     @Override
     public boolean isContentAreaFilled() {
@@ -77,12 +92,11 @@ public class ButtonAuthUI extends JButton {
 
     private void setFont() {
         try {
-            int size = GetterSettings.getInstance().getBeanDisplaySettings().getResizeFont(0.008);
-            Font steticaFont = GetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
-                    .createMainSteticaFont(Font.PLAIN, size);
+            int size = displaySettings.getResizeFont(0.008);
+            Font steticaFont = fontsGlobalDefines.createMainSteticaFont(Font.PLAIN, size);
             setFont(steticaFont);
         } catch (IOException | FontFormatException exception) {
-            Log.write(Log.TypeLog.Error, "SteticaFont not created here.");
+            log.error("SteticaFont not created here.");
         }
     }
 }

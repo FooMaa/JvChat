@@ -1,7 +1,9 @@
 package org.foomaa.jvchat.settings;
 
+import lombok.Builder;
 
 public class MainSettings {
+    @Builder
     MainSettings() {}
 
     public enum TypeProfiles {

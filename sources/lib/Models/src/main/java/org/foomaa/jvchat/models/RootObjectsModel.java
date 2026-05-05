@@ -1,11 +1,14 @@
 package org.foomaa.jvchat.models;
 
-import org.foomaa.jvchat.structobjects.GetterStructObjects;
+import java.util.Objects;
 
+import lombok.Builder;
+
+import org.foomaa.jvchat.structobjects.RootStructObjectFactory;
 
 public class RootObjectsModel extends BaseModel {
-    RootObjectsModel() {
-        setRootObject(GetterStructObjects.getInstance()
-                .getBeanRootStructObject(getNameModel()));
+    @Builder
+    RootObjectsModel(RootStructObjectFactory rootStructObjectFactory) {
+        super(null, Objects.requireNonNull(rootStructObjectFactory, "rootStructObjectFactory is mandatory"));
     }
 }

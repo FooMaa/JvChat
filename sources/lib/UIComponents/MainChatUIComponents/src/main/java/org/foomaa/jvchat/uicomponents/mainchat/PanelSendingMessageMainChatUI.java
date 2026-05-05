@@ -1,22 +1,49 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 import java.util.UUID;
 
-import org.foomaa.jvchat.ctrl.GetterControls;
-import org.foomaa.jvchat.logger.Log;
+import javax.swing.*;
+
+import lombok.Builder;
+import lombok.extern.slf4j.Slf4j;
+
+import org.foomaa.jvchat.ctrl.ChatsCtrl;
+import org.foomaa.jvchat.ctrl.MessagesDialogCtrl;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
 
-
+@Slf4j
 public class PanelSendingMessageMainChatUI extends JPanel {
+    // DI ↓
+    private final ScrollPanelChatsMainChatUI scrollPanelChats;
+    private final ScrollPanelMessagesMainChatUI scrollPanelMessages;
+    private final MessagesDialogCtrl messagesDialogCtrl;
+    private final ChatsCtrl chatsCtrl;
+
+    // DI(P) ↓
     private final SendingTextAreaScrollMainChatUI sendingTextAreaScroll;
     private final JButton sendButton;
 
-    PanelSendingMessageMainChatUI() {
-        sendingTextAreaScroll = GetterMainChatUIComponents.getInstance().getBeanSendingTextAreaScrollMainChatUI();
-        sendButton = GetterMainChatUIComponents.getInstance().getBeanSendButtonMainChatUI("Отправить");
+    @Builder
+    PanelSendingMessageMainChatUI(
+            ScrollPanelChatsMainChatUI scrollPanelChats,
+            ScrollPanelMessagesMainChatUI scrollPanelMessages,
+            MessagesDialogCtrl messagesDialogCtrl,
+            ChatsCtrl chatsCtrl,
+            SendButtonMainChatUIFactory sendButtonMainChatUIFactory,
+            SendingTextAreaScrollMainChatUIFactory sendingTextAreaScrollMainChatUIFactory) {
+        Objects.requireNonNull(
+                sendingTextAreaScrollMainChatUIFactory, "sendingTextAreaScrollMainChatUIFactory is mandatory");
+        Objects.requireNonNull(sendButtonMainChatUIFactory, "sendButtonMainChatUIFactory is mandatory");
+
+        this.scrollPanelChats = Objects.requireNonNull(scrollPanelChats, "scrollPanelChats is mandatory");
+        this.scrollPanelMessages = Objects.requireNonNull(scrollPanelMessages, "scrollPanelMessages is mandatory");
+        this.messagesDialogCtrl = Objects.requireNonNull(messagesDialogCtrl, "messagesDialogCtrl is mandatory");
+        this.chatsCtrl = Objects.requireNonNull(chatsCtrl, "chatsCtrl is mandatory");
+
+        sendingTextAreaScroll = sendingTextAreaScrollMainChatUIFactory.create();
+        sendButton = sendButtonMainChatUIFactory.create("Send");
 
         settingPanel();
         addListenerToElements();
@@ -54,27 +81,26 @@ public class PanelSendingMessageMainChatUI extends JPanel {
     private void sendMessageToServer() {
         String text = sendingTextAreaScroll.getText();
         if (text == null) {
-            Log.write(Log.TypeLog.Error, "sendingTextAreaScroll.getText() вернул null");
+            log.error("sendingTextAreaScroll.getText() вернул null");
             return;
         }
 
         if (!Objects.equals(text, "")) {
-            MessageStructObject messageObj = GetterControls.getInstance().getBeanMessagesDialogCtrl().createAndSendMessage(text);
+            MessageStructObject messageObj = messagesDialogCtrl.createAndSendMessage(text);
             if (messageObj == null) {
-                Log.write(Log.TypeLog.Error, "Не создано сообщение для отправки, не отправлено...");
+                log.error("Не создано сообщение для отправки, не отправлено...");
                 return;
             }
-            GetterMainChatUIComponents.getInstance().getBeanScrollPanelMessagesMainChatUI().addMessage(messageObj);
+            scrollPanelMessages.addMessage(messageObj);
         }
     }
 
     private void updateComponentsAfterSending() {
-        UUID selectedUuid = GetterControls.getInstance().getBeanMessagesDialogCtrl().getCurrentActiveChatUuid();
-        MessageStructObject message = GetterControls.getInstance().getBeanChatsCtrl().getMessageObjectByUuidChat(selectedUuid);
+        UUID selectedUuid = messagesDialogCtrl.getCurrentActiveChatUuid();
+        MessageStructObject message = chatsCtrl.getMessageObjectByUuidChat(selectedUuid);
+        Box boxComponents = scrollPanelChats.getBoxComponents();
 
-        Box boxComponents = GetterMainChatUIComponents.getInstance().getBeanScrollPanelChatsMainChatUI().getBoxComponents();
-
-        for (Component component : boxComponents.getComponents()) {
+        for (java.awt.Component component : boxComponents.getComponents()) {
             RectChatMainChatUI rectChatMainChatUI = (RectChatMainChatUI) component;
             UUID uuid = rectChatMainChatUI.getUuidChat();
             if (uuid.equals(selectedUuid)) {

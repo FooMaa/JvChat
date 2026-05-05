@@ -1,6 +1,5 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -8,24 +7,42 @@ import java.awt.font.TextAttribute;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
-import org.foomaa.jvchat.globaldefines.GetterGlobalDefines;
-import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.settings.GetterSettings;
+import javax.swing.*;
 
+import lombok.Builder;
+import lombok.extern.slf4j.Slf4j;
 
+import org.foomaa.jvchat.globaldefines.FontsGlobalDefines;
+import org.foomaa.jvchat.settings.DisplaySettings;
+
+@Slf4j
 public class ActiveLabelAuthUI extends JLabel {
+    // DI ↓
+    private final DisplaySettings displaySettings;
+    private final FontsGlobalDefines fontsGlobalDefines;
+    private final ToolTipAuthUIFactory toolTipAuthUIFactory;
+
+    // DI(P) ↓
     private ToolTipAuthUI toolTip;
 
-    ActiveLabelAuthUI(String text) {
-        setText(text);
+    @Builder
+    ActiveLabelAuthUI(
+            DisplaySettings displaySettings,
+            FontsGlobalDefines fontsGlobalDefines,
+            ToolTipAuthUIFactory toolTipAuthUIFactory) {
+        this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
+        this.fontsGlobalDefines = Objects.requireNonNull(fontsGlobalDefines, "fontsGlobalDefines is mandatory");
+        this.toolTipAuthUIFactory = Objects.requireNonNull(toolTipAuthUIFactory, "toolTipAuthUIFactory is mandatory");
+
         setFont(false);
         setForeground(Color.WHITE);
         addCustomListenerToElem();
     }
 
     public void setToolTip(String text) {
-        toolTip = GetterAuthUIComponents.getInstance().getBeanToolTipAuthUI();
+        toolTip = toolTipAuthUIFactory.create();
         createToolTip();
         setToolTipText(text);
     }
@@ -37,14 +54,13 @@ public class ActiveLabelAuthUI extends JLabel {
 
     private void setFont(boolean isEnteredMouse) {
         try {
-            int size = GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.011);
-            Font steticaFont = GetterGlobalDefines.getInstance().getBeanFontsGlobalDefines()
-                    .createMainSteticaFont(isEnteredMouse ? Font.BOLD : Font.PLAIN, size);
+            int size = displaySettings.getResizePixel(0.011);
+            Font steticaFont = fontsGlobalDefines.createMainSteticaFont(isEnteredMouse ? Font.BOLD : Font.PLAIN, size);
             Map<TextAttribute, Object> attributes = new HashMap<>(steticaFont.getAttributes());
             attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_LOW_DOTTED);
             setFont(steticaFont.deriveFont(attributes));
         } catch (IOException | FontFormatException exception) {
-            Log.write(Log.TypeLog.Error, "steticaFont not created here.");
+            log.error("steticaFont not created here.");
         }
     }
 

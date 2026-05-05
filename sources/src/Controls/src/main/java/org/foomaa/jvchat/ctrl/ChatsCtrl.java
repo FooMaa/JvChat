@@ -5,22 +5,27 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import lombok.Builder;
+import lombok.extern.slf4j.Slf4j;
+
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
-import org.foomaa.jvchat.logger.Log;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.models.ChatsModel;
-import org.foomaa.jvchat.models.GetterModels;
 import org.foomaa.jvchat.structobjects.ChatStructObject;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
 import org.foomaa.jvchat.structobjects.UserStructObject;
-import org.foomaa.jvchat.tools.GetterTools;
+import org.foomaa.jvchat.tools.FormatTools;
 
-
+@Slf4j
 public class ChatsCtrl {
+    // DI ↓
     private final ChatsModel chatsModel;
+    private final FormatTools formatTools;
 
-    ChatsCtrl() {
-        chatsModel = GetterModels.getInstance().getBeanChatsModel();
+    @Builder
+    ChatsCtrl(ChatsModel chatsModel, FormatTools formatTools) {
+        this.chatsModel = Objects.requireNonNull(chatsModel, "chatsModel is mandatory");
+        this.formatTools = Objects.requireNonNull(formatTools, "formatTools is mandatory");
     }
 
     public void createChatsObjects(List<Map<DefinesMessages.TypeData, Object>> chatsInfo) {
@@ -36,15 +41,22 @@ public class ChatsCtrl {
             Boolean isLoginSentLastMessage = (Boolean) chat.get(DefinesMessages.TypeData.IsLoginSentLastMessage);
             MainChatsGlobalDefines.TypeStatusMessage statusMessage =
                     (MainChatsGlobalDefines.TypeStatusMessage) chat.get(DefinesMessages.TypeData.StatusMessage);
-            LocalDateTime timestampLastMessage = GetterTools.getInstance().getBeanFormatTools()
-                    .stringToLocalDateTime((String) chat.get(DefinesMessages.TypeData.Timestamp), normalizeTimestampCount);
+            LocalDateTime timestampLastMessage = formatTools.stringToLocalDateTime(
+                    (String) chat.get(DefinesMessages.TypeData.Timestamp), normalizeTimestampCount);
 
             if (timestampLastMessage == null) {
-                Log.write(Log.TypeLog.Warn, "It was not possible to normalize the date and time to the required format.");
+                log.warn("It was not possible to normalize the date and time to the required format.");
             }
 
-            chatsModel.createNewChat(login, uuidUser, lastMessageText, uuidChat, uuidLastMessage,
-                    isLoginSentLastMessage, statusMessage, timestampLastMessage);
+            chatsModel.createNewChat(
+                    login,
+                    uuidUser,
+                    lastMessageText,
+                    uuidChat,
+                    uuidLastMessage,
+                    isLoginSentLastMessage,
+                    statusMessage,
+                    timestampLastMessage);
         }
     }
 
@@ -57,15 +69,15 @@ public class ChatsCtrl {
     public void setLastOnlineTimeUsersByStrings(Map<UUID, String> lastOnlineTimeUsers) {
         int normalizeTimestampCount = 3;
         for (UUID uuidUser : lastOnlineTimeUsers.keySet()) {
-            LocalDateTime timestamp = GetterTools.getInstance().getBeanFormatTools()
-                    .stringToLocalDateTime(lastOnlineTimeUsers.get(uuidUser), normalizeTimestampCount);
+            LocalDateTime timestamp =
+                    formatTools.stringToLocalDateTime(lastOnlineTimeUsers.get(uuidUser), normalizeTimestampCount);
             chatsModel.setTimestampLastOnlineToUser(uuidUser, timestamp);
         }
     }
 
     public String getTimeFormattedLastOnline(LocalDateTime lastOnlineDateTime) {
         if (lastOnlineDateTime == null) {
-            Log.write(Log.TypeLog.Warn, "Here lastOnlineDateTime turned out to be null (Maybe for those who are online).");
+            log.warn("Here lastOnlineDateTime turned out to be null (Maybe for those who are online).");
             return "";
         }
 
@@ -115,7 +127,7 @@ public class ChatsCtrl {
 
     public String getTimeFormattedLastMessage(LocalDateTime timestamp) {
         if (timestamp == null) {
-            Log.write(Log.TypeLog.Error, "Here the timestamp turned out to be null.");
+            log.error("Here the timestamp turned out to be null.");
             return "";
         }
 
@@ -144,8 +156,10 @@ public class ChatsCtrl {
             MessageStructObject lastMessageObj = chat.getLastMessage();
             UUID uuidUserSender = lastMessageObj.getUuidUserSender();
             UUID uuidUserReceiver = lastMessageObj.getUuidUserReceiver();
-            if ((uuidUserSender.equals(message.getUuidUserSender()) && uuidUserReceiver.equals(message.getUuidUserReceiver())) ||
-                    (uuidUserSender.equals(message.getUuidUserReceiver()) && uuidUserReceiver.equals(message.getUuidUserReceiver()))) {
+            if ((uuidUserSender.equals(message.getUuidUserSender())
+                            && uuidUserReceiver.equals(message.getUuidUserReceiver()))
+                    || (uuidUserSender.equals(message.getUuidUserReceiver())
+                            && uuidUserReceiver.equals(message.getUuidUserReceiver()))) {
                 chat.setLastMessage(message);
                 return;
             }

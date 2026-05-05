@@ -3,7 +3,10 @@ package org.foomaa.jvchat.structobjects;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import lombok.Builder;
+import lombok.Getter;
 
+@Getter
 public class CheckerOnlineStructObject extends BaseStructObject {
     private UserStructObject user;
     private SocketRunnableCtrlStructObject socketRunnableCtrlStructObject;
@@ -11,6 +14,7 @@ public class CheckerOnlineStructObject extends BaseStructObject {
     private LocalDateTime dateTimeSending;
     private LocalDateTime dateTimeUpdating;
 
+    @Builder
     CheckerOnlineStructObject() {
         user = null;
         isSending = false;
@@ -54,25 +58,5 @@ public class CheckerOnlineStructObject extends BaseStructObject {
             socketRunnableCtrlStructObject = newRunnableCtrlStructObject;
             commitProperties();
         }
-    }
-
-    public UserStructObject getUser() {
-        return user;
-    }
-
-    public boolean getIsSending() {
-        return isSending;
-    }
-
-    public LocalDateTime getDateTimeSending() {
-        return dateTimeSending;
-    }
-
-    public LocalDateTime getDateTimeUpdating() {
-        return dateTimeUpdating;
-    }
-
-    public SocketRunnableCtrlStructObject getSocketRunnableCtrlStructObject() {
-        return socketRunnableCtrlStructObject;
     }
 }

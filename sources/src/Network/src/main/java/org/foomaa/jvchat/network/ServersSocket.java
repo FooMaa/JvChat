@@ -1,40 +1,42 @@
 package org.foomaa.jvchat.network;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 import java.io.*;
-import java.net.ServerSocket;
 import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.util.Objects;
 
-import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.settings.GetterSettings;
+import lombok.Builder;
+import lombok.extern.slf4j.Slf4j;
 
+import org.foomaa.jvchat.settings.ServersInfoSettings;
 
-@Component("beanServersSocket")
-@Scope("singleton")
-@Profile("servers")
+@Slf4j
 public class ServersSocket {
     private static ServerSocket socketServers;
 
-    private ServersSocket() {
-        try {
-            if (GetterSettings.getInstance().getBeanServersInfoSettings().getIp().isEmpty()) {
-                socketServers = new ServerSocket(GetterSettings.getInstance().getBeanServersInfoSettings().getPort());
-            } else {
-                socketServers = new ServerSocket(GetterSettings.getInstance().getBeanServersInfoSettings().getPort(),
-                        GetterSettings.getInstance().getBeanServersInfoSettings().getQuantityConnections(),
-                        InetAddress.getByName(GetterSettings.getInstance().getBeanServersInfoSettings().getIp()));
-            }
+    // DI ↓
+    private final ServersInfoSettings serversInfoSettings;
 
-            Log.write(Log.TypeLog.Info, "IP: " + socketServers.getInetAddress().toString() + ".");
-            Log.write(Log.TypeLog.Info, "PORT: " + String.valueOf(socketServers.getLocalPort()) + ".");
+    @Builder
+    private ServersSocket(ServersInfoSettings serversInfoSettings) {
+        this.serversInfoSettings = Objects.requireNonNull(serversInfoSettings, "serversInfoSettings is mandatory");
+    }
 
-            Log.write(Log.TypeLog.Info, "Server is started.");
-            closeSocketWhenKill();
-        } catch (IOException exception) {
-            Log.write(Log.TypeLog.Error, "Error creating server socket.");
+    public void start() throws IOException {
+        if (serversInfoSettings.getIp().isEmpty()) {
+            socketServers = new ServerSocket(serversInfoSettings.getPort());
+        } else {
+            socketServers = new ServerSocket(
+                    serversInfoSettings.getPort(),
+                    serversInfoSettings.getQuantityConnections(),
+                    InetAddress.getByName(serversInfoSettings.getIp()));
         }
+
+        log.info("IP: {}.", socketServers.getInetAddress().toString());
+        log.info("PORT: {}.", socketServers.getLocalPort());
+
+        log.info("Server is started.");
+        closeSocketWhenKill();
     }
 
     private void closeSocketWhenKill() {

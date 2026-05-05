@@ -19,6 +19,12 @@ jobs:
       - name: Dump and restore DB
         run: scripts/db/db_creator.py -r dump; scripts/db/db_creator.py -r restore
 
+      - name: Code format check on gradle
+        run: scripts/build/code_format.sh -g
+
+      - name: Code format check on maven
+        run: scripts/build/code_format.sh -m
+
       - name: Build chat gradle tests
         run: scripts/build/build_run.sh -g -c -p tests
 
@@ -36,4 +42,3 @@ jobs:
 
       - name: Build chat maven users
         run: scripts/build/build.sh -m -c -p users
-    

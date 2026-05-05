@@ -1,10 +1,14 @@
 package org.foomaa.jvchat.structobjects;
 
+import lombok.Builder;
+import lombok.Getter;
 
+@Getter
 public class ChatStructObject extends BaseStructObject {
     private MessageStructObject lastMessage;
     private UserStructObject userChat;
 
+    @Builder
     ChatStructObject() {
         lastMessage = null;
         userChat = null;
@@ -23,13 +27,5 @@ public class ChatStructObject extends BaseStructObject {
             userChat = newUserChat;
             commitProperties();
         }
-    }
-
-    public MessageStructObject getLastMessage() {
-        return lastMessage;
-    }
-
-    public UserStructObject getUserChat() {
-        return userChat;
     }
 }

@@ -1,9 +1,13 @@
 package org.foomaa.jvchat.structobjects;
 
+import lombok.Builder;
+import lombok.Getter;
 
+@Getter
 public class SocketRunnableCtrlStructObject extends BaseStructObject {
     private Runnable socketRunnableCtrl;
 
+    @Builder
     SocketRunnableCtrlStructObject() {
         socketRunnableCtrl = null;
         commitProperties();
@@ -14,9 +18,5 @@ public class SocketRunnableCtrlStructObject extends BaseStructObject {
             socketRunnableCtrl = newSocketRunnableCtrl;
             commitProperties();
         }
-    }
-
-    public Runnable getSocketRunnableCtrl() {
-        return socketRunnableCtrl;
     }
 }

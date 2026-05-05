@@ -7,7 +7,7 @@ dependencies {
     implementation(project(":Messages"))
     implementation(project(":Tools"))
     implementation(project(":Logger"))
-    implementation(project(":Events"))
+    implementation(project(":Signals"))
     implementation(project(":GlobalDefines"))
     implementation(project(":MainChatUIComponents"))
 }

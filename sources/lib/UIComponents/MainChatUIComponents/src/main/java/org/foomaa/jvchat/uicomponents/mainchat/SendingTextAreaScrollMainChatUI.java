@@ -2,10 +2,12 @@ package org.foomaa.jvchat.uicomponents.mainchat;
 
 import javax.swing.*;
 
+import lombok.Builder;
 
 public class SendingTextAreaScrollMainChatUI extends JScrollPane {
     private final JTextArea textArea;
 
+    @Builder
     SendingTextAreaScrollMainChatUI() {
         textArea = new JTextArea();
         settingPane();

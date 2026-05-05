@@ -1,33 +1,58 @@
 package org.foomaa.jvchat.uicomponents.mainchat;
 
+import java.awt.*;
+import java.time.LocalDateTime;
+import java.util.Objects;
+import java.util.UUID;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import java.awt.*;
-import java.time.LocalDateTime;
-import java.util.UUID;
 
-import org.foomaa.jvchat.ctrl.GetterControls;
+import lombok.Builder;
+
+import org.foomaa.jvchat.ctrl.MessagesDialogCtrl;
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
-import org.foomaa.jvchat.settings.GetterSettings;
+import org.foomaa.jvchat.settings.DisplaySettings;
 import org.foomaa.jvchat.structobjects.MessageStructObject;
-
 
 public class RectMessageMainChatUI extends JTextArea {
     private MainChatsGlobalDefines.TypeStatusMessage statusMessage;
-    private final String textMessage;
-    private final LocalDateTime timestamp;
-    private final UUID uuidMessage;
+    private String textMessage;
+    private LocalDateTime timestamp;
+    private UUID uuidMessage;
 
-    RectMessageMainChatUI(MessageStructObject messageObject) {
+    // DI ↓
+    private final DisplaySettings displaySettings;
+    private final MessagesDialogCtrl messagesDialogCtrl;
+    private final ScrollPanelMessagesMainChatUI scrollPanelMessages;
+
+    @Builder
+    RectMessageMainChatUI(
+            DisplaySettings displaySettings,
+            MessagesDialogCtrl messagesDialogCtrl,
+            ScrollPanelMessagesMainChatUI scrollPanelMessages) {
+        this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
+        this.messagesDialogCtrl = Objects.requireNonNull(messagesDialogCtrl, "messagesDialogCtrl is mandatory");
+        this.scrollPanelMessages = Objects.requireNonNull(scrollPanelMessages, "scrollPanelMessages is mandatory");
+
+        textMessage = "";
+        statusMessage = MainChatsGlobalDefines.TypeStatusMessage.Error;
+        timestamp = null;
+        uuidMessage = null;
+
+        settingLabel();
+        addListenerToElements();
+        setTextMessage();
+    }
+
+    public void setMessageObject(MessageStructObject messageObject) {
         textMessage = messageObject.getText();
         statusMessage = messageObject.getStatusMessage();
         timestamp = messageObject.getTimestamp();
         uuidMessage = messageObject.getUuid();
 
-        settingLabel();
-        addListenerToElements();
         setTextMessage();
     }
 
@@ -49,17 +74,16 @@ public class RectMessageMainChatUI extends JTextArea {
         int xRoundSecond = xRound - diameter - 1;
 
         // Рисуем кружки доставки
-        if (statusMessage == MainChatsGlobalDefines.TypeStatusMessage.Delivered ||
-                statusMessage == MainChatsGlobalDefines.TypeStatusMessage.Read) {
+        if (statusMessage == MainChatsGlobalDefines.TypeStatusMessage.Delivered
+                || statusMessage == MainChatsGlobalDefines.TypeStatusMessage.Read) {
             g2.fillOval(xRound, yRound, diameter, diameter);
         }
         if (statusMessage == MainChatsGlobalDefines.TypeStatusMessage.Read) {
             g2.fillOval(xRoundSecond, yRound, diameter, diameter);
         }
 
-        String time = GetterControls.getInstance().getBeanMessagesDialogCtrl().getTimeFormattedMessage(timestamp);
-        Font font = new Font("Times", Font.BOLD,
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.010));
+        String time = messagesDialogCtrl.getTimeFormattedMessage(timestamp);
+        Font font = new Font("Times", Font.BOLD, displaySettings.getResizePixel(0.010));
         g2.setFont(font);
         FontMetrics fontMetrics = g2.getFontMetrics(font);
 
@@ -79,8 +103,7 @@ public class RectMessageMainChatUI extends JTextArea {
         setBackground(new Color(173, 216, 230));
         setForeground(Color.BLACK);
         setBorder(new EmptyBorder(borderSize, borderSize, borderSize, borderSize));
-        setFont(new Font("Times", Font.PLAIN,
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.014)));
+        setFont(new Font("Times", Font.PLAIN, displaySettings.getResizePixel(0.014)));
         setLineWrap(true);
         setWrapStyleWord(true);
 
@@ -89,9 +112,8 @@ public class RectMessageMainChatUI extends JTextArea {
 
     private void resizeComponentLabel() {
         int amendment = 20;
-        int width = (GetterMainChatUIComponents.getInstance()
-                .getBeanScrollPanelMessagesMainChatUI().getWidth() - amendment) / 2;
-        setSize(new Dimension(width,  getMinimumSize().height));
+        int width = (scrollPanelMessages.getWidth() - amendment) / 2;
+        setSize(new Dimension(width, getMinimumSize().height));
     }
 
     private void addListenerToElements() {

@@ -1,20 +1,33 @@
 package org.foomaa.jvchat.models;
 
-import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.structobjects.BaseStructObject;
-import org.foomaa.jvchat.structobjects.RootStructObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
+import org.foomaa.jvchat.structobjects.BaseStructObject;
+import org.foomaa.jvchat.structobjects.RootStructObject;
+import org.foomaa.jvchat.structobjects.RootStructObjectFactory;
+
+@Slf4j
 public abstract class BaseModel {
-    private RootStructObject rootObject;
+    @Getter
     private final String nameModel;
 
-    BaseModel() {
+    private RootStructObject rootObject;
+    private final BaseModel rootModel;
+    private final RootStructObjectFactory rootStructObjectFactory;
+
+    BaseModel(BaseModel rootModel, RootStructObjectFactory rootStructObjectFactory) {
+        this.rootModel = rootModel;
+        this.rootStructObjectFactory = rootStructObjectFactory;
+
         nameModel = getClass().getSimpleName();
-        rootObject = null;
+
+        if (rootStructObjectFactory != null) {
+            installRoot();
+        }
     }
 
     public void addItem(BaseStructObject item, BaseStructObject parent) {
@@ -23,12 +36,12 @@ public abstract class BaseModel {
 
     public void removeItem(BaseStructObject item) {
         if (rootObject == null) {
-            Log.write(Log.TypeLog.Error, "Here rootObject turned out to be null.");
+            log.error("Here rootObject turned out to be null.");
             return;
         }
 
         if (!removeItemProcess(rootObject, item)) {
-            Log.write(Log.TypeLog.Error, "There is an error when deleting an element.");
+            log.error("There is an error when deleting an element.");
         }
     }
 
@@ -50,38 +63,31 @@ public abstract class BaseModel {
         return false;
     }
 
-    protected void setRootObject(RootStructObject newRootObject) {
-        if (rootObject != newRootObject) {
-            rootObject = newRootObject;
-            updateRootObjectsModel();
-        }
-    }
-
     protected BaseStructObject getRootObject() {
         return rootObject;
     }
 
-    private void updateRootObjectsModel() {
-        if (getClass() == RootObjectsModel.class) {
+    private void installRoot() {
+        if (rootModel == null && getClass() == RootObjectsModel.class) {
+            rootObject = rootStructObjectFactory.create(getNameModel());
+            return;
+        } else if (rootModel == null) {
             return;
         }
 
-        RootStructObject rootStructObjectRootModel =
-                (RootStructObject) GetterModels.getInstance().getBeanRootObjectsModel().getRootObject();
+        RootStructObject rootStructObjectRootModel = (RootStructObject) rootModel.getRootObject();
+        RootStructObject creatingRoot = rootStructObjectFactory.create(getNameModel());
 
-        if (rootObject != null &&  rootObject != rootStructObjectRootModel) {
-            GetterModels.getInstance().getBeanRootObjectsModel().addItem(rootObject, rootStructObjectRootModel);
+        if (rootStructObjectRootModel != null && creatingRoot != rootStructObjectRootModel) {
+            rootObject = creatingRoot;
+            rootModel.addItem(creatingRoot, rootStructObjectRootModel);
         }
-    }
-
-    public String getNameModel() {
-        return nameModel;
     }
 
     public void clearModel() {
         List<BaseStructObject> children = new ArrayList<>(rootObject.getChildren());
         if (children.isEmpty()) {
-            Log.write(Log.TypeLog.Warn, "Empty children...");
+            log.warn("Empty children...");
             return;
         }
 

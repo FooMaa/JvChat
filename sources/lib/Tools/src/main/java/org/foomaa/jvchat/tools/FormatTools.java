@@ -6,10 +6,12 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.foomaa.jvchat.logger.Log;
+import lombok.Builder;
+import lombok.extern.slf4j.Slf4j;
 
-
+@Slf4j
 public class FormatTools {
+    @Builder
     FormatTools() {}
 
     private String normalizeMillisecond(String timestamp, int normalizeCount) {
@@ -29,13 +31,13 @@ public class FormatTools {
 
             resultTimestamp = parts[0] + "." + milliseconds;
         } else {
-            Log.write(Log.TypeLog.Warn, "It is not possible to convert the date and time to the required format. Trying regex...");
+            log.warn("It is not possible to convert the date and time to the required format. Trying regex...");
 
             // Regex format: 'yyyy-MM-dd HH:mm:ss'
-            String patternStr = "^(?<year>\\d{4})-(?<month>0[1-9]|1[012])-(?<day>0[1-9]|[12][0-9]|3[01])" +
-                    "[T ](?<hour>[01][0-9]|2[0-3]):(?<minute>[0-5][0-9]):(?<second>[0-5][0-9])$";
+            String patternStr = "^(?<year>\\d{4})-(?<month>0[1-9]|1[012])-(?<day>0[1-9]|[12][0-9]|3[01])"
+                    + "[T ](?<hour>[01][0-9]|2[0-3]):(?<minute>[0-5][0-9]):(?<second>[0-5][0-9])$";
 
-            Pattern pattern= Pattern.compile(patternStr);
+            Pattern pattern = Pattern.compile(patternStr);
             Matcher m = pattern.matcher(timestamp);
 
             if (m.matches()) {
@@ -43,7 +45,7 @@ public class FormatTools {
                 String addingMs = zeroMs.repeat(normalizeCount);
                 resultTimestamp = timestamp + "." + addingMs;
             } else {
-                Log.write(Log.TypeLog.Error, "Error to convert the date and time to the required format.");
+                log.error("Error to convert the date and time to the required format.");
                 return null;
             }
         }
@@ -58,16 +60,15 @@ public class FormatTools {
 
     public LocalDateTime stringToLocalDateTime(String timestampStr, int normalizeCount) {
         if (timestampStr == null || Objects.equals(timestampStr, "")) {
-            Log.write(Log.TypeLog.Error, "Error getting time. Time is null or empty.");
+            log.error("Error getting time. Time is null or empty.");
             return null;
         }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
-        String timestampString = GetterTools.getInstance().getBeanFormatTools()
-                .normalizeMillisecond(timestampStr, normalizeCount);
+        String timestampString = normalizeMillisecond(timestampStr, normalizeCount);
 
         if (timestampString == null) {
-            Log.write(Log.TypeLog.Error, "Date and time conversion error.");
+            log.error("Date and time conversion error.");
             return null;
         }
 

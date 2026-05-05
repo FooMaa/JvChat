@@ -4,9 +4,12 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
+import lombok.Builder;
+import lombok.Getter;
+
 import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
 
-
+@Getter
 public class MessageStructObject extends BaseStructObject {
     private UUID uuidUserSender;
     private UUID uuidUserReceiver;
@@ -14,6 +17,7 @@ public class MessageStructObject extends BaseStructObject {
     private String text;
     private LocalDateTime timestamp;
 
+    @Builder
     MessageStructObject() {
         uuidUserSender = null;
         uuidUserReceiver = null;
@@ -57,25 +61,5 @@ public class MessageStructObject extends BaseStructObject {
             timestamp = newTimestamp;
             commitProperties();
         }
-    }
-
-    public MainChatsGlobalDefines.TypeStatusMessage getStatusMessage() {
-        return statusMessage;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public LocalDateTime getTimestamp() {
-        return timestamp;
-    }
-
-    public UUID getUuidUserReceiver() {
-        return uuidUserReceiver;
-    }
-
-    public UUID getUuidUserSender() {
-        return uuidUserSender;
     }
 }

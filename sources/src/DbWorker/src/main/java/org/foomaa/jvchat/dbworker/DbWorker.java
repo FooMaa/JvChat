@@ -1,44 +1,45 @@
 package org.foomaa.jvchat.dbworker;
 
-import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-import java.sql.DriverManager;
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.ResultSet;
+import java.util.Objects;
 
-import org.foomaa.jvchat.logger.Log;
-import org.foomaa.jvchat.settings.GetterSettings;
+import lombok.Builder;
+import lombok.extern.slf4j.Slf4j;
 
+import org.foomaa.jvchat.settings.ServersInfoSettings;
 
-@Component("beanDbWorker")
-@Scope("singleton")
-@Profile("servers")
+@Slf4j
 public class DbWorker {
     private static Connection connection;
 
-    private DbWorker() {
-        getConnection();
+    @Builder
+    private DbWorker(ServersInfoSettings serversInfoSettings) {
+        Objects.requireNonNull(serversInfoSettings, "serversInfoSettings is mandatory");
+
+        getConnection(serversInfoSettings);
     }
 
-    public void getConnection() {
+    public void getConnection(ServersInfoSettings serversInfoSettings) {
         try {
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
-            Log.write(Log.TypeLog.Error, "Error in connect to DB.");
+            log.error("Error in connect to DB.");
             return;
         }
 
         connection = null;
 
         try {
-            connection = DriverManager.getConnection(GetterSettings.getInstance().getBeanServersInfoSettings().getDbUrl(),
-                    GetterSettings.getInstance().getBeanServersInfoSettings().getDbUser(),
-                    GetterSettings.getInstance().getBeanServersInfoSettings().getMagicStringDb());
+            connection = DriverManager.getConnection(
+                    serversInfoSettings.getDbUrl(),
+                    serversInfoSettings.getDbUser(),
+                    serversInfoSettings.getMagicStringDb());
         } catch (SQLException e) {
-            Log.write(Log.TypeLog.Error, "Error in connect to DB.");
+            log.error("Error in connect to DB.");
             return;
         }
 
@@ -49,7 +50,7 @@ public class DbWorker {
         try {
             rs.close();
         } catch (SQLException exception) {
-            Log.write(Log.TypeLog.Error, "Error closing ResultSet.");
+            log.error("Error closing ResultSet.");
         }
     }
 
@@ -60,12 +61,10 @@ public class DbWorker {
     public ResultSet makeExecution(String execution) {
         ResultSet resultSet = null;
         try {
-            Statement stmt = connection.createStatement(
-                    ResultSet.TYPE_SCROLL_INSENSITIVE,
-                    ResultSet.CONCUR_READ_ONLY);
+            Statement stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             resultSet = stmt.executeQuery(execution);
         } catch (SQLException exception) {
-            Log.write(Log.TypeLog.Error, "The database returned an error, the request cannot be executed.");
+            log.error("The database returned an error, the request cannot be executed.");
         }
         return resultSet;
     }

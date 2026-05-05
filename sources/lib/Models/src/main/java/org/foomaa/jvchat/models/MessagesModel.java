@@ -3,34 +3,40 @@ package org.foomaa.jvchat.models;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
-import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
-import org.foomaa.jvchat.structobjects.BaseStructObject;
-import org.foomaa.jvchat.structobjects.GetterStructObjects;
-import org.foomaa.jvchat.structobjects.MessageStructObject;
+import lombok.Builder;
 
+import org.foomaa.jvchat.globaldefines.MainChatsGlobalDefines;
+import org.foomaa.jvchat.structobjects.*;
 
 public class MessagesModel extends BaseModel {
-    MessagesModel() {
-        setRootObject(GetterStructObjects.getInstance()
-                .getBeanRootStructObject(getNameModel()));
+    // DI ↓
+    private final MessageStructObjectFactory messageStructObjectFactory;
+
+    @Builder
+    MessagesModel(
+            RootObjectsModel rootObjectsModel,
+            MessageStructObjectFactory messageStructObjectFactory,
+            RootStructObjectFactory rootStructObjectFactory) {
+        super(
+                Objects.requireNonNull(rootObjectsModel, "rootObjectsModel is mandatory"),
+                Objects.requireNonNull(rootStructObjectFactory, "rootStructObjectFactory is mandatory"));
+
+        this.messageStructObjectFactory =
+                Objects.requireNonNull(messageStructObjectFactory, "messageStructObjectFactory is mandatory");
     }
 
-    public MessageStructObject createNewMessage(UUID uuidUserSender,
-                                                UUID uuidUserReceiver,
-                                                UUID uuidMessage,
-                                                MainChatsGlobalDefines.TypeStatusMessage statusMessage,
-                                                String text,
-                                                LocalDateTime timestamp) {
-        MessageStructObject messageObj = GetterStructObjects.getInstance().getBeanMessageStructObject();
-
-        messageObj.setUuidUserSender(uuidUserSender);
-        messageObj.setUuidUserReceiver(uuidUserReceiver);
-        messageObj.setText(text);
-        messageObj.setStatusMessage(statusMessage);
-        messageObj.setUuid(uuidMessage);
-        messageObj.setTimestamp(timestamp);
+    public MessageStructObject createNewMessage(
+            UUID uuidUserSender,
+            UUID uuidUserReceiver,
+            UUID uuidMessage,
+            MainChatsGlobalDefines.TypeStatusMessage statusMessage,
+            String text,
+            LocalDateTime timestamp) {
+        MessageStructObject messageObj = messageStructObjectFactory.create(
+                uuidUserSender, uuidUserReceiver, statusMessage, text, timestamp, uuidMessage);
 
         addItem(messageObj, getRootObject());
 

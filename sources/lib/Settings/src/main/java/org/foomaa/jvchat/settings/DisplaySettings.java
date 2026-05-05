@@ -2,17 +2,19 @@ package org.foomaa.jvchat.settings;
 
 import java.awt.*;
 
-import org.foomaa.jvchat.logger.Log;
+import lombok.Builder;
+import lombok.extern.slf4j.Slf4j;
 
-
+@Slf4j
 public class DisplaySettings {
+    @Builder
     DisplaySettings() {
         try {
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             heightScreen = screenSize.height;
             widthScreen = screenSize.width;
         } catch (Throwable exception) {
-            Log.write(Log.TypeLog.Error, "Failed to get display size.");
+            log.error("Failed to get display size.");
         }
     }
 
@@ -20,7 +22,8 @@ public class DisplaySettings {
     public int widthScreen;
 
     public enum TypeOfDisplayBorder {
-        HEIGHT, WIDTH
+        HEIGHT,
+        WIDTH
     }
 
     public int getResizeFromDisplay(double scale, TypeOfDisplayBorder displayBorder) {

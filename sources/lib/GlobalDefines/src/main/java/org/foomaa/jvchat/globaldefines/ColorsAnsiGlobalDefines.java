@@ -1,8 +1,10 @@
 package org.foomaa.jvchat.globaldefines;
 
+import lombok.Builder;
 
 @SuppressWarnings("unused")
 public class ColorsAnsiGlobalDefines {
+    @Builder
     ColorsAnsiGlobalDefines() {}
 
     public final String RESET = "\033[0m";

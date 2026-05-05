@@ -1,32 +1,76 @@
 package org.foomaa.jvchat.uicomponents.auth;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-import org.foomaa.jvchat.ctrl.GetterControls;
+import javax.swing.*;
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+
 import org.foomaa.jvchat.ctrl.MessagesDefinesCtrl;
-import org.foomaa.jvchat.events.GetterEvents;
-import org.foomaa.jvchat.logger.Log;
+import org.foomaa.jvchat.ctrl.SendMessagesCtrl;
 import org.foomaa.jvchat.messages.DefinesMessages;
 import org.foomaa.jvchat.settings.DisplaySettings;
-import org.foomaa.jvchat.settings.GetterSettings;
-import org.foomaa.jvchat.tools.GetterTools;
+import org.foomaa.jvchat.signals.Signal;
+import org.foomaa.jvchat.signals.SignalFactory;
+import org.foomaa.jvchat.tools.UsersTools;
 
-
+@Slf4j
 public class ResetPasswordPanelAuthUI extends JPanel {
+    // DI ↓
+    private final DisplaySettings displaySettings;
+    private final UsersTools usersTools;
+    private final SendMessagesCtrl sendMessagesCtrl;
+    private final MessagesDefinesCtrl messagesDefinesCtrl;
+    private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
+
+    // DI(P) ↓
     private final TextFieldAuthUI tEmail;
     private final ErrorLabelAuthUI tErrorHelpInfo;
     private final ButtonAuthUI bSet;
     private final ButtonAuthUI bBack;
 
-    ResetPasswordPanelAuthUI() {
-        tEmail = GetterAuthUIComponents.getInstance().getBeanTextFieldAuthUI("Почта");
-        tErrorHelpInfo = GetterAuthUIComponents.getInstance().getBeanErrorLabelAuthUI("");
+    // Signals ↓
+    @Getter
+    private final Signal<RecordsAuthUI.Regime> changeRegimeWork;
+
+    @Getter
+    private final Signal<RecordsAuthUI.RegimeEmail> changeRegimeWorkWithEmail;
+
+    @Builder
+    ResetPasswordPanelAuthUI(
+            DisplaySettings displaySettings,
+            UsersTools usersTools,
+            SendMessagesCtrl sendMessagesCtrl,
+            MessagesDefinesCtrl messagesDefinesCtrl,
+            ButtonAuthUIFactory buttonAuthUIFactory,
+            ErrorLabelAuthUIFactory errorLabelAuthUIFactory,
+            TextFieldAuthUIFactory textFieldAuthUIFactory,
+            OptionPaneAuthUIFactory optionPaneAuthUIFactory,
+            SignalFactory signalFactory) {
+        Objects.requireNonNull(buttonAuthUIFactory, "buttonAuthUIFactory is mandatory");
+        Objects.requireNonNull(errorLabelAuthUIFactory, "errorLabelAuthUIFactory is mandatory");
+        Objects.requireNonNull(textFieldAuthUIFactory, "textFieldAuthUIFactory is mandatory");
+        Objects.requireNonNull(signalFactory, "signalFactory is mandatory");
+
+        this.displaySettings = Objects.requireNonNull(displaySettings, "displaySettings is mandatory");
+        this.usersTools = Objects.requireNonNull(usersTools, "usersTools is mandatory");
+        this.sendMessagesCtrl = Objects.requireNonNull(sendMessagesCtrl, "sendMessagesCtrl is mandatory");
+        this.messagesDefinesCtrl = Objects.requireNonNull(messagesDefinesCtrl, "messagesDefinesCtrl is mandatory");
+        this.optionPaneAuthUIFactory =
+                Objects.requireNonNull(optionPaneAuthUIFactory, "optionPaneAuthUIFactory is mandatory");
+
+        this.changeRegimeWork = signalFactory.create();
+        this.changeRegimeWorkWithEmail = signalFactory.create();
+
+        tEmail = textFieldAuthUIFactory.create("Email");
+        tErrorHelpInfo = errorLabelAuthUIFactory.create("");
         tErrorHelpInfo.settingToError();
-        bSet = GetterAuthUIComponents.getInstance().getBeanButtonAuthUI("Send");
-        bBack = GetterAuthUIComponents.getInstance().getBeanButtonAuthUI("Back");
+        bSet = buttonAuthUIFactory.create("Send");
+        bBack = buttonAuthUIFactory.create("Back");
 
         settingComponents();
         makePanelSetting();
@@ -51,9 +95,7 @@ public class ResetPasswordPanelAuthUI extends JPanel {
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
-        int insX = GetterSettings.getInstance().getBeanDisplaySettings().
-                getResizeFromDisplay(0.025,
-                        DisplaySettings.TypeOfDisplayBorder.WIDTH);
+        int insX = displaySettings.getResizeFromDisplay(0.025, DisplaySettings.TypeOfDisplayBorder.WIDTH);
         int gridyNum = 0;
 
         gbc.weightx = 1.0;
@@ -61,16 +103,15 @@ public class ResetPasswordPanelAuthUI extends JPanel {
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.115), insX,
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.004), insX);
+        gbc.insets =
+                new Insets(displaySettings.getResizePixel(0.115), insX, displaySettings.getResizePixel(0.004), insX);
         gbc.gridy = gridyNum;
         add(tEmail, gbc);
         gridyNum++;
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.insets = new Insets(0, insX,
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.0084), insX);
+        gbc.insets = new Insets(0, insX, displaySettings.getResizePixel(0.0084), insX);
         gbc.gridy = gridyNum;
         add(tErrorHelpInfo, gbc);
         gridyNum++;
@@ -78,25 +119,25 @@ public class ResetPasswordPanelAuthUI extends JPanel {
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.NORTHWEST;
         gbc.gridwidth = 1;
-        gbc.insets = new Insets(GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.046),
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.026),
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017), 0);
-        gbc.ipadx = GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.015,
-                DisplaySettings.TypeOfDisplayBorder.WIDTH);
-        gbc.ipady = GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.004,
-                DisplaySettings.TypeOfDisplayBorder.HEIGHT);
+        gbc.insets = new Insets(
+                displaySettings.getResizePixel(0.046),
+                displaySettings.getResizePixel(0.026),
+                displaySettings.getResizePixel(0.017),
+                0);
+        gbc.ipadx = displaySettings.getResizeFromDisplay(0.015, DisplaySettings.TypeOfDisplayBorder.WIDTH);
+        gbc.ipady = displaySettings.getResizeFromDisplay(0.004, DisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
         add(bBack, gbc);
 
         gbc.fill = GridBagConstraints.PAGE_END;
         gbc.anchor = GridBagConstraints.NORTHEAST;
-        gbc.insets = new Insets(GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.046), 0,
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.017),
-                GetterSettings.getInstance().getBeanDisplaySettings().getResizePixel(0.026));
-        gbc.ipadx = GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.015,
-                DisplaySettings.TypeOfDisplayBorder.WIDTH);
-        gbc.ipady = GetterSettings.getInstance().getBeanDisplaySettings().getResizeFromDisplay(0.004,
-                DisplaySettings.TypeOfDisplayBorder.HEIGHT);
+        gbc.insets = new Insets(
+                displaySettings.getResizePixel(0.046),
+                0,
+                displaySettings.getResizePixel(0.017),
+                displaySettings.getResizePixel(0.026));
+        gbc.ipadx = displaySettings.getResizeFromDisplay(0.015, DisplaySettings.TypeOfDisplayBorder.WIDTH);
+        gbc.ipady = displaySettings.getResizeFromDisplay(0.004, DisplaySettings.TypeOfDisplayBorder.HEIGHT);
         gbc.gridy = gridyNum;
         add(bSet, gbc);
     }
@@ -104,9 +145,7 @@ public class ResetPasswordPanelAuthUI extends JPanel {
     private void addListenerToElements() {
         bSet.addActionListener(event -> {
             if (checkFields()) {
-                GetterControls.getInstance()
-                        .getBeanSendMessagesCtrl().sendMessage(DefinesMessages.TypeMessage.ResetPasswordRequest,
-                        tEmail.getInputText());
+                sendMessagesCtrl.sendMessage(DefinesMessages.TypeMessage.ResetPasswordRequest, tEmail.getInputText());
                 waitRepeatServer();
             }
         });
@@ -118,8 +157,7 @@ public class ResetPasswordPanelAuthUI extends JPanel {
         tEmail.setErrorBorder(false);
         tErrorHelpInfo.setText("");
 
-        if (Objects.equals(tEmail.getInputText(), "") ||
-                !GetterTools.getInstance().getBeanUsersTools().validateInputEmail(tEmail.getInputText())) {
+        if (Objects.equals(tEmail.getInputText(), "") || !usersTools.validateInputEmail(tEmail.getInputText())) {
             tEmail.setErrorBorder(true);
             tErrorHelpInfo.setText("The \"Email\" field must be completed or corrected");
             return false;
@@ -133,19 +171,13 @@ public class ResetPasswordPanelAuthUI extends JPanel {
     }
 
     private void changeRegimeBack() {
-        GetterEvents.getInstance().getBeanMakerEvents().event(
-                this,
-                "changeRegimeWork",
-                DefinesAuthUI.RegimeWorkMainFrame.Auth);
+        changeRegimeWork.emit(new RecordsAuthUI.Regime(DefinesAuthUI.RegimeWorkMainFrame.Auth));
         settingUnfocusFieldsOnChangeRegime();
     }
 
     private void changeRegimeNext() {
-        GetterEvents.getInstance().getBeanMakerEvents().event(
-                this,
-                "changeRegimeWork",
-                DefinesAuthUI.RegimeWorkMainFrame.VerifyCodeResetPassword,
-                tEmail.getInputText());
+        changeRegimeWorkWithEmail.emit(new RecordsAuthUI.RegimeEmail(
+                DefinesAuthUI.RegimeWorkMainFrame.VerifyCodeResetPassword, tEmail.getInputText()));
         settingUnfocusFieldsOnChangeRegime();
     }
 
@@ -155,23 +187,19 @@ public class ResetPasswordPanelAuthUI extends JPanel {
 
     private void waitRepeatServer() {
         setEnabled(false);
-        while (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getResetPasswordRequestFlag() ==
-                MessagesDefinesCtrl.TypeFlags.DEFAULT) {
+        while (messagesDefinesCtrl.getResetPasswordRequestFlag() == MessagesDefinesCtrl.TypeFlags.DEFAULT) {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException exception) {
-                Log.write(Log.TypeLog.Error, "Couldn't wait.");
+                log.error("Couldn't wait.");
             }
         }
-        if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getResetPasswordRequestFlag() ==
-                MessagesDefinesCtrl.TypeFlags.TRUE) {
+        if (messagesDefinesCtrl.getResetPasswordRequestFlag() == MessagesDefinesCtrl.TypeFlags.TRUE) {
             changeRegimeNext();
             setEnabled(true);
-        } else if (GetterControls.getInstance().getBeanMessagesDefinesCtrl().getResetPasswordRequestFlag() ==
-                MessagesDefinesCtrl.TypeFlags.FALSE) {
+        } else if (messagesDefinesCtrl.getResetPasswordRequestFlag() == MessagesDefinesCtrl.TypeFlags.FALSE) {
             setEnabled(true);
-            GetterAuthUIComponents.getInstance()
-                    .getBeanOptionPaneAuthUI("This email is not registered.", OptionPaneAuthUI.TypeDlg.ERROR);
+            optionPaneAuthUIFactory.create().show("This email is not registered.", OptionPaneAuthUI.TypeDlg.ERROR);
         }
     }
 }

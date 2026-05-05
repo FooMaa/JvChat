@@ -1,12 +1,23 @@
 package org.foomaa.jvchat.uilinks;
 
-import org.foomaa.jvchat.uicomponents.auth.OptionPaneAuthUI;
-import org.foomaa.jvchat.uicomponents.auth.GetterAuthUIComponents;
+import java.util.Objects;
 
+import lombok.Builder;
+
+import org.foomaa.jvchat.uicomponents.auth.OptionPaneAuthUI;
+import org.foomaa.jvchat.uicomponents.auth.OptionPaneAuthUIFactory;
 
 public class ErrorStartUILink {
-    ErrorStartUILink(String msg) {
-        GetterAuthUIComponents.getInstance().getBeanOptionPaneAuthUI(msg, OptionPaneAuthUI.TypeDlg.ERROR);
-        System.exit(1);
+    // DI ↓
+    private final OptionPaneAuthUIFactory optionPaneAuthUIFactory;
+
+    @Builder
+    ErrorStartUILink(OptionPaneAuthUIFactory optionPaneAuthUIFactory) {
+        this.optionPaneAuthUIFactory =
+                Objects.requireNonNull(optionPaneAuthUIFactory, "optionPaneAuthUIFactory is mandatory");
+    }
+
+    public void show(String message) {
+        optionPaneAuthUIFactory.create().show(message, OptionPaneAuthUI.TypeDlg.ERROR);
     }
 }
