@@ -1,18 +1,18 @@
-FROM postgres:17
+FROM ubuntu:24.04
 
-WORKDIR /opt/db
+WORKDIR /opt/JvChat/scripts/db
 
-RUN apt update && \
-    apt install -y python3 python3-psycopg2
+RUN apt-get update && \
+    apt-get install -y \
+    postgresql \
+    python3 \
+    sudo \
+    python3-psycopg2 && \
+    rm -rf /var/lib/apt/lists/*
 
-COPY scripts/db /opt/db
+COPY scripts/db /opt/JvChat/scripts/db
+COPY data/pg_hba.conf /opt/JvChat/data/pg_hba.conf
 
-RUN cat > /opt/db/init.sh <<'EOF'
-#!/bin/bash
-set -e
-cd /opt/db
-./make_default_db.sh
-EOF
+EXPOSE 5432
 
-RUN chmod a+x /opt/db/init.sh && \
-    cp /opt/db/init.sh /docker-entrypoint-initdb.d/init.sh
+ENTRYPOINT ["/opt/JvChat/scripts/db/make_default_db.sh"]
