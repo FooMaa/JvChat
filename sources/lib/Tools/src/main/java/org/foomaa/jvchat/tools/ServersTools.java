@@ -96,51 +96,6 @@ public class ServersTools {
         }
     }
 
-    //    public void initServersParameters() {
-    //        Scanner in = new Scanner(System.in);
-    //
-    //        log.info("Set the IP-address or push \"Enter\" for default value (default value \"auto\"): ");
-    //        while (true) {
-    //            String ip = in.nextLine();
-    //            if (mainTools.validateInputIp(ip)) {
-    //                setIpToSettings(ip);
-    //                break;
-    //            } else {
-    //                log.error("Set the IP-address again or push \"Enter\" for default value (default value \"auto\"):
-    // ");
-    //            }
-    //        }
-    //
-    //        log.info("Set the port or push \"Enter\" for default value (default value \"4004\"): ");
-    //        while (true) {
-    //            String port = in.nextLine();
-    //            if (mainTools.validateInputPort(port)) {
-    //                if (!port.isEmpty()) {
-    //                    serversInfoSettings.setPort(Integer.parseInt(port));
-    //                }
-    //                break;
-    //            } else {
-    //                log.error("Set the port again or push \"Enter\" for default value (default value \"4004\"): ");
-    //            }
-    //        }
-    //
-    //        log.info("Set the limit count connections or push \"Enter\" for default value (default value \"1000\"):
-    // ");
-    //        while (true) {
-    //            String limitConnection = in.nextLine();
-    //            if (validateInputLimitConnections(limitConnection)) {
-    //                if (!limitConnection.isEmpty()) {
-    //                    serversInfoSettings.setQuantityConnections(Integer.parseInt(limitConnection));
-    //                }
-    //                break;
-    //            } else {
-    //                log.error(
-    //                        "Set the limit count connections again or push \"Enter\" for default value (default value
-    // \"1000\"): ");
-    //            }
-    //        }
-    //    }
-
     public boolean validateInputLimitConnections(String param) {
         Pattern regex = Pattern.compile("^\\d+$");
         if (param.isEmpty()) {
