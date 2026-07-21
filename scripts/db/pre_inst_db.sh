@@ -18,7 +18,7 @@ function usage {
     -i      install dependencies    install dependencies (OPTIONAL) Example $0 -i
     -h      help menu               to see this help (OPTIONAL) Example $0 -h
     -c      need make conf file     to config postgresql files (OPTIONAL) Example $0 -c
-    -w      set password            set defaut password to postgres (OPTIONAL) Example $0 -w '9999'
+    -w      set password            set default password to postgres (OPTIONAL) Example $0 -w '9999'
 EOF
 }
 
@@ -73,7 +73,7 @@ function make_pg_hba_file {
     rm /etc/postgresql/$VERSION_PG/main/pg_hba.conf
     chmod 644 $PROJECT_DIR"data/pg_hba.conf"
     cp $PROJECT_DIR"data/pg_hba.conf" /etc/postgresql/$VERSION_PG/main
-    service postgresql restart
+    service postgresql restart >> $LOG_FILE 2>&1
 
     echo -e "\\r[ $CHECK_MARK ] make pg_hba.conf file"
 }
@@ -91,7 +91,7 @@ function make_postgresql_file {
         sed -i 's/^port = .*$/port = 5432/' /etc/postgresql/$VERSION_PG/main/postgresql.conf
     fi
     
-    service postgresql restart
+    service postgresql restart >> $LOG_FILE 2>&1
 
     echo -e "\\r[ $CHECK_MARK ] make postgresql.conf file"
 }
@@ -103,6 +103,16 @@ function update_pwd_postgres_from_db {
     sudo -u $USER_SYSTEM psql -c "ALTER USER $USER_SYSTEM PASSWORD '$POST_PWD';" >> $LOG_FILE 2>&1
 
     echo -e "\\r[ $CHECK_MARK ] set password sql user $USER_SYSTEM"
+}
+
+function wait_ready_postgresql {
+    echo -n "[...] waiting ready postgresql"
+
+    until pg_isready -h 127.0.0.1 -p 5432 >> $LOG_FILE 2>&1; do
+        sleep 1
+    done
+
+    echo -e "\\r[ $CHECK_MARK ] waiting ready postgresql"
 }
 
 # check_param $1
@@ -132,4 +142,5 @@ if [[ $NEED_CONF == true ]]; then
     make_postgresql_file
 fi
 
+wait_ready_postgresql
 update_pwd_postgres_from_db

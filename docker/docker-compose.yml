@@ -1,0 +1,65 @@
+services:
+
+  db:
+    build:
+      context: ..
+      dockerfile: docker/db/Dockerfile
+
+    container_name: jvchat-db
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres-data:/var/lib/postgresql
+
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U postgres && PGPASSWORD=9999 psql -U postgres -d jvchat -c 'SELECT 1'"
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 20s
+
+    networks:
+      - jvchat-network
+
+
+  app:
+    build:
+      context: ..
+      dockerfile: docker/app/Dockerfile
+
+    container_name: jvchat-app
+
+    depends_on:
+      db:
+        condition: service_healthy
+
+    ports:
+      - "4004:4004"
+
+    environment:
+      SERVER_IP: 0.0.0.0
+      SERVER_PORT: 4004
+      MAX_CONNECTIONS: 1000
+
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: jvchat
+      DB_USER: jvchat
+      DB_PASSWORD: 1111
+
+    networks:
+      - jvchat-network
+
+
+volumes:
+  postgres-data:
+
+
+networks:
+  jvchat-network:

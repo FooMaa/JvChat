@@ -25,44 +25,74 @@ public class ServersTools {
     }
 
     public void initServersParameters() {
-        Scanner in = new Scanner(System.in);
+        setServerIp();
+        setServerPort();
+        setConnectionLimit();
+    }
+
+    private void setServerIp() {
+        String ip = System.getenv("SERVER_IP");
+        if (ip != null && mainTools.validateInputIp(ip)) {
+            serversInfoSettings.setIp(ip);
+            return;
+        }
 
         log.info("Set the IP-address or push \"Enter\" for default value (default value \"auto\"): ");
+
         while (true) {
-            String ip = in.nextLine();
+            Scanner in = new Scanner(System.in);
+            ip = in.nextLine();
             if (mainTools.validateInputIp(ip)) {
                 setIpToSettings(ip);
-                break;
-            } else {
-                log.error("Set the IP-address again or push \"Enter\" for default value (default value \"auto\"): ");
+                return;
             }
+            log.error("Set the IP-address again or push \"Enter\" for default value (default value \"auto\"): ");
+        }
+    }
+
+    private void setServerPort() {
+        String port = System.getenv("SERVER_PORT");
+        if (port != null && mainTools.validateInputPort(port)) {
+            serversInfoSettings.setPort(Integer.parseInt(port));
+            return;
         }
 
         log.info("Set the port or push \"Enter\" for default value (default value \"4004\"): ");
+
         while (true) {
-            String port = in.nextLine();
+            Scanner in = new Scanner(System.in);
+            port = in.nextLine();
             if (mainTools.validateInputPort(port)) {
                 if (!port.isEmpty()) {
                     serversInfoSettings.setPort(Integer.parseInt(port));
                 }
-                break;
-            } else {
-                log.error("Set the port again or push \"Enter\" for default value (default value \"4004\"): ");
+                return;
             }
+            log.error("Set the port again or push \"Enter\" for default value (default value \"4004\"): ");
+        }
+    }
+
+    private void setConnectionLimit() {
+        String limit = System.getenv("MAX_CONNECTIONS");
+
+        if (limit != null && validateInputLimitConnections(limit)) {
+            serversInfoSettings.setQuantityConnections(Integer.parseInt(limit));
+            return;
         }
 
         log.info("Set the limit count connections or push \"Enter\" for default value (default value \"1000\"): ");
+
         while (true) {
-            String limitConnection = in.nextLine();
-            if (validateInputLimitConnections(limitConnection)) {
-                if (!limitConnection.isEmpty()) {
-                    serversInfoSettings.setQuantityConnections(Integer.parseInt(limitConnection));
+            Scanner in = new Scanner(System.in);
+            limit = in.nextLine();
+            if (validateInputLimitConnections(limit)) {
+                if (!limit.isEmpty()) {
+                    serversInfoSettings.setQuantityConnections(Integer.parseInt(limit));
                 }
-                break;
-            } else {
-                log.error(
-                        "Set the limit count connections again or push \"Enter\" for default value (default value \"1000\"): ");
+                return;
             }
+            log.error(
+                    "Set the limit count connections again or push \"Enter\" for default value (default value \"1000\"): ");
         }
     }
 
